@@ -1,2 +1,5 @@
+-Iinclude/
 -Iinclude/API
 -Iinclude/API/Responses
+-Iinclude/API/Requests
+-Iinclude/Model
