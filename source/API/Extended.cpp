@@ -35,6 +35,42 @@ Extended::Extended() {
 Extended::~Extended() {
 }
 
+void
+Extended::getInputs() {
+}
+
+void
+Extended::prepareTransfers() {
+}
+
+void
+Extended::getNewAddress() {
+}
+
+void
+Extended::getBundle() {
+}
+
+void
+Extended::getTransfers() {
+}
+
+void
+Extended::replayTransfer() {
+}
+
+void
+Extended::sendTransfer() {
+}
+
+void
+Extended::sendTrytes() {
+}
+
+void
+Extended::broadcastAndStore() {
+}
+
 }  // namespace API
 
 }  // namespace IOTA

@@ -23,6 +23,8 @@
 //
 //
 
+// TODO const methods ?
+
 #pragma once
 
 #include "Core.hpp"
@@ -31,10 +33,68 @@ namespace IOTA {
 
 namespace API {
 
+/*
+ * Extended API calls which will help do just about anything possible with IOTA. These
+ * are mostly wrapper functions of Core API calls.
+ * https://github.com/iotaledger/wiki/blob/master/api-proposal.md#proposed-api-calls
+ */
 class Extended : public Core {
 public:
   Extended();
   virtual ~Extended();
+
+public:
+  /*
+   * Gets all possible inputs of a seed and returns them with the total balance. This is either done
+   * deterministically (by genearating all addresses until findTransactions is empty and doing
+   * getBalances), or by providing a key range to use for searching through.
+   */
+  void getInputs();
+  /*
+   * Main purpose of this function is to get an array of transfer objects as input, and then prepare
+   * the transfer by generating the correct bundle, as well as choosing and signing the inputs if
+   * necessary (if it's a value transfer). The output of this function is an array of the raw
+   * transaction data (trytes).
+   */
+  void prepareTransfers();
+  /*
+   * Generates a new address from a seed and returns the address. This is either done
+   * deterministically, or by providing the index of the new address (see Questions for more
+   * information about this).
+   */
+  void getNewAddress();
+  /*
+   * This function returns the bundle which is associated with a transaction. Input can by any type
+   * of transaction (tail and non-tail). If there are multiple bundles (because of a replay for
+   * example), it will return multiple bundles. It also does important validation checking
+   * (signatures, sum, order) to ensure that the correct bundle is returned.
+   */
+  void getBundle();
+  /*
+   * Returns the transfers which are associated with a seed. The transfers are determined by either
+   * calculating deterministically which addresses were already used, or by providing a list of
+   * indexes to get the transfers from.
+   */
+  void getTransfers();
+  /*
+   * Takes a tail transaction hash as input, gets the bundle associated with the transaction and
+   * then replays the bundle by attaching it to the tangle.
+   */
+  void replayTransfer();
+  /*
+   * Wrapper function that basically does prepareTransfers, as well as attachToTangle and finally,
+   * it broadcasts and stores the transactions locally.
+   */
+  void sendTransfer();
+  /*
+   * Wrapper function that does attachToTangle and finally, it broadcasts and stores the
+   * transactions locally.
+   */
+  void sendTrytes();
+  /*
+   * Wrapper function that does broadcastTransactions and storeTransactions.
+   */
+  void broadcastAndStore();
 };
 
 }  // namespace API
