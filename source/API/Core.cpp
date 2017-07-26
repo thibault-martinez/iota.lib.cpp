@@ -31,8 +31,6 @@
 #include "restclient-cpp/connection.h"
 #include "restclient-cpp/restclient.h"
 
-#include "getNodeInfoRequest.hpp"
-
 using json = nlohmann::json;
 
 namespace IOTA {
@@ -67,60 +65,73 @@ test() {
 
 getNodeInfoResponse
 Core::getNodeInfo() {
-  return test<getNodeInfoRequest, getNodeInfoResponse>();
+  return getNodeInfoResponse();
 }
-//
-// getNeighborsResponse
-// getNeighbors() {
-// }
-//
-// addNeighborsResponse
-// addNeighbors() {
-// }
-//
-// removeNeighborsResponse
-// removeNeighbors() {
-// }
-//
-// getTipsResponse
-// getTips() {
-// }
-//
-// findTransactionsResponse
-// findTransactions() {
-// }
-//
-// getTrytesResponse
-// getTrytes() {
-// }
-//
-// getInclusionStatesResponse
-// getInclusionStates() {
-// }
-//
-// getBalancesResponse
-// getBalances() {
-// }
-//
-// getTransactionsToApproveResponse
-// getTransactionsToApprove() {
-// }
-//
-// attachToTangleResponse
-// attachToTangle() {
-// }
-//
-// interruptAttachingToTangleResponse
-// interruptAttachingToTangle() {
-// }
-//
-// broadcastTransactionsResponse
-// broadcastTransactions() {
-// }
-//
-// storeTransactionsResponse
-// storeTransactions() {
-// }
+
+getNeighborsResponse
+Core::getNeighbors() {
+  return getNeighborsResponse();
+}
+
+addNeighborsResponse
+Core::addNeighbors() {
+  return addNeighborsResponse();
+}
+
+removeNeighborsResponse
+Core::removeNeighbors() {
+  return removeNeighborsResponse();
+}
+
+getTipsResponse
+Core::getTips() {
+  return getTipsResponse();
+}
+
+findTransactionsResponse
+Core::findTransactions() {
+  return findTransactionsResponse();
+}
+
+getTrytesResponse
+Core::getTrytes() {
+  return getTrytesResponse();
+}
+
+getInclusionStatesResponse
+Core::getInclusionStates() {
+  return getInclusionStatesResponse();
+}
+
+getBalancesResponse
+Core::getBalances() {
+  return getBalancesResponse();
+}
+
+getTransactionsToApproveResponse
+Core::getTransactionsToApprove() {
+  return getTransactionsToApproveResponse();
+}
+
+attachToTangleResponse
+Core::attachToTangle() {
+  return attachToTangleResponse();
+}
+
+interruptAttachingToTangleResponse
+Core::interruptAttachingToTangle() {
+  return interruptAttachingToTangleResponse();
+}
+
+broadcastTransactionsResponse
+Core::broadcastTransactions() {
+  return broadcastTransactionsResponse();
+}
+
+storeTransactionsResponse
+Core::storeTransactions() {
+  return storeTransactionsResponse();
+}
 
 }  // namespace API
 
