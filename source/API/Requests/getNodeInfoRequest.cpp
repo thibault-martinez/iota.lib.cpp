@@ -35,10 +35,6 @@ getNodeInfoRequest::getNodeInfoRequest() : genericRequest("getNodeInfo") {
 getNodeInfoRequest::~getNodeInfoRequest() {
 }
 
-void
-getNodeInfoRequest::serialize(json&) {
-}
-
 }  // namespace API
 
 }  // namespace IOTA

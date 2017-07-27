@@ -35,10 +35,6 @@ findTransactionsRequest::findTransactionsRequest() : genericRequest("findTransac
 findTransactionsRequest::~findTransactionsRequest() {
 }
 
-void
-findTransactionsRequest::serialize(json&) {
-}
-
 }  // namespace API
 
 }  // namespace IOTA

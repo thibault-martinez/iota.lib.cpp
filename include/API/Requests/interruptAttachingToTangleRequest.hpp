@@ -43,9 +43,6 @@ class interruptAttachingToTangleRequest : public genericRequest {
 public:
   interruptAttachingToTangleRequest();
   virtual ~interruptAttachingToTangleRequest();
-
-public:
-  void serialize(json& res);
 };
 
 }  // namespace API

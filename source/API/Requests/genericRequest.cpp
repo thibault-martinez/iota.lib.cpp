@@ -35,6 +35,11 @@ genericRequest::genericRequest(const std::string& command) : command_(command) {
 genericRequest::~genericRequest() {
 }
 
+void
+genericRequest::serialize(json& data) {
+  data = json{ { "command", this->command_ } };
+}
+
 }  // namespace API
 
 }  // namespace IOTA

@@ -44,9 +44,6 @@ class getNeighborsRequest : public genericRequest {
 public:
   getNeighborsRequest();
   virtual ~getNeighborsRequest();
-
-public:
-  void serialize(json& res);
 };
 
 }  // namespace API

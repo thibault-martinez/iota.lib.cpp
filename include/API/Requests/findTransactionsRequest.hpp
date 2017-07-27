@@ -48,9 +48,6 @@ class findTransactionsRequest : public genericRequest {
 public:
   findTransactionsRequest();
   virtual ~findTransactionsRequest();
-
-public:
-  void serialize(json& res);
 };
 
 }  // namespace API

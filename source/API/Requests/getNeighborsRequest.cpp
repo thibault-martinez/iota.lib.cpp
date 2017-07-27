@@ -35,10 +35,6 @@ getNeighborsRequest::getNeighborsRequest() : genericRequest("getNeighbors") {
 getNeighborsRequest::~getNeighborsRequest() {
 }
 
-void
-getNeighborsRequest::serialize(json&) {
-}
-
 }  // namespace API
 
 }  // namespace IOTA

@@ -39,6 +39,9 @@ public:
   genericRequest(const std::string& command);
   virtual ~genericRequest();
 
+public:
+  void serialize(json& res);
+
 protected:
   std::string command_;
 };
