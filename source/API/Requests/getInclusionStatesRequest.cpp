@@ -29,10 +29,19 @@ namespace IOTA {
 
 namespace API {
 
-getInclusionStatesRequest::getInclusionStatesRequest() : genericRequest("getInclusionStates") {
+getInclusionStatesRequest::getInclusionStatesRequest(const std::vector<std::string>& transactions,
+                                                     const std::vector<std::string>& tips)
+    : genericRequest("getInclusionStates"), transactions_(transactions), tips_(tips) {
 }
 
 getInclusionStatesRequest::~getInclusionStatesRequest() {
+}
+
+void
+getInclusionStatesRequest::serialize(json& data) {
+  data = json{
+    { "command", this->command_ }, { "transactions", this->transactions_ }, { "tips", this->tips_ }
+  };
 }
 
 }  // namespace API

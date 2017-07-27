@@ -29,10 +29,27 @@ namespace IOTA {
 
 namespace API {
 
-attachToTangleRequest::attachToTangleRequest() : genericRequest("attachToTangle") {
+attachToTangleRequest::attachToTangleRequest(const std::string&              trunkTransaction,
+                                             const std::string&              branchTransaction,
+                                             const int&                      minWeightMagnitude,
+                                             const std::vector<std::string>& trytes)
+    : genericRequest("attachToTangle"),
+      trunkTransaction_(trunkTransaction),
+      branchTransaction_(branchTransaction),
+      minWeightMagnitude_(minWeightMagnitude),
+      trytes_(trytes) {
 }
 
 attachToTangleRequest::~attachToTangleRequest() {
+}
+
+void
+attachToTangleRequest::serialize(json& data) {
+  data = json{ { "command", this->command_ },
+               { "trunkTransaction", this->trunkTransaction_ },
+               { "branchTransaction", this->branchTransaction_ },
+               { "minWeightMagnitude", this->minWeightMagnitude_ },
+               { "trytes", this->trytes_ } };
 }
 
 }  // namespace API

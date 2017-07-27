@@ -29,10 +29,16 @@ namespace IOTA {
 
 namespace API {
 
-getTrytesRequest::getTrytesRequest() : genericRequest("getTrytes") {
+getTrytesRequest::getTrytesRequest(const std::vector<std::string>& hashes)
+    : genericRequest("getTrytes"), hashes_(hashes) {
 }
 
 getTrytesRequest::~getTrytesRequest() {
+}
+
+void
+getTrytesRequest::serialize(json& data) {
+  data = json{ { "command", this->command_ }, { "hashes", this->hashes_ } };
 }
 
 }  // namespace API

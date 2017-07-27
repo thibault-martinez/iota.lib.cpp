@@ -26,6 +26,9 @@
 #pragma once
 
 #include "genericRequest.hpp"
+#include "json.hpp"
+
+using json = nlohmann::json;
 
 namespace IOTA {
 
@@ -41,8 +44,17 @@ namespace API {
  */
 class getTransactionsToApproveRequest : public genericRequest {
 public:
-  getTransactionsToApproveRequest();
+  getTransactionsToApproveRequest(const int& depth);
   virtual ~getTransactionsToApproveRequest();
+
+public:
+  void serialize(json& res);
+
+private:
+  /*
+   * Number of bundles to go back to determine the transactions for approval.
+   */
+  int depth_;
 };
 
 }  // namespace API

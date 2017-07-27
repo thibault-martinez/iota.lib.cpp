@@ -29,11 +29,16 @@ namespace IOTA {
 
 namespace API {
 
-broadcastTransactionsRequest::broadcastTransactionsRequest()
-    : genericRequest("broadcastTransactions") {
+broadcastTransactionsRequest::broadcastTransactionsRequest(const std::vector<std::string>& trytes)
+    : genericRequest("broadcastTransactions"), trytes_(trytes) {
 }
 
 broadcastTransactionsRequest::~broadcastTransactionsRequest() {
+}
+
+void
+broadcastTransactionsRequest::serialize(json& data) {
+  data = json{ { "command", this->command_ }, { "trytes", this->trytes_ } };
 }
 
 }  // namespace API

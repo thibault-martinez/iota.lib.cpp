@@ -25,7 +25,12 @@
 
 #pragma once
 
+// TODO 4 ctors after having defined string types (Bundle, Address...)
+
 #include "genericRequest.hpp"
+#include "json.hpp"
+
+using json = nlohmann::json;
 
 namespace IOTA {
 
@@ -43,6 +48,9 @@ class findTransactionsRequest : public genericRequest {
 public:
   findTransactionsRequest();
   virtual ~findTransactionsRequest();
+
+public:
+  void serialize(json& res);
 };
 
 }  // namespace API

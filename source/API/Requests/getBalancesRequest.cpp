@@ -29,10 +29,19 @@ namespace IOTA {
 
 namespace API {
 
-getBalancesRequest::getBalancesRequest() : genericRequest("getBalances") {
+getBalancesRequest::getBalancesRequest(const std::vector<std::string>& addresses,
+                                       const int&                      threshold)
+    : genericRequest("getBalances"), addresses_(addresses), threshold_(threshold) {
 }
 
 getBalancesRequest::~getBalancesRequest() {
+}
+
+void
+getBalancesRequest::serialize(json& data) {
+  data = json{ { "command", this->command_ },
+               { "addresses", this->addresses_ },
+               { "threshold", this->threshold_ } };
 }
 
 }  // namespace API

@@ -26,6 +26,9 @@
 #pragma once
 
 #include "genericRequest.hpp"
+#include "json.hpp"
+
+using json = nlohmann::json;
 
 namespace IOTA {
 
@@ -42,8 +45,22 @@ namespace API {
  */
 class getInclusionStatesRequest : public genericRequest {
 public:
-  getInclusionStatesRequest();
+  getInclusionStatesRequest(const std::vector<std::string>& transactions,
+                            const std::vector<std::string>& tips);
   virtual ~getInclusionStatesRequest();
+
+public:
+  void serialize(json& res);
+
+private:
+  /*
+   * List of transactions you want to get the inclusion state for.
+   */
+  std::vector<std::string> transactions_;
+  /*
+   * List of tips (including milestones) you want to search for the inclusion state.
+   */
+  std::vector<std::string> tips_;
 };
 
 }  // namespace API

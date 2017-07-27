@@ -26,6 +26,9 @@
 #pragma once
 
 #include "genericRequest.hpp"
+#include "json.hpp"
+
+using json = nlohmann::json;
 
 namespace IOTA {
 
@@ -39,8 +42,17 @@ namespace API {
  */
 class getTrytesRequest : public genericRequest {
 public:
-  getTrytesRequest();
+  getTrytesRequest(const std::vector<std::string>& hashes);
   virtual ~getTrytesRequest();
+
+public:
+  void serialize(json& res);
+
+private:
+  /*
+   * List of transaction hashes of which you want to get trytes from.
+   */
+  std::vector<std::string> hashes_;
 };
 
 }  // namespace API

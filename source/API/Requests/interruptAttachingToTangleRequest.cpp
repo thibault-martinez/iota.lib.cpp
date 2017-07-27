@@ -36,6 +36,10 @@ interruptAttachingToTangleRequest::interruptAttachingToTangleRequest()
 interruptAttachingToTangleRequest::~interruptAttachingToTangleRequest() {
 }
 
+void
+interruptAttachingToTangleRequest::serialize(json&) {
+}
+
 }  // namespace API
 
 }  // namespace IOTA

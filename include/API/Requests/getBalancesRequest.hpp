@@ -26,6 +26,9 @@
 #pragma once
 
 #include "genericRequest.hpp"
+#include "json.hpp"
+
+using json = nlohmann::json;
 
 namespace IOTA {
 
@@ -41,8 +44,21 @@ namespace API {
  */
 class getBalancesRequest : public genericRequest {
 public:
-  getBalancesRequest();
+  getBalancesRequest(const std::vector<std::string>& addresses, const int& threshold);
   virtual ~getBalancesRequest();
+
+public:
+  void serialize(json& res);
+
+private:
+  /*
+   * List of addresses you want to get the confirmed balance from.
+   */
+  std::vector<std::string> addresses_;
+  /*
+   * Confirmation threshold, should be set to 100.
+   */
+  int threshold_;
 };
 
 }  // namespace API

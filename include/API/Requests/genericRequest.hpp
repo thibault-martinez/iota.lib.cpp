@@ -26,6 +26,9 @@
 #pragma once
 
 #include <iostream>
+#include "json.hpp"
+
+using json = nlohmann::json;
 
 namespace IOTA {
 
@@ -36,7 +39,7 @@ public:
   genericRequest(const std::string& command);
   virtual ~genericRequest();
 
-private:
+protected:
   std::string command_;
 };
 

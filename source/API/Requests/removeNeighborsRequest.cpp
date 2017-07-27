@@ -29,10 +29,16 @@ namespace IOTA {
 
 namespace API {
 
-removeNeighborsRequest::removeNeighborsRequest() : genericRequest("removeNeighbors") {
+removeNeighborsRequest::removeNeighborsRequest(const std::vector<std::string>& uris)
+    : genericRequest("removeNeighbors"), uris_(uris) {
 }
 
 removeNeighborsRequest::~removeNeighborsRequest() {
+}
+
+void
+removeNeighborsRequest::serialize(json& data) {
+  data = json{ { "command", this->command_ }, { "uris", this->uris_ } };
 }
 
 }  // namespace API

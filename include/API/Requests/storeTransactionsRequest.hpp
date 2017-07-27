@@ -26,6 +26,9 @@
 #pragma once
 
 #include "genericRequest.hpp"
+#include "json.hpp"
+
+using json = nlohmann::json;
 
 namespace IOTA {
 
@@ -39,8 +42,17 @@ namespace API {
  */
 class storeTransactionsRequest : public genericRequest {
 public:
-  storeTransactionsRequest();
+  storeTransactionsRequest(const std::vector<std::string>& trytes);
   virtual ~storeTransactionsRequest();
+
+public:
+  void serialize(json& res);
+
+private:
+  /*
+   * List of raw data of transactions to be rebroadcast.
+   */
+  std::vector<std::string> trytes_;
 };
 
 }  // namespace API

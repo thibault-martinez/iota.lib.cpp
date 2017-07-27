@@ -29,10 +29,16 @@ namespace IOTA {
 
 namespace API {
 
-addNeighborsRequest::addNeighborsRequest() : genericRequest("addNeighbors") {
+addNeighborsRequest::addNeighborsRequest(const std::vector<std::string>& uris)
+    : genericRequest("addNeighbors"), uris_(uris) {
 }
 
 addNeighborsRequest::~addNeighborsRequest() {
+}
+
+void
+addNeighborsRequest::serialize(json& data) {
+  data = json{ { "command", this->command_ }, { "uris", this->uris_ } };
 }
 
 }  // namespace API

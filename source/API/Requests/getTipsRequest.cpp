@@ -35,6 +35,10 @@ getTipsRequest::getTipsRequest() : genericRequest("getTips") {
 getTipsRequest::~getTipsRequest() {
 }
 
+void
+getTipsRequest::serialize(json&) {
+}
+
 }  // namespace API
 
 }  // namespace IOTA

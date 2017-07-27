@@ -26,6 +26,9 @@
 #pragma once
 
 #include "genericRequest.hpp"
+#include "json.hpp"
+
+using json = nlohmann::json;
 
 namespace IOTA {
 
@@ -45,8 +48,30 @@ namespace API {
  */
 class attachToTangleRequest : public genericRequest {
 public:
-  attachToTangleRequest();
+  attachToTangleRequest(const std::string& trunkTransaction, const std::string& branchTransaction,
+                        const int& minWeightMagnitude, const std::vector<std::string>& trytes);
   virtual ~attachToTangleRequest();
+
+public:
+  void serialize(json& res);
+
+private:
+  /*
+   * Trunk transaction to approve.
+   */
+  std::string trunkTransaction_;
+  /*
+   * Branch transaction to approve.
+   */
+  std::string branchTransaction_;
+  /*
+   * Proof of Work intensity. Minimum value is 18.
+   */
+  int minWeightMagnitude_;
+  /*
+   * List of trytes (raw transaction data) to attach to the tangle.
+   */
+  std::vector<std::string> trytes_;
 };
 
 }  // namespace API

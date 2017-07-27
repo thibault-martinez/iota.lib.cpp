@@ -29,11 +29,16 @@ namespace IOTA {
 
 namespace API {
 
-getTransactionsToApproveRequest::getTransactionsToApproveRequest()
-    : genericRequest("getTransactionsToApprove") {
+getTransactionsToApproveRequest::getTransactionsToApproveRequest(const int& depth)
+    : genericRequest("getTransactionsToApprove"), depth_(depth) {
 }
 
 getTransactionsToApproveRequest::~getTransactionsToApproveRequest() {
+}
+
+void
+getTransactionsToApproveRequest::serialize(json& data) {
+  data = json{ { "command", this->command_ }, { "depth", this->depth_ } };
 }
 
 }  // namespace API

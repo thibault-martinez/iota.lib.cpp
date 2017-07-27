@@ -26,6 +26,9 @@
 #pragma once
 
 #include "genericRequest.hpp"
+#include "json.hpp"
+
+using json = nlohmann::json;
 
 namespace IOTA {
 
@@ -41,6 +44,9 @@ class getNeighborsRequest : public genericRequest {
 public:
   getNeighborsRequest();
   virtual ~getNeighborsRequest();
+
+public:
+  void serialize(json& res);
 };
 
 }  // namespace API
