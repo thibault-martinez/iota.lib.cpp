@@ -3,3 +3,5 @@
 -Iinclude/API/Responses
 -Iinclude/API/Requests
 -Iinclude/Model
+-Iinclude/Type
+-Iexternal/googletest/googletest/include

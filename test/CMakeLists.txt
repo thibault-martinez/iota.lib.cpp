@@ -23,20 +23,24 @@
 #
 #
 
-########## COMMON SETTINGS ##########
+########## PROJECT TEST FILES ##########
 
-TARGET_COMPILE_OPTIONS(${CMAKE_PROJECT_NAME} PRIVATE -std=c++14)
-TARGET_COMPILE_OPTIONS(${CMAKE_PROJECT_NAME} PRIVATE -Wall)
-TARGET_COMPILE_OPTIONS(${CMAKE_PROJECT_NAME} PRIVATE -Wextra)
-TARGET_COMPILE_OPTIONS(${CMAKE_PROJECT_NAME} PRIVATE -Weffc++)
-TARGET_COMPILE_OPTIONS(${CMAKE_PROJECT_NAME} PRIVATE -O3)
+file(GLOB PROJECT_TEST_FILES *.cpp)
 
-########## CLANG SETTINGS ##########
+########## EXECUTABLE ##########
 
-IF (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+add_executable(runUnitTests ${PROJECT_TEST_FILES})
+target_link_libraries(runUnitTests googletest pthread ${CMAKE_PROJECT_NAME})
 
-########## GNU SETTINGS ##########
+# target_compile_features(runUnitTests PRIVATE cxx_range_for)
+# add_sanitizers(runUnitTests)
 
-ELSEIF (CMAKE_CXX_COMPILER_ID MATCHES "GNU")
+add_test(AllTests runUnitTests)
 
-endif()
+# if(CMAKE_COMPILER_IS_GNUCXX)
+#   include(CodeCoverage)
+#   target_link_libraries(runUnitTests gcov)
+#   target_compile_options(runUnitTests PRIVATE "-fprofile-arcs" "-ftest-coverage")
+#   target_compile_options(${LIBRARY_NAME}static PRIVATE "-fprofile-arcs" "-ftest-coverage")
+#   setup_target_for_coverage(coverage runUnitTests coverage)
+# endif(CMAKE_COMPILER_IS_GNUCXX)
