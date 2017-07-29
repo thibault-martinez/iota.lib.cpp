@@ -28,8 +28,6 @@
 #include "json.hpp"
 
 #include <iostream>
-#include "restclient-cpp/connection.h"
-#include "restclient-cpp/restclient.h"
 
 #include "addNeighborsRequest.hpp"
 #include "attachToTangleRequest.hpp"
@@ -61,23 +59,23 @@ Core::~Core() {
 template <typename Request, typename Response, typename... Args>
 Response
 test(Args&&... args) {
-  RestClient::init();
+  // RestClient::init();
 
   auto req = Request(args...);
   json data;
   req.serialize(data);
-  auto                    parameters = data.dump();
-  RestClient::Connection* conn       = new RestClient::Connection("http://iota.bitfinex.com");
+  // auto                    parameters = data.dump();
+  // RestClient::Connection* conn       = new RestClient::Connection("http://iota.bitfinex.com");
+  //
+  // conn->AppendHeader("Content-Type", "text/json");
+  // conn->AppendHeader("Content-Length", std::to_string(parameters.size()));
+  // RestClient::Response r = conn->post("/post", parameters);
+  //
+  // auto body = json::parse(r.body);
 
-  conn->AppendHeader("Content-Type", "text/json");
-  conn->AppendHeader("Content-Length", std::to_string(parameters.size()));
-  RestClient::Response r = conn->post("/post", parameters);
-
-  auto body = json::parse(r.body);
-
-  RestClient::disable();
+  // RestClient::disable();
   Response res;
-  res.deserialize(body);
+  // res.deserialize(body);
 
   return res;
 }

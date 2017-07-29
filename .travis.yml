@@ -56,7 +56,7 @@ addons:
 
 before_install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update; fi
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install gcc49 --enable-cxx; fi
+  # - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install gcc49 --enable-cxx; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install llvm --with-clang; fi
 
 install:
