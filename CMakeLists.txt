@@ -32,12 +32,23 @@ enable_language(C CXX)
 
 include(CTest)
 
+set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 set(CMAKE_VERBOSE_MAKEFILE OFF)
 
+########## DEFAULT FOLDERS ##########
+
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+
+
+# set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O0") # debug, no optimisation
+# set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --coverage") # enabling coverage
 ########## PROJECT DIRECTORIES ##########
 
 set(PROJECT_SOURCE_DIR  ${CMAKE_SOURCE_DIR}/source/)
 set(PROJECT_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/include/)
+set(PROJECT_CMAKE_DIR   ${CMAKE_SOURCE_DIR}/cmake)
 
 ######### VERSION ##########
 
@@ -67,16 +78,18 @@ include_directories("${PROJECT_INCLUDE_DIR}"
 ########## LIBRARY ##########
 
 add_library(${CMAKE_PROJECT_NAME} STATIC ${PROJECT_SOURCE_FILES})
-set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
 
 ########## COMPILATION SETTINGS ##########
 
-include(cmake/compilation_settings.cmake)
+include(compilation_settings)
 
 ########## TEST SETTINGS ##########
 
+#TODO WARNING BUILD
 if(BUILD_TESTING)
-  include(cmake/gtest_settings.cmake)
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O0")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --coverage")
+  include(gtest_settings)
   enable_testing()
   add_subdirectory(test)
 endif(BUILD_TESTING)

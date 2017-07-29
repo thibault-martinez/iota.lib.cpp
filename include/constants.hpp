@@ -23,12 +23,6 @@
 //
 //
 
-#include "gtest/gtest.h"
+#include <iostream>
 
-TEST(test1, first) {
-  EXPECT_EQ(1, 1);
-}
-
-TEST(test2, second) {
-  EXPECT_EQ(1, 2);
-}
+const std::string TryteAlphabet = "9ABCDEFGHIJKLMNOPQRSTUVWXYZ";
