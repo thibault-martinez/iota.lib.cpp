@@ -24,6 +24,7 @@
 //
 
 #include "Trits.hpp"
+#include <algorithm>
 #include <cmath>
 #include "Trytes.hpp"
 #include "constants.hpp"
