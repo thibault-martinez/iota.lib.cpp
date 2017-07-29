@@ -21,14 +21,14 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 #
-# 
+#
 
 language: cpp
 sudo: false
 dist: trusty
 
 compiler:
-  - gcc
+  - g++
 os:
   - linux
 
