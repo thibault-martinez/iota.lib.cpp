@@ -44,7 +44,7 @@ public:
 
 public:
   bool                       isValid() const;
-  size_t                     size() const;
+  std::size_t                size() const;
   const std::vector<int8_t>& values() const;
 
 public:

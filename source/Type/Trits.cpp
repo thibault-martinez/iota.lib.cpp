@@ -69,7 +69,7 @@ Trits::isValid() const {
          std::end(this->values_);
 }
 
-size_t
+std::size_t
 Trits::size() const {
   return this->values_.size();
 }

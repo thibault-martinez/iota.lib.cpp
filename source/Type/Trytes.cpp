@@ -24,6 +24,7 @@
 //
 
 #include "Trytes.hpp"
+#include <algorithm>
 #include "Trits.hpp"
 #include "constants.hpp"
 
