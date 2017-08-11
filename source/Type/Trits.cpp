@@ -91,7 +91,7 @@ Trits::toInt() const {
   int i   = this->values_.size() - 1;
 
   while (i >= 0)
-    res = res * 3 + this->values_[i++];
+    res = res * 3 + this->values_[i--];
 
   return res;
 }
