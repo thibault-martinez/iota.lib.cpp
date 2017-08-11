@@ -26,42 +26,16 @@
 #pragma once
 
 #include <cstdint>
-#include <vector>
 
 namespace IOTA {
 
 namespace Type {
 
-// class Trytes;
+namespace Utils {
 
-class Trits {
-public:
-  explicit Trits(const std::vector<int8_t>& values);
-  explicit Trits(const int& value);
-  virtual ~Trits();
+bool isValidTrit(const int8_t& trit);
 
-public:
-  std::size_t                size() const;
-  const std::vector<int8_t>& values() const;
-
-public:
-  bool isValid() const;
-  bool canTrytes() const;
-
-public:
-  int toInt() const;
-
-  // public:
-  //   const int8_t& operator[](const int& i) const;
-  //   int8_t&       operator[](const int& i);
-
-private:
-  std::vector<int8_t> values_;
-};
-
-bool operator==(const Trits& lhs, const Trits& rhs);
-bool operator!=(const Trits& lhs, const Trits& rhs);
-// Trytes tritsToTrytes(const Trits& trits);
+}  // namespace Utils
 
 }  // namespace Type
 

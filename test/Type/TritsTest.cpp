@@ -26,42 +26,106 @@
 #include "Trits.hpp"
 #include "gtest/gtest.h"
 
-TEST(TritsTest, isValidTrit) {
-  ASSERT_EQ(IOTA::Type::isValidTrit(-1), true);
-  ASSERT_EQ(IOTA::Type::isValidTrit(0), true);
-  ASSERT_EQ(IOTA::Type::isValidTrit(1), true);
-  ASSERT_EQ(IOTA::Type::isValidTrit(-2), false);
-  ASSERT_EQ(IOTA::Type::isValidTrit(2), false);
+// TEST(TritsTest, isValidTrit) {
+//   ASSERT_EQ(IOTA::Type::Utils::isValidTrit(-1), true);
+//   ASSERT_EQ(IOTA::Type::isValidTrit(0), true);
+//   ASSERT_EQ(IOTA::Type::isValidTrit(1), true);
+//   ASSERT_EQ(IOTA::Type::isValidTrit(-2), false);
+//   ASSERT_EQ(IOTA::Type::isValidTrit(2), false);
+// }
+
+TEST(TritsTest, fromVector) {
+  std::vector<int8_t> values_ok{ -1, 0, 1, 1, 0, -1 };
+  std::vector<int8_t> values_ko{ -1, 0, 2, 1, 0, -1 };
+
+  EXPECT_NO_THROW(IOTA::Type::Trits trits_ok(values_ok));
+  EXPECT_THROW(IOTA::Type::Trits trits_ko(values_ko), std::exception);
 }
 
-TEST(TritsTest, vectorConstructor) {
+TEST(TritsTest, fromInt) {
+  std::vector<int8_t> values1{ 0, -1, -1, -1, 1 };
+  IOTA::Type::Trits   trits1_int(42);
+  IOTA::Type::Trits   trits1_vec(values1);
+  std::vector<int8_t> values2{ 0, 1, 1, 1, -1 };
+  IOTA::Type::Trits   trits2_int(-42);
+  IOTA::Type::Trits   trits2_vec(values2);
+  std::vector<int8_t> values3{ 1, 0, -1, 1, 0, -1, -1, 1 };
+  IOTA::Type::Trits   trits3_int(1234);
+  IOTA::Type::Trits   trits3_vec(values3);
+  std::vector<int8_t> values4{ 1, 1, 0, 1, 0, -1, 0, 0, 1, -1, 0, -1, -1, 1 };
+  IOTA::Type::Trits   trits4_int(872401);
+  IOTA::Type::Trits   trits4_vec(values4);
+
+  EXPECT_EQ(trits1_int, trits1_vec);
+  EXPECT_EQ(trits2_int, trits2_vec);
+  EXPECT_EQ(trits3_int, trits3_vec);
+  EXPECT_EQ(trits4_int, trits4_vec);
+}
+
+TEST(TritsTest, size) {
+  std::vector<int8_t> values1{ -1, 0, 1, 1, 0, -1, -1 };
+  std::vector<int8_t> values2{ -1, 0, 1, 0, 1, 0, 1, 0, -1, 0, 1 };
+
+  IOTA::Type::Trits trits1(values1);
+  IOTA::Type::Trits trits2(values2);
+
+  EXPECT_EQ(values1.size(), trits1.size());
+  EXPECT_EQ(values2.size(), trits2.size());
+}
+
+TEST(TritsTest, values) {
   std::vector<int8_t> values{ -1, 0, 1, 1, 0, -1 };
   IOTA::Type::Trits   trits(values);
-  ASSERT_EQ(values.size(), trits.values().size());
+
+  EXPECT_EQ(values.size(), trits.values().size());
   for (size_t i = 0; i < values.size(); ++i) {
-    ASSERT_EQ(values[i], trits.values()[i]);
+    EXPECT_EQ(values[i], trits.values()[i]);
   }
 }
 
-TEST(TritsTest, IntConstructor) {
+// TEST(TritsTest, isValid) {
+//   IOTA::Type::Trits validTrits1({ 1, 0, -1, -1, 0, 1 });
+//   ASSERT_EQ(validTrits1.isValid(), true);
+//   IOTA::Type::Trits validTrits2({ 1, 1, 0, 1, -1, -1, -1, -1, 0, 0, 1, 1, -1 });
+//   ASSERT_EQ(validTrits2.isValid(), true);
+//   IOTA::Type::Trits invalidTrits1({ 1, 0, 2, -1, 0, 1 });
+//   ASSERT_EQ(invalidTrits1.isValid(), false);
+//   IOTA::Type::Trits invalidTrits2({ 1, 0, 0, -4, 0, 4 });
+//   ASSERT_EQ(invalidTrits2.isValid(), false);
+// }
+//
+
+TEST(TritsTest, canTrytes) {
+  IOTA::Type::Trits trits2({ 0, 0 });
+  IOTA::Type::Trits trits3({ 0, 0, 0 });
+  IOTA::Type::Trits trits4({ 0, 0, 0, 0 });
+  IOTA::Type::Trits trits5({ 0, 0, 0, 0, 0 });
+  IOTA::Type::Trits trits6({ 0, 0, 0, 0, 0, 0 });
+
+  EXPECT_FALSE(trits2.canTrytes());
+  EXPECT_TRUE(trits3.canTrytes());
+  EXPECT_FALSE(trits4.canTrytes());
+  EXPECT_FALSE(trits5.canTrytes());
+  EXPECT_TRUE(trits6.canTrytes());
 }
 
-TEST(TritsTest, isValid) {
-  IOTA::Type::Trits validTrits1({ 1, 0, -1, -1, 0, 1 });
-  ASSERT_EQ(validTrits1.isValid(), true);
-  IOTA::Type::Trits validTrits2({ 1, 1, 0, 1, -1, -1, -1, -1, 0, 0, 1, 1, -1 });
-  ASSERT_EQ(validTrits2.isValid(), true);
-  IOTA::Type::Trits invalidTrits1({ 1, 0, 2, -1, 0, 1 });
-  ASSERT_EQ(invalidTrits1.isValid(), false);
-  IOTA::Type::Trits invalidTrits2({ 1, 0, 0, -4, 0, 4 });
-  ASSERT_EQ(invalidTrits2.isValid(), false);
+TEST(TritsTest, toInt) {
+  IOTA::Type::Trits trits1({ 0, -1, -1, -1, 1 });
+  IOTA::Type::Trits trits2({ 0, 1, 1, 1, -1 });
+  IOTA::Type::Trits trits3({ 1, 0, -1, 1, 0, -1, -1, 1 });
+  IOTA::Type::Trits trits4({ 1, 1, 0, 1, 0, -1, 0, 0, 1, -1, 0, -1, -1, 1 });
+
+  EXPECT_EQ(trits1.toInt(), 42);
+  EXPECT_EQ(trits2.toInt(), -42);
+  EXPECT_EQ(trits3.toInt(), 1234);
+  EXPECT_EQ(trits4.toInt(), 872401);
 }
 
 TEST(TritsTest, equalityOperator) {
   IOTA::Type::Trits trits1({ -1, 0, 0, 1 });
   IOTA::Type::Trits trits2({ -1, 0, 0, 1 });
   IOTA::Type::Trits trits3({ 1, 1, -1, 0 });
-  ASSERT_EQ(trits1 == trits1, true);
-  ASSERT_EQ(trits1 == trits2, true);
-  ASSERT_EQ(trits1 == trits3, false);
+  EXPECT_EQ(trits1, trits1);
+  EXPECT_EQ(trits1, trits2);
+  EXPECT_NE(trits1, trits3);
 }

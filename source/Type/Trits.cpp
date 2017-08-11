@@ -26,19 +26,19 @@
 #include "Trits.hpp"
 #include <algorithm>
 #include <cmath>
-#include "Trytes.hpp"
-#include "constants.hpp"
+#include <functional>
+#include <iostream>
+// #include "Trytes.hpp"
+// #include "constants.hpp"
+#include "utils.hpp"
 
 namespace IOTA {
 
 namespace Type {
 
-bool
-isValidTrit(const int8_t& trit) {
-  return trit == -1 or trit == 0 or trit == 1;
-}
-
 Trits::Trits(const std::vector<int8_t>& values) : values_(values) {
+  if (this->isValid() == false)
+    throw std::exception();
 }
 
 Trits::Trits(const int& value) {
@@ -46,7 +46,7 @@ Trits::Trits(const int& value) {
 
   while (absoluteValue > 0) {
     int8_t remainder = absoluteValue % 3;
-    absoluteValue    = std::floor(absoluteValue / 3);
+    absoluteValue    = absoluteValue / 3;
 
     if (remainder > 1) {
       remainder = -1;
@@ -64,12 +64,6 @@ Trits::Trits(const int& value) {
 Trits::~Trits() {
 }
 
-bool
-Trits::isValid() const {
-  return std::find_if_not(std::begin(this->values_), std::end(this->values_), isValidTrit) ==
-         std::end(this->values_);
-}
-
 std::size_t
 Trits::size() const {
   return this->values_.size();
@@ -80,37 +74,66 @@ Trits::values() const {
   return this->values_;
 }
 
-const int8_t& Trits::operator[](const int& i) const {
-  return this->values_.at(i);
+bool
+Trits::isValid() const {
+  return std::find_if_not(std::begin(this->values_), std::end(this->values_), Utils::isValidTrit) ==
+         std::end(this->values_);
 }
 
-int8_t& Trits::operator[](const int& i) {
-  return this->values_.at(i);
+bool
+Trits::canTrytes() const {
+  return this->values_.size() % 3 == 0;
 }
+
+int
+Trits::toInt() const {
+  int res = 0;
+  int i   = this->values_.size() - 1;
+
+  while (i >= 0)
+    res = res * 3 + this->values_[i++];
+
+  return res;
+}
+
+//
+// const int8_t& Trits::operator[](const int& i) const {
+//   return this->values_.at(i);
+// }
+//
+// int8_t& Trits::operator[](const int& i) {
+//   return this->values_.at(i);
+// }
+//
 
 bool
 operator==(const Trits& lhs, const Trits& rhs) {
   return lhs.values() == rhs.values();
 }
 
-Trytes
-tritsToTrytes(const Trits& trits) {
-  // if !t.CanTrytes() {
-  // panic("length of trits must be x3.")
-  // }
-  // o = make([] byte, len(t) / 3);
-  std::string o;
-  for (size_t i = 0; i < trits.size() / 3; ++i) {
-    int8_t j = trits[i * 3] + trits[i * 3 + 1] * 3 + trits[i * 3 + 2] * 9;
-    if (j < 0) {
-      j += static_cast<int8_t>(TryteAlphabet.size());
-    }
-    std::cout << (int)j << '\n';
-    o += TryteAlphabet[j];
-  }
-  std::cout << o << '\n';
-  return Trytes(o);
+bool
+operator!=(const Trits& lhs, const Trits& rhs) {
+  return lhs.values() != rhs.values();
 }
+
+// Trytes
+// tritsToTrytes(const Trits& trits) {
+//   // if !t.CanTrytes() {
+//   // panic("length of trits must be x3.")
+//   // }
+//   // o = make([] byte, len(t) / 3);
+//   std::string o;
+//   for (size_t i = 0; i < trits.size() / 3; ++i) {
+//     int8_t j = trits[i * 3] + trits[i * 3 + 1] * 3 + trits[i * 3 + 2] * 9;
+//     if (j < 0) {
+//       j += static_cast<int8_t>(TryteAlphabet.size());
+//     }
+//     std::cout << (int)j << '\n';
+//     o += TryteAlphabet[j];
+//   }
+//   std::cout << o << '\n';
+//   return Trytes(o);
+// }
 
 }  // namespace Type
 
