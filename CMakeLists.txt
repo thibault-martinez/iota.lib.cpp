@@ -73,6 +73,7 @@ include_directories("${PROJECT_INCLUDE_DIR}"
                     "${PROJECT_INCLUDE_DIR}/API/Requests"
                     "${PROJECT_INCLUDE_DIR}/Model"
                     "${PROJECT_INCLUDE_DIR}/Type"
+                    "${PROJECT_INCLUDE_DIR}/Utils"
                     )
 
 ########## LIBRARY ##########

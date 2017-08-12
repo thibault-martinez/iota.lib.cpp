@@ -23,8 +23,23 @@
 //
 //
 
+#pragma once
+
 #include <iostream>
 
-const std::string  TryteAlphabet       = "9ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-const unsigned int TryteAlphabetLength = 27;
-const unsigned int SeedLength          = 81;
+namespace IOTA {
+
+namespace Utils {
+
+class RandomSeedGenerator {
+public:
+  RandomSeedGenerator();
+  virtual ~RandomSeedGenerator();
+
+public:
+  std::string operator()();
+};
+
+}  // namespace Utils
+
+}  // namespace IOTA

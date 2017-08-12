@@ -23,8 +23,33 @@
 //
 //
 
-#include <iostream>
+#include "RandomSeedGenerator.hpp"
+#include <algorithm>
+#include <random>
+#include "constants.hpp"
 
-const std::string  TryteAlphabet       = "9ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-const unsigned int TryteAlphabetLength = 27;
-const unsigned int SeedLength          = 81;
+namespace IOTA {
+
+namespace Utils {
+
+RandomSeedGenerator::RandomSeedGenerator() {
+}
+
+RandomSeedGenerator::~RandomSeedGenerator() {
+}
+
+std::string
+RandomSeedGenerator::operator()() {
+  std::random_device                 rd;
+  std::default_random_engine         dre(rd());
+  std::uniform_int_distribution<int> uid(0, TryteAlphabetLength - 1);
+
+  std::string str;
+  str.reserve(SeedLength);
+  std::generate_n(std::back_inserter(str), SeedLength, [&]() { return TryteAlphabet[uid(dre)]; });
+  return str;
+}
+
+}  // namespace Utils
+
+}  // namespace IOTA

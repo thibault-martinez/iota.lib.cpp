@@ -33,3 +33,6 @@
 
 # Build
 build
+
+# Temporary files
+tmp
