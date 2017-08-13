@@ -24,11 +24,8 @@
 //
 
 #include "Core.hpp"
-
-#include "json.hpp"
-
+#include <cpr/cpr.h>
 #include <iostream>
-
 #include "addNeighborsRequest.hpp"
 #include "attachToTangleRequest.hpp"
 #include "broadcastTransactionsRequest.hpp"
@@ -41,6 +38,7 @@
 #include "getTransactionsToApproveRequest.hpp"
 #include "getTrytesRequest.hpp"
 #include "interruptAttachingToTangleRequest.hpp"
+#include "json.hpp"
 #include "removeNeighborsRequest.hpp"
 #include "storeTransactionsRequest.hpp"
 
@@ -59,25 +57,21 @@ Core::~Core() {
 template <typename Request, typename Response, typename... Args>
 Response
 test(Args&&... args) {
-  // RestClient::init();
+  auto request = Request(args...);
 
-  auto req = Request(args...);
   json data;
-  req.serialize(data);
-  // auto                    parameters = data.dump();
-  // RestClient::Connection* conn       = new RestClient::Connection("http://iota.bitfinex.com");
-  //
-  // conn->AppendHeader("Content-Type", "text/json");
-  // conn->AppendHeader("Content-Length", std::to_string(parameters.size()));
-  // RestClient::Response r = conn->post("/post", parameters);
-  //
-  // auto body = json::parse(r.body);
+  request.serialize(data);
 
-  // RestClient::disable();
-  Response res;
-  // res.deserialize(body);
+  auto url     = cpr::Url{ "http://iota.bitfinex.com" };
+  auto body    = cpr::Body{ data.dump() };
+  auto headers = cpr::Header{ { "Content-Type", "text/json" },
+                              { "Content-Length", std::to_string(body.size()) } };
+  auto res     = cpr::Post(url, body, headers);
 
-  return res;
+  Response response;
+  response.deserialize(json::parse(res.text));
+
+  return response;
 }
 
 getNodeInfoResponse

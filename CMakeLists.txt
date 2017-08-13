@@ -30,10 +30,12 @@ cmake_minimum_required(VERSION 3.1.0)
 project(iota)
 enable_language(C CXX)
 
+option(BUILD_TESTING "" OFF)
 include(CTest)
 
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 set(CMAKE_VERBOSE_MAKEFILE OFF)
+set(CMAKE_MACOSX_RPATH 1)
 
 ########## DEFAULT FOLDERS ##########
 
@@ -41,9 +43,6 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
-
-# set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O0") # debug, no optimisation
-# set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --coverage") # enabling coverage
 ########## PROJECT DIRECTORIES ##########
 
 set(PROJECT_SOURCE_DIR  ${CMAKE_SOURCE_DIR}/source/)
@@ -84,13 +83,15 @@ add_library(${CMAKE_PROJECT_NAME} STATIC ${PROJECT_SOURCE_FILES})
 
 include(compilation_settings)
 
+########## EXTERNAL LIBRARIES SETTINGS ##########
+
+include(cpr_settings)
+
 ########## TEST SETTINGS ##########
 
-#TODO WARNING BUILD
-if(BUILD_TESTING)
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O0")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --coverage")
   include(gtest_settings)
-  enable_testing()
   add_subdirectory(test)
-endif(BUILD_TESTING)
+ENDIF()

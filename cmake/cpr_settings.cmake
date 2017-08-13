@@ -22,3 +22,8 @@
 # SOFTWARE.
 #
 #
+
+# set(BUILD_CPR_TESTS OFF CACHE BOOL)
+add_subdirectory(external/cpr)
+include_directories(${CPR_INCLUDE_DIRS})
+target_link_libraries(${CMAKE_PROJECT_NAME} ${CPR_LIBRARIES})

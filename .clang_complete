@@ -6,3 +6,4 @@
 -Iinclude/Type
 -Iinclude/Utils
 -Iexternal/googletest/googletest/include
+-Iexternal/cpr/include
