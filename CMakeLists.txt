@@ -27,7 +27,7 @@
 
 cmake_minimum_required(VERSION 3.1.0)
 
-project(iota)
+project(iota VERSION "0.0.0")
 enable_language(C CXX)
 
 option(BUILD_TESTING "" OFF)
@@ -49,15 +49,9 @@ set(PROJECT_SOURCE_DIR  ${CMAKE_SOURCE_DIR}/source/)
 set(PROJECT_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/include/)
 set(PROJECT_CMAKE_DIR   ${CMAKE_SOURCE_DIR}/cmake)
 
-######### VERSION ##########
+######### VERSION INCLUDE ##########
 
 string(TOUPPER ${CMAKE_PROJECT_NAME} PROJECT_NAME)
-
-set(PROJECT_VERSION_MAJOR 0)
-set(PROJECT_VERSION_MINOR 0)
-set(PROJECT_VERSION_PATCH 0)
-
-set(PROJECT_VERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH})
 
 configure_file(cmake/version.hpp.in
                ${PROJECT_INCLUDE_DIR}/${CMAKE_PROJECT_NAME}/version.hpp)
