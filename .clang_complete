@@ -4,6 +4,7 @@
 -Iinclude/API/Requests
 -Iinclude/Model
 -Iinclude/Type
+-Iinclude/Rest
 -Iinclude/Utils
 -Iexternal/googletest/googletest/include
 -Iexternal/cpr/include
