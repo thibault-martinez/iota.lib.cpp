@@ -24,7 +24,6 @@
 //
 
 #include "Core.hpp"
-#include <cpr/cpr.h>
 #include <iostream>
 #include "addNeighborsRequest.hpp"
 #include "attachToTangleRequest.hpp"
@@ -38,7 +37,6 @@
 #include "getTransactionsToApproveRequest.hpp"
 #include "getTrytesRequest.hpp"
 #include "interruptAttachingToTangleRequest.hpp"
-#include "json.hpp"
 #include "removeNeighborsRequest.hpp"
 #include "storeTransactionsRequest.hpp"
 
@@ -48,103 +46,83 @@ namespace IOTA {
 
 namespace API {
 
-Core::Core() {
+Core::Core(const std::string& host, const unsigned int& port) : host_(host), port_(port) {
 }
 
 Core::~Core() {
 }
 
-template <typename Request, typename Response, typename... Args>
-Response
-test(Args&&... args) {
-  auto request = Request(args...);
-
-  json data;
-  request.serialize(data);
-
-  auto url     = cpr::Url{ "http://iota.bitfinex.com" };
-  auto body    = cpr::Body{ data.dump() };
-  auto headers = cpr::Header{ { "Content-Type", "text/json" },
-                              { "Content-Length", std::to_string(body.size()) } };
-  auto res     = cpr::Post(url, body, headers);
-
-  Response response;
-  response.deserialize(json::parse(res.text));
-
-  return response;
-}
-
 getNodeInfoResponse
 Core::getNodeInfo() {
-  return test<getNodeInfoRequest, getNodeInfoResponse>();
+  return this->test<getNodeInfoRequest, getNodeInfoResponse>();
 }
 
 getNeighborsResponse
 Core::getNeighbors() {
-  return test<getNeighborsRequest, getNeighborsResponse>();
+  return this->test<getNeighborsRequest, getNeighborsResponse>();
 }
 
 addNeighborsResponse
 Core::addNeighbors(const std::vector<std::string>& uris) {
-  return test<addNeighborsRequest, addNeighborsResponse>(uris);
+  return this->test<addNeighborsRequest, addNeighborsResponse>(uris);
 }
 
 removeNeighborsResponse
 Core::removeNeighbors(const std::vector<std::string>& uris) {
-  return test<removeNeighborsRequest, removeNeighborsResponse>(uris);
+  return this->test<removeNeighborsRequest, removeNeighborsResponse>(uris);
 }
 
 getTipsResponse
 Core::getTips() {
-  return test<getTipsRequest, getTipsResponse>();
+  return this->test<getTipsRequest, getTipsResponse>();
 }
 
 findTransactionsResponse
 Core::findTransactions() {
-  return test<findTransactionsRequest, findTransactionsResponse>();
+  return this->test<findTransactionsRequest, findTransactionsResponse>();
 }
 
 getTrytesResponse
 Core::getTrytes(const std::vector<std::string>& hashes) {
-  return test<getTrytesRequest, getTrytesResponse>(hashes);
+  return this->test<getTrytesRequest, getTrytesResponse>(hashes);
 }
 
 getInclusionStatesResponse
 Core::getInclusionStates(const std::vector<std::string>& transactions,
                          const std::vector<std::string>& tips) {
-  return test<getInclusionStatesRequest, getInclusionStatesResponse>(transactions, tips);
+  return this->test<getInclusionStatesRequest, getInclusionStatesResponse>(transactions, tips);
 }
 
 getBalancesResponse
 Core::getBalances(const std::vector<std::string>& addresses, const int& threshold) {
-  return test<getBalancesRequest, getBalancesResponse>(addresses, threshold);
+  return this->test<getBalancesRequest, getBalancesResponse>(addresses, threshold);
 }
 
 getTransactionsToApproveResponse
 Core::getTransactionsToApprove(const int& depth) {
-  return test<getTransactionsToApproveRequest, getTransactionsToApproveResponse>(depth);
+  return this->test<getTransactionsToApproveRequest, getTransactionsToApproveResponse>(depth);
 }
 
 attachToTangleResponse
 Core::attachToTangle(const std::string& trunkTransaction, const std::string& branchTransaction,
                      const int& minWeightMagnitude, const std::vector<std::string>& trytes) {
-  return test<attachToTangleRequest, attachToTangleResponse>(trunkTransaction, branchTransaction,
-                                                             minWeightMagnitude, trytes);
+  return this->test<attachToTangleRequest, attachToTangleResponse>(
+      trunkTransaction, branchTransaction, minWeightMagnitude, trytes);
 }
 
 interruptAttachingToTangleResponse
 Core::interruptAttachingToTangle() {
-  return test<interruptAttachingToTangleRequest, interruptAttachingToTangleResponse>();
+  return this->test<interruptAttachingToTangleRequest, interruptAttachingToTangleResponse>();
 }
 
 broadcastTransactionsResponse
 Core::broadcastTransactions(const std::vector<std::string>& trytes) {
-  return test<broadcastTransactionsRequest, broadcastTransactionsResponse>(trytes);
+  return this->test<broadcastTransactionsRequest, broadcastTransactionsResponse>(trytes);
 }
 
 storeTransactionsResponse
 Core::storeTransactions(const std::vector<std::string>& trytes) {
-  return test<storeTransactionsRequest, storeTransactionsResponse>(trytes);
+  return this->test<storeTransactionsRequest, storeTransactionsResponse>(trytes);
 }
 
 }  // namespace API

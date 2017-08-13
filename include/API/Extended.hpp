@@ -40,7 +40,7 @@ namespace API {
  */
 class Extended : public Core {
 public:
-  Extended();
+  Extended(const std::string& host, const unsigned int& port);
   virtual ~Extended();
 
 public:

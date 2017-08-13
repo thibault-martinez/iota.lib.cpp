@@ -27,6 +27,7 @@
 
 #pragma once
 
+#include <cpr/cpr.h>
 #include "addNeighborsResponse.hpp"
 #include "attachToTangleResponse.hpp"
 #include "broadcastTransactionsResponse.hpp"
@@ -39,6 +40,7 @@
 #include "getTransactionsToApproveResponse.hpp"
 #include "getTrytesResponse.hpp"
 #include "interruptAttachingToTangleResponse.hpp"
+#include "json.hpp"
 #include "removeNeighborsResponse.hpp"
 #include "storeTransactionsResponse.hpp"
 
@@ -52,7 +54,7 @@ namespace API {
  */
 class Core {
 public:
-  Core();
+  Core(const std::string& host, const unsigned int& port);
   virtual ~Core();
 
   // public:
@@ -157,6 +159,31 @@ public:
    * by attachToTangle. https://iota.readme.io/docs/storetransactions
    */
   storeTransactionsResponse storeTransactions(const std::vector<std::string>& trytes);
+
+public:
+  // TODO Template or inheritance ?
+  template <typename Request, typename Response, typename... Args>
+  Response test(Args&&... args) {
+    auto request = Request(args...);
+
+    json data;
+    request.serialize(data);
+
+    auto url     = cpr::Url{ "http://" + this->host_ + ":" + std::to_string(this->port_) };
+    auto body    = cpr::Body{ data.dump() };
+    auto headers = cpr::Header{ { "Content-Type", "text/json" },
+                                { "Content-Length", std::to_string(body.size()) } };
+    auto res     = cpr::Post(url, body, headers);
+
+    Response response;
+    response.deserialize(json::parse(res.text));
+
+    return response;
+  }
+
+private:
+  std::string  host_;
+  unsigned int port_;
 };
 
 }  // namespace API
