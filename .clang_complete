@@ -10,3 +10,4 @@
 -Iexternal/googletest/googletest/include
 -Iexternal/cpr/include
 -Iexternal/Keccak/include
+-Iexternal/bigint/src

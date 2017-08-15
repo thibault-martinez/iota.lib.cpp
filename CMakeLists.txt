@@ -72,9 +72,12 @@ include_directories("${PROJECT_INCLUDE_DIR}"
                     )
 
 include_directories("external/keccak/include")
+include_directories("external/bigint/src")
 
 file(GLOB_RECURSE KECCAK_SOURCE_FILES external/keccak/source/*.cpp)
+file(GLOB_RECURSE BIGINT_SOURCE_FILES external/bigint/src/*.cpp)
 set(PROJECT_SOURCE_FILES ${PROJECT_SOURCE_FILES} ${KECCAK_SOURCE_FILES})
+set(PROJECT_SOURCE_FILES ${PROJECT_SOURCE_FILES} ${BIGINT_SOURCE_FILES})
 
 ########## LIBRARY ##########
 
