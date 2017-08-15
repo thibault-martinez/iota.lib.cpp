@@ -64,11 +64,17 @@ include_directories("${PROJECT_INCLUDE_DIR}"
                     "${PROJECT_INCLUDE_DIR}/API"
                     "${PROJECT_INCLUDE_DIR}/API/Requests"
                     "${PROJECT_INCLUDE_DIR}/API/Responses"
+                    "${PROJECT_INCLUDE_DIR}/Crypto"
                     "${PROJECT_INCLUDE_DIR}/Model"
                     "${PROJECT_INCLUDE_DIR}/Rest"
                     "${PROJECT_INCLUDE_DIR}/Type"
                     "${PROJECT_INCLUDE_DIR}/Utils"
                     )
+
+include_directories("external/keccak/include")
+
+file(GLOB_RECURSE KECCAK_SOURCE_FILES external/keccak/source/*.cpp)
+set(PROJECT_SOURCE_FILES ${PROJECT_SOURCE_FILES} ${KECCAK_SOURCE_FILES})
 
 ########## LIBRARY ##########
 

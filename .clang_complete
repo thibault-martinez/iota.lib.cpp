@@ -2,9 +2,11 @@
 -Iinclude/API
 -Iinclude/API/Responses
 -Iinclude/API/Requests
+-Iinclude/Crypto
 -Iinclude/Model
 -Iinclude/Type
 -Iinclude/Rest
 -Iinclude/Utils
 -Iexternal/googletest/googletest/include
 -Iexternal/cpr/include
+-Iexternal/Keccak/include
