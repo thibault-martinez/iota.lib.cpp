@@ -25,53 +25,39 @@
 
 #pragma once
 
-#include <cstdint>
-#include <iostream>
+#include <boost/multiprecision/cpp_int.hpp>
 #include <vector>
-// #include "bigint.h"
+#include "Trits.hpp"
 
-// using namespace Dodecahedron;
+using boost::multiprecision::cpp_int;
 
 namespace IOTA {
-namespace Type {
 
-// class Trytes;
+namespace Crypto {
 
-class Trits {
+class BigInt : public cpp_int {
 public:
-  explicit Trits(const std::vector<int8_t>& values);
-  explicit Trits(const int& value);
-  explicit Trits(const std::string& trytes);
-  virtual ~Trits();
-
-public:
-  std::size_t                size() const;
-  std::vector<int8_t>&       values();
-  const std::vector<int8_t>& values() const;
-  std::vector<Trits>         chunks(unsigned int length) const;
+  BigInt(const int& value);
+  BigInt(const cpp_int& value);
+  BigInt(const std::vector<int8_t>& bytes);
+  BigInt(const IOTA::Type::Trits& trits);
 
 public:
-  bool isValid() const;
-  bool canTrytes() const;
-
-public:
-  int toInt() const;
-  // Bigint              toBigInt() const;
-  std::string         toTryteString() const;
   std::vector<int8_t> toBytes() const;
-
-  // public:
-  //   const int8_t& operator[](const int& i) const;
-  //   int8_t&       operator[](const int& i);
-
-private:
-  std::vector<int8_t> values_;
+  Type::Trits         toTrits() const;
 };
 
-bool operator==(const Trits& lhs, const Trits& rhs);
-bool operator!=(const Trits& lhs, const Trits& rhs);
-// Trytes tritsToTrytes(const Trits& trits);
+// TODO not sure to keep them, only test purpose.
+inline bool
+operator!=(const BigInt& lhs, const BigInt& rhs) {
+  return static_cast<const cpp_int&>(lhs) != static_cast<const cpp_int&>(rhs);
+}
 
-}  // namespace Type
+inline bool
+operator==(const BigInt& lhs, const BigInt& rhs) {
+  return static_cast<const cpp_int&>(lhs) == static_cast<const cpp_int&>(rhs);
+}
+
+}  // namespace Crypto
 
 }  // namespace IOTA

@@ -29,12 +29,21 @@
 #include <functional>
 #include <iostream>
 // #include "Trytes.hpp"
-// #include "constants.hpp"
+#include "constants.hpp"
 #include "utils.hpp"
 
 namespace IOTA {
 
 namespace Type {
+
+// TODO Keep that ?
+static std::vector<std::vector<int8_t>> trytesTrits = {
+  { 0, 0, 0 },  { 1, 0, 0 },  { -1, 1, 0 },   { 0, 1, 0 },   { 1, 1, 0 },   { -1, -1, 1 },
+  { 0, -1, 1 }, { 1, -1, 1 }, { -1, 0, 1 },   { 0, 0, 1 },   { 1, 0, 1 },   { -1, 1, 1 },
+  { 0, 1, 1 },  { 1, 1, 1 },  { -1, -1, -1 }, { 0, -1, -1 }, { 1, -1, -1 }, { -1, 0, -1 },
+  { 0, 0, -1 }, { 1, 0, -1 }, { -1, 1, -1 },  { 0, 1, -1 },  { 1, 1, -1 },  { -1, -1, 0 },
+  { 0, -1, 0 }, { 1, -1, 0 }, { -1, 0, 0 }
+};
 
 Trits::Trits(const std::vector<int8_t>& values) : values_(values) {
   if (this->isValid() == false)
@@ -61,6 +70,16 @@ Trits::Trits(const int& value) {
   }
 }
 
+Trits::Trits(const std::string& trytes) {
+  for (unsigned i = 0; i < trytes.size(); i++) {
+    unsigned int index = TryteAlphabet.find(trytes[i]);
+    // TODO append vec to vec ?
+    this->values_.push_back(trytesTrits[index][0]);
+    this->values_.push_back(trytesTrits[index][1]);
+    this->values_.push_back(trytesTrits[index][2]);
+  }
+}
+
 Trits::~Trits() {
 }
 
@@ -69,9 +88,36 @@ Trits::size() const {
   return this->values_.size();
 }
 
+std::vector<int8_t>&
+Trits::values() {
+  return this->values_;
+}
+
 const std::vector<int8_t>&
 Trits::values() const {
   return this->values_;
+}
+
+std::vector<Trits>
+Trits::chunks(unsigned int length) const {
+  std::vector<Trits> chunks;
+
+  // size_t len = this->size() / length;
+  // size_t rem = this->size() % length;
+  //
+  // size_t begin = 0;
+  // size_t end   = 0;
+  //
+  // for (size_t i = 0; i < std::min(length, this->size()); ++i) {
+  //   end += (rem > 0) ? (len + !!(rem--)) : len;
+  //
+  //   chunks.emplace_back(
+  //       std::vector<int8_t>(std::begin(this->values_) + begin, std::begin(this->values_) + end));
+  //
+  //   begin = end;
+  // }
+
+  return chunks;
 }
 
 bool
@@ -94,6 +140,50 @@ Trits::toInt() const {
     res = res * 3 + this->values_[i--];
 
   return res;
+}
+
+// Bigint
+// Trits::toBigInt() const {
+//   Bigint res = 0;
+//   int    i   = this->values_.size() - 1;
+//
+//   while (i >= 0)
+//     res = res * 3 + this->values_[i--];
+//
+//   return res;
+// }
+
+std::string
+Trits::toTryteString() const {
+  std::string trytes;
+
+  for (unsigned int i = 0; i < this->size(); i += 3) {
+    for (unsigned int j = 0; j < TryteAlphabet.size(); j++) {
+      if (trytesTrits[j][0] == this->values_[i] && trytesTrits[j][1] == this->values_[i + 1] &&
+          trytesTrits[j][2] == this->values_[i + 2]) {
+        trytes += TryteAlphabet[j];
+        break;
+      }
+    }
+  }
+
+  return trytes;
+}
+
+std::vector<int8_t>
+Trits::toBytes() const {
+  // TODO Constants !!!
+  std::vector<int8_t> bytes((this->size() + 5 - 1) / 5);
+  // byte[] bytes = new byte[(size + NumberOfTritsInAByte - 1) / NumberOfTritsInAByte];
+  for (unsigned int i = 0; i < bytes.size(); ++i) {
+    int value = 0;
+    for (int j = (this->size() - i * 5) < 5 ? (this->size() - i * 5) : 5; j-- > 0;) {
+      value = value * 3 + this->values_[i * 5 + j];
+    }
+    bytes[i] = (int8_t)value;
+  }
+
+  return bytes;
 }
 
 //

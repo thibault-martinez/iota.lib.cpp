@@ -25,53 +25,23 @@
 
 #pragma once
 
-#include <cstdint>
-#include <iostream>
-#include <vector>
-// #include "bigint.h"
-
-// using namespace Dodecahedron;
+#include "Trits.hpp"
 
 namespace IOTA {
-namespace Type {
 
-// class Trytes;
+namespace Crypto {
 
-class Trits {
+class ISponge {
 public:
-  explicit Trits(const std::vector<int8_t>& values);
-  explicit Trits(const int& value);
-  explicit Trits(const std::string& trytes);
-  virtual ~Trits();
+  ISponge(){};
+  virtual ~ISponge(){};
 
 public:
-  std::size_t                size() const;
-  std::vector<int8_t>&       values();
-  const std::vector<int8_t>& values() const;
-  std::vector<Trits>         chunks(unsigned int length) const;
-
-public:
-  bool isValid() const;
-  bool canTrytes() const;
-
-public:
-  int toInt() const;
-  // Bigint              toBigInt() const;
-  std::string         toTryteString() const;
-  std::vector<int8_t> toBytes() const;
-
-  // public:
-  //   const int8_t& operator[](const int& i) const;
-  //   int8_t&       operator[](const int& i);
-
-private:
-  std::vector<int8_t> values_;
+  virtual void reset()                                                                    = 0;
+  virtual void absorb(const Type::Trits& trits, unsigned int offset, unsigned int length) = 0;
+  virtual void squeeze(Type::Trits& trits, unsigned int offset, unsigned int length)      = 0;
 };
 
-bool operator==(const Trits& lhs, const Trits& rhs);
-bool operator!=(const Trits& lhs, const Trits& rhs);
-// Trytes tritsToTrytes(const Trits& trits);
-
-}  // namespace Type
+}  // namespace Crypto
 
 }  // namespace IOTA
