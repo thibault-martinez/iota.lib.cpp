@@ -24,6 +24,8 @@
 //
 
 // TODO check SUCCESS and FAIL returns and throws
+// TODO hexDigest
+// TODO version that returns
 
 #include "Keccak384.hpp"
 #include <cstring>
@@ -45,18 +47,20 @@ Keccak384::reset() {
 }
 
 void
-Keccak384::update(const std::vector<uint8_t>& values) {
-  Keccak_HashUpdate(&this->khi_, values.data(), values.size() * 8);
+Keccak384::update(const std::vector<int8_t>& values) {
+  Keccak_HashUpdate(&this->khi_, reinterpret_cast<const BitSequence*>(values.data()),
+                    values.size() * 8);
 }
 
 void
-Keccak384::finalize(std::vector<uint8_t>& values) {
-  Keccak_HashFinal(&this->khi_, values.data());
+Keccak384::finalize(std::vector<int8_t>& values) {
+  Keccak_HashFinal(&this->khi_, reinterpret_cast<BitSequence*>(values.data()));
 }
 
 void
-Keccak384::squeeze(std::vector<uint8_t>& values) {
-  Keccak_HashSqueeze(&this->khi_, values.data(), this->khi_.fixedOutputLength);
+Keccak384::squeeze(std::vector<int8_t>& values) {
+  Keccak_HashSqueeze(&this->khi_, reinterpret_cast<BitSequence*>(values.data()),
+                     this->khi_.fixedOutputLength);
 }
 
 void

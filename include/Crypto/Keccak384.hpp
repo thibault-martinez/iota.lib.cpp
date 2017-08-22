@@ -40,9 +40,9 @@ public:
 
 public:
   void reset();
-  void update(const std::vector<uint8_t>& values);
-  void finalize(std::vector<uint8_t>& values);
-  void squeeze(std::vector<uint8_t>& values);
+  void update(const std::vector<int8_t>& values);
+  void finalize(std::vector<int8_t>& values);
+  void squeeze(std::vector<int8_t>& values);
 
 private:
   void initialize();
