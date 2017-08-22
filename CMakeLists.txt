@@ -72,12 +72,19 @@ include_directories("${PROJECT_INCLUDE_DIR}"
                     )
 
 include_directories("external/keccak/include")
-include_directories("external/bigint/src")
+include_directories("external/json/src")
 
 file(GLOB_RECURSE KECCAK_SOURCE_FILES external/keccak/source/*.cpp)
-file(GLOB_RECURSE BIGINT_SOURCE_FILES external/bigint/src/*.cpp)
 set(PROJECT_SOURCE_FILES ${PROJECT_SOURCE_FILES} ${KECCAK_SOURCE_FILES})
-set(PROJECT_SOURCE_FILES ${PROJECT_SOURCE_FILES} ${BIGINT_SOURCE_FILES})
+
+find_package(Boost 1.64.0)
+message(${Boost_FOUND})
+if(Boost_FOUND)
+  message("${Boost_INCLUDE_DIRS}")
+  include_directories(${Boost_INCLUDE_DIRS})
+  #add_executable(foo foo.cc)
+  # target_link_libraries(foo ${Boost_LIBRARIES})
+endif()
 
 ########## LIBRARY ##########
 
