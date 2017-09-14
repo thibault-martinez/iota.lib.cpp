@@ -23,12 +23,10 @@
 //
 //
 
-// TODO check SUCCESS and FAIL returns and throws
-// TODO hexDigest
-// TODO version that returns
-
 #include "Keccak384.hpp"
-#include <cstring>
+#include <iomanip>
+#include <sstream>
+#include "Crypto.hpp"
 
 namespace IOTA {
 
@@ -48,25 +46,48 @@ Keccak384::reset() {
 
 void
 Keccak384::update(const std::vector<int8_t>& values) {
-  Keccak_HashUpdate(&this->khi_, reinterpret_cast<const BitSequence*>(values.data()),
-                    values.size() * 8);
+  if (Keccak_HashUpdate(&this->khi_, reinterpret_cast<const BitSequence*>(values.data()),
+                        values.size() * 8) == FAIL) {
+    throw Errors::Crypto("Keccak384::update failed");
+  }
 }
 
-void
-Keccak384::finalize(std::vector<int8_t>& values) {
-  Keccak_HashFinal(&this->khi_, reinterpret_cast<BitSequence*>(values.data()));
+std::vector<int8_t>
+Keccak384::finalize() {
+  std::vector<int8_t> values(Keccak384::hashBitLength / 8);
+  if (Keccak_HashFinal(&this->khi_, reinterpret_cast<BitSequence*>(values.data())) == FAIL) {
+    throw Errors::Crypto("Keccak384::finalize failed");
+  }
+  return values;
 }
 
-void
-Keccak384::squeeze(std::vector<int8_t>& values) {
-  Keccak_HashSqueeze(&this->khi_, reinterpret_cast<BitSequence*>(values.data()),
-                     this->khi_.fixedOutputLength);
+std::vector<int8_t>
+Keccak384::squeeze() {
+  std::vector<int8_t> values(Keccak384::hashBitLength / 8);
+  if (Keccak_HashSqueeze(&this->khi_, reinterpret_cast<BitSequence*>(values.data()),
+                         this->khi_.fixedOutputLength) == FAIL) {
+    throw Errors::Crypto("Keccak384::squeeze failed");
+  }
+  return values;
+}
+
+std::string
+Keccak384::digest() {
+  std::stringstream stream;
+  auto              bytes = this->finalize();
+  for (auto& byte : bytes) {
+    stream << std::setw(2) << std::hex << std::setfill('0')
+           << static_cast<int>(static_cast<uint8_t>(byte));
+  }
+  return stream.str();
 }
 
 void
 Keccak384::initialize() {
-  // TODO Constants ?
-  Keccak_HashInitialize(&this->khi_, 832, 768, 384, 0x01);
+  if (Keccak_HashInitialize(&this->khi_, Keccak384::rate, Keccak384::capacity,
+                            Keccak384::hashBitLength, Keccak384::delimitedSuffix) == FAIL) {
+    throw Errors::Crypto("Keccak384::initialize failed");
+  }
 }
 
 }  // namespace Crypto
