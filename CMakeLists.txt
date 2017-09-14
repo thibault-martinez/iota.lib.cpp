@@ -69,6 +69,7 @@ include_directories("${PROJECT_INCLUDE_DIR}"
                     "${PROJECT_INCLUDE_DIR}/Rest"
                     "${PROJECT_INCLUDE_DIR}/Type"
                     "${PROJECT_INCLUDE_DIR}/Utils"
+                    "${PROJECT_INCLUDE_DIR}/Errors"
                     )
 
 include_directories("external/keccak/include")

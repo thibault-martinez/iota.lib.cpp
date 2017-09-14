@@ -78,15 +78,8 @@ TEST(Keccak384Test, Hash) {
 
   for (auto& input : hashes) {
     std::vector<int8_t> vinput(std::begin(input.first), std::end(input.first));
-    std::vector<int8_t> voutput(48);
     k.update(vinput);
-    k.finalize(voutput);
-    std::stringstream stream;
-    for (unsigned int i = 0; i < voutput.capacity(); i++) {
-      stream << std::setw(2) << std::hex << std::setfill('0')
-             << static_cast<int>(static_cast<uint8_t>(voutput[i]));
-    }
-    EXPECT_EQ(input.second, stream.str());
+    EXPECT_EQ(input.second, k.digest());
     k.reset();
   }
 }

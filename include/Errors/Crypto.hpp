@@ -23,59 +23,19 @@
 //
 //
 
-#include "Kerl.hpp"
-#include "BigInt.hpp"
+#pragma once
 
-// TODO offset and lenght
+#include "Generic.hpp"
 
 namespace IOTA {
 
-namespace Crypto {
+namespace Errors {
 
-Kerl::Kerl() {
-}
+class Crypto : public Generic {
+public:
+  Crypto(const std::string& content) : Generic(content){};
+};
 
-Kerl::~Kerl() {
-}
-
-void
-Kerl::reset() {
-  this->keccak_.reset();
-}
-
-void
-Kerl::absorb(const Type::Trits& trits, unsigned int offset, unsigned int length) {
-  // TODO Throw
-  if (length == 0)
-    length = trits.size();
-  auto& values = trits.values();
-  while (offset < length) {
-    auto                end = std::min(offset + 243, length);
-    std::vector<int8_t> chunk(&values[offset], &values[end - 1]);
-
-    if (end - offset == 243)
-      chunk[end - 1] = 0;
-    Type::Trits cpy(chunk);
-    BigInt      tmp(cpy);
-    auto        bytes = tmp.toBytes();
-    this->keccak_.update(bytes);
-    offset += 243;
-  }
-}
-
-void
-Kerl::squeeze(Type::Trits& trits, unsigned int offset, unsigned int length) {
-  // TODO Throw
-  auto   bytes = this->keccak_.squeeze();
-  BigInt tmp(bytes);
-  trits                   = tmp.toTrits();
-  trits.values()[243 - 1] = 0;
-  std::transform(bytes.begin(), bytes.end(), bytes.begin(),
-                 [](const int8_t& byte) { return byte ^ 0xFF; });
-  this->keccak_.reset();
-  this->keccak_.update(bytes);
-}
-
-}  // namespace Crypto
+}  // namespace Errors
 
 }  // namespace IOTA

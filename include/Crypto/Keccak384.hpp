@@ -25,7 +25,7 @@
 
 #pragma once
 
-#include <cstdint>
+#include <iostream>
 #include <vector>
 #include "KeccakHash.hpp"
 
@@ -35,14 +35,21 @@ namespace Crypto {
 
 class Keccak384 {
 public:
+  static const unsigned int rate            = 832;
+  static const unsigned int capacity        = 768;
+  static const unsigned int hashBitLength   = 384;
+  static const unsigned int delimitedSuffix = 0x01;
+
+public:
   Keccak384();
   virtual ~Keccak384();
 
 public:
-  void reset();
-  void update(const std::vector<int8_t>& values);
-  void finalize(std::vector<int8_t>& values);
-  void squeeze(std::vector<int8_t>& values);
+  void                reset();
+  void                update(const std::vector<int8_t>& values);
+  std::vector<int8_t> finalize();
+  std::vector<int8_t> squeeze();
+  std::string         digest();
 
 private:
   void initialize();
