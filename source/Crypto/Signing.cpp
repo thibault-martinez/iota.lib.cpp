@@ -94,27 +94,13 @@ std::vector<int>
 Signing::digests(const std::vector<int>& key) {
 }
 
-std::vector<int>
-Signing::address(const std::vector<int>& digests) {
-  // std::vector<int> v(TritHashLength);
-  // Type::Trits      addr(v);
-  // this->kerl_.reset();
-  // this->kerl_.absorb(digests);
-  // this->kerl_.squeeze(addr);
-  // return addr;
-  // ///////////////////////
-  // int[] address = new int[243];
-  // curl.absorb(digests).squeeze(address);
-  // return address;
-  // //////////////////
-  // k.Absorb(digests) return k.Squeeze(HashSize)
-  //     //////////////
-  //     var addressTrits = [];
-  //
-  // kerl.absorb(digests, 0, digests.length);
-  // kerl.squeeze(addressTrits, 0, kerl.HASH_LENGTH);
-  //
-  // return addressTrits;
+Type::Trits
+Signing::address(const Type::Trits& digests) {
+  Type::Trits addressTrits(TritHashLength);
+  this->kerl_.reset();
+  this->kerl_.absorb(digests);
+  this->kerl_.squeeze(addressTrits);
+  return addressTrits;
 }
 
 std::vector<int>

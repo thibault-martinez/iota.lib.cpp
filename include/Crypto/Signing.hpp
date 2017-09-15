@@ -44,7 +44,7 @@ public:
   std::vector<int> digest(const std::vector<int>& normalizedBundleFragment,
                           const std::vector<int>& signatureFragment);
   std::vector<int> digests(const std::vector<int>& key);
-  std::vector<int> address(const std::vector<int>& digests);
+  Type::Trits      address(const Type::Trits& digests);
   std::vector<int> signatureFragment(const std::vector<int>& normalizedBundleFragment,
                                      const std::vector<int>& keyFragment);
   void             validateSignatures(const std::string&              expectedAddress,
