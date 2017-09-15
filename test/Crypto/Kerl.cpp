@@ -23,20 +23,31 @@
 //
 //
 
-#include "Kerl.hpp"
+#include <Crypto/Kerl.hpp>
+#include <Errors/Crypto.hpp>
 #include <fstream>
 #include "gtest/gtest.h"
 
-TEST(KerlTest, trytesAndHashes) {
-  std::ifstream file("/root/iota.lib.cpp/test/files/generateTrytesAndHashes");
+TEST(KerlTest, Exceptions) {
+  IOTA::Crypto::Kerl k;
+  IOTA::Type::Trits  trits(
+      "GYOMKVTSNHVJNCNFBBAH9AAMXLPLLLROQY99QN9DLSJUHDPBLCFFAIQXZA9BKMBJCYSFHFPXAHDWZFEIZ");
+  EXPECT_NO_THROW(k.absorb(trits));
+  EXPECT_THROW(k.absorb(trits, 0, 42), IOTA::Errors::Crypto);
+  EXPECT_NO_THROW(k.squeeze(trits));
+  EXPECT_THROW(k.squeeze(trits, 0, 42), IOTA::Errors::Crypto);
+}
+
+TEST(KerlTest, TrytesAndHashes) {
+  std::ifstream file("/root/iota.lib.cpp/test/files/kerlTrytesAndHashes");
   std::string   line;
   ASSERT_TRUE(file.is_open());
   std::getline(file, line);
   IOTA::Crypto::Kerl k;
   while (std::getline(file, line)) {
-    auto              comma  = line.find(',');
-    auto              trytes = line.substr(0, comma);
-    auto              hash   = line.substr(comma + 1);
+    auto              semicolon = line.find(';');
+    auto              trytes    = line.substr(0, semicolon);
+    auto              hash      = line.substr(semicolon + 1);
     IOTA::Type::Trits trits(trytes);
     k.absorb(trits);
     k.squeeze(trits);
@@ -45,16 +56,16 @@ TEST(KerlTest, trytesAndHashes) {
   }
 }
 
-TEST(KerlTest, multiTrytesAndHash) {
-  std::ifstream file("/root/iota.lib.cpp/test/files/generateMultiTrytesAndHash");
+TEST(KerlTest, MultiTrytesAndHash) {
+  std::ifstream file("/root/iota.lib.cpp/test/files/kerlMultiTrytesAndHash");
   std::string   line;
   ASSERT_TRUE(file.is_open());
   std::getline(file, line);
   IOTA::Crypto::Kerl k;
   while (std::getline(file, line)) {
-    auto              comma  = line.find(',');
-    auto              trytes = line.substr(0, comma);
-    auto              hash   = line.substr(comma + 1);
+    auto              semicolon = line.find(';');
+    auto              trytes    = line.substr(0, semicolon);
+    auto              hash      = line.substr(semicolon + 1);
     IOTA::Type::Trits trits(trytes);
     k.absorb(trits);
     k.squeeze(trits);
@@ -64,24 +75,24 @@ TEST(KerlTest, multiTrytesAndHash) {
 }
 
 TEST(KerlTest, TrytesAndMultiSqueeze) {
-  std::ifstream file("/root/iota.lib.cpp/test/files/generateTrytesAndMultiSqueeze");
+  std::ifstream file("/root/iota.lib.cpp/test/files/kerlTrytesAndMultiSqueeze");
   std::string   line;
   ASSERT_TRUE(file.is_open());
   std::getline(file, line);
   IOTA::Crypto::Kerl k;
   while (std::getline(file, line)) {
-    auto comma  = line.find(',');
-    auto trytes = line.substr(0, comma);
-    auto rest   = line.substr(comma + 1);
-    comma       = rest.find(',');
-    auto hash1  = rest.substr(0, comma);
-    rest        = rest.substr(comma + 1);
-    comma       = rest.find(',');
-    auto hash2  = rest.substr(0, comma);
-    rest        = rest.substr(comma + 1);
-    comma       = rest.find(',');
-    auto hash3  = rest.substr(0, comma);
-    rest        = rest.substr(comma + 1);
+    auto semicolon = line.find(';');
+    auto trytes    = line.substr(0, semicolon);
+    auto rest      = line.substr(semicolon + 1);
+    semicolon      = rest.find(';');
+    auto hash1     = rest.substr(0, semicolon);
+    rest           = rest.substr(semicolon + 1);
+    semicolon      = rest.find(';');
+    auto hash2     = rest.substr(0, semicolon);
+    rest           = rest.substr(semicolon + 1);
+    semicolon      = rest.find(';');
+    auto hash3     = rest.substr(0, semicolon);
+    rest           = rest.substr(semicolon + 1);
     IOTA::Type::Trits trits(trytes);
     k.absorb(trits);
     k.squeeze(trits);

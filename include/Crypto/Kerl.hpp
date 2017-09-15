@@ -25,8 +25,8 @@
 
 #pragma once
 
-#include "ISponge.hpp"
-#include "Keccak384.hpp"
+#include <Crypto/ISponge.hpp>
+#include <Crypto/Keccak384.hpp>
 
 namespace IOTA {
 
