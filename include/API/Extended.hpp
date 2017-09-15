@@ -76,10 +76,10 @@ public:
    * @param security  The security level of private key / seed.
    * @return Inputs object.
    **/
-  getBalancesAndFormatResponse getBalanceAndFormat(const std::vector<std::string>& addresses,
-                                                   const int64_t& threshold, const int32_t& start,
-                                                   const int32_t& end, Utils::StopWatch stopWatch,
-                                                   const int32_t& security);
+  getBalancesAndFormatResponse getBalancesAndFormat(const std::vector<std::string>& addresses,
+                                                    const int64_t& threshold, const int32_t& start,
+                                                    const int32_t& end, Utils::StopWatch stopWatch,
+                                                    const int32_t& security);
 
   /**
    * Generates a new address from a seed and returns the remainderAddress.

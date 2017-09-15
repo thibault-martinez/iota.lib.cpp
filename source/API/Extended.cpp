@@ -25,6 +25,7 @@
 
 #include <API/Extended.hpp>
 #include <Crypto/Curl.hpp>
+#include <Errors/IllegalState.hpp>
 #include <Type/Seed.hpp>
 #include <Utils/RandomAddressGenerator.hpp>
 
@@ -45,17 +46,17 @@ Extended::getInputs(const std::string& seed, const int32_t& security, const int3
 
   // validate the seed
   if ((!Type::Seed::isValidSeed(seed))) {
-    throw std::runtime_error("Invalid Seed");
+    throw Errors::IllegalState("Invalid Seed");
   }
 
   if (security < 1 || security > 3) {
-    throw std::runtime_error("Invalid Security Level");
+    throw Errors::IllegalState("Invalid Security Level");
   }
 
   // If start value bigger than end, return error
   // or if difference between end and start is bigger than 500 keys
   if (start > end || end > (start + 500)) {
-    throw std::runtime_error("Invalid inputs provided");
+    throw Errors::IllegalState("Invalid inputs provided");
   }
 
   //  Case 1: start and end
@@ -70,7 +71,7 @@ Extended::getInputs(const std::string& seed, const int32_t& security, const int3
       allAddresses.push_back(addressGenerator(seed, security, i, false, {}));
     }
 
-    return getBalanceAndFormat(allAddresses, threshold, start, end, stopWatch, security);
+    return getBalancesAndFormat(allAddresses, threshold, start, end, stopWatch, security);
   }
   //  Case 2: iterate till threshold || end
   //
@@ -79,13 +80,13 @@ Extended::getInputs(const std::string& seed, const int32_t& security, const int3
   //  We then do getBalance, format the output and return it
   else {
     getNewAddressResponse res = getNewAddress(seed, security, start, false, 0, true);
-    return getBalanceAndFormat(res.getAddresses(), threshold, start, end, stopWatch, security);
+    return getBalancesAndFormat(res.getAddresses(), threshold, start, end, stopWatch, security);
   }
 }
 
 getBalancesAndFormatResponse
-Extended::getBalanceAndFormat(const std::vector<std::string>&, const int64_t&, const int32_t&,
-                              const int32_t&, Utils::StopWatch, const int32_t&) {
+Extended::getBalancesAndFormat(const std::vector<std::string>&, const int64_t&, const int32_t&,
+                               const int32_t&, Utils::StopWatch, const int32_t&) {
   //! TODO
   return { {}, 0, 0 };
 }
