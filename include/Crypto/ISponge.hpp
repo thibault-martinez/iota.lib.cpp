@@ -25,7 +25,7 @@
 
 #pragma once
 
-#include "Trits.hpp"
+#include <Type/Trits.hpp>
 
 namespace IOTA {
 
