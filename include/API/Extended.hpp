@@ -78,8 +78,8 @@ public:
    **/
   getBalancesAndFormatResponse getBalanceAndFormat(const std::vector<std::string>& addresses,
                                                    const int64_t& threshold, const int32_t& start,
-                                                   const int32_t& end, Utils::StopWatch stopWatch,
-                                                   const int32_t& security);
+                                                   Utils::StopWatch stopWatch,
+                                                   const int32_t&   security);
 
   /**
    * Generates a new address from a seed and returns the remainderAddress.
