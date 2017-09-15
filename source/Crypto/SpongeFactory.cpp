@@ -23,19 +23,27 @@
 //
 //
 
-#include <Utils/RandomAddressGenerator.hpp>
+#include <Crypto/Curl.hpp>
+#include <Crypto/Kerl.hpp>
+#include <Crypto/SpongeFactory.hpp>
 
 namespace IOTA {
 
-namespace Utils {
+namespace Crypto {
 
-std::string
-RandomAddressGenerator::operator()(const std::string&, const int32_t&, const int32_t&, bool,
-                                   const std::shared_ptr<Crypto::ISponge>&) {
-  //! TODO
-  return {};
+std::shared_ptr<ISponge>
+create(Type t) {
+  switch (t) {
+    case Type::CURL:
+    case Type::BCURLT:
+      return std::make_shared<Curl>();
+    case Type::KERL:
+      return std::make_shared<Kerl>();
+    default:
+      return nullptr;
+  }
 }
 
-}  // namespace Utils
+}  // namespace Crypto
 
 }  // namespace IOTA

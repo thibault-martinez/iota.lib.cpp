@@ -33,7 +33,8 @@ namespace IOTA {
 
 namespace API {
 
-Extended::Extended(const std::string& host, const unsigned int& port) : Core(host, port) {
+Extended::Extended(const std::string& host, const unsigned int& port, Crypto::Type t)
+    : Core(host, port), cryptoType_(t) {
 }
 
 Extended::~Extended() {
@@ -68,7 +69,8 @@ Extended::getInputs(const std::string& seed, const int32_t& security, const int3
     Utils::RandomAddressGenerator addressGenerator;
 
     for (int i = start; i < end; ++i) {
-      allAddresses.push_back(addressGenerator(seed, security, i, false, {}));
+      allAddresses.push_back(
+          addressGenerator(seed, security, i, false, Crypto::create(cryptoType_)));
     }
 
     return getBalancesAndFormat(allAddresses, threshold, start, stopWatch, security);

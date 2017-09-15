@@ -31,6 +31,7 @@
 #include <API/Responses/getBalancesResponse.hpp>
 #include <API/Responses/getNewAddressResponse.hpp>
 #include <Core.hpp>
+#include <Crypto/SpongeFactory.hpp>
 #include <Utils/StopWatch.hpp>
 
 #include <list>
@@ -46,7 +47,8 @@ namespace API {
  */
 class Extended : public Core {
 public:
-  Extended(const std::string& host, const unsigned int& port);
+  Extended(const std::string& host, const unsigned int& port,
+           Crypto::Type cryptoType = Crypto::Type::KERL);
   virtual ~Extended();
 
 public:
@@ -143,6 +145,12 @@ public:
    * Wrapper function that does broadcastTransactions and storeTransactions.
    */
   void broadcastAndStore();
+
+private:
+  /**
+   * crypto algorithm to be used internally
+   */
+  Crypto::Type cryptoType_;
 };
 
 }  // namespace API
