@@ -23,21 +23,19 @@
 //
 //
 
-#pragma once
-
-#include <exception>
-#include <iostream>
+#include <Utils/RandomAddressGenerator.hpp>
 
 namespace IOTA {
 
-namespace Errors {
+namespace Utils {
 
-class Generic : public std::runtime_error {
-public:
-  using std::runtime_error::runtime_error;
-  using std::runtime_error::what;
-};
+std::string
+RandomAddressGenerator::operator()(const std::string&, const int32_t&, const int32_t&, bool,
+                                   Crypto::Curl) {
+  //! TODO
+  return {};
+}
 
-}  // namespace Errors
+}  // namespace Utils
 
 }  // namespace IOTA

@@ -25,19 +25,35 @@
 
 #pragma once
 
-#include <exception>
 #include <iostream>
 
-namespace IOTA {
-
-namespace Errors {
-
-class Generic : public std::runtime_error {
+class input {
 public:
-  using std::runtime_error::runtime_error;
-  using std::runtime_error::what;
+  input(const std::string& address, const int64_t& balance, const int32_t& keyIndex,
+        const int32_t& security);
+  virtual ~input();
+
+public:
+  /*
+   * Address of your peer.
+   */
+  const std::string& getAddress() const;
+  /*
+   * Balance
+   */
+  const int64_t& getBalance() const;
+  /*
+   * Key Index
+   */
+  const int32_t& getKeyIndex() const;
+  /*
+   * Security
+   */
+  const int32_t& getSecurity() const;
+
+private:
+  std::string address_;
+  int64_t     balance_;
+  int32_t     keyIndex_;
+  int32_t     security_;
 };
-
-}  // namespace Errors
-
-}  // namespace IOTA

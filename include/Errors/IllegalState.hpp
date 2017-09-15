@@ -25,17 +25,15 @@
 
 #pragma once
 
-#include <exception>
-#include <iostream>
+#include <Errors/Generic.hpp>
 
 namespace IOTA {
 
 namespace Errors {
 
-class Generic : public std::runtime_error {
+class IllegalState : public Generic {
 public:
-  using std::runtime_error::runtime_error;
-  using std::runtime_error::what;
+  IllegalState(const std::string& content) : Generic(content){};
 };
 
 }  // namespace Errors

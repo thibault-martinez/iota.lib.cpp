@@ -23,21 +23,23 @@
 //
 //
 
-#pragma once
+#include <API/Responses/getBalancesAndFormatResponse.hpp>
 
-#include <exception>
-#include <iostream>
+getBalancesAndFormatResponse::getBalancesAndFormatResponse(const std::vector<input>& inputs,
+                                                           const int64_t&            totalBalance,
+                                                           const int64_t&            duration)
+    : genericResponse(duration), inputs_(inputs), totalBalance_(totalBalance) {
+}
 
-namespace IOTA {
+getBalancesAndFormatResponse::~getBalancesAndFormatResponse() {
+}
 
-namespace Errors {
+const std::vector<input>&
+getBalancesAndFormatResponse::getInput() const {
+  return this->inputs_;
+}
 
-class Generic : public std::runtime_error {
-public:
-  using std::runtime_error::runtime_error;
-  using std::runtime_error::what;
-};
-
-}  // namespace Errors
-
-}  // namespace IOTA
+const int64_t&
+getBalancesAndFormatResponse::getTotalBalance() const {
+  return this->totalBalance_;
+}

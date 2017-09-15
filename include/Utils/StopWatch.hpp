@@ -25,19 +25,83 @@
 
 #pragma once
 
-#include <exception>
-#include <iostream>
+#include <chrono>
 
 namespace IOTA {
 
-namespace Errors {
+namespace Utils {
 
-class Generic : public std::runtime_error {
+class StopWatch {
 public:
-  using std::runtime_error::runtime_error;
-  using std::runtime_error::what;
+  /**
+   * StopWatch constructor: automatically starts the timer
+   */
+  StopWatch();
+
+public:
+  /**
+   * restart timer
+   */
+  void restart();
+
+  /**
+   * stop the timer
+   */
+  void stop();
+
+  /**
+   * pause the timer
+   */
+  void pause();
+
+  /**
+   * resume the timer after pausing it
+   */
+  void resume();
+
+  /**
+   * @return Elapsed time in milliseconds.
+   */
+  std::chrono::milliseconds getElapsedTimeMiliSeconds();
+
+  /**
+   * @return Elapsed time in seconds.
+   */
+  std::chrono::seconds getElapsedTimeSeconds();
+
+  /**
+   * @return Elapsed time in minutes.
+   */
+  std::chrono::minutes getElapsedTimeMinuntes();
+
+  /**
+   * @return Elapsed time in hours.
+   */
+  std::chrono::hours getElapsedTimeHours();
+
+private:
+  /**
+   * @return Current ts
+   */
+  std::chrono::milliseconds now();
+
+private:
+  /**
+   * time at which the timer started
+   */
+  std::chrono::milliseconds startTime_;
+
+  /**
+   * whether the timer is running or not
+   */
+  bool running_;
+
+  /**
+   * current tick when pausing timer
+   */
+  std::chrono::milliseconds currentTime_;
 };
 
-}  // namespace Errors
+}  // namespace Utils
 
 }  // namespace IOTA

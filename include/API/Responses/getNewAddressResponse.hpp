@@ -25,19 +25,33 @@
 
 #pragma once
 
-#include <exception>
-#include <iostream>
+#include <API/Responses/genericResponse.hpp>
 
-namespace IOTA {
+#include <list>
 
-namespace Errors {
+#include "json.hpp"
 
-class Generic : public std::runtime_error {
+using json = nlohmann::json;
+
+/*
+ * getBalances API call response.
+ * Similar to getInclusionStates. It returns the confirmed balance which a list of addresses have at
+ * the latest confirmed milestone. In addition to the balances, it also returns the milestone as
+ * well as the index with which the confirmed balance was determined. The balances is returned as a
+ * list in the same order as the addresses were provided as input.
+ * https://iota.readme.io/docs/getbalances
+ */
+class getNewAddressResponse : public genericResponse {
 public:
-  using std::runtime_error::runtime_error;
-  using std::runtime_error::what;
+  getNewAddressResponse(const std::vector<std::string>& addresses, const uint64_t& duration);
+  virtual ~getNewAddressResponse();
+
+public:
+  /**
+   * @return The addresses.
+   */
+  const std::vector<std::string>& getAddresses() const;
+
+private:
+  std::vector<std::string> addresses_;
 };
-
-}  // namespace Errors
-
-}  // namespace IOTA

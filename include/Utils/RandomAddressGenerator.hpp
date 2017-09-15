@@ -25,19 +25,35 @@
 
 #pragma once
 
-#include <exception>
-#include <iostream>
+#include <Crypto/Curl.hpp>
+
+#include <string>
 
 namespace IOTA {
 
-namespace Errors {
+namespace Utils {
 
-class Generic : public std::runtime_error {
+class RandomAddressGenerator {
 public:
-  using std::runtime_error::runtime_error;
-  using std::runtime_error::what;
+  RandomAddressGenerator()  = default;
+  ~RandomAddressGenerator() = default;
+
+public:
+  /**
+   * Generates a new address
+   *
+   * @param seed     The tryte-encoded seed. It should be noted that this seed is not transferred.
+   * @param security The secuirty level of private key / seed.
+   * @param index    The index to start search from. If the index is provided, the generation of the
+   * address is not deterministic.
+   * @param checksum The adds 9-tryte address checksum
+   * @param curl     The curl instance.
+   * @return An String with address.
+   */
+  std::string operator()(const std::string& seed, const int32_t& security, const int32_t& index,
+                         bool checksum, Crypto::Curl curl);
 };
 
-}  // namespace Errors
+}  // namespace Utils
 
 }  // namespace IOTA

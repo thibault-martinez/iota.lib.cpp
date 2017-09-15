@@ -23,7 +23,11 @@
 //
 //
 
-#include "Extended.hpp"
+#include <API/Extended.hpp>
+#include <Crypto/Curl.hpp>
+#include <Errors/IllegalState.hpp>
+#include <Type/Seed.hpp>
+#include <Utils/RandomAddressGenerator.hpp>
 
 namespace IOTA {
 
@@ -35,8 +39,63 @@ Extended::Extended(const std::string& host, const unsigned int& port) : Core(hos
 Extended::~Extended() {
 }
 
-void
-Extended::getInputs() {
+getBalancesAndFormatResponse
+Extended::getInputs(const std::string& seed, const int32_t& security, const int32_t& start,
+                    const int32_t& end, const int64_t& threshold) {
+  Utils::StopWatch stopWatch;
+
+  // validate the seed
+  if ((!Type::Seed::isValidSeed(seed))) {
+    throw Errors::IllegalState("Invalid Seed");
+  }
+
+  if (security < 1 || security > 3) {
+    throw Errors::IllegalState("Invalid Security Level");
+  }
+
+  // If start value bigger than end, return error
+  // or if difference between end and start is bigger than 500 keys
+  if (start > end || end > (start + 500)) {
+    throw Errors::IllegalState("Invalid inputs provided");
+  }
+
+  //  Case 1: start and end
+  //
+  //  If start and end is defined by the user, simply iterate through the keys
+  //  and call getBalances
+  if (end != 0) {
+    std::vector<std::string>      allAddresses;
+    Utils::RandomAddressGenerator addressGenerator;
+
+    for (int i = start; i < end; ++i) {
+      allAddresses.push_back(addressGenerator(seed, security, i, false, {}));
+    }
+
+    return getBalancesAndFormat(allAddresses, threshold, start, end, stopWatch, security);
+  }
+  //  Case 2: iterate till threshold || end
+  //
+  //  Either start from index: 0 or start (if defined) until threshold is reached.
+  //  Calls getNewAddress and deterministically generates and returns all addresses
+  //  We then do getBalance, format the output and return it
+  else {
+    getNewAddressResponse res = getNewAddress(seed, security, start, false, 0, true);
+    return getBalancesAndFormat(res.getAddresses(), threshold, start, end, stopWatch, security);
+  }
+}
+
+getBalancesAndFormatResponse
+Extended::getBalancesAndFormat(const std::vector<std::string>&, const int64_t&, const int32_t&,
+                               const int32_t&, Utils::StopWatch, const int32_t&) {
+  //! TODO
+  return { {}, 0, 0 };
+}
+
+getNewAddressResponse
+Extended::getNewAddress(const std::string&, const int32_t&, const int32_t&, bool, const int32_t&,
+                        bool) {
+  //! TODO
+  return { {}, 0 };
 }
 
 void

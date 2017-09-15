@@ -25,19 +25,19 @@
 
 #pragma once
 
-#include <exception>
-#include <iostream>
-
 namespace IOTA {
 
-namespace Errors {
+namespace Crypto {
 
-class Generic : public std::runtime_error {
+class Curl {
 public:
-  using std::runtime_error::runtime_error;
-  using std::runtime_error::what;
+  Curl()  = default;
+  ~Curl() = default;
+
+public:
+  //! TODO impl
 };
 
-}  // namespace Errors
+}  // namespace Crypto
 
 }  // namespace IOTA

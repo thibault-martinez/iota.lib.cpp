@@ -36,10 +36,11 @@ using json = nlohmann::json;
 class genericResponse {
 public:
   genericResponse();
+  explicit genericResponse(const int64_t& duration);
   virtual ~genericResponse();
 
 public:
-  void deserialize(const json& res);
+  virtual void deserialize(const json& res);
 
 public:
   const int64_t& getDuration() const;

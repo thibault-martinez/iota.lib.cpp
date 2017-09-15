@@ -23,21 +23,40 @@
 //
 //
 
-#pragma once
-
-#include <exception>
-#include <iostream>
+#include <Type/Seed.hpp>
+#include <Type/Trytes.hpp>
 
 namespace IOTA {
 
-namespace Errors {
+namespace Type {
 
-class Generic : public std::runtime_error {
-public:
-  using std::runtime_error::runtime_error;
-  using std::runtime_error::what;
-};
+Seed::Seed(const std::string& seed) : seed_(seed) {
+}
 
-}  // namespace Errors
+Seed::~Seed() {
+}
+
+const std::string&
+Seed::getRawSeed() const {
+  return seed_;
+}
+
+bool
+Seed::isValidSeed(const std::string& seed) {
+  for (const auto& c : seed) {
+    if (!Trytes::isValidTryte(c)) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+bool
+Seed::isValid() const {
+  return Seed::isValidSeed(seed_);
+}
+
+}  // namespace Type
 
 }  // namespace IOTA

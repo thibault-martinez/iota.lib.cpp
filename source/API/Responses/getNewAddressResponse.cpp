@@ -23,21 +23,17 @@
 //
 //
 
-#pragma once
+#include <API/Responses/getNewAddressResponse.hpp>
 
-#include <exception>
-#include <iostream>
+getNewAddressResponse::getNewAddressResponse(const std::vector<std::string>& addresses,
+                                             const uint64_t&                 duration)
+    : genericResponse(duration), addresses_(addresses) {
+}
 
-namespace IOTA {
+getNewAddressResponse::~getNewAddressResponse() {
+}
 
-namespace Errors {
-
-class Generic : public std::runtime_error {
-public:
-  using std::runtime_error::runtime_error;
-  using std::runtime_error::what;
-};
-
-}  // namespace Errors
-
-}  // namespace IOTA
+const std::vector<std::string>&
+getNewAddressResponse::getAddresses() const {
+  return this->addresses_;
+}

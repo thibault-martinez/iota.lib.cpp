@@ -23,21 +23,32 @@
 //
 //
 
-#pragma once
+#include <Model/input.hpp>
 
-#include <exception>
-#include <iostream>
+input::input(const std::string& address, const int64_t& balance, const int32_t& keyIndex,
+             const int32_t& security)
+    : address_(address), balance_(balance), keyIndex_(keyIndex), security_(security) {
+}
 
-namespace IOTA {
+input::~input() {
+}
 
-namespace Errors {
+const std::string&
+input::getAddress() const {
+  return this->address_;
+}
 
-class Generic : public std::runtime_error {
-public:
-  using std::runtime_error::runtime_error;
-  using std::runtime_error::what;
-};
+const int64_t&
+input::getBalance() const {
+  return this->balance_;
+}
 
-}  // namespace Errors
+const int32_t&
+input::getKeyIndex() const {
+  return this->keyIndex_;
+}
 
-}  // namespace IOTA
+const int32_t&
+input::getSecurity() const {
+  return this->security_;
+}

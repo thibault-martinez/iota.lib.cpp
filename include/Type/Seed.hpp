@@ -25,19 +25,42 @@
 
 #pragma once
 
-#include <exception>
-#include <iostream>
+#include <string>
 
 namespace IOTA {
 
-namespace Errors {
+namespace Type {
 
-class Generic : public std::runtime_error {
+class Seed {
 public:
-  using std::runtime_error::runtime_error;
-  using std::runtime_error::what;
+  explicit Seed(const std::string& seed);
+  virtual ~Seed();
+
+public:
+  /**
+   * @return raw seed (initial string)
+   */
+  const std::string& getRawSeed() const;
+
+public:
+  /**
+   * @return whether the given string constitutes a valid seed
+   */
+  static bool isValidSeed(const std::string& seed);
+
+public:
+  /**
+   * @return whether the underlying raw seed constitutes a valid seed
+   */
+  bool isValid() const;
+
+private:
+  /**
+   * raw seed
+   */
+  std::string seed_;
 };
 
-}  // namespace Errors
+}  // namespace Type
 
 }  // namespace IOTA
