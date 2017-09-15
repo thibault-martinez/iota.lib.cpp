@@ -23,14 +23,30 @@
 //
 //
 
-#include <iostream>
+#include <Crypto/Signing.hpp>
+#include <fstream>
+#include "gtest/gtest.h"
 
-const std::string  TryteAlphabet       = "9ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-const unsigned int TryteAlphabetLength = 27;
-const unsigned int FragmentLength      = 27;
-const unsigned int SeedLength          = 81;
-const unsigned int ByteHashLength      = 48;
-const unsigned int TritHashLength      = 243;
-
-const std::string EmptyHash =
-    "999999999999999999999999999999999999999999999999999999999999999999999999999999999";
+TEST(SigningTest, Key) {
+  std::ifstream file("/root/iota.lib.cpp/test/files/signingKey");
+  std::string   line;
+  ASSERT_TRUE(file.is_open());
+  std::getline(file, line);
+  IOTA::Crypto::Signing s;
+  while (std::getline(file, line)) {
+    auto semicolon = line.find(';');
+    auto seed      = line.substr(0, semicolon);
+    auto rest      = line.substr(semicolon + 1);
+    semicolon      = rest.find(';');
+    auto index     = std::stoi(rest.substr(0, semicolon));
+    rest           = rest.substr(semicolon + 1);
+    semicolon      = rest.find(';');
+    auto security  = std::stoi(rest.substr(0, semicolon));
+    rest           = rest.substr(semicolon + 1);
+    semicolon      = rest.find(';');
+    auto key       = rest.substr(0, semicolon);
+    rest           = rest.substr(semicolon + 1);
+    s.key(seed, index, security).toTryteString();
+    EXPECT_EQ(key, s.key(seed, index, security).toTryteString());
+  }
+}
