@@ -46,7 +46,6 @@ TEST(SigningTest, Key) {
     semicolon      = rest.find(';');
     auto key       = rest.substr(0, semicolon);
     rest           = rest.substr(semicolon + 1);
-    s.key(seed, index, security).toTryteString();
-    EXPECT_EQ(key, s.key(seed, index, security).toTryteString());
+    EXPECT_EQ(key, IOTA::Type::tritsToTrytes(s.key(seed, index, security)));
   }
 }

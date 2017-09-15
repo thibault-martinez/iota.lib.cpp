@@ -23,33 +23,24 @@
 //
 //
 
-// TODO cast operators
-
 #pragma once
 
+#include <cstdint>
 #include <iostream>
+#include <vector>
 
 namespace IOTA {
 
 namespace Type {
 
-class Trytes {
-public:
-  explicit Trytes(const std::string& content);
-  virtual ~Trytes();
+typedef std::vector<int8_t> Trits;
+typedef std::string         Trytes;
 
-public:
-  static bool isValidTryte(const char& tryte);
+std::vector<int8_t> tritsToBytes(const Trits& trits);
+Trits               bytesToTrits(const std::vector<int8_t>& bytes);
 
-public:
-  bool               isValid() const;
-  const std::string& string() const;
-
-private:
-  std::string values_;
-};
-
-std::ostream& operator<<(std::ostream&, const Trytes& trytes);
+Trits  trytesToTrits(const Trytes& trytes);
+Trytes tritsToTrytes(const Trits& trits);
 
 }  // namespace Type
 

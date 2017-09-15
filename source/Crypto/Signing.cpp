@@ -23,9 +23,8 @@
 //
 //
 
-#include <Crypto/Kerl.hpp>
 #include <Crypto/Signing.hpp>
-#include <Type/Trits.hpp>
+#include <Type/Trinary.hpp>
 #include <constants.hpp>
 
 namespace IOTA {
@@ -40,13 +39,12 @@ Signing::~Signing() {
 
 Type::Trits
 Signing::key(const std::string& seed, const unsigned int& index, const unsigned int& security) {
-  Type::Trits trits(seed);
+  Type::Trits seedTrits = IOTA::Type::trytesToTrits(seed);
 
   for (unsigned int i = 0; i < index; ++i) {
     for (unsigned int j = 0; j < TritHashLength; ++j) {
-      // TODO operator[]
-      if (++trits.values()[j] > 1) {
-        trits.values()[j] = -1;
+      if (++seedTrits[j] > 1) {
+        seedTrits[j] = -1;
       } else {
         break;
       }
@@ -54,29 +52,43 @@ Signing::key(const std::string& seed, const unsigned int& index, const unsigned 
   }
 
   this->kerl_.reset();
-  this->kerl_.absorb(trits);
-  this->kerl_.squeeze(trits);
+  this->kerl_.absorb(seedTrits);
+  this->kerl_.squeeze(seedTrits);
   this->kerl_.reset();
-  this->kerl_.absorb(trits);
+  this->kerl_.absorb(seedTrits);
 
-  std::vector<int8_t> keyTrits;
-  std::vector<int8_t> bytes(TritHashLength);
-  Type::Trits         bytesTrits(bytes);
+  Type::Trits keyTrits;
+  Type::Trits trits;
 
   for (unsigned int i = 0; i < security; ++i) {
     for (unsigned int j = 0; j < FragmentLength; ++j) {
-      this->kerl_.squeeze(bytesTrits);
-      keyTrits.insert(std::end(keyTrits), std::begin(bytesTrits.values()),
-                      std::end(bytesTrits.values()));
+      this->kerl_.squeeze(trits);
+      keyTrits.insert(std::end(keyTrits), std::begin(trits), std::end(trits));
     }
   }
-  return Type::Trits(keyTrits);
+  return keyTrits;
 }
 
-std::vector<int>
-Signing::digest(const std::vector<int>& normalizedBundleFragment,
-                const std::vector<int>& signatureFragment) {
-}
+// Type::Trits
+// Signing::digest(const std::vector<int>& normalizedBundleFragment,
+//                 const std::vector<int>& signatureFragment) {
+//   this->kerl_.reset();
+//   auto kerl = Kerl();
+//
+//   for (unsigned int i = 0; i < FragmentLength; ++i) {
+//     std::vector<int8_t> buffer(&signatureFragment[i * TritHashLength],
+//                                &signatureFragment[(i + 1) * TritHashLength]);
+//     for (unsigned int j = normalizedBundleFragment[i] + 13; j > 0; --j) {
+//       kerl.reset();
+//       kerl.absorb(buffer);
+//       kerl.squeeze(buffer);
+//     }
+//     this->kerl_.absorb(buffer);
+//   }
+//   Type::Trits trits;
+//   this->kerl_.squeeze(buffer);
+//   return buffer;
+// }
 
 std::vector<int>
 Signing::digests(const std::vector<int>& key) {
@@ -84,6 +96,25 @@ Signing::digests(const std::vector<int>& key) {
 
 std::vector<int>
 Signing::address(const std::vector<int>& digests) {
+  // std::vector<int> v(TritHashLength);
+  // Type::Trits      addr(v);
+  // this->kerl_.reset();
+  // this->kerl_.absorb(digests);
+  // this->kerl_.squeeze(addr);
+  // return addr;
+  // ///////////////////////
+  // int[] address = new int[243];
+  // curl.absorb(digests).squeeze(address);
+  // return address;
+  // //////////////////
+  // k.Absorb(digests) return k.Squeeze(HashSize)
+  //     //////////////
+  //     var addressTrits = [];
+  //
+  // kerl.absorb(digests, 0, digests.length);
+  // kerl.squeeze(addressTrits, 0, kerl.HASH_LENGTH);
+  //
+  // return addressTrits;
 }
 
 std::vector<int>

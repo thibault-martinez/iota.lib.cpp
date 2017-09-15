@@ -26,8 +26,7 @@
 #pragma once
 
 #include <boost/multiprecision/cpp_int.hpp>
-#include <vector>
-#include "Trits.hpp"
+#include "Trinary.hpp"
 
 using boost::multiprecision::cpp_int;
 
@@ -37,26 +36,16 @@ namespace Crypto {
 
 class BigInt : public cpp_int {
 public:
+  BigInt();
   BigInt(const int& value);
   BigInt(const cpp_int& value);
-  BigInt(const std::vector<int8_t>& bytes);
-  BigInt(const IOTA::Type::Trits& trits);
 
 public:
-  std::vector<int8_t> toBytes() const;
+  void                fromTrits(const IOTA::Type::Trits& trits);
   Type::Trits         toTrits() const;
+  void                fromBytes(const std::vector<int8_t>& bytes);
+  std::vector<int8_t> toBytes() const;
 };
-
-// TODO not sure to keep them, only test purpose.
-inline bool
-operator!=(const BigInt& lhs, const BigInt& rhs) {
-  return static_cast<const cpp_int&>(lhs) != static_cast<const cpp_int&>(rhs);
-}
-
-inline bool
-operator==(const BigInt& lhs, const BigInt& rhs) {
-  return static_cast<const cpp_int&>(lhs) == static_cast<const cpp_int&>(rhs);
-}
 
 }  // namespace Crypto
 

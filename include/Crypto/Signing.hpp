@@ -25,8 +25,6 @@
 
 #pragma once
 
-#include <Crypto/ISponge.hpp>
-// TODO remove
 #include <Crypto/Kerl.hpp>
 #include <iostream>
 #include <vector>
@@ -38,7 +36,6 @@ namespace Crypto {
 class Signing {
 public:
   Signing();
-  // TODO sponge ctor
   virtual ~Signing();
 
 public:
@@ -56,8 +53,6 @@ public:
 
 private:
   Kerl kerl_;
-  // TODO Sponge
-  // ISponge sponge_;
 };
 
 }  // namespace Crypto
