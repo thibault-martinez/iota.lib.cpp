@@ -71,7 +71,7 @@ Extended::getInputs(const std::string& seed, const int32_t& security, const int3
       allAddresses.push_back(addressGenerator(seed, security, i, false, {}));
     }
 
-    return getBalancesAndFormat(allAddresses, threshold, start, end, stopWatch, security);
+    return getBalancesAndFormat(allAddresses, threshold, start, stopWatch, security);
   }
   //  Case 2: iterate till threshold || end
   //
@@ -80,15 +80,58 @@ Extended::getInputs(const std::string& seed, const int32_t& security, const int3
   //  We then do getBalance, format the output and return it
   else {
     getNewAddressResponse res = getNewAddress(seed, security, start, false, 0, true);
-    return getBalancesAndFormat(res.getAddresses(), threshold, start, end, stopWatch, security);
+    return getBalancesAndFormat(res.getAddresses(), threshold, start, stopWatch, security);
   }
 }
 
 getBalancesAndFormatResponse
-Extended::getBalancesAndFormat(const std::vector<std::string>&, const int64_t&, const int32_t&,
-                               const int32_t&, Utils::StopWatch, const int32_t&) {
-  //! TODO
-  return { {}, 0, 0 };
+Extended::getBalancesAndFormat(const std::vector<std::string>& addresses, const int64_t& threshold,
+                               const int32_t& start, Utils::StopWatch stopWatch,
+                               const int32_t& security) {
+  if (security < 1 || security > 3) {
+    throw Errors::IllegalState("Invalid Security Level");
+  }
+
+  //! retrieve balances for all given addresses
+  std::vector<std::string> balances = getBalances(addresses, 100).getBalances();
+
+  // If threshold defined, keep track of whether reached or not
+  // else set default to true
+  bool thresholdReached = threshold == 0;
+  int  i                = -1;
+
+  std::vector<input> inputs;
+  int64_t            totalBalance = 0;
+
+  for (const auto& address : addresses) {
+    //! retrieve balance for given address
+    long balance = std::stol(balances[++i]);
+
+    //! skip if no balance
+    if (balance <= 0) {
+      continue;
+    }
+
+    //! Add input to result and increase totalBalance of all aggregated inputs
+    inputs.push_back({ address, balance, start + i, security });
+    totalBalance += balance;
+
+    if (!thresholdReached && totalBalance >= threshold) {
+      thresholdReached = true;
+      //! TODO: is this break necessary? (that's the logic of the reference java client)
+      //! threshold is defined as minimum balance expected, but here we stop the process whenever
+      //! threshold is reached (if different from 0)
+      //! so is it an expected behavior? If so, why so? Maybe we will get more clues further during
+      //! the development of other API
+      break;
+    }
+  }
+
+  if (!thresholdReached) {
+    throw Errors::IllegalState("Not enough balance");
+  }
+
+  return { inputs, totalBalance, stopWatch.getElapsedTimeMiliSeconds().count() };
 }
 
 getNewAddressResponse

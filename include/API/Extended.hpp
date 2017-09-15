@@ -71,14 +71,13 @@ public:
    * @param addresses The addresses.
    * @param threshold Min balance required.
    * @param start     Starting key index.
-   * @param end       Ending key index.
    * @param stopWatch the stopwatch.
    * @param security  The security level of private key / seed.
    * @return Inputs object.
    **/
   getBalancesAndFormatResponse getBalancesAndFormat(const std::vector<std::string>& addresses,
                                                     const int64_t& threshold, const int32_t& start,
-                                                    const int32_t& end, Utils::StopWatch stopWatch,
+                                                    Utils::StopWatch stopWatch,
                                                     const int32_t& security);
 
   /**
