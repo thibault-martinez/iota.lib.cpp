@@ -23,10 +23,10 @@
 //
 //
 
-#include "Kerl.hpp"
-#include "BigInt.hpp"
-
-// TODO offset and lenght
+#include <Crypto/BigInt.hpp>
+#include <Crypto/Kerl.hpp>
+#include <Errors/Crypto.hpp>
+#include <constants.hpp>
 
 namespace IOTA {
 
@@ -45,35 +45,42 @@ Kerl::reset() {
 
 void
 Kerl::absorb(const Type::Trits& trits, unsigned int offset, unsigned int length) {
-  // TODO Throw
   if (length == 0)
     length = trits.size();
-  auto& values = trits.values();
+  if (length % TritHashLength != 0)
+    throw Errors::Crypto("Kerl::absorb failed : illegal length");
+  auto& tritsValues = trits.values();
   while (offset < length) {
-    auto                end = std::min(offset + 243, length);
-    std::vector<int8_t> chunk(&values[offset], &values[end - 1]);
+    auto                end = std::min(offset + TritHashLength, length);
+    std::vector<int8_t> tritsValuesChunk(&tritsValues[offset], &tritsValues[end]);
 
-    if (end - offset == 243)
-      chunk[end - 1] = 0;
-    Type::Trits cpy(chunk);
-    BigInt      tmp(cpy);
-    auto        bytes = tmp.toBytes();
-    this->keccak_.update(bytes);
-    offset += 243;
+    tritsValuesChunk.back() = 0;
+    Type::Trits tritsChunk(tritsValuesChunk);
+    BigInt      decimalChunk(tritsChunk);
+    auto        bytesChunk = decimalChunk.toBytes();
+    this->keccak_.update(bytesChunk);
+    offset += TritHashLength;
   }
 }
 
 void
 Kerl::squeeze(Type::Trits& trits, unsigned int offset, unsigned int length) {
-  // TODO Throw
-  auto   bytes = this->keccak_.squeeze();
-  BigInt tmp(bytes);
-  trits                   = tmp.toTrits();
-  trits.values()[243 - 1] = 0;
-  std::transform(bytes.begin(), bytes.end(), bytes.begin(),
-                 [](const int8_t& byte) { return byte ^ 0xFF; });
-  this->keccak_.reset();
-  this->keccak_.update(bytes);
+  if (length == 0)
+    length = TritHashLength;
+  if (length % TritHashLength != 0)
+    throw Errors::Crypto("Kerl::squeeze failed : illegal length");
+  while (offset < length) {
+    auto   bytes = this->keccak_.squeeze();
+    BigInt decimal(bytes);
+
+    trits                              = decimal.toTrits();
+    trits.values()[TritHashLength - 1] = 0;
+    std::transform(bytes.begin(), bytes.end(), bytes.begin(),
+                   [](const int8_t& byte) { return byte ^ 0xFF; });
+    this->keccak_.reset();
+    this->keccak_.update(bytes);
+    offset += TritHashLength;
+  }
 }
 
 }  // namespace Crypto
