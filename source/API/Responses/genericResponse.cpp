@@ -28,6 +28,9 @@
 genericResponse::genericResponse() {
 }
 
+genericResponse::genericResponse(const int64_t& duration) : duration_(duration) {
+}
+
 genericResponse::~genericResponse() {
 }
 

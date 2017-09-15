@@ -25,27 +25,35 @@
 
 #pragma once
 
-#include <iostream>
-#include "json.hpp"
+#include <Crypto/Curl.hpp>
 
-using json = nlohmann::json;
+#include <string>
 
 namespace IOTA {
 
-namespace API {
+namespace Utils {
 
-class genericRequest {
+class RandomAddressGenerator {
 public:
-  genericRequest(const std::string& command);
-  virtual ~genericRequest();
+  RandomAddressGenerator()  = default;
+  ~RandomAddressGenerator() = default;
 
 public:
-  virtual void serialize(json& res);
-
-protected:
-  std::string command_;
+  /**
+   * Generates a new address
+   *
+   * @param seed     The tryte-encoded seed. It should be noted that this seed is not transferred.
+   * @param security The secuirty level of private key / seed.
+   * @param index    The index to start search from. If the index is provided, the generation of the
+   * address is not deterministic.
+   * @param checksum The adds 9-tryte address checksum
+   * @param curl     The curl instance.
+   * @return An String with address.
+   */
+  std::string operator()(const std::string& seed, const int32_t& security, const int32_t& index,
+                         bool checksum, Crypto::Curl curl);
 };
 
-}  // namespace API
+}  // namespace Utils
 
 }  // namespace IOTA

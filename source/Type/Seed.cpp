@@ -23,29 +23,40 @@
 //
 //
 
-#pragma once
-
-#include <iostream>
-#include "json.hpp"
-
-using json = nlohmann::json;
+#include <Type/Seed.hpp>
+#include <Type/Trytes.hpp>
 
 namespace IOTA {
 
-namespace API {
+namespace Type {
 
-class genericRequest {
-public:
-  genericRequest(const std::string& command);
-  virtual ~genericRequest();
+Seed::Seed(const std::string& seed) : seed_(seed) {
+}
 
-public:
-  virtual void serialize(json& res);
+Seed::~Seed() {
+}
 
-protected:
-  std::string command_;
-};
+const std::string&
+Seed::getRawSeed() const {
+  return seed_;
+}
 
-}  // namespace API
+bool
+Seed::isValidSeed(const std::string& seed) {
+  for (const auto& c : seed) {
+    if (!Trytes::isValidTryte(c)) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+bool
+Seed::isValid() const {
+  return Seed::isValidSeed(seed_);
+}
+
+}  // namespace Type
 
 }  // namespace IOTA

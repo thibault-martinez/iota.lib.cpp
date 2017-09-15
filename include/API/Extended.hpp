@@ -27,7 +27,13 @@
 
 #pragma once
 
-#include "Core.hpp"
+#include <API/Responses/getBalancesAndFormatResponse.hpp>
+#include <API/Responses/getBalancesResponse.hpp>
+#include <API/Responses/getNewAddressResponse.hpp>
+#include <Core.hpp>
+#include <Utils/StopWatch.hpp>
+
+#include <list>
 
 namespace IOTA {
 
@@ -48,8 +54,51 @@ public:
    * Gets all possible inputs of a seed and returns them with the total balance. This is either done
    * deterministically (by genearating all addresses until findTransactions is empty and doing
    * getBalances), or by providing a key range to use for searching through.
+   *
+   * @param seed      Tryte-encoded seed. It should be noted that this seed is not transferred.
+   * @param security  The Security level of private key / seed.
+   * @param start     Starting key index.
+   * @param end       Ending key index.
+   * @param threshold Min balance required.
    */
-  void getInputs();
+  getBalancesAndFormatResponse getInputs(const std::string& seed, const int32_t& security,
+                                         const int32_t& start, const int32_t& end,
+                                         const int64_t& threshold);
+
+  /**
+   * Gets the balances and formats the output.
+   *
+   * @param addresses The addresses.
+   * @param threshold Min balance required.
+   * @param start     Starting key index.
+   * @param end       Ending key index.
+   * @param stopWatch the stopwatch.
+   * @param security  The security level of private key / seed.
+   * @return Inputs object.
+   **/
+  getBalancesAndFormatResponse getBalanceAndFormat(const std::vector<std::string>& addresses,
+                                                   const int64_t& threshold, const int32_t& start,
+                                                   const int32_t& end, Utils::StopWatch stopWatch,
+                                                   const int32_t& security);
+
+  /**
+   * Generates a new address from a seed and returns the remainderAddress.
+   * This is either done deterministically, or by providing the index of the new remainderAddress.
+   *
+   * @param seed      Tryte-encoded seed. It should be noted that this seed is not transferred.
+   * @param security  Security level to be used for the private key / address. Can be 1, 2 or 3.
+   * @param index     Key index to start search from. If the index is provided, the generation of
+   * the address is not deterministic.
+   * @param checksum  Adds 9-tryte address checksum.
+   * @param total     Total number of addresses to generate.
+   * @param returnAll If <code>true</code>, it returns all addresses which were deterministically
+   * generated (until findTransactions returns null).
+   * @return An array of strings with the specifed number of addresses.
+   */
+  getNewAddressResponse getNewAddress(const std::string& seed, const int32_t& security,
+                                      const int32_t& index, bool checksum, const int32_t& total,
+                                      bool returnAll);
+
   /*
    * Main purpose of this function is to get an array of transfer objects as input, and then prepare
    * the transfer by generating the correct bundle, as well as choosing and signing the inputs if

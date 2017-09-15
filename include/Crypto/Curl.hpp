@@ -25,27 +25,19 @@
 
 #pragma once
 
-#include <iostream>
-#include "json.hpp"
-
-using json = nlohmann::json;
-
 namespace IOTA {
 
-namespace API {
+namespace Crypto {
 
-class genericRequest {
+class Curl {
 public:
-  genericRequest(const std::string& command);
-  virtual ~genericRequest();
+  Curl()  = default;
+  ~Curl() = default;
 
 public:
-  virtual void serialize(json& res);
-
-protected:
-  std::string command_;
+  //! TODO impl
 };
 
-}  // namespace API
+}  // namespace Crypto
 
 }  // namespace IOTA

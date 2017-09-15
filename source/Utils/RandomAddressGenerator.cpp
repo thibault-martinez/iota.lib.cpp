@@ -23,29 +23,19 @@
 //
 //
 
-#pragma once
-
-#include <iostream>
-#include "json.hpp"
-
-using json = nlohmann::json;
+#include <Utils/RandomAddressGenerator.hpp>
 
 namespace IOTA {
 
-namespace API {
+namespace Utils {
 
-class genericRequest {
-public:
-  genericRequest(const std::string& command);
-  virtual ~genericRequest();
+std::string
+RandomAddressGenerator::operator()(const std::string&, const int32_t&, const int32_t&, bool,
+                                   Crypto::Curl) {
+  //! TODO
+  return {};
+}
 
-public:
-  virtual void serialize(json& res);
-
-protected:
-  std::string command_;
-};
-
-}  // namespace API
+}  // namespace Utils
 
 }  // namespace IOTA

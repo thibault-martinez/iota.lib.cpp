@@ -25,27 +25,40 @@
 
 #pragma once
 
-#include <iostream>
+#include <API/Responses/genericResponse.hpp>
+#include <Model/input.hpp>
+
 #include "json.hpp"
 
 using json = nlohmann::json;
 
-namespace IOTA {
-
-namespace API {
-
-class genericRequest {
+/*
+ * Response of extended API getInputs
+ * Gets all possible inputs of a seed and returns them with the total balance. This is either done
+ * deterministically (by genearating all addresses until findTransactions returns null for a
+ * corresponding address), or by providing a key range to use for searching through.
+ *
+ * You can also define the minimum threshold that is required. This means that if you provide the
+ * threshold value, you can specify that the inputs should only be returned if their collective
+ * balance is above the threshold value.
+ */
+class getBalancesAndFormatResponse : public genericResponse {
 public:
-  genericRequest(const std::string& command);
-  virtual ~genericRequest();
+  getBalancesAndFormatResponse(const std::vector<input>& inputs, const int64_t& totalBalance,
+                               const int64_t& duration);
+  virtual ~getBalancesAndFormatResponse();
 
 public:
-  virtual void serialize(json& res);
+  /*
+   * The input.
+   */
+  const std::vector<input>& getInput() const;
+  /*
+   * The total balance.
+   */
+  const int64_t& getTotalBalance() const;
 
-protected:
-  std::string command_;
+private:
+  std::vector<input> inputs_;
+  int64_t            totalBalance_;
 };
-
-}  // namespace API
-
-}  // namespace IOTA

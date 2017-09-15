@@ -23,29 +23,32 @@
 //
 //
 
-#pragma once
+#include <Model/input.hpp>
 
-#include <iostream>
-#include "json.hpp"
+input::input(const std::string& address, const int64_t& balance, const int32_t& keyIndex,
+             const int32_t& security)
+    : address_(address), balance_(balance), keyIndex_(keyIndex), security_(security) {
+}
 
-using json = nlohmann::json;
+input::~input() {
+}
 
-namespace IOTA {
+const std::string&
+input::getAddress() const {
+  return this->address_;
+}
 
-namespace API {
+const int64_t&
+input::getBalance() const {
+  return this->balance_;
+}
 
-class genericRequest {
-public:
-  genericRequest(const std::string& command);
-  virtual ~genericRequest();
+const int32_t&
+input::getKeyIndex() const {
+  return this->keyIndex_;
+}
 
-public:
-  virtual void serialize(json& res);
-
-protected:
-  std::string command_;
-};
-
-}  // namespace API
-
-}  // namespace IOTA
+const int32_t&
+input::getSecurity() const {
+  return this->security_;
+}

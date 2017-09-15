@@ -26,26 +26,34 @@
 #pragma once
 
 #include <iostream>
-#include "json.hpp"
 
-using json = nlohmann::json;
-
-namespace IOTA {
-
-namespace API {
-
-class genericRequest {
+class input {
 public:
-  genericRequest(const std::string& command);
-  virtual ~genericRequest();
+  input(const std::string& address, const int64_t& balance, const int32_t& keyIndex,
+        const int32_t& security);
+  virtual ~input();
 
 public:
-  virtual void serialize(json& res);
+  /*
+   * Address of your peer.
+   */
+  const std::string& getAddress() const;
+  /*
+   * Balance
+   */
+  const int64_t& getBalance() const;
+  /*
+   * Key Index
+   */
+  const int32_t& getKeyIndex() const;
+  /*
+   * Security
+   */
+  const int32_t& getSecurity() const;
 
-protected:
-  std::string command_;
+private:
+  std::string address_;
+  int64_t     balance_;
+  int32_t     keyIndex_;
+  int32_t     security_;
 };
-
-}  // namespace API
-
-}  // namespace IOTA

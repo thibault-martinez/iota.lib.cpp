@@ -23,29 +23,17 @@
 //
 //
 
-#pragma once
+#include <API/Responses/getNewAddressResponse.hpp>
 
-#include <iostream>
-#include "json.hpp"
+getNewAddressResponse::getNewAddressResponse(const std::vector<std::string>& addresses,
+                                             const uint64_t&                 duration)
+    : genericResponse(duration), addresses_(addresses) {
+}
 
-using json = nlohmann::json;
+getNewAddressResponse::~getNewAddressResponse() {
+}
 
-namespace IOTA {
-
-namespace API {
-
-class genericRequest {
-public:
-  genericRequest(const std::string& command);
-  virtual ~genericRequest();
-
-public:
-  virtual void serialize(json& res);
-
-protected:
-  std::string command_;
-};
-
-}  // namespace API
-
-}  // namespace IOTA
+const std::vector<std::string>&
+getNewAddressResponse::getAddresses() const {
+  return this->addresses_;
+}

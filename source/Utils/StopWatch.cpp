@@ -23,29 +23,69 @@
 //
 //
 
-#pragma once
-
-#include <iostream>
-#include "json.hpp"
-
-using json = nlohmann::json;
+#include <Utils/StopWatch.hpp>
 
 namespace IOTA {
 
-namespace API {
+namespace Utils {
 
-class genericRequest {
-public:
-  genericRequest(const std::string& command);
-  virtual ~genericRequest();
+StopWatch::StopWatch() {
+  restart();
+}
 
-public:
-  virtual void serialize(json& res);
+void
+StopWatch::restart() {
+  startTime_ = now();
+  running_   = true;
+}
 
-protected:
-  std::string command_;
-};
+std::chrono::milliseconds
+StopWatch::now() {
+  return std::chrono::duration_cast<std::chrono::milliseconds>(
+      std::chrono::system_clock::now().time_since_epoch());
+}
 
-}  // namespace API
+void
+StopWatch::stop() {
+  running_ = false;
+}
+
+void
+StopWatch::pause() {
+  running_     = false;
+  currentTime_ = getElapsedTimeMiliSeconds();
+}
+
+void
+StopWatch::resume() {
+  running_   = true;
+  startTime_ = now() - currentTime_;
+}
+
+std::chrono::milliseconds
+StopWatch::getElapsedTimeMiliSeconds() {
+  if (!running_) {
+    return {};
+  }
+
+  return now() - startTime_;
+}
+
+std::chrono::seconds
+StopWatch::getElapsedTimeSeconds() {
+  return std::chrono::duration_cast<std::chrono::seconds>(getElapsedTimeMiliSeconds());
+}
+
+std::chrono::minutes
+StopWatch::getElapsedTimeMinuntes() {
+  return std::chrono::duration_cast<std::chrono::minutes>(getElapsedTimeMiliSeconds());
+}
+
+std::chrono::hours
+StopWatch::getElapsedTimeHours() {
+  return std::chrono::duration_cast<std::chrono::hours>(getElapsedTimeMiliSeconds());
+}
+
+}  // namespace Utils
 
 }  // namespace IOTA
