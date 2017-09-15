@@ -89,7 +89,7 @@ Extended::getBalancesAndFormat(const std::vector<std::string>& addresses, const 
                                const int32_t& start, Utils::StopWatch stopWatch,
                                const int32_t& security) {
   if (security < 1 || security > 3) {
-    throw std::runtime_error("Invalid Security Level");
+    throw Errors::IllegalState("Invalid Security Level");
   }
 
   //! retrieve balances for all given addresses
@@ -128,7 +128,7 @@ Extended::getBalancesAndFormat(const std::vector<std::string>& addresses, const 
   }
 
   if (!thresholdReached) {
-    throw std::runtime_error("Not enough balance");
+    throw Errors::IllegalState("Not enough balance");
   }
 
   return { inputs, totalBalance, stopWatch.getElapsedTimeMiliSeconds().count() };
