@@ -25,9 +25,10 @@
 
 #pragma once
 
-#include <Crypto/Curl.hpp>
-
+#include <memory>
 #include <string>
+
+#include <Crypto/ISponge.hpp>
 
 namespace IOTA {
 
@@ -51,7 +52,7 @@ public:
    * @return An String with address.
    */
   std::string operator()(const std::string& seed, const int32_t& security, const int32_t& index,
-                         bool checksum, Crypto::Curl curl);
+                         bool checksum, const std::shared_ptr<Crypto::ISponge>& sponge);
 };
 
 }  // namespace Utils
