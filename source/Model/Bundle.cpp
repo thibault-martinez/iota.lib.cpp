@@ -1,0 +1,202 @@
+//
+// MIT License
+//
+// Copyright (c) 2017 Thibault Martinez
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+//
+//
+
+#include <Crypto/SpongeFactory.hpp>
+#include <Model/Bundle.hpp>
+#include <Type/Trits.hpp>
+#include <constants.hpp>
+
+#include <iomanip>
+#include <sstream>
+
+Bundle::Bundle(const std::vector<Transaction>& transactions) : transactions_(transactions) {
+}
+
+const std::vector<Transaction>&
+Bundle::getTransactions() const {
+  return transactions_;
+}
+
+uint32_t
+Bundle::getLength() const {
+  return transactions_.size();
+}
+
+bool
+Bundle::empty() const {
+  return getLength() == 0;
+}
+
+void
+Bundle::addTransaction(int32_t signatureMessageLength, const std::string& address, int64_t value,
+                       const std::string& tag, int64_t timestamp) {
+  for (int i = 0; i < signatureMessageLength; i++) {
+    transactions_.push_back({ address, i == 0 ? value : 0, tag, timestamp });
+  }
+}
+
+void
+Bundle::addTransaction(const Transaction& transaction) {
+  transactions_.push_back(transaction);
+}
+
+void
+Bundle::finalize(const std::shared_ptr<IOTA::Crypto::ISponge>& customSponge) {
+  std::shared_ptr<IOTA::Crypto::ISponge> sponge =
+      customSponge ? customSponge : IOTA::Crypto::create(IOTA::Crypto::Type::KERL);
+
+  //! ensure sponge is reset
+  sponge->reset();
+
+  for (std::size_t i = 0; i < transactions_.size(); i++) {
+    auto& trx = transactions_[i];
+
+    trx.setCurrentIndex(i);
+    trx.setLastIndex(transactions_.size() - 1);
+
+    auto value        = IOTA::Type::Trits(trx.getValue()).toTryteString(SeedLength);
+    auto timestamp    = IOTA::Type::Trits(trx.getTimestamp()).toTryteString(TryteAlphabetLength);
+    auto currentIndex = IOTA::Type::Trits(trx.getCurrentIndex()).toTryteString(TryteAlphabetLength);
+    auto lastIndexTrits = IOTA::Type::Trits(trx.getLastIndex()).toTryteString(TryteAlphabetLength);
+
+    auto t = IOTA::Type::Trits(trx.getAddress() + value + trx.getTag() + timestamp + currentIndex +
+                               lastIndexTrits);
+
+    sponge->absorb(t);
+  }
+
+  auto hash = IOTA::Type::Trits{ std::vector<int8_t>(TritHashLength) };
+  sponge->squeeze(hash);
+
+  std::string hashInTrytes = hash.toTryteString();
+  for (std::size_t i = 0; i < transactions_.size(); i++) {
+    transactions_[i].setBundle(hashInTrytes);
+  }
+}
+
+void
+Bundle::addTrytes(const std::vector<std::string>& signatureFragments) {
+  std::string emptySignatureFragment =
+      (std::stringstream() << std::setfill('9') << std::setw(2187) << "").str();
+
+  for (unsigned int i = 0; i < transactions_.size(); i++) {
+    auto& transaction = transactions_[i];
+
+    // Fill empty signatureMessageFragment
+    transaction.setSignatureFragments(
+        (signatureFragments.size() <= i || signatureFragments[i].empty()) ? emptySignatureFragment
+                                                                          : signatureFragments[i]);
+
+    // Fill empty trunkTransaction
+    transaction.setTrunkTransaction(EmptyHash);
+
+    // Fill empty branchTransaction
+    transaction.setBranchTransaction(EmptyHash);
+
+    // Fill empty nonce
+    transaction.setNonce(EmptyHash);
+  }
+}
+
+std::vector<int8_t>
+Bundle::normalizedBundle(const std::string& bundleHash) {
+  std::vector<int8_t> normalizedBundle(SeedLength, 0);
+
+  for (int i = 0; i < 3; i++) {
+    long sum = 0;
+    for (unsigned int j = 0; j < TryteAlphabetLength; j++) {
+      sum += (normalizedBundle[i * TryteAlphabetLength + j] =
+                  IOTA::Type::Trits(std::to_string(bundleHash[i * TryteAlphabetLength + j]))
+                      .toInt<int32_t>());
+    }
+
+    if (sum >= 0) {
+      while (sum-- > 0) {
+        for (unsigned int j = 0; j < TryteAlphabetLength; j++) {
+          if (normalizedBundle[i * TryteAlphabetLength + j] > -13) {
+            normalizedBundle[i * TryteAlphabetLength + j]--;
+            break;
+          }
+        }
+      }
+    } else {
+      while (sum++ < 0) {
+        for (unsigned int j = 0; j < TryteAlphabetLength; j++) {
+          if (normalizedBundle[i * TryteAlphabetLength + j] < 13) {
+            normalizedBundle[i * TryteAlphabetLength + j]++;
+            break;
+          }
+        }
+      }
+    }
+  }
+
+  return normalizedBundle;
+}
+
+bool
+Bundle::operator<(const Bundle& rhs) const {
+  int64_t lhsTS = empty() ? 0 : getTransactions()[0].getTimestamp();
+  int64_t rhsTS = rhs.empty() ? 0 : rhs.getTransactions()[0].getTimestamp();
+
+  return lhsTS < rhsTS;
+}
+
+bool
+Bundle::operator>(const Bundle& rhs) const {
+  int64_t lhsTS = empty() ? 0 : getTransactions()[0].getTimestamp();
+  int64_t rhsTS = rhs.empty() ? 0 : rhs.getTransactions()[0].getTimestamp();
+
+  return lhsTS > rhsTS;
+}
+
+bool
+Bundle::operator<=(const Bundle& rhs) const {
+  int64_t lhsTS = empty() ? 0 : getTransactions()[0].getTimestamp();
+  int64_t rhsTS = rhs.empty() ? 0 : rhs.getTransactions()[0].getTimestamp();
+
+  return lhsTS <= rhsTS;
+}
+
+bool
+Bundle::operator>=(const Bundle& rhs) const {
+  int64_t lhsTS = empty() ? 0 : getTransactions()[0].getTimestamp();
+  int64_t rhsTS = rhs.empty() ? 0 : rhs.getTransactions()[0].getTimestamp();
+
+  return lhsTS >= rhsTS;
+}
+
+bool
+Bundle::operator==(const Bundle& rhs) const {
+  int64_t lhsTS = empty() ? 0 : getTransactions()[0].getTimestamp();
+  int64_t rhsTS = rhs.empty() ? 0 : rhs.getTransactions()[0].getTimestamp();
+
+  return lhsTS == rhsTS;
+}
+
+bool
+Bundle::operator!=(const Bundle& rhs) const {
+  return !operator==(rhs);
+}

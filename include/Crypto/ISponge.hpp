@@ -37,9 +37,10 @@ public:
   virtual ~ISponge(){};
 
 public:
-  virtual void reset()                                                                    = 0;
-  virtual void absorb(const Type::Trits& trits, unsigned int offset, unsigned int length) = 0;
-  virtual void squeeze(Type::Trits& trits, unsigned int offset, unsigned int length)      = 0;
+  virtual void reset()                                                                       = 0;
+  virtual void absorb(const Type::Trits& trits, unsigned int offset = 0,
+                      unsigned int length = 0)                                               = 0;
+  virtual void squeeze(Type::Trits& trits, unsigned int offset = 0, unsigned int length = 0) = 0;
 };
 
 }  // namespace Crypto

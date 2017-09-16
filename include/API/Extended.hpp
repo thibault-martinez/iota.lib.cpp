@@ -32,6 +32,7 @@
 #include <API/Responses/getNewAddressResponse.hpp>
 #include <Core.hpp>
 #include <Crypto/SpongeFactory.hpp>
+#include <Model/Bundle.hpp>
 #include <Utils/StopWatch.hpp>
 
 #include <list>
@@ -80,7 +81,7 @@ public:
   getBalancesAndFormatResponse getBalancesAndFormat(const std::vector<std::string>& addresses,
                                                     const int64_t& threshold, const int32_t& start,
                                                     Utils::StopWatch stopWatch,
-                                                    const int32_t& security);
+                                                    const int32_t&   security);
 
   /**
    * Generates a new address from a seed and returns the remainderAddress.
@@ -99,6 +100,28 @@ public:
   getNewAddressResponse getNewAddress(const std::string& seed, const int32_t& security,
                                       const int32_t& index, bool checksum, const int32_t& total,
                                       bool returnAll);
+
+  /**
+   * Basically traverse the Bundle by going down the trunkTransactions until
+   * the bundle hash of the transaction is no longer the same. In case the input
+   * transaction hash is not a tail, we return an error.
+   *
+   * @param trunkTx    Hash of a trunk or a tail transaction of a bundle.
+   * @return Filled bundle corresponding to tail transaction.
+   */
+  Bundle traverseBundle(const std::string& trunkTx);
+
+  /**
+   * Basically traverse the Bundle by going down the trunkTransactions until
+   * the bundle hash of the transaction is no longer the same. In case the input
+   * transaction hash is not a tail, we return an error.
+   *
+   * @param trunkTx    Hash of a trunk or a tail transaction of a bundle.
+   * @param bundleHash The bundle hashe.
+   * @param bundle     Bundle to be populated.
+   * @return Filled bundle corresponding to tail transaction.
+   */
+  Bundle traverseBundle(const std::string& trunkTx, std::string bundleHash, Bundle& bundle);
 
   /*
    * Main purpose of this function is to get an array of transfer objects as input, and then prepare
