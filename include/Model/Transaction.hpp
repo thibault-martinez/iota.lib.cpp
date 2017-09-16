@@ -34,12 +34,12 @@ public:
   ~Transaction() = default;
 
   /**
-   * Initializes a new instance of the Signature class.
+   * Initializes a new instance of the Transaction class.
    */
   Transaction(const std::string& trytes);
 
   /**
-   * Initializes a new instance of the Signature class.
+   * Initializes a new instance of the Transaction class.
    */
   Transaction(const std::string& signatureFragments, int64_t currentIndex, int64_t lastIndex,
               const std::string& nonce, const std::string& hash, const std::string& tag,
@@ -48,7 +48,7 @@ public:
               const std::string& bundle);
 
   /**
-   * Initializes a new instance of the Signature class.
+   * Initializes a new instance of the Transaction class.
    */
   Transaction(const std::string& address, int64_t value, const std::string& tag, int64_t timestamp);
 
@@ -254,7 +254,7 @@ public:
   std::string toTrytes() const;
 
   /**
-   * Initializes a new instance of the Signature class.
+   * Initializes a new instance of the Transaction class based on tryte string.
    */
   void initFromTrytes(const std::string& trytes);
 

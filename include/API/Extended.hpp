@@ -107,7 +107,7 @@ public:
    * transaction hash is not a tail, we return an error.
    *
    * @param trunkTx    Hash of a trunk or a tail transaction of a bundle.
-   * @return Transaction objects.
+   * @return Filled bundle corresponding to tail transaction.
    */
   Bundle traverseBundle(const std::string& trunkTx);
 
@@ -119,7 +119,7 @@ public:
    * @param trunkTx    Hash of a trunk or a tail transaction of a bundle.
    * @param bundleHash The bundle hashe.
    * @param bundle     Bundle to be populated.
-   * @return Transaction objects.
+   * @return Filled bundle corresponding to tail transaction.
    */
   Bundle traverseBundle(const std::string& trunkTx, std::string bundleHash, Bundle& bundle);
 
