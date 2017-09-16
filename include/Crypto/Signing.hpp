@@ -41,15 +41,15 @@ public:
 public:
   Type::Trits key(const Type::Trytes& seed, const unsigned int& index = 0,
                   const unsigned int& security = 1);
-  Type::Trits digest(const std::vector<int>& normalizedBundleFragment,
-                     const std::vector<int>& signatureFragment);
+  Type::Trits digest(const std::vector<int8_t>& normalizedBundleFragment,
+                     const Type::Trits&         signatureFragment);
   Type::Trits digests(const Type::Trits& key);
   Type::Trits address(const Type::Trits& digests);
   Type::Trits signatureFragment(const std::vector<int8_t>& normalizedBundleFragment,
                                 const Type::Trits&         keyFragment);
-  void        validateSignatures(const std::string&              expectedAddress,
-                                 const std::vector<std::string>& signatureFragments,
-                                 const std::string&              bundleHash);
+  bool        validateSignatures(const Type::Trytes&              expectedAddress,
+                                 const std::vector<Type::Trytes>& signatureFragments,
+                                 const Type::Trytes&              bundleHash);
 
 private:
   // TODO Sponge

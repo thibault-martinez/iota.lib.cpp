@@ -116,3 +116,33 @@ TEST(SigningTest, SignatureFragments) {
     EXPECT_EQ(sign1Trytes, IOTA::Type::tritsToTrytes(sign1Trits));
   }
 }
+
+TEST(SigningTest, ValidateSignatures) {
+  std::ifstream file("/root/iota.lib.cpp/test/files/signingValidateSignatures");
+  std::string   line;
+  ASSERT_TRUE(file.is_open());
+  std::getline(file, line);
+  IOTA::Crypto::Signing s;
+  while (std::getline(file, line)) {
+    auto semicolon  = line.find(';');
+    auto addr       = line.substr(0, semicolon);
+    auto rest       = line.substr(semicolon + 1);
+    semicolon       = rest.find(';');
+    auto sign0      = rest.substr(0, semicolon);
+    rest            = rest.substr(semicolon + 1);
+    semicolon       = rest.find(';');
+    auto sign1      = rest.substr(0, semicolon);
+    rest            = rest.substr(semicolon + 1);
+    semicolon       = rest.find(';');
+    auto bundleHash = rest.substr(0, semicolon);
+    rest            = rest.substr(semicolon + 1);
+    semicolon       = rest.find(';');
+    auto valid      = rest.substr(0, semicolon);
+    rest            = rest.substr(semicolon + 1);
+
+    Bundle bundle;
+    auto   normalizedBundleHash = bundle.normalizedBundle(bundleHash);
+    auto   res                  = s.validateSignatures(addr, { sign0, sign1 }, bundleHash);
+    EXPECT_EQ(static_cast<int>(res), std::stoi(valid));
+  }
+}
