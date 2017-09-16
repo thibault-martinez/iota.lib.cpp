@@ -51,7 +51,7 @@ T
 tritsToInt(const Trits& trits) {
   T res = 0;
 
-  for (std::size_t i = trits.size() - 1; i-- > 0;) {
+  for (int i = trits.size() - 1; i >= 0; --i) {
     res = res * 3 + trits[i];
   }
 

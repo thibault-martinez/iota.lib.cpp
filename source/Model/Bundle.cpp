@@ -101,6 +101,7 @@ Bundle::finalize(const std::shared_ptr<IOTA::Crypto::ISponge>& customSponge) {
 
 void
 Bundle::addTrytes(const std::vector<std::string>& signatureFragments) {
+  // TODO check with Simon
   std::string emptySignatureFragment =
       (static_cast<std::ostringstream&>(std::stringstream()
                                         << std::setfill('9') << std::setw(2187) << ""))
@@ -134,8 +135,7 @@ Bundle::normalizedBundle(const std::string& bundleHash) {
     for (unsigned int j = 0; j < TryteAlphabetLength; j++) {
       sum +=
           (normalizedBundle[i * TryteAlphabetLength + j] = IOTA::Type::tritsToInt<int32_t>(
-               IOTA::Type::trytesToTrits(std::to_string(bundleHash[i * TryteAlphabetLength + j]))));
-      ;
+               IOTA::Type::trytesToTrits(std::string(1, bundleHash[i * TryteAlphabetLength + j]))));
     }
 
     if (sum >= 0) {

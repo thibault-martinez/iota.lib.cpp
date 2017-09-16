@@ -39,19 +39,20 @@ public:
   virtual ~Signing();
 
 public:
-  Type::Trits      key(const std::string& seed, const unsigned int& index = 0,
-                       const unsigned int& security = 1);
-  std::vector<int> digest(const std::vector<int>& normalizedBundleFragment,
-                          const std::vector<int>& signatureFragment);
-  Type::Trits      digests(const Type::Trits& key);
-  Type::Trits      address(const Type::Trits& digests);
-  std::vector<int> signatureFragment(const std::vector<int>& normalizedBundleFragment,
-                                     const std::vector<int>& keyFragment);
-  void             validateSignatures(const std::string&              expectedAddress,
-                                      const std::vector<std::string>& signatureFragments,
-                                      const std::string&              bundleHash);
+  Type::Trits key(const Type::Trytes& seed, const unsigned int& index = 0,
+                  const unsigned int& security = 1);
+  Type::Trits digest(const std::vector<int>& normalizedBundleFragment,
+                     const std::vector<int>& signatureFragment);
+  Type::Trits digests(const Type::Trits& key);
+  Type::Trits address(const Type::Trits& digests);
+  Type::Trits signatureFragment(const std::vector<int8_t>& normalizedBundleFragment,
+                                const Type::Trits&         keyFragment);
+  void        validateSignatures(const std::string&              expectedAddress,
+                                 const std::vector<std::string>& signatureFragments,
+                                 const std::string&              bundleHash);
 
 private:
+  // TODO Sponge
   Kerl kerl_;
 };
 

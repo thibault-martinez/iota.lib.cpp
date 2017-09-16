@@ -38,7 +38,7 @@ Signing::~Signing() {
 }
 
 Type::Trits
-Signing::key(const std::string& seed, const unsigned int& index, const unsigned int& security) {
+Signing::key(const Type::Trytes& seed, const unsigned int& index, const unsigned int& security) {
   Type::Trits seedTrits = IOTA::Type::trytesToTrits(seed);
 
   for (unsigned int i = 0; i < index; ++i) {
@@ -69,26 +69,10 @@ Signing::key(const std::string& seed, const unsigned int& index, const unsigned 
   return keyTrits;
 }
 
-// Type::Trits
-// Signing::digest(const std::vector<int>& normalizedBundleFragment,
-//                 const std::vector<int>& signatureFragment) {
-//   this->kerl_.reset();
-//   auto kerl = Kerl();
-//
-//   for (unsigned int i = 0; i < FragmentLength; ++i) {
-//     std::vector<int8_t> buffer(&signatureFragment[i * TritHashLength],
-//                                &signatureFragment[(i + 1) * TritHashLength]);
-//     for (unsigned int j = normalizedBundleFragment[i] + 13; j > 0; --j) {
-//       kerl.reset();
-//       kerl.absorb(buffer);
-//       kerl.squeeze(buffer);
-//     }
-//     this->kerl_.absorb(buffer);
-//   }
-//   Type::Trits trits;
-//   this->kerl_.squeeze(buffer);
-//   return buffer;
-// }
+Type::Trits
+Signing::digest(const std::vector<int>& normalizedBundleFragment,
+                const std::vector<int>& signatureFragment) {
+}
 
 Type::Trits
 Signing::digests(const Type::Trits& key) {
@@ -128,9 +112,23 @@ Signing::address(const Type::Trits& digests) {
   return addressTrits;
 }
 
-std::vector<int>
-Signing::signatureFragment(const std::vector<int>& normalizedBundleFragment,
-                           const std::vector<int>& keyFragment) {
+Type::Trits
+Signing::signatureFragment(const std::vector<int8_t>& normalizedBundleFragment,
+                           const Type::Trits&         keyFragment) {
+  Type::Trits signatureFragment;
+
+  for (unsigned int i = 0; i < FragmentLength; ++i) {
+    Type::Trits buffer(&keyFragment[i * TritHashLength], &keyFragment[(i + 1) * TritHashLength]);
+    // TODO 13 ? Constant
+    for (int j = 0; j < 13 - normalizedBundleFragment[i]; ++j) {
+      this->kerl_.reset();
+      this->kerl_.absorb(buffer);
+      this->kerl_.squeeze(buffer);
+    }
+    signatureFragment.insert(std::end(signatureFragment), std::begin(buffer), std::end(buffer));
+  }
+
+  return signatureFragment;
 }
 
 void
