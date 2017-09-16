@@ -23,13 +23,13 @@
 //
 //
 
-#include <Crypto/SpongeFactory.hpp>
-#include <Model/Bundle.hpp>
-#include <Type/Trits.hpp>
-#include <constants.hpp>
-
 #include <iomanip>
 #include <sstream>
+
+#include <Crypto/SpongeFactory.hpp>
+#include <Model/Bundle.hpp>
+#include <Type/Trinary.hpp>
+#include <constants.hpp>
 
 Bundle::Bundle(const std::vector<Transaction>& transactions) : transactions_(transactions) {
 }
@@ -76,21 +76,24 @@ Bundle::finalize(const std::shared_ptr<IOTA::Crypto::ISponge>& customSponge) {
     trx.setCurrentIndex(i);
     trx.setLastIndex(transactions_.size() - 1);
 
-    auto value        = IOTA::Type::Trits(trx.getValue()).toTryteString(SeedLength);
-    auto timestamp    = IOTA::Type::Trits(trx.getTimestamp()).toTryteString(TryteAlphabetLength);
-    auto currentIndex = IOTA::Type::Trits(trx.getCurrentIndex()).toTryteString(TryteAlphabetLength);
-    auto lastIndexTrits = IOTA::Type::Trits(trx.getLastIndex()).toTryteString(TryteAlphabetLength);
+    auto value = IOTA::Type::tritsToTrytes(IOTA::Type::intToTrits(trx.getValue()), SeedLength);
+    auto timestamp =
+        IOTA::Type::tritsToTrytes(IOTA::Type::intToTrits(trx.getTimestamp()), TryteAlphabetLength);
+    auto currentIndex = IOTA::Type::tritsToTrytes(IOTA::Type::intToTrits(trx.getCurrentIndex()),
+                                                  TryteAlphabetLength);
+    auto lastIndexTrits =
+        IOTA::Type::tritsToTrytes(IOTA::Type::intToTrits(trx.getLastIndex()), TryteAlphabetLength);
 
-    auto t = IOTA::Type::Trits(trx.getAddress() + value + trx.getTag() + timestamp + currentIndex +
-                               lastIndexTrits);
+    auto t = IOTA::Type::trytesToTrits(trx.getAddress() + value + trx.getTag() + timestamp +
+                                       currentIndex + lastIndexTrits);
 
     sponge->absorb(t);
   }
 
-  auto hash = IOTA::Type::Trits{ std::vector<int8_t>(TritHashLength) };
+  IOTA::Type::Trits hash(TritHashLength);
   sponge->squeeze(hash);
 
-  std::string hashInTrytes = hash.toTryteString();
+  std::string hashInTrytes = IOTA::Type::tritsToTrytes(hash);
   for (std::size_t i = 0; i < transactions_.size(); i++) {
     transactions_[i].setBundle(hashInTrytes);
   }
@@ -99,7 +102,9 @@ Bundle::finalize(const std::shared_ptr<IOTA::Crypto::ISponge>& customSponge) {
 void
 Bundle::addTrytes(const std::vector<std::string>& signatureFragments) {
   std::string emptySignatureFragment =
-      (std::stringstream() << std::setfill('9') << std::setw(2187) << "").str();
+      (static_cast<std::ostringstream&>(std::stringstream()
+                                        << std::setfill('9') << std::setw(2187) << ""))
+          .str();
 
   for (unsigned int i = 0; i < transactions_.size(); i++) {
     auto& transaction = transactions_[i];
@@ -127,9 +132,10 @@ Bundle::normalizedBundle(const std::string& bundleHash) {
   for (int i = 0; i < 3; i++) {
     long sum = 0;
     for (unsigned int j = 0; j < TryteAlphabetLength; j++) {
-      sum += (normalizedBundle[i * TryteAlphabetLength + j] =
-                  IOTA::Type::Trits(std::to_string(bundleHash[i * TryteAlphabetLength + j]))
-                      .toInt<int32_t>());
+      sum +=
+          (normalizedBundle[i * TryteAlphabetLength + j] = IOTA::Type::tritsToInt<int32_t>(
+               IOTA::Type::trytesToTrits(std::to_string(bundleHash[i * TryteAlphabetLength + j]))));
+      ;
     }
 
     if (sum >= 0) {

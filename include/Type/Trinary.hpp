@@ -36,11 +36,27 @@ namespace Type {
 typedef std::vector<int8_t> Trits;
 typedef std::string         Trytes;
 
+bool isValidTryte(const char& tryte);
+
 std::vector<int8_t> tritsToBytes(const Trits& trits);
 Trits               bytesToTrits(const std::vector<int8_t>& bytes);
 
 Trits  trytesToTrits(const Trytes& trytes);
 Trytes tritsToTrytes(const Trits& trits);
+Trytes tritsToTrytes(const Trits& trits, unsigned int length);
+
+Type::Trits intToTrits(const int& value);
+template <typename T>
+T
+tritsToInt(const Trits& trits) {
+  T res = 0;
+
+  for (std::size_t i = trits.size() - 1; i-- > 0;) {
+    res = res * 3 + trits[i];
+  }
+
+  return res;
+}
 
 }  // namespace Type
 

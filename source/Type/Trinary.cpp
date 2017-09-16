@@ -39,6 +39,11 @@ static std::vector<std::vector<int8_t>> trytesTrits = {
   { 0, -1, 0 }, { 1, -1, 0 }, { -1, 0, 0 }
 };
 
+bool
+isValidTryte(const char& tryte) {
+  return TryteAlphabet.find(tryte) != std::string::npos;
+}
+
 std::vector<int8_t>
 tritsToBytes(const Trits& trits) {
   Crypto::BigInt decimal;
@@ -67,8 +72,13 @@ trytesToTrits(const Trytes& trytes) {
 
 Trytes
 tritsToTrytes(const Trits& trits) {
+  return tritsToTrytes(trits, trits.size());
+}
+
+Trytes
+tritsToTrytes(const Trits& trits, unsigned int length) {
   Trytes trytes;
-  for (unsigned int i = 0; i < trits.size(); i += 3) {
+  for (unsigned int i = 0; i < length; i += 3) {
     for (unsigned int j = 0; j < TryteAlphabet.size(); j++) {
       if (trytesTrits[j][0] == trits[i] && trytesTrits[j][1] == trits[i + 1] &&
           trytesTrits[j][2] == trits[i + 2]) {
@@ -80,6 +90,28 @@ tritsToTrytes(const Trits& trits) {
   return trytes;
 }
 
+Type::Trits
+intToTrits(const int& value) {
+  Type::Trits  trits;
+  unsigned int absoluteValue = std::abs(value);
+
+  while (absoluteValue > 0) {
+    int8_t remainder = absoluteValue % 3;
+    absoluteValue    = absoluteValue / 3;
+
+    if (remainder > 1) {
+      remainder = -1;
+      absoluteValue++;
+    }
+
+    trits.push_back(remainder);
+  }
+  if (value < 0) {
+    std::transform(std::begin(trits), std::end(trits), std::begin(trits), std::negate<int>());
+  }
+  return trits;
+}
+
 // TODO still useful ?
 
 //
@@ -88,28 +120,6 @@ tritsToTrytes(const Trits& trits) {
 //     throw std::exception();
 // }
 //
-// Trits::Trits(const int& value) {
-//   unsigned int absoluteValue = std::abs(value);
-//
-//   while (absoluteValue > 0) {
-//     int8_t remainder = absoluteValue % 3;
-//     absoluteValue    = absoluteValue / 3;
-//
-//     if (remainder > 1) {
-//       remainder = -1;
-//       absoluteValue++;
-//     }
-//
-//     values_.push_back(remainder);
-//   }
-//   if (value < 0) {
-//     std::transform(std::begin(this->values_), std::end(this->values_),
-//     std::begin(this->values_),
-//                    std::negate<int>());
-//   }
-// }
-//
-
 // bool
 // Trits::isValid() const {
 //   return std::find_if_not(std::begin(this->values_), std::end(this->values_),
@@ -123,11 +133,6 @@ tritsToTrytes(const Trits& trits) {
 //   return this->values_.size() % 3 == 0;
 // }
 //
-
-// bool
-// Trytes::isValidTryte(const char& tryte) {
-//   return TryteAlphabet.find(tryte) != std::string::npos;
-// }
 //
 // bool
 // Trytes::isValid() const {

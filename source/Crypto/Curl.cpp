@@ -56,9 +56,8 @@ Curl::absorb(const Type::Trits& trits, unsigned int offset, unsigned int length)
     throw Errors::Crypto("Curl::absorb failed: illegal length");
   }
 
-  const auto& rawTrits = trits.values();
   do {
-    arrayCopy(rawTrits, state_, offset, length < TritHashLength ? length : TritHashLength);
+    arrayCopy(trits, state_, offset, length < TritHashLength ? length : TritHashLength);
     transform();
     offset += TritHashLength;
   } while ((length -= TritHashLength) > 0);
@@ -74,9 +73,8 @@ Curl::squeeze(Type::Trits& trits, unsigned int offset, unsigned int length) {
     throw Errors::Crypto("Curl::squeeze failed: illegal length");
   }
 
-  auto& rawTrits = trits.values();
   do {
-    arrayCopy(state_, rawTrits, offset, length < TritHashLength ? length : TritHashLength);
+    arrayCopy(state_, trits, offset, length < TritHashLength ? length : TritHashLength);
     transform();
     offset += TritHashLength;
   } while ((length -= TritHashLength) > 0);
