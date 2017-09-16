@@ -98,8 +98,14 @@ Trits::values() const {
   return this->values_;
 }
 
+std::vector<int8_t>
+Trits::values(unsigned int length) const {
+  return { this->values_.begin(),
+           length < this->values_.size() ? this->values_.begin() + length : this->values_.end() };
+}
+
 std::vector<Trits>
-Trits::chunks(unsigned int length) const {
+Trits::chunks(unsigned int) const {
   std::vector<Trits> chunks;
 
   // size_t len = this->size() / length;
@@ -131,17 +137,6 @@ Trits::canTrytes() const {
   return this->values_.size() % 3 == 0;
 }
 
-int
-Trits::toInt() const {
-  int res = 0;
-  int i   = this->values_.size() - 1;
-
-  while (i >= 0)
-    res = res * 3 + this->values_[i--];
-
-  return res;
-}
-
 // Bigint
 // Trits::toBigInt() const {
 //   Bigint res = 0;
@@ -154,10 +149,10 @@ Trits::toInt() const {
 // }
 
 std::string
-Trits::toTryteString() const {
+Trits::toTryteString(unsigned int length) const {
   std::string trytes;
 
-  for (unsigned int i = 0; i < this->size(); i += 3) {
+  for (unsigned int i = 0; i < length; i += 3) {
     for (unsigned int j = 0; j < TryteAlphabet.size(); j++) {
       if (trytesTrits[j][0] == this->values_[i] && trytesTrits[j][1] == this->values_[i + 1] &&
           trytesTrits[j][2] == this->values_[i + 2]) {
@@ -168,6 +163,11 @@ Trits::toTryteString() const {
   }
 
   return trytes;
+}
+
+std::string
+Trits::toTryteString() const {
+  return toTryteString(this->size());
 }
 
 std::vector<int8_t>

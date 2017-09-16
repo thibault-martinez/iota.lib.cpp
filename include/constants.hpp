@@ -30,3 +30,6 @@ const unsigned int TryteAlphabetLength = 27;
 const unsigned int SeedLength          = 81;
 const unsigned int ByteHashLength      = 48;
 const unsigned int TritHashLength      = 243;
+
+const std::string EmptyHash =
+    "999999999999999999999999999999999999999999999999999999999999999999999999999999999";

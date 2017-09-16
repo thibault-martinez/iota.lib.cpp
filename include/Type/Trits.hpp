@@ -48,6 +48,7 @@ public:
   std::size_t                size() const;
   std::vector<int8_t>&       values();
   const std::vector<int8_t>& values() const;
+  std::vector<int8_t>        values(unsigned int length) const;
   std::vector<Trits>         chunks(unsigned int length) const;
 
 public:
@@ -55,9 +56,20 @@ public:
   bool canTrytes() const;
 
 public:
-  int toInt() const;
+  template <typename T>
+  T toInt() const {
+    T res = 0;
+
+    for (std::size_t i = this->values_.size() - 1; i-- > 0;) {
+      res = res * 3 + this->values_[i];
+    }
+
+    return res;
+  }
+
   // Bigint              toBigInt() const;
   std::string         toTryteString() const;
+  std::string         toTryteString(unsigned int length) const;
   std::vector<int8_t> toBytes() const;
 
   // public:

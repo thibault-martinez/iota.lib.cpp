@@ -26,6 +26,8 @@
 #include <API/Extended.hpp>
 #include <Crypto/Curl.hpp>
 #include <Errors/IllegalState.hpp>
+#include <Model/Bundle.hpp>
+#include <Model/Transaction.hpp>
 #include <Type/Seed.hpp>
 #include <Utils/RandomAddressGenerator.hpp>
 
@@ -141,6 +143,45 @@ Extended::getNewAddress(const std::string&, const int32_t&, const int32_t&, bool
                         bool) {
   //! TODO
   return { {}, 0 };
+}
+
+Bundle
+Extended::traverseBundle(const std::string& trunkTx) {
+  Bundle bundle;
+  return traverseBundle(trunkTx, "", bundle);
+}
+
+Bundle
+Extended::traverseBundle(const std::string& trunkTx, std::string bundleHash, Bundle& bundle) {
+  //! get trytes for transaction
+  getTrytesResponse gtr = getTrytes({ trunkTx });
+  // If fail to get trytes, return error
+  if (gtr.getTrytes().empty()) {
+    throw Errors::IllegalState("Bundle transactions not visible");
+  }
+
+  //! get transaction itself
+  Transaction trx = { gtr.getTrytes()[0] };
+  // If first transaction to search is not a tail, return error
+  if (bundleHash.empty() && trx.getCurrentIndex() != 0) {
+    throw Errors::IllegalState("Invalid tail transaction supplied.");
+  }
+
+  // If no bundle hash, define it
+  if (bundleHash.empty()) {
+    bundleHash = trx.getBundle();
+  }
+
+  // If different bundle hash, return with bundle
+  if (bundleHash != trx.getBundle()) {
+    return bundle;
+  }
+
+  // Add transaction object to bundle
+  bundle.addTransaction(trx);
+
+  // Continue traversing with new trunkTx
+  return traverseBundle(trx.getTrunkTransaction(), bundleHash, bundle);
 }
 
 void
