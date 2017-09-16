@@ -90,8 +90,33 @@ Signing::key(const std::string& seed, const unsigned int& index, const unsigned 
 //   return buffer;
 // }
 
-std::vector<int>
-Signing::digests(const std::vector<int>& key) {
+Type::Trits
+Signing::digests(const Type::Trits& key) {
+  auto        numKeys = key.size() / (TritHashLength * FragmentLength);
+  Type::Trits digests;
+
+  for (unsigned int i = 0; i < numKeys; ++i) {
+    Type::Trits keyFragment(&key[i * TritHashLength * FragmentLength],
+                            &key[(i + 1) * TritHashLength * FragmentLength]);
+    for (unsigned int j = 0; j < FragmentLength; ++j) {
+      Type::Trits buffer(&keyFragment[j * TritHashLength], &keyFragment[(j + 1) * TritHashLength]);
+      for (unsigned int k = 0; k < FragmentLength - 1; ++k) {
+        this->kerl_.reset();
+        this->kerl_.absorb(buffer);
+        this->kerl_.squeeze(buffer);
+      }
+      // TODO optimize
+      for (unsigned int k = 0; k < 243; ++k) {
+        keyFragment[j * 243 + k] = buffer[k];
+      }
+    }
+    this->kerl_.reset();
+    this->kerl_.absorb(keyFragment);
+    Type::Trits buffer(TritHashLength);
+    this->kerl_.squeeze(buffer);
+    digests.insert(std::end(digests), std::begin(buffer), std::end(buffer));
+  }
+  return digests;
 }
 
 Type::Trits

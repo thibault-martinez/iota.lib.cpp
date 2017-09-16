@@ -65,3 +65,19 @@ TEST(SigningTest, Address) {
     EXPECT_EQ(address, IOTA::Type::tritsToTrytes(addressTrits));
   }
 }
+
+TEST(SigningTest, Digests) {
+  std::ifstream file("/root/iota.lib.cpp/test/files/signingDigests");
+  std::string   line;
+  ASSERT_TRUE(file.is_open());
+  std::getline(file, line);
+  IOTA::Crypto::Signing s;
+  while (std::getline(file, line)) {
+    auto              semicolon    = line.find(';');
+    auto              key          = line.substr(0, semicolon);
+    auto              digests      = line.substr(semicolon + 1);
+    IOTA::Type::Trits keyTrits     = IOTA::Type::trytesToTrits(key);
+    IOTA::Type::Trits digestsTrits = s.digests(keyTrits);
+    EXPECT_EQ(digests, IOTA::Type::tritsToTrytes(digestsTrits));
+  }
+}

@@ -43,7 +43,7 @@ public:
                        const unsigned int& security = 1);
   std::vector<int> digest(const std::vector<int>& normalizedBundleFragment,
                           const std::vector<int>& signatureFragment);
-  std::vector<int> digests(const std::vector<int>& key);
+  Type::Trits      digests(const Type::Trits& key);
   Type::Trits      address(const Type::Trits& digests);
   std::vector<int> signatureFragment(const std::vector<int>& normalizedBundleFragment,
                                      const std::vector<int>& keyFragment);
