@@ -25,7 +25,7 @@
 
 #include <Crypto/SpongeFactory.hpp>
 #include <Model/Transaction.hpp>
-#include <Type/Trits.hpp>
+#include <Type/Trinary.hpp>
 #include <constants.hpp>
 
 const std::pair<int, int> Transaction::SignatureFragmentsOffset = { 0, 2187 };
@@ -210,10 +210,13 @@ Transaction::operator!=(Transaction rhs) const {
 
 std::string
 Transaction::toTrytes() const {
-  auto value        = IOTA::Type::Trits(getValue()).toTryteString(SeedLength);
-  auto timestamp    = IOTA::Type::Trits(getTimestamp()).toTryteString(TryteAlphabetLength);
-  auto currentIndex = IOTA::Type::Trits(getCurrentIndex()).toTryteString(TryteAlphabetLength);
-  auto lastIndex    = IOTA::Type::Trits(getLastIndex()).toTryteString(TryteAlphabetLength);
+  auto value = IOTA::Type::tritsToTrytes(IOTA::Type::intToTrits(getValue()), SeedLength);
+  auto timestamp =
+      IOTA::Type::tritsToTrytes(IOTA::Type::intToTrits(getTimestamp()), TryteAlphabetLength);
+  auto currentIndex =
+      IOTA::Type::tritsToTrytes(IOTA::Type::intToTrits(getCurrentIndex()), TryteAlphabetLength);
+  auto lastIndex =
+      IOTA::Type::tritsToTrytes(IOTA::Type::intToTrits(getLastIndex()), TryteAlphabetLength);
 
   return getSignatureFragments() + getAddress() + value + getTag() + timestamp + currentIndex +
          lastIndex + getBundle() + getTrunkTransaction() + getBranchTransaction() + getNonce();
@@ -235,9 +238,8 @@ Transaction::initFromTrytes(const std::string& trytes) {
     }
   }
 
-  auto transactionTrits    = IOTA::Type::Trits(trytes);
-  auto transactionTritsRaw = transactionTrits.values();
-  auto hash                = IOTA::Type::Trits(std::vector<int8_t>(TritHashLength));
+  auto transactionTrits = IOTA::Type::trytesToTrits(trytes);
+  auto hash             = IOTA::Type::Trits(TritHashLength);
 
   // generate the correct transaction hash
   auto curl = IOTA::Crypto::create(IOTA::Crypto::Type::CURL);
@@ -245,34 +247,30 @@ Transaction::initFromTrytes(const std::string& trytes) {
   curl->squeeze(hash);
 
   //! Hash
-  setHash(hash.toTryteString());
+  setHash(IOTA::Type::tritsToTrytes(hash));
   //! Signature
   setSignatureFragments(
       trytes.substr(SignatureFragmentsOffset.first, SignatureFragmentsOffset.second));
   //! Address
   setAddress(trytes.substr(AddressOffset.first, AddressOffset.second));
   //! Value
-  setValue(
-      IOTA::Type::Trits(std::vector<int8_t>{ transactionTritsRaw.begin() + ValueOffset.first,
-                                             transactionTritsRaw.begin() + ValueOffset.second })
-          .toInt<int64_t>());
+  setValue(IOTA::Type::tritsToInt<int64_t>(
+      IOTA::Type::Trits(std::vector<int8_t>{ std::begin(transactionTrits) + ValueOffset.first,
+                                             std::begin(transactionTrits) + ValueOffset.second })));
   //! Tag
   setTag(trytes.substr(TagOffset.first, TagOffset.second));
   //! Timestamp
-  setTimestamp(
-      IOTA::Type::Trits(std::vector<int8_t>{ transactionTritsRaw.begin() + TimestampOffset.first,
-                                             transactionTritsRaw.begin() + TimestampOffset.second })
-          .toInt<int64_t>());
+  setTimestamp(IOTA::Type::tritsToInt<int64_t>(IOTA::Type::Trits(
+      std::vector<int8_t>{ std::begin(transactionTrits) + TimestampOffset.first,
+                           std::begin(transactionTrits) + TimestampOffset.second })));
   //! Current Index
-  setCurrentIndex(IOTA::Type::Trits(std::vector<int8_t>{
-                                        transactionTritsRaw.begin() + CurrentIndexOffset.first,
-                                        transactionTritsRaw.begin() + CurrentIndexOffset.second })
-                      .toInt<int64_t>());
+  setCurrentIndex(IOTA::Type::tritsToInt<int64_t>(IOTA::Type::Trits(
+      std::vector<int8_t>{ std::begin(transactionTrits) + CurrentIndexOffset.first,
+                           std::begin(transactionTrits) + CurrentIndexOffset.second })));
   //! Last Index
-  setLastIndex(
-      IOTA::Type::Trits(std::vector<int8_t>{ transactionTritsRaw.begin() + LastIndexOffset.first,
-                                             transactionTritsRaw.begin() + LastIndexOffset.second })
-          .toInt<int64_t>());
+  setLastIndex(IOTA::Type::tritsToInt<int64_t>(IOTA::Type::Trits(
+      std::vector<int8_t>{ std::begin(transactionTrits) + LastIndexOffset.first,
+                           std::begin(transactionTrits) + LastIndexOffset.second })));
   //! Bundle
   setBundle(trytes.substr(BundleOffset.first, BundleOffset.second));
   //! Trunk Transaction

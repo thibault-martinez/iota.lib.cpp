@@ -25,10 +25,11 @@
 
 #pragma once
 
+#include <algorithm>
 #include <vector>
 
 #include <Crypto/ISponge.hpp>
-#include <Type/Trits.hpp>
+#include <Type/Trinary.hpp>
 #include <constants.hpp>
 
 namespace IOTA {

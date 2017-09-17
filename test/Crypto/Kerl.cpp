@@ -30,7 +30,7 @@
 
 TEST(KerlTest, Exceptions) {
   IOTA::Crypto::Kerl k;
-  IOTA::Type::Trits  trits(
+  IOTA::Type::Trits  trits = IOTA::Type::trytesToTrits(
       "GYOMKVTSNHVJNCNFBBAH9AAMXLPLLLROQY99QN9DLSJUHDPBLCFFAIQXZA9BKMBJCYSFHFPXAHDWZFEIZ");
   EXPECT_NO_THROW(k.absorb(trits));
   EXPECT_THROW(k.absorb(trits, 0, 42), IOTA::Errors::Crypto);
@@ -48,10 +48,10 @@ TEST(KerlTest, TrytesAndHashes) {
     auto              semicolon = line.find(';');
     auto              trytes    = line.substr(0, semicolon);
     auto              hash      = line.substr(semicolon + 1);
-    IOTA::Type::Trits trits(trytes);
+    IOTA::Type::Trits trits     = IOTA::Type::trytesToTrits(trytes);
     k.absorb(trits);
     k.squeeze(trits);
-    EXPECT_EQ(hash, trits.toTryteString());
+    EXPECT_EQ(hash, IOTA::Type::tritsToTrytes(trits));
     k.reset();
   }
 }
@@ -66,10 +66,10 @@ TEST(KerlTest, MultiTrytesAndHash) {
     auto              semicolon = line.find(';');
     auto              trytes    = line.substr(0, semicolon);
     auto              hash      = line.substr(semicolon + 1);
-    IOTA::Type::Trits trits(trytes);
+    IOTA::Type::Trits trits     = IOTA::Type::trytesToTrits(trytes);
     k.absorb(trits);
     k.squeeze(trits);
-    EXPECT_EQ(hash, trits.toTryteString());
+    EXPECT_EQ(hash, IOTA::Type::tritsToTrytes(trits));
     k.reset();
   }
 }
@@ -81,26 +81,26 @@ TEST(KerlTest, TrytesAndMultiSqueeze) {
   std::getline(file, line);
   IOTA::Crypto::Kerl k;
   while (std::getline(file, line)) {
-    auto semicolon = line.find(';');
-    auto trytes    = line.substr(0, semicolon);
-    auto rest      = line.substr(semicolon + 1);
-    semicolon      = rest.find(';');
-    auto hash1     = rest.substr(0, semicolon);
-    rest           = rest.substr(semicolon + 1);
-    semicolon      = rest.find(';');
-    auto hash2     = rest.substr(0, semicolon);
-    rest           = rest.substr(semicolon + 1);
-    semicolon      = rest.find(';');
-    auto hash3     = rest.substr(0, semicolon);
-    rest           = rest.substr(semicolon + 1);
-    IOTA::Type::Trits trits(trytes);
+    auto semicolon          = line.find(';');
+    auto trytes             = line.substr(0, semicolon);
+    auto rest               = line.substr(semicolon + 1);
+    semicolon               = rest.find(';');
+    auto hash1              = rest.substr(0, semicolon);
+    rest                    = rest.substr(semicolon + 1);
+    semicolon               = rest.find(';');
+    auto hash2              = rest.substr(0, semicolon);
+    rest                    = rest.substr(semicolon + 1);
+    semicolon               = rest.find(';');
+    auto hash3              = rest.substr(0, semicolon);
+    rest                    = rest.substr(semicolon + 1);
+    IOTA::Type::Trits trits = IOTA::Type::trytesToTrits(trytes);
     k.absorb(trits);
     k.squeeze(trits);
-    EXPECT_EQ(hash1, trits.toTryteString());
+    EXPECT_EQ(hash1, IOTA::Type::tritsToTrytes(trits));
     k.squeeze(trits);
-    EXPECT_EQ(hash2, trits.toTryteString());
+    EXPECT_EQ(hash2, IOTA::Type::tritsToTrytes(trits));
     k.squeeze(trits);
-    EXPECT_EQ(hash3, trits.toTryteString());
+    EXPECT_EQ(hash3, IOTA::Type::tritsToTrytes(trits));
     k.reset();
   }
 }

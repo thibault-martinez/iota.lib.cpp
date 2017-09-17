@@ -10,8 +10,8 @@
 // copies of the Software, and to permit persons to whom the Software is
 // furnished to do so, subject to the following conditions:
 //
-// The above copyright notice and this permission notice shall be included in all
-// copies or substantial portions of the Software.
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
 //
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -23,34 +23,39 @@
 //
 //
 
-// TODO cast operators
-
 #pragma once
 
+#include <Crypto/Kerl.hpp>
 #include <iostream>
+#include <vector>
 
 namespace IOTA {
 
-namespace Type {
+namespace Crypto {
 
-class Trytes {
+class Signing {
 public:
-  explicit Trytes(const std::string& content);
-  virtual ~Trytes();
-
-public:
-  static bool isValidTryte(const char& tryte);
+  Signing();
+  virtual ~Signing();
 
 public:
-  bool               isValid() const;
-  const std::string& string() const;
+  Type::Trits key(const Type::Trytes& seed, const unsigned int& index = 0,
+                  const unsigned int& security = 1);
+  Type::Trits digest(const std::vector<int8_t>& normalizedBundleFragment,
+                     const Type::Trits&         signatureFragment);
+  Type::Trits digests(const Type::Trits& key);
+  Type::Trits address(const Type::Trits& digests);
+  Type::Trits signatureFragment(const std::vector<int8_t>& normalizedBundleFragment,
+                                const Type::Trits&         keyFragment);
+  bool        validateSignatures(const Type::Trytes&              expectedAddress,
+                                 const std::vector<Type::Trytes>& signatureFragments,
+                                 const Type::Trytes&              bundleHash);
 
 private:
-  std::string values_;
+  // TODO Sponge
+  Kerl kerl_;
 };
 
-std::ostream& operator<<(std::ostream&, const Trytes& trytes);
-
-}  // namespace Type
+}  // namespace Crypto
 
 }  // namespace IOTA

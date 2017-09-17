@@ -23,9 +23,9 @@
 //
 //
 
-#include <Crypto/BigInt.hpp>
 #include <Crypto/Kerl.hpp>
 #include <Errors/Crypto.hpp>
+#include <algorithm>
 #include <constants.hpp>
 
 namespace IOTA {
@@ -49,15 +49,13 @@ Kerl::absorb(const Type::Trits& trits, unsigned int offset, unsigned int length)
     length = trits.size();
   if (length % TritHashLength != 0)
     throw Errors::Crypto("Kerl::absorb failed : illegal length");
-  auto& tritsValues = trits.values();
   while (offset < length) {
     auto                end = std::min(offset + TritHashLength, length);
-    std::vector<int8_t> tritsValuesChunk(&tritsValues[offset], &tritsValues[end]);
+    std::vector<int8_t> tritsChunk(&trits[offset], &trits[end]);
 
-    tritsValuesChunk.back() = 0;
-    Type::Trits tritsChunk(tritsValuesChunk);
-    BigInt      decimalChunk(tritsChunk);
-    auto        bytesChunk = decimalChunk.toBytes();
+    tritsChunk.back() = 0;
+    auto bytesChunk   = Type::tritsToBytes(tritsChunk);
+
     this->keccak_.update(bytesChunk);
     offset += TritHashLength;
   }
@@ -70,11 +68,10 @@ Kerl::squeeze(Type::Trits& trits, unsigned int offset, unsigned int length) {
   if (length % TritHashLength != 0)
     throw Errors::Crypto("Kerl::squeeze failed : illegal length");
   while (offset < length) {
-    auto   bytes = this->keccak_.squeeze();
-    BigInt decimal(bytes);
+    auto bytes = this->keccak_.squeeze();
+    trits      = Type::bytesToTrits(bytes);
 
-    trits                              = decimal.toTrits();
-    trits.values()[TritHashLength - 1] = 0;
+    trits[TritHashLength - 1] = 0;
     std::transform(bytes.begin(), bytes.end(), bytes.begin(),
                    [](const int8_t& byte) { return byte ^ 0xFF; });
     this->keccak_.reset();

@@ -24,7 +24,7 @@
 //
 
 #include <Type/Seed.hpp>
-#include <Type/Trytes.hpp>
+#include <Type/Trinary.hpp>
 
 namespace IOTA {
 
@@ -44,7 +44,7 @@ Seed::getRawSeed() const {
 bool
 Seed::isValidSeed(const std::string& seed) {
   for (const auto& c : seed) {
-    if (!Trytes::isValidTryte(c)) {
+    if (!IOTA::Type::isValidTryte(c)) {
       return false;
     }
   }

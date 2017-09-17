@@ -27,6 +27,7 @@
 
 const std::string  TryteAlphabet       = "9ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 const unsigned int TryteAlphabetLength = 27;
+const unsigned int FragmentLength      = 27;
 const unsigned int SeedLength          = 81;
 const unsigned int ByteHashLength      = 48;
 const unsigned int TritHashLength      = 243;

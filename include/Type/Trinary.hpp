@@ -28,61 +28,35 @@
 #include <cstdint>
 #include <iostream>
 #include <vector>
-// #include "bigint.h"
-
-// using namespace Dodecahedron;
 
 namespace IOTA {
+
 namespace Type {
 
-// class Trytes;
+typedef std::vector<int8_t> Trits;
+typedef std::string         Trytes;
 
-class Trits {
-public:
-  explicit Trits(const std::vector<int8_t>& values);
-  explicit Trits(const int& value);
-  explicit Trits(const std::string& trytes);
-  virtual ~Trits();
+bool isValidTryte(const char& tryte);
 
-public:
-  std::size_t                size() const;
-  std::vector<int8_t>&       values();
-  const std::vector<int8_t>& values() const;
-  std::vector<int8_t>        values(unsigned int length) const;
-  std::vector<Trits>         chunks(unsigned int length) const;
+std::vector<int8_t> tritsToBytes(const Trits& trits);
+Trits               bytesToTrits(const std::vector<int8_t>& bytes);
 
-public:
-  bool isValid() const;
-  bool canTrytes() const;
+Trits  trytesToTrits(const Trytes& trytes);
+Trytes tritsToTrytes(const Trits& trits);
+Trytes tritsToTrytes(const Trits& trits, unsigned int length);
 
-public:
-  template <typename T>
-  T toInt() const {
-    T res = 0;
+Type::Trits intToTrits(const int& value);
+template <typename T>
+T
+tritsToInt(const Trits& trits) {
+  T res = 0;
 
-    for (std::size_t i = this->values_.size() - 1; i-- > 0;) {
-      res = res * 3 + this->values_[i];
-    }
-
-    return res;
+  for (int i = trits.size() - 1; i >= 0; --i) {
+    res = res * 3 + trits[i];
   }
 
-  // Bigint              toBigInt() const;
-  std::string         toTryteString() const;
-  std::string         toTryteString(unsigned int length) const;
-  std::vector<int8_t> toBytes() const;
-
-  // public:
-  //   const int8_t& operator[](const int& i) const;
-  //   int8_t&       operator[](const int& i);
-
-private:
-  std::vector<int8_t> values_;
-};
-
-bool operator==(const Trits& lhs, const Trits& rhs);
-bool operator!=(const Trits& lhs, const Trits& rhs);
-// Trytes tritsToTrytes(const Trits& trits);
+  return res;
+}
 
 }  // namespace Type
 
