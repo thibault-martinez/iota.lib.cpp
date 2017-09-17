@@ -95,7 +95,7 @@ public:
    * generated (until findTransactions returns null).
    * @return An array of strings with the specifed number of addresses.
    */
-  getNewAddressesResponse getNewAddresses(const std::string& seed, const int32_t& index = 0,
+  getNewAddressesResponse getNewAddresses(const std::string& seed, const uint32_t& index = 0,
                                           const int32_t& security = 2, bool checksum = false,
                                           const int32_t& total = 0, bool returnAll = false);
 

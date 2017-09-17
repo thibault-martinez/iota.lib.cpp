@@ -31,7 +31,6 @@
 #include <Model/Bundle.hpp>
 #include <Model/Transaction.hpp>
 #include <Type/Seed.hpp>
-#include <Utils/RandomAddressGenerator.hpp>
 
 namespace IOTA {
 
@@ -68,17 +67,18 @@ Extended::getInputs(const std::string& seed, const int32_t& security, const int3
     throw Errors::IllegalState("Invalid inputs provided");
   }
 
+  // TODO Case 1 and 2 : can't we just delegate that to getNewAddresses
+  // TODO Seems to do the same thing.
+
   //  Case 1: start and end
   //
   //  If start and end is defined by the user, simply iterate through the keys
   //  and call getBalances
   if (end != 0) {
-    std::vector<std::string>      allAddresses;
-    Utils::RandomAddressGenerator addressGenerator;
+    std::vector<std::string> allAddresses;
 
     for (int i = start; i < end; ++i) {
-      allAddresses.push_back(
-          addressGenerator(seed, security, i, false, Crypto::create(cryptoType_)));
+      allAddresses.push_back(this->newAddress(seed, i, security, false));
     }
 
     return getBalancesAndFormat(allAddresses, threshold, start, stopWatch, security);
@@ -145,7 +145,7 @@ Extended::getBalancesAndFormat(const std::vector<std::string>& addresses, const 
 }
 
 getNewAddressesResponse
-Extended::getNewAddresses(const Type::Trytes& seed, const int32_t& index, const int32_t& security,
+Extended::getNewAddresses(const Type::Trytes& seed, const uint32_t& index, const int32_t& security,
                           bool checksum, const int32_t& total, bool returnAll) {
   Utils::StopWatch stopWatch;
 
@@ -159,17 +159,12 @@ Extended::getNewAddresses(const Type::Trytes& seed, const int32_t& index, const 
     throw Errors::IllegalState("Invalid Security Level");
   }
 
-  // Validate the index
-  if (index < 0) {
-    throw Errors::IllegalState("Invalid index");
-  }
-
   std::vector<Type::Trytes> allAddresses;
 
   // Case 1 : total number of addresses to generate is supplied.
   // Simply generate and return the list of all addresses.
   if (total) {
-    for (int32_t i = index; i < index + total; ++i) {
+    for (uint32_t i = index; i < index + total; ++i) {
       allAddresses.push_back(this->newAddress(seed, i, security, checksum));
     }
   }
@@ -295,6 +290,7 @@ Type::Trytes
 Extended::newAddress(const Type::Trytes& seed, const int32_t& index, const int32_t& security,
                      bool checksum) {
   // TODO custom sponge
+  // Crypto::create(cryptoType_)
   Crypto::Signing s;
 
   auto key          = s.key(seed, index, security);
