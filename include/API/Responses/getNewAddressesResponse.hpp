@@ -23,15 +23,27 @@
 //
 //
 
-#include <iostream>
+#pragma once
 
-const std::string  TryteAlphabet       = "9ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-const unsigned int ChecksumLength      = 9;
-const unsigned int TryteAlphabetLength = 27;
-const unsigned int FragmentLength      = 27;
-const unsigned int SeedLength          = 81;
-const unsigned int ByteHashLength      = 48;
-const unsigned int TritHashLength      = 243;
+#include <json.hpp>
 
-const std::string EmptyHash =
-    "999999999999999999999999999999999999999999999999999999999999999999999999999999999";
+#include <API/Responses/genericResponse.hpp>
+#include <Type/Trinary.hpp>
+
+using json = nlohmann::json;
+
+class getNewAddressesResponse : public genericResponse {
+public:
+  getNewAddressesResponse(const std::vector<IOTA::Type::Trytes>& addresses,
+                          const int64_t&                         duration);
+  virtual ~getNewAddressesResponse();
+
+public:
+  /**
+   * @return The addresses.
+   */
+  const std::vector<IOTA::Type::Trytes>& getAddresses() const;
+
+private:
+  std::vector<IOTA::Type::Trytes> addresses_;
+};

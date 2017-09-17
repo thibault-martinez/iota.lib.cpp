@@ -30,7 +30,7 @@
 #include <API/Core.hpp>
 #include <API/Responses/getBalancesAndFormatResponse.hpp>
 #include <API/Responses/getBalancesResponse.hpp>
-#include <API/Responses/getNewAddressResponse.hpp>
+#include <API/Responses/getNewAddressesResponse.hpp>
 #include <Crypto/SpongeFactory.hpp>
 #include <Model/Bundle.hpp>
 #include <Utils/StopWatch.hpp>
@@ -47,7 +47,7 @@ namespace API {
 class Extended : public Core {
 public:
   Extended(const std::string& host, const unsigned int& port,
-           Crypto::Type cryptoType = Crypto::Type::KERL);
+           Crypto::SpongeType cryptoType = Crypto::SpongeType::KERL);
   virtual ~Extended();
 
 public:
@@ -95,9 +95,9 @@ public:
    * generated (until findTransactions returns null).
    * @return An array of strings with the specifed number of addresses.
    */
-  getNewAddressResponse getNewAddress(const std::string& seed, const int32_t& security,
-                                      const int32_t& index, bool checksum, const int32_t& total,
-                                      bool returnAll);
+  getNewAddressesResponse getNewAddresses(const std::string& seed, const int32_t& index = 0,
+                                          const int32_t& security = 2, bool checksum = false,
+                                          const int32_t& total = 0, bool returnAll = false);
 
   /**
    * Basically traverse the Bundle by going down the trunkTransactions until
@@ -167,11 +167,34 @@ public:
    */
   void broadcastAndStore();
 
+  findTransactionsResponse findTransactionsByDigests();
+
+  findTransactionsResponse findTransactionsByApprovees();
+
+  findTransactionsResponse findTransactionsByBundles();
+
+  findTransactionsResponse findTransactionsByAddress(const IOTA::Type::Trytes& address);
+
+private:
+  /**
+   * Generates a new address.
+   * It should be noted that the seed is not transferred.
+   *
+   * @param seed      The tryte-encoded seed.
+   * @param index     The index to start search from.
+   * @param security  The security level of private key.
+   * @param checksum  Adds a 9-tryte address checksum.
+   *
+   * @return A new address.
+   */
+  Type::Trytes newAddress(const Type::Trytes& seed, const int32_t& index, const int32_t& security,
+                          bool checksum);
+
 private:
   /**
    * crypto algorithm to be used internally
    */
-  Crypto::Type cryptoType_;
+  Crypto::SpongeType cryptoType_;
 };
 
 }  // namespace API

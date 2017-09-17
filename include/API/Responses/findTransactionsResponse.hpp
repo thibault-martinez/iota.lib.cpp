@@ -28,6 +28,7 @@
 #include <json.hpp>
 
 #include <API/Responses/genericResponse.hpp>
+#include <Type/Trinary.hpp>
 
 using json = nlohmann::json;
 
@@ -51,8 +52,8 @@ public:
   /*
    * The list of transactions.
    */
-  const std::vector<std::string>& getHashes() const;
+  const std::vector<IOTA::Type::Trytes>& getHashes() const;
 
 private:
-  std::vector<std::string> hashes_;
+  std::vector<IOTA::Type::Trytes> hashes_;
 };

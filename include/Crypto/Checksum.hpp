@@ -10,8 +10,8 @@
 // copies of the Software, and to permit persons to whom the Software is
 // furnished to do so, subject to the following conditions:
 //
-// The above copyright notice and this permission notice shall be included in all
-// copies or substantial portions of the Software.
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
 //
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -25,33 +25,29 @@
 
 #pragma once
 
-#include <list>
+#include <Crypto/Kerl.hpp>
 
-#include <json.hpp>
+namespace IOTA {
 
-#include <API/Responses/genericResponse.hpp>
+namespace Crypto {
 
-using json = nlohmann::json;
-
-/*
- * getBalances API call response.
- * Similar to getInclusionStates. It returns the confirmed balance which a list of addresses have at
- * the latest confirmed milestone. In addition to the balances, it also returns the milestone as
- * well as the index with which the confirmed balance was determined. The balances is returned as a
- * list in the same order as the addresses were provided as input.
- * https://iota.readme.io/docs/getbalances
- */
-class getNewAddressResponse : public genericResponse {
+class Checksum {
 public:
-  getNewAddressResponse(const std::vector<std::string>& addresses, const uint64_t& duration);
-  virtual ~getNewAddressResponse();
+  Checksum();
+  virtual ~Checksum();
 
 public:
-  /**
-   * @return The addresses.
-   */
-  const std::vector<std::string>& getAddresses() const;
+  Type::Trytes add(const Type::Trytes& address);
+  Type::Trytes remove(const Type::Trytes& address) const;
 
 private:
-  std::vector<std::string> addresses_;
+  Type::Trytes check(const Type::Trytes& address);
+
+private:
+  // TODO custom sponge ?
+  Kerl kerl_;
 };
+
+}  // namespace Crypto
+
+}  // namespace IOTA

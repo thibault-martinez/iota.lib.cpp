@@ -23,17 +23,17 @@
 //
 //
 
-#include <API/Responses/getNewAddressResponse.hpp>
+#include "API/Responses/getNewAddressesResponse.hpp"
 
-getNewAddressResponse::getNewAddressResponse(const std::vector<std::string>& addresses,
-                                             const uint64_t&                 duration)
+getNewAddressesResponse::getNewAddressesResponse(const std::vector<IOTA::Type::Trytes>& addresses,
+                                                 const int64_t&                         duration)
     : genericResponse(duration), addresses_(addresses) {
 }
 
-getNewAddressResponse::~getNewAddressResponse() {
+getNewAddressesResponse::~getNewAddressesResponse() {
 }
 
-const std::vector<std::string>&
-getNewAddressResponse::getAddresses() const {
+const std::vector<IOTA::Type::Trytes>&
+getNewAddressesResponse::getAddresses() const {
   return this->addresses_;
 }

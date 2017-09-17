@@ -33,12 +33,12 @@ namespace IOTA {
 
 namespace Crypto {
 
-enum class Type { CURL, KERL, BCURLT };
+enum class SpongeType { CURL, KERL, BCURLT };
 
 /**
  * @return share_ptr to an instance matching the passed crypto algorithm type
  */
-std::shared_ptr<ISponge> create(Type t);
+std::shared_ptr<ISponge> create(SpongeType t);
 
 }  // namespace Crypto
 
