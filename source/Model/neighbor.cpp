@@ -23,7 +23,7 @@
 //
 //
 
-#include "neighbor.hpp"
+#include <Model/neighbor.hpp>
 
 Neighbor::Neighbor(const std::string& address, const int64_t& numberOfAllTransactions,
                    const int64_t& numberOfInvalidTransactions,

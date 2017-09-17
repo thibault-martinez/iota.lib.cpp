@@ -23,10 +23,11 @@
 //
 //
 
-#include "RandomSeedGenerator.hpp"
 #include <algorithm>
 #include <random>
-#include "constants.hpp"
+
+#include <Utils/RandomSeedGenerator.hpp>
+#include <constants.hpp>
 
 namespace IOTA {
 

@@ -23,7 +23,7 @@
 //
 //
 
-#include "findTransactionsRequest.hpp"
+#include <API/Requests/findTransactionsRequest.hpp>
 
 namespace IOTA {
 

@@ -23,7 +23,7 @@
 //
 //
 
-#include "genericResponse.hpp"
+#include <API/Responses/genericResponse.hpp>
 
 genericResponse::genericResponse() {
 }

@@ -23,7 +23,7 @@
 //
 //
 
-#include "storeTransactionsResponse.hpp"
+#include <API/Responses/storeTransactionsResponse.hpp>
 
 storeTransactionsResponse::storeTransactionsResponse() {
 }

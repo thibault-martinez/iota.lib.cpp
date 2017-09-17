@@ -26,8 +26,10 @@
 #pragma once
 
 #include <vector>
-#include "genericResponse.hpp"
-#include "json.hpp"
+
+#include <json.hpp>
+
+#include <API/Responses/genericResponse.hpp>
 
 using json = nlohmann::json;
 

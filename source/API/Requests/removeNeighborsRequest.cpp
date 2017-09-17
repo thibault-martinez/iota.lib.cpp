@@ -23,7 +23,7 @@
 //
 //
 
-#include "removeNeighborsRequest.hpp"
+#include <API/Requests/removeNeighborsRequest.hpp>
 
 namespace IOTA {
 

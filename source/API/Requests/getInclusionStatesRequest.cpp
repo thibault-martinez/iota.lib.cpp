@@ -23,7 +23,7 @@
 //
 //
 
-#include "getInclusionStatesRequest.hpp"
+#include <API/Requests/getInclusionStatesRequest.hpp>
 
 namespace IOTA {
 

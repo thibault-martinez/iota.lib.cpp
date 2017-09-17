@@ -23,7 +23,7 @@
 //
 //
 
-#include "attachToTangleResponse.hpp"
+#include <API/Responses/attachToTangleResponse.hpp>
 
 attachToTangleResponse::attachToTangleResponse() {
 }

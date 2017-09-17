@@ -23,9 +23,9 @@
 //
 //
 
-#include "Trinary.hpp"
 #include <Type/BigInt.hpp>
-#include "constants.hpp"
+#include <Type/Trinary.hpp>
+#include <constants.hpp>
 
 namespace IOTA {
 

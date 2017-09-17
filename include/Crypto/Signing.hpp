@@ -25,9 +25,10 @@
 
 #pragma once
 
-#include <Crypto/Kerl.hpp>
 #include <iostream>
 #include <vector>
+
+#include <Crypto/Kerl.hpp>
 
 namespace IOTA {
 

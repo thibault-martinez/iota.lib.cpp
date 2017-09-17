@@ -23,7 +23,7 @@
 //
 //
 
-#include "genericRequest.hpp"
+#include <API/Requests/genericRequest.hpp>
 
 namespace IOTA {
 

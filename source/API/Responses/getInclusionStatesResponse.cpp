@@ -23,7 +23,7 @@
 //
 //
 
-#include "getInclusionStatesResponse.hpp"
+#include <API/Responses/getInclusionStatesResponse.hpp>
 
 getInclusionStatesResponse::getInclusionStatesResponse() {
 }

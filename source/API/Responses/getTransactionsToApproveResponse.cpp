@@ -23,7 +23,7 @@
 //
 //
 
-#include "getTransactionsToApproveResponse.hpp"
+#include <API/Responses/getTransactionsToApproveResponse.hpp>
 
 getTransactionsToApproveResponse::getTransactionsToApproveResponse() {
 }

@@ -23,7 +23,7 @@
 //
 //
 
-#include "getTrytesResponse.hpp"
+#include <API/Responses/getTrytesResponse.hpp>
 
 getTrytesResponse::getTrytesResponse() {
 }

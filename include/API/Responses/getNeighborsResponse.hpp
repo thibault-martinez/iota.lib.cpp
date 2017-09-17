@@ -25,9 +25,10 @@
 
 #pragma once
 
-#include "genericResponse.hpp"
-#include "json.hpp"
-#include "neighbor.hpp"
+#include <json.hpp>
+
+#include <API/Responses/genericResponse.hpp>
+#include <Model/neighbor.hpp>
 
 using json = nlohmann::json;
 

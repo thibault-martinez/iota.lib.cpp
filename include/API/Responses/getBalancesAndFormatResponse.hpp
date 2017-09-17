@@ -25,10 +25,10 @@
 
 #pragma once
 
+#include <json.hpp>
+
 #include <API/Responses/genericResponse.hpp>
 #include <Model/input.hpp>
-
-#include "json.hpp"
 
 using json = nlohmann::json;
 

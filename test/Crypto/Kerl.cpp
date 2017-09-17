@@ -23,10 +23,12 @@
 //
 //
 
+#include <fstream>
+
+#include <gtest/gtest.h>
+
 #include <Crypto/Kerl.hpp>
 #include <Errors/Crypto.hpp>
-#include <fstream>
-#include "gtest/gtest.h"
 
 TEST(KerlTest, Exceptions) {
   IOTA::Crypto::Kerl k;

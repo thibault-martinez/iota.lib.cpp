@@ -23,7 +23,7 @@
 //
 //
 
-#include "addNeighborsRequest.hpp"
+#include <API/Requests/addNeighborsRequest.hpp>
 
 namespace IOTA {
 

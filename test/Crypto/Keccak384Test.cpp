@@ -24,8 +24,10 @@
 //
 
 #include <fstream>
-#include "Keccak384.hpp"
-#include "gtest/gtest.h"
+
+#include <gtest/gtest.h>
+
+#include <Crypto/Keccak384.hpp>
 
 TEST(Keccak384Test, digest) {
   std::ifstream file("/root/iota.lib.cpp/test/files/keccak384");

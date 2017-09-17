@@ -23,7 +23,7 @@
 //
 //
 
-#include "getNodeInfoResponse.hpp"
+#include <API/Responses/getNodeInfoResponse.hpp>
 
 getNodeInfoResponse::getNodeInfoResponse() {
 }

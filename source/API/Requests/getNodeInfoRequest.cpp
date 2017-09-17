@@ -23,7 +23,7 @@
 //
 //
 
-#include "getNodeInfoRequest.hpp"
+#include <API/Requests/getNodeInfoRequest.hpp>
 
 namespace IOTA {
 

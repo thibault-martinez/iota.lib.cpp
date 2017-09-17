@@ -26,7 +26,8 @@
 #pragma once
 
 #include <boost/multiprecision/cpp_int.hpp>
-#include "Trinary.hpp"
+
+#include <Type/Trinary.hpp>
 
 using boost::multiprecision::cpp_int;
 

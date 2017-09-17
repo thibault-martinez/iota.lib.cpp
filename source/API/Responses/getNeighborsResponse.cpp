@@ -23,7 +23,7 @@
 //
 //
 
-#include "getNeighborsResponse.hpp"
+#include <API/Responses/getNeighborsResponse.hpp>
 
 getNeighborsResponse::getNeighborsResponse() {
 }

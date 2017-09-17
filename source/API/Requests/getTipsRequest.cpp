@@ -23,7 +23,7 @@
 //
 //
 
-#include "getTipsRequest.hpp"
+#include <API/Requests/getTipsRequest.hpp>
 
 namespace IOTA {
 

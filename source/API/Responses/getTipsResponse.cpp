@@ -23,7 +23,7 @@
 //
 //
 
-#include "getTipsResponse.hpp"
+#include <API/Responses/getTipsResponse.hpp>
 
 getTipsResponse::getTipsResponse() {
 }

@@ -25,11 +25,11 @@
 
 #pragma once
 
-#include <API/Responses/genericResponse.hpp>
-
 #include <list>
 
-#include "json.hpp"
+#include <json.hpp>
+
+#include <API/Responses/genericResponse.hpp>
 
 using json = nlohmann::json;
 

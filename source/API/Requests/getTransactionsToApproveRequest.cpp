@@ -23,7 +23,7 @@
 //
 //
 
-#include "getTransactionsToApproveRequest.hpp"
+#include <API/Requests/getTransactionsToApproveRequest.hpp>
 
 namespace IOTA {
 

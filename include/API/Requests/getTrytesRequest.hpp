@@ -25,8 +25,9 @@
 
 #pragma once
 
-#include "genericRequest.hpp"
-#include "json.hpp"
+#include <json.hpp>
+
+#include <API/Requests/genericRequest.hpp>
 
 using json = nlohmann::json;
 

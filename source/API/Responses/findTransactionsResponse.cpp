@@ -23,7 +23,7 @@
 //
 //
 
-#include "findTransactionsResponse.hpp"
+#include <API/Responses/findTransactionsResponse.hpp>
 
 findTransactionsResponse::findTransactionsResponse() {
 }

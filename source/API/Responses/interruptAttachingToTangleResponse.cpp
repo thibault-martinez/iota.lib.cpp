@@ -23,7 +23,7 @@
 //
 //
 
-#include "interruptAttachingToTangleResponse.hpp"
+#include <API/Responses/interruptAttachingToTangleResponse.hpp>
 
 interruptAttachingToTangleResponse::interruptAttachingToTangleResponse() {
 }

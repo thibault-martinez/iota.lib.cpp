@@ -23,7 +23,7 @@
 //
 //
 
-#include "broadcastTransactionsResponse.hpp"
+#include <API/Responses/broadcastTransactionsResponse.hpp>
 
 broadcastTransactionsResponse::broadcastTransactionsResponse() {
 }

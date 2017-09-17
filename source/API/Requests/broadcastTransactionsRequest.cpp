@@ -23,7 +23,7 @@
 //
 //
 
-#include "broadcastTransactionsRequest.hpp"
+#include <API/Requests/broadcastTransactionsRequest.hpp>
 
 namespace IOTA {
 

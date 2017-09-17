@@ -23,25 +23,23 @@
 //
 //
 
-// TODO are the method const ?
-
 #pragma once
 
-#include "Service.hpp"
-#include "addNeighborsResponse.hpp"
-#include "attachToTangleResponse.hpp"
-#include "broadcastTransactionsResponse.hpp"
-#include "findTransactionsResponse.hpp"
-#include "getBalancesResponse.hpp"
-#include "getInclusionStatesResponse.hpp"
-#include "getNeighborsResponse.hpp"
-#include "getNodeInfoResponse.hpp"
-#include "getTipsResponse.hpp"
-#include "getTransactionsToApproveResponse.hpp"
-#include "getTrytesResponse.hpp"
-#include "interruptAttachingToTangleResponse.hpp"
-#include "removeNeighborsResponse.hpp"
-#include "storeTransactionsResponse.hpp"
+#include <API/Responses/addNeighborsResponse.hpp>
+#include <API/Responses/attachToTangleResponse.hpp>
+#include <API/Responses/broadcastTransactionsResponse.hpp>
+#include <API/Responses/findTransactionsResponse.hpp>
+#include <API/Responses/getBalancesResponse.hpp>
+#include <API/Responses/getInclusionStatesResponse.hpp>
+#include <API/Responses/getNeighborsResponse.hpp>
+#include <API/Responses/getNodeInfoResponse.hpp>
+#include <API/Responses/getTipsResponse.hpp>
+#include <API/Responses/getTransactionsToApproveResponse.hpp>
+#include <API/Responses/getTrytesResponse.hpp>
+#include <API/Responses/interruptAttachingToTangleResponse.hpp>
+#include <API/Responses/removeNeighborsResponse.hpp>
+#include <API/Responses/storeTransactionsResponse.hpp>
+#include <API/Service.hpp>
 
 namespace IOTA {
 

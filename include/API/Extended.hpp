@@ -23,19 +23,17 @@
 //
 //
 
-// TODO const methods ?
-
 #pragma once
 
+#include <list>
+
+#include <API/Core.hpp>
 #include <API/Responses/getBalancesAndFormatResponse.hpp>
 #include <API/Responses/getBalancesResponse.hpp>
 #include <API/Responses/getNewAddressResponse.hpp>
-#include <Core.hpp>
 #include <Crypto/SpongeFactory.hpp>
 #include <Model/Bundle.hpp>
 #include <Utils/StopWatch.hpp>
-
-#include <list>
 
 namespace IOTA {
 

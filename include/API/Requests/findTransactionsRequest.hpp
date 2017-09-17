@@ -27,8 +27,9 @@
 
 // TODO 4 ctors after having defined string types (Bundle, Address...)
 
-#include "genericRequest.hpp"
-#include "json.hpp"
+#include <json.hpp>
+
+#include <API/Requests/genericRequest.hpp>
 
 using json = nlohmann::json;
 

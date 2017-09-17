@@ -26,7 +26,8 @@
 #pragma once
 
 #include <iostream>
-#include "json.hpp"
+
+#include <json.hpp>
 
 using json = nlohmann::json;
 

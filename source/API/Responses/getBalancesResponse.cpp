@@ -23,7 +23,7 @@
 //
 //
 
-#include "getBalancesResponse.hpp"
+#include <API/Responses/getBalancesResponse.hpp>
 
 getBalancesResponse::getBalancesResponse() {
 }

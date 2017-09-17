@@ -23,7 +23,7 @@
 //
 //
 
-#include "getBalancesRequest.hpp"
+#include <API/Requests/getBalancesRequest.hpp>
 
 namespace IOTA {
 

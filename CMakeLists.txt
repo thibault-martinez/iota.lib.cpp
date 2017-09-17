@@ -60,18 +60,7 @@ configure_file(cmake/version.hpp.in
 
 file(GLOB_RECURSE PROJECT_SOURCE_FILES ${PROJECT_SOURCE_DIR}/*.cpp)
 
-include_directories("${PROJECT_INCLUDE_DIR}"
-                    "${PROJECT_INCLUDE_DIR}/API"
-                    "${PROJECT_INCLUDE_DIR}/API/Requests"
-                    "${PROJECT_INCLUDE_DIR}/API/Responses"
-                    "${PROJECT_INCLUDE_DIR}/Crypto"
-                    "${PROJECT_INCLUDE_DIR}/Model"
-                    "${PROJECT_INCLUDE_DIR}/Rest"
-                    "${PROJECT_INCLUDE_DIR}/Type"
-                    "${PROJECT_INCLUDE_DIR}/Utils"
-                    "${PROJECT_INCLUDE_DIR}/Errors"
-                    )
-
+include_directories("${PROJECT_INCLUDE_DIR}")
 include_directories("external/keccak/include")
 include_directories("external/json/src")
 

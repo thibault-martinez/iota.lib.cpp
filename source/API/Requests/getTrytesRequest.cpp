@@ -23,7 +23,7 @@
 //
 //
 
-#include "getTrytesRequest.hpp"
+#include <API/Requests/getTrytesRequest.hpp>
 
 namespace IOTA {
 

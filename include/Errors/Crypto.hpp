@@ -25,7 +25,7 @@
 
 #pragma once
 
-#include "Generic.hpp"
+#include <Errors/Generic.hpp>
 
 namespace IOTA {
 

@@ -23,7 +23,7 @@
 //
 //
 
-#include "removeNeighborsResponse.hpp"
+#include <API/Responses/removeNeighborsResponse.hpp>
 
 removeNeighborsResponse::removeNeighborsResponse() {
 }

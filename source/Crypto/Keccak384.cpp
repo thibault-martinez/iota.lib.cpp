@@ -23,10 +23,11 @@
 //
 //
 
-#include "Keccak384.hpp"
 #include <iomanip>
 #include <sstream>
-#include "Crypto.hpp"
+
+#include <Crypto/Keccak384.hpp>
+#include <Errors/Crypto.hpp>
 
 namespace IOTA {
 

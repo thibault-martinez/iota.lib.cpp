@@ -23,7 +23,7 @@
 //
 //
 
-#include "attachToTangleRequest.hpp"
+#include <API/Requests/attachToTangleRequest.hpp>
 
 namespace IOTA {
 

@@ -23,10 +23,12 @@
 //
 //
 
+#include <fstream>
+
+#include <gtest/gtest.h>
+
 #include <Crypto/Signing.hpp>
 #include <Model/Bundle.hpp>
-#include <fstream>
-#include "gtest/gtest.h"
 
 TEST(SigningTest, Key) {
   std::ifstream file("/root/iota.lib.cpp/test/files/signingKey");

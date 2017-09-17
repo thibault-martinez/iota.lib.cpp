@@ -23,7 +23,7 @@
 //
 //
 
-#include "BigInt.hpp"
+#include <Type/BigInt.hpp>
 #include <constants.hpp>
 
 namespace IOTA {

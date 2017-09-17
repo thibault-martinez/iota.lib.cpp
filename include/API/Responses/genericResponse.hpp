@@ -26,7 +26,8 @@
 #pragma once
 
 #include <cstdint>
-#include "json.hpp"
+
+#include <json.hpp>
 
 using json = nlohmann::json;
 

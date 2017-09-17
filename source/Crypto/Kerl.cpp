@@ -23,9 +23,10 @@
 //
 //
 
+#include <algorithm>
+
 #include <Crypto/Kerl.hpp>
 #include <Errors/Crypto.hpp>
-#include <algorithm>
 #include <constants.hpp>
 
 namespace IOTA {

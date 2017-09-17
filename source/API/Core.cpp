@@ -23,21 +23,21 @@
 //
 //
 
-#include "Core.hpp"
-#include "addNeighborsRequest.hpp"
-#include "attachToTangleRequest.hpp"
-#include "broadcastTransactionsRequest.hpp"
-#include "findTransactionsRequest.hpp"
-#include "getBalancesRequest.hpp"
-#include "getInclusionStatesRequest.hpp"
-#include "getNeighborsRequest.hpp"
-#include "getNodeInfoRequest.hpp"
-#include "getTipsRequest.hpp"
-#include "getTransactionsToApproveRequest.hpp"
-#include "getTrytesRequest.hpp"
-#include "interruptAttachingToTangleRequest.hpp"
-#include "removeNeighborsRequest.hpp"
-#include "storeTransactionsRequest.hpp"
+#include <API/Core.hpp>
+#include <API/Requests/addNeighborsRequest.hpp>
+#include <API/Requests/attachToTangleRequest.hpp>
+#include <API/Requests/broadcastTransactionsRequest.hpp>
+#include <API/Requests/findTransactionsRequest.hpp>
+#include <API/Requests/getBalancesRequest.hpp>
+#include <API/Requests/getInclusionStatesRequest.hpp>
+#include <API/Requests/getNeighborsRequest.hpp>
+#include <API/Requests/getNodeInfoRequest.hpp>
+#include <API/Requests/getTipsRequest.hpp>
+#include <API/Requests/getTransactionsToApproveRequest.hpp>
+#include <API/Requests/getTrytesRequest.hpp>
+#include <API/Requests/interruptAttachingToTangleRequest.hpp>
+#include <API/Requests/removeNeighborsRequest.hpp>
+#include <API/Requests/storeTransactionsRequest.hpp>
 
 namespace IOTA {
 

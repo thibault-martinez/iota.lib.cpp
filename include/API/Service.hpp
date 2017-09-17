@@ -26,8 +26,9 @@
 #pragma once
 
 #include <iostream>
-#include "cpr/cpr.h"
-#include "json.hpp"
+
+#include <cpr/cpr.h>
+#include <json.hpp>
 
 using json = nlohmann::json;
 
