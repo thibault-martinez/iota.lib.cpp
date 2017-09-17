@@ -30,7 +30,6 @@ namespace IOTA {
 
 namespace Crypto {
 
-// TODO Check with Simon
 constexpr int Curl::TruthTable[];
 
 Curl::Curl()
