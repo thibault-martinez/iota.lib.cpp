@@ -10,8 +10,8 @@
 // copies of the Software, and to permit persons to whom the Software is
 // furnished to do so, subject to the following conditions:
 //
-// The above copyright notice and this permission notice shall be included in all
-// copies or substantial portions of the Software.
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
 //
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -23,17 +23,31 @@
 //
 //
 
-#include <API/Responses/getNewAddressResponse.hpp>
+#pragma once
 
-getNewAddressResponse::getNewAddressResponse(const std::vector<std::string>& addresses,
-                                             const uint64_t&                 duration)
-    : genericResponse(duration), addresses_(addresses) {
-}
+#include <Crypto/Kerl.hpp>
 
-getNewAddressResponse::~getNewAddressResponse() {
-}
+namespace IOTA {
 
-const std::vector<std::string>&
-getNewAddressResponse::getAddresses() const {
-  return this->addresses_;
-}
+namespace Crypto {
+
+class Checksum {
+public:
+  Checksum();
+  virtual ~Checksum();
+
+public:
+  Type::Trytes add(const Type::Trytes& address);
+  Type::Trytes remove(const Type::Trytes& address) const;
+
+private:
+  Type::Trytes check(const Type::Trytes& address);
+
+private:
+  // TODO custom sponge ?
+  Kerl kerl_;
+};
+
+}  // namespace Crypto
+
+}  // namespace IOTA

@@ -23,19 +23,17 @@
 //
 //
 
-#include <Utils/RandomAddressGenerator.hpp>
+#include "API/Responses/getNewAddressesResponse.hpp"
 
-namespace IOTA {
-
-namespace Utils {
-
-std::string
-RandomAddressGenerator::operator()(const std::string&, const int32_t&, const int32_t&, bool,
-                                   const std::shared_ptr<Crypto::ISponge>&) {
-  //! TODO
-  return {};
+getNewAddressesResponse::getNewAddressesResponse(const std::vector<IOTA::Type::Trytes>& addresses,
+                                                 const int64_t&                         duration)
+    : genericResponse(duration), addresses_(addresses) {
 }
 
-}  // namespace Utils
+getNewAddressesResponse::~getNewAddressesResponse() {
+}
 
-}  // namespace IOTA
+const std::vector<IOTA::Type::Trytes>&
+getNewAddressesResponse::getAddresses() const {
+  return this->addresses_;
+}

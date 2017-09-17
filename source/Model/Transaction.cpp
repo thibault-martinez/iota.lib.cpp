@@ -242,7 +242,7 @@ Transaction::initFromTrytes(const std::string& trytes) {
   auto hash             = IOTA::Type::Trits(TritHashLength);
 
   // generate the correct transaction hash
-  auto curl = IOTA::Crypto::create(IOTA::Crypto::Type::CURL);
+  auto curl = IOTA::Crypto::create(IOTA::Crypto::SpongeType::CURL);
   curl->absorb(transactionTrits);
   curl->squeeze(hash);
 

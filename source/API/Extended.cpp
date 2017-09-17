@@ -24,23 +24,28 @@
 //
 
 #include <API/Extended.hpp>
+#include <Crypto/Checksum.hpp>
 #include <Crypto/Curl.hpp>
+#include <Crypto/Signing.hpp>
 #include <Errors/IllegalState.hpp>
 #include <Model/Bundle.hpp>
 #include <Model/Transaction.hpp>
 #include <Type/Seed.hpp>
-#include <Utils/RandomAddressGenerator.hpp>
 
 namespace IOTA {
 
 namespace API {
 
-Extended::Extended(const std::string& host, const unsigned int& port, Crypto::Type t)
+Extended::Extended(const std::string& host, const unsigned int& port, Crypto::SpongeType t)
     : Core(host, port), cryptoType_(t) {
 }
 
 Extended::~Extended() {
 }
+
+/*
+ * Public methods.
+ */
 
 getBalancesAndFormatResponse
 Extended::getInputs(const std::string& seed, const int32_t& security, const int32_t& start,
@@ -62,17 +67,18 @@ Extended::getInputs(const std::string& seed, const int32_t& security, const int3
     throw Errors::IllegalState("Invalid inputs provided");
   }
 
+  // TODO Case 1 and 2 : can't we just delegate that to getNewAddresses
+  // TODO Seems to do the same thing.
+
   //  Case 1: start and end
   //
   //  If start and end is defined by the user, simply iterate through the keys
   //  and call getBalances
   if (end != 0) {
-    std::vector<std::string>      allAddresses;
-    Utils::RandomAddressGenerator addressGenerator;
+    std::vector<std::string> allAddresses;
 
     for (int i = start; i < end; ++i) {
-      allAddresses.push_back(
-          addressGenerator(seed, security, i, false, Crypto::create(cryptoType_)));
+      allAddresses.push_back(this->newAddress(seed, i, security, false));
     }
 
     return getBalancesAndFormat(allAddresses, threshold, start, stopWatch, security);
@@ -83,7 +89,7 @@ Extended::getInputs(const std::string& seed, const int32_t& security, const int3
   //  Calls getNewAddress and deterministically generates and returns all addresses
   //  We then do getBalance, format the output and return it
   else {
-    getNewAddressResponse res = getNewAddress(seed, security, start, false, 0, true);
+    auto res = getNewAddresses(seed, start, security, false, 0, true);
     return getBalancesAndFormat(res.getAddresses(), threshold, start, stopWatch, security);
   }
 }
@@ -138,11 +144,51 @@ Extended::getBalancesAndFormat(const std::vector<std::string>& addresses, const 
   return { inputs, totalBalance, stopWatch.getElapsedTimeMiliSeconds().count() };
 }
 
-getNewAddressResponse
-Extended::getNewAddress(const std::string&, const int32_t&, const int32_t&, bool, const int32_t&,
-                        bool) {
-  //! TODO
-  return { {}, 0 };
+getNewAddressesResponse
+Extended::getNewAddresses(const Type::Trytes& seed, const uint32_t& index, const int32_t& security,
+                          bool checksum, const int32_t& total, bool returnAll) {
+  Utils::StopWatch stopWatch;
+
+  // Validate the seed
+  if ((!Type::Seed::isValidSeed(seed))) {
+    throw Errors::IllegalState("Invalid Seed");
+  }
+
+  // Validate the security level
+  if (security < 1 || security > 3) {
+    throw Errors::IllegalState("Invalid Security Level");
+  }
+
+  std::vector<Type::Trytes> allAddresses;
+
+  // Case 1 : total number of addresses to generate is supplied.
+  // Simply generate and return the list of all addresses.
+  if (total) {
+    for (uint32_t i = index; i < index + total; ++i) {
+      allAddresses.push_back(this->newAddress(seed, i, security, checksum));
+    }
+  }
+  // Case 2 : no total provided.
+  // Continue calling findTransactions to see if address was already created if null, return list
+  // of addresses.
+  else {
+    for (int32_t i = index; true; i++) {
+      auto newAddress = this->newAddress(seed, i, security, checksum);
+      auto res        = this->findTransactionsByAddress(newAddress);
+
+      allAddresses.push_back(newAddress);
+      if (res.getHashes().empty()) {
+        break;
+      }
+    }
+  }
+
+  // Return only the last address that was generated.
+  if (not returnAll) {
+    allAddresses.erase(std::begin(allAddresses), std::end(allAddresses) - 1);
+  }
+
+  return { allAddresses, stopWatch.getElapsedTimeMiliSeconds().count() };
 }
 
 Bundle
@@ -214,6 +260,49 @@ Extended::sendTrytes() {
 
 void
 Extended::broadcastAndStore() {
+}
+
+findTransactionsResponse
+Extended::findTransactionsByDigests() {
+  return {};
+}
+
+findTransactionsResponse
+Extended::findTransactionsByApprovees() {
+  return {};
+}
+
+findTransactionsResponse
+Extended::findTransactionsByBundles() {
+  return {};
+}
+
+findTransactionsResponse
+Extended::findTransactionsByAddress(const IOTA::Type::Trytes&) {
+  return {};
+}
+
+/*
+ * Private methods.
+ */
+
+Type::Trytes
+Extended::newAddress(const Type::Trytes& seed, const int32_t& index, const int32_t& security,
+                     bool checksum) {
+  // TODO custom sponge
+  // Crypto::create(cryptoType_)
+  Crypto::Signing s;
+
+  auto key          = s.key(seed, index, security);
+  auto digests      = s.digests(key);
+  auto addressTrits = s.address(digests);
+  auto address      = Type::tritsToTrytes(addressTrits);
+
+  if (checksum) {
+    Crypto::Checksum c;
+    address = c.add(address);
+  }
+  return address;
 }
 
 }  // namespace API

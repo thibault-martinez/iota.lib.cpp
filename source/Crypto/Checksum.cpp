@@ -10,8 +10,8 @@
 // copies of the Software, and to permit persons to whom the Software is
 // furnished to do so, subject to the following conditions:
 //
-// The above copyright notice and this permission notice shall be included in all
-// copies or substantial portions of the Software.
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
 //
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -23,38 +23,39 @@
 //
 //
 
-#pragma once
-
-#include <memory>
-#include <string>
-
-#include <Crypto/ISponge.hpp>
+#include <Crypto/Checksum.hpp>
+#include <constants.hpp>
 
 namespace IOTA {
 
-namespace Utils {
+namespace Crypto {
 
-class RandomAddressGenerator {
-public:
-  RandomAddressGenerator()  = default;
-  ~RandomAddressGenerator() = default;
+Checksum::Checksum() {
+}
 
-public:
-  /**
-   * Generates a new address
-   *
-   * @param seed     The tryte-encoded seed. It should be noted that this seed is not transferred.
-   * @param security The secuirty level of private key / seed.
-   * @param index    The index to start search from. If the index is provided, the generation of the
-   * address is not deterministic.
-   * @param checksum The adds 9-tryte address checksum
-   * @param curl     The curl instance.
-   * @return An String with address.
-   */
-  std::string operator()(const std::string& seed, const int32_t& security, const int32_t& index,
-                         bool checksum, const std::shared_ptr<Crypto::ISponge>& sponge);
-};
+Checksum::~Checksum() {
+}
 
-}  // namespace Utils
+Type::Trytes
+Checksum::add(const Type::Trytes& address) {
+  return address + this->check(address);
+}
+
+Type::Trytes
+Checksum::remove(const Type::Trytes& address) const {
+  return address.substr(0, SeedLength);
+}
+
+Type::Trytes
+Checksum::check(const Type::Trytes& address) {
+  Type::Trits checksumTrits(TritHashLength);
+  this->kerl_.reset();
+  this->kerl_.absorb(Type::trytesToTrits(address));
+  this->kerl_.squeeze(checksumTrits);
+  auto checksum = Type::tritsToTrytes(checksumTrits);
+  return checksum.substr(SeedLength - ChecksumLength);
+}
+
+}  // namespace Crypto
 
 }  // namespace IOTA

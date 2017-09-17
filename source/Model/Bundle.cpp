@@ -65,7 +65,7 @@ Bundle::addTransaction(const Transaction& transaction) {
 void
 Bundle::finalize(const std::shared_ptr<IOTA::Crypto::ISponge>& customSponge) {
   std::shared_ptr<IOTA::Crypto::ISponge> sponge =
-      customSponge ? customSponge : IOTA::Crypto::create(IOTA::Crypto::Type::KERL);
+      customSponge ? customSponge : IOTA::Crypto::create(IOTA::Crypto::SpongeType::KERL);
 
   //! ensure sponge is reset
   sponge->reset();

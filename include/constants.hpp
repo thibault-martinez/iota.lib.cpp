@@ -26,6 +26,7 @@
 #include <iostream>
 
 const std::string  TryteAlphabet       = "9ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const unsigned int ChecksumLength      = 9;
 const unsigned int TryteAlphabetLength = 27;
 const unsigned int FragmentLength      = 27;
 const unsigned int SeedLength          = 81;

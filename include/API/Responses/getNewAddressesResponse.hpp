@@ -25,33 +25,25 @@
 
 #pragma once
 
-#include <list>
-
 #include <json.hpp>
 
 #include <API/Responses/genericResponse.hpp>
+#include <Type/Trinary.hpp>
 
 using json = nlohmann::json;
 
-/*
- * getBalances API call response.
- * Similar to getInclusionStates. It returns the confirmed balance which a list of addresses have at
- * the latest confirmed milestone. In addition to the balances, it also returns the milestone as
- * well as the index with which the confirmed balance was determined. The balances is returned as a
- * list in the same order as the addresses were provided as input.
- * https://iota.readme.io/docs/getbalances
- */
-class getNewAddressResponse : public genericResponse {
+class getNewAddressesResponse : public genericResponse {
 public:
-  getNewAddressResponse(const std::vector<std::string>& addresses, const uint64_t& duration);
-  virtual ~getNewAddressResponse();
+  getNewAddressesResponse(const std::vector<IOTA::Type::Trytes>& addresses,
+                          const int64_t&                         duration);
+  virtual ~getNewAddressesResponse();
 
 public:
   /**
    * @return The addresses.
    */
-  const std::vector<std::string>& getAddresses() const;
+  const std::vector<IOTA::Type::Trytes>& getAddresses() const;
 
 private:
-  std::vector<std::string> addresses_;
+  std::vector<IOTA::Type::Trytes> addresses_;
 };
