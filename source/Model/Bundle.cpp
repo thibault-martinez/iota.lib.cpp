@@ -101,11 +101,10 @@ Bundle::finalize(const std::shared_ptr<IOTA::Crypto::ISponge>& customSponge) {
 
 void
 Bundle::addTrytes(const std::vector<std::string>& signatureFragments) {
-  // TODO check with Simon
-  std::string emptySignatureFragment =
-      (static_cast<std::ostringstream&>(std::stringstream()
-                                        << std::setfill('9') << std::setw(2187) << ""))
-          .str();
+  std::ostringstream ss;
+  ss << std::setfill('9') << std::setw(2187) << "";
+
+  std::string emptySignatureFragment = ss.str();
 
   for (unsigned int i = 0; i < transactions_.size(); i++) {
     auto& transaction = transactions_[i];
