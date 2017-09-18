@@ -44,6 +44,26 @@ isValidTryte(const char& tryte) {
   return TryteAlphabet.find(tryte) != std::string::npos;
 }
 
+bool
+isValidTrytes(const Trytes& trytes) {
+  return std::find_if_not(trytes.begin(), trytes.end(), &isValidTryte) == trytes.end();
+}
+
+bool
+isArrayOfHashes(const std::vector<Trytes>& hashes) {
+  for (const auto& hash : hashes) {
+    if (!hash.length() == SeedLength || !hash.length() == SeedLengthWithChecksum) {
+      return false;
+    }
+
+    if (!isValidTrytes(hash)) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
 std::vector<int8_t>
 tritsToBytes(const Trits& trits) {
   Crypto::BigInt decimal;
@@ -120,13 +140,6 @@ intToTrits(const int& value) {
 //     throw std::exception();
 // }
 //
-// bool
-// Trits::isValid() const {
-//   return std::find_if_not(std::begin(this->values_), std::end(this->values_),
-//   Utils::isValidTrit)
-//   ==
-//          std::end(this->values_);
-// }
 //
 // bool
 // Trits::canTrytes() const {

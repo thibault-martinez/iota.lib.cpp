@@ -75,7 +75,8 @@ Core::getTips() {
 }
 
 findTransactionsResponse
-Core::findTransactions() {
+Core::findTransactions(const std::vector<std::string>&, const std::vector<std::string>&,
+                       const std::vector<std::string>&, const std::vector<std::string>&) {
   return this->service_.request<findTransactionsRequest, findTransactionsResponse>();
 }
 

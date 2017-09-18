@@ -36,7 +36,7 @@ public:
   /**
    * Initializes a new instance of the Transaction class.
    */
-  Transaction(const std::string& trytes);
+  explicit Transaction(const std::string& trytes);
 
   /**
    * Initializes a new instance of the Transaction class.
@@ -53,6 +53,11 @@ public:
   Transaction(const std::string& address, int64_t value, const std::string& tag, int64_t timestamp);
 
 public:
+  /**
+   * @return whether the transaction is a tail transaction or not (getIndex == 0)
+   */
+  bool isTailTransaction() const;
+
   /**
    * Get the hash.
    *

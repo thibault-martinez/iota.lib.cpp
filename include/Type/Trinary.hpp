@@ -38,6 +38,20 @@ typedef std::string         Trytes;
 
 bool isValidTryte(const char& tryte);
 
+/**
+ * @return whether the given tryte is valid or not
+ */
+bool isValidTrytes(const Trytes& trytes);
+
+/**
+ * Determines whether the specified array contains only valid hashes.
+ *
+ * @param hashes The hashes array to validate.
+ * @return <code>true</code> the specified array contains only valid hashes; otherwise,
+ * <code>false</code>.
+ **/
+bool isArrayOfHashes(const std::vector<Trytes>& hashes);
+
 std::vector<int8_t> tritsToBytes(const Trits& trits);
 Trits               bytesToTrits(const std::vector<int8_t>& bytes);
 
