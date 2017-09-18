@@ -23,16 +23,13 @@
 //
 //
 
-#include <iostream>
+#include <API/Responses/getBundleResponse.hpp>
 
-const std::string  TryteAlphabet          = "9ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-const unsigned int ChecksumLength         = 9;
-const unsigned int TryteAlphabetLength    = 27;
-const unsigned int FragmentLength         = 27;
-const unsigned int SeedLength             = 81;
-const unsigned int SeedLengthWithChecksum = 90;
-const unsigned int ByteHashLength         = 48;
-const unsigned int TritHashLength         = 243;
+getBundleResponse::getBundleResponse(const std::vector<Transaction>& transactions, long duration)
+    : genericResponse(duration), transactions_(transactions) {
+}
 
-const std::string EmptyHash =
-    "999999999999999999999999999999999999999999999999999999999999999999999999999999999";
+const std::vector<Transaction>&
+getBundleResponse::getTransactions() {
+  return transactions_;
+}

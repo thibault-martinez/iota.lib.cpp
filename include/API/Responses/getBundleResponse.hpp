@@ -23,16 +23,22 @@
 //
 //
 
-#include <iostream>
+#pragma once
 
-const std::string  TryteAlphabet          = "9ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-const unsigned int ChecksumLength         = 9;
-const unsigned int TryteAlphabetLength    = 27;
-const unsigned int FragmentLength         = 27;
-const unsigned int SeedLength             = 81;
-const unsigned int SeedLengthWithChecksum = 90;
-const unsigned int ByteHashLength         = 48;
-const unsigned int TritHashLength         = 243;
+#include <API/Responses/genericResponse.hpp>
+#include <Model/Transaction.hpp>
 
-const std::string EmptyHash =
-    "999999999999999999999999999999999999999999999999999999999999999999999999999999999";
+class getBundleResponse : public genericResponse {
+public:
+  getBundleResponse(const std::vector<Transaction>& transactions, long duration);
+  virtual ~getBundleResponse() = default;
+
+public:
+  /**
+   * @return The transactions.
+   */
+  const std::vector<Transaction>& getTransactions();
+
+private:
+  std::vector<Transaction> transactions_;
+};

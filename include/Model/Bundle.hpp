@@ -50,6 +50,13 @@ public:
   const std::vector<Transaction>& getTransactions() const;
 
   /**
+   * non-const getTransactions
+   *
+   * @return Bundle transactions.
+   */
+  std::vector<Transaction>& getTransactions();
+
+  /**
    * @return The length of the bundle.
    */
   uint32_t getLength() const;

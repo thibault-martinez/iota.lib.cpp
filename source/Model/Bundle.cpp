@@ -39,6 +39,11 @@ Bundle::getTransactions() const {
   return transactions_;
 }
 
+std::vector<Transaction>&
+Bundle::getTransactions() {
+  return transactions_;
+}
+
 uint32_t
 Bundle::getLength() const {
   return transactions_.size();

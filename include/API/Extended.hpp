@@ -30,6 +30,7 @@
 #include <API/Core.hpp>
 #include <API/Responses/getBalancesAndFormatResponse.hpp>
 #include <API/Responses/getBalancesResponse.hpp>
+#include <API/Responses/getBundleResponse.hpp>
 #include <API/Responses/getNewAddressesResponse.hpp>
 #include <Crypto/SpongeFactory.hpp>
 #include <Model/Bundle.hpp>
@@ -121,6 +122,52 @@ public:
    */
   Bundle traverseBundle(const std::string& trunkTx, std::string bundleHash, Bundle& bundle);
 
+  /**
+   * function to get the formatted bundles of a list of addresses.
+   *
+   * @param addresses       List of addresses.
+   * @param inclusionStates If <code>true</code>, it gets the inclusion states of the transfers.
+   * @return List of bundles
+   */
+  std::vector<Bundle> bundlesFromAddresses(const std::vector<IOTA::Type::Trytes>& addresses,
+                                           bool                                   inclusionStates);
+
+  /**
+   * Wrapper function for findTransactions, getTrytes and transactionObjects.
+   * Returns the transactionObject of a transaction hash. The input can be a valid findTransactions
+   * input.
+   *
+   * @param input The inputs.
+   * @return Transactions.
+   */
+  std::vector<Transaction> findTransactionObjects(const std::vector<IOTA::Type::Trytes>& input);
+
+  /**
+   * Wrapper function for getTrytes and transactionObjects.
+   * Gets the trytes and transaction object from a list of transaction hashes.
+   *
+   * @param hashes The hashes
+   * @return Transaction objects.
+   **/
+  std::vector<Transaction> getTransactionsObjects(const std::vector<IOTA::Type::Trytes>& hashes);
+
+  /**
+   * Same as findTransactionObjects, but based on bundle hash
+   *
+   * @param input Bundle hashes
+   * @return Transactions.
+   **/
+  std::vector<Transaction> findTransactionObjectsByBundle(
+      const std::vector<IOTA::Type::Trytes>& input);
+
+  /**
+   * Wrapper function for getNodeInfo and getInclusionStates
+   *
+   * @param hashes The hashes.
+   * @return Inclusion state.
+   */
+  getInclusionStatesResponse getLatestInclusion(const std::vector<Type::Trytes>& hashes);
+
   /*
    * Main purpose of this function is to get an array of transfer objects as input, and then prepare
    * the transfer by generating the correct bundle, as well as choosing and signing the inputs if
@@ -128,40 +175,51 @@ public:
    * transaction data (trytes).
    */
   void prepareTransfers();
+
   /*
    * Generates a new address from a seed and returns the address. This is either done
    * deterministically, or by providing the index of the new address (see Questions for more
    * information about this).
    */
   void getNewAddress();
+
   /*
    * This function returns the bundle which is associated with a transaction. Input can by any type
    * of transaction (tail and non-tail). If there are multiple bundles (because of a replay for
    * example), it will return multiple bundles. It also does important validation checking
    * (signatures, sum, order) to ensure that the correct bundle is returned.
+   *
+   * @param transaction The transaction encoded in trytes.
+   * @return an array of bundle, if there are multiple arrays it means that there are conflicting
+   * bundles.
    */
-  void getBundle();
+  getBundleResponse getBundle(const Type::Trytes& transaction);
+
   /*
    * Returns the transfers which are associated with a seed. The transfers are determined by either
    * calculating deterministically which addresses were already used, or by providing a list of
    * indexes to get the transfers from.
    */
   void getTransfers();
+
   /*
    * Takes a tail transaction hash as input, gets the bundle associated with the transaction and
    * then replays the bundle by attaching it to the tangle.
    */
   void replayTransfer();
+
   /*
    * Wrapper function that basically does prepareTransfers, as well as attachToTangle and finally,
    * it broadcasts and stores the transactions locally.
    */
   void sendTransfer();
+
   /*
    * Wrapper function that does attachToTangle and finally, it broadcasts and stores the
    * transactions locally.
    */
   void sendTrytes();
+
   /*
    * Wrapper function that does broadcastTransactions and storeTransactions.
    */

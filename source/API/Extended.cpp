@@ -207,9 +207,9 @@ Extended::traverseBundle(const std::string& trunkTx, std::string bundleHash, Bun
   }
 
   //! get transaction itself
-  Transaction trx = { gtr.getTrytes()[0] };
+  auto trx = Transaction{ gtr.getTrytes()[0] };
   // If first transaction to search is not a tail, return error
-  if (bundleHash.empty() && trx.getCurrentIndex() != 0) {
+  if (bundleHash.empty() && !trx.isTailTransaction()) {
     throw Errors::IllegalState("Invalid tail transaction supplied.");
   }
 
@@ -230,6 +230,118 @@ Extended::traverseBundle(const std::string& trunkTx, std::string bundleHash, Bun
   return traverseBundle(trx.getTrunkTransaction(), bundleHash, bundle);
 }
 
+std::vector<Transaction>
+Extended::findTransactionObjects(const std::vector<IOTA::Type::Trytes>& input) {
+  //! get the transaction objects of the transactions
+  return getTransactionsObjects(findTransactions(input, {}, {}, {}).getHashes());
+}
+
+std::vector<Transaction>
+Extended::findTransactionObjectsByBundle(const std::vector<IOTA::Type::Trytes>& input) {
+  // get the transaction objects of the transactions
+  return getTransactionsObjects(findTransactions({}, {}, {}, input).getHashes());
+}
+
+std::vector<Transaction>
+Extended::getTransactionsObjects(const std::vector<IOTA::Type::Trytes>& hashes) {
+  if (!Type::isArrayOfHashes(hashes)) {
+    throw Errors::IllegalState("getTransactionsObjects parameter is not a valid array of hashes");
+  }
+
+  //! get trytes forhashes
+  getTrytesResponse trytesResponse = getTrytes(hashes);
+
+  //! build response
+  std::vector<Transaction> trxs;
+
+  for (const auto& tryte : trytesResponse.getTrytes()) {
+    trxs.push_back(Transaction{ tryte });
+  }
+
+  return trxs;
+}
+
+std::vector<Bundle>
+Extended::bundlesFromAddresses(const std::vector<IOTA::Type::Trytes>& addresses,
+                               bool                                   withInclusionStates) {
+  //! find transactions for addresses
+  std::vector<Transaction> trxs = findTransactionObjects(addresses);
+
+  //! filter tail/non tail transactions
+  std::vector<IOTA::Type::Trytes> tailTransactions;
+  std::vector<IOTA::Type::Trytes> nonTailBundleHashes;
+
+  // Sort tail and nonTails
+  for (const auto& trx : trxs) {
+    if (trx.isTailTransaction()) {
+      tailTransactions.push_back(trx.getHash());
+    } else if (std::find(nonTailBundleHashes.begin(), nonTailBundleHashes.end(), trx.getBundle()) ==
+               nonTailBundleHashes.end()) {
+      nonTailBundleHashes.push_back(trx.getBundle());
+    }
+  }
+
+  //! find transactions for bundles of non tail transactions
+  //! TODO: this will maybe re-query some tail transactions we already got (and we do filter that
+  //! out in the next for loop) we maybe can filter the bundle list passed to
+  //! findTransactionObjectsByBundle by restructuring the previous loop
+  std::vector<Transaction> bundleObjects = findTransactionObjectsByBundle(nonTailBundleHashes);
+
+  //! add tail transactions found with findTransactionObjectsByBundle
+  for (const auto& trx : bundleObjects) {
+    if (trx.isTailTransaction() && std::find(tailTransactions.begin(), tailTransactions.end(),
+                                             trx.getHash()) == tailTransactions.end()) {
+      tailTransactions.push_back(trx.getHash());
+    }
+  }
+
+  // If inclusionStates, get the confirmation status
+  // of the tail transactions, and thus the bundles
+  getInclusionStatesResponse inclusionStates;
+  if (withInclusionStates && !tailTransactions.empty()) {
+    inclusionStates = getLatestInclusion(tailTransactions);
+
+    if (inclusionStates.getStates().empty()) {
+      throw Errors::IllegalState("No inclusion states");
+    }
+  }
+
+  std::vector<Bundle> bundles;
+  //! TODO: was done in parallel in java lib, do we need to or performance are fine in cpp?
+  for (std::size_t i = 0; i < tailTransactions.size(); ++i) {
+    try {
+      const auto& transaction    = tailTransactions[i];
+      auto        bundleResponse = getBundle(transaction);
+      auto        gbr            = Bundle{ bundleResponse.getTransactions() };
+
+      if (gbr.getTransactions().empty()) {
+        continue;
+      }
+
+      if (withInclusionStates) {
+        bool inclusion = inclusionStates.getStates()[i];
+
+        for (auto& t : gbr.getTransactions()) {
+          t.setPersistence(inclusion);
+        }
+      }
+
+      bundles.push_back(std::move(gbr));
+    } catch (const std::runtime_error&) {
+      // If error returned from getBundle, ignore it because the bundle was most likely incorrect
+    }
+  }
+
+  std::sort(bundles.begin(), bundles.end());
+
+  return bundles;
+}
+
+getInclusionStatesResponse
+Extended::getLatestInclusion(const std::vector<Type::Trytes>& hashes) {
+  return getInclusionStates(hashes, { getNodeInfo().getLatestSolidSubtangleMilestone() });
+}
+
 void
 Extended::prepareTransfers() {
 }
@@ -238,8 +350,9 @@ void
 Extended::getNewAddress() {
 }
 
-void
-Extended::getBundle() {
+getBundleResponse
+Extended::getBundle(const Type::Trytes&) {
+  return { {}, 0 };
 }
 
 void

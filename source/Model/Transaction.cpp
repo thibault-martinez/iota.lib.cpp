@@ -68,6 +68,11 @@ Transaction::Transaction(const std::string& address, int64_t value, const std::s
     : address_(address), value_(value), tag_(tag), timestamp_(timestamp) {
 }
 
+bool
+Transaction::isTailTransaction() const {
+  return getCurrentIndex() == 0;
+}
+
 const std::string&
 Transaction::getHash() const {
   return hash_;
