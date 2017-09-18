@@ -25,8 +25,8 @@
 
 #pragma once
 
-#include <exception>
 #include <iostream>
+#include <stdexcept>
 
 namespace IOTA {
 
