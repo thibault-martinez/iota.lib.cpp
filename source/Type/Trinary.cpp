@@ -52,7 +52,7 @@ isValidTrytes(const Trytes& trytes) {
 bool
 isArrayOfHashes(const std::vector<Trytes>& hashes) {
   for (const auto& hash : hashes) {
-    if (!hash.length() == SeedLength || !hash.length() == SeedLengthWithChecksum) {
+    if (hash.length() != SeedLength || hash.length() != SeedLengthWithChecksum) {
       return false;
     }
 
