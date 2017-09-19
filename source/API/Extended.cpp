@@ -174,7 +174,7 @@ Extended::getNewAddresses(const Type::Trytes& seed, const uint32_t& index, const
   else {
     for (int32_t i = index; true; i++) {
       auto newAddress = this->newAddress(seed, i, security, checksum);
-      auto res        = this->findTransactionsByAddress(newAddress);
+      auto res        = this->findTransactionsByAddresses({ newAddress });
 
       allAddresses.push_back(newAddress);
       if (res.getHashes().empty()) {
@@ -376,23 +376,23 @@ Extended::broadcastAndStore() {
 }
 
 findTransactionsResponse
-Extended::findTransactionsByDigests() {
-  return {};
+Extended::findTransactionsByAddresses(const std::vector<Type::Trytes>& addresses) {
+  return this->findTransactions(addresses, {}, {}, {});
 }
 
 findTransactionsResponse
-Extended::findTransactionsByApprovees() {
-  return {};
+Extended::findTransactionsByDigests(const std::vector<Type::Trytes>& digests) {
+  return this->findTransactions({}, digests, {}, {});
 }
 
 findTransactionsResponse
-Extended::findTransactionsByBundles() {
-  return {};
+Extended::findTransactionsByApprovees(const std::vector<Type::Trytes>& approvees) {
+  return this->findTransactions({}, {}, approvees, {});
 }
 
 findTransactionsResponse
-Extended::findTransactionsByAddress(const IOTA::Type::Trytes&) {
-  return {};
+Extended::findTransactionsByBundles(const std::vector<Type::Trytes>& bundles) {
+  return this->findTransactions({}, {}, {}, bundles);
 }
 
 /*

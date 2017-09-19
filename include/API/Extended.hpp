@@ -225,13 +225,13 @@ public:
    */
   void broadcastAndStore();
 
-  findTransactionsResponse findTransactionsByDigests();
+  findTransactionsResponse findTransactionsByAddresses(const std::vector<Type::Trytes>& addresses);
 
-  findTransactionsResponse findTransactionsByApprovees();
+  findTransactionsResponse findTransactionsByDigests(const std::vector<Type::Trytes>& digests);
 
-  findTransactionsResponse findTransactionsByBundles();
+  findTransactionsResponse findTransactionsByApprovees(const std::vector<Type::Trytes>& approvees);
 
-  findTransactionsResponse findTransactionsByAddress(const IOTA::Type::Trytes& address);
+  findTransactionsResponse findTransactionsByBundles(const std::vector<Type::Trytes>& bundles);
 
 private:
   /**

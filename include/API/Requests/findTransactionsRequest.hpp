@@ -23,13 +23,14 @@
 //
 //
 
-#pragma once
+// TODO Don't really like that design, refactor it later.
 
-// TODO 4 ctors after having defined string types (Bundle, Address...)
+#pragma once
 
 #include <json.hpp>
 
 #include <API/Requests/genericRequest.hpp>
+#include <Type/Trinary.hpp>
 
 using json = nlohmann::json;
 
@@ -47,8 +48,23 @@ namespace API {
  */
 class findTransactionsRequest : public genericRequest {
 public:
-  findTransactionsRequest();
+  findTransactionsRequest(const std::vector<Type::Trytes>& addresses,
+                          const std::vector<Type::Trytes>& digests,
+                          const std::vector<Type::Trytes>& approvees,
+                          const std::vector<Type::Trytes>& bundles);
   virtual ~findTransactionsRequest();
+
+public:
+  const std::vector<Type::Trytes>& getAddresses() const;
+  const std::vector<Type::Trytes>& getDigests() const;
+  const std::vector<Type::Trytes>& getApprovees() const;
+  const std::vector<Type::Trytes>& getBundles() const;
+
+private:
+  std::vector<Type::Trytes> addresses_;
+  std::vector<Type::Trytes> digests_;
+  std::vector<Type::Trytes> approvees_;
+  std::vector<Type::Trytes> bundles_;
 };
 
 }  // namespace API
