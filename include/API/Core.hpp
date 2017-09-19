@@ -94,10 +94,10 @@ public:
    * approvees. Using multiple of these input fields returns the intersection of the values.
    * https://iota.readme.io/docs/findtransactions
    */
-  findTransactionsResponse findTransactions(const std::vector<std::string>& addresses,
-                                            const std::vector<std::string>& tags,
-                                            const std::vector<std::string>& approvees,
-                                            const std::vector<std::string>& bundles);
+  findTransactionsResponse findTransactions(const std::vector<Type::Trytes>& addresses,
+                                            const std::vector<Type::Trytes>& digests,
+                                            const std::vector<Type::Trytes>& approvees,
+                                            const std::vector<Type::Trytes>& bundles);
   /*
    * Returns the raw transaction data (trytes) of a specific transaction. These trytes can then be
    * easily converted into the actual transaction object. See utility functions for more details.

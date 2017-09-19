@@ -75,9 +75,12 @@ Core::getTips() {
 }
 
 findTransactionsResponse
-Core::findTransactions(const std::vector<std::string>&, const std::vector<std::string>&,
-                       const std::vector<std::string>&, const std::vector<std::string>&) {
-  return this->service_.request<findTransactionsRequest, findTransactionsResponse>();
+Core::findTransactions(const std::vector<Type::Trytes>& addresses,
+                       const std::vector<Type::Trytes>& digests,
+                       const std::vector<Type::Trytes>& approvees,
+                       const std::vector<Type::Trytes>& bundles) {
+  return this->service_.request<findTransactionsRequest, findTransactionsResponse>(
+      addresses, digests, approvees, bundles);
 }
 
 getTrytesResponse

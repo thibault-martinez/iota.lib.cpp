@@ -29,10 +29,38 @@ namespace IOTA {
 
 namespace API {
 
-findTransactionsRequest::findTransactionsRequest() : genericRequest("findTransactions") {
+findTransactionsRequest::findTransactionsRequest(const std::vector<Type::Trytes>& addresses,
+                                                 const std::vector<Type::Trytes>& digests,
+                                                 const std::vector<Type::Trytes>& approvees,
+                                                 const std::vector<Type::Trytes>& bundles)
+    : genericRequest("findTransactions"),
+      addresses_(addresses),
+      digests_(digests),
+      approvees_(approvees),
+      bundles_(bundles) {
 }
 
 findTransactionsRequest::~findTransactionsRequest() {
+}
+
+const std::vector<Type::Trytes>&
+findTransactionsRequest::getAddresses() const {
+  return this->addresses_;
+}
+
+const std::vector<Type::Trytes>&
+findTransactionsRequest::getDigests() const {
+  return this->digests_;
+}
+
+const std::vector<Type::Trytes>&
+findTransactionsRequest::getApprovees() const {
+  return this->approvees_;
+}
+
+const std::vector<Type::Trytes>&
+findTransactionsRequest::getBundles() const {
+  return this->bundles_;
 }
 
 }  // namespace API
