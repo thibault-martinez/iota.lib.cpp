@@ -371,8 +371,10 @@ void
 Extended::sendTrytes() {
 }
 
-void
-Extended::broadcastAndStore() {
+storeTransactionsResponse
+Extended::broadcastAndStore(const std::vector<Type::Trytes>& trytes) {
+  this->broadcastTransactions(trytes);
+  return this->storeTransactions(trytes);
 }
 
 findTransactionsResponse
