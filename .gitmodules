@@ -1,9 +1,9 @@
 [submodule "external/googletest"]
 	path = external/googletest
 	url = git://github.com/google/googletest
-[submodule "external/cpr"]
-	path = external/cpr
-	url = git@github.com:whoshuu/cpr.git
 [submodule "external/json"]
 	path = external/json
-	url = git@github.com:nlohmann/json.git
+	url = git://github.com/nlohmann/json.git
+[submodule "external/cpr"]
+	path = external/cpr
+	url = git://github.com/whoshuu/cpr.git
