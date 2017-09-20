@@ -68,12 +68,8 @@ file(GLOB_RECURSE KECCAK_SOURCE_FILES external/keccak/source/*.cpp)
 set(PROJECT_SOURCE_FILES ${PROJECT_SOURCE_FILES} ${KECCAK_SOURCE_FILES})
 
 find_package(Boost 1.64.0)
-message(${Boost_FOUND})
 if(Boost_FOUND)
-  message("${Boost_INCLUDE_DIRS}")
   include_directories(${Boost_INCLUDE_DIRS})
-  #add_executable(foo foo.cc)
-  # target_link_libraries(foo ${Boost_LIBRARIES})
 endif()
 
 ########## LIBRARY ##########

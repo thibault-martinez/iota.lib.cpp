@@ -32,6 +32,7 @@
 #include <API/Responses/getBalancesResponse.hpp>
 #include <API/Responses/getBundleResponse.hpp>
 #include <API/Responses/getNewAddressesResponse.hpp>
+#include <API/Responses/storeTransactionsResponse.hpp>
 #include <Crypto/SpongeFactory.hpp>
 #include <Model/Bundle.hpp>
 #include <Utils/StopWatch.hpp>
@@ -223,7 +224,7 @@ public:
   /*
    * Wrapper function that does broadcastTransactions and storeTransactions.
    */
-  void broadcastAndStore();
+  storeTransactionsResponse broadcastAndStore(const std::vector<Type::Trytes>& trytes);
 
   findTransactionsResponse findTransactionsByAddresses(const std::vector<Type::Trytes>& addresses);
 

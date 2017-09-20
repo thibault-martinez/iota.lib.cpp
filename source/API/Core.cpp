@@ -120,13 +120,13 @@ Core::interruptAttachingToTangle() {
 }
 
 broadcastTransactionsResponse
-Core::broadcastTransactions(const std::vector<std::string>& trytes) {
+Core::broadcastTransactions(const std::vector<Type::Trytes>& trytes) {
   return this->service_.request<broadcastTransactionsRequest, broadcastTransactionsResponse>(
       trytes);
 }
 
 storeTransactionsResponse
-Core::storeTransactions(const std::vector<std::string>& trytes) {
+Core::storeTransactions(const std::vector<Type::Trytes>& trytes) {
   return this->service_.request<storeTransactionsRequest, storeTransactionsResponse>(trytes);
 }
 
