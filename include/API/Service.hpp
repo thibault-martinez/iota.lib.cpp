@@ -42,9 +42,8 @@ public:
   virtual ~Service();
 
 public:
-  // TODO Template or inheritance ?
   template <typename Request, typename Response, typename... Args>
-  Response request(Args&&... args) {
+  Response request(Args&&... args) const {
     auto request = Request(args...);
 
     json data;

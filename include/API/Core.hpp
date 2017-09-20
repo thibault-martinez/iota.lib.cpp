@@ -63,30 +63,30 @@ public:
    * Returns information about your node.
    * https://iota.readme.io/docs/getnodeinfo
    */
-  getNodeInfoResponse getNodeInfo();
+  getNodeInfoResponse getNodeInfo() const;
   /*
    * Returns the set of neighbors you are connected with, as well as their activity count. The
    * activity counter is reset after restarting IRI.
    * https://iota.readme.io/docs/getneighborsactivity
    */
-  getNeighborsResponse getNeighbors();
+  getNeighborsResponse getNeighbors() const;
   /*
    * Add a list of neighbors to your node. It should be noted that this is only temporary, and the
    * added neighbors will be removed from your set of neighbors after you relaunch IRI.
    * https://iota.readme.io/docs/addneighors
    */
-  addNeighborsResponse addNeighbors(const std::vector<std::string>& uris);
+  addNeighborsResponse addNeighbors(const std::vector<std::string>& uris) const;
   /*
    * Removes a list of neighbors to your node. This is only temporary, and if you have your
    * neighbors added via the command line, they will be retained after you restart your node.
    * https://iota.readme.io/docs/removeneighors
    */
-  removeNeighborsResponse removeNeighbors(const std::vector<std::string>& uris);
+  removeNeighborsResponse removeNeighbors(const std::vector<std::string>& uris) const;
   /*
    * Returns the list of tips.
    * https://iota.readme.io/docs/gettips
    */
-  getTipsResponse getTips();
+  getTipsResponse getTips() const;
   /*
    * Find the transactions which match the specified input and return. All input values are lists,
    * for which a list of return values (transaction hashes), in the same order, is returned for
@@ -97,13 +97,13 @@ public:
   findTransactionsResponse findTransactions(const std::vector<Type::Trytes>& addresses,
                                             const std::vector<Type::Trytes>& digests,
                                             const std::vector<Type::Trytes>& approvees,
-                                            const std::vector<Type::Trytes>& bundles);
+                                            const std::vector<Type::Trytes>& bundles) const;
   /*
    * Returns the raw transaction data (trytes) of a specific transaction. These trytes can then be
    * easily converted into the actual transaction object. See utility functions for more details.
    * https://iota.readme.io/docs/gettrytes
    */
-  getTrytesResponse getTrytes(const std::vector<std::string>& hashes);
+  getTrytesResponse getTrytes(const std::vector<std::string>& hashes) const;
   /*
    * Get the inclusion states of a set of transactions. This is for determining if a transaction
    * was accepted and confirmed by the network or not. You can search for multiple tips (and thus,
@@ -113,7 +113,7 @@ public:
    * https://iota.readme.io/docs/getinclusionstates
    */
   getInclusionStatesResponse getInclusionStates(const std::vector<std::string>& transactions,
-                                                const std::vector<std::string>& tips);
+                                                const std::vector<std::string>& tips) const;
   /*
    * Similar to getInclusionStates. It returns the confirmed balance which a list of addresses
    * have at the latest confirmed milestone. In addition to the balances, it also returns the
@@ -121,7 +121,8 @@ public:
    * is returned as a list in the same order as the addresses were provided as input.
    * https://iota.readme.io/docs/getbalances
    */
-  getBalancesResponse getBalances(const std::vector<std::string>& addresses, const int& threshold);
+  getBalancesResponse getBalances(const std::vector<std::string>& addresses,
+                                  const int&                      threshold) const;
   /*
    * Tip selection which returns trunkTransaction and branchTransaction. The input value is depth,
    * which basically determines how many bundles to go back to for finding the transactions to
@@ -129,7 +130,7 @@ public:
    * have to confirm more transactions).
    * https://iota.readme.io/docs/gettransactionstoapprove
    */
-  getTransactionsToApproveResponse getTransactionsToApprove(const int& depth);
+  getTransactionsToApproveResponse getTransactionsToApprove(const int& depth) const;
   /*
    * Attaches the specified transactions (trytes) to the Tangle by doing Proof of Work. You need
    * to supply branchTransaction as well as trunkTransaction (basically the tips which you're
@@ -143,22 +144,22 @@ public:
   attachToTangleResponse attachToTangle(const std::string&              trunkTransaction,
                                         const std::string&              branchTransaction,
                                         const int&                      minWeightMagnitude,
-                                        const std::vector<std::string>& trytes);
+                                        const std::vector<std::string>& trytes) const;
   /*
    * Interrupts and completely aborts the attachToTangle process.
    * https://iota.readme.io/docs/interruptattachingtotangle
    */
-  interruptAttachingToTangleResponse interruptAttachingToTangle();
+  interruptAttachingToTangleResponse interruptAttachingToTangle() const;
   /*
    * Broadcast a list of transactions to all neighbors. The input trytes for this call are
    * provided by attachToTangle. https://iota.readme.io/docs/broadcasttransactions
    */
-  broadcastTransactionsResponse broadcastTransactions(const std::vector<std::string>& trytes);
+  broadcastTransactionsResponse broadcastTransactions(const std::vector<std::string>& trytes) const;
   /*
    * Store transactions into the local storage. The trytes to be used for this call are returned
    * by attachToTangle. https://iota.readme.io/docs/storetransactions
    */
-  storeTransactionsResponse storeTransactions(const std::vector<std::string>& trytes);
+  storeTransactionsResponse storeTransactions(const std::vector<std::string>& trytes) const;
 
 private:
   Service service_;

@@ -66,7 +66,7 @@ public:
    */
   getBalancesAndFormatResponse getInputs(const std::string& seed, const int32_t& security,
                                          const int32_t& start, const int32_t& end,
-                                         const int64_t& threshold);
+                                         const int64_t& threshold) const;
 
   /**
    * Gets the balances and formats the output.
@@ -81,7 +81,7 @@ public:
   getBalancesAndFormatResponse getBalancesAndFormat(const std::vector<std::string>& addresses,
                                                     const int64_t& threshold, const int32_t& start,
                                                     Utils::StopWatch stopWatch,
-                                                    const int32_t&   security);
+                                                    const int32_t&   security) const;
 
   /**
    * Generates a new address from a seed and returns the remainderAddress.
@@ -99,7 +99,7 @@ public:
    */
   getNewAddressesResponse getNewAddresses(const std::string& seed, const uint32_t& index = 0,
                                           const int32_t& security = 2, bool checksum = false,
-                                          const int32_t& total = 0, bool returnAll = false);
+                                          const int32_t& total = 0, bool returnAll = false) const;
 
   /**
    * Basically traverse the Bundle by going down the trunkTransactions until
@@ -109,7 +109,7 @@ public:
    * @param trunkTx    Hash of a trunk or a tail transaction of a bundle.
    * @return Filled bundle corresponding to tail transaction.
    */
-  Bundle traverseBundle(const std::string& trunkTx);
+  Bundle traverseBundle(const std::string& trunkTx) const;
 
   /**
    * Basically traverse the Bundle by going down the trunkTransactions until
@@ -121,7 +121,7 @@ public:
    * @param bundle     Bundle to be populated.
    * @return Filled bundle corresponding to tail transaction.
    */
-  Bundle traverseBundle(const std::string& trunkTx, std::string bundleHash, Bundle& bundle);
+  Bundle traverseBundle(const std::string& trunkTx, std::string bundleHash, Bundle& bundle) const;
 
   /**
    * function to get the formatted bundles of a list of addresses.
@@ -131,7 +131,7 @@ public:
    * @return List of bundles
    */
   std::vector<Bundle> bundlesFromAddresses(const std::vector<IOTA::Type::Trytes>& addresses,
-                                           bool                                   inclusionStates);
+                                           bool inclusionStates) const;
 
   /**
    * Wrapper function for findTransactions, getTrytes and transactionObjects.
@@ -141,7 +141,8 @@ public:
    * @param input The inputs.
    * @return Transactions.
    */
-  std::vector<Transaction> findTransactionObjects(const std::vector<IOTA::Type::Trytes>& input);
+  std::vector<Transaction> findTransactionObjects(
+      const std::vector<IOTA::Type::Trytes>& input) const;
 
   /**
    * Wrapper function for getTrytes and transactionObjects.
@@ -150,7 +151,8 @@ public:
    * @param hashes The hashes
    * @return Transaction objects.
    **/
-  std::vector<Transaction> getTransactionsObjects(const std::vector<IOTA::Type::Trytes>& hashes);
+  std::vector<Transaction> getTransactionsObjects(
+      const std::vector<IOTA::Type::Trytes>& hashes) const;
 
   /**
    * Same as findTransactionObjects, but based on bundle hash
@@ -159,7 +161,7 @@ public:
    * @return Transactions.
    **/
   std::vector<Transaction> findTransactionObjectsByBundle(
-      const std::vector<IOTA::Type::Trytes>& input);
+      const std::vector<IOTA::Type::Trytes>& input) const;
 
   /**
    * Wrapper function for getNodeInfo and getInclusionStates
@@ -167,7 +169,7 @@ public:
    * @param hashes The hashes.
    * @return Inclusion state.
    */
-  getInclusionStatesResponse getLatestInclusion(const std::vector<Type::Trytes>& hashes);
+  getInclusionStatesResponse getLatestInclusion(const std::vector<Type::Trytes>& hashes) const;
 
   /*
    * Main purpose of this function is to get an array of transfer objects as input, and then prepare
@@ -175,14 +177,14 @@ public:
    * necessary (if it's a value transfer). The output of this function is an array of the raw
    * transaction data (trytes).
    */
-  void prepareTransfers();
+  void prepareTransfers() const;
 
   /*
    * Generates a new address from a seed and returns the address. This is either done
    * deterministically, or by providing the index of the new address (see Questions for more
    * information about this).
    */
-  void getNewAddress();
+  void getNewAddress() const;
 
   /*
    * This function returns the bundle which is associated with a transaction. Input can by any type
@@ -194,45 +196,49 @@ public:
    * @return an array of bundle, if there are multiple arrays it means that there are conflicting
    * bundles.
    */
-  getBundleResponse getBundle(const Type::Trytes& transaction);
+  getBundleResponse getBundle(const Type::Trytes& transaction) const;
 
   /*
    * Returns the transfers which are associated with a seed. The transfers are determined by either
    * calculating deterministically which addresses were already used, or by providing a list of
    * indexes to get the transfers from.
    */
-  void getTransfers();
+  void getTransfers() const;
 
   /*
    * Takes a tail transaction hash as input, gets the bundle associated with the transaction and
    * then replays the bundle by attaching it to the tangle.
    */
-  void replayTransfer();
+  void replayTransfer() const;
 
   /*
    * Wrapper function that basically does prepareTransfers, as well as attachToTangle and finally,
    * it broadcasts and stores the transactions locally.
    */
-  void sendTransfer();
+  void sendTransfer() const;
 
   /*
    * Wrapper function that does attachToTangle and finally, it broadcasts and stores the
    * transactions locally.
    */
-  void sendTrytes();
+  void sendTrytes() const;
 
   /*
    * Wrapper function that does broadcastTransactions and storeTransactions.
    */
-  storeTransactionsResponse broadcastAndStore(const std::vector<Type::Trytes>& trytes);
+  storeTransactionsResponse broadcastAndStore(const std::vector<Type::Trytes>& trytes) const;
 
-  findTransactionsResponse findTransactionsByAddresses(const std::vector<Type::Trytes>& addresses);
+  findTransactionsResponse findTransactionsByAddresses(
+      const std::vector<Type::Trytes>& addresses) const;
 
-  findTransactionsResponse findTransactionsByDigests(const std::vector<Type::Trytes>& digests);
+  findTransactionsResponse findTransactionsByDigests(
+      const std::vector<Type::Trytes>& digests) const;
 
-  findTransactionsResponse findTransactionsByApprovees(const std::vector<Type::Trytes>& approvees);
+  findTransactionsResponse findTransactionsByApprovees(
+      const std::vector<Type::Trytes>& approvees) const;
 
-  findTransactionsResponse findTransactionsByBundles(const std::vector<Type::Trytes>& bundles);
+  findTransactionsResponse findTransactionsByBundles(
+      const std::vector<Type::Trytes>& bundles) const;
 
 private:
   /**
@@ -247,7 +253,7 @@ private:
    * @return A new address.
    */
   Type::Trytes newAddress(const Type::Trytes& seed, const int32_t& index, const int32_t& security,
-                          bool checksum);
+                          bool checksum) const;
 
 private:
   /**

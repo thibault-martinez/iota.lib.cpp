@@ -50,27 +50,27 @@ Core::~Core() {
 }
 
 getNodeInfoResponse
-Core::getNodeInfo() {
+Core::getNodeInfo() const {
   return this->service_.request<getNodeInfoRequest, getNodeInfoResponse>();
 }
 
 getNeighborsResponse
-Core::getNeighbors() {
+Core::getNeighbors() const {
   return this->service_.request<getNeighborsRequest, getNeighborsResponse>();
 }
 
 addNeighborsResponse
-Core::addNeighbors(const std::vector<std::string>& uris) {
+Core::addNeighbors(const std::vector<std::string>& uris) const {
   return this->service_.request<addNeighborsRequest, addNeighborsResponse>(uris);
 }
 
 removeNeighborsResponse
-Core::removeNeighbors(const std::vector<std::string>& uris) {
+Core::removeNeighbors(const std::vector<std::string>& uris) const {
   return this->service_.request<removeNeighborsRequest, removeNeighborsResponse>(uris);
 }
 
 getTipsResponse
-Core::getTips() {
+Core::getTips() const {
   return this->service_.request<getTipsRequest, getTipsResponse>();
 }
 
@@ -78,55 +78,55 @@ findTransactionsResponse
 Core::findTransactions(const std::vector<Type::Trytes>& addresses,
                        const std::vector<Type::Trytes>& digests,
                        const std::vector<Type::Trytes>& approvees,
-                       const std::vector<Type::Trytes>& bundles) {
+                       const std::vector<Type::Trytes>& bundles) const {
   return this->service_.request<findTransactionsRequest, findTransactionsResponse>(
       addresses, digests, approvees, bundles);
 }
 
 getTrytesResponse
-Core::getTrytes(const std::vector<std::string>& hashes) {
+Core::getTrytes(const std::vector<std::string>& hashes) const {
   return this->service_.request<getTrytesRequest, getTrytesResponse>(hashes);
 }
 
 getInclusionStatesResponse
 Core::getInclusionStates(const std::vector<std::string>& transactions,
-                         const std::vector<std::string>& tips) {
+                         const std::vector<std::string>& tips) const {
   return this->service_.request<getInclusionStatesRequest, getInclusionStatesResponse>(transactions,
                                                                                        tips);
 }
 
 getBalancesResponse
-Core::getBalances(const std::vector<std::string>& addresses, const int& threshold) {
+Core::getBalances(const std::vector<std::string>& addresses, const int& threshold) const {
   return this->service_.request<getBalancesRequest, getBalancesResponse>(addresses, threshold);
 }
 
 getTransactionsToApproveResponse
-Core::getTransactionsToApprove(const int& depth) {
+Core::getTransactionsToApprove(const int& depth) const {
   return this->service_.request<getTransactionsToApproveRequest, getTransactionsToApproveResponse>(
       depth);
 }
 
 attachToTangleResponse
 Core::attachToTangle(const std::string& trunkTransaction, const std::string& branchTransaction,
-                     const int& minWeightMagnitude, const std::vector<std::string>& trytes) {
+                     const int& minWeightMagnitude, const std::vector<std::string>& trytes) const {
   return this->service_.request<attachToTangleRequest, attachToTangleResponse>(
       trunkTransaction, branchTransaction, minWeightMagnitude, trytes);
 }
 
 interruptAttachingToTangleResponse
-Core::interruptAttachingToTangle() {
+Core::interruptAttachingToTangle() const {
   return this->service_
       .request<interruptAttachingToTangleRequest, interruptAttachingToTangleResponse>();
 }
 
 broadcastTransactionsResponse
-Core::broadcastTransactions(const std::vector<Type::Trytes>& trytes) {
+Core::broadcastTransactions(const std::vector<Type::Trytes>& trytes) const {
   return this->service_.request<broadcastTransactionsRequest, broadcastTransactionsResponse>(
       trytes);
 }
 
 storeTransactionsResponse
-Core::storeTransactions(const std::vector<Type::Trytes>& trytes) {
+Core::storeTransactions(const std::vector<Type::Trytes>& trytes) const {
   return this->service_.request<storeTransactionsRequest, storeTransactionsResponse>(trytes);
 }
 

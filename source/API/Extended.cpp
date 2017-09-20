@@ -49,7 +49,7 @@ Extended::~Extended() {
 
 getBalancesAndFormatResponse
 Extended::getInputs(const std::string& seed, const int32_t& security, const int32_t& start,
-                    const int32_t& end, const int64_t& threshold) {
+                    const int32_t& end, const int64_t& threshold) const {
   Utils::StopWatch stopWatch;
 
   // validate the seed
@@ -97,7 +97,7 @@ Extended::getInputs(const std::string& seed, const int32_t& security, const int3
 getBalancesAndFormatResponse
 Extended::getBalancesAndFormat(const std::vector<std::string>& addresses, const int64_t& threshold,
                                const int32_t& start, Utils::StopWatch stopWatch,
-                               const int32_t& security) {
+                               const int32_t& security) const {
   if (security < 1 || security > 3) {
     throw Errors::IllegalState("Invalid Security Level");
   }
@@ -146,7 +146,7 @@ Extended::getBalancesAndFormat(const std::vector<std::string>& addresses, const 
 
 getNewAddressesResponse
 Extended::getNewAddresses(const Type::Trytes& seed, const uint32_t& index, const int32_t& security,
-                          bool checksum, const int32_t& total, bool returnAll) {
+                          bool checksum, const int32_t& total, bool returnAll) const {
   Utils::StopWatch stopWatch;
 
   // Validate the seed
@@ -192,13 +192,13 @@ Extended::getNewAddresses(const Type::Trytes& seed, const uint32_t& index, const
 }
 
 Bundle
-Extended::traverseBundle(const std::string& trunkTx) {
+Extended::traverseBundle(const std::string& trunkTx) const {
   Bundle bundle;
   return traverseBundle(trunkTx, "", bundle);
 }
 
 Bundle
-Extended::traverseBundle(const std::string& trunkTx, std::string bundleHash, Bundle& bundle) {
+Extended::traverseBundle(const std::string& trunkTx, std::string bundleHash, Bundle& bundle) const {
   //! get trytes for transaction
   getTrytesResponse gtr = getTrytes({ trunkTx });
   // If fail to get trytes, return error
@@ -231,19 +231,19 @@ Extended::traverseBundle(const std::string& trunkTx, std::string bundleHash, Bun
 }
 
 std::vector<Transaction>
-Extended::findTransactionObjects(const std::vector<IOTA::Type::Trytes>& input) {
+Extended::findTransactionObjects(const std::vector<IOTA::Type::Trytes>& input) const {
   //! get the transaction objects of the transactions
   return getTransactionsObjects(findTransactions(input, {}, {}, {}).getHashes());
 }
 
 std::vector<Transaction>
-Extended::findTransactionObjectsByBundle(const std::vector<IOTA::Type::Trytes>& input) {
+Extended::findTransactionObjectsByBundle(const std::vector<IOTA::Type::Trytes>& input) const {
   // get the transaction objects of the transactions
   return getTransactionsObjects(findTransactions({}, {}, {}, input).getHashes());
 }
 
 std::vector<Transaction>
-Extended::getTransactionsObjects(const std::vector<IOTA::Type::Trytes>& hashes) {
+Extended::getTransactionsObjects(const std::vector<IOTA::Type::Trytes>& hashes) const {
   if (!Type::isArrayOfHashes(hashes)) {
     throw Errors::IllegalState("getTransactionsObjects parameter is not a valid array of hashes");
   }
@@ -263,7 +263,7 @@ Extended::getTransactionsObjects(const std::vector<IOTA::Type::Trytes>& hashes) 
 
 std::vector<Bundle>
 Extended::bundlesFromAddresses(const std::vector<IOTA::Type::Trytes>& addresses,
-                               bool                                   withInclusionStates) {
+                               bool                                   withInclusionStates) const {
   //! find transactions for addresses
   std::vector<Transaction> trxs = findTransactionObjects(addresses);
 
@@ -338,62 +338,62 @@ Extended::bundlesFromAddresses(const std::vector<IOTA::Type::Trytes>& addresses,
 }
 
 getInclusionStatesResponse
-Extended::getLatestInclusion(const std::vector<Type::Trytes>& hashes) {
+Extended::getLatestInclusion(const std::vector<Type::Trytes>& hashes) const {
   return getInclusionStates(hashes, { getNodeInfo().getLatestSolidSubtangleMilestone() });
 }
 
 void
-Extended::prepareTransfers() {
+Extended::prepareTransfers() const {
 }
 
 void
-Extended::getNewAddress() {
+Extended::getNewAddress() const {
 }
 
 getBundleResponse
-Extended::getBundle(const Type::Trytes&) {
+Extended::getBundle(const Type::Trytes&) const {
   return { {}, 0 };
 }
 
 void
-Extended::getTransfers() {
+Extended::getTransfers() const {
 }
 
 void
-Extended::replayTransfer() {
+Extended::replayTransfer() const {
 }
 
 void
-Extended::sendTransfer() {
+Extended::sendTransfer() const {
 }
 
 void
-Extended::sendTrytes() {
+Extended::sendTrytes() const {
 }
 
 storeTransactionsResponse
-Extended::broadcastAndStore(const std::vector<Type::Trytes>& trytes) {
+Extended::broadcastAndStore(const std::vector<Type::Trytes>& trytes) const {
   this->broadcastTransactions(trytes);
   return this->storeTransactions(trytes);
 }
 
 findTransactionsResponse
-Extended::findTransactionsByAddresses(const std::vector<Type::Trytes>& addresses) {
+Extended::findTransactionsByAddresses(const std::vector<Type::Trytes>& addresses) const {
   return this->findTransactions(addresses, {}, {}, {});
 }
 
 findTransactionsResponse
-Extended::findTransactionsByDigests(const std::vector<Type::Trytes>& digests) {
+Extended::findTransactionsByDigests(const std::vector<Type::Trytes>& digests) const {
   return this->findTransactions({}, digests, {}, {});
 }
 
 findTransactionsResponse
-Extended::findTransactionsByApprovees(const std::vector<Type::Trytes>& approvees) {
+Extended::findTransactionsByApprovees(const std::vector<Type::Trytes>& approvees) const {
   return this->findTransactions({}, {}, approvees, {});
 }
 
 findTransactionsResponse
-Extended::findTransactionsByBundles(const std::vector<Type::Trytes>& bundles) {
+Extended::findTransactionsByBundles(const std::vector<Type::Trytes>& bundles) const {
   return this->findTransactions({}, {}, {}, bundles);
 }
 
@@ -403,7 +403,7 @@ Extended::findTransactionsByBundles(const std::vector<Type::Trytes>& bundles) {
 
 Type::Trytes
 Extended::newAddress(const Type::Trytes& seed, const int32_t& index, const int32_t& security,
-                     bool checksum) {
+                     bool checksum) const {
   // TODO custom sponge
   // Crypto::create(cryptoType_)
   Crypto::Signing s;
