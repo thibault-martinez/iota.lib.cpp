@@ -1,0 +1,6 @@
+var searchData=
+[
+  ['totrytes',['toTrytes',['../class_transaction.html#a8d96e646662e037e2100223335a91fe9',1,'Transaction']]],
+  ['transaction',['Transaction',['../class_transaction.html',1,'Transaction'],['../class_transaction.html#a03be48c51b717979132e76a758bfdadb',1,'Transaction::Transaction(const std::string &amp;trytes)'],['../class_transaction.html#aab1f344a28a9d0e67825a6d1bc7e9726',1,'Transaction::Transaction(const std::string &amp;signatureFragments, int64_t currentIndex, int64_t lastIndex, const std::string &amp;nonce, const std::string &amp;hash, const std::string &amp;tag, int64_t timestamp, const std::string &amp;trunkTransaction, const std::string &amp;branchTransaction, const std::string &amp;address, int64_t value, const std::string &amp;bundle)'],['../class_transaction.html#a908a8135e42c58646b776767545936c1',1,'Transaction::Transaction(const std::string &amp;address, int64_t value, const std::string &amp;tag, int64_t timestamp)']]],
+  ['traversebundle',['traverseBundle',['../class_i_o_t_a_1_1_a_p_i_1_1_extended.html#a2e1c0d0438c09813bcf3d08fe3ee2821',1,'IOTA::API::Extended::traverseBundle(const std::string &amp;trunkTx) const'],['../class_i_o_t_a_1_1_a_p_i_1_1_extended.html#ac99bfccd88d638c38007ced661064edb',1,'IOTA::API::Extended::traverseBundle(const std::string &amp;trunkTx, std::string bundleHash, Bundle &amp;bundle) const']]]
+];
