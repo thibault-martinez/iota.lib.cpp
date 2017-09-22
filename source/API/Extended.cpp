@@ -356,8 +356,30 @@ Extended::getBundle(const Type::Trytes&) const {
 }
 
 getTransfersResponse
-Extended::getTransfers(const Type::Trytes&, int, int, int, bool) const {
-  return { {}, 0 };
+Extended::getTransfers(const Type::Trytes& seed, int security, int start, int end,
+                       bool inclusionStates) const {
+  Utils::StopWatch stopWatch;
+
+  // Validate the seed
+  if ((!Type::Seed::isValidSeed(seed))) {
+    throw Errors::IllegalState("Invalid Seed");
+  }
+
+  // Validate the security level
+  if (security < 1 || security > 3) {
+    throw Errors::IllegalState("Invalid Security Level");
+  }
+
+  // If start value bigger than end, return error
+  // or if difference between end and start is bigger than 500 keys
+  if (start > end || end > (start + 500)) {
+    throw Errors::IllegalState("Invalid inputs provided");
+  }
+
+  auto gnr     = getNewAddresses(seed, start, security, false, end, true);
+  auto bundles = bundlesFromAddresses(gnr.getAddresses(), inclusionStates);
+
+  return { bundles, stopWatch.getElapsedTimeMiliSeconds().count() };
 }
 
 void
@@ -421,7 +443,7 @@ Extended::getAccountData(const Type::Trytes& seed, int security, int index, bool
                          long threshold) {
   Utils::StopWatch stopWatch;
 
-  auto gna = getNewAddresses(seed, security, index, checksum, total, returnAll);
+  auto gna = getNewAddresses(seed, index, security, checksum, total, returnAll);
   auto gtr = getTransfers(seed, security, start, end, inclusionStates);
   auto gbr = getInputs(seed, security, start, end, threshold);
 
