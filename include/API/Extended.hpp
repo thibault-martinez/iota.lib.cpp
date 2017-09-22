@@ -34,9 +34,11 @@
 #include <API/Responses/getBundleResponse.hpp>
 #include <API/Responses/getNewAddressesResponse.hpp>
 #include <API/Responses/getTransfersResponse.hpp>
+#include <API/Responses/sendTransferResponse.hpp>
 #include <API/Responses/storeTransactionsResponse.hpp>
 #include <Crypto/SpongeFactory.hpp>
 #include <Model/Bundle.hpp>
+#include <Model/Transfer.hpp>
 #include <Utils/StopWatch.hpp>
 
 namespace IOTA {
@@ -178,8 +180,19 @@ public:
    * the transfer by generating the correct bundle, as well as choosing and signing the inputs if
    * necessary (if it's a value transfer). The output of this function is an array of the raw
    * transaction data (trytes).
+   *
+   * @param seed      81-tryte encoded address of recipient.
+   * @param security  The security level of private key / seed.
+   * @param transfers Array of transfer objects.
+   * @param remainder If defined, this address will be used for sending the remainder value (of the
+   * inputs) to.
+   * @param inputs    The inputs.
+   * @return Returns bundle trytes.
    */
-  void prepareTransfers() const;
+  std::vector<Type::Trytes> prepareTransfers(const Type::Trytes& seed, int security,
+                                             const std::vector<Transfer>& transfers,
+                                             const std::string&           remainder,
+                                             const std::vector<input>&    inputs) const;
 
   /*
    * Generates a new address from a seed and returns the address. This is either done
@@ -225,8 +238,21 @@ public:
   /*
    * Wrapper function that basically does prepareTransfers, as well as attachToTangle and finally,
    * it broadcasts and stores the transactions locally.
+   *
+   * @param seed               Tryte-encoded seed
+   * @param security           The security level of private key / seed.
+   * @param depth              The depth.
+   * @param minWeightMagnitude The minimum weight magnitude.
+   * @param transfers          Array of transfer objects.
+   * @param inputs             List of inputs used for funding the transfer.
+   * @param address            If defined, this address will be used for sending the remainder value
+   * (of the inputs) to.
+   * @return Array of Transaction objects.
    */
-  void sendTransfer() const;
+  sendTransferResponse sendTransfer(const Type::Trytes& seed, int security, int depth,
+                                    int minWeightMagnitude, const std::vector<Transfer>& transfers,
+                                    const std::vector<input>& inputs,
+                                    const Type::Trytes&       address) const;
 
   /*
    * Wrapper function that gets transactions to approve, attaches to Tangle, broadcasts and stores.
