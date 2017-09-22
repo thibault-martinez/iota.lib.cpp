@@ -214,7 +214,7 @@ public:
    * @return Bundle of transfers.
    */
   getTransfersResponse getTransfers(const Type::Trytes& seed, int security, int start, int end,
-                                   bool inclusionStates) const;
+                                    bool inclusionStates) const;
 
   /*
    * Takes a tail transaction hash as input, gets the bundle associated with the transaction and
@@ -277,6 +277,12 @@ public:
   getAccountDataResponse getAccountData(const Type::Trytes& seed, int security, int index,
                                         bool checksum, int total, bool returnAll, int start,
                                         int end, bool inclusionStates, long threshold);
+
+  /**
+   * @param hash The hash of a transaction
+   * @return hash of the tail transaction of the bundle to which the input trx belongs.
+   */
+  const Type::Trytes& findTailTransactionHash(const Type::Trytes& hash);
 
 private:
   /**

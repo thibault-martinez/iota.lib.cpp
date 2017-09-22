@@ -451,6 +451,27 @@ Extended::getAccountData(const Type::Trytes& seed, int security, int index, bool
            stopWatch.getElapsedTimeMiliSeconds().count() };
 }
 
+const Type::Trytes&
+Extended::findTailTransactionHash(const Type::Trytes& hash) {
+  auto gtr = getTrytes({ hash });
+
+  if (gtr.getTrytes().empty()) {
+    throw Errors::IllegalState("Bundle transactions not visible");
+  }
+
+  auto trx = Transaction{ gtr.getTrytes()[0] };
+
+  if (trx.getBundle().empty()) {
+    throw Errors::IllegalState("Invalid trytes, could not create object");
+  }
+
+  if (trx.getCurrentIndex() == 0) {
+    return trx.getHash();
+  }
+
+  return findTailTransactionHash(trx.getBundle());
+}
+
 /*
  * Private methods.
  */
