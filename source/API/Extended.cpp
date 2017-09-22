@@ -29,6 +29,7 @@
 #include <Crypto/Signing.hpp>
 #include <Errors/IllegalState.hpp>
 #include <Model/Bundle.hpp>
+#include <Model/Signature.hpp>
 #include <Model/Transaction.hpp>
 #include <Type/Seed.hpp>
 
@@ -351,8 +352,89 @@ Extended::getNewAddress() const {
 }
 
 getBundleResponse
-Extended::getBundle(const Type::Trytes&) const {
-  return { {}, 0 };
+Extended::getBundle(const Type::Trytes& transaction) const {
+  Utils::StopWatch stopWatch;
+
+  //! get bundle hash for transaction
+  auto         bundle     = traverseBundle(transaction);
+  long         totalSum   = 0;
+  Type::Trytes bundleHash = bundle.getTransactions()[0].getBundle();
+
+  //! init curl
+  auto curl = Crypto::create(Crypto::SpongeType::KERL);
+  curl->reset();
+
+  std::vector<Signature> signaturesToValidate;
+
+  for (std::size_t i = 0; i < bundle.getTransactions().size(); ++i) {
+    const auto& trx = bundle.getTransactions()[i];
+
+    if (static_cast<int64_t>(i) != trx.getCurrentIndex()) {
+      throw Errors::IllegalState("Invalid Bundle");
+    }
+
+    //! sums up transaction values
+    auto trxValue = trx.getValue();
+    totalSum += trxValue;
+
+    //! Absorb bundle hash + value + timestamp + lastIndex + currentIndex trytes.
+    curl->absorb(Type::trytesToTrits(trx.toTrytes().substr(2187, 2187 + 162)));
+
+    //! if transaction has some value, we can processs next transactions
+    if (trxValue >= 0) {
+      continue;
+    }
+
+    Signature sig;
+    sig.setAddress(trx.getAddress());
+    sig.getSignatureFragments().push_back(trx.getSignatureFragments());
+
+    //! Find the subsequent txs with the remaining signature fragment
+    for (std::size_t y = i + 1; y < bundle.getTransactions().size(); ++y) {
+      const auto& newBundleTx = bundle.getTransactions()[i];
+
+      // Check if new tx is part of the signature fragment
+      if (newBundleTx.getAddress() == trx.getAddress() && newBundleTx.getValue() == 0) {
+        if (std::find(sig.getSignatureFragments().begin(), sig.getSignatureFragments().end(),
+                      newBundleTx.getSignatureFragments()) == sig.getSignatureFragments().end()) {
+          sig.getSignatureFragments().push_back(newBundleTx.getSignatureFragments());
+        }
+      }
+    }
+
+    signaturesToValidate.push_back(sig);
+  }
+
+  //! Check for total sum, if not equal 0 return error
+  if (totalSum != 0) {
+    throw Errors::IllegalState("Invalid Bundle Sum");
+  }
+
+  std::vector<int8_t> bundleFromTrxs(TritHashLength);
+  curl->squeeze(bundleFromTrxs);
+
+  //! Check if bundle hash is the same as returned by tx object
+  if (Type::tritsToTrytes(bundleFromTrxs) != bundleHash) {
+    throw Errors::IllegalState("Invalid Bundle Hash");
+  }
+
+  //! Last tx in the bundle should have currentIndex == lastIndex
+  const auto& lastTrx = bundle.getTransactions()[bundle.getLength() - 1];
+  if (lastTrx.getCurrentIndex() != (lastTrx.getLastIndex()))
+    throw Errors::IllegalState("Invalid Bundle");
+
+  //! Validate the signatures
+  for (const auto& signature : signaturesToValidate) {
+    Crypto::Signing s;
+    const auto&     addr  = signature.getAddress();
+    const auto&     frags = signature.getSignatureFragments();
+
+    if (!s.validateSignatures(addr, frags, bundleHash)) {
+      throw Errors::IllegalState("Invalid Signature");
+    }
+  }
+
+  return { bundle.getTransactions(), stopWatch.getElapsedTimeMiliSeconds().count() };
 }
 
 getTransfersResponse
