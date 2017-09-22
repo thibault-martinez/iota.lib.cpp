@@ -343,8 +343,10 @@ Extended::getLatestInclusion(const std::vector<Type::Trytes>& hashes) const {
   return getInclusionStates(hashes, { getNodeInfo().getLatestSolidSubtangleMilestone() });
 }
 
-void
-Extended::prepareTransfers() const {
+std::vector<Type::Trytes>
+Extended::prepareTransfers(const Type::Trytes&, int, const std::vector<Transfer>&,
+                           const std::string&, const std::vector<input>&) const {
+  return {};
 }
 
 void
@@ -468,8 +470,28 @@ void
 Extended::replayTransfer() const {
 }
 
-void
-Extended::sendTransfer() const {
+sendTransferResponse
+Extended::sendTransfer(const Type::Trytes& seed, int security, int depth, int minWeightMagnitude,
+                       const std::vector<Transfer>& transfers, const std::vector<input>& inputs,
+                       const Type::Trytes& address) const {
+  // Validate the security level
+  if (security < 1 || security > 3) {
+    throw Errors::IllegalState("Invalid Security Level");
+  }
+
+  Utils::StopWatch stopWatch;
+
+  auto trytes = prepareTransfers(seed, security, transfers, address, inputs);
+  auto trxs   = sendTrytes(trytes, depth, minWeightMagnitude);
+
+  std::vector<bool> successful;
+
+  for (const auto& trx : trxs) {
+    auto response = findTransactionsByBundles({ trx.getBundle() });
+    successful.push_back(!response.getHashes().empty());
+  }
+
+  return { successful, stopWatch.getElapsedTimeMiliSeconds().count() };
 }
 
 std::vector<Transaction>
