@@ -34,10 +34,10 @@
 /*
  * getTransfer API call response.
  */
-class getTransferResponse : public genericResponse {
+class getTransfersResponse : public genericResponse {
 public:
-  getTransferResponse(const std::vector<Bundle>& transferBundle, long duration);
-  virtual ~getTransferResponse();
+  getTransfersResponse(const std::vector<Bundle>& transferBundle, long duration);
+  virtual ~getTransfersResponse();
 
 public:
   /**

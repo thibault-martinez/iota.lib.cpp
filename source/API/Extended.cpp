@@ -355,7 +355,7 @@ Extended::getBundle(const Type::Trytes&) const {
   return { {}, 0 };
 }
 
-getTransferResponse
+getTransfersResponse
 Extended::getTransfers(const Type::Trytes&, int, int, int, bool) const {
   return { {}, 0 };
 }
