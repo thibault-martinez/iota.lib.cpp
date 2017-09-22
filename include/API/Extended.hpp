@@ -218,10 +218,16 @@ public:
   void sendTransfer() const;
 
   /*
-   * Wrapper function that does attachToTangle and finally, it broadcasts and stores the
-   * transactions locally.
+   * Wrapper function that gets transactions to approve, attaches to Tangle, broadcasts and stores.
+   *
+   * @param trytes             The trytes.
+   * @param depth              The depth.
+   * @param minWeightMagnitude The minimum weight magnitude.
+   * @return Transactions objects.
    */
-  void sendTrytes() const;
+  std::vector<Transaction> sendTrytes(const std::vector<Type::Trytes>& trytes,
+                                      const unsigned int&              depth,
+                                      const unsigned int&              minWeightMagnitude) const;
 
   /*
    * Wrapper function that does broadcastTransactions and storeTransactions.

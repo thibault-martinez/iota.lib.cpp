@@ -367,8 +367,25 @@ void
 Extended::sendTransfer() const {
 }
 
-void
-Extended::sendTrytes() const {
+std::vector<Transaction>
+Extended::sendTrytes(const std::vector<Type::Trytes>& trytes, const unsigned int& depth,
+                     const unsigned int& minWeightMagnitude) const {
+  // Get branch and trunk
+  auto tta = this->getTransactionsToApprove(depth);
+
+  // Attach to tangle, do pow
+  auto res = this->attachToTangle(tta.getTrunkTransaction(), tta.getBranchTransaction(),
+                                  minWeightMagnitude, trytes);
+
+  this->broadcastAndStore(res.getTrytes());
+
+  std::vector<Transaction> trx;
+
+  for (const auto& trxTrytes : res.getTrytes()) {
+    trx.emplace_back(trxTrytes);
+  }
+
+  return trx;
 }
 
 storeTransactionsResponse
