@@ -182,13 +182,6 @@ public:
   void prepareTransfers() const;
 
   /*
-   * Generates a new address from a seed and returns the address. This is either done
-   * deterministically, or by providing the index of the new address (see Questions for more
-   * information about this).
-   */
-  void getNewAddress() const;
-
-  /*
    * This function returns the bundle which is associated with a transaction. Input can by any type
    * of transaction (tail and non-tail). If there are multiple bundles (because of a replay for
    * example), it will return multiple bundles. It also does important validation checking
@@ -276,13 +269,30 @@ public:
    */
   getAccountDataResponse getAccountData(const Type::Trytes& seed, int security, int index,
                                         bool checksum, int total, bool returnAll, int start,
-                                        int end, bool inclusionStates, long threshold);
+                                        int end, bool inclusionStates, long threshold) const;
 
   /**
    * @param hash The hash of a transaction
    * @return hash of the tail transaction of the bundle to which the input trx belongs.
    */
-  const Type::Trytes& findTailTransactionHash(const Type::Trytes& hash);
+  const Type::Trytes& findTailTransactionHash(const Type::Trytes& hash) const;
+
+  /**
+   * @param seed               Tryte-encoded seed.
+   * @param security           The security level of private key / seed.
+   * @param inputs             List of inputs used for funding the transfer.
+   * @param bundle             To be populated.
+   * @param tag                The tag.
+   * @param totalValue         The total value.
+   * @param remainderAddress   If defined, this address will be used for sending the remainder value
+   * (of the inputs) to.
+   * @param signatureFragments The signature fragments.
+   */
+  std::vector<std::string> addRemainder(const Type::Trytes& seed, const unsigned int& security,
+                                        const std::vector<input>& inputs, Bundle& bundle,
+                                        const std::string& tag, const long& totalValue,
+                                        const Type::Trytes&             remainderAddress,
+                                        const std::vector<std::string>& signatureFragments) const;
 
 private:
   /**
@@ -298,6 +308,10 @@ private:
    */
   Type::Trytes newAddress(const Type::Trytes& seed, const int32_t& index, const int32_t& security,
                           bool checksum) const;
+
+  std::vector<std::string> signInputsAndReturn(
+      const std::string& seed, const std::vector<input>& inputs, Bundle& bundle,
+      const std::vector<std::string>& signatureFragments) const;
 
 private:
   /**

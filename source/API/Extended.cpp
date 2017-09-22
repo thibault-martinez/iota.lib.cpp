@@ -347,10 +347,6 @@ void
 Extended::prepareTransfers() const {
 }
 
-void
-Extended::getNewAddress() const {
-}
-
 getBundleResponse
 Extended::getBundle(const Type::Trytes& transaction) const {
   Utils::StopWatch stopWatch;
@@ -522,7 +518,7 @@ Extended::findTransactionsByBundles(const std::vector<Type::Trytes>& bundles) co
 getAccountDataResponse
 Extended::getAccountData(const Type::Trytes& seed, int security, int index, bool checksum,
                          int total, bool returnAll, int start, int end, bool inclusionStates,
-                         long threshold) {
+                         long threshold) const {
   Utils::StopWatch stopWatch;
 
   auto gna = getNewAddresses(seed, index, security, checksum, total, returnAll);
@@ -534,7 +530,7 @@ Extended::getAccountData(const Type::Trytes& seed, int security, int index, bool
 }
 
 const Type::Trytes&
-Extended::findTailTransactionHash(const Type::Trytes& hash) {
+Extended::findTailTransactionHash(const Type::Trytes& hash) const {
   auto gtr = getTrytes({ hash });
 
   if (gtr.getTrytes().empty()) {
@@ -552,6 +548,51 @@ Extended::findTailTransactionHash(const Type::Trytes& hash) {
   }
 
   return findTailTransactionHash(trx.getBundle());
+}
+
+std::vector<std::string>
+Extended::addRemainder(const Type::Trytes& seed, const unsigned int& security,
+                       const std::vector<input>& inputs, Bundle& bundle, const std::string& tag,
+                       const long& totalValue, const Type::Trytes& remainderAddress,
+                       const std::vector<std::string>& signatureFragments) const {
+  auto totalTransferValue = totalValue;
+  for (const auto& input : inputs) {
+    auto thisBalance = input.getBalance();
+    auto toSubtract  = -thisBalance;
+    // TODO std::chrono ?
+    auto timestamp = std::time(0);
+    // Add input as bundle entry
+    bundle.addTransaction(input.getSecurity(), input.getAddress(), toSubtract, tag, timestamp);
+    // If there is a remainder value
+    // Add extra output to send remaining funds to
+    if (thisBalance >= totalTransferValue) {
+      auto remainder = thisBalance - totalTransferValue;
+      // If user has provided remainder address
+      // Use it to send remaining funds to
+      if (remainder > 0 && not remainderAddress.empty()) {
+        // Remainder bundle entry
+        bundle.addTransaction(1, remainderAddress, remainder, tag, timestamp);
+        // Final function for signing inputs
+        return this->signInputsAndReturn(seed, inputs, bundle, signatureFragments);
+      } else if (remainder > 0) {
+        // Generate a new Address by calling getNewAddress
+        auto res = this->getNewAddresses(seed, 0, security, false, 0, false);
+        // Remainder bundle entry
+        bundle.addTransaction(1, res.getAddresses()[0], remainder, tag, timestamp);
+        // Final function for signing inputs
+        return this->signInputsAndReturn(seed, inputs, bundle, signatureFragments);
+      } else {
+        // If there is no remainder, do not add transaction to bundle
+        // simply sign and return
+        return this->signInputsAndReturn(seed, inputs, bundle, signatureFragments);
+      }
+      // If multiple inputs provided, subtract the totalTransferValue by
+      // the inputs balance
+    } else {
+      totalTransferValue -= thisBalance;
+    }
+  }
+  throw Errors::IllegalState("Not enough balance");
 }
 
 /*
@@ -575,6 +616,93 @@ Extended::newAddress(const Type::Trytes& seed, const int32_t& index, const int32
     address = c.add(address);
   }
   return address;
+}
+
+std::vector<std::string>
+Extended::signInputsAndReturn(const std::string& seed, const std::vector<input>& inputs,
+                              Bundle&                         bundle,
+                              const std::vector<std::string>& signatureFragments) const {
+  // TODO param ?
+  auto curl = Crypto::create(this->cryptoType_);
+  bundle.finalize(curl);
+  bundle.addTrytes(signatureFragments);
+
+  //  SIGNING OF INPUTS
+  //
+  //  Here we do the actual signing of the inputs
+  //  Iterate over all bundle transactions, find the inputs
+  //  Get the corresponding private key and calculate the signatureFragment
+  for (auto& tx : bundle.getTransactions()) {
+    if (tx.getValue() < 0) {
+      auto addr = tx.getAddress();
+
+      // Get the corresponding keyIndex of the address
+      int keyIndex    = 0;
+      int keySecurity = 0;
+      for (const auto& input : inputs) {
+        if (input.getAddress() == addr) {
+          keyIndex    = input.getKeyIndex();
+          keySecurity = input.getSecurity();
+        }
+      }
+
+      auto bundleHash = tx.getBundle();
+
+      Crypto::Signing s;
+      // Get corresponding private key of address
+      // TODO Do we have to use the previous curl ?
+      // int[] key = new Signing(curl).key(Converter.trits(seed), keyIndex, keySecurity);
+      auto key = s.key(seed, keyIndex, keySecurity);
+
+      //  First 6561 trits for the firstFragment
+      std::vector<int8_t> firstFragment(&key[0], &key[6561]);
+
+      //  Get the normalized bundle hash
+      auto normalizedBundleHash = bundle.normalizedBundle(bundleHash);
+
+      //  First bundle fragment uses 27 trytes
+      std::vector<int8_t> firstBundleFragment(&normalizedBundleHash[0], &normalizedBundleHash[27]);
+
+      //  Calculate the new signatureFragment with the first bundle fragment
+      auto firstSignedFragment = s.signatureFragment(firstBundleFragment, firstFragment);
+
+      //  Convert signature to trytes and assign the new signatureFragment
+      tx.setSignatureFragments(Type::tritsToTrytes(firstSignedFragment));
+
+      // if user chooses higher than 27-tryte security
+      // for each security level, add an additional signature
+      for (int j = 1; j < keySecurity; j++) {
+        //  Because the signature is > 2187 trytes, we need to
+        //  find the second transaction to add the remainder of the signature
+        for (auto& txb : bundle.getTransactions()) {
+          //  Same address as well as value = 0 (as we already spent the input)
+          if (txb.getAddress() == addr && txb.getValue() == 0) {
+            // Use the second 6562 trits
+            std::vector<int8_t> secondFragment(&key[6561], &key[6561 * 2]);
+
+            // The second 27 to 54 trytes of the bundle hash
+            std::vector<int8_t> secondBundleFragment(&normalizedBundleHash[27],
+                                                     &normalizedBundleHash[27 * 2]);
+
+            //  Calculate the new signature
+            auto secondSignedFragment = s.signatureFragment(secondBundleFragment, secondFragment);
+
+            //  Convert signature to trytes and assign it again to this bundle entry
+            txb.setSignatureFragments(Type::tritsToTrytes(secondSignedFragment));
+          }
+        }
+      }
+    }
+  }
+
+  std::vector<Type::Trytes> bundleTrytes;
+
+  // Convert all bundle entries into trytes
+  for (const auto& tx : bundle.getTransactions()) {
+    bundleTrytes.push_back(tx.toTrytes());
+  }
+  std::reverse(bundleTrytes.begin(), bundleTrytes.end());
+  return bundleTrytes;
 }
 
 }  // namespace API
