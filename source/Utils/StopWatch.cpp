@@ -77,7 +77,7 @@ StopWatch::getElapsedTimeSeconds() {
 }
 
 std::chrono::minutes
-StopWatch::getElapsedTimeMinuntes() {
+StopWatch::getElapsedTimeMinutes() {
   return std::chrono::duration_cast<std::chrono::minutes>(getElapsedTimeMiliSeconds());
 }
 

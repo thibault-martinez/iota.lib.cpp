@@ -355,8 +355,9 @@ Extended::getBundle(const Type::Trytes&) const {
   return { {}, 0 };
 }
 
-void
-Extended::getTransfers() const {
+getTransferResponse
+Extended::getTransfers(const Type::Trytes&, int, int, int, bool) const {
+  return { {}, 0 };
 }
 
 void
@@ -412,6 +413,20 @@ Extended::findTransactionsByApprovees(const std::vector<Type::Trytes>& approvees
 findTransactionsResponse
 Extended::findTransactionsByBundles(const std::vector<Type::Trytes>& bundles) const {
   return this->findTransactions({}, {}, {}, bundles);
+}
+
+getAccountDataResponse
+Extended::getAccountData(const Type::Trytes& seed, int security, int index, bool checksum,
+                         int total, bool returnAll, int start, int end, bool inclusionStates,
+                         long threshold) {
+  Utils::StopWatch stopWatch;
+
+  auto gna = getNewAddresses(seed, security, index, checksum, total, returnAll);
+  auto gtr = getTransfers(seed, security, start, end, inclusionStates);
+  auto gbr = getInputs(seed, security, start, end, threshold);
+
+  return { gna.getAddresses(), gtr.getTransfers(), gbr.getTotalBalance(),
+           stopWatch.getElapsedTimeMiliSeconds().count() };
 }
 
 /*
