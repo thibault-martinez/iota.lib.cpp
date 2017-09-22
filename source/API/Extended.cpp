@@ -355,7 +355,7 @@ Extended::getBundle(const Type::Trytes&) const {
   return { {}, 0 };
 }
 
-getTransferResponse
+getTransfersResponse
 Extended::getTransfers(const Type::Trytes& seed, int security, int start, int end,
                        bool inclusionStates) const {
   Utils::StopWatch stopWatch;

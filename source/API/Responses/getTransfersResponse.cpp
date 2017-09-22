@@ -23,13 +23,13 @@
 //
 //
 
-#include <API/Responses/getTransferResponse.hpp>
+#include <API/Responses/getTransfersResponse.hpp>
 
-getTransferResponse::getTransferResponse(const std::vector<Bundle>& transferBundle, long duration)
+getTransfersResponse::getTransfersResponse(const std::vector<Bundle>& transferBundle, long duration)
     : genericResponse(duration), transferBundle_(transferBundle) {
 }
 
 const std::vector<Bundle>&
-getTransferResponse::getTransfers() const {
+getTransfersResponse::getTransfers() const {
   return transferBundle_;
 }

@@ -33,7 +33,7 @@
 #include <API/Responses/getBalancesResponse.hpp>
 #include <API/Responses/getBundleResponse.hpp>
 #include <API/Responses/getNewAddressesResponse.hpp>
-#include <API/Responses/getTransferResponse.hpp>
+#include <API/Responses/getTransfersResponse.hpp>
 #include <API/Responses/storeTransactionsResponse.hpp>
 #include <Crypto/SpongeFactory.hpp>
 #include <Model/Bundle.hpp>
@@ -213,7 +213,7 @@ public:
    * @param inclusionStates If <code>true</code>, it gets the inclusion states of the transfers.
    * @return Bundle of transfers.
    */
-  getTransferResponse getTransfers(const Type::Trytes& seed, int security, int start, int end,
+  getTransfersResponse getTransfers(const Type::Trytes& seed, int security, int start, int end,
                                    bool inclusionStates) const;
 
   /*
