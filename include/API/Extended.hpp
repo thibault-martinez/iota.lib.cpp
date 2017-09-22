@@ -28,10 +28,12 @@
 #include <list>
 
 #include <API/Core.hpp>
+#include <API/Responses/getAccountDataResponse.hpp>
 #include <API/Responses/getBalancesAndFormatResponse.hpp>
 #include <API/Responses/getBalancesResponse.hpp>
 #include <API/Responses/getBundleResponse.hpp>
 #include <API/Responses/getNewAddressesResponse.hpp>
+#include <API/Responses/getTransfersResponse.hpp>
 #include <API/Responses/storeTransactionsResponse.hpp>
 #include <Crypto/SpongeFactory.hpp>
 #include <Model/Bundle.hpp>
@@ -202,8 +204,17 @@ public:
    * Returns the transfers which are associated with a seed. The transfers are determined by either
    * calculating deterministically which addresses were already used, or by providing a list of
    * indexes to get the transfers from.
+   *
+   * @param seed            Tryte-encoded seed. It should be noted that this seed is not
+   * transferred.
+   * @param security        The security level of private key / seed.
+   * @param start           Starting key index.
+   * @param end             Ending key index.
+   * @param inclusionStates If <code>true</code>, it gets the inclusion states of the transfers.
+   * @return Bundle of transfers.
    */
-  void getTransfers() const;
+  getTransfersResponse getTransfers(const Type::Trytes& seed, int security, int start, int end,
+                                   bool inclusionStates) const;
 
   /*
    * Takes a tail transaction hash as input, gets the bundle associated with the transaction and
@@ -245,6 +256,27 @@ public:
 
   findTransactionsResponse findTransactionsByBundles(
       const std::vector<Type::Trytes>& bundles) const;
+
+  /**
+   * Similar to getTransfers, just that it returns additional account data
+   *
+   * @param seed            Tryte-encoded seed. It should be noted that this seed is not
+   * transferred.
+   * @param security        The Security level of private key / seed.
+   * @param index           Key index to start search from. If the index is provided, the generation
+   * of the address is not deterministic.
+   * @param checksum        Adds 9-tryte address checksum.
+   * @param total           Total number of addresses to generate.
+   * @param returnAll       If <code>true</code>, it returns all addresses which were
+   * deterministically generated (until findTransactions returns null).
+   * @param start           Starting key index.
+   * @param end             Ending key index.
+   * @param inclusionStates If <code>true</code>, it gets the inclusion states of the transfers.
+   * @param threshold       Min balance required.
+   */
+  getAccountDataResponse getAccountData(const Type::Trytes& seed, int security, int index,
+                                        bool checksum, int total, bool returnAll, int start,
+                                        int end, bool inclusionStates, long threshold);
 
 private:
   /**

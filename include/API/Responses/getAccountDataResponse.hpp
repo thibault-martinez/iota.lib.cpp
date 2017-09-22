@@ -25,83 +25,45 @@
 
 #pragma once
 
-#include <chrono>
+#include <vector>
 
-namespace IOTA {
+#include <API/Responses/genericResponse.hpp>
+#include <Model/Bundle.hpp>
+#include <Type/Trinary.hpp>
 
-namespace Utils {
+/*
+ * getAccountData API call response.
+ */
+class getAccountDataResponse : public genericResponse {
+public:
+  getAccountDataResponse(const std::vector<IOTA::Type::Trytes>& addresses,
+                         const std::vector<Bundle>& transferBundle, long balance, long duration);
+  virtual ~getAccountDataResponse();
 
-class StopWatch {
 public:
   /**
-   * StopWatch constructor: automatically starts the timer
+   * Gets the addresses.
+   *
+   * @return The addresses.
    */
-  StopWatch();
-
-public:
-  /**
-   * restart timer
-   */
-  void restart();
+  const std::vector<IOTA::Type::Trytes>& getAddresses() const;
 
   /**
-   * stop the timer
+   * Gets the transfers.
+   *
+   * @return The transfers.
    */
-  void stop();
+  const std::vector<Bundle>& getTransfers() const;
 
   /**
-   * pause the timer
+   * Gets the balance.
+   *
+   * @return The balance.
    */
-  void pause();
-
-  /**
-   * resume the timer after pausing it
-   */
-  void resume();
-
-  /**
-   * @return Elapsed time in milliseconds.
-   */
-  std::chrono::milliseconds getElapsedTimeMiliSeconds();
-
-  /**
-   * @return Elapsed time in seconds.
-   */
-  std::chrono::seconds getElapsedTimeSeconds();
-
-  /**
-   * @return Elapsed time in minutes.
-   */
-  std::chrono::minutes getElapsedTimeMinutes();
-
-  /**
-   * @return Elapsed time in hours.
-   */
-  std::chrono::hours getElapsedTimeHours();
+  long getBalance() const;
 
 private:
-  /**
-   * @return Current ts
-   */
-  std::chrono::milliseconds now();
-
-private:
-  /**
-   * time at which the timer started
-   */
-  std::chrono::milliseconds startTime_;
-
-  /**
-   * whether the timer is running or not
-   */
-  bool running_;
-
-  /**
-   * current tick when pausing timer
-   */
-  std::chrono::milliseconds currentTime_;
+  std::vector<IOTA::Type::Trytes> addresses_;
+  std::vector<Bundle>             transferBundle_;
+  long                            balance_;
 };
-
-}  // namespace Utils
-
-}  // namespace IOTA
