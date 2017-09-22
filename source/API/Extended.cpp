@@ -369,7 +369,7 @@ Extended::sendTransfer() const {
 
 std::vector<Transaction>
 Extended::sendTrytes(const std::vector<Type::Trytes>& trytes, const unsigned int& depth,
-                     const unsigned int minWeightMagnitude) const {
+                     const unsigned int& minWeightMagnitude) const {
   // Get branch and trunk
   auto tta = this->getTransactionsToApprove(depth);
 

@@ -227,7 +227,7 @@ public:
    */
   std::vector<Transaction> sendTrytes(const std::vector<Type::Trytes>& trytes,
                                       const unsigned int&              depth,
-                                      const unsigned int               minWeightMagnitude) const;
+                                      const unsigned int&              minWeightMagnitude) const;
 
   /*
    * Wrapper function that does broadcastTransactions and storeTransactions.
