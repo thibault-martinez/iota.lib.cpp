@@ -25,7 +25,10 @@
 
 ########## PROJECT TEST FILES ##########
 
-file(GLOB_RECURSE PROJECT_TEST_FILES *.cpp)
+file(GLOB_RECURSE PROJECT_TEST_FILES source/*.cpp)
+
+########## INCLUDE DIRS ########
+include_directories("include")
 
 ########## EXECUTABLE ##########
 
