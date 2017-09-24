@@ -62,7 +62,7 @@ install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install ccache; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then export PATH="/usr/local/opt/ccache/libexec:$PATH"; fi
   - if [ "$CXX" = "g++" ]; then export CXX="g++-4.9" CC="gcc-4.9"; fi
-  - wget http://downloads.sourceforge.net/project/boost/boost/1.64.0/boost_1_64_0.tar.bz2 -o ~/boost_1_64_0.tar.bz2 && tar xf ~/boost_1_64_0.tar.bz2 && cd ~/boost_1_64_0 && ./bootstrap.sh && sudo ./b2 install && cd -
+  - wget https://dl.bintray.com/boostorg/release/1.64.0/source/boost_1_64_0.tar.gz -o ~/boost_1_64_0.tar.gz && tar xf ~/boost_1_64_0.tar.bz2 && cd ~/boost_1_64_0 && ./bootstrap.sh && sudo ./b2 install && cd -
 
 script: ./run_build.sh
 
