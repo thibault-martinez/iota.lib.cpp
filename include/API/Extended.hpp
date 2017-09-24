@@ -34,6 +34,7 @@
 #include <API/Responses/getBundleResponse.hpp>
 #include <API/Responses/getNewAddressesResponse.hpp>
 #include <API/Responses/getTransfersResponse.hpp>
+#include <API/Responses/replayBundleResponse.hpp>
 #include <API/Responses/sendTransferResponse.hpp>
 #include <API/Responses/storeTransactionsResponse.hpp>
 #include <Crypto/SpongeFactory.hpp>
@@ -319,6 +320,17 @@ public:
                                         const std::string& tag, const long& totalValue,
                                         const Type::Trytes&             remainderAddress,
                                         const std::vector<std::string>& signatureFragments) const;
+
+  /**
+   * Replays a transfer by doing Proof of Work again.
+   *
+   * @param transaction        The transaction.
+   * @param depth              The depth.
+   * @param minWeightMagnitude The minimum weight magnitude.
+   * @return Analyzed Transaction objects.
+   */
+  replayBundleResponse replayBundle(const Type::Trytes& transaction, int depth,
+                                    int minWeightMagnitude);
 
 private:
   /**
