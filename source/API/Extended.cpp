@@ -617,6 +617,28 @@ Extended::addRemainder(const Type::Trytes& seed, const unsigned int& security,
   throw Errors::IllegalState("Not enough balance");
 }
 
+replayBundleResponse
+Extended::replayBundle(const Type::Trytes& transaction, int depth, int minWeightMagnitude) {
+  Utils::StopWatch stopWatch;
+
+  auto bundleResponse = getBundle(transaction);
+
+  std::vector<Type::Trytes> bundleTrytes;
+  for (const auto& trx : bundleResponse.getTransactions()) {
+    bundleTrytes.push_back(trx.toTrytes());
+  }
+
+  auto trxs = sendTrytes(bundleTrytes, depth, minWeightMagnitude);
+
+  std::vector<bool> successful;
+  for (const auto& trx : trxs) {
+    auto response = findTransactionsByBundles({ trx.getBundle() });
+    successful.push_back(!response.getHashes().empty());
+  }
+
+  return { successful, stopWatch.getElapsedTimeMiliSeconds().count() };
+}
+
 /*
  * Private methods.
  */
