@@ -121,7 +121,7 @@ TEST(SigningTest, SignatureFragments) {
 }
 
 TEST(SigningTest, ValidateSignatures) {
-  std::ifstream file(get_deps_folder() + "/signingValidateSignatures");
+  std::ifstream file(get_deps_folder() + "/signingvalidateSignatures");
   std::string   line;
   ASSERT_TRUE(file.is_open());
   std::getline(file, line);
