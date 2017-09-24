@@ -29,9 +29,10 @@
 
 #include <Crypto/Signing.hpp>
 #include <Model/Bundle.hpp>
+#include <test/utils/dependencies.hpp>
 
 TEST(SigningTest, Key) {
-  std::ifstream file("/root/iota.lib.cpp/test/files/signingKey");
+  std::ifstream file(get_deps_folder() + "/signingKey");
   std::string   line;
   ASSERT_TRUE(file.is_open());
   std::getline(file, line);
@@ -54,7 +55,7 @@ TEST(SigningTest, Key) {
 }
 
 TEST(SigningTest, Address) {
-  std::ifstream file("/root/iota.lib.cpp/test/files/signingAddress");
+  std::ifstream file(get_deps_folder() + "/signingAddress");
   std::string   line;
   ASSERT_TRUE(file.is_open());
   std::getline(file, line);
@@ -70,7 +71,7 @@ TEST(SigningTest, Address) {
 }
 
 TEST(SigningTest, Digests) {
-  std::ifstream file("/root/iota.lib.cpp/test/files/signingDigests");
+  std::ifstream file(get_deps_folder() + "/signingDigests");
   std::string   line;
   ASSERT_TRUE(file.is_open());
   std::getline(file, line);
@@ -86,7 +87,7 @@ TEST(SigningTest, Digests) {
 }
 
 TEST(SigningTest, SignatureFragments) {
-  std::ifstream file("/root/iota.lib.cpp/test/files/signingSignatureFragments");
+  std::ifstream file(get_deps_folder() + "/signingSignatureFragments");
   std::string   line;
   ASSERT_TRUE(file.is_open());
   std::getline(file, line);
@@ -120,7 +121,7 @@ TEST(SigningTest, SignatureFragments) {
 }
 
 TEST(SigningTest, ValidateSignatures) {
-  std::ifstream file("/root/iota.lib.cpp/test/files/signingValidateSignatures");
+  std::ifstream file(get_deps_folder() + "/signingValidateSignatures");
   std::string   line;
   ASSERT_TRUE(file.is_open());
   std::getline(file, line);

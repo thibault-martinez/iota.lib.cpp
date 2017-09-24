@@ -23,24 +23,16 @@
 //
 //
 
-#include <fstream>
+#include <string>
 
-#include <gtest/gtest.h>
+static std::string deps_folder;
 
-#include <Crypto/Keccak384.hpp>
+const std::string&
+get_deps_folder(void) {
+  return deps_folder;
+}
 
-TEST(Keccak384Test, digest) {
-  std::ifstream file("/root/iota.lib.cpp/test/files/keccak384");
-  std::string   line;
-  ASSERT_TRUE(file.is_open());
-  IOTA::Crypto::Keccak384 k;
-  while (std::getline(file, line)) {
-    auto                semicolon = line.find(';');
-    auto                input     = line.substr(0, semicolon);
-    auto                digest    = line.substr(semicolon + 1);
-    std::vector<int8_t> vinput(std::begin(input), std::end(input));
-    k.update(vinput);
-    EXPECT_EQ(digest, k.digest());
-    k.reset();
-  }
+void
+set_deps_folder(const std::string& folder) {
+  deps_folder = folder;
 }

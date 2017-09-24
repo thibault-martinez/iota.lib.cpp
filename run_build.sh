@@ -51,7 +51,7 @@ if [ $? -ne 0 ]; then
 fi
 
 showinfo "Running tests ..."
-./bin/runUnitTests 
+./bin/runUnitTests ../test/files
 if [ $? -ne 0 ]; then
     error "Error: there are failed tests!"
     exit 4

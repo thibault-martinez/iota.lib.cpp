@@ -29,6 +29,7 @@
 
 #include <Crypto/Kerl.hpp>
 #include <Errors/Crypto.hpp>
+#include <test/utils/dependencies.hpp>
 
 TEST(KerlTest, Exceptions) {
   IOTA::Crypto::Kerl k;
@@ -41,7 +42,7 @@ TEST(KerlTest, Exceptions) {
 }
 
 TEST(KerlTest, TrytesAndHashes) {
-  std::ifstream file("/root/iota.lib.cpp/test/files/kerlTrytesAndHashes");
+  std::ifstream file(get_deps_folder() + "/kerlTrytesAndHashes");
   std::string   line;
   ASSERT_TRUE(file.is_open());
   std::getline(file, line);
@@ -59,7 +60,7 @@ TEST(KerlTest, TrytesAndHashes) {
 }
 
 TEST(KerlTest, MultiTrytesAndHash) {
-  std::ifstream file("/root/iota.lib.cpp/test/files/kerlMultiTrytesAndHash");
+  std::ifstream file(get_deps_folder() + "/kerlMultiTrytesAndHash");
   std::string   line;
   ASSERT_TRUE(file.is_open());
   std::getline(file, line);
@@ -77,7 +78,7 @@ TEST(KerlTest, MultiTrytesAndHash) {
 }
 
 TEST(KerlTest, TrytesAndMultiSqueeze) {
-  std::ifstream file("/root/iota.lib.cpp/test/files/kerlTrytesAndMultiSqueeze");
+  std::ifstream file(get_deps_folder() + "/kerlTrytesAndMultiSqueeze");
   std::string   line;
   ASSERT_TRUE(file.is_open());
   std::getline(file, line);
