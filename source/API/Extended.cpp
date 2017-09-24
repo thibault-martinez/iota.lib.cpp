@@ -344,10 +344,159 @@ Extended::getLatestInclusion(const std::vector<Type::Trytes>& hashes) const {
   return getInclusionStates(hashes, { getNodeInfo().getLatestSolidSubtangleMilestone() });
 }
 
+// TODO Response ?
 std::vector<Type::Trytes>
-Extended::prepareTransfers(const Type::Trytes&, int, const std::vector<Transfer>&,
-                           const std::string&, const std::vector<input>&) const {
-  return {};
+Extended::prepareTransfers(const Type::Trytes& seed, int security, std::vector<Transfer>& transfers,
+                           const std::string& remainder, const std::vector<input>& inputs,
+                           bool validateInputs) const {
+  Utils::StopWatch sw;
+  // Validate transfers object
+  if (!this->isTransfersCollectionValid(transfers)) {
+    throw Errors::IllegalState("Invalid transfer");
+  }
+
+  // Validate the seed
+  if ((!Type::Seed::isValidSeed(seed))) {
+    throw Errors::IllegalState("Invalid Seed");
+  }
+
+  // Validate the security level
+  if (security < 1 || security > 3) {
+    throw Errors::IllegalState("Invalid Security Level");
+  }
+
+  Bundle                   bundle;
+  std::vector<std::string> signatureFragments;
+  long                     totalValue = 0;
+  std::string              tag;
+  Crypto::Checksum         cs;
+
+  //  Iterate over all transfers, get totalValue
+  //  and prepare the signatureFragments, message and tag
+  for (auto& transfer : transfers) {
+    // If address with checksum then remove checksum
+    if (cs.isValid(transfer.getAddress()))
+      transfer.setAddress(cs.remove(transfer.getAddress()));
+
+    int signatureMessageLength = 1;
+
+    // If message longer than 2187 trytes, increase signatureMessageLength (add 2nd transaction)
+    if (transfer.getMessage().size() > MaxTrxMsgLength) {
+      // Get total length, message / maxLength (2187 trytes)
+      signatureMessageLength += std::floor(transfer.getMessage().length() / MaxTrxMsgLength);
+
+      std::string msgCopy = transfer.getMessage();
+
+      // While there is still a message, copy it
+      while (!msgCopy.empty()) {
+        auto fragment = msgCopy.substr(0, MaxTrxMsgLength);
+        msgCopy       = msgCopy.substr(MaxTrxMsgLength);
+
+        // Pad remainder of fragment
+        fragment = Type::Utils::rightPad(transfer.getMessage(), MaxTrxMsgLength, '9');
+
+        signatureFragments.push_back(fragment);
+      }
+    } else {
+      // Else, get single fragment with 2187 of 9's trytes
+      auto fragment = transfer.getMessage().substr(0, MaxTrxMsgLength);
+
+      fragment = Type::Utils::rightPad(fragment, MaxTrxMsgLength, '9');
+
+      signatureFragments.push_back(fragment);
+    }
+
+    // get current timestamp in seconds
+    long timestamp = sw.now().count();
+
+    // If no tag defined, get 27 tryte tag.
+    tag = transfer.getTag().empty() ? "999999999999999999999999999" : transfer.getTag();
+
+    // Pad for required 27 tryte length
+    tag = Type::Utils::rightPad(tag, TryteAlphabetLength, '9');
+
+    // Add first entry to the bundle
+    bundle.addTransaction(signatureMessageLength, transfer.getAddress(), transfer.getValue(), tag,
+                          timestamp);
+    // Sum up total value
+    totalValue += transfer.getValue();
+  }
+
+  // Get inputs if we are sending tokens
+  if (totalValue != 0) {
+    if (!validateInputs)
+      return this->addRemainder(seed, security, inputs, bundle, tag, totalValue, remainder,
+                                signatureFragments);
+    //  Case 1: user provided inputs
+    //  Validate the inputs by calling getBalances
+    if (!validateInputs)
+      return addRemainder(seed, security, inputs, bundle, tag, totalValue, remainder,
+                          signatureFragments);
+    if (not inputs.empty()) {
+      // Get list if addresses of the provided inputs
+      std::vector<std::string> inputsAddresses;
+      for (const auto& input : inputs) {
+        inputsAddresses.push_back(input.getAddress());
+      }
+
+      // TODO 100 ?
+      auto balancesResponse = this->getBalances(inputsAddresses, 100);
+      auto balances         = balancesResponse.getBalances();
+
+      std::vector<input> confirmedInputs;
+      int                totalBalance = 0;
+      int                i            = 0;
+      for (const auto& balance : balances) {
+        long thisBalance = std::stol(balance);
+
+        // If input has balance, add it to confirmedInputs
+        if (thisBalance > 0) {
+          totalBalance += thisBalance;
+          auto inputEl = inputs[i++];
+          inputEl.setBalance(thisBalance);
+          confirmedInputs.push_back(inputEl);
+
+          // if we've already reached the intended input value, break out of loop
+          if (totalBalance >= totalValue) {
+            break;
+          }
+        }
+      }
+
+      // Return not enough balance error
+      if (totalValue > totalBalance) {
+        throw Errors::IllegalState("Not enough balance");
+      }
+
+      return this->addRemainder(seed, security, confirmedInputs, bundle, tag, totalValue, remainder,
+                                signatureFragments);
+    }
+
+    //  Case 2: Get inputs deterministically
+    //
+    //  If no inputs provided, derive the addresses from the seed and
+    //  confirm that the inputs exceed the threshold
+    else {
+      auto newinputs = this->getInputs(seed, security, 0, 0, totalValue);
+      // If inputs with enough balance
+      return addRemainder(seed, security, newinputs.getInput(), bundle, tag, totalValue, remainder,
+                          signatureFragments);
+    }
+  } else {
+    // If no input required, don't sign and simply finalize the bundle
+    auto curl = Crypto::create(this->cryptoType_);
+    bundle.finalize(curl);
+    bundle.addTrytes(signatureFragments);
+
+    auto                     trxb = bundle.getTransactions();
+    std::vector<std::string> bundleTrytes;
+
+    for (const auto& trx : trxb) {
+      bundleTrytes.push_back(trx.toTrytes());
+    }
+    std::reverse(bundleTrytes.begin(), bundleTrytes.end());
+    return bundleTrytes;
+  }
 }
 
 getBundleResponse
@@ -469,7 +618,7 @@ Extended::replayTransfer() const {
 
 sendTransferResponse
 Extended::sendTransfer(const Type::Trytes& seed, int security, int depth, int minWeightMagnitude,
-                       const std::vector<Transfer>& transfers, const std::vector<input>& inputs,
+                       std::vector<Transfer>& transfers, const std::vector<input>& inputs,
                        const Type::Trytes& address) const {
   // Validate the security level
   if (security < 1 || security > 3) {
@@ -578,12 +727,12 @@ Extended::addRemainder(const Type::Trytes& seed, const unsigned int& security,
                        const std::vector<input>& inputs, Bundle& bundle, const std::string& tag,
                        const long& totalValue, const Type::Trytes& remainderAddress,
                        const std::vector<std::string>& signatureFragments) const {
-  auto totalTransferValue = totalValue;
+  Utils::StopWatch sw;
+  auto             totalTransferValue = totalValue;
   for (const auto& input : inputs) {
     auto thisBalance = input.getBalance();
     auto toSubtract  = -thisBalance;
-    // TODO std::chrono ?
-    auto timestamp = std::time(0);
+    long timestamp   = sw.now().count();
     // Add input as bundle entry
     bundle.addTransaction(input.getSecurity(), input.getAddress(), toSubtract, tag, timestamp);
     // If there is a remainder value
@@ -642,7 +791,8 @@ Extended::replayBundle(const Type::Trytes& transaction, int depth, int minWeight
 
 std::vector<Transaction>
 Extended::initiateTransfer(int securitySum, const std::string& inputAddress,
-                           const std::string& remainderAddress, std::vector<Transfer>& transfers) {
+                           const std::string&     remainderAddress,
+                           std::vector<Transfer>& transfers) const {
   Utils::StopWatch sw;
   Crypto::Checksum checksum;
 
@@ -887,7 +1037,7 @@ Extended::signInputsAndReturn(const std::string& seed, const std::vector<input>&
 }
 
 bool
-Extended::isTransfersCollectionValid(const std::vector<Transfer>& transfers) {
+Extended::isTransfersCollectionValid(const std::vector<Transfer>& transfers) const {
   for (const auto& transfer : transfers) {
     if (!transfer.isValid()) {
       return false;

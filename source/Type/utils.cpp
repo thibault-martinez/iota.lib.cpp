@@ -37,7 +37,7 @@ namespace Utils {
 std::string
 rightPad(const std::string& s, std::size_t padLen, char padChar) {
   std::stringstream ss;
-  ss << std::setfill(padChar) << std::setw(padLen);
+  ss << std::setfill(padChar) << std::setw(padLen) << s;
 
   return ss.str();
 }

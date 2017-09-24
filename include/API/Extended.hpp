@@ -191,9 +191,10 @@ public:
    * @return Returns bundle trytes.
    */
   std::vector<Type::Trytes> prepareTransfers(const Type::Trytes& seed, int security,
-                                             const std::vector<Transfer>& transfers,
-                                             const std::string&           remainder,
-                                             const std::vector<input>&    inputs) const;
+                                             std::vector<Transfer>&    transfers,
+                                             const std::string&        remainder,
+                                             const std::vector<input>& inputs,
+                                             bool                      validateInputs = true) const;
 
   /*
    * This function returns the bundle which is associated with a transaction. Input can by any type
@@ -244,7 +245,7 @@ public:
    * @return Array of Transaction objects.
    */
   sendTransferResponse sendTransfer(const Type::Trytes& seed, int security, int depth,
-                                    int minWeightMagnitude, const std::vector<Transfer>& transfers,
+                                    int minWeightMagnitude, std::vector<Transfer>& transfers,
                                     const std::vector<input>& inputs,
                                     const Type::Trytes&       address) const;
 
@@ -344,7 +345,7 @@ public:
    */
   std::vector<Transaction> initiateTransfer(int securitySum, const Type::Trytes& inputAddress,
                                             const Type::Trytes&    remainderAddress,
-                                            std::vector<Transfer>& transfers);
+                                            std::vector<Transfer>& transfers) const;
 
 private:
   /**
@@ -368,7 +369,7 @@ private:
   /**
    * @return true if all transfers are valid, false otherwise
    */
-  bool isTransfersCollectionValid(const std::vector<Transfer>& transfers);
+  bool isTransfersCollectionValid(const std::vector<Transfer>& transfers) const;
 
 private:
   /**

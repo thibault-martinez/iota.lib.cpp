@@ -43,6 +43,11 @@ input::getBalance() const {
   return this->balance_;
 }
 
+void
+input::setBalance(const int64_t& balance) {
+  this->balance_ = balance;
+}
+
 const int32_t&
 input::getKeyIndex() const {
   return this->keyIndex_;
