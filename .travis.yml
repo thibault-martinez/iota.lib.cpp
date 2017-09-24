@@ -33,7 +33,7 @@ compiler:
 
 cache:
   directories:
-    - $HOME/boost_1_64_0
+    - $TRAVIS_BUILD_DIR/boost_1_64_0
 
 os:
   - linux
