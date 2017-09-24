@@ -46,44 +46,37 @@ StopWatch::now() {
 }
 
 void
-StopWatch::stop() {
-  running_ = false;
-}
-
-void
 StopWatch::pause() {
+  if (!running_) {
+    return;
+  }
+
+  currentTime_ = getElapsedTimeMilliSeconds();
   running_     = false;
-  currentTime_ = getElapsedTimeMiliSeconds();
 }
 
 void
 StopWatch::resume() {
+  if (running_) {
+    return;
+  }
+
   running_   = true;
   startTime_ = now() - currentTime_;
 }
 
 std::chrono::milliseconds
-StopWatch::getElapsedTimeMiliSeconds() {
-  if (!running_) {
-    return {};
+StopWatch::getElapsedTimeMilliSeconds() {
+  if (running_) {
+    return now() - startTime_;
   }
 
-  return now() - startTime_;
+  return currentTime_;
 }
 
 std::chrono::seconds
 StopWatch::getElapsedTimeSeconds() {
-  return std::chrono::duration_cast<std::chrono::seconds>(getElapsedTimeMiliSeconds());
-}
-
-std::chrono::minutes
-StopWatch::getElapsedTimeMinutes() {
-  return std::chrono::duration_cast<std::chrono::minutes>(getElapsedTimeMiliSeconds());
-}
-
-std::chrono::hours
-StopWatch::getElapsedTimeHours() {
-  return std::chrono::duration_cast<std::chrono::hours>(getElapsedTimeMiliSeconds());
+  return std::chrono::duration_cast<std::chrono::seconds>(getElapsedTimeMilliSeconds());
 }
 
 }  // namespace Utils

@@ -143,7 +143,7 @@ Extended::getBalancesAndFormat(const std::vector<std::string>& addresses, const 
     throw Errors::IllegalState("Not enough balance");
   }
 
-  return { inputs, totalBalance, stopWatch.getElapsedTimeMiliSeconds().count() };
+  return { inputs, totalBalance, stopWatch.getElapsedTimeMilliSeconds().count() };
 }
 
 getNewAddressesResponse
@@ -190,7 +190,7 @@ Extended::getNewAddresses(const Type::Trytes& seed, const uint32_t& index, const
     allAddresses.erase(std::begin(allAddresses), std::end(allAddresses) - 1);
   }
 
-  return { allAddresses, stopWatch.getElapsedTimeMiliSeconds().count() };
+  return { allAddresses, stopWatch.getElapsedTimeMilliSeconds().count() };
 }
 
 Bundle
@@ -582,7 +582,7 @@ Extended::getBundle(const Type::Trytes& transaction) const {
     }
   }
 
-  return { bundle.getTransactions(), stopWatch.getElapsedTimeMiliSeconds().count() };
+  return { bundle.getTransactions(), stopWatch.getElapsedTimeMilliSeconds().count() };
 }
 
 getTransfersResponse
@@ -609,7 +609,7 @@ Extended::getTransfers(const Type::Trytes& seed, int security, int start, int en
   auto gnr     = getNewAddresses(seed, start, security, false, end, true);
   auto bundles = bundlesFromAddresses(gnr.getAddresses(), inclusionStates);
 
-  return { bundles, stopWatch.getElapsedTimeMiliSeconds().count() };
+  return { bundles, stopWatch.getElapsedTimeMilliSeconds().count() };
 }
 
 void
@@ -637,7 +637,7 @@ Extended::sendTransfer(const Type::Trytes& seed, int security, int depth, int mi
     successful.push_back(!response.getHashes().empty());
   }
 
-  return { successful, stopWatch.getElapsedTimeMiliSeconds().count() };
+  return { successful, stopWatch.getElapsedTimeMilliSeconds().count() };
 }
 
 std::vector<Transaction>
@@ -698,7 +698,7 @@ Extended::getAccountData(const Type::Trytes& seed, int security, int index, bool
   auto gbr = getInputs(seed, security, start, end, threshold);
 
   return { gna.getAddresses(), gtr.getTransfers(), gbr.getTotalBalance(),
-           stopWatch.getElapsedTimeMiliSeconds().count() };
+           stopWatch.getElapsedTimeMilliSeconds().count() };
 }
 
 const Type::Trytes&
@@ -786,7 +786,7 @@ Extended::replayBundle(const Type::Trytes& transaction, int depth, int minWeight
     successful.push_back(!response.getHashes().empty());
   }
 
-  return { successful, stopWatch.getElapsedTimeMiliSeconds().count() };
+  return { successful, stopWatch.getElapsedTimeMilliSeconds().count() };
 }
 
 std::vector<Transaction>

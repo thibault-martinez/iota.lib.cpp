@@ -45,11 +45,6 @@ public:
   void restart();
 
   /**
-   * stop the timer
-   */
-  void stop();
-
-  /**
    * pause the timer
    */
   void pause();
@@ -62,22 +57,12 @@ public:
   /**
    * @return Elapsed time in milliseconds.
    */
-  std::chrono::milliseconds getElapsedTimeMiliSeconds();
+  std::chrono::milliseconds getElapsedTimeMilliSeconds();
 
   /**
    * @return Elapsed time in seconds.
    */
   std::chrono::seconds getElapsedTimeSeconds();
-
-  /**
-   * @return Elapsed time in minutes.
-   */
-  std::chrono::minutes getElapsedTimeMinutes();
-
-  /**
-   * @return Elapsed time in hours.
-   */
-  std::chrono::hours getElapsedTimeHours();
 
 public:
   /**
