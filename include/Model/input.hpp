@@ -42,6 +42,7 @@ public:
    * Balance
    */
   const int64_t& getBalance() const;
+  void           setBalance(const int64_t& balance);
   /*
    * Key Index
    */
