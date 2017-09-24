@@ -64,6 +64,12 @@ isArrayOfHashes(const std::vector<Trytes>& hashes) {
   return true;
 }
 
+bool
+isValidAddress(const Trytes& s) {
+  return (s.length() == AddressLength || s.length() == AddressLengthWithChecksum) &&
+         isValidTrytes(s);
+}
+
 std::vector<int8_t>
 tritsToBytes(const Trits& trits) {
   Crypto::BigInt decimal;
@@ -130,6 +136,11 @@ intToTrits(const int& value) {
     std::transform(std::begin(trits), std::end(trits), std::begin(trits), std::negate<int>());
   }
   return trits;
+}
+
+bool
+isValidTrit(const int8_t& trit) {
+  return trit == -1 or trit == 0 or trit == 1;
 }
 
 // TODO still useful ?

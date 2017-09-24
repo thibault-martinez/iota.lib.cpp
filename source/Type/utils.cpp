@@ -23,6 +23,9 @@
 //
 //
 
+#include <iomanip>
+#include <sstream>
+
 #include <Type/utils.hpp>
 
 namespace IOTA {
@@ -31,9 +34,12 @@ namespace Type {
 
 namespace Utils {
 
-bool
-isValidTrit(const int8_t& trit) {
-  return trit == -1 or trit == 0 or trit == 1;
+std::string
+rightPad(const std::string& s, std::size_t padLen, char padChar) {
+  std::stringstream ss;
+  ss << std::setfill(padChar) << std::setw(padLen);
+
+  return ss.str();
 }
 
 }  // namespace Utils

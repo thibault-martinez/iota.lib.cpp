@@ -46,6 +46,14 @@ Checksum::remove(const Type::Trytes& address) const {
   return address.substr(0, SeedLength);
 }
 
+bool
+Checksum::isValid(const Type::Trytes& addressWithChecksum) {
+  auto addressWithoutChecksum         = remove(addressWithChecksum);
+  auto addressWithRecalculateChecksum = add(addressWithoutChecksum);
+
+  return addressWithRecalculateChecksum == addressWithChecksum;
+}
+
 Type::Trytes
 Checksum::check(const Type::Trytes& address) {
   Type::Trits checksumTrits(TritHashLength);

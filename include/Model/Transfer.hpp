@@ -44,7 +44,7 @@ public:
    *
    * @return The address.
    */
-  const IOTA::Type::Trytes& getAddress();
+  const IOTA::Type::Trytes& getAddress() const;
 
   /**
    * Set the address.
@@ -58,7 +58,7 @@ public:
    *
    * @return The hash.
    */
-  const IOTA::Type::Trytes& getHash();
+  const IOTA::Type::Trytes& getHash() const;
 
   /**
    * Set the hash.
@@ -72,7 +72,7 @@ public:
    *
    * @return The persistence.
    */
-  bool getPersistence();
+  bool getPersistence() const;
 
   /**
    * Set the persistence.
@@ -86,7 +86,7 @@ public:
    *
    * @return The timestamp.
    */
-  const std::string& getTimestamp();
+  const std::string& getTimestamp() const;
 
   /**
    * Set the timestamp.
@@ -100,7 +100,7 @@ public:
    *
    * @return The value.
    */
-  int64_t getValue();
+  int64_t getValue() const;
 
   /**
    * Set the value.
@@ -114,7 +114,7 @@ public:
    *
    * @return The message.
    */
-  const std::string& getMessage();
+  const std::string& getMessage() const;
 
   /**
    * Set the message.
@@ -128,7 +128,7 @@ public:
    *
    * @return The tag.
    */
-  const std::string& getTag();
+  const std::string& getTag() const;
 
   /**
    * Set the tag.
@@ -136,6 +136,11 @@ public:
    * @param tag The tag.
    */
   void setTag(const std::string& tag);
+
+  /**
+   * @return <code>true</code> if the transfer is valid; otherwise, <code>false</code>>.
+   **/
+  bool isValid() const;
 
 private:
   std::string        timestamp_;

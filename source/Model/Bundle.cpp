@@ -29,6 +29,7 @@
 #include <Crypto/SpongeFactory.hpp>
 #include <Model/Bundle.hpp>
 #include <Type/Trinary.hpp>
+#include <Type/utils.hpp>
 #include <constants.hpp>
 
 Bundle::Bundle(const std::vector<Transaction>& transactions) : transactions_(transactions) {
@@ -106,10 +107,7 @@ Bundle::finalize(const std::shared_ptr<IOTA::Crypto::ISponge>& customSponge) {
 
 void
 Bundle::addTrytes(const std::vector<std::string>& signatureFragments) {
-  std::ostringstream ss;
-  ss << std::setfill('9') << std::setw(2187) << "";
-
-  std::string emptySignatureFragment = ss.str();
+  std::string emptySignatureFragment = IOTA::Type::Utils::rightPad("", 2187, '9');
 
   for (unsigned int i = 0; i < transactions_.size(); i++) {
     auto& transaction = transactions_[i];

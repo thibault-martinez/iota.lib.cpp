@@ -24,6 +24,7 @@
 //
 
 #include <Model/Transfer.hpp>
+#include <constants.hpp>
 
 Transfer::Transfer(const std::string& timestamp, const IOTA::Type::Trytes& address,
                    const IOTA::Type::Trytes& hash, bool persistence, int64_t value,
@@ -43,7 +44,7 @@ Transfer::Transfer(const IOTA::Type::Trytes& address, int64_t value, const std::
 }
 
 const IOTA::Type::Trytes&
-Transfer::getAddress() {
+Transfer::getAddress() const {
   return address_;
 }
 
@@ -53,7 +54,7 @@ Transfer::setAddress(const IOTA::Type::Trytes& address) {
 }
 
 const IOTA::Type::Trytes&
-Transfer::getHash() {
+Transfer::getHash() const {
   return hash_;
 }
 
@@ -63,7 +64,7 @@ Transfer::setHash(const IOTA::Type::Trytes& hash) {
 }
 
 bool
-Transfer::getPersistence() {
+Transfer::getPersistence() const {
   return persistence_;
 }
 
@@ -73,7 +74,7 @@ Transfer::setPersistence(bool persistence) {
 }
 
 const std::string&
-Transfer::getTimestamp() {
+Transfer::getTimestamp() const {
   return timestamp_;
 }
 
@@ -83,7 +84,7 @@ Transfer::setTimestamp(const std::string& timestamp) {
 }
 
 int64_t
-Transfer::getValue() {
+Transfer::getValue() const {
   return value_;
 }
 
@@ -93,7 +94,7 @@ Transfer::setValue(int64_t value) {
 }
 
 const std::string&
-Transfer::getMessage() {
+Transfer::getMessage() const {
   return message_;
 }
 
@@ -103,11 +104,26 @@ Transfer::setMessage(const std::string& message) {
 }
 
 const std::string&
-Transfer::getTag() {
+Transfer::getTag() const {
   return tag_;
 }
 
 void
 Transfer::setTag(const std::string& tag) {
   tag_ = tag;
+}
+
+bool
+Transfer::isValid() const {
+  if (!IOTA::Type::isValidAddress(getAddress())) {
+    return false;
+  }
+
+  // Check if message is correct trytes of any length
+  if (!IOTA::Type::isValidTrytes(getMessage())) {
+    return false;
+  }
+
+  // Check if tag is correct trytes of {0,27} trytes
+  return IOTA::Type::isValidTrytes(getTag()) && getTag().length() == TagLength;
 }

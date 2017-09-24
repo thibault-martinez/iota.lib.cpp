@@ -79,7 +79,7 @@ public:
    */
   std::chrono::hours getElapsedTimeHours();
 
-private:
+public:
   /**
    * @return Current ts
    */

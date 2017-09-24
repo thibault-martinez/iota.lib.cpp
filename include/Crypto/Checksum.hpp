@@ -39,6 +39,7 @@ public:
 public:
   Type::Trytes add(const Type::Trytes& address);
   Type::Trytes remove(const Type::Trytes& address) const;
+  bool         isValid(const Type::Trytes& address);
 
 private:
   Type::Trytes check(const Type::Trytes& address);
