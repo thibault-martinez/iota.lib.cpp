@@ -33,7 +33,9 @@ compiler:
   - gcc
   - clang
 
-cache: ccache
+cache:
+  directories:
+    - $HOME/boost_1_64_0
 
 os:
   - linux
@@ -56,15 +58,13 @@ addons:
 
 before_install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update; fi
-  # - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install gcc49 --enable-cxx; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install llvm --with-clang; fi
 
 install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install ccache; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then export PATH="/usr/local/opt/ccache/libexec:$PATH"; fi
   - if [ "$CXX" = "g++" ]; then export CXX="g++-4.9" CC="gcc-4.9"; fi
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install redis; fi
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then (redis-server&); fi
+  - cd ~ && wget http://downloads.sourceforge.net/project/boost/boost/1.64.0/boost_1_64_0.tar.bz2 && tar xf boost_1_64_0.tar.bz2 && cd boost_1_64_0 && ./bootstrap.sh && ./b2 install
 
 script: ./run_build.sh
 
