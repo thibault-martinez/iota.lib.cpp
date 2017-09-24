@@ -26,6 +26,10 @@
 #include <Model/Transfer.hpp>
 #include <constants.hpp>
 
+//! make sure scalar types are initialized
+Transfer::Transfer() : persistence_(false), value_(0) {
+}
+
 Transfer::Transfer(const std::string& timestamp, const IOTA::Type::Trytes& address,
                    const IOTA::Type::Trytes& hash, bool persistence, int64_t value,
                    const std::string& message, const std::string& tag)
@@ -40,7 +44,7 @@ Transfer::Transfer(const std::string& timestamp, const IOTA::Type::Trytes& addre
 
 Transfer::Transfer(const IOTA::Type::Trytes& address, int64_t value, const std::string& message,
                    const std::string& tag)
-    : address_(address), value_(value), message_(message), tag_(tag) {
+    : address_(address), persistence_(false), value_(value), message_(message), tag_(tag) {
 }
 
 const IOTA::Type::Trytes&

@@ -31,12 +31,28 @@
 
 class Transfer {
 public:
+  /**
+   * Default constructor
+   */
+  Transfer();
+
+  /**
+   * Full constructor
+   */
   Transfer(const std::string& timestamp, const IOTA::Type::Trytes& address,
            const IOTA::Type::Trytes& hash, bool persistence, int64_t value,
            const std::string& message, const std::string& tag);
+
+  /**
+   * Short constructor
+   */
   Transfer(const IOTA::Type::Trytes& address, int64_t value, const std::string& message,
            const std::string& tag);
-  virtual ~Transfer();
+
+  /**
+   * Destructor
+   */
+  ~Transfer() = default;
 
 public:
   /**
