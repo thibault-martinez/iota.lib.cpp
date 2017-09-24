@@ -33,7 +33,7 @@ namespace Type {
 
 namespace Utils {
 
-bool isValidTrit(const int8_t& trit);
+std::string rightPad(const std::string& s, std::size_t padLen, char padChar = ' ');
 
 }  // namespace Utils
 

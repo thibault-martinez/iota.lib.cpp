@@ -44,6 +44,16 @@ bool isValidTryte(const char& tryte);
 bool isValidTrytes(const Trytes& trytes);
 
 /**
+ * @return whether the given trit is valid or not
+ */
+bool isValidTrit(const int8_t& trit);
+
+/**
+ * @return whether the given address is valid or not
+ */
+bool isValidAddress(const Trytes& s);
+
+/**
  * Determines whether the specified array contains only valid hashes.
  *
  * @param hashes The hashes array to validate.

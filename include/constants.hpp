@@ -25,14 +25,18 @@
 
 #include <iostream>
 
-const std::string  TryteAlphabet          = "9ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-const unsigned int ChecksumLength         = 9;
-const unsigned int TryteAlphabetLength    = 27;
-const unsigned int FragmentLength         = 27;
-const unsigned int SeedLength             = 81;
-const unsigned int SeedLengthWithChecksum = 90;
-const unsigned int ByteHashLength         = 48;
-const unsigned int TritHashLength         = 243;
+const std::string  TryteAlphabet             = "9ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const unsigned int ChecksumLength            = 9;
+const unsigned int TryteAlphabetLength       = 27;
+const unsigned int FragmentLength            = 27;
+const unsigned int TagLength                 = 27;
+const unsigned int SeedLength                = 81;
+const unsigned int SeedLengthWithChecksum    = 90;
+const unsigned int AddressLength             = 81;
+const unsigned int AddressLengthWithChecksum = 90;
+const unsigned int ByteHashLength            = 48;
+const unsigned int TritHashLength            = 243;
+const unsigned int MaxTrxMsgLength           = 2187;
 
 const std::string EmptyHash =
     "999999999999999999999999999999999999999999999999999999999999999999999999999999999";

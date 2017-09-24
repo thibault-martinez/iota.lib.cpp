@@ -32,6 +32,7 @@
 #include <Model/Signature.hpp>
 #include <Model/Transaction.hpp>
 #include <Type/Seed.hpp>
+#include <Type/utils.hpp>
 
 namespace IOTA {
 
@@ -639,6 +640,142 @@ Extended::replayBundle(const Type::Trytes& transaction, int depth, int minWeight
   return { successful, stopWatch.getElapsedTimeMiliSeconds().count() };
 }
 
+std::vector<Transaction>
+Extended::initiateTransfer(int securitySum, const std::string& inputAddress,
+                           const std::string& remainderAddress, std::vector<Transfer>& transfers) {
+  Utils::StopWatch sw;
+  Crypto::Checksum checksum;
+
+  //! If message or tag is not supplied, provide it
+  //! Also remove the checksum of the address if it's there
+
+  for (auto& transfer : transfers) {
+    if (transfer.getMessage().empty()) {
+      transfer.setMessage(Type::Utils::rightPad(transfer.getMessage(), 2187, '9'));
+    }
+
+    if (transfer.getTag().empty()) {
+      transfer.setTag(Type::Utils::rightPad(transfer.getTag(), 27, '9'));
+    }
+
+    if (checksum.isValid(transfer.getAddress())) {
+      transfer.setAddress(checksum.remove(transfer.getAddress()));
+    }
+  }
+
+  // Input validation of transfers object
+  if (!isTransfersCollectionValid(transfers)) {
+    throw Errors::IllegalState("Invalid transfer");
+  }
+
+  //! validate input address
+  if (!Type::isValidAddress(inputAddress)) {
+    throw Errors::IllegalState("Invalid address");
+  }
+
+  // validate remainder address
+  if (!remainderAddress.empty() && !Type::isValidAddress(remainderAddress)) {
+    throw Errors::IllegalState("Invalid bundle");
+  }
+
+  //! Create a new bundle
+  Bundle                   bundle;
+  int                      totalValue = 0;
+  std::vector<std::string> signatureFragments;
+  std::string              tag;
+
+  //! Iterate over all transfers, get totalValue
+  //! and prepare the signatureFragments, message and tag
+  for (const auto& transfer : transfers) {
+    int signatureMessageLength = 1;
+
+    //! If message longer than 2187 trytes, increase signatureMessageLength (add 2nd transaction)
+    if (transfer.getMessage().length() > MaxTrxMsgLength) {
+      //! Get total length, message / maxLength (MaxTrxMsgLength trytes)
+      signatureMessageLength += std::floor(transfer.getMessage().length() / MaxTrxMsgLength);
+
+      //! copy msg
+      std::string msgCopy = transfer.getMessage();
+
+      //! While there is still a message, copy it
+      while (!msgCopy.empty()) {
+        std::string fragment = msgCopy.substr(0, MaxTrxMsgLength);
+        msgCopy              = msgCopy.substr(MaxTrxMsgLength, msgCopy.length());
+
+        // Pad remainder of fragment
+        signatureFragments.push_back(Type::Utils::rightPad(fragment, MaxTrxMsgLength, '9'));
+      }
+    } else {
+      //! Else, get single fragment with MaxTrxMsgLength of 9's trytes
+      signatureFragments.push_back(
+          Type::Utils::rightPad(transfer.getMessage(), MaxTrxMsgLength, '9'));
+    }
+
+    //! get current timestamp in seconds
+    long timestamp = sw.now().count();
+
+    //! If no tag defined, get 27 tryte tag.
+    if (transfer.getTag().empty()) {
+      tag = Type::Utils::rightPad(transfer.getTag(), 27, '9');
+    }
+
+    //! Pad for required TagLength tryte length
+    tag = Type::Utils::rightPad(tag, TagLength, '9');
+
+    //! Add first entry to the bundle
+    bundle.addTransaction(signatureMessageLength, transfer.getAddress(), transfer.getValue(), tag,
+                          timestamp);
+
+    //! Sum up total value
+    totalValue += transfer.getValue();
+  }
+
+  //! Get inputs if we are sending tokens
+  if (totalValue == 0) {
+    throw Errors::IllegalState("Invalid value transfer");
+  }
+
+  long totalBalance = 0;
+
+  for (const auto& balance : getBalances({ inputAddress }, 100).getBalances()) {
+    totalBalance += std::atol(balance.c_str());
+  }
+
+  // get current timestamp in seconds
+  long timestamp = sw.now().count();
+
+  if (totalBalance > 0) {
+    long toSubtract = -totalBalance;
+
+    //! Add input as bundle entry
+    //! Only a single entry, signatures will be added later
+    bundle.addTransaction(securitySum, inputAddress, toSubtract, tag, timestamp);
+  }
+
+  //! Return not enough balance error
+  if (totalValue > totalBalance) {
+    throw Errors::IllegalState("Not enough balance");
+  }
+
+  //! If there is a remainder value
+  //! Add extra output to send remaining funds to
+  if (totalBalance > totalValue) {
+    long remainder = totalBalance - totalValue;
+
+    // Remainder bundle entry if necessary
+    if (remainderAddress.empty()) {
+      throw Errors::IllegalState("No remainder address defined");
+    }
+
+    bundle.addTransaction(1, remainderAddress, remainder, tag, timestamp);
+  }
+
+  bundle.finalize(Crypto::create(cryptoType_));
+  bundle.addTrytes(signatureFragments);
+
+  return bundle.getTransactions();
+}
+
 /*
  * Private methods.
  */
@@ -747,6 +884,17 @@ Extended::signInputsAndReturn(const std::string& seed, const std::vector<input>&
   }
   std::reverse(bundleTrytes.begin(), bundleTrytes.end());
   return bundleTrytes;
+}
+
+bool
+Extended::isTransfersCollectionValid(const std::vector<Transfer>& transfers) {
+  for (const auto& transfer : transfers) {
+    if (!transfer.isValid()) {
+      return false;
+    }
+  }
+
+  return true;
 }
 
 }  // namespace API
