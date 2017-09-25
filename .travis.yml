@@ -53,6 +53,7 @@ addons:
       - clang
       - cmake3
       - lcov
+      - python-pip
 
 before_install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update; fi
@@ -63,12 +64,14 @@ install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then export PATH="/usr/local/opt/ccache/libexec:$PATH"; fi
   - if [ "$CXX" = "g++" ]; then export CXX="g++-4.9" CC="gcc-4.9"; fi
   - curl -OL https://dl.bintray.com/boostorg/release/1.64.0/source/boost_1_64_0.tar.gz && tar xf boost_1_64_0.tar.gz && cd boost_1_64_0 && ./bootstrap.sh && sudo ./b2 install -d1 && cd ..
+  - pip install --user cpp-coveralls
 
 script: ./run_build.sh
 
 after_success:
   - cd ${TRAVIS_BUILD_DIR}
-  - lcov -c -i -d . -o base.info
-  - lcov -c -d . -o test.info
-  - lcov -a base.info -a test.info -o coverage.info
-  - bash <(curl -s https://codecov.io/bash) -t c0c0756e-89a2-4e55-b71f-63de40f85276 || echo "Codecov did not collect coverage reports"
+  # - lcov -c -i -d . -o base.info
+  # - lcov -c -d . -o test.info
+  # - lcov -a base.info -a test.info -o coverage.info
+  - coveralls --exclude external
+  # - bash <(curl -s https://codecov.io/bash) -t c0c0756e-89a2-4e55-b71f-63de40f85276 || echo "Codecov did not collect coverage reports"
