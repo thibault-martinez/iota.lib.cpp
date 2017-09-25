@@ -73,4 +73,5 @@ after_success:
   - lcov -c -i -d . -o base.info
   - lcov -c -d . -o test.info
   - lcov -a base.info -a test.info -o coverage.info
-  - bash <(curl -s https://codecov.io/bash) -t c0c0756e-89a2-4e55-b71f-63de40f85276 || echo "Codecov did not collect coverage reports"
+  - coveralls --root .
+  # - bash <(curl -s https://codecov.io/bash) -t c0c0756e-89a2-4e55-b71f-63de40f85276 || echo "Codecov did not collect coverage reports"
