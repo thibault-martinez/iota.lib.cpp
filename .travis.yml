@@ -53,7 +53,7 @@ addons:
       - clang
       - cmake3
       - lcov
-      - pip
+      - python-pip
 
 before_install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update; fi
