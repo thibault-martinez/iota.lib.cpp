@@ -25,6 +25,10 @@
 
 #include <Model/neighbor.hpp>
 
+Neighbor::Neighbor()
+    : numberOfAllTransactions_(0), numberOfInvalidTransactions_(0), numberOfNewTransactions_(0) {
+}
+
 Neighbor::Neighbor(const std::string& address, const int64_t& numberOfAllTransactions,
                    const int64_t& numberOfInvalidTransactions,
                    const int64_t& numberOfNewTransactions)
@@ -34,12 +38,14 @@ Neighbor::Neighbor(const std::string& address, const int64_t& numberOfAllTransac
       numberOfNewTransactions_(numberOfNewTransactions) {
 }
 
-Neighbor::~Neighbor() {
-}
-
 const std::string&
 Neighbor::getAddress() const {
   return this->address_;
+}
+
+void
+Neighbor::setAddress(const std::string& addr) {
+  this->address_ = addr;
 }
 
 const int64_t&
@@ -47,12 +53,27 @@ Neighbor::getNumberOfAllTransactions() const {
   return this->numberOfAllTransactions_;
 }
 
+void
+Neighbor::setNumberOfAllTransactions(const int64_t& nbTrx) {
+  this->numberOfAllTransactions_ = nbTrx;
+}
+
 const int64_t&
 Neighbor::getNumberOfInvalidTransactions() const {
   return this->numberOfInvalidTransactions_;
 }
 
+void
+Neighbor::setNumberOfInvalidTransactions(const int64_t& nbTrx) {
+  this->numberOfInvalidTransactions_ = nbTrx;
+}
+
 const int64_t&
 Neighbor::getNumberOfNewTransactions() const {
   return this->numberOfNewTransactions_;
+}
+
+void
+Neighbor::setNumberOfNewTransactions(const int64_t& nbTrx) {
+  this->numberOfNewTransactions_ = nbTrx;
 }

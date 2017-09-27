@@ -25,36 +25,74 @@
 
 #pragma once
 
-#include <iostream>
+#include <Type/Trinary.hpp>
 
 class Neighbor {
 public:
-  Neighbor(const std::string& address, const int64_t& numberOfAllTransactions,
+  /**
+   * default ctor
+   */
+  Neighbor();
+
+  /**
+   * full init ctor
+   */
+  Neighbor(const IOTA::Type::Trytes& address, const int64_t& numberOfAllTransactions,
            const int64_t& numberOfInvalidTransactions, const int64_t& numberOfNewTransactions);
-  virtual ~Neighbor();
+
+  /**
+   * default dtor
+   */
+  ~Neighbor() = default;
 
 public:
-  /*
-   * Address of your peer.
+  /**
+   * @return Address of your peer.
    */
-  const std::string& getAddress() const;
-  /*
-   * Number of all transactions sent (invalid, valid, already-seen).
+  const IOTA::Type::Trytes& getAddress() const;
+
+  /**
+   * @param addr set address of your peer
+   */
+  void setAddress(const IOTA::Type::Trytes& addr);
+
+public:
+  /**
+   * @return Number of all transactions sent (invalid, valid, already-seen).
    */
   const int64_t& getNumberOfAllTransactions() const;
-  /*
-   * Invalid transactions your peer has sent you. These are transactions with invalid signatures or
-   * overall schema.
+
+  /**
+   * @param nbTrx set number of all transactions sent (invalid, valid, already seen)
+   */
+  void setNumberOfAllTransactions(const int64_t& nbTrx);
+
+public:
+  /**
+   * @return Invalid transactions your peer has sent you. These are transactions with invalid
+   * signatures or overall schema.
    */
   const int64_t& getNumberOfInvalidTransactions() const;
-  /*
-   * New transactions which were transmitted.
+
+  /**
+   * @param nbTrx set number of invalid transactions sent your peer
+   */
+  void setNumberOfInvalidTransactions(const int64_t& nbTrx);
+
+public:
+  /**
+   * @return New transactions which were transmitted.
    */
   const int64_t& getNumberOfNewTransactions() const;
 
+  /**
+   * @param nbTrx set number of newly transmitted transactions
+   */
+  void setNumberOfNewTransactions(const int64_t& nbTrx);
+
 private:
-  std::string address_;
-  int64_t     numberOfAllTransactions_;
-  int64_t     numberOfInvalidTransactions_;
-  int64_t     numberOfNewTransactions_;
+  IOTA::Type::Trytes address_;
+  int64_t            numberOfAllTransactions_;
+  int64_t            numberOfInvalidTransactions_;
+  int64_t            numberOfNewTransactions_;
 };
