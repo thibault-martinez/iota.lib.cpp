@@ -33,3 +33,13 @@ const std::vector<bool>&
 sendTransferResponse::getSuccessfully() const {
   return successfully_;
 }
+
+std::vector<bool>&
+sendTransferResponse::getSuccessfully() {
+  return successfully_;
+}
+
+void
+sendTransferResponse::setSuccessfully(const std::vector<bool>& successful) {
+  successfully_ = successful;
+}

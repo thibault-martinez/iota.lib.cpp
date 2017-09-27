@@ -23,45 +23,40 @@
 //
 //
 
-#pragma once
+#include <gtest/gtest.h>
 
-#include <API/Responses/genericResponse.hpp>
+#include <API/Responses/sendTransferResponse.hpp>
 
-#include <vector>
+TEST(SendTransferResponse, DefaultCtorShouldInitFields) {
+  const sendTransferResponse res{};
 
-class sendTransferResponse : public genericResponse {
-public:
-  /**
-   * default ctor
-   */
-  sendTransferResponse() = default;
+  EXPECT_EQ(res.getSuccessfully(), std::vector<bool>{});
+  EXPECT_EQ(res.getDuration(), 0);
+}
 
-  /**
-   * full init ctor
-   */
-  sendTransferResponse(const std::vector<bool>& successful, long duration);
+TEST(SendTransferResponse, CtorShouldInitFields) {
+  const sendTransferResponse res({ true, false, true }, 42);
 
-  /**
-   * default dtor
-   */
-  ~sendTransferResponse() = default;
+  EXPECT_EQ(res.getSuccessfully(), std::vector<bool>({ true, false, true }));
+  EXPECT_EQ(res.getDuration(), 42);
+}
 
-public:
-  /**
-   * @return successful operations.
-   */
-  const std::vector<bool>& getSuccessfully() const;
+TEST(SendTransferResponse, GetSuccessfullyNonConst) {
+  sendTransferResponse res;
 
-  /**
-   * @return successful operations (non-const version).
-   */
-  std::vector<bool>& getSuccessfully();
+  res.getSuccessfully().push_back(true);
 
-  /**
-   * @param successful new array of successful operations for sendTransfer response
-   */
-  void setSuccessfully(const std::vector<bool>& successful);
+  EXPECT_EQ(res.getSuccessfully(), std::vector<bool>({ true }));
+  EXPECT_EQ(res.getDuration(), 0);
+}
 
-private:
-  std::vector<bool> successfully_;
-};
+TEST(SendTransferResponse, SetSuccessfully) {
+  sendTransferResponse res;
+
+  std::vector<bool> transactions = res.getSuccessfully();
+  transactions.push_back(true);
+  res.setSuccessfully(transactions);
+
+  EXPECT_EQ(res.getSuccessfully(), std::vector<bool>({ true }));
+  EXPECT_EQ(res.getDuration(), 0);
+}
