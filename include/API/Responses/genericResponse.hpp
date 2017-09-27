@@ -38,7 +38,7 @@ class genericResponse {
 public:
   genericResponse();
   explicit genericResponse(const int64_t& duration);
-  virtual ~genericResponse();
+  virtual ~genericResponse() = default;
 
 public:
   virtual void deserialize(const json& res);

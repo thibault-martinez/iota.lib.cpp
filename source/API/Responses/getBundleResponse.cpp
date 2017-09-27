@@ -30,6 +30,16 @@ getBundleResponse::getBundleResponse(const std::vector<Transaction>& transaction
 }
 
 const std::vector<Transaction>&
+getBundleResponse::getTransactions() const {
+  return transactions_;
+}
+
+std::vector<Transaction>&
 getBundleResponse::getTransactions() {
   return transactions_;
+}
+
+void
+getBundleResponse::setTransactions(const std::vector<Transaction>& transactions) {
+  transactions_ = transactions;
 }

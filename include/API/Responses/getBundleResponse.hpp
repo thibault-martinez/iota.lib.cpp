@@ -30,14 +30,39 @@
 
 class getBundleResponse : public genericResponse {
 public:
+  /**
+   * default ctor
+   */
+  getBundleResponse() = default;
+
+  /**
+   * full init ctor
+   *
+   * @param transactions transactions returned by getBundle
+   * @param duration duration of getBundle
+   */
   getBundleResponse(const std::vector<Transaction>& transactions, long duration);
-  virtual ~getBundleResponse() = default;
+
+  /**
+   * default dtor
+   */
+  ~getBundleResponse() = default;
 
 public:
   /**
    * @return The transactions.
    */
-  const std::vector<Transaction>& getTransactions();
+  const std::vector<Transaction>& getTransactions() const;
+
+  /**
+   * @return The transactions (Non-const version).
+   */
+  std::vector<Transaction>& getTransactions();
+
+  /**
+   * @param transactions new transactions list for getBundle
+   */
+  void setTransactions(const std::vector<Transaction>& transactions);
 
 private:
   std::vector<Transaction> transactions_;

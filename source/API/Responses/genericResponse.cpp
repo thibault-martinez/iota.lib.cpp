@@ -25,13 +25,15 @@
 
 #include <API/Responses/genericResponse.hpp>
 
-genericResponse::genericResponse() {
+genericResponse::genericResponse() : duration_(0) {
 }
 
 genericResponse::genericResponse(const int64_t& duration) : duration_(duration) {
 }
 
-genericResponse::~genericResponse() {
+void
+genericResponse::deserialize(const json& res) {
+  this->duration_ = res.at("duration").get<long>();
 }
 
 const int64_t&
