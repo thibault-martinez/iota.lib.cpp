@@ -25,6 +25,9 @@
 
 #include <API/Responses/getAccountDataResponse.hpp>
 
+getAccountDataResponse::getAccountDataResponse() : balance_(0) {
+}
+
 getAccountDataResponse::getAccountDataResponse(const std::vector<IOTA::Type::Trytes>& addresses,
                                                const std::vector<Bundle>& transferBundle,
                                                long balance, long duration)
@@ -39,12 +42,37 @@ getAccountDataResponse::getAddresses() const {
   return addresses_;
 }
 
+std::vector<IOTA::Type::Trytes>&
+getAccountDataResponse::getAddresses() {
+  return addresses_;
+}
+
+void
+getAccountDataResponse::setAddresses(const std::vector<IOTA::Type::Trytes>& addresses) {
+  addresses_ = addresses;
+}
+
 const std::vector<Bundle>&
 getAccountDataResponse::getTransfers() const {
   return transferBundle_;
 }
 
+std::vector<Bundle>&
+getAccountDataResponse::getTransfers() {
+  return transferBundle_;
+}
+
+void
+getAccountDataResponse::setTransfers(const std::vector<Bundle>& transfers) {
+  transferBundle_ = transfers;
+}
+
 long
 getAccountDataResponse::getBalance() const {
   return balance_;
+}
+
+void
+getAccountDataResponse::setBalance(long balance) {
+  balance_ = balance;
 }

@@ -36,31 +36,64 @@
  */
 class getAccountDataResponse : public genericResponse {
 public:
+  /**
+   * default ctor
+   */
+  getAccountDataResponse();
+
+  /**
+   * full init ctor
+   */
   getAccountDataResponse(const std::vector<IOTA::Type::Trytes>& addresses,
                          const std::vector<Bundle>& transferBundle, long balance, long duration);
-  virtual ~getAccountDataResponse();
+
+  /**
+   * default dtor
+   */
+  ~getAccountDataResponse() = default;
 
 public:
   /**
-   * Gets the addresses.
-   *
    * @return The addresses.
    */
   const std::vector<IOTA::Type::Trytes>& getAddresses() const;
 
   /**
-   * Gets the transfers.
-   *
+   * @return The addresses (non-const version).
+   */
+  std::vector<IOTA::Type::Trytes>& getAddresses();
+
+  /**
+   * @param addresses new vector of addresses for getAccountData response
+   */
+  void setAddresses(const std::vector<IOTA::Type::Trytes>& addresses);
+
+public:
+  /**
    * @return The transfers.
    */
   const std::vector<Bundle>& getTransfers() const;
 
   /**
-   * Gets the balance.
-   *
+   * @return The transfers (non-const version).
+   */
+  std::vector<Bundle>& getTransfers();
+
+  /**
+   * @param transfers new vector of bundles for getAccountData response
+   */
+  void setTransfers(const std::vector<Bundle>& transfers);
+
+public:
+  /**
    * @return The balance.
    */
   long getBalance() const;
+
+  /**
+   * @param balance new balance for getAccountData response
+   */
+  void setBalance(long balance);
 
 private:
   std::vector<IOTA::Type::Trytes> addresses_;

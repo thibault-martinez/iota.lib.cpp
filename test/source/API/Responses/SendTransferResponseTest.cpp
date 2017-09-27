@@ -53,9 +53,9 @@ TEST(SendTransferResponse, GetSuccessfullyNonConst) {
 TEST(SendTransferResponse, SetSuccessfully) {
   sendTransferResponse res;
 
-  std::vector<bool> transactions = res.getSuccessfully();
-  transactions.push_back(true);
-  res.setSuccessfully(transactions);
+  std::vector<bool> successful = res.getSuccessfully();
+  successful.push_back(true);
+  res.setSuccessfully(successful);
 
   EXPECT_EQ(res.getSuccessfully(), std::vector<bool>({ true }));
   EXPECT_EQ(res.getDuration(), 0);
