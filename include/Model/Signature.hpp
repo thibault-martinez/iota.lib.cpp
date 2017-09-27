@@ -32,46 +32,50 @@
 
 class Signature {
 public:
-  Signature()  = default;
+  /**
+   * default ctor
+   */
+  Signature() = default;
+
+  /**
+   * full init ctor
+   */
+  Signature(const IOTA::Type::Trytes&              addr,
+            const std::vector<IOTA::Type::Trytes>& signatureFragments);
+
+  /**
+   * default dtor
+   */
   ~Signature() = default;
 
 public:
   /**
-   * Get the address.
-   *
    * @return The address.
    */
   const IOTA::Type::Trytes& getAddress() const;
 
   /**
-   * Set the address.
-   *
    * @param address The address.
    */
   void setAddress(const IOTA::Type::Trytes& address);
 
+public:
   /**
-   * Get the signatureFragments.
-   *
    * @return The signatureFragments.
    */
-  const std::vector<std::string>& getSignatureFragments() const;
+  const std::vector<IOTA::Type::Trytes>& getSignatureFragments() const;
 
   /**
-   * Get the signatureFragments. (non-const version)
-   *
    * @return The signatureFragments.
    */
-  std::vector<std::string>& getSignatureFragments();
+  std::vector<IOTA::Type::Trytes>& getSignatureFragments();
 
   /**
-   * Set the signatureFragments.
-   *
    * @param signatureFragments The signatureFragments.
    */
-  void setSignatureFragments(const std::vector<std::string>& signatureFragments);
+  void setSignatureFragments(const std::vector<IOTA::Type::Trytes>& signatureFragments);
 
 private:
-  IOTA::Type::Trytes       address_;
-  std::vector<std::string> signatureFragments_;
+  IOTA::Type::Trytes              address_;
+  std::vector<IOTA::Type::Trytes> signatureFragments_;
 };

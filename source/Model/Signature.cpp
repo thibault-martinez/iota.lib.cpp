@@ -30,22 +30,27 @@ Signature::getAddress() const {
   return address_;
 }
 
+Signature::Signature(const IOTA::Type::Trytes&              addr,
+                     const std::vector<IOTA::Type::Trytes>& signatureFragments)
+    : address_(addr), signatureFragments_(signatureFragments) {
+}
+
 void
 Signature::setAddress(const IOTA::Type::Trytes& address) {
   address_ = address;
 }
 
-const std::vector<std::string>&
+const std::vector<IOTA::Type::Trytes>&
 Signature::getSignatureFragments() const {
   return signatureFragments_;
 }
 
-std::vector<std::string>&
+std::vector<IOTA::Type::Trytes>&
 Signature::getSignatureFragments() {
   return signatureFragments_;
 }
 
 void
-Signature::setSignatureFragments(const std::vector<std::string>& signatureFragments) {
+Signature::setSignatureFragments(const std::vector<IOTA::Type::Trytes>& signatureFragments) {
   signatureFragments_ = signatureFragments;
 }
