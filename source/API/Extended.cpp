@@ -31,7 +31,6 @@
 #include <Model/Bundle.hpp>
 #include <Model/Signature.hpp>
 #include <Model/Transaction.hpp>
-#include <Type/Seed.hpp>
 #include <Type/utils.hpp>
 
 namespace IOTA {
@@ -55,7 +54,7 @@ Extended::getInputs(const std::string& seed, const int32_t& security, const int3
   Utils::StopWatch stopWatch;
 
   // validate the seed
-  if ((!Type::Seed::isValidSeed(seed))) {
+  if ((!Type::isValidTrytes(seed))) {
     throw Errors::IllegalState("Invalid Seed");
   }
 
@@ -152,7 +151,7 @@ Extended::getNewAddresses(const Type::Trytes& seed, const uint32_t& index, const
   Utils::StopWatch stopWatch;
 
   // Validate the seed
-  if ((!Type::Seed::isValidSeed(seed))) {
+  if ((!Type::isValidTrytes(seed))) {
     throw Errors::IllegalState("Invalid Seed");
   }
 
@@ -356,7 +355,7 @@ Extended::prepareTransfers(const Type::Trytes& seed, int security, std::vector<T
   }
 
   // Validate the seed
-  if ((!Type::Seed::isValidSeed(seed))) {
+  if ((!Type::isValidTrytes(seed))) {
     throw Errors::IllegalState("Invalid Seed");
   }
 
@@ -591,7 +590,7 @@ Extended::getTransfers(const Type::Trytes& seed, int security, int start, int en
   Utils::StopWatch stopWatch;
 
   // Validate the seed
-  if ((!Type::Seed::isValidSeed(seed))) {
+  if ((!Type::isValidTrytes(seed))) {
     throw Errors::IllegalState("Invalid Seed");
   }
 
