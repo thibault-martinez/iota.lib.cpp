@@ -36,16 +36,36 @@
  */
 class getTransfersResponse : public genericResponse {
 public:
+  /**
+   * default ctor
+   */
+  getTransfersResponse() = default;
+
+  /**
+   * full init ctor
+   */
   getTransfersResponse(const std::vector<Bundle>& transferBundle, long duration);
-  virtual ~getTransfersResponse();
+
+  /**
+   * default dtor
+   */
+  ~getTransfersResponse() = default;
 
 public:
   /**
-   * Gets the transfers.
-   *
    * @return The transfers.
    */
   const std::vector<Bundle>& getTransfers() const;
+
+  /**
+   * @return The transfers (non const version).
+   */
+  std::vector<Bundle>& getTransfers();
+
+  /**
+   * @param transfers new vector of transfers for getTransfers
+   */
+  void setTransfers(const std::vector<Bundle>& transfers);
 
 private:
   std::vector<Bundle> transferBundle_;

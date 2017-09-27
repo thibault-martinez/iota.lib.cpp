@@ -33,3 +33,13 @@ const std::vector<Bundle>&
 getTransfersResponse::getTransfers() const {
   return transferBundle_;
 }
+
+std::vector<Bundle>&
+getTransfersResponse::getTransfers() {
+  return transferBundle_;
+}
+
+void
+getTransfersResponse::setTransfers(const std::vector<Bundle>& transfers) {
+  transferBundle_ = transfers;
+}
