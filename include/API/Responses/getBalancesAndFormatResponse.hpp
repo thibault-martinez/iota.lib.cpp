@@ -44,7 +44,7 @@ using json = nlohmann::json;
  */
 class getBalancesAndFormatResponse : public genericResponse {
 public:
-  getBalancesAndFormatResponse(const std::vector<input>& inputs, const int64_t& totalBalance,
+  getBalancesAndFormatResponse(const std::vector<Input>& inputs, const int64_t& totalBalance,
                                const int64_t& duration);
   virtual ~getBalancesAndFormatResponse();
 
@@ -52,13 +52,13 @@ public:
   /*
    * The input.
    */
-  const std::vector<input>& getInput() const;
+  const std::vector<Input>& getInput() const;
   /*
    * The total balance.
    */
   const int64_t& getTotalBalance() const;
 
 private:
-  std::vector<input> inputs_;
+  std::vector<Input> inputs_;
   int64_t            totalBalance_;
 };

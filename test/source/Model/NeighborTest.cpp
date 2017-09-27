@@ -25,7 +25,7 @@
 
 #include <gtest/gtest.h>
 
-#include <Model/Neighbor.hpp>
+#include <Model/neighbor.hpp>
 
 TEST(Neighbor, CtorDefault) {
   Neighbor n;

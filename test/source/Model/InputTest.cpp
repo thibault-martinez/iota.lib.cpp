@@ -23,52 +23,65 @@
 //
 //
 
+#include <gtest/gtest.h>
+
 #include <Model/input.hpp>
 
-Input::Input() : balance_(0), keyIndex_(0), security_(0) {
+TEST(Input, CtorDefault) {
+  Input i;
+
+  EXPECT_EQ(i.getAddress(), "");
+  EXPECT_EQ(i.getBalance(), 0);
+  EXPECT_EQ(i.getKeyIndex(), 0);
+  EXPECT_EQ(i.getSecurity(), 0);
 }
 
-Input::Input(const IOTA::Type::Trytes& address, const int64_t& balance, const int32_t& keyIndex,
-             const int32_t& security)
-    : address_(address), balance_(balance), keyIndex_(keyIndex), security_(security) {
+TEST(Input, CtorFull) {
+  Input i = { "addr", 1, 2, 3 };
+
+  EXPECT_EQ(i.getAddress(), "addr");
+  EXPECT_EQ(i.getBalance(), 1);
+  EXPECT_EQ(i.getKeyIndex(), 2);
+  EXPECT_EQ(i.getSecurity(), 3);
 }
 
-const IOTA::Type::Trytes&
-Input::getAddress() const {
-  return this->address_;
+TEST(Input, ConstGetters) {
+  const Input i = { "addr", 1, 2, 3 };
+
+  EXPECT_EQ(i.getAddress(), "addr");
+  EXPECT_EQ(i.getBalance(), 1);
+  EXPECT_EQ(i.getKeyIndex(), 2);
+  EXPECT_EQ(i.getSecurity(), 3);
 }
 
-void
-Input::setAddress(const IOTA::Type::Trytes& addr) {
-  this->address_ = addr;
+TEST(Input, AddressGetterAndSetter) {
+  Input i;
+  EXPECT_EQ(i.getAddress(), "");
+
+  i.setAddress("addr");
+  EXPECT_EQ(i.getAddress(), "addr");
 }
 
-const int64_t&
-Input::getBalance() const {
-  return this->balance_;
+TEST(Input, BalanceGetterAndSetter) {
+  Input i;
+  EXPECT_EQ(i.getBalance(), 0);
+
+  i.setBalance(1);
+  EXPECT_EQ(i.getBalance(), 1);
 }
 
-void
-Input::setBalance(const int64_t& balance) {
-  this->balance_ = balance;
+TEST(Input, KeyIndexGetterAndSetter) {
+  Input i;
+  EXPECT_EQ(i.getKeyIndex(), 0);
+
+  i.setKeyIndex(1);
+  EXPECT_EQ(i.getKeyIndex(), 1);
 }
 
-const int32_t&
-Input::getKeyIndex() const {
-  return this->keyIndex_;
-}
+TEST(Input, SecurityGetterAndSetter) {
+  Input i;
+  EXPECT_EQ(i.getSecurity(), 0);
 
-void
-Input::setKeyIndex(const int32_t& keyIndex) {
-  this->keyIndex_ = keyIndex;
-}
-
-const int32_t&
-Input::getSecurity() const {
-  return this->security_;
-}
-
-void
-Input::setSecurity(const int32_t& security) {
-  this->security_ = security;
+  i.setSecurity(1);
+  EXPECT_EQ(i.getSecurity(), 1);
 }

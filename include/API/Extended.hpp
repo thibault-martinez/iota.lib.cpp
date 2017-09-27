@@ -193,7 +193,7 @@ public:
   std::vector<Type::Trytes> prepareTransfers(const Type::Trytes& seed, int security,
                                              std::vector<Transfer>&    transfers,
                                              const std::string&        remainder,
-                                             const std::vector<input>& inputs,
+                                             const std::vector<Input>& inputs,
                                              bool                      validateInputs = true) const;
 
   /*
@@ -246,7 +246,7 @@ public:
    */
   sendTransferResponse sendTransfer(const Type::Trytes& seed, int security, int depth,
                                     int minWeightMagnitude, std::vector<Transfer>& transfers,
-                                    const std::vector<input>& inputs,
+                                    const std::vector<Input>& inputs,
                                     const Type::Trytes&       address) const;
 
   /*
@@ -317,7 +317,7 @@ public:
    * @param signatureFragments The signature fragments.
    */
   std::vector<std::string> addRemainder(const Type::Trytes& seed, const unsigned int& security,
-                                        const std::vector<input>& inputs, Bundle& bundle,
+                                        const std::vector<Input>& inputs, Bundle& bundle,
                                         const std::string& tag, const long& totalValue,
                                         const Type::Trytes&             remainderAddress,
                                         const std::vector<std::string>& signatureFragments) const;
@@ -363,7 +363,7 @@ private:
                           bool checksum) const;
 
   std::vector<std::string> signInputsAndReturn(
-      const std::string& seed, const std::vector<input>& inputs, Bundle& bundle,
+      const std::string& seed, const std::vector<Input>& inputs, Bundle& bundle,
       const std::vector<std::string>& signatureFragments) const;
 
   /**

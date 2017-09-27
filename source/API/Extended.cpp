@@ -112,7 +112,7 @@ Extended::getBalancesAndFormat(const std::vector<std::string>& addresses, const 
   bool thresholdReached = threshold == 0;
   int  i                = -1;
 
-  std::vector<input> inputs;
+  std::vector<Input> inputs;
   int64_t            totalBalance = 0;
 
   for (const auto& address : addresses) {
@@ -347,7 +347,7 @@ Extended::getLatestInclusion(const std::vector<Type::Trytes>& hashes) const {
 // TODO Response ?
 std::vector<Type::Trytes>
 Extended::prepareTransfers(const Type::Trytes& seed, int security, std::vector<Transfer>& transfers,
-                           const std::string& remainder, const std::vector<input>& inputs,
+                           const std::string& remainder, const std::vector<Input>& inputs,
                            bool validateInputs) const {
   Utils::StopWatch sw;
   // Validate transfers object
@@ -443,7 +443,7 @@ Extended::prepareTransfers(const Type::Trytes& seed, int security, std::vector<T
       auto balancesResponse = this->getBalances(inputsAddresses, 100);
       auto balances         = balancesResponse.getBalances();
 
-      std::vector<input> confirmedInputs;
+      std::vector<Input> confirmedInputs;
       int                totalBalance = 0;
       int                i            = 0;
       for (const auto& balance : balances) {
@@ -618,7 +618,7 @@ Extended::replayTransfer() const {
 
 sendTransferResponse
 Extended::sendTransfer(const Type::Trytes& seed, int security, int depth, int minWeightMagnitude,
-                       std::vector<Transfer>& transfers, const std::vector<input>& inputs,
+                       std::vector<Transfer>& transfers, const std::vector<Input>& inputs,
                        const Type::Trytes& address) const {
   // Validate the security level
   if (security < 1 || security > 3) {
@@ -724,7 +724,7 @@ Extended::findTailTransactionHash(const Type::Trytes& hash) const {
 
 std::vector<std::string>
 Extended::addRemainder(const Type::Trytes& seed, const unsigned int& security,
-                       const std::vector<input>& inputs, Bundle& bundle, const std::string& tag,
+                       const std::vector<Input>& inputs, Bundle& bundle, const std::string& tag,
                        const long& totalValue, const Type::Trytes& remainderAddress,
                        const std::vector<std::string>& signatureFragments) const {
   Utils::StopWatch sw;
@@ -950,7 +950,7 @@ Extended::newAddress(const Type::Trytes& seed, const int32_t& index, const int32
 }
 
 std::vector<std::string>
-Extended::signInputsAndReturn(const std::string& seed, const std::vector<input>& inputs,
+Extended::signInputsAndReturn(const std::string& seed, const std::vector<Input>& inputs,
                               Bundle&                         bundle,
                               const std::vector<std::string>& signatureFragments) const {
   // TODO param ?

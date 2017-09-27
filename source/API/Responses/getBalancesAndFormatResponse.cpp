@@ -25,7 +25,7 @@
 
 #include <API/Responses/getBalancesAndFormatResponse.hpp>
 
-getBalancesAndFormatResponse::getBalancesAndFormatResponse(const std::vector<input>& inputs,
+getBalancesAndFormatResponse::getBalancesAndFormatResponse(const std::vector<Input>& inputs,
                                                            const int64_t&            totalBalance,
                                                            const int64_t&            duration)
     : genericResponse(duration), inputs_(inputs), totalBalance_(totalBalance) {
@@ -34,7 +34,7 @@ getBalancesAndFormatResponse::getBalancesAndFormatResponse(const std::vector<inp
 getBalancesAndFormatResponse::~getBalancesAndFormatResponse() {
 }
 
-const std::vector<input>&
+const std::vector<Input>&
 getBalancesAndFormatResponse::getInput() const {
   return this->inputs_;
 }

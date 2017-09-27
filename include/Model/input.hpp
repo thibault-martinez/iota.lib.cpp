@@ -25,36 +25,73 @@
 
 #pragma once
 
-#include <iostream>
+#include <Type/Trinary.hpp>
 
-class input {
+class Input {
 public:
-  input(const std::string& address, const int64_t& balance, const int32_t& keyIndex,
-        const int32_t& security);
-  virtual ~input();
-
-public:
-  /*
-   * Address of your peer.
+  /**
+   * default ctor
    */
-  const std::string& getAddress() const;
-  /*
-   * Balance
+  Input();
+
+  /**
+   * full init ctor
+   */
+  Input(const IOTA::Type::Trytes& address, const int64_t& balance, const int32_t& keyIndex,
+        const int32_t& security);
+
+  /**
+   * default dtor
+   */
+  ~Input() = default;
+
+public:
+  /**
+   * @return Address of your peer.
+   */
+  const IOTA::Type::Trytes& getAddress() const;
+
+  /**
+   * @param addr set address of your peer
+   */
+  void setAddress(const IOTA::Type::Trytes& addr);
+
+public:
+  /**
+   * @return Balance
    */
   const int64_t& getBalance() const;
-  void           setBalance(const int64_t& balance);
-  /*
-   * Key Index
+
+  /**
+   * @param balance set new balance for input
+   */
+  void setBalance(const int64_t& balance);
+
+public:
+  /**
+   * @return Key Index
    */
   const int32_t& getKeyIndex() const;
-  /*
-   * Security
+
+  /**
+   * @param keyIndex set new keyIndex for input in transaction
+   */
+  void setKeyIndex(const int32_t& keyIndex);
+
+public:
+  /**
+   * @return Security
    */
   const int32_t& getSecurity() const;
 
+  /**
+   * @param security set new security level for input
+   */
+  void setSecurity(const int32_t& security);
+
 private:
-  std::string address_;
-  int64_t     balance_;
-  int32_t     keyIndex_;
-  int32_t     security_;
+  IOTA::Type::Trytes address_;
+  int64_t            balance_;
+  int32_t            keyIndex_;
+  int32_t            security_;
 };
