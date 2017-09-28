@@ -350,7 +350,6 @@ std::vector<Types::Trytes>
 Extended::prepareTransfers(const Types::Trytes& seed, int security,
                            std::vector<Models::Transfer>& transfers, const std::string& remainder,
                            const std::vector<Models::Input>& inputs, bool validateInputs) const {
-  Utils::StopWatch sw;
   // Validate transfers object
   if (!this->isTransfersCollectionValid(transfers)) {
     throw Errors::IllegalState("Invalid transfer");
@@ -408,7 +407,7 @@ Extended::prepareTransfers(const Types::Trytes& seed, int security,
     }
 
     // get current timestamp in seconds
-    long timestamp = sw.now().count();
+    long timestamp = Utils::StopWatch::now().count();
 
     // If no tag defined, get 27 tryte tag.
     tag = transfer.getTag().empty() ? "999999999999999999999999999" : transfer.getTag();
@@ -730,12 +729,12 @@ Extended::addRemainder(const Types::Trytes& seed, const unsigned int& security,
                        const std::string& tag, const long& totalValue,
                        const Types::Trytes&            remainderAddress,
                        const std::vector<std::string>& signatureFragments) const {
-  Utils::StopWatch sw;
-  auto             totalTransferValue = totalValue;
+  auto totalTransferValue = totalValue;
+
   for (const auto& input : inputs) {
     auto thisBalance = input.getBalance();
     auto toSubtract  = -thisBalance;
-    long timestamp   = sw.now().count();
+    long timestamp   = Utils::StopWatch::now().count();
     // Add input as bundle entry
     bundle.addTransaction(input.getSecurity(), input.getAddress(), toSubtract, tag, timestamp);
     // If there is a remainder value
@@ -796,7 +795,6 @@ std::vector<Models::Transaction>
 Extended::initiateTransfer(int securitySum, const std::string& inputAddress,
                            const std::string&             remainderAddress,
                            std::vector<Models::Transfer>& transfers) const {
-  Utils::StopWatch sw;
   Crypto::Checksum checksum;
 
   //! If message or tag is not supplied, provide it
@@ -865,7 +863,7 @@ Extended::initiateTransfer(int securitySum, const std::string& inputAddress,
     }
 
     //! get current timestamp in seconds
-    long timestamp = sw.now().count();
+    long timestamp = Utils::StopWatch::now().count();
 
     //! If no tag defined, get 27 tryte tag.
     if (transfer.getTag().empty()) {
@@ -895,7 +893,7 @@ Extended::initiateTransfer(int securitySum, const std::string& inputAddress,
   }
 
   // get current timestamp in seconds
-  long timestamp = sw.now().count();
+  long timestamp = Utils::StopWatch::now().count();
 
   if (totalBalance > 0) {
     long toSubtract = -totalBalance;
