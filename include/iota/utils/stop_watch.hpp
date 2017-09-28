@@ -68,7 +68,7 @@ public:
   /**
    * @return Current ts
    */
-  std::chrono::milliseconds now();
+  static std::chrono::milliseconds now();
 
 private:
   /**
