@@ -31,7 +31,7 @@ namespace API {
 
 namespace Responses {
 
-AddNeighbors::AddNeighbors() : addedNeighbors_(0) {
+AddNeighbors::AddNeighbors(const int64_t& addedNeighbors) : addedNeighbors_(addedNeighbors) {
 }
 
 void
@@ -42,6 +42,11 @@ AddNeighbors::deserialize(const json& res) {
 const int64_t&
 AddNeighbors::getAddedNeighbors() const {
   return this->addedNeighbors_;
+}
+
+void
+AddNeighbors::setAddedNeighbors(const int64_t& addedNeighbors) {
+  this->addedNeighbors_ = addedNeighbors;
 }
 
 }  // namespace Responses

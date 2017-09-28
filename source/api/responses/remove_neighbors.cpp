@@ -31,7 +31,8 @@ namespace API {
 
 namespace Responses {
 
-RemoveNeighbors::RemoveNeighbors() : removedNeighbors_(0) {
+RemoveNeighbors::RemoveNeighbors(const int64_t& removedNeighbors)
+    : removedNeighbors_(removedNeighbors) {
 }
 
 void
@@ -42,6 +43,11 @@ RemoveNeighbors::deserialize(const json& res) {
 const int64_t&
 RemoveNeighbors::getRemovedNeighbors() const {
   return this->removedNeighbors_;
+}
+
+void
+RemoveNeighbors::setRemovedNeighbors(const int64_t& removedNeighbors) {
+  this->removedNeighbors_ = removedNeighbors;
 }
 
 }  // namespace Responses

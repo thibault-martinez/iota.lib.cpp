@@ -31,7 +31,9 @@ namespace API {
 
 namespace Responses {
 
-GetBalances::GetBalances() : milestoneIndex_(0) {
+GetBalances::GetBalances(const std::vector<std::string>& balances, const std::string& milestone,
+                         const int64_t& milestoneIndex)
+    : balances_(balances), milestone_(milestone), milestoneIndex_(milestoneIndex) {
 }
 
 void
@@ -46,14 +48,29 @@ GetBalances::getBalances() const {
   return this->balances_;
 }
 
+void
+GetBalances::setBalances(const std::vector<std::string>& balances) {
+  this->balances_ = balances;
+}
+
 const std::string&
 GetBalances::getMilestone() const {
   return this->milestone_;
 }
 
+void
+GetBalances::setMilestone(const std::string& milestone) {
+  this->milestone_ = milestone;
+}
+
 const int64_t&
 GetBalances::getMilestoneIndex() const {
   return this->milestoneIndex_;
+}
+
+void
+GetBalances::setMilestoneIndex(const int64_t& milestoneIndex) {
+  this->milestoneIndex_ = milestoneIndex;
 }
 
 }  // namespace Responses

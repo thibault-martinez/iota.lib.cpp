@@ -31,6 +31,10 @@ namespace API {
 
 namespace Responses {
 
+FindTransactions::FindTransactions(const std::vector<IOTA::Types::Trytes>& hashes)
+    : hashes_(hashes) {
+}
+
 void
 FindTransactions::deserialize(const json& res) {
   this->hashes_ = res.at("hashes").get<std::vector<std::string>>();
@@ -39,6 +43,16 @@ FindTransactions::deserialize(const json& res) {
 const std::vector<std::string>&
 FindTransactions::getHashes() const {
   return this->hashes_;
+}
+
+std::vector<std::string>&
+FindTransactions::getHashes() {
+  return this->hashes_;
+}
+
+void
+FindTransactions::setHashes(const std::vector<std::string>& hashes) {
+  this->hashes_ = hashes;
 }
 
 }  // namespace Responses

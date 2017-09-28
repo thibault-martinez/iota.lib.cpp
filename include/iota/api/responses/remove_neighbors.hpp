@@ -45,17 +45,34 @@ namespace Responses {
  */
 class RemoveNeighbors : public Base {
 public:
-  RemoveNeighbors();
+  /**
+   * full init ctor
+   */
+  explicit RemoveNeighbors(const int64_t& removedNeighbors = 0);
+
+  /**
+   * default dtor
+   */
   ~RemoveNeighbors() = default;
 
 public:
+  /**
+   * init class based on json data
+   *
+   * @param res json data to be used for deserialization
+   */
   void deserialize(const json& res);
 
 public:
-  /*
-   * Number of removed neighbors.
+  /**
+   * @return Number of removed neighbors.
    */
   const int64_t& getRemovedNeighbors() const;
+
+  /**
+   * @param removedNeighbors new nb of removed neighbors for api response
+   */
+  void setRemovedNeighbors(const int64_t& removedNeighbors);
 
 private:
   int64_t removedNeighbors_;

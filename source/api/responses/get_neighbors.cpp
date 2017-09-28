@@ -31,6 +31,9 @@ namespace API {
 
 namespace Responses {
 
+GetNeighbors::GetNeighbors(const std::vector<Models::Neighbor>& neighbors) : neighbors_(neighbors) {
+}
+
 void
 GetNeighbors::deserialize(const json& res) {
   for (const auto& neighbor : res["neighbors"]) {
@@ -44,6 +47,16 @@ GetNeighbors::deserialize(const json& res) {
 const std::vector<Models::Neighbor>&
 GetNeighbors::getNeighbors() const {
   return this->neighbors_;
+}
+
+std::vector<Models::Neighbor>&
+GetNeighbors::getNeighbors() {
+  return this->neighbors_;
+}
+
+void
+GetNeighbors::setNeighbors(const std::vector<Models::Neighbor>& neighbors) {
+  this->neighbors_ = neighbors;
 }
 
 }  // namespace Responses

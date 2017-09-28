@@ -40,8 +40,19 @@ namespace Responses {
 
 class GetNewAddresses : public Base {
 public:
+  /**
+   * default ctor
+   */
   GetNewAddresses() = default;
+
+  /**
+   * full init ctor
+   */
   GetNewAddresses(const std::vector<IOTA::Types::Trytes>& addresses, const int64_t& duration);
+
+  /**
+   * default dtor
+   */
   ~GetNewAddresses() = default;
 
 public:
@@ -49,6 +60,16 @@ public:
    * @return The addresses.
    */
   const std::vector<IOTA::Types::Trytes>& getAddresses() const;
+
+  /**
+   * @return The addresses. (non const version)
+   */
+  std::vector<IOTA::Types::Trytes>& getAddresses();
+
+  /**
+   * @param addresses new addresses for api response
+   */
+  void setAddresses(const std::vector<IOTA::Types::Trytes>& addresses);
 
 private:
   std::vector<IOTA::Types::Trytes> addresses_;

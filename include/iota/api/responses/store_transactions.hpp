@@ -45,10 +45,22 @@ namespace Responses {
  */
 class StoreTransactions : public Base {
 public:
-  StoreTransactions()  = default;
+  /**
+   * default ctor
+   */
+  StoreTransactions() = default;
+
+  /**
+   * default dtor
+   */
   ~StoreTransactions() = default;
 
 public:
+  /**
+   * init class based on json data
+   *
+   * @param res json data to be used for deserialization
+   */
   void deserialize(const json& res);
 };
 

@@ -50,17 +50,34 @@ namespace Responses {
  */
 class GetInclusionStates : public Base {
 public:
-  GetInclusionStates()  = default;
+  /**
+   * full init ctor
+   */
+  explicit GetInclusionStates(const std::vector<bool>& states = {});
+
+  /**
+   * default dtor
+   */
   ~GetInclusionStates() = default;
 
 public:
+  /**
+   * init class based on json data
+   *
+   * @param res json data to be used for deserialization
+   */
   void deserialize(const json& res);
 
 public:
-  /*
-   * Inclusion states of the set of transactions.
+  /**
+   * @return Inclusion states of the set of transactions.
    */
   const std::vector<bool>& getStates() const;
+
+  /**
+   * @param states new states for api response
+   */
+  void setStates(const std::vector<bool>& states);
 
 private:
   std::vector<bool> states_;

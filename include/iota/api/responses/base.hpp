@@ -42,18 +42,36 @@ namespace Responses {
  */
 class Base {
 public:
-  Base();
-  explicit Base(const int64_t& duration);
+  /**
+   * full init ctor
+   */
+  explicit Base(const int64_t& duration = 0);
+
+  /**
+   * default dtor
+   */
   virtual ~Base() = default;
 
 public:
+  /**
+   * init class based on json data
+   *
+   * @param res json data to be used for deserialization
+   */
   virtual void deserialize(const json& res);
 
 public:
+  /**
+   * @return duration of operation
+   */
   const int64_t& getDuration() const;
-  void           setDuration(const int64_t& duration);
 
-protected:
+  /**
+   * @param duration set duration of operation
+   */
+  void setDuration(const int64_t& duration);
+
+private:
   int64_t duration_;
 };
 

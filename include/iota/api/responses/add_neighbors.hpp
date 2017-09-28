@@ -45,17 +45,34 @@ namespace Responses {
  */
 class AddNeighbors : public Base {
 public:
-  AddNeighbors();
+  /**
+   * full init ctor
+   */
+  explicit AddNeighbors(const int64_t& addedNeighbors = 0);
+
+  /**
+   * default dtor
+   */
   ~AddNeighbors() = default;
 
 public:
+  /**
+   * init class based on json data
+   *
+   * @param res json data to be used for deserialization
+   */
   void deserialize(const json& res);
 
 public:
-  /*
-   * Number of added neighbors.
+  /**
+   * @return Number of added neighbors.
    */
   const int64_t& getAddedNeighbors() const;
+
+  /**
+   * @param addedNeighbors set number of added neighbors
+   */
+  void setAddedNeighbors(const int64_t& addedNeighbors);
 
 private:
   int64_t addedNeighbors_;

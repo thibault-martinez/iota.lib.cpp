@@ -47,25 +47,62 @@ namespace Responses {
  */
 class GetBalances : public Base {
 public:
-  GetBalances();
+  /**
+   * full init ctor
+   */
+  explicit GetBalances(const std::vector<std::string>& balances = {},
+                       const std::string& milestone = "", const int64_t& milestoneIndex = 0);
+
+  /**
+   * default dtor
+   */
   ~GetBalances() = default;
 
 public:
+  /**
+   * init class based on json data
+   *
+   * @param res json data to be used for deserialization
+   */
   void deserialize(const json& res);
 
 public:
-  /*
-   * The balances.
+  /**
+   * @return balances.
    */
   const std::vector<std::string>& getBalances() const;
-  /*
-   * The milestone.
+
+  /**
+   * @return balances. (non const version)
+   */
+  std::vector<std::string>& getBalances();
+
+  /**
+   * @param balances new balances for api response
+   */
+  void setBalances(const std::vector<std::string>& balances);
+
+public:
+  /**
+   * @return milestone.
    */
   const std::string& getMilestone() const;
-  /*
-   * The milestone index.
+
+  /**
+   * @param milestone new milestone for api response
+   */
+  void setMilestone(const std::string& milestone);
+
+public:
+  /**
+   * @return milestone index.
    */
   const int64_t& getMilestoneIndex() const;
+
+  /**
+   * @param milestoneIndex new milestone index for api response
+   */
+  void setMilestoneIndex(const int64_t& milestoneIndex);
 
 private:
   std::vector<std::string> balances_;

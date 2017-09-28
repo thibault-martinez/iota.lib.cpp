@@ -45,10 +45,22 @@ namespace Responses {
  */
 class BroadcastTransactions : public Base {
 public:
-  BroadcastTransactions()  = default;
+  /**
+   * default ctor
+   */
+  BroadcastTransactions() = default;
+
+  /**
+   * default dtor
+   */
   ~BroadcastTransactions() = default;
 
 public:
+  /**
+   * init class based on json data
+   *
+   * @param res json data to be used for deserialization
+   */
   void deserialize(const json& res);
 };
 

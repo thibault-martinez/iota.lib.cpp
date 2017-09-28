@@ -31,6 +31,11 @@ namespace API {
 
 namespace Responses {
 
+GetTransactionsToApprove::GetTransactionsToApprove(const std::string& trunkTransaction,
+                                                   const std::string& branchTransaction)
+    : trunkTransaction_(trunkTransaction), branchTransaction_(branchTransaction) {
+}
+
 void
 GetTransactionsToApprove::deserialize(const json& res) {
   this->trunkTransaction_  = res.at("trunkTransaction").get<std::string>();
@@ -42,9 +47,19 @@ GetTransactionsToApprove::getTrunkTransaction() const {
   return this->trunkTransaction_;
 }
 
+void
+GetTransactionsToApprove::setTrunkTransaction(const std::string& trunkTransaction) {
+  this->trunkTransaction_ = trunkTransaction;
+}
+
 const std::string&
 GetTransactionsToApprove::getBranchTransaction() const {
   return this->branchTransaction_;
+}
+
+void
+GetTransactionsToApprove::setBranchTransaction(const std::string& branchTransaction) {
+  this->branchTransaction_ = branchTransaction;
 }
 
 }  // namespace Responses

@@ -50,20 +50,48 @@ namespace Responses {
  */
 class GetBalancesAndFormat : public Base {
 public:
+  /**
+   * default ctor
+   */
   GetBalancesAndFormat();
+
+  /**
+   * full init ctor
+   */
   GetBalancesAndFormat(const std::vector<Models::Input>& inputs, const int64_t& totalBalance,
                        const int64_t& duration);
+
+  /**
+   * default dtor
+   */
   ~GetBalancesAndFormat() = default;
 
 public:
-  /*
-   * The input.
+  /**
+   * @return input.
    */
   const std::vector<Models::Input>& getInput() const;
-  /*
-   * The total balance.
+
+  /**
+   * @return input. (non const version)
+   */
+  std::vector<Models::Input>& getInput();
+
+  /**
+   * @param input new input for api response
+   */
+  void setInput(const std::vector<Models::Input>& input);
+
+public:
+  /**
+   * @return total balance.
    */
   const int64_t& getTotalBalance() const;
+
+  /**
+   * @param totalBalance new total balance for api response
+   */
+  void setTotalBalance(const int64_t& totalBalance);
 
 private:
   std::vector<Models::Input> inputs_;

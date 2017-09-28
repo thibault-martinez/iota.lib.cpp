@@ -37,8 +37,19 @@ namespace Responses {
 
 class ReplayBundle : public Base {
 public:
+  /**
+   * default ctor
+   */
   ReplayBundle() = default;
+
+  /**
+   * full init ctor
+   */
   ReplayBundle(const std::vector<bool>& successful, long duration);
+
+  /**
+   * default dtor
+   */
   ~ReplayBundle() = default;
 
 public:
@@ -46,6 +57,16 @@ public:
    * @return successful operations.
    */
   const std::vector<bool>& getSuccessfully() const;
+
+  /**
+   * @return successful operations. (non const version)
+   */
+  std::vector<bool>& getSuccessfully();
+
+  /**
+   * @param successful new successful operations for api response
+   */
+  void setSuccessfully(const std::vector<bool>& successful);
 
 private:
   std::vector<bool> successfully_;
