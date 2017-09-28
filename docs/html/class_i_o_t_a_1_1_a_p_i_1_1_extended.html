@@ -85,121 +85,204 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:adbf8ccbfec9fddd40496b7b185129615"><td class="memItemLeft" align="right" valign="top"><a id="adbf8ccbfec9fddd40496b7b185129615"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>Extended</b> (const std::string &amp;host, const unsigned int &amp;port, Crypto::SpongeType cryptoType=Crypto::SpongeType::KERL)</td></tr>
 <tr class="separator:adbf8ccbfec9fddd40496b7b185129615"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a23d0c16caec4862812b63a75de96cfbd"><td class="memItemLeft" align="right" valign="top"><a id="a23d0c16caec4862812b63a75de96cfbd"></a>
-<a class="el" href="classget_balances_and_format_response.html">getBalancesAndFormatResponse</a>&#160;</td><td class="memItemRight" valign="bottom"><b>getInputs</b> (const std::string &amp;seed, const int32_t &amp;security, const int32_t &amp;start, const int32_t &amp;end, const int64_t &amp;threshold) const</td></tr>
-<tr class="separator:a23d0c16caec4862812b63a75de96cfbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a17e9fd7724ab83649341916e531f5331"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classget_balances_and_format_response.html">getBalancesAndFormatResponse</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_extended.html#a17e9fd7724ab83649341916e531f5331">getBalancesAndFormat</a> (const std::vector&lt; std::string &gt; &amp;addresses, const int64_t &amp;threshold, const int32_t &amp;start, <a class="el" href="class_i_o_t_a_1_1_utils_1_1_stop_watch.html">Utils::StopWatch</a> stopWatch, const int32_t &amp;security) const</td></tr>
-<tr class="separator:a17e9fd7724ab83649341916e531f5331"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a39e4ad8f9a24a0e3d89f41a6be75a1e6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classget_new_addresses_response.html">getNewAddressesResponse</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_extended.html#a39e4ad8f9a24a0e3d89f41a6be75a1e6">getNewAddresses</a> (const std::string &amp;seed, const uint32_t &amp;index=0, const int32_t &amp;security=2, bool checksum=false, const int32_t &amp;total=0, bool returnAll=false) const</td></tr>
-<tr class="separator:a39e4ad8f9a24a0e3d89f41a6be75a1e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2e1c0d0438c09813bcf3d08fe3ee2821"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_bundle.html">Bundle</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_extended.html#a2e1c0d0438c09813bcf3d08fe3ee2821">traverseBundle</a> (const std::string &amp;trunkTx) const</td></tr>
-<tr class="separator:a2e1c0d0438c09813bcf3d08fe3ee2821"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac99bfccd88d638c38007ced661064edb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_bundle.html">Bundle</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_extended.html#ac99bfccd88d638c38007ced661064edb">traverseBundle</a> (const std::string &amp;trunkTx, std::string bundleHash, <a class="el" href="class_bundle.html">Bundle</a> &amp;bundle) const</td></tr>
-<tr class="separator:ac99bfccd88d638c38007ced661064edb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a94df0040aa661cf0675dc8296328ad88"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="class_bundle.html">Bundle</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_extended.html#a94df0040aa661cf0675dc8296328ad88">bundlesFromAddresses</a> (const std::vector&lt; IOTA::Type::Trytes &gt; &amp;addresses, bool inclusionStates) const</td></tr>
-<tr class="separator:a94df0040aa661cf0675dc8296328ad88"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aee9809bdb4567dc418e4bdcc883ac415"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="class_transaction.html">Transaction</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_extended.html#aee9809bdb4567dc418e4bdcc883ac415">findTransactionObjects</a> (const std::vector&lt; IOTA::Type::Trytes &gt; &amp;<a class="el" href="classinput.html">input</a>) const</td></tr>
-<tr class="separator:aee9809bdb4567dc418e4bdcc883ac415"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae104577023b45903c1c6d15799929a4b"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="class_transaction.html">Transaction</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_extended.html#ae104577023b45903c1c6d15799929a4b">getTransactionsObjects</a> (const std::vector&lt; IOTA::Type::Trytes &gt; &amp;hashes) const</td></tr>
-<tr class="separator:ae104577023b45903c1c6d15799929a4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a49b87b30d73124c765528844715f6246"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="class_transaction.html">Transaction</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_extended.html#a49b87b30d73124c765528844715f6246">findTransactionObjectsByBundle</a> (const std::vector&lt; IOTA::Type::Trytes &gt; &amp;<a class="el" href="classinput.html">input</a>) const</td></tr>
-<tr class="separator:a49b87b30d73124c765528844715f6246"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8ad71b14edd2c6d83e6bc61db9818bce"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classget_inclusion_states_response.html">getInclusionStatesResponse</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_extended.html#a8ad71b14edd2c6d83e6bc61db9818bce">getLatestInclusion</a> (const std::vector&lt; Type::Trytes &gt; &amp;hashes) const</td></tr>
-<tr class="separator:a8ad71b14edd2c6d83e6bc61db9818bce"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af8fd6e7b4f5393470cfe8e8ddcb1c0f6"><td class="memItemLeft" align="right" valign="top"><a id="af8fd6e7b4f5393470cfe8e8ddcb1c0f6"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>prepareTransfers</b> () const</td></tr>
-<tr class="separator:af8fd6e7b4f5393470cfe8e8ddcb1c0f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5c12722ef80e76c6cf603efc561a77e7"><td class="memItemLeft" align="right" valign="top"><a id="a5c12722ef80e76c6cf603efc561a77e7"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>getNewAddress</b> () const</td></tr>
-<tr class="separator:a5c12722ef80e76c6cf603efc561a77e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adc8f11562f1fc3800780525fa49209de"><td class="memItemLeft" align="right" valign="top"><a id="adc8f11562f1fc3800780525fa49209de"></a>
-<a class="el" href="classget_bundle_response.html">getBundleResponse</a>&#160;</td><td class="memItemRight" valign="bottom"><b>getBundle</b> (const Type::Trytes &amp;transaction) const</td></tr>
-<tr class="separator:adc8f11562f1fc3800780525fa49209de"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adef338c128b9ae9ee1ab398b7b12f805"><td class="memItemLeft" align="right" valign="top"><a id="adef338c128b9ae9ee1ab398b7b12f805"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>getTransfers</b> () const</td></tr>
-<tr class="separator:adef338c128b9ae9ee1ab398b7b12f805"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae9ce22667dbb383ff396c5a37b2b5d82"><td class="memItemLeft" align="right" valign="top"><a id="ae9ce22667dbb383ff396c5a37b2b5d82"></a>
+<a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_balances_and_format.html">Responses::GetBalancesAndFormat</a>&#160;</td><td class="memItemRight" valign="bottom"><b>getInputs</b> (const std::string &amp;seed, const int32_t &amp;security, const int32_t &amp;start, const int32_t &amp;end, const int64_t &amp;threshold) const</td></tr>
+<tr class="separator:ae9ce22667dbb383ff396c5a37b2b5d82"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad406eec7a28f697248bf1306050c789f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_balances_and_format.html">Responses::GetBalancesAndFormat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_extended.html#ad406eec7a28f697248bf1306050c789f">getBalancesAndFormat</a> (const std::vector&lt; std::string &gt; &amp;addresses, const int64_t &amp;threshold, const int32_t &amp;start, <a class="el" href="class_i_o_t_a_1_1_utils_1_1_stop_watch.html">Utils::StopWatch</a> stopWatch, const int32_t &amp;security) const</td></tr>
+<tr class="separator:ad406eec7a28f697248bf1306050c789f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a30f3436637671d3de6d9c99b86ed8edc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_new_addresses.html">Responses::GetNewAddresses</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_extended.html#a30f3436637671d3de6d9c99b86ed8edc">getNewAddresses</a> (const std::string &amp;seed, const uint32_t &amp;index=0, const int32_t &amp;security=2, bool checksum=false, const int32_t &amp;total=0, bool returnAll=false) const</td></tr>
+<tr class="separator:a30f3436637671d3de6d9c99b86ed8edc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad027b4e17d5cca2e9bb2eec7575ba55c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_i_o_t_a_1_1_models_1_1_bundle.html">Models::Bundle</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_extended.html#ad027b4e17d5cca2e9bb2eec7575ba55c">traverseBundle</a> (const std::string &amp;trunkTx) const</td></tr>
+<tr class="separator:ad027b4e17d5cca2e9bb2eec7575ba55c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae57e1043f0851b36f1caa4a7fc8335c7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_i_o_t_a_1_1_models_1_1_bundle.html">Models::Bundle</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_extended.html#ae57e1043f0851b36f1caa4a7fc8335c7">traverseBundle</a> (const std::string &amp;trunkTx, std::string bundleHash, <a class="el" href="class_i_o_t_a_1_1_models_1_1_bundle.html">Models::Bundle</a> &amp;bundle) const</td></tr>
+<tr class="separator:ae57e1043f0851b36f1caa4a7fc8335c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a74137fc615af252ddd333d125c841aff"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="class_i_o_t_a_1_1_models_1_1_bundle.html">Models::Bundle</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_extended.html#a74137fc615af252ddd333d125c841aff">bundlesFromAddresses</a> (const std::vector&lt; IOTA::Types::Trytes &gt; &amp;addresses, bool inclusionStates) const</td></tr>
+<tr class="separator:a74137fc615af252ddd333d125c841aff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5216fbcc778269eb5ae2a996fb6fb21b"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="class_i_o_t_a_1_1_models_1_1_transaction.html">Models::Transaction</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_extended.html#a5216fbcc778269eb5ae2a996fb6fb21b">findTransactionObjects</a> (const std::vector&lt; IOTA::Types::Trytes &gt; &amp;input) const</td></tr>
+<tr class="separator:a5216fbcc778269eb5ae2a996fb6fb21b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a953c31b14d3a5c597da6561f35cbd335"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="class_i_o_t_a_1_1_models_1_1_transaction.html">Models::Transaction</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_extended.html#a953c31b14d3a5c597da6561f35cbd335">getTransactionsObjects</a> (const std::vector&lt; IOTA::Types::Trytes &gt; &amp;hashes) const</td></tr>
+<tr class="separator:a953c31b14d3a5c597da6561f35cbd335"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c729f792d8b7154a810a7e0df7ed3d8"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="class_i_o_t_a_1_1_models_1_1_transaction.html">Models::Transaction</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_extended.html#a5c729f792d8b7154a810a7e0df7ed3d8">findTransactionObjectsByBundle</a> (const std::vector&lt; IOTA::Types::Trytes &gt; &amp;input) const</td></tr>
+<tr class="separator:a5c729f792d8b7154a810a7e0df7ed3d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad80dbd20f6efcabe5234fff81bfde6fe"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_inclusion_states.html">Responses::GetInclusionStates</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_extended.html#ad80dbd20f6efcabe5234fff81bfde6fe">getLatestInclusion</a> (const std::vector&lt; Types::Trytes &gt; &amp;hashes) const</td></tr>
+<tr class="separator:ad80dbd20f6efcabe5234fff81bfde6fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a699d47d59998dcb5c4c377dd7dfeb9fc"><td class="memItemLeft" align="right" valign="top"><a id="a699d47d59998dcb5c4c377dd7dfeb9fc"></a>
+std::vector&lt; Types::Trytes &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>prepareTransfers</b> (const Types::Trytes &amp;seed, int security, std::vector&lt; <a class="el" href="class_i_o_t_a_1_1_models_1_1_transfer.html">Models::Transfer</a> &gt; &amp;transfers, const std::string &amp;remainder, const std::vector&lt; <a class="el" href="class_i_o_t_a_1_1_models_1_1_input.html">Models::Input</a> &gt; &amp;inputs, bool validateInputs=true) const</td></tr>
+<tr class="separator:a699d47d59998dcb5c4c377dd7dfeb9fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae0bbe508888acfe6f97aca3d9e0da86"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_bundle.html">Responses::GetBundle</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_extended.html#aae0bbe508888acfe6f97aca3d9e0da86">getBundle</a> (const Types::Trytes &amp;transaction) const</td></tr>
+<tr class="separator:aae0bbe508888acfe6f97aca3d9e0da86"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaaeca1333d27be96799fbdfdd60292ff"><td class="memItemLeft" align="right" valign="top"><a id="aaaeca1333d27be96799fbdfdd60292ff"></a>
+<a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_transfers.html">Responses::GetTransfers</a>&#160;</td><td class="memItemRight" valign="bottom"><b>getTransfers</b> (const Types::Trytes &amp;seed, int security, int start, int end, bool inclusionStates) const</td></tr>
+<tr class="separator:aaaeca1333d27be96799fbdfdd60292ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0ce339b570682f2c559abf35fb57388b"><td class="memItemLeft" align="right" valign="top"><a id="a0ce339b570682f2c559abf35fb57388b"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>replayTransfer</b> () const</td></tr>
 <tr class="separator:a0ce339b570682f2c559abf35fb57388b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a47f79104e51f6537dcc6acc2d62e297d"><td class="memItemLeft" align="right" valign="top"><a id="a47f79104e51f6537dcc6acc2d62e297d"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>sendTransfer</b> () const</td></tr>
-<tr class="separator:a47f79104e51f6537dcc6acc2d62e297d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9bf33206d92d26246165ff1424ab580d"><td class="memItemLeft" align="right" valign="top"><a id="a9bf33206d92d26246165ff1424ab580d"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>sendTrytes</b> () const</td></tr>
-<tr class="separator:a9bf33206d92d26246165ff1424ab580d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8320fe371f3011031a3b6521d133a118"><td class="memItemLeft" align="right" valign="top"><a id="a8320fe371f3011031a3b6521d133a118"></a>
-<a class="el" href="classstore_transactions_response.html">storeTransactionsResponse</a>&#160;</td><td class="memItemRight" valign="bottom"><b>broadcastAndStore</b> (const std::vector&lt; Type::Trytes &gt; &amp;trytes) const</td></tr>
-<tr class="separator:a8320fe371f3011031a3b6521d133a118"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afd1dbdcb7b332c295d3687fa3e47b336"><td class="memItemLeft" align="right" valign="top"><a id="afd1dbdcb7b332c295d3687fa3e47b336"></a>
-<a class="el" href="classfind_transactions_response.html">findTransactionsResponse</a>&#160;</td><td class="memItemRight" valign="bottom"><b>findTransactionsByAddresses</b> (const std::vector&lt; Type::Trytes &gt; &amp;addresses) const</td></tr>
-<tr class="separator:afd1dbdcb7b332c295d3687fa3e47b336"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a068bb5301f101c9bc3c67b335b7d370c"><td class="memItemLeft" align="right" valign="top"><a id="a068bb5301f101c9bc3c67b335b7d370c"></a>
-<a class="el" href="classfind_transactions_response.html">findTransactionsResponse</a>&#160;</td><td class="memItemRight" valign="bottom"><b>findTransactionsByDigests</b> (const std::vector&lt; Type::Trytes &gt; &amp;digests) const</td></tr>
-<tr class="separator:a068bb5301f101c9bc3c67b335b7d370c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2e44277c005fceb0ab41b9610ebf128f"><td class="memItemLeft" align="right" valign="top"><a id="a2e44277c005fceb0ab41b9610ebf128f"></a>
-<a class="el" href="classfind_transactions_response.html">findTransactionsResponse</a>&#160;</td><td class="memItemRight" valign="bottom"><b>findTransactionsByApprovees</b> (const std::vector&lt; Type::Trytes &gt; &amp;approvees) const</td></tr>
-<tr class="separator:a2e44277c005fceb0ab41b9610ebf128f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af0fdc58f896198ed95adfef12469a4e3"><td class="memItemLeft" align="right" valign="top"><a id="af0fdc58f896198ed95adfef12469a4e3"></a>
-<a class="el" href="classfind_transactions_response.html">findTransactionsResponse</a>&#160;</td><td class="memItemRight" valign="bottom"><b>findTransactionsByBundles</b> (const std::vector&lt; Type::Trytes &gt; &amp;bundles) const</td></tr>
-<tr class="separator:af0fdc58f896198ed95adfef12469a4e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e2687ef56ef0340cd21be97f4d359f8"><td class="memItemLeft" align="right" valign="top"><a id="a9e2687ef56ef0340cd21be97f4d359f8"></a>
+<a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_send_transfer.html">Responses::SendTransfer</a>&#160;</td><td class="memItemRight" valign="bottom"><b>sendTransfer</b> (const Types::Trytes &amp;seed, int security, int depth, int minWeightMagnitude, std::vector&lt; <a class="el" href="class_i_o_t_a_1_1_models_1_1_transfer.html">Models::Transfer</a> &gt; &amp;transfers, const std::vector&lt; <a class="el" href="class_i_o_t_a_1_1_models_1_1_input.html">Models::Input</a> &gt; &amp;inputs, const Types::Trytes &amp;address) const</td></tr>
+<tr class="separator:a9e2687ef56ef0340cd21be97f4d359f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e1d2f616a5fa494dfaedf4891f26fb3"><td class="memItemLeft" align="right" valign="top"><a id="a0e1d2f616a5fa494dfaedf4891f26fb3"></a>
+std::vector&lt; <a class="el" href="class_i_o_t_a_1_1_models_1_1_transaction.html">Models::Transaction</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>sendTrytes</b> (const std::vector&lt; Types::Trytes &gt; &amp;trytes, const unsigned int &amp;depth, const unsigned int &amp;minWeightMagnitude) const</td></tr>
+<tr class="separator:a0e1d2f616a5fa494dfaedf4891f26fb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83bb15cf7263511e76c6a07ff9772dcb"><td class="memItemLeft" align="right" valign="top"><a id="a83bb15cf7263511e76c6a07ff9772dcb"></a>
+<a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_store_transactions.html">Responses::StoreTransactions</a>&#160;</td><td class="memItemRight" valign="bottom"><b>broadcastAndStore</b> (const std::vector&lt; Types::Trytes &gt; &amp;trytes) const</td></tr>
+<tr class="separator:a83bb15cf7263511e76c6a07ff9772dcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afeaa343b818b96bac952af0064f627ae"><td class="memItemLeft" align="right" valign="top"><a id="afeaa343b818b96bac952af0064f627ae"></a>
+<a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_find_transactions.html">Responses::FindTransactions</a>&#160;</td><td class="memItemRight" valign="bottom"><b>findTransactionsByAddresses</b> (const std::vector&lt; Types::Trytes &gt; &amp;addresses) const</td></tr>
+<tr class="separator:afeaa343b818b96bac952af0064f627ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a500dd6a23e655c7dae924235c1deeb25"><td class="memItemLeft" align="right" valign="top"><a id="a500dd6a23e655c7dae924235c1deeb25"></a>
+<a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_find_transactions.html">Responses::FindTransactions</a>&#160;</td><td class="memItemRight" valign="bottom"><b>findTransactionsByDigests</b> (const std::vector&lt; Types::Trytes &gt; &amp;digests) const</td></tr>
+<tr class="separator:a500dd6a23e655c7dae924235c1deeb25"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a93356e4fafc265bb4e3974c9ed74f521"><td class="memItemLeft" align="right" valign="top"><a id="a93356e4fafc265bb4e3974c9ed74f521"></a>
+<a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_find_transactions.html">Responses::FindTransactions</a>&#160;</td><td class="memItemRight" valign="bottom"><b>findTransactionsByApprovees</b> (const std::vector&lt; Types::Trytes &gt; &amp;approvees) const</td></tr>
+<tr class="separator:a93356e4fafc265bb4e3974c9ed74f521"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51c3e80e5cd620fbeaf43a854b68a674"><td class="memItemLeft" align="right" valign="top"><a id="a51c3e80e5cd620fbeaf43a854b68a674"></a>
+<a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_find_transactions.html">Responses::FindTransactions</a>&#160;</td><td class="memItemRight" valign="bottom"><b>findTransactionsByBundles</b> (const std::vector&lt; Types::Trytes &gt; &amp;bundles) const</td></tr>
+<tr class="separator:a51c3e80e5cd620fbeaf43a854b68a674"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd6e65fa262066ec1fd22c948abdc357"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_account_data.html">Responses::GetAccountData</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_extended.html#afd6e65fa262066ec1fd22c948abdc357">getAccountData</a> (const Types::Trytes &amp;seed, int security, int index, bool checksum, int total, bool returnAll, int start, int end, bool inclusionStates, long threshold) const</td></tr>
+<tr class="separator:afd6e65fa262066ec1fd22c948abdc357"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a32816e9f2656c71080a841752f52e97e"><td class="memItemLeft" align="right" valign="top">const Types::Trytes &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_extended.html#a32816e9f2656c71080a841752f52e97e">findTailTransactionHash</a> (const Types::Trytes &amp;hash) const</td></tr>
+<tr class="separator:a32816e9f2656c71080a841752f52e97e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6778a71eceba8c6fb202c6f2362b9804"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_extended.html#a6778a71eceba8c6fb202c6f2362b9804">addRemainder</a> (const Types::Trytes &amp;seed, const unsigned int &amp;security, const std::vector&lt; <a class="el" href="class_i_o_t_a_1_1_models_1_1_input.html">Models::Input</a> &gt; &amp;inputs, <a class="el" href="class_i_o_t_a_1_1_models_1_1_bundle.html">Models::Bundle</a> &amp;bundle, const std::string &amp;tag, const long &amp;totalValue, const Types::Trytes &amp;remainderAddress, const std::vector&lt; std::string &gt; &amp;signatureFragments) const</td></tr>
+<tr class="separator:a6778a71eceba8c6fb202c6f2362b9804"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a489a5b783b9e585e948548b32a24fdf3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_replay_bundle.html">Responses::ReplayBundle</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_extended.html#a489a5b783b9e585e948548b32a24fdf3">replayBundle</a> (const Types::Trytes &amp;transaction, int depth, int minWeightMagnitude)</td></tr>
+<tr class="separator:a489a5b783b9e585e948548b32a24fdf3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad5c237db6d1ccff2417613496a651bc9"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="class_i_o_t_a_1_1_models_1_1_transaction.html">Models::Transaction</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_extended.html#ad5c237db6d1ccff2417613496a651bc9">initiateTransfer</a> (int securitySum, const Types::Trytes &amp;inputAddress, const Types::Trytes &amp;remainderAddress, std::vector&lt; <a class="el" href="class_i_o_t_a_1_1_models_1_1_transfer.html">Models::Transfer</a> &gt; &amp;transfers) const</td></tr>
+<tr class="separator:ad5c237db6d1ccff2417613496a651bc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_core"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_core')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_core.html">IOTA::API::Core</a></td></tr>
 <tr class="memitem:a176fcfa7e9dffd5926988bc4235384e9 inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_core"><td class="memItemLeft" align="right" valign="top"><a id="a176fcfa7e9dffd5926988bc4235384e9"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>Core</b> (const std::string &amp;host, const unsigned int &amp;port)</td></tr>
 <tr class="separator:a176fcfa7e9dffd5926988bc4235384e9 inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_core"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad3ac20faca46837292d67c1f34b7b6a3 inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_core"><td class="memItemLeft" align="right" valign="top"><a id="ad3ac20faca46837292d67c1f34b7b6a3"></a>
-<a class="el" href="classget_node_info_response.html">getNodeInfoResponse</a>&#160;</td><td class="memItemRight" valign="bottom"><b>getNodeInfo</b> () const</td></tr>
-<tr class="separator:ad3ac20faca46837292d67c1f34b7b6a3 inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_core"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a43b3055189f9f8ee64553afd17bb3fb2 inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_core"><td class="memItemLeft" align="right" valign="top"><a id="a43b3055189f9f8ee64553afd17bb3fb2"></a>
-<a class="el" href="classget_neighbors_response.html">getNeighborsResponse</a>&#160;</td><td class="memItemRight" valign="bottom"><b>getNeighbors</b> () const</td></tr>
-<tr class="separator:a43b3055189f9f8ee64553afd17bb3fb2 inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_core"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a639d4061e8c1b16c50c5296e6086793e inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_core"><td class="memItemLeft" align="right" valign="top"><a id="a639d4061e8c1b16c50c5296e6086793e"></a>
-<a class="el" href="classadd_neighbors_response.html">addNeighborsResponse</a>&#160;</td><td class="memItemRight" valign="bottom"><b>addNeighbors</b> (const std::vector&lt; std::string &gt; &amp;uris) const</td></tr>
-<tr class="separator:a639d4061e8c1b16c50c5296e6086793e inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_core"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac30afc2d9c49d3f536ea2c8a2f7f83fd inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_core"><td class="memItemLeft" align="right" valign="top"><a id="ac30afc2d9c49d3f536ea2c8a2f7f83fd"></a>
-<a class="el" href="classremove_neighbors_response.html">removeNeighborsResponse</a>&#160;</td><td class="memItemRight" valign="bottom"><b>removeNeighbors</b> (const std::vector&lt; std::string &gt; &amp;uris) const</td></tr>
-<tr class="separator:ac30afc2d9c49d3f536ea2c8a2f7f83fd inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_core"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae538ec047a99224796b9a1709771957e inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_core"><td class="memItemLeft" align="right" valign="top"><a id="ae538ec047a99224796b9a1709771957e"></a>
-<a class="el" href="classget_tips_response.html">getTipsResponse</a>&#160;</td><td class="memItemRight" valign="bottom"><b>getTips</b> () const</td></tr>
-<tr class="separator:ae538ec047a99224796b9a1709771957e inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_core"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af8aa3b99d34b736842befaa86f8578dd inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_core"><td class="memItemLeft" align="right" valign="top"><a id="af8aa3b99d34b736842befaa86f8578dd"></a>
-<a class="el" href="classfind_transactions_response.html">findTransactionsResponse</a>&#160;</td><td class="memItemRight" valign="bottom"><b>findTransactions</b> (const std::vector&lt; Type::Trytes &gt; &amp;addresses, const std::vector&lt; Type::Trytes &gt; &amp;digests, const std::vector&lt; Type::Trytes &gt; &amp;approvees, const std::vector&lt; Type::Trytes &gt; &amp;bundles) const</td></tr>
-<tr class="separator:af8aa3b99d34b736842befaa86f8578dd inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_core"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab92d7c4db30e08bede6e61df2bec913e inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_core"><td class="memItemLeft" align="right" valign="top"><a id="ab92d7c4db30e08bede6e61df2bec913e"></a>
-<a class="el" href="classget_trytes_response.html">getTrytesResponse</a>&#160;</td><td class="memItemRight" valign="bottom"><b>getTrytes</b> (const std::vector&lt; std::string &gt; &amp;hashes) const</td></tr>
-<tr class="separator:ab92d7c4db30e08bede6e61df2bec913e inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_core"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad4e76d6d4768aa3e76ada1ba2cea8104 inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_core"><td class="memItemLeft" align="right" valign="top"><a id="ad4e76d6d4768aa3e76ada1ba2cea8104"></a>
-<a class="el" href="classget_inclusion_states_response.html">getInclusionStatesResponse</a>&#160;</td><td class="memItemRight" valign="bottom"><b>getInclusionStates</b> (const std::vector&lt; std::string &gt; &amp;transactions, const std::vector&lt; std::string &gt; &amp;tips) const</td></tr>
-<tr class="separator:ad4e76d6d4768aa3e76ada1ba2cea8104 inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_core"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af49ee0fef0340bdbdbbd0e1bba02de8f inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_core"><td class="memItemLeft" align="right" valign="top"><a id="af49ee0fef0340bdbdbbd0e1bba02de8f"></a>
-<a class="el" href="classget_balances_response.html">getBalancesResponse</a>&#160;</td><td class="memItemRight" valign="bottom"><b>getBalances</b> (const std::vector&lt; std::string &gt; &amp;addresses, const int &amp;threshold) const</td></tr>
-<tr class="separator:af49ee0fef0340bdbdbbd0e1bba02de8f inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_core"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4e9c23630952b786aff7bcfb1a9a1cd5 inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_core"><td class="memItemLeft" align="right" valign="top"><a id="a4e9c23630952b786aff7bcfb1a9a1cd5"></a>
-<a class="el" href="classget_transactions_to_approve_response.html">getTransactionsToApproveResponse</a>&#160;</td><td class="memItemRight" valign="bottom"><b>getTransactionsToApprove</b> (const int &amp;depth) const</td></tr>
-<tr class="separator:a4e9c23630952b786aff7bcfb1a9a1cd5 inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_core"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa88fec969576a6587472b49b1f17081f inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_core"><td class="memItemLeft" align="right" valign="top"><a id="aa88fec969576a6587472b49b1f17081f"></a>
-<a class="el" href="classattach_to_tangle_response.html">attachToTangleResponse</a>&#160;</td><td class="memItemRight" valign="bottom"><b>attachToTangle</b> (const std::string &amp;trunkTransaction, const std::string &amp;branchTransaction, const int &amp;minWeightMagnitude, const std::vector&lt; std::string &gt; &amp;trytes) const</td></tr>
-<tr class="separator:aa88fec969576a6587472b49b1f17081f inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_core"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad634c207a48c651591002e9fcc6de1dd inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_core"><td class="memItemLeft" align="right" valign="top"><a id="ad634c207a48c651591002e9fcc6de1dd"></a>
-<a class="el" href="classinterrupt_attaching_to_tangle_response.html">interruptAttachingToTangleResponse</a>&#160;</td><td class="memItemRight" valign="bottom"><b>interruptAttachingToTangle</b> () const</td></tr>
-<tr class="separator:ad634c207a48c651591002e9fcc6de1dd inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_core"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa1bef092ae04014a24929507e2a3bce7 inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_core"><td class="memItemLeft" align="right" valign="top"><a id="aa1bef092ae04014a24929507e2a3bce7"></a>
-<a class="el" href="classbroadcast_transactions_response.html">broadcastTransactionsResponse</a>&#160;</td><td class="memItemRight" valign="bottom"><b>broadcastTransactions</b> (const std::vector&lt; std::string &gt; &amp;trytes) const</td></tr>
-<tr class="separator:aa1bef092ae04014a24929507e2a3bce7 inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_core"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a22671ac0e905f54b332a3d372796b62a inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_core"><td class="memItemLeft" align="right" valign="top"><a id="a22671ac0e905f54b332a3d372796b62a"></a>
-<a class="el" href="classstore_transactions_response.html">storeTransactionsResponse</a>&#160;</td><td class="memItemRight" valign="bottom"><b>storeTransactions</b> (const std::vector&lt; std::string &gt; &amp;trytes) const</td></tr>
-<tr class="separator:a22671ac0e905f54b332a3d372796b62a inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_core"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa9d616c9db7893159f16ec1b0356927f inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_core"><td class="memItemLeft" align="right" valign="top"><a id="aa9d616c9db7893159f16ec1b0356927f"></a>
+<a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_node_info.html">Responses::GetNodeInfo</a>&#160;</td><td class="memItemRight" valign="bottom"><b>getNodeInfo</b> () const</td></tr>
+<tr class="separator:aa9d616c9db7893159f16ec1b0356927f inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_core"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab23af5efc04e5a04daf7c19014eb0d0b inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_core"><td class="memItemLeft" align="right" valign="top"><a id="ab23af5efc04e5a04daf7c19014eb0d0b"></a>
+<a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_neighbors.html">Responses::GetNeighbors</a>&#160;</td><td class="memItemRight" valign="bottom"><b>getNeighbors</b> () const</td></tr>
+<tr class="separator:ab23af5efc04e5a04daf7c19014eb0d0b inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_core"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a367bd6329e56491bdb624c083a1b0902 inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_core"><td class="memItemLeft" align="right" valign="top"><a id="a367bd6329e56491bdb624c083a1b0902"></a>
+<a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_add_neighbors.html">Responses::AddNeighbors</a>&#160;</td><td class="memItemRight" valign="bottom"><b>addNeighbors</b> (const std::vector&lt; std::string &gt; &amp;uris) const</td></tr>
+<tr class="separator:a367bd6329e56491bdb624c083a1b0902 inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_core"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1420b7aa62e8f87bb844063efab9a8c7 inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_core"><td class="memItemLeft" align="right" valign="top"><a id="a1420b7aa62e8f87bb844063efab9a8c7"></a>
+<a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_remove_neighbors.html">Responses::RemoveNeighbors</a>&#160;</td><td class="memItemRight" valign="bottom"><b>removeNeighbors</b> (const std::vector&lt; std::string &gt; &amp;uris) const</td></tr>
+<tr class="separator:a1420b7aa62e8f87bb844063efab9a8c7 inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_core"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add317bef9e8d4f2e4eaec3e4b5c7e205 inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_core"><td class="memItemLeft" align="right" valign="top"><a id="add317bef9e8d4f2e4eaec3e4b5c7e205"></a>
+<a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_tips.html">Responses::GetTips</a>&#160;</td><td class="memItemRight" valign="bottom"><b>getTips</b> () const</td></tr>
+<tr class="separator:add317bef9e8d4f2e4eaec3e4b5c7e205 inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_core"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae356e9a9d498fce9eaf9d6f4991dfcae inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_core"><td class="memItemLeft" align="right" valign="top"><a id="ae356e9a9d498fce9eaf9d6f4991dfcae"></a>
+<a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_find_transactions.html">Responses::FindTransactions</a>&#160;</td><td class="memItemRight" valign="bottom"><b>findTransactions</b> (const std::vector&lt; Types::Trytes &gt; &amp;addresses, const std::vector&lt; Types::Trytes &gt; &amp;digests, const std::vector&lt; Types::Trytes &gt; &amp;approvees, const std::vector&lt; Types::Trytes &gt; &amp;bundles) const</td></tr>
+<tr class="separator:ae356e9a9d498fce9eaf9d6f4991dfcae inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_core"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad1d2acf1af8a1a7e609e4f8eef3bfb92 inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_core"><td class="memItemLeft" align="right" valign="top"><a id="ad1d2acf1af8a1a7e609e4f8eef3bfb92"></a>
+<a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_trytes.html">Responses::GetTrytes</a>&#160;</td><td class="memItemRight" valign="bottom"><b>getTrytes</b> (const std::vector&lt; std::string &gt; &amp;hashes) const</td></tr>
+<tr class="separator:ad1d2acf1af8a1a7e609e4f8eef3bfb92 inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_core"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa291ad5046e3cd8ef3cf2dea0cbeb6ed inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_core"><td class="memItemLeft" align="right" valign="top"><a id="aa291ad5046e3cd8ef3cf2dea0cbeb6ed"></a>
+<a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_inclusion_states.html">Responses::GetInclusionStates</a>&#160;</td><td class="memItemRight" valign="bottom"><b>getInclusionStates</b> (const std::vector&lt; std::string &gt; &amp;transactions, const std::vector&lt; std::string &gt; &amp;tips) const</td></tr>
+<tr class="separator:aa291ad5046e3cd8ef3cf2dea0cbeb6ed inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_core"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0fc7b10edc028e73436102114c9e066f inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_core"><td class="memItemLeft" align="right" valign="top"><a id="a0fc7b10edc028e73436102114c9e066f"></a>
+<a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_balances.html">Responses::GetBalances</a>&#160;</td><td class="memItemRight" valign="bottom"><b>getBalances</b> (const std::vector&lt; std::string &gt; &amp;addresses, const int &amp;threshold) const</td></tr>
+<tr class="separator:a0fc7b10edc028e73436102114c9e066f inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_core"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2fe78e987cc4b0ca292b35c733da4e8 inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_core"><td class="memItemLeft" align="right" valign="top"><a id="ad2fe78e987cc4b0ca292b35c733da4e8"></a>
+<a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_transactions_to_approve.html">Responses::GetTransactionsToApprove</a>&#160;</td><td class="memItemRight" valign="bottom"><b>getTransactionsToApprove</b> (const int &amp;depth) const</td></tr>
+<tr class="separator:ad2fe78e987cc4b0ca292b35c733da4e8 inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_core"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afbe515fe27b78ebec9b92a6a65fbf577 inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_core"><td class="memItemLeft" align="right" valign="top"><a id="afbe515fe27b78ebec9b92a6a65fbf577"></a>
+<a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_attach_to_tangle.html">Responses::AttachToTangle</a>&#160;</td><td class="memItemRight" valign="bottom"><b>attachToTangle</b> (const std::string &amp;trunkTransaction, const std::string &amp;branchTransaction, const int &amp;minWeightMagnitude, const std::vector&lt; std::string &gt; &amp;trytes) const</td></tr>
+<tr class="separator:afbe515fe27b78ebec9b92a6a65fbf577 inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_core"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acfc1fbe9ca4627569bb0a0d07c2620cf inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_core"><td class="memItemLeft" align="right" valign="top"><a id="acfc1fbe9ca4627569bb0a0d07c2620cf"></a>
+<a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_interrupt_attaching_to_tangle.html">Responses::InterruptAttachingToTangle</a>&#160;</td><td class="memItemRight" valign="bottom"><b>interruptAttachingToTangle</b> () const</td></tr>
+<tr class="separator:acfc1fbe9ca4627569bb0a0d07c2620cf inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_core"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac195a72dba8e6df146a98c6e843ae30a inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_core"><td class="memItemLeft" align="right" valign="top"><a id="ac195a72dba8e6df146a98c6e843ae30a"></a>
+<a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_broadcast_transactions.html">Responses::BroadcastTransactions</a>&#160;</td><td class="memItemRight" valign="bottom"><b>broadcastTransactions</b> (const std::vector&lt; std::string &gt; &amp;trytes) const</td></tr>
+<tr class="separator:ac195a72dba8e6df146a98c6e843ae30a inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_core"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aff98df75ec1dd590090e7b1e89b37a13 inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_core"><td class="memItemLeft" align="right" valign="top"><a id="aff98df75ec1dd590090e7b1e89b37a13"></a>
+<a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_store_transactions.html">Responses::StoreTransactions</a>&#160;</td><td class="memItemRight" valign="bottom"><b>storeTransactions</b> (const std::vector&lt; std::string &gt; &amp;trytes) const</td></tr>
+<tr class="separator:aff98df75ec1dd590090e7b1e89b37a13 inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_core"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a94df0040aa661cf0675dc8296328ad88"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a94df0040aa661cf0675dc8296328ad88">&#9670;&nbsp;</a></span>bundlesFromAddresses()</h2>
+<a id="a6778a71eceba8c6fb202c6f2362b9804"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6778a71eceba8c6fb202c6f2362b9804">&#9670;&nbsp;</a></span>addRemainder()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::vector&lt; <a class="el" href="class_bundle.html">Bundle</a> &gt; IOTA::API::Extended::bundlesFromAddresses </td>
+          <td class="memname">std::vector&lt; std::string &gt; IOTA::API::Extended::addRemainder </td>
           <td>(</td>
-          <td class="paramtype">const std::vector&lt; IOTA::Type::Trytes &gt; &amp;&#160;</td>
+          <td class="paramtype">const Types::Trytes &amp;&#160;</td>
+          <td class="paramname"><em>seed</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const unsigned int &amp;&#160;</td>
+          <td class="paramname"><em>security</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="class_i_o_t_a_1_1_models_1_1_input.html">Models::Input</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>inputs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_i_o_t_a_1_1_models_1_1_bundle.html">Models::Bundle</a> &amp;&#160;</td>
+          <td class="paramname"><em>bundle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>tag</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const long &amp;&#160;</td>
+          <td class="paramname"><em>totalValue</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Types::Trytes &amp;&#160;</td>
+          <td class="paramname"><em>remainderAddress</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; std::string &gt; &amp;&#160;</td>
+          <td class="paramname"><em>signatureFragments</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">seed</td><td>Tryte-encoded seed. </td></tr>
+    <tr><td class="paramname">security</td><td>The security level of private key / seed. </td></tr>
+    <tr><td class="paramname">inputs</td><td>List of inputs used for funding the transfer. </td></tr>
+    <tr><td class="paramname">bundle</td><td>To be populated. </td></tr>
+    <tr><td class="paramname">tag</td><td>The tag. </td></tr>
+    <tr><td class="paramname">totalValue</td><td>The total value. </td></tr>
+    <tr><td class="paramname">remainderAddress</td><td>If defined, this address will be used for sending the remainder value (of the inputs) to. </td></tr>
+    <tr><td class="paramname">signatureFragments</td><td>The signature fragments. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a74137fc615af252ddd333d125c841aff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a74137fc615af252ddd333d125c841aff">&#9670;&nbsp;</a></span>bundlesFromAddresses()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; <a class="el" href="class_i_o_t_a_1_1_models_1_1_bundle.html">Models::Bundle</a> &gt; IOTA::API::Extended::bundlesFromAddresses </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; IOTA::Types::Trytes &gt; &amp;&#160;</td>
           <td class="paramname"><em>addresses</em>, </td>
         </tr>
         <tr>
@@ -232,16 +315,41 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>sendTrytes</b> () con
 
 </div>
 </div>
-<a id="aee9809bdb4567dc418e4bdcc883ac415"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aee9809bdb4567dc418e4bdcc883ac415">&#9670;&nbsp;</a></span>findTransactionObjects()</h2>
+<a id="a32816e9f2656c71080a841752f52e97e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a32816e9f2656c71080a841752f52e97e">&#9670;&nbsp;</a></span>findTailTransactionHash()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::vector&lt; <a class="el" href="class_transaction.html">Transaction</a> &gt; IOTA::API::Extended::findTransactionObjects </td>
+          <td class="memname">const Types::Trytes &amp; IOTA::API::Extended::findTailTransactionHash </td>
           <td>(</td>
-          <td class="paramtype">const std::vector&lt; IOTA::Type::Trytes &gt; &amp;&#160;</td>
+          <td class="paramtype">const Types::Trytes &amp;&#160;</td>
+          <td class="paramname"><em>hash</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">hash</td><td>The hash of a transaction </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>hash of the tail transaction of the bundle to which the input trx belongs. </dd></dl>
+
+</div>
+</div>
+<a id="a5216fbcc778269eb5ae2a996fb6fb21b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5216fbcc778269eb5ae2a996fb6fb21b">&#9670;&nbsp;</a></span>findTransactionObjects()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; <a class="el" href="class_i_o_t_a_1_1_models_1_1_transaction.html">Models::Transaction</a> &gt; IOTA::API::Extended::findTransactionObjects </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; IOTA::Types::Trytes &gt; &amp;&#160;</td>
           <td class="paramname"><em>input</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -259,16 +367,16 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>sendTrytes</b> () con
 
 </div>
 </div>
-<a id="a49b87b30d73124c765528844715f6246"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a49b87b30d73124c765528844715f6246">&#9670;&nbsp;</a></span>findTransactionObjectsByBundle()</h2>
+<a id="a5c729f792d8b7154a810a7e0df7ed3d8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c729f792d8b7154a810a7e0df7ed3d8">&#9670;&nbsp;</a></span>findTransactionObjectsByBundle()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::vector&lt; <a class="el" href="class_transaction.html">Transaction</a> &gt; IOTA::API::Extended::findTransactionObjectsByBundle </td>
+          <td class="memname">std::vector&lt; <a class="el" href="class_i_o_t_a_1_1_models_1_1_transaction.html">Models::Transaction</a> &gt; IOTA::API::Extended::findTransactionObjectsByBundle </td>
           <td>(</td>
-          <td class="paramtype">const std::vector&lt; IOTA::Type::Trytes &gt; &amp;&#160;</td>
+          <td class="paramtype">const std::vector&lt; IOTA::Types::Trytes &gt; &amp;&#160;</td>
           <td class="paramname"><em>input</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -277,7 +385,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>sendTrytes</b> () con
 <p>Same as findTransactionObjects, but based on bundle hash</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">input</td><td><a class="el" href="class_bundle.html">Bundle</a> hashes </td></tr>
+    <tr><td class="paramname">input</td><td>Bundle hashes </td></tr>
   </table>
   </dd>
 </dl>
@@ -285,14 +393,106 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>sendTrytes</b> () con
 
 </div>
 </div>
-<a id="a17e9fd7724ab83649341916e531f5331"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a17e9fd7724ab83649341916e531f5331">&#9670;&nbsp;</a></span>getBalancesAndFormat()</h2>
+<a id="afd6e65fa262066ec1fd22c948abdc357"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afd6e65fa262066ec1fd22c948abdc357">&#9670;&nbsp;</a></span>getAccountData()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classget_balances_and_format_response.html">getBalancesAndFormatResponse</a> IOTA::API::Extended::getBalancesAndFormat </td>
+          <td class="memname"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_account_data.html">Responses::GetAccountData</a> IOTA::API::Extended::getAccountData </td>
+          <td>(</td>
+          <td class="paramtype">const Types::Trytes &amp;&#160;</td>
+          <td class="paramname"><em>seed</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>security</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>index</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>checksum</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>total</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>returnAll</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>start</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>end</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>inclusionStates</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">long&#160;</td>
+          <td class="paramname"><em>threshold</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Similar to getTransfers, just that it returns additional account data</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">seed</td><td>Tryte-encoded seed. It should be noted that this seed is not transferred. </td></tr>
+    <tr><td class="paramname">security</td><td>The Security level of private key / seed. </td></tr>
+    <tr><td class="paramname">index</td><td>Key index to start search from. If the index is provided, the generation of the address is not deterministic. </td></tr>
+    <tr><td class="paramname">checksum</td><td>Adds 9-tryte address checksum. </td></tr>
+    <tr><td class="paramname">total</td><td>Total number of addresses to generate. </td></tr>
+    <tr><td class="paramname">returnAll</td><td>If <code>true</code>, it returns all addresses which were deterministically generated (until findTransactions returns null). </td></tr>
+    <tr><td class="paramname">start</td><td>Starting key index. </td></tr>
+    <tr><td class="paramname">end</td><td>Ending key index. </td></tr>
+    <tr><td class="paramname">inclusionStates</td><td>If <code>true</code>, it gets the inclusion states of the transfers. </td></tr>
+    <tr><td class="paramname">threshold</td><td>Min balance required. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ad406eec7a28f697248bf1306050c789f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad406eec7a28f697248bf1306050c789f">&#9670;&nbsp;</a></span>getBalancesAndFormat()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_balances_and_format.html">Responses::GetBalancesAndFormat</a> IOTA::API::Extended::getBalancesAndFormat </td>
           <td>(</td>
           <td class="paramtype">const std::vector&lt; std::string &gt; &amp;&#160;</td>
           <td class="paramname"><em>addresses</em>, </td>
@@ -348,16 +548,44 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>sendTrytes</b> () con
 
 </div>
 </div>
-<a id="a8ad71b14edd2c6d83e6bc61db9818bce"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8ad71b14edd2c6d83e6bc61db9818bce">&#9670;&nbsp;</a></span>getLatestInclusion()</h2>
+<a id="aae0bbe508888acfe6f97aca3d9e0da86"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aae0bbe508888acfe6f97aca3d9e0da86">&#9670;&nbsp;</a></span>getBundle()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classget_inclusion_states_response.html">getInclusionStatesResponse</a> IOTA::API::Extended::getLatestInclusion </td>
+          <td class="memname"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_bundle.html">Responses::GetBundle</a> IOTA::API::Extended::getBundle </td>
           <td>(</td>
-          <td class="paramtype">const std::vector&lt; Type::Trytes &gt; &amp;&#160;</td>
+          <td class="paramtype">const Types::Trytes &amp;&#160;</td>
+          <td class="paramname"><em>transaction</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>get bundle hash for transaction</p>
+<p>init curl</p>
+<p>sums up transaction values</p>
+<p>Absorb bundle hash + value + timestamp + lastIndex + currentIndex trytes.</p>
+<p>if transaction has some value, we can processs next transactions</p>
+<p>Find the subsequent txs with the remaining signature fragment</p>
+<p>Check for total sum, if not equal 0 return error</p>
+<p>Check if bundle hash is the same as returned by tx object</p>
+<p>Last tx in the bundle should have currentIndex == lastIndex</p>
+<p>Validate the signatures </p>
+
+</div>
+</div>
+<a id="ad80dbd20f6efcabe5234fff81bfde6fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad80dbd20f6efcabe5234fff81bfde6fe">&#9670;&nbsp;</a></span>getLatestInclusion()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_inclusion_states.html">Responses::GetInclusionStates</a> IOTA::API::Extended::getLatestInclusion </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; Types::Trytes &gt; &amp;&#160;</td>
           <td class="paramname"><em>hashes</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -374,14 +602,14 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>sendTrytes</b> () con
 
 </div>
 </div>
-<a id="a39e4ad8f9a24a0e3d89f41a6be75a1e6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a39e4ad8f9a24a0e3d89f41a6be75a1e6">&#9670;&nbsp;</a></span>getNewAddresses()</h2>
+<a id="a30f3436637671d3de6d9c99b86ed8edc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a30f3436637671d3de6d9c99b86ed8edc">&#9670;&nbsp;</a></span>getNewAddresses()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classget_new_addresses_response.html">getNewAddressesResponse</a> IOTA::API::Extended::getNewAddresses </td>
+          <td class="memname"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_new_addresses.html">Responses::GetNewAddresses</a> IOTA::API::Extended::getNewAddresses </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>seed</em>, </td>
@@ -439,16 +667,16 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>sendTrytes</b> () con
 
 </div>
 </div>
-<a id="ae104577023b45903c1c6d15799929a4b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae104577023b45903c1c6d15799929a4b">&#9670;&nbsp;</a></span>getTransactionsObjects()</h2>
+<a id="a953c31b14d3a5c597da6561f35cbd335"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a953c31b14d3a5c597da6561f35cbd335">&#9670;&nbsp;</a></span>getTransactionsObjects()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::vector&lt; <a class="el" href="class_transaction.html">Transaction</a> &gt; IOTA::API::Extended::getTransactionsObjects </td>
+          <td class="memname">std::vector&lt; <a class="el" href="class_i_o_t_a_1_1_models_1_1_transaction.html">Models::Transaction</a> &gt; IOTA::API::Extended::getTransactionsObjects </td>
           <td>(</td>
-          <td class="paramtype">const std::vector&lt; IOTA::Type::Trytes &gt; &amp;&#160;</td>
+          <td class="paramtype">const std::vector&lt; IOTA::Types::Trytes &gt; &amp;&#160;</td>
           <td class="paramname"><em>hashes</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -461,20 +689,132 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>sendTrytes</b> () con
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="class_transaction.html">Transaction</a> objects. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Transaction objects. </dd></dl>
 <p>get trytes forhashes</p>
 <p>build response </p>
 
 </div>
 </div>
-<a id="a2e1c0d0438c09813bcf3d08fe3ee2821"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2e1c0d0438c09813bcf3d08fe3ee2821">&#9670;&nbsp;</a></span>traverseBundle() <span class="overload">[1/2]</span></h2>
+<a id="ad5c237db6d1ccff2417613496a651bc9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad5c237db6d1ccff2417613496a651bc9">&#9670;&nbsp;</a></span>initiateTransfer()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="class_bundle.html">Bundle</a> IOTA::API::Extended::traverseBundle </td>
+          <td class="memname">std::vector&lt; <a class="el" href="class_i_o_t_a_1_1_models_1_1_transaction.html">Models::Transaction</a> &gt; IOTA::API::Extended::initiateTransfer </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>securitySum</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Types::Trytes &amp;&#160;</td>
+          <td class="paramname"><em>inputAddress</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Types::Trytes &amp;&#160;</td>
+          <td class="paramname"><em>remainderAddress</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::vector&lt; <a class="el" href="class_i_o_t_a_1_1_models_1_1_transfer.html">Models::Transfer</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>transfers</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Prepares transfer by generating the bundle with the corresponding cosigner transactions. Does not contain signatures.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">securitySum</td><td>The sum of security levels used by all co-signers. </td></tr>
+    <tr><td class="paramname">inputAddress</td><td>Array of input addresses as well as the securitySum. </td></tr>
+    <tr><td class="paramname">remainderAddress</td><td>Has to be generated by the cosigners before initiating the transfer, can be null if fully spent. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Bundle of transaction objects. </dd></dl>
+<p>If message or tag is not supplied, provide it Also remove the checksum of the address if it's there</p>
+<p>validate input address</p>
+<p>Create a new bundle</p>
+<p>Iterate over all transfers, get totalValue and prepare the signatureFragments, message and tag</p>
+<p>If message longer than 2187 trytes, increase signatureMessageLength (add 2nd transaction)</p>
+<p>Get total length, message / maxLength (MaxTrxMsgLength trytes)</p>
+<p>copy msg</p>
+<p>While there is still a message, copy it</p>
+<p>Else, get single fragment with MaxTrxMsgLength of 9's trytes</p>
+<p>get current timestamp in seconds</p>
+<p>If no tag defined, get 27 tryte tag.</p>
+<p>Pad for required TagLength tryte length</p>
+<p>Add first entry to the bundle</p>
+<p>Sum up total value</p>
+<p>Get inputs if we are sending tokens</p>
+<p>Add input as bundle entry Only a single entry, signatures will be added later</p>
+<p>Return not enough balance error</p>
+<p>If there is a remainder value Add extra output to send remaining funds to </p>
+
+</div>
+</div>
+<a id="a489a5b783b9e585e948548b32a24fdf3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a489a5b783b9e585e948548b32a24fdf3">&#9670;&nbsp;</a></span>replayBundle()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_replay_bundle.html">Responses::ReplayBundle</a> IOTA::API::Extended::replayBundle </td>
+          <td>(</td>
+          <td class="paramtype">const Types::Trytes &amp;&#160;</td>
+          <td class="paramname"><em>transaction</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>depth</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>minWeightMagnitude</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Replays a transfer by doing Proof of Work again.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">transaction</td><td>The transaction. </td></tr>
+    <tr><td class="paramname">depth</td><td>The depth. </td></tr>
+    <tr><td class="paramname">minWeightMagnitude</td><td>The minimum weight magnitude. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Analyzed Transaction objects. </dd></dl>
+
+</div>
+</div>
+<a id="ad027b4e17d5cca2e9bb2eec7575ba55c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad027b4e17d5cca2e9bb2eec7575ba55c">&#9670;&nbsp;</a></span>traverseBundle() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_i_o_t_a_1_1_models_1_1_bundle.html">Models::Bundle</a> IOTA::API::Extended::traverseBundle </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>trunkTx</em></td><td>)</td>
@@ -482,7 +822,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>sendTrytes</b> () con
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Basically traverse the <a class="el" href="class_bundle.html">Bundle</a> by going down the trunkTransactions until the bundle hash of the transaction is no longer the same. In case the input transaction hash is not a tail, we return an error.</p>
+<p>Basically traverse the Bundle by going down the trunkTransactions until the bundle hash of the transaction is no longer the same. In case the input transaction hash is not a tail, we return an error.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">trunkTx</td><td>Hash of a trunk or a tail transaction of a bundle. </td></tr>
@@ -493,14 +833,14 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>sendTrytes</b> () con
 
 </div>
 </div>
-<a id="ac99bfccd88d638c38007ced661064edb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac99bfccd88d638c38007ced661064edb">&#9670;&nbsp;</a></span>traverseBundle() <span class="overload">[2/2]</span></h2>
+<a id="ae57e1043f0851b36f1caa4a7fc8335c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae57e1043f0851b36f1caa4a7fc8335c7">&#9670;&nbsp;</a></span>traverseBundle() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="class_bundle.html">Bundle</a> IOTA::API::Extended::traverseBundle </td>
+          <td class="memname"><a class="el" href="class_i_o_t_a_1_1_models_1_1_bundle.html">Models::Bundle</a> IOTA::API::Extended::traverseBundle </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>trunkTx</em>, </td>
@@ -514,7 +854,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>sendTrytes</b> () con
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_bundle.html">Bundle</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="class_i_o_t_a_1_1_models_1_1_bundle.html">Models::Bundle</a> &amp;&#160;</td>
           <td class="paramname"><em>bundle</em>&#160;</td>
         </tr>
         <tr>
@@ -524,12 +864,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>sendTrytes</b> () con
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Basically traverse the <a class="el" href="class_bundle.html">Bundle</a> by going down the trunkTransactions until the bundle hash of the transaction is no longer the same. In case the input transaction hash is not a tail, we return an error.</p>
+<p>Basically traverse the Bundle by going down the trunkTransactions until the bundle hash of the transaction is no longer the same. In case the input transaction hash is not a tail, we return an error.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">trunkTx</td><td>Hash of a trunk or a tail transaction of a bundle. </td></tr>
     <tr><td class="paramname">bundleHash</td><td>The bundle hashe. </td></tr>
-    <tr><td class="paramname">bundle</td><td><a class="el" href="class_bundle.html">Bundle</a> to be populated. </td></tr>
+    <tr><td class="paramname">bundle</td><td>Bundle to be populated. </td></tr>
   </table>
   </dd>
 </dl>
@@ -540,8 +880,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>sendTrytes</b> () con
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/API/<a class="el" href="_extended_8hpp_source.html">Extended.hpp</a></li>
-<li>source/API/Extended.cpp</li>
+<li>include/iota/api/<a class="el" href="extended_8hpp_source.html">extended.hpp</a></li>
+<li>source/api/extended.cpp</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
