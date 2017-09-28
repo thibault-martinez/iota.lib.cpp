@@ -37,7 +37,22 @@ StoreTransactions::StoreTransactions(const std::vector<std::string>& trytes)
 
 void
 StoreTransactions::serialize(json& data) {
-  data = json{ { "command", this->command_ }, { "trytes", this->trytes_ } };
+  data["trytes"] = this->trytes_;
+}
+
+const std::vector<std::string>&
+StoreTransactions::getTrytes() const {
+  return trytes_;
+}
+
+std::vector<std::string>&
+StoreTransactions::getTrytes() {
+  return trytes_;
+}
+
+void
+StoreTransactions::setTrytes(const std::vector<std::string>& trytes) {
+  trytes_ = trytes;
 }
 
 }  // namespace Requests

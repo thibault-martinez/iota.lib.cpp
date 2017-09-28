@@ -37,9 +37,33 @@ GetBalances::GetBalances(const std::vector<std::string>& addresses, const int& t
 
 void
 GetBalances::serialize(json& data) {
-  data = json{ { "command", this->command_ },
-               { "addresses", this->addresses_ },
-               { "threshold", this->threshold_ } };
+  data["addresses"] = this->addresses_;
+  data["threshold"] = this->threshold_;
+}
+
+const std::vector<Types::Trytes>&
+GetBalances::getAddresses() const {
+  return addresses_;
+}
+
+std::vector<Types::Trytes>&
+GetBalances::getAddresses() {
+  return addresses_;
+}
+
+void
+GetBalances::setAddresses(const std::vector<Types::Trytes>& addrs) {
+  addresses_ = addrs;
+}
+
+int
+GetBalances::getThreshold() const {
+  return threshold_;
+}
+
+void
+GetBalances::setThreshold(int threshold) {
+  threshold_ = threshold;
 }
 
 }  // namespace Requests

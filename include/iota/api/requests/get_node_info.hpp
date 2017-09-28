@@ -44,8 +44,23 @@ namespace Requests {
  */
 class GetNodeInfo : public Base {
 public:
+  /**
+   * full init ctor
+   */
   GetNodeInfo();
+
+  /**
+   * default dtor
+   */
   ~GetNodeInfo() = default;
+
+public:
+  /**
+   * serialize obj
+   *
+   * @param res where to store serialisation
+   */
+  void serialize(json& res);
 };
 
 }  // namespace Requests

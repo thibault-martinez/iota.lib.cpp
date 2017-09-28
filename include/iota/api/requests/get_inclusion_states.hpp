@@ -28,6 +28,7 @@
 #include <json.hpp>
 
 #include <iota/api/requests/base.hpp>
+#include <iota/types/trinary.hpp>
 
 using json = nlohmann::json;
 
@@ -47,12 +48,56 @@ namespace Requests {
  */
 class GetInclusionStates : public Base {
 public:
-  GetInclusionStates(const std::vector<std::string>& transactions,
-                     const std::vector<std::string>& tips);
+  /**
+   * full init ctor
+   */
+  explicit GetInclusionStates(const std::vector<std::string>& transactions = {},
+                              const std::vector<std::string>& tips         = {});
+
+  /**
+   * default dtor
+   */
   ~GetInclusionStates() = default;
 
 public:
+  /**
+   * serialize obj
+   *
+   * @param res where to store serialisation
+   */
   void serialize(json& res);
+
+public:
+  /**
+   * @return transactions
+   */
+  const std::vector<Types::Trytes>& getTransactions() const;
+
+  /**
+   * @return transactions (non const version)
+   */
+  std::vector<Types::Trytes>& getTransactions();
+
+  /**
+   * @param trxs new transactions for api call
+   */
+  void setTransactions(const std::vector<Types::Trytes>& trxs);
+
+public:
+  /**
+   * @return tips
+   */
+  const std::vector<Types::Trytes>& getTips() const;
+
+  /**
+   * @return tips (non const version)
+   */
+  std::vector<Types::Trytes>& getTips();
+
+  /**
+   * @param tips new tips for api call
+   */
+  void setTips(const std::vector<Types::Trytes>& tips);
 
 private:
   /*

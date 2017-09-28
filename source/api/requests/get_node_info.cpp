@@ -34,6 +34,10 @@ namespace Requests {
 GetNodeInfo::GetNodeInfo() : Base("getNodeInfo") {
 }
 
+void
+GetNodeInfo::serialize(json&) {
+}
+
 }  // namespace Requests
 
 }  // namespace API

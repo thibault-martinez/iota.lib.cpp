@@ -34,6 +34,10 @@ namespace Requests {
 InterruptAttachingToTangle::InterruptAttachingToTangle() : Base("interruptAttachingToTangle") {
 }
 
+void
+InterruptAttachingToTangle::serialize(json&) {
+}
+
 }  // namespace Requests
 
 }  // namespace API

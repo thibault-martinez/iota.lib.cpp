@@ -34,6 +34,10 @@ namespace Requests {
 GetTips::GetTips() : Base("getTips") {
 }
 
+void
+GetTips::serialize(json&) {
+}
+
 }  // namespace Requests
 
 }  // namespace API

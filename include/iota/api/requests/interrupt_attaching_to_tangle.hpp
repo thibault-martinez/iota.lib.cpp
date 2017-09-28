@@ -44,8 +44,23 @@ namespace Requests {
  */
 class InterruptAttachingToTangle : public Base {
 public:
+  /**
+   * full init ctor
+   */
   InterruptAttachingToTangle();
+
+  /**
+   * default dtor
+   */
   ~InterruptAttachingToTangle() = default;
+
+public:
+  /**
+   * serialize obj
+   *
+   * @param res where to store serialisation
+   */
+  void serialize(json& res);
 };
 
 }  // namespace Requests

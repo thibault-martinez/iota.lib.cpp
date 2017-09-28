@@ -28,6 +28,7 @@
 #include <json.hpp>
 
 #include <iota/api/requests/base.hpp>
+#include <iota/types/trinary.hpp>
 
 using json = nlohmann::json;
 
@@ -47,11 +48,50 @@ namespace Requests {
  */
 class GetBalances : public Base {
 public:
-  GetBalances(const std::vector<std::string>& addresses, const int& threshold);
+  /**
+   * full init ctor
+   */
+  explicit GetBalances(const std::vector<std::string>& addresses = {}, const int& threshold = 0);
+
+  /**
+   * default dtor
+   */
   ~GetBalances() = default;
 
 public:
+  /**
+   * serialize obj
+   *
+   * @param res where to store serialisation
+   */
   void serialize(json& res);
+
+public:
+  /**
+   * @return addresses
+   */
+  const std::vector<Types::Trytes>& getAddresses() const;
+
+  /**
+   * @return addresses (non const version)
+   */
+  std::vector<Types::Trytes>& getAddresses();
+
+  /**
+   * @param addrs new addresses for api call
+   */
+  void setAddresses(const std::vector<Types::Trytes>& addrs);
+
+public:
+  /**
+   * @return threshold
+   */
+  int getThreshold() const;
+
+  /**
+   * @param threshold new threshold for api call
+   */
+  void setThreshold(int threshold);
 
 private:
   /*

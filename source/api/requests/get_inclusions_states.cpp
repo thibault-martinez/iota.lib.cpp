@@ -38,9 +38,38 @@ GetInclusionStates::GetInclusionStates(const std::vector<std::string>& transacti
 
 void
 GetInclusionStates::serialize(json& data) {
-  data = json{
-    { "command", this->command_ }, { "transactions", this->transactions_ }, { "tips", this->tips_ }
-  };
+  data["transactions"] = this->transactions_;
+  data["tips"]         = this->tips_;
+}
+
+const std::vector<Types::Trytes>&
+GetInclusionStates::getTransactions() const {
+  return transactions_;
+}
+
+std::vector<Types::Trytes>&
+GetInclusionStates::getTransactions() {
+  return transactions_;
+}
+
+void
+GetInclusionStates::setTransactions(const std::vector<Types::Trytes>& trxs) {
+  transactions_ = trxs;
+}
+
+const std::vector<Types::Trytes>&
+GetInclusionStates::getTips() const {
+  return tips_;
+}
+
+std::vector<Types::Trytes>&
+GetInclusionStates::getTips() {
+  return tips_;
+}
+
+void
+GetInclusionStates::setTips(const std::vector<Types::Trytes>& tips) {
+  tips_ = tips;
 }
 
 }  // namespace Requests

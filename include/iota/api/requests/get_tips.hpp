@@ -44,8 +44,23 @@ namespace Requests {
  */
 class GetTips : public Base {
 public:
+  /**
+   * full init ctor
+   */
   GetTips();
+
+  /**
+   * default dtor
+   */
   ~GetTips() = default;
+
+public:
+  /**
+   * serialize obj
+   *
+   * @param res where to store serialisation
+   */
+  void serialize(json& res);
 };
 
 }  // namespace Requests

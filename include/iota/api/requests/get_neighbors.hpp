@@ -45,8 +45,23 @@ namespace Requests {
  */
 class GetNeighbors : public Base {
 public:
+  /**
+   * full init ctor
+   */
   GetNeighbors();
+
+  /**
+   * default dtor
+   */
   ~GetNeighbors() = default;
+
+public:
+  /**
+   * serialize obj
+   *
+   * @param res where to store serialisation
+   */
+  void serialize(json& res);
 };
 
 }  // namespace Requests

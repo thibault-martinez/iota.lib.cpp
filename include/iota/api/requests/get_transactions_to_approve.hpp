@@ -47,11 +47,34 @@ namespace Requests {
  */
 class GetTransactionsToApprove : public Base {
 public:
-  GetTransactionsToApprove(const int& depth);
+  /**
+   * full init ctor
+   */
+  explicit GetTransactionsToApprove(const int& depth = 0);
+
+  /**
+   * default dtor
+   */
   ~GetTransactionsToApprove() = default;
 
 public:
+  /**
+   * serialize obj
+   *
+   * @param res where to store serialisation
+   */
   void serialize(json& res);
+
+public:
+  /**
+   * @return depth
+   */
+  int getDepth() const;
+
+  /**
+   * @param depth new depth for api call
+   */
+  void setDepth(int depth);
 
 private:
   /*

@@ -36,7 +36,22 @@ GetTrytes::GetTrytes(const std::vector<std::string>& hashes) : Base("getTrytes")
 
 void
 GetTrytes::serialize(json& data) {
-  data = json{ { "command", this->command_ }, { "hashes", this->hashes_ } };
+  data["hashes"] = this->hashes_;
+}
+
+const std::vector<std::string>&
+GetTrytes::getHashes() const {
+  return hashes_;
+}
+
+std::vector<std::string>&
+GetTrytes::getHashes() {
+  return hashes_;
+}
+
+void
+GetTrytes::setHashes(const std::vector<std::string>& hashes) {
+  hashes_ = hashes;
 }
 
 }  // namespace Requests
