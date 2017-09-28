@@ -31,7 +31,6 @@
 #include <iota/models/bundle.hpp>
 #include <iota/models/signature.hpp>
 #include <iota/models/transaction.hpp>
-#include <iota/types/seed.hpp>
 #include <iota/types/utils.hpp>
 
 namespace IOTA {
@@ -55,7 +54,7 @@ Extended::getInputs(const std::string& seed, const int32_t& security, const int3
   Utils::StopWatch stopWatch;
 
   // validate the seed
-  if ((!Types::Seed::isValidSeed(seed))) {
+  if ((!Types::isValidTrytes(seed))) {
     throw Errors::IllegalState("Invalid Seed");
   }
 
@@ -152,7 +151,7 @@ Extended::getNewAddresses(const Types::Trytes& seed, const uint32_t& index, cons
   Utils::StopWatch stopWatch;
 
   // Validate the seed
-  if ((!Types::Seed::isValidSeed(seed))) {
+  if ((!Types::isValidTrytes(seed))) {
     throw Errors::IllegalState("Invalid Seed");
   }
 
@@ -358,7 +357,7 @@ Extended::prepareTransfers(const Types::Trytes& seed, int security,
   }
 
   // Validate the seed
-  if ((!Types::Seed::isValidSeed(seed))) {
+  if ((!Types::isValidTrytes(seed))) {
     throw Errors::IllegalState("Invalid Seed");
   }
 
@@ -593,7 +592,7 @@ Extended::getTransfers(const Types::Trytes& seed, int security, int start, int e
   Utils::StopWatch stopWatch;
 
   // Validate the seed
-  if ((!Types::Seed::isValidSeed(seed))) {
+  if ((!Types::isValidTrytes(seed))) {
     throw Errors::IllegalState("Invalid Seed");
   }
 
