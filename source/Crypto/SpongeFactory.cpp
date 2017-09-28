@@ -23,9 +23,9 @@
 //
 //
 
-#include <Crypto/Curl.hpp>
-#include <Crypto/Kerl.hpp>
-#include <Crypto/SpongeFactory.hpp>
+#include <iota/crypto/curl.hpp>
+#include <iota/crypto/kerl.hpp>
+#include <iota/crypto/sponge_factory.hpp>
 
 namespace IOTA {
 

@@ -23,10 +23,10 @@
 //
 //
 
-#include <Crypto/Signing.hpp>
-#include <Model/Bundle.hpp>
-#include <Type/Trinary.hpp>
-#include <constants.hpp>
+#include <iota/constants.hpp>
+#include <iota/crypto/signing.hpp>
+#include <iota/models/bundle.hpp>
+#include <iota/types/trinary.hpp>
 
 namespace IOTA {
 
@@ -38,9 +38,9 @@ Signing::Signing() {
 Signing::~Signing() {
 }
 
-Type::Trits
-Signing::key(const Type::Trytes& seed, const unsigned int& index, const unsigned int& security) {
-  Type::Trits seedTrits = IOTA::Type::trytesToTrits(seed);
+Types::Trits
+Signing::key(const Types::Trytes& seed, const unsigned int& index, const unsigned int& security) {
+  Types::Trits seedTrits = IOTA::Types::trytesToTrits(seed);
 
   for (unsigned int i = 0; i < index; ++i) {
     for (unsigned int j = 0; j < TritHashLength; ++j) {
@@ -58,8 +58,8 @@ Signing::key(const Type::Trytes& seed, const unsigned int& index, const unsigned
   this->kerl_.reset();
   this->kerl_.absorb(seedTrits);
 
-  Type::Trits keyTrits;
-  Type::Trits trits;
+  Types::Trits keyTrits;
+  Types::Trits trits;
 
   for (unsigned int i = 0; i < security; ++i) {
     for (unsigned int j = 0; j < FragmentLength; ++j) {
@@ -70,15 +70,15 @@ Signing::key(const Type::Trytes& seed, const unsigned int& index, const unsigned
   return keyTrits;
 }
 
-Type::Trits
+Types::Trits
 Signing::digest(const std::vector<int8_t>& normalizedBundleFragment,
-                const Type::Trits&         signatureFragment) {
+                const Types::Trits&        signatureFragment) {
   this->kerl_.reset();
   Crypto::Kerl kerl;
 
   for (unsigned int i = 0; i < FragmentLength; i++) {
-    Type::Trits buffer(&signatureFragment[i * TritHashLength],
-                       &signatureFragment[(i + 1) * TritHashLength]);
+    Types::Trits buffer(&signatureFragment[i * TritHashLength],
+                        &signatureFragment[(i + 1) * TritHashLength]);
     // TODO 13 ? Constant
     for (unsigned int j = normalizedBundleFragment[i] + 13; j-- > 0;) {
       kerl.reset();
@@ -87,21 +87,21 @@ Signing::digest(const std::vector<int8_t>& normalizedBundleFragment,
     }
     this->kerl_.absorb(buffer);
   }
-  Type::Trits buffer(TritHashLength);
+  Types::Trits buffer(TritHashLength);
   this->kerl_.squeeze(buffer);
   return buffer;
 }
 
-Type::Trits
-Signing::digests(const Type::Trits& key) {
-  auto        numKeys = key.size() / (TritHashLength * FragmentLength);
-  Type::Trits digests;
+Types::Trits
+Signing::digests(const Types::Trits& key) {
+  auto         numKeys = key.size() / (TritHashLength * FragmentLength);
+  Types::Trits digests;
 
   for (unsigned int i = 0; i < numKeys; ++i) {
-    Type::Trits keyFragment(&key[i * TritHashLength * FragmentLength],
-                            &key[(i + 1) * TritHashLength * FragmentLength]);
+    Types::Trits keyFragment(&key[i * TritHashLength * FragmentLength],
+                             &key[(i + 1) * TritHashLength * FragmentLength]);
     for (unsigned int j = 0; j < FragmentLength; ++j) {
-      Type::Trits buffer(&keyFragment[j * TritHashLength], &keyFragment[(j + 1) * TritHashLength]);
+      Types::Trits buffer(&keyFragment[j * TritHashLength], &keyFragment[(j + 1) * TritHashLength]);
       for (unsigned int k = 0; k < FragmentLength - 1; ++k) {
         this->kerl_.reset();
         this->kerl_.absorb(buffer);
@@ -114,29 +114,29 @@ Signing::digests(const Type::Trits& key) {
     }
     this->kerl_.reset();
     this->kerl_.absorb(keyFragment);
-    Type::Trits buffer(TritHashLength);
+    Types::Trits buffer(TritHashLength);
     this->kerl_.squeeze(buffer);
     digests.insert(std::end(digests), std::begin(buffer), std::end(buffer));
   }
   return digests;
 }
 
-Type::Trits
-Signing::address(const Type::Trits& digests) {
-  Type::Trits addressTrits(TritHashLength);
+Types::Trits
+Signing::address(const Types::Trits& digests) {
+  Types::Trits addressTrits(TritHashLength);
   this->kerl_.reset();
   this->kerl_.absorb(digests);
   this->kerl_.squeeze(addressTrits);
   return addressTrits;
 }
 
-Type::Trits
+Types::Trits
 Signing::signatureFragment(const std::vector<int8_t>& normalizedBundleFragment,
-                           const Type::Trits&         keyFragment) {
-  Type::Trits signatureFragment;
+                           const Types::Trits&        keyFragment) {
+  Types::Trits signatureFragment;
 
   for (unsigned int i = 0; i < FragmentLength; ++i) {
-    Type::Trits buffer(&keyFragment[i * TritHashLength], &keyFragment[(i + 1) * TritHashLength]);
+    Types::Trits buffer(&keyFragment[i * TritHashLength], &keyFragment[(i + 1) * TritHashLength]);
     // TODO 13 ? Constant
     for (int j = 0; j < 13 - normalizedBundleFragment[i]; ++j) {
       this->kerl_.reset();
@@ -150,13 +150,13 @@ Signing::signatureFragment(const std::vector<int8_t>& normalizedBundleFragment,
 }
 
 bool
-Signing::validateSignatures(const Type::Trytes&              expectedAddress,
-                            const std::vector<Type::Trytes>& signatureFragments,
-                            const Type::Trytes&              bundleHash) {
-  Bundle                           bundle;
+Signing::validateSignatures(const Types::Trytes&              expectedAddress,
+                            const std::vector<Types::Trytes>& signatureFragments,
+                            const Types::Trytes&              bundleHash) {
+  Models::Bundle                   bundle;
   auto                             normalizedBundleHash = bundle.normalizedBundle(bundleHash);
   std::vector<std::vector<int8_t>> normalizedBundleFragments;
-  Type::Trits                      digests;
+  Types::Trits                     digests;
 
   for (unsigned int i = 0; i < 3; i++) {
     normalizedBundleFragments.emplace_back(&normalizedBundleHash[i * FragmentLength],
@@ -165,12 +165,12 @@ Signing::validateSignatures(const Type::Trytes&              expectedAddress,
 
   for (unsigned int i = 0; i < signatureFragments.size(); ++i) {
     auto digestBuffer = this->digest(normalizedBundleFragments[i % 3],
-                                     IOTA::Type::trytesToTrits(signatureFragments[i]));
+                                     IOTA::Types::trytesToTrits(signatureFragments[i]));
 
     digests.insert(std::end(digests), std::begin(digestBuffer), std::end(digestBuffer));
   }
 
-  auto address = IOTA::Type::tritsToTrytes(this->address(digests));
+  auto address = IOTA::Types::tritsToTrytes(this->address(digests));
 
   return address == expectedAddress;
 }

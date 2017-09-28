@@ -25,9 +25,9 @@
 
 #include <algorithm>
 
-#include <Crypto/Kerl.hpp>
-#include <Errors/Crypto.hpp>
-#include <constants.hpp>
+#include <iota/constants.hpp>
+#include <iota/crypto/kerl.hpp>
+#include <iota/errors/crypto.hpp>
 
 namespace IOTA {
 
@@ -45,7 +45,7 @@ Kerl::reset() {
 }
 
 void
-Kerl::absorb(const Type::Trits& trits, unsigned int offset, unsigned int length) {
+Kerl::absorb(const Types::Trits& trits, unsigned int offset, unsigned int length) {
   if (length == 0)
     length = trits.size();
   if (length % TritHashLength != 0)
@@ -55,7 +55,7 @@ Kerl::absorb(const Type::Trits& trits, unsigned int offset, unsigned int length)
     std::vector<int8_t> tritsChunk(&trits[offset], &trits[end]);
 
     tritsChunk.back() = 0;
-    auto bytesChunk   = Type::tritsToBytes(tritsChunk);
+    auto bytesChunk   = Types::tritsToBytes(tritsChunk);
 
     this->keccak_.update(bytesChunk);
     offset += TritHashLength;
@@ -63,14 +63,14 @@ Kerl::absorb(const Type::Trits& trits, unsigned int offset, unsigned int length)
 }
 
 void
-Kerl::squeeze(Type::Trits& trits, unsigned int offset, unsigned int length) {
+Kerl::squeeze(Types::Trits& trits, unsigned int offset, unsigned int length) {
   if (length == 0)
     length = TritHashLength;
   if (length % TritHashLength != 0)
     throw Errors::Crypto("Kerl::squeeze failed : illegal length");
   while (offset < length) {
     auto bytes = this->keccak_.squeeze();
-    trits      = Type::bytesToTrits(bytes);
+    trits      = Types::bytesToTrits(bytes);
 
     trits[TritHashLength - 1] = 0;
     std::transform(bytes.begin(), bytes.end(), bytes.begin(),

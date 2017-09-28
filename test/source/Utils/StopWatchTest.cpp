@@ -28,7 +28,7 @@
 #include <chrono>
 #include <thread>
 
-#include <Utils/StopWatch.hpp>
+#include <iota/utils/stop_watch.hpp>
 
 TEST(StopWatch, CtorShouldStartTimer) {
   IOTA::Utils::StopWatch s;

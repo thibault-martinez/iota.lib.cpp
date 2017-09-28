@@ -25,46 +25,48 @@
 
 #include <gtest/gtest.h>
 
-#include <API/Responses/getTransfersResponse.hpp>
+#include <iota/api/responses/get_transfers.hpp>
 
 TEST(GetTransfersResponse, DefaultCtorShouldInitFields) {
-  const getTransfersResponse res{};
+  const IOTA::API::Responses::GetTransfers res{};
 
-  EXPECT_EQ(res.getTransfers(), std::vector<Bundle>{});
+  EXPECT_EQ(res.getTransfers(), std::vector<IOTA::Models::Bundle>{});
   EXPECT_EQ(res.getDuration(), 0);
 }
 
 TEST(GetTransfersResponse, CtorShouldInitFields) {
-  const getTransfersResponse res({ Bundle({ { "addr_trx1", 1, "tag_trx1", 1 } }),
-                                   Bundle({ { "addr_trx2", 2, "tag_trx2", 2 } }),
-                                   Bundle({ { "addr_trx3", 3, "tag_trx3", 3 } }) },
-                                 42);
+  const IOTA::API::Responses::GetTransfers res(
+      { IOTA::Models::Bundle({ { "addr_trx1", 1, "tag_trx1", 1 } }),
+        IOTA::Models::Bundle({ { "addr_trx2", 2, "tag_trx2", 2 } }),
+        IOTA::Models::Bundle({ { "addr_trx3", 3, "tag_trx3", 3 } }) },
+      42);
 
   EXPECT_EQ(res.getTransfers(),
-            std::vector<Bundle>({ Bundle({ { "addr_trx1", 1, "tag_trx1", 1 } }),
-                                  Bundle({ { "addr_trx2", 2, "tag_trx2", 2 } }),
-                                  Bundle({ { "addr_trx3", 3, "tag_trx3", 3 } }) }));
+            std::vector<IOTA::Models::Bundle>(
+                { IOTA::Models::Bundle({ { "addr_trx1", 1, "tag_trx1", 1 } }),
+                  IOTA::Models::Bundle({ { "addr_trx2", 2, "tag_trx2", 2 } }),
+                  IOTA::Models::Bundle({ { "addr_trx3", 3, "tag_trx3", 3 } }) }));
   EXPECT_EQ(res.getDuration(), 42);
 }
 
 TEST(GetTransfersResponse, GetTransfersNonConst) {
-  getTransfersResponse res;
+  IOTA::API::Responses::GetTransfers res;
 
-  res.getTransfers().push_back(Bundle({ { "addr_trx1", 1, "tag_trx1", 1 } }));
+  res.getTransfers().push_back(IOTA::Models::Bundle({ { "addr_trx1", 1, "tag_trx1", 1 } }));
 
-  EXPECT_EQ(res.getTransfers(),
-            std::vector<Bundle>({ Bundle({ { "addr_trx1", 1, "tag_trx1", 1 } }) }));
+  EXPECT_EQ(res.getTransfers(), std::vector<IOTA::Models::Bundle>({ IOTA::Models::Bundle(
+                                    { { "addr_trx1", 1, "tag_trx1", 1 } }) }));
   EXPECT_EQ(res.getDuration(), 0);
 }
 
 TEST(GetTransfersResponse, SetTransfers) {
-  getTransfersResponse res;
+  IOTA::API::Responses::GetTransfers res;
 
-  std::vector<Bundle> transfers = res.getTransfers();
-  transfers.push_back(Bundle({ { "addr_trx1", 1, "tag_trx1", 1 } }));
+  std::vector<IOTA::Models::Bundle> transfers = res.getTransfers();
+  transfers.push_back(IOTA::Models::Bundle({ { "addr_trx1", 1, "tag_trx1", 1 } }));
   res.setTransfers(transfers);
 
-  EXPECT_EQ(res.getTransfers(),
-            std::vector<Bundle>({ Bundle({ { "addr_trx1", 1, "tag_trx1", 1 } }) }));
+  EXPECT_EQ(res.getTransfers(), std::vector<IOTA::Models::Bundle>({ IOTA::Models::Bundle(
+                                    { { "addr_trx1", 1, "tag_trx1", 1 } }) }));
   EXPECT_EQ(res.getDuration(), 0);
 }

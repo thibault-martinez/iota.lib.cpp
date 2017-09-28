@@ -25,10 +25,10 @@
 
 #include <gtest/gtest.h>
 
-#include <Model/input.hpp>
+#include <iota/models/input.hpp>
 
 TEST(Input, CtorDefault) {
-  Input i;
+  IOTA::Models::Input i;
 
   EXPECT_EQ(i.getAddress(), "");
   EXPECT_EQ(i.getBalance(), 0);
@@ -37,7 +37,7 @@ TEST(Input, CtorDefault) {
 }
 
 TEST(Input, CtorFull) {
-  Input i = { "addr", 1, 2, 3 };
+  IOTA::Models::Input i = { "addr", 1, 2, 3 };
 
   EXPECT_EQ(i.getAddress(), "addr");
   EXPECT_EQ(i.getBalance(), 1);
@@ -46,7 +46,7 @@ TEST(Input, CtorFull) {
 }
 
 TEST(Input, ConstGetters) {
-  const Input i = { "addr", 1, 2, 3 };
+  const IOTA::Models::Input i = { "addr", 1, 2, 3 };
 
   EXPECT_EQ(i.getAddress(), "addr");
   EXPECT_EQ(i.getBalance(), 1);
@@ -55,7 +55,7 @@ TEST(Input, ConstGetters) {
 }
 
 TEST(Input, AddressGetterAndSetter) {
-  Input i;
+  IOTA::Models::Input i;
   EXPECT_EQ(i.getAddress(), "");
 
   i.setAddress("addr");
@@ -63,7 +63,7 @@ TEST(Input, AddressGetterAndSetter) {
 }
 
 TEST(Input, BalanceGetterAndSetter) {
-  Input i;
+  IOTA::Models::Input i;
   EXPECT_EQ(i.getBalance(), 0);
 
   i.setBalance(1);
@@ -71,7 +71,7 @@ TEST(Input, BalanceGetterAndSetter) {
 }
 
 TEST(Input, KeyIndexGetterAndSetter) {
-  Input i;
+  IOTA::Models::Input i;
   EXPECT_EQ(i.getKeyIndex(), 0);
 
   i.setKeyIndex(1);
@@ -79,7 +79,7 @@ TEST(Input, KeyIndexGetterAndSetter) {
 }
 
 TEST(Input, SecurityGetterAndSetter) {
-  Input i;
+  IOTA::Models::Input i;
   EXPECT_EQ(i.getSecurity(), 0);
 
   i.setSecurity(1);

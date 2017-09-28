@@ -23,16 +23,16 @@
 //
 //
 
-#include <API/Extended.hpp>
-#include <Crypto/Checksum.hpp>
-#include <Crypto/Curl.hpp>
-#include <Crypto/Signing.hpp>
-#include <Errors/IllegalState.hpp>
-#include <Model/Bundle.hpp>
-#include <Model/Signature.hpp>
-#include <Model/Transaction.hpp>
-#include <Type/Seed.hpp>
-#include <Type/utils.hpp>
+#include <iota/api/extended.hpp>
+#include <iota/crypto/checksum.hpp>
+#include <iota/crypto/curl.hpp>
+#include <iota/crypto/signing.hpp>
+#include <iota/errors/illegal_state.hpp>
+#include <iota/models/bundle.hpp>
+#include <iota/models/signature.hpp>
+#include <iota/models/transaction.hpp>
+#include <iota/types/seed.hpp>
+#include <iota/types/utils.hpp>
 
 namespace IOTA {
 
@@ -49,13 +49,13 @@ Extended::~Extended() {
  * Public methods.
  */
 
-getBalancesAndFormatResponse
+Responses::GetBalancesAndFormat
 Extended::getInputs(const std::string& seed, const int32_t& security, const int32_t& start,
                     const int32_t& end, const int64_t& threshold) const {
   Utils::StopWatch stopWatch;
 
   // validate the seed
-  if ((!Type::Seed::isValidSeed(seed))) {
+  if ((!Types::Seed::isValidSeed(seed))) {
     throw Errors::IllegalState("Invalid Seed");
   }
 
@@ -96,7 +96,7 @@ Extended::getInputs(const std::string& seed, const int32_t& security, const int3
   }
 }
 
-getBalancesAndFormatResponse
+Responses::GetBalancesAndFormat
 Extended::getBalancesAndFormat(const std::vector<std::string>& addresses, const int64_t& threshold,
                                const int32_t& start, Utils::StopWatch stopWatch,
                                const int32_t& security) const {
@@ -112,8 +112,8 @@ Extended::getBalancesAndFormat(const std::vector<std::string>& addresses, const 
   bool thresholdReached = threshold == 0;
   int  i                = -1;
 
-  std::vector<Input> inputs;
-  int64_t            totalBalance = 0;
+  std::vector<Models::Input> inputs;
+  int64_t                    totalBalance = 0;
 
   for (const auto& address : addresses) {
     //! retrieve balance for given address
@@ -146,13 +146,13 @@ Extended::getBalancesAndFormat(const std::vector<std::string>& addresses, const 
   return { inputs, totalBalance, stopWatch.getElapsedTimeMilliSeconds().count() };
 }
 
-getNewAddressesResponse
-Extended::getNewAddresses(const Type::Trytes& seed, const uint32_t& index, const int32_t& security,
+Responses::GetNewAddresses
+Extended::getNewAddresses(const Types::Trytes& seed, const uint32_t& index, const int32_t& security,
                           bool checksum, const int32_t& total, bool returnAll) const {
   Utils::StopWatch stopWatch;
 
   // Validate the seed
-  if ((!Type::Seed::isValidSeed(seed))) {
+  if ((!Types::Seed::isValidSeed(seed))) {
     throw Errors::IllegalState("Invalid Seed");
   }
 
@@ -161,7 +161,7 @@ Extended::getNewAddresses(const Type::Trytes& seed, const uint32_t& index, const
     throw Errors::IllegalState("Invalid Security Level");
   }
 
-  std::vector<Type::Trytes> allAddresses;
+  std::vector<Types::Trytes> allAddresses;
 
   // Case 1 : total number of addresses to generate is supplied.
   // Simply generate and return the list of all addresses.
@@ -193,23 +193,24 @@ Extended::getNewAddresses(const Type::Trytes& seed, const uint32_t& index, const
   return { allAddresses, stopWatch.getElapsedTimeMilliSeconds().count() };
 }
 
-Bundle
+Models::Bundle
 Extended::traverseBundle(const std::string& trunkTx) const {
-  Bundle bundle;
+  Models::Bundle bundle;
   return traverseBundle(trunkTx, "", bundle);
 }
 
-Bundle
-Extended::traverseBundle(const std::string& trunkTx, std::string bundleHash, Bundle& bundle) const {
+Models::Bundle
+Extended::traverseBundle(const std::string& trunkTx, std::string bundleHash,
+                         Models::Bundle& bundle) const {
   //! get trytes for transaction
-  getTrytesResponse gtr = getTrytes({ trunkTx });
+  Responses::GetTrytes gtr = getTrytes({ trunkTx });
   // If fail to get trytes, return error
   if (gtr.getTrytes().empty()) {
     throw Errors::IllegalState("Bundle transactions not visible");
   }
 
   //! get transaction itself
-  auto trx = Transaction{ gtr.getTrytes()[0] };
+  auto trx = Models::Transaction{ gtr.getTrytes()[0] };
   // If first transaction to search is not a tail, return error
   if (bundleHash.empty() && !trx.isTailTransaction()) {
     throw Errors::IllegalState("Invalid tail transaction supplied.");
@@ -232,46 +233,46 @@ Extended::traverseBundle(const std::string& trunkTx, std::string bundleHash, Bun
   return traverseBundle(trx.getTrunkTransaction(), bundleHash, bundle);
 }
 
-std::vector<Transaction>
-Extended::findTransactionObjects(const std::vector<IOTA::Type::Trytes>& input) const {
+std::vector<Models::Transaction>
+Extended::findTransactionObjects(const std::vector<IOTA::Types::Trytes>& input) const {
   //! get the transaction objects of the transactions
   return getTransactionsObjects(findTransactions(input, {}, {}, {}).getHashes());
 }
 
-std::vector<Transaction>
-Extended::findTransactionObjectsByBundle(const std::vector<IOTA::Type::Trytes>& input) const {
+std::vector<Models::Transaction>
+Extended::findTransactionObjectsByBundle(const std::vector<IOTA::Types::Trytes>& input) const {
   // get the transaction objects of the transactions
   return getTransactionsObjects(findTransactions({}, {}, {}, input).getHashes());
 }
 
-std::vector<Transaction>
-Extended::getTransactionsObjects(const std::vector<IOTA::Type::Trytes>& hashes) const {
-  if (!Type::isArrayOfHashes(hashes)) {
+std::vector<Models::Transaction>
+Extended::getTransactionsObjects(const std::vector<IOTA::Types::Trytes>& hashes) const {
+  if (!Types::isArrayOfHashes(hashes)) {
     throw Errors::IllegalState("getTransactionsObjects parameter is not a valid array of hashes");
   }
 
   //! get trytes forhashes
-  getTrytesResponse trytesResponse = getTrytes(hashes);
+  Responses::GetTrytes trytesResponse = getTrytes(hashes);
 
   //! build response
-  std::vector<Transaction> trxs;
+  std::vector<Models::Transaction> trxs;
 
   for (const auto& tryte : trytesResponse.getTrytes()) {
-    trxs.push_back(Transaction{ tryte });
+    trxs.push_back(Models::Transaction{ tryte });
   }
 
   return trxs;
 }
 
-std::vector<Bundle>
-Extended::bundlesFromAddresses(const std::vector<IOTA::Type::Trytes>& addresses,
-                               bool                                   withInclusionStates) const {
+std::vector<Models::Bundle>
+Extended::bundlesFromAddresses(const std::vector<IOTA::Types::Trytes>& addresses,
+                               bool                                    withInclusionStates) const {
   //! find transactions for addresses
-  std::vector<Transaction> trxs = findTransactionObjects(addresses);
+  std::vector<Models::Transaction> trxs = findTransactionObjects(addresses);
 
   //! filter tail/non tail transactions
-  std::vector<IOTA::Type::Trytes> tailTransactions;
-  std::vector<IOTA::Type::Trytes> nonTailBundleHashes;
+  std::vector<IOTA::Types::Trytes> tailTransactions;
+  std::vector<IOTA::Types::Trytes> nonTailBundleHashes;
 
   // Sort tail and nonTails
   for (const auto& trx : trxs) {
@@ -287,7 +288,8 @@ Extended::bundlesFromAddresses(const std::vector<IOTA::Type::Trytes>& addresses,
   //! TODO: this will maybe re-query some tail transactions we already got (and we do filter that
   //! out in the next for loop) we maybe can filter the bundle list passed to
   //! findTransactionObjectsByBundle by restructuring the previous loop
-  std::vector<Transaction> bundleObjects = findTransactionObjectsByBundle(nonTailBundleHashes);
+  std::vector<Models::Transaction> bundleObjects =
+      findTransactionObjectsByBundle(nonTailBundleHashes);
 
   //! add tail transactions found with findTransactionObjectsByBundle
   for (const auto& trx : bundleObjects) {
@@ -299,7 +301,7 @@ Extended::bundlesFromAddresses(const std::vector<IOTA::Type::Trytes>& addresses,
 
   // If inclusionStates, get the confirmation status
   // of the tail transactions, and thus the bundles
-  getInclusionStatesResponse inclusionStates;
+  Responses::GetInclusionStates inclusionStates;
   if (withInclusionStates && !tailTransactions.empty()) {
     inclusionStates = getLatestInclusion(tailTransactions);
 
@@ -308,13 +310,13 @@ Extended::bundlesFromAddresses(const std::vector<IOTA::Type::Trytes>& addresses,
     }
   }
 
-  std::vector<Bundle> bundles;
+  std::vector<Models::Bundle> bundles;
   //! TODO: was done in parallel in java lib, do we need to or performance are fine in cpp?
   for (std::size_t i = 0; i < tailTransactions.size(); ++i) {
     try {
       const auto& transaction    = tailTransactions[i];
       auto        bundleResponse = getBundle(transaction);
-      auto        gbr            = Bundle{ bundleResponse.getTransactions() };
+      auto        gbr            = Models::Bundle{ bundleResponse.getTransactions() };
 
       if (gbr.getTransactions().empty()) {
         continue;
@@ -339,16 +341,16 @@ Extended::bundlesFromAddresses(const std::vector<IOTA::Type::Trytes>& addresses,
   return bundles;
 }
 
-getInclusionStatesResponse
-Extended::getLatestInclusion(const std::vector<Type::Trytes>& hashes) const {
+Responses::GetInclusionStates
+Extended::getLatestInclusion(const std::vector<Types::Trytes>& hashes) const {
   return getInclusionStates(hashes, { getNodeInfo().getLatestSolidSubtangleMilestone() });
 }
 
 // TODO Response ?
-std::vector<Type::Trytes>
-Extended::prepareTransfers(const Type::Trytes& seed, int security, std::vector<Transfer>& transfers,
-                           const std::string& remainder, const std::vector<Input>& inputs,
-                           bool validateInputs) const {
+std::vector<Types::Trytes>
+Extended::prepareTransfers(const Types::Trytes& seed, int security,
+                           std::vector<Models::Transfer>& transfers, const std::string& remainder,
+                           const std::vector<Models::Input>& inputs, bool validateInputs) const {
   Utils::StopWatch sw;
   // Validate transfers object
   if (!this->isTransfersCollectionValid(transfers)) {
@@ -356,7 +358,7 @@ Extended::prepareTransfers(const Type::Trytes& seed, int security, std::vector<T
   }
 
   // Validate the seed
-  if ((!Type::Seed::isValidSeed(seed))) {
+  if ((!Types::Seed::isValidSeed(seed))) {
     throw Errors::IllegalState("Invalid Seed");
   }
 
@@ -365,7 +367,7 @@ Extended::prepareTransfers(const Type::Trytes& seed, int security, std::vector<T
     throw Errors::IllegalState("Invalid Security Level");
   }
 
-  Bundle                   bundle;
+  Models::Bundle           bundle;
   std::vector<std::string> signatureFragments;
   long                     totalValue = 0;
   std::string              tag;
@@ -393,7 +395,7 @@ Extended::prepareTransfers(const Type::Trytes& seed, int security, std::vector<T
         msgCopy       = msgCopy.substr(MaxTrxMsgLength);
 
         // Pad remainder of fragment
-        fragment = Type::Utils::rightPad(transfer.getMessage(), MaxTrxMsgLength, '9');
+        fragment = Types::Utils::rightPad(transfer.getMessage(), MaxTrxMsgLength, '9');
 
         signatureFragments.push_back(fragment);
       }
@@ -401,7 +403,7 @@ Extended::prepareTransfers(const Type::Trytes& seed, int security, std::vector<T
       // Else, get single fragment with 2187 of 9's trytes
       auto fragment = transfer.getMessage().substr(0, MaxTrxMsgLength);
 
-      fragment = Type::Utils::rightPad(fragment, MaxTrxMsgLength, '9');
+      fragment = Types::Utils::rightPad(fragment, MaxTrxMsgLength, '9');
 
       signatureFragments.push_back(fragment);
     }
@@ -413,7 +415,7 @@ Extended::prepareTransfers(const Type::Trytes& seed, int security, std::vector<T
     tag = transfer.getTag().empty() ? "999999999999999999999999999" : transfer.getTag();
 
     // Pad for required 27 tryte length
-    tag = Type::Utils::rightPad(tag, TryteAlphabetLength, '9');
+    tag = Types::Utils::rightPad(tag, TryteAlphabetLength, '9');
 
     // Add first entry to the bundle
     bundle.addTransaction(signatureMessageLength, transfer.getAddress(), transfer.getValue(), tag,
@@ -443,9 +445,9 @@ Extended::prepareTransfers(const Type::Trytes& seed, int security, std::vector<T
       auto balancesResponse = this->getBalances(inputsAddresses, 100);
       auto balances         = balancesResponse.getBalances();
 
-      std::vector<Input> confirmedInputs;
-      int                totalBalance = 0;
-      int                i            = 0;
+      std::vector<Models::Input> confirmedInputs;
+      int                        totalBalance = 0;
+      int                        i            = 0;
       for (const auto& balance : balances) {
         long thisBalance = std::stol(balance);
 
@@ -499,20 +501,20 @@ Extended::prepareTransfers(const Type::Trytes& seed, int security, std::vector<T
   }
 }
 
-getBundleResponse
-Extended::getBundle(const Type::Trytes& transaction) const {
+Responses::GetBundle
+Extended::getBundle(const Types::Trytes& transaction) const {
   Utils::StopWatch stopWatch;
 
   //! get bundle hash for transaction
-  auto         bundle     = traverseBundle(transaction);
-  long         totalSum   = 0;
-  Type::Trytes bundleHash = bundle.getTransactions()[0].getBundle();
+  auto          bundle     = traverseBundle(transaction);
+  long          totalSum   = 0;
+  Types::Trytes bundleHash = bundle.getTransactions()[0].getBundle();
 
   //! init curl
   auto curl = Crypto::create(Crypto::SpongeType::KERL);
   curl->reset();
 
-  std::vector<Signature> signaturesToValidate;
+  std::vector<Models::Signature> signaturesToValidate;
 
   for (std::size_t i = 0; i < bundle.getTransactions().size(); ++i) {
     const auto& trx = bundle.getTransactions()[i];
@@ -526,14 +528,14 @@ Extended::getBundle(const Type::Trytes& transaction) const {
     totalSum += trxValue;
 
     //! Absorb bundle hash + value + timestamp + lastIndex + currentIndex trytes.
-    curl->absorb(Type::trytesToTrits(trx.toTrytes().substr(2187, 2187 + 162)));
+    curl->absorb(Types::trytesToTrits(trx.toTrytes().substr(2187, 2187 + 162)));
 
     //! if transaction has some value, we can processs next transactions
     if (trxValue >= 0) {
       continue;
     }
 
-    Signature sig;
+    Models::Signature sig;
     sig.setAddress(trx.getAddress());
     sig.getSignatureFragments().push_back(trx.getSignatureFragments());
 
@@ -562,7 +564,7 @@ Extended::getBundle(const Type::Trytes& transaction) const {
   curl->squeeze(bundleFromTrxs);
 
   //! Check if bundle hash is the same as returned by tx object
-  if (Type::tritsToTrytes(bundleFromTrxs) != bundleHash) {
+  if (Types::tritsToTrytes(bundleFromTrxs) != bundleHash) {
     throw Errors::IllegalState("Invalid Bundle Hash");
   }
 
@@ -585,13 +587,13 @@ Extended::getBundle(const Type::Trytes& transaction) const {
   return { bundle.getTransactions(), stopWatch.getElapsedTimeMilliSeconds().count() };
 }
 
-getTransfersResponse
-Extended::getTransfers(const Type::Trytes& seed, int security, int start, int end,
+Responses::GetTransfers
+Extended::getTransfers(const Types::Trytes& seed, int security, int start, int end,
                        bool inclusionStates) const {
   Utils::StopWatch stopWatch;
 
   // Validate the seed
-  if ((!Type::Seed::isValidSeed(seed))) {
+  if ((!Types::Seed::isValidSeed(seed))) {
     throw Errors::IllegalState("Invalid Seed");
   }
 
@@ -616,10 +618,11 @@ void
 Extended::replayTransfer() const {
 }
 
-sendTransferResponse
-Extended::sendTransfer(const Type::Trytes& seed, int security, int depth, int minWeightMagnitude,
-                       std::vector<Transfer>& transfers, const std::vector<Input>& inputs,
-                       const Type::Trytes& address) const {
+Responses::SendTransfer
+Extended::sendTransfer(const Types::Trytes& seed, int security, int depth, int minWeightMagnitude,
+                       std::vector<Models::Transfer>&    transfers,
+                       const std::vector<Models::Input>& inputs,
+                       const Types::Trytes&              address) const {
   // Validate the security level
   if (security < 1 || security > 3) {
     throw Errors::IllegalState("Invalid Security Level");
@@ -640,8 +643,8 @@ Extended::sendTransfer(const Type::Trytes& seed, int security, int depth, int mi
   return { successful, stopWatch.getElapsedTimeMilliSeconds().count() };
 }
 
-std::vector<Transaction>
-Extended::sendTrytes(const std::vector<Type::Trytes>& trytes, const unsigned int& depth,
+std::vector<Models::Transaction>
+Extended::sendTrytes(const std::vector<Types::Trytes>& trytes, const unsigned int& depth,
                      const unsigned int& minWeightMagnitude) const {
   // Get branch and trunk
   auto tta = this->getTransactionsToApprove(depth);
@@ -652,7 +655,7 @@ Extended::sendTrytes(const std::vector<Type::Trytes>& trytes, const unsigned int
 
   this->broadcastAndStore(res.getTrytes());
 
-  std::vector<Transaction> trx;
+  std::vector<Models::Transaction> trx;
 
   for (const auto& trxTrytes : res.getTrytes()) {
     trx.emplace_back(trxTrytes);
@@ -661,34 +664,34 @@ Extended::sendTrytes(const std::vector<Type::Trytes>& trytes, const unsigned int
   return trx;
 }
 
-storeTransactionsResponse
-Extended::broadcastAndStore(const std::vector<Type::Trytes>& trytes) const {
+Responses::StoreTransactions
+Extended::broadcastAndStore(const std::vector<Types::Trytes>& trytes) const {
   this->broadcastTransactions(trytes);
   return this->storeTransactions(trytes);
 }
 
-findTransactionsResponse
-Extended::findTransactionsByAddresses(const std::vector<Type::Trytes>& addresses) const {
+Responses::FindTransactions
+Extended::findTransactionsByAddresses(const std::vector<Types::Trytes>& addresses) const {
   return this->findTransactions(addresses, {}, {}, {});
 }
 
-findTransactionsResponse
-Extended::findTransactionsByDigests(const std::vector<Type::Trytes>& digests) const {
+Responses::FindTransactions
+Extended::findTransactionsByDigests(const std::vector<Types::Trytes>& digests) const {
   return this->findTransactions({}, digests, {}, {});
 }
 
-findTransactionsResponse
-Extended::findTransactionsByApprovees(const std::vector<Type::Trytes>& approvees) const {
+Responses::FindTransactions
+Extended::findTransactionsByApprovees(const std::vector<Types::Trytes>& approvees) const {
   return this->findTransactions({}, {}, approvees, {});
 }
 
-findTransactionsResponse
-Extended::findTransactionsByBundles(const std::vector<Type::Trytes>& bundles) const {
+Responses::FindTransactions
+Extended::findTransactionsByBundles(const std::vector<Types::Trytes>& bundles) const {
   return this->findTransactions({}, {}, {}, bundles);
 }
 
-getAccountDataResponse
-Extended::getAccountData(const Type::Trytes& seed, int security, int index, bool checksum,
+Responses::GetAccountData
+Extended::getAccountData(const Types::Trytes& seed, int security, int index, bool checksum,
                          int total, bool returnAll, int start, int end, bool inclusionStates,
                          long threshold) const {
   Utils::StopWatch stopWatch;
@@ -701,15 +704,15 @@ Extended::getAccountData(const Type::Trytes& seed, int security, int index, bool
            stopWatch.getElapsedTimeMilliSeconds().count() };
 }
 
-const Type::Trytes&
-Extended::findTailTransactionHash(const Type::Trytes& hash) const {
+const Types::Trytes&
+Extended::findTailTransactionHash(const Types::Trytes& hash) const {
   auto gtr = getTrytes({ hash });
 
   if (gtr.getTrytes().empty()) {
     throw Errors::IllegalState("Bundle transactions not visible");
   }
 
-  auto trx = Transaction{ gtr.getTrytes()[0] };
+  auto trx = Models::Transaction{ gtr.getTrytes()[0] };
 
   if (trx.getBundle().empty()) {
     throw Errors::IllegalState("Invalid trytes, could not create object");
@@ -723,9 +726,10 @@ Extended::findTailTransactionHash(const Type::Trytes& hash) const {
 }
 
 std::vector<std::string>
-Extended::addRemainder(const Type::Trytes& seed, const unsigned int& security,
-                       const std::vector<Input>& inputs, Bundle& bundle, const std::string& tag,
-                       const long& totalValue, const Type::Trytes& remainderAddress,
+Extended::addRemainder(const Types::Trytes& seed, const unsigned int& security,
+                       const std::vector<Models::Input>& inputs, Models::Bundle& bundle,
+                       const std::string& tag, const long& totalValue,
+                       const Types::Trytes&            remainderAddress,
                        const std::vector<std::string>& signatureFragments) const {
   Utils::StopWatch sw;
   auto             totalTransferValue = totalValue;
@@ -767,13 +771,13 @@ Extended::addRemainder(const Type::Trytes& seed, const unsigned int& security,
   throw Errors::IllegalState("Not enough balance");
 }
 
-replayBundleResponse
-Extended::replayBundle(const Type::Trytes& transaction, int depth, int minWeightMagnitude) {
+Responses::ReplayBundle
+Extended::replayBundle(const Types::Trytes& transaction, int depth, int minWeightMagnitude) {
   Utils::StopWatch stopWatch;
 
   auto bundleResponse = getBundle(transaction);
 
-  std::vector<Type::Trytes> bundleTrytes;
+  std::vector<Types::Trytes> bundleTrytes;
   for (const auto& trx : bundleResponse.getTransactions()) {
     bundleTrytes.push_back(trx.toTrytes());
   }
@@ -789,10 +793,10 @@ Extended::replayBundle(const Type::Trytes& transaction, int depth, int minWeight
   return { successful, stopWatch.getElapsedTimeMilliSeconds().count() };
 }
 
-std::vector<Transaction>
+std::vector<Models::Transaction>
 Extended::initiateTransfer(int securitySum, const std::string& inputAddress,
-                           const std::string&     remainderAddress,
-                           std::vector<Transfer>& transfers) const {
+                           const std::string&             remainderAddress,
+                           std::vector<Models::Transfer>& transfers) const {
   Utils::StopWatch sw;
   Crypto::Checksum checksum;
 
@@ -801,11 +805,11 @@ Extended::initiateTransfer(int securitySum, const std::string& inputAddress,
 
   for (auto& transfer : transfers) {
     if (transfer.getMessage().empty()) {
-      transfer.setMessage(Type::Utils::rightPad(transfer.getMessage(), 2187, '9'));
+      transfer.setMessage(Types::Utils::rightPad(transfer.getMessage(), 2187, '9'));
     }
 
     if (transfer.getTag().empty()) {
-      transfer.setTag(Type::Utils::rightPad(transfer.getTag(), 27, '9'));
+      transfer.setTag(Types::Utils::rightPad(transfer.getTag(), 27, '9'));
     }
 
     if (checksum.isValid(transfer.getAddress())) {
@@ -819,17 +823,17 @@ Extended::initiateTransfer(int securitySum, const std::string& inputAddress,
   }
 
   //! validate input address
-  if (!Type::isValidAddress(inputAddress)) {
+  if (!Types::isValidAddress(inputAddress)) {
     throw Errors::IllegalState("Invalid address");
   }
 
   // validate remainder address
-  if (!remainderAddress.empty() && !Type::isValidAddress(remainderAddress)) {
+  if (!remainderAddress.empty() && !Types::isValidAddress(remainderAddress)) {
     throw Errors::IllegalState("Invalid bundle");
   }
 
   //! Create a new bundle
-  Bundle                   bundle;
+  Models::Bundle           bundle;
   int                      totalValue = 0;
   std::vector<std::string> signatureFragments;
   std::string              tag;
@@ -853,12 +857,12 @@ Extended::initiateTransfer(int securitySum, const std::string& inputAddress,
         msgCopy              = msgCopy.substr(MaxTrxMsgLength, msgCopy.length());
 
         // Pad remainder of fragment
-        signatureFragments.push_back(Type::Utils::rightPad(fragment, MaxTrxMsgLength, '9'));
+        signatureFragments.push_back(Types::Utils::rightPad(fragment, MaxTrxMsgLength, '9'));
       }
     } else {
       //! Else, get single fragment with MaxTrxMsgLength of 9's trytes
       signatureFragments.push_back(
-          Type::Utils::rightPad(transfer.getMessage(), MaxTrxMsgLength, '9'));
+          Types::Utils::rightPad(transfer.getMessage(), MaxTrxMsgLength, '9'));
     }
 
     //! get current timestamp in seconds
@@ -866,11 +870,11 @@ Extended::initiateTransfer(int securitySum, const std::string& inputAddress,
 
     //! If no tag defined, get 27 tryte tag.
     if (transfer.getTag().empty()) {
-      tag = Type::Utils::rightPad(transfer.getTag(), 27, '9');
+      tag = Types::Utils::rightPad(transfer.getTag(), 27, '9');
     }
 
     //! Pad for required TagLength tryte length
-    tag = Type::Utils::rightPad(tag, TagLength, '9');
+    tag = Types::Utils::rightPad(tag, TagLength, '9');
 
     //! Add first entry to the bundle
     bundle.addTransaction(signatureMessageLength, transfer.getAddress(), transfer.getValue(), tag,
@@ -930,8 +934,8 @@ Extended::initiateTransfer(int securitySum, const std::string& inputAddress,
  * Private methods.
  */
 
-Type::Trytes
-Extended::newAddress(const Type::Trytes& seed, const int32_t& index, const int32_t& security,
+Types::Trytes
+Extended::newAddress(const Types::Trytes& seed, const int32_t& index, const int32_t& security,
                      bool checksum) const {
   // TODO custom sponge
   // Crypto::create(cryptoType_)
@@ -940,7 +944,7 @@ Extended::newAddress(const Type::Trytes& seed, const int32_t& index, const int32
   auto key          = s.key(seed, index, security);
   auto digests      = s.digests(key);
   auto addressTrits = s.address(digests);
-  auto address      = Type::tritsToTrytes(addressTrits);
+  auto address      = Types::tritsToTrytes(addressTrits);
 
   if (checksum) {
     Crypto::Checksum c;
@@ -950,8 +954,8 @@ Extended::newAddress(const Type::Trytes& seed, const int32_t& index, const int32
 }
 
 std::vector<std::string>
-Extended::signInputsAndReturn(const std::string& seed, const std::vector<Input>& inputs,
-                              Bundle&                         bundle,
+Extended::signInputsAndReturn(const std::string& seed, const std::vector<Models::Input>& inputs,
+                              Models::Bundle&                 bundle,
                               const std::vector<std::string>& signatureFragments) const {
   // TODO param ?
   auto curl = Crypto::create(this->cryptoType_);
@@ -998,7 +1002,7 @@ Extended::signInputsAndReturn(const std::string& seed, const std::vector<Input>&
       auto firstSignedFragment = s.signatureFragment(firstBundleFragment, firstFragment);
 
       //  Convert signature to trytes and assign the new signatureFragment
-      tx.setSignatureFragments(Type::tritsToTrytes(firstSignedFragment));
+      tx.setSignatureFragments(Types::tritsToTrytes(firstSignedFragment));
 
       // if user chooses higher than 27-tryte security
       // for each security level, add an additional signature
@@ -1019,14 +1023,14 @@ Extended::signInputsAndReturn(const std::string& seed, const std::vector<Input>&
             auto secondSignedFragment = s.signatureFragment(secondBundleFragment, secondFragment);
 
             //  Convert signature to trytes and assign it again to this bundle entry
-            txb.setSignatureFragments(Type::tritsToTrytes(secondSignedFragment));
+            txb.setSignatureFragments(Types::tritsToTrytes(secondSignedFragment));
           }
         }
       }
     }
   }
 
-  std::vector<Type::Trytes> bundleTrytes;
+  std::vector<Types::Trytes> bundleTrytes;
 
   // Convert all bundle entries into trytes
   for (const auto& tx : bundle.getTransactions()) {
@@ -1037,7 +1041,7 @@ Extended::signInputsAndReturn(const std::string& seed, const std::vector<Input>&
 }
 
 bool
-Extended::isTransfersCollectionValid(const std::vector<Transfer>& transfers) const {
+Extended::isTransfersCollectionValid(const std::vector<Models::Transfer>& transfers) const {
   for (const auto& transfer : transfers) {
     if (!transfer.isValid()) {
       return false;

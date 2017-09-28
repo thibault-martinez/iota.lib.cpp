@@ -23,7 +23,7 @@
 //
 //
 
-#include <API/Service.hpp>
+#include <iota/api/service.hpp>
 
 namespace IOTA {
 

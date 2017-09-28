@@ -23,8 +23,8 @@
 //
 //
 
-#include <Crypto/Checksum.hpp>
-#include <constants.hpp>
+#include <iota/constants.hpp>
+#include <iota/crypto/checksum.hpp>
 
 namespace IOTA {
 
@@ -36,31 +36,31 @@ Checksum::Checksum() {
 Checksum::~Checksum() {
 }
 
-Type::Trytes
-Checksum::add(const Type::Trytes& address) {
+Types::Trytes
+Checksum::add(const Types::Trytes& address) {
   return address + this->check(address);
 }
 
-Type::Trytes
-Checksum::remove(const Type::Trytes& address) const {
+Types::Trytes
+Checksum::remove(const Types::Trytes& address) const {
   return address.substr(0, SeedLength);
 }
 
 bool
-Checksum::isValid(const Type::Trytes& addressWithChecksum) {
+Checksum::isValid(const Types::Trytes& addressWithChecksum) {
   auto addressWithoutChecksum         = remove(addressWithChecksum);
   auto addressWithRecalculateChecksum = add(addressWithoutChecksum);
 
   return addressWithRecalculateChecksum == addressWithChecksum;
 }
 
-Type::Trytes
-Checksum::check(const Type::Trytes& address) {
-  Type::Trits checksumTrits(TritHashLength);
+Types::Trytes
+Checksum::check(const Types::Trytes& address) {
+  Types::Trits checksumTrits(TritHashLength);
   this->kerl_.reset();
-  this->kerl_.absorb(Type::trytesToTrits(address));
+  this->kerl_.absorb(Types::trytesToTrits(address));
   this->kerl_.squeeze(checksumTrits);
-  auto checksum = Type::tritsToTrytes(checksumTrits);
+  auto checksum = Types::tritsToTrytes(checksumTrits);
   return checksum.substr(SeedLength - ChecksumLength);
 }
 

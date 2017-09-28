@@ -25,10 +25,10 @@
 
 #include <gtest/gtest.h>
 
-#include <Model/neighbor.hpp>
+#include <iota/models/neighbor.hpp>
 
 TEST(Neighbor, CtorDefault) {
-  Neighbor n;
+  IOTA::Models::Neighbor n;
 
   EXPECT_EQ(n.getAddress(), "");
   EXPECT_EQ(n.getNumberOfAllTransactions(), 0);
@@ -37,7 +37,7 @@ TEST(Neighbor, CtorDefault) {
 }
 
 TEST(Neighbor, CtorFull) {
-  Neighbor n = { "addr", 1, 2, 3 };
+  IOTA::Models::Neighbor n = { "addr", 1, 2, 3 };
 
   EXPECT_EQ(n.getAddress(), "addr");
   EXPECT_EQ(n.getNumberOfAllTransactions(), 1);
@@ -46,7 +46,7 @@ TEST(Neighbor, CtorFull) {
 }
 
 TEST(Neighbor, ConstGetters) {
-  const Neighbor n = { "addr", 1, 2, 3 };
+  const IOTA::Models::Neighbor n = { "addr", 1, 2, 3 };
 
   EXPECT_EQ(n.getAddress(), "addr");
   EXPECT_EQ(n.getNumberOfAllTransactions(), 1);
@@ -55,7 +55,7 @@ TEST(Neighbor, ConstGetters) {
 }
 
 TEST(Neighbor, AddressGetterAndSetter) {
-  Neighbor n;
+  IOTA::Models::Neighbor n;
   EXPECT_EQ(n.getAddress(), "");
 
   n.setAddress("addr");
@@ -63,7 +63,7 @@ TEST(Neighbor, AddressGetterAndSetter) {
 }
 
 TEST(Neighbor, NumberOfAllTransactionsGetterAndSetter) {
-  Neighbor n;
+  IOTA::Models::Neighbor n;
   EXPECT_EQ(n.getNumberOfAllTransactions(), 0);
 
   n.setNumberOfAllTransactions(1);
@@ -71,7 +71,7 @@ TEST(Neighbor, NumberOfAllTransactionsGetterAndSetter) {
 }
 
 TEST(Neighbor, NumberOfInvalidTransactionsGetterAndSetter) {
-  Neighbor n;
+  IOTA::Models::Neighbor n;
   EXPECT_EQ(n.getNumberOfInvalidTransactions(), 0);
 
   n.setNumberOfInvalidTransactions(1);
@@ -79,7 +79,7 @@ TEST(Neighbor, NumberOfInvalidTransactionsGetterAndSetter) {
 }
 
 TEST(Neighbor, NumberOfNewTransactionsGetterAndSetter) {
-  Neighbor n;
+  IOTA::Models::Neighbor n;
   EXPECT_EQ(n.getNumberOfNewTransactions(), 0);
 
   n.setNumberOfNewTransactions(1);

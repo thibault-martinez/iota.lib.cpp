@@ -27,7 +27,7 @@
 
 #include <gtest/gtest.h>
 
-#include <Crypto/Keccak384.hpp>
+#include <iota/crypto/keccak384.hpp>
 #include <test/utils/dependencies.hpp>
 
 TEST(Keccak384Test, digest) {

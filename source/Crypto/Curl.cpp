@@ -23,8 +23,8 @@
 //
 //
 
-#include <Crypto/Curl.hpp>
-#include <Errors/Crypto.hpp>
+#include <iota/crypto/curl.hpp>
+#include <iota/errors/crypto.hpp>
 
 namespace IOTA {
 
@@ -49,7 +49,7 @@ Curl::reset() {
 }
 
 void
-Curl::absorb(const Type::Trits& trits, unsigned int offset, unsigned int length) {
+Curl::absorb(const Types::Trits& trits, unsigned int offset, unsigned int length) {
   if (length == 0) {
     length = trits.size();
   }
@@ -66,7 +66,7 @@ Curl::absorb(const Type::Trits& trits, unsigned int offset, unsigned int length)
 }
 
 void
-Curl::squeeze(Type::Trits& trits, unsigned int offset, unsigned int length) {
+Curl::squeeze(Types::Trits& trits, unsigned int offset, unsigned int length) {
   if (length == 0) {
     length = trits.size();
   }
@@ -82,9 +82,9 @@ Curl::squeeze(Type::Trits& trits, unsigned int offset, unsigned int length) {
   } while ((length -= TritHashLength) > 0);
 }
 
-Type::Trits
+Types::Trits
 Curl::getState() const {
-  return Type::Trits{ state_ };
+  return Types::Trits{ state_ };
 }
 
 std::pair<std::vector<int64_t>, std::vector<int64_t>>

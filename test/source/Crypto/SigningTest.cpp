@@ -27,8 +27,8 @@
 
 #include <gtest/gtest.h>
 
-#include <Crypto/Signing.hpp>
-#include <Model/Bundle.hpp>
+#include <iota/crypto/signing.hpp>
+#include <iota/models/bundle.hpp>
 #include <test/utils/dependencies.hpp>
 
 TEST(SigningTest, Key) {
@@ -50,7 +50,7 @@ TEST(SigningTest, Key) {
     semicolon      = rest.find(';');
     auto key       = rest.substr(0, semicolon);
     rest           = rest.substr(semicolon + 1);
-    EXPECT_EQ(key, IOTA::Type::tritsToTrytes(s.key(seed, index, security)));
+    EXPECT_EQ(key, IOTA::Types::tritsToTrytes(s.key(seed, index, security)));
   }
 }
 
@@ -61,12 +61,12 @@ TEST(SigningTest, Address) {
   std::getline(file, line);
   IOTA::Crypto::Signing s;
   while (std::getline(file, line)) {
-    auto              semicolon    = line.find(';');
-    auto              digests      = line.substr(0, semicolon);
-    auto              address      = line.substr(semicolon + 1);
-    IOTA::Type::Trits digestsTrits = IOTA::Type::trytesToTrits(digests);
-    IOTA::Type::Trits addressTrits = s.address(digestsTrits);
-    EXPECT_EQ(address, IOTA::Type::tritsToTrytes(addressTrits));
+    auto               semicolon    = line.find(';');
+    auto               digests      = line.substr(0, semicolon);
+    auto               address      = line.substr(semicolon + 1);
+    IOTA::Types::Trits digestsTrits = IOTA::Types::trytesToTrits(digests);
+    IOTA::Types::Trits addressTrits = s.address(digestsTrits);
+    EXPECT_EQ(address, IOTA::Types::tritsToTrytes(addressTrits));
   }
 }
 
@@ -77,12 +77,12 @@ TEST(SigningTest, Digests) {
   std::getline(file, line);
   IOTA::Crypto::Signing s;
   while (std::getline(file, line)) {
-    auto              semicolon    = line.find(';');
-    auto              key          = line.substr(0, semicolon);
-    auto              digests      = line.substr(semicolon + 1);
-    IOTA::Type::Trits keyTrits     = IOTA::Type::trytesToTrits(key);
-    IOTA::Type::Trits digestsTrits = s.digests(keyTrits);
-    EXPECT_EQ(digests, IOTA::Type::tritsToTrytes(digestsTrits));
+    auto               semicolon    = line.find(';');
+    auto               key          = line.substr(0, semicolon);
+    auto               digests      = line.substr(semicolon + 1);
+    IOTA::Types::Trits keyTrits     = IOTA::Types::trytesToTrits(key);
+    IOTA::Types::Trits digestsTrits = s.digests(keyTrits);
+    EXPECT_EQ(digests, IOTA::Types::tritsToTrytes(digestsTrits));
   }
 }
 
@@ -106,17 +106,17 @@ TEST(SigningTest, SignatureFragments) {
     auto sign1Trytes      = rest.substr(0, semicolon);
     rest                  = rest.substr(semicolon + 1);
 
-    Bundle bundle;
-    auto   normalizedBundleHash = bundle.normalizedBundle(bundleHashTrytes);
-    auto   keyTrits             = IOTA::Type::trytesToTrits(keyTrytes);
-    auto   sign0Trits           = s.signatureFragment(
+    IOTA::Models::Bundle bundle;
+    auto                 normalizedBundleHash = bundle.normalizedBundle(bundleHashTrytes);
+    auto                 keyTrits             = IOTA::Types::trytesToTrits(keyTrytes);
+    auto                 sign0Trits           = s.signatureFragment(
         std::vector<int8_t>{ &normalizedBundleHash[0], &normalizedBundleHash[27] },
         std::vector<int8_t>{ &keyTrits[0], &keyTrits[6561] });
     auto sign1Trits = s.signatureFragment(
         std::vector<int8_t>{ &normalizedBundleHash[27], &normalizedBundleHash[27 * 2] },
         std::vector<int8_t>{ &keyTrits[6561], &keyTrits[6561 * 2] });
-    EXPECT_EQ(sign0Trytes, IOTA::Type::tritsToTrytes(sign0Trits));
-    EXPECT_EQ(sign1Trytes, IOTA::Type::tritsToTrytes(sign1Trits));
+    EXPECT_EQ(sign0Trytes, IOTA::Types::tritsToTrytes(sign0Trits));
+    EXPECT_EQ(sign1Trytes, IOTA::Types::tritsToTrytes(sign1Trits));
   }
 }
 
@@ -143,9 +143,9 @@ TEST(SigningTest, ValidateSignatures) {
     auto valid      = rest.substr(0, semicolon);
     rest            = rest.substr(semicolon + 1);
 
-    Bundle bundle;
-    auto   normalizedBundleHash = bundle.normalizedBundle(bundleHash);
-    auto   res                  = s.validateSignatures(addr, { sign0, sign1 }, bundleHash);
+    IOTA::Models::Bundle bundle;
+    auto                 normalizedBundleHash = bundle.normalizedBundle(bundleHash);
+    auto                 res = s.validateSignatures(addr, { sign0, sign1 }, bundleHash);
     EXPECT_EQ(static_cast<int>(res), std::stoi(valid));
   }
 }

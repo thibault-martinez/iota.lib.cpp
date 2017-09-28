@@ -25,24 +25,24 @@
 
 #include <gtest/gtest.h>
 
-#include <API/Responses/sendTransferResponse.hpp>
+#include <iota/api/responses/send_transfer.hpp>
 
 TEST(SendTransferResponse, DefaultCtorShouldInitFields) {
-  const sendTransferResponse res{};
+  const IOTA::API::Responses::SendTransfer res{};
 
   EXPECT_EQ(res.getSuccessfully(), std::vector<bool>{});
   EXPECT_EQ(res.getDuration(), 0);
 }
 
 TEST(SendTransferResponse, CtorShouldInitFields) {
-  const sendTransferResponse res({ true, false, true }, 42);
+  const IOTA::API::Responses::SendTransfer res({ true, false, true }, 42);
 
   EXPECT_EQ(res.getSuccessfully(), std::vector<bool>({ true, false, true }));
   EXPECT_EQ(res.getDuration(), 42);
 }
 
 TEST(SendTransferResponse, GetSuccessfullyNonConst) {
-  sendTransferResponse res;
+  IOTA::API::Responses::SendTransfer res;
 
   res.getSuccessfully().push_back(true);
 
@@ -51,7 +51,7 @@ TEST(SendTransferResponse, GetSuccessfullyNonConst) {
 }
 
 TEST(SendTransferResponse, SetSuccessfully) {
-  sendTransferResponse res;
+  IOTA::API::Responses::SendTransfer res;
 
   std::vector<bool> successful = res.getSuccessfully();
   successful.push_back(true);

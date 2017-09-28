@@ -26,8 +26,8 @@
 #include <algorithm>
 #include <random>
 
-#include <Utils/RandomSeedGenerator.hpp>
-#include <constants.hpp>
+#include <iota/utils/random_seed_generator.hpp>
+#include <iota/constants.hpp>
 
 namespace IOTA {
 

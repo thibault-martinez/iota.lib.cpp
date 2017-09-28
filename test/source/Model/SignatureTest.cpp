@@ -25,31 +25,31 @@
 
 #include <gtest/gtest.h>
 
-#include <Model/Signature.hpp>
+#include <iota/models/signature.hpp>
 
 TEST(Signature, CtorDefault) {
-  Signature s;
+  IOTA::Models::Signature s;
 
   EXPECT_EQ(s.getAddress(), "");
-  EXPECT_EQ(s.getSignatureFragments(), std::vector<IOTA::Type::Trytes>());
+  EXPECT_EQ(s.getSignatureFragments(), std::vector<IOTA::Types::Trytes>());
 }
 
 TEST(Signature, CtorFull) {
-  Signature s = { "addr", { "abc", "def", "ghi" } };
+  IOTA::Models::Signature s = { "addr", { "abc", "def", "ghi" } };
 
   EXPECT_EQ(s.getAddress(), "addr");
-  EXPECT_EQ(s.getSignatureFragments(), std::vector<IOTA::Type::Trytes>({ "abc", "def", "ghi" }));
+  EXPECT_EQ(s.getSignatureFragments(), std::vector<IOTA::Types::Trytes>({ "abc", "def", "ghi" }));
 }
 
 TEST(Signature, ConstGetters) {
-  const Signature s = { "addr", { "abc", "def", "ghi" } };
+  const IOTA::Models::Signature s = { "addr", { "abc", "def", "ghi" } };
 
   EXPECT_EQ(s.getAddress(), "addr");
-  EXPECT_EQ(s.getSignatureFragments(), std::vector<IOTA::Type::Trytes>({ "abc", "def", "ghi" }));
+  EXPECT_EQ(s.getSignatureFragments(), std::vector<IOTA::Types::Trytes>({ "abc", "def", "ghi" }));
 }
 
 TEST(Signature, AddressGetterAndSetter) {
-  Signature s;
+  IOTA::Models::Signature s;
   EXPECT_EQ(s.getAddress(), "");
 
   s.setAddress("addr");
@@ -57,17 +57,17 @@ TEST(Signature, AddressGetterAndSetter) {
 }
 
 TEST(Signature, SignatureFragmentsGetterAndSetter) {
-  Signature s;
-  EXPECT_EQ(s.getSignatureFragments(), std::vector<IOTA::Type::Trytes>());
+  IOTA::Models::Signature s;
+  EXPECT_EQ(s.getSignatureFragments(), std::vector<IOTA::Types::Trytes>());
 
   s.setSignatureFragments({ "abc", "def", "ghi" });
-  EXPECT_EQ(s.getSignatureFragments(), std::vector<IOTA::Type::Trytes>({ "abc", "def", "ghi" }));
+  EXPECT_EQ(s.getSignatureFragments(), std::vector<IOTA::Types::Trytes>({ "abc", "def", "ghi" }));
 }
 
 TEST(Signature, SignatureFragmentsNonConstGetter) {
-  Signature s;
-  EXPECT_EQ(s.getSignatureFragments(), std::vector<IOTA::Type::Trytes>());
+  IOTA::Models::Signature s;
+  EXPECT_EQ(s.getSignatureFragments(), std::vector<IOTA::Types::Trytes>());
 
   s.getSignatureFragments().push_back("abc");
-  EXPECT_EQ(s.getSignatureFragments(), std::vector<IOTA::Type::Trytes>({ "abc" }));
+  EXPECT_EQ(s.getSignatureFragments(), std::vector<IOTA::Types::Trytes>({ "abc" }));
 }
