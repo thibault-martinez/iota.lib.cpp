@@ -50,17 +50,90 @@ namespace Requests {
  */
 class FindTransactions : public Base {
 public:
-  FindTransactions(const std::vector<Types::Trytes>& addresses,
-                   const std::vector<Types::Trytes>& digests,
-                   const std::vector<Types::Trytes>& approvees,
-                   const std::vector<Types::Trytes>& bundles);
+  /**
+   * full init ctor
+   */
+  explicit FindTransactions(const std::vector<Types::Trytes>& addresses = {},
+                            const std::vector<Types::Trytes>& digests   = {},
+                            const std::vector<Types::Trytes>& approvees = {},
+                            const std::vector<Types::Trytes>& bundles   = {});
+
+  /**
+   * default dtor
+   */
   ~FindTransactions() = default;
 
 public:
+  /**
+   * serialize obj
+   *
+   * @param res where to store serialisation
+   */
+  void serialize(json& res);
+
+public:
+  /**
+   * @return addresses
+   */
   const std::vector<Types::Trytes>& getAddresses() const;
+
+  /**
+   * @return addresses (non const version)
+   */
+  std::vector<Types::Trytes>& getAddresses();
+
+  /**
+   * @param addrs new addresses for api call
+   */
+  void setAddresses(const std::vector<Types::Trytes>& addrs);
+
+public:
+  /**
+   * @return digests
+   */
   const std::vector<Types::Trytes>& getDigests() const;
+
+  /**
+   * @return digests (non const version)
+   */
+  std::vector<Types::Trytes>& getDigests();
+
+  /**
+   * @param digests new digests for api call
+   */
+  void setDigests(const std::vector<Types::Trytes>& digests);
+
+public:
+  /**
+   * @return approvees
+   */
   const std::vector<Types::Trytes>& getApprovees() const;
+
+  /**
+   * @return approvees (non const version)
+   */
+  std::vector<Types::Trytes>& getApprovees();
+
+  /**
+   * @param approvees new approvees for api call
+   */
+  void setApprovees(const std::vector<Types::Trytes>& approvees);
+
+public:
+  /**
+   * @return bundles
+   */
   const std::vector<Types::Trytes>& getBundles() const;
+
+  /**
+   * @return bundles (non const version)
+   */
+  std::vector<Types::Trytes>& getBundles();
+
+  /**
+   * @param bundles new bundles for api call
+   */
+  void setBundles(const std::vector<Types::Trytes>& bundles);
 
 private:
   std::vector<Types::Trytes> addresses_;

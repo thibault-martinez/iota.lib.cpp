@@ -37,7 +37,23 @@ BroadcastTransactions::BroadcastTransactions(const std::vector<std::string>& try
 
 void
 BroadcastTransactions::serialize(json& data) {
-  data = json{ { "command", this->command_ }, { "trytes", this->trytes_ } };
+  Base::serialize(data);
+  data["trytes"] = this->trytes_;
+}
+
+const std::vector<std::string>&
+BroadcastTransactions::getTrytes() const {
+  return trytes_;
+}
+
+std::vector<std::string>&
+BroadcastTransactions::getTrytes() {
+  return trytes_;
+}
+
+void
+BroadcastTransactions::setTrytes(const std::vector<std::string>& trytes) {
+  trytes_ = trytes;
 }
 
 }  // namespace Requests

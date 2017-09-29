@@ -44,7 +44,14 @@ namespace Requests {
  */
 class InterruptAttachingToTangle : public Base {
 public:
+  /**
+   * full init ctor
+   */
   InterruptAttachingToTangle();
+
+  /**
+   * default dtor
+   */
   ~InterruptAttachingToTangle() = default;
 };
 
