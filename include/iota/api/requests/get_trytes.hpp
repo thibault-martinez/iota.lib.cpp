@@ -45,11 +45,39 @@ namespace Requests {
  */
 class GetTrytes : public Base {
 public:
-  GetTrytes(const std::vector<std::string>& hashes);
+  /**
+   * full init ctor
+   */
+  explicit GetTrytes(const std::vector<std::string>& hashes = {});
+
+  /**
+   * default dtor
+   */
   ~GetTrytes() = default;
 
 public:
+  /**
+   * serialize obj
+   *
+   * @param res where to store serialisation
+   */
   void serialize(json& res);
+
+public:
+  /**
+   * @return hashes
+   */
+  const std::vector<std::string>& getHashes() const;
+
+  /**
+   * @return hashes (non const version)
+   */
+  std::vector<std::string>& getHashes();
+
+  /**
+   * @param hashes new hashes for api call
+   */
+  void setHashes(const std::vector<std::string>& hashes);
 
 private:
   /*

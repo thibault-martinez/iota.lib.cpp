@@ -41,25 +41,73 @@ FindTransactions::FindTransactions(const std::vector<Types::Trytes>& addresses,
       approvees_(approvees),
       bundles_(bundles) {
 }
+void
+FindTransactions::serialize(json& data) {
+  Base::serialize(data);
+  data["addresses"] = this->addresses_;
+  data["digests"]   = this->digests_;
+  data["approvees"] = this->approvees_;
+  data["bundles"]   = this->bundles_;
+}
 
 const std::vector<Types::Trytes>&
 FindTransactions::getAddresses() const {
-  return this->addresses_;
+  return addresses_;
+}
+
+std::vector<Types::Trytes>&
+FindTransactions::getAddresses() {
+  return addresses_;
+}
+
+void
+FindTransactions::setAddresses(const std::vector<Types::Trytes>& addrs) {
+  addresses_ = addrs;
 }
 
 const std::vector<Types::Trytes>&
 FindTransactions::getDigests() const {
-  return this->digests_;
+  return digests_;
+}
+
+std::vector<Types::Trytes>&
+FindTransactions::getDigests() {
+  return digests_;
+}
+
+void
+FindTransactions::setDigests(const std::vector<Types::Trytes>& digests) {
+  digests_ = digests;
 }
 
 const std::vector<Types::Trytes>&
 FindTransactions::getApprovees() const {
-  return this->approvees_;
+  return approvees_;
+}
+
+std::vector<Types::Trytes>&
+FindTransactions::getApprovees() {
+  return approvees_;
+}
+
+void
+FindTransactions::setApprovees(const std::vector<Types::Trytes>& approvees) {
+  approvees_ = approvees;
 }
 
 const std::vector<Types::Trytes>&
 FindTransactions::getBundles() const {
-  return this->bundles_;
+  return bundles_;
+}
+
+std::vector<Types::Trytes>&
+FindTransactions::getBundles() {
+  return bundles_;
+}
+
+void
+FindTransactions::setBundles(const std::vector<Types::Trytes>& bundles) {
+  bundles_ = bundles;
 }
 
 }  // namespace Requests

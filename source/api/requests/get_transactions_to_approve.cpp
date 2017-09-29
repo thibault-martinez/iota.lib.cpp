@@ -37,7 +37,18 @@ GetTransactionsToApprove::GetTransactionsToApprove(const int& depth)
 
 void
 GetTransactionsToApprove::serialize(json& data) {
-  data = json{ { "command", this->command_ }, { "depth", this->depth_ } };
+  Base::serialize(data);
+  data["depth"] = this->depth_;
+}
+
+int
+GetTransactionsToApprove::getDepth() const {
+  return depth_;
+}
+
+void
+GetTransactionsToApprove::setDepth(int depth) {
+  depth_ = depth;
 }
 
 }  // namespace Requests

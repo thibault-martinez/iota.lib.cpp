@@ -44,7 +44,14 @@ namespace Requests {
  */
 class GetNodeInfo : public Base {
 public:
+  /**
+   * full init ctor
+   */
   GetNodeInfo();
+
+  /**
+   * default dtor
+   */
   ~GetNodeInfo() = default;
 };
 

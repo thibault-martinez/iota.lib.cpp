@@ -35,9 +35,25 @@ RemoveNeighbors::RemoveNeighbors(const std::vector<std::string>& uris)
     : Base("removeNeighbors"), uris_(uris) {
 }
 
+const std::vector<std::string>&
+RemoveNeighbors::getUris() const {
+  return uris_;
+}
+
+std::vector<std::string>&
+RemoveNeighbors::getUris() {
+  return uris_;
+}
+
+void
+RemoveNeighbors::setUris(const std::vector<std::string>& uris) {
+  uris_ = uris;
+}
+
 void
 RemoveNeighbors::serialize(json& data) {
-  data = json{ { "command", this->command_ }, { "uris", this->uris_ } };
+  Base::serialize(data);
+  data["uris"] = this->uris_;
 }
 
 }  // namespace Requests

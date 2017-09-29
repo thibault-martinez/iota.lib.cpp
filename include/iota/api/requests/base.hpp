@@ -39,13 +39,25 @@ namespace Requests {
 
 class Base {
 public:
+  /**
+   * full init ctor
+   */
   Base(const std::string& command);
+
+  /**
+   * default dtor
+   */
   virtual ~Base() = default;
 
 public:
+  /**
+   * serialize obj
+   *
+   * @param res where to store serialisation
+   */
   virtual void serialize(json& res);
 
-protected:
+private:
   std::string command_;
 };
 

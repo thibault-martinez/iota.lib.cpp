@@ -50,12 +50,75 @@ namespace Requests {
  */
 class AttachToTangle : public Base {
 public:
-  AttachToTangle(const std::string& trunkTransaction, const std::string& branchTransaction,
-                 const int& minWeightMagnitude, const std::vector<std::string>& trytes);
+  /**
+   * full init ctor
+   */
+  explicit AttachToTangle(const std::string&              trunkTransaction   = "",
+                          const std::string&              branchTransaction  = "",
+                          const int&                      minWeightMagnitude = 0,
+                          const std::vector<std::string>& trytes             = {});
+
+  /**
+   * default dtor
+   */
   ~AttachToTangle() = default;
 
 public:
+  /**
+   * serialize obj
+   *
+   * @param res where to store serialisation
+   */
   void serialize(json& res);
+
+public:
+  /**
+   * @return trunk transaction
+   */
+  const std::string& getTrunkTransaction() const;
+
+  /**
+   * @param trx new trunk transaction for api call
+   */
+  void setTrunkTransaction(const std::string& trx);
+
+public:
+  /**
+   * @return branch transaction
+   */
+  const std::string& getBranchTransaction() const;
+
+  /**
+   * @param trx new branch transaction for api call
+   */
+  void setBranchTransaction(const std::string& trx);
+
+public:
+  /**
+   * @return min weight magnitude
+   */
+  int getMinWeightMagnitude() const;
+
+  /**
+   * @param weight new min weight magnitude for api call
+   */
+  void setMinWeightMagnitude(int weight);
+
+public:
+  /**
+   * @return trytes
+   */
+  const std::vector<std::string>& getTrytes() const;
+
+  /**
+   * @return trytes (non const version)
+   */
+  std::vector<std::string>& getTrytes();
+
+  /**
+   * @param trytes new trytes for api call
+   */
+  void setTrytes(const std::vector<std::string>& trytes);
 
 private:
   /*
@@ -69,7 +132,7 @@ private:
   /*
    * Proof of Work intensity. Minimum value is 18.
    */
-  int minWeightMagnitude_;
+  int minWeightMagnitude_ = 0;
   /*
    * List of trytes (raw transaction data) to attach to the tangle.
    */

@@ -44,11 +44,39 @@ namespace Requests {
  */
 class BroadcastTransactions : public Base {
 public:
-  BroadcastTransactions(const std::vector<std::string>& trytes);
+  /**
+   * full init ctor
+   */
+  explicit BroadcastTransactions(const std::vector<std::string>& trytes = {});
+
+  /**
+   * default dtor
+   */
   ~BroadcastTransactions() = default;
 
 public:
+  /**
+   * serialize obj
+   *
+   * @param res where to store serialisation
+   */
   void serialize(json& res);
+
+public:
+  /**
+   * @return trytes
+   */
+  const std::vector<std::string>& getTrytes() const;
+
+  /**
+   * @return trytes (non const version)
+   */
+  std::vector<std::string>& getTrytes();
+
+  /**
+   * @param trytes new trytes for api call
+   */
+  void setTrytes(const std::vector<std::string>& trytes);
 
 private:
   /*

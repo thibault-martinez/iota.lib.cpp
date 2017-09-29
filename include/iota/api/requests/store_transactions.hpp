@@ -45,11 +45,39 @@ namespace Requests {
  */
 class StoreTransactions : public Base {
 public:
-  StoreTransactions(const std::vector<std::string>& trytes);
+  /**
+   * full init ctor
+   */
+  explicit StoreTransactions(const std::vector<std::string>& trytes = {});
+
+  /**
+   * default dtor
+   */
   ~StoreTransactions() = default;
 
 public:
+  /**
+   * serialize obj
+   *
+   * @param res where to store serialisation
+   */
   void serialize(json& res);
+
+public:
+  /**
+   * @return trytes
+   */
+  const std::vector<std::string>& getTrytes() const;
+
+  /**
+   * @return trytes (non const version)
+   */
+  std::vector<std::string>& getTrytes();
+
+  /**
+   * @param trytes new trytes for api call
+   */
+  void setTrytes(const std::vector<std::string>& trytes);
 
 private:
   /*
