@@ -43,6 +43,7 @@ FindTransactions::FindTransactions(const std::vector<Types::Trytes>& addresses,
 }
 void
 FindTransactions::serialize(json& data) {
+  Base::serialize(data);
   data["addresses"] = this->addresses_;
   data["digests"]   = this->digests_;
   data["approvees"] = this->approvees_;

@@ -53,14 +53,6 @@ public:
    * default dtor
    */
   ~GetNodeInfo() = default;
-
-public:
-  /**
-   * serialize obj
-   *
-   * @param res where to store serialisation
-   */
-  void serialize(json& res);
 };
 
 }  // namespace Requests

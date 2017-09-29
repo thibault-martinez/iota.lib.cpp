@@ -34,10 +34,6 @@ namespace Requests {
 GetNeighbors::GetNeighbors() : Base("getNeighbors") {
 }
 
-void
-GetNeighbors::serialize(json&) {
-}
-
 }  // namespace Requests
 
 }  // namespace API

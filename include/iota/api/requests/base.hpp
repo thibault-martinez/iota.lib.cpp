@@ -55,7 +55,7 @@ public:
    *
    * @param res where to store serialisation
    */
-  virtual void serialize(json& res) = 0;
+  virtual void serialize(json& res);
 
 private:
   std::string command_;

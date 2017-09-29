@@ -52,6 +52,7 @@ AddNeighbors::setUris(const std::vector<std::string>& uris) {
 
 void
 AddNeighbors::serialize(json& data) {
+  Base::serialize(data);
   data["uris"] = this->uris_;
 }
 
