@@ -36,6 +36,7 @@ GetTips::GetTips(const std::vector<std::string>& hashes) : hashes_(hashes) {
 
 void
 GetTips::deserialize(const json& res) {
+  Base::deserialize(res);
   this->hashes_ = res.at("hashes").get<std::vector<std::string>>();
 }
 

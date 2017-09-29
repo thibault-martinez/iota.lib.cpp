@@ -36,6 +36,7 @@ AddNeighbors::AddNeighbors(const int64_t& addedNeighbors) : addedNeighbors_(adde
 
 void
 AddNeighbors::deserialize(const json& res) {
+  Base::deserialize(res);
   this->addedNeighbors_ = res.at("addedNeighbors").get<int64_t>();
 }
 

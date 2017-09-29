@@ -58,6 +58,7 @@ GetNodeInfo::GetNodeInfo(const std::string& appName, const std::string& appVersi
 
 void
 GetNodeInfo::deserialize(const json& res) {
+  Base::deserialize(res);
   appName_                            = res.at("appName").get<std::string>();
   appVersion_                         = res.at("appVersion").get<std::string>();
   jreAvailableProcessors_             = res.at("jreAvailableProcessors").get<int64_t>();

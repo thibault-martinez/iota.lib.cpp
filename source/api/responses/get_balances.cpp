@@ -38,6 +38,7 @@ GetBalances::GetBalances(const std::vector<std::string>& balances, const std::st
 
 void
 GetBalances::deserialize(const json& res) {
+  Base::deserialize(res);
   this->balances_       = res.at("balances").get<std::vector<std::string>>();
   this->milestone_      = res.at("milestone").get<std::string>();
   this->milestoneIndex_ = res.at("milestoneIndex").get<int64_t>();

@@ -38,6 +38,7 @@ GetTransactionsToApprove::GetTransactionsToApprove(const std::string& trunkTrans
 
 void
 GetTransactionsToApprove::deserialize(const json& res) {
+  Base::deserialize(res);
   this->trunkTransaction_  = res.at("trunkTransaction").get<std::string>();
   this->branchTransaction_ = res.at("branchTransaction").get<std::string>();
 }

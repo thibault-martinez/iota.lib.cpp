@@ -36,6 +36,7 @@ AttachToTangle::AttachToTangle(const std::vector<std::string>& trytes) : trytes_
 
 void
 AttachToTangle::deserialize(const json& res) {
+  Base::deserialize(res);
   this->trytes_ = res.at("trytes").get<std::vector<std::string>>();
 }
 

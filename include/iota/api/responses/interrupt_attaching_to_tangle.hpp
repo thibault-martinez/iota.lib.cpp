@@ -53,14 +53,6 @@ public:
    * default dtor
    */
   ~InterruptAttachingToTangle() = default;
-
-public:
-  /**
-   * init class based on json data
-   *
-   * @param res json data to be used for deserialization
-   */
-  void deserialize(const json& res);
 };
 
 }  // namespace Responses
