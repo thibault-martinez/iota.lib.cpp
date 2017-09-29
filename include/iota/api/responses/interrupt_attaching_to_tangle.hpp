@@ -44,11 +44,15 @@ namespace Responses {
  */
 class InterruptAttachingToTangle : public Base {
 public:
-  InterruptAttachingToTangle()  = default;
-  ~InterruptAttachingToTangle() = default;
+  /**
+   * default ctor
+   */
+  InterruptAttachingToTangle() = default;
 
-public:
-  void deserialize(const json& res);
+  /**
+   * default dtor
+   */
+  ~InterruptAttachingToTangle() = default;
 };
 
 }  // namespace Responses

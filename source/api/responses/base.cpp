@@ -31,9 +31,6 @@ namespace API {
 
 namespace Responses {
 
-Base::Base() : duration_(0) {
-}
-
 Base::Base(const int64_t& duration) : duration_(duration) {
 }
 

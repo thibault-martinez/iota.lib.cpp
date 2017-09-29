@@ -47,21 +47,46 @@ namespace Responses {
  */
 class GetTransactionsToApprove : public Base {
 public:
-  GetTransactionsToApprove()  = default;
+  /**
+   * full init ctor
+   */
+  GetTransactionsToApprove(const std::string& trunkTransaction  = "",
+                           const std::string& branchTransaction = "");
+
+  /**
+   * default dtor
+   */
   ~GetTransactionsToApprove() = default;
 
 public:
+  /**
+   * init class based on json data
+   *
+   * @param res json data to be used for deserialization
+   */
   void deserialize(const json& res);
 
 public:
-  /*
-   * Trunk transaction.
+  /**
+   * @return trunk transaction
    */
   const std::string& getTrunkTransaction() const;
-  /*
-   * Branch transaction.
+
+  /**
+   * @param trx new trunk transaction for api call
+   */
+  void setTrunkTransaction(const std::string& trx);
+
+public:
+  /**
+   * @return branch transaction
    */
   const std::string& getBranchTransaction() const;
+
+  /**
+   * @param trx new branch transaction for api call
+   */
+  void setBranchTransaction(const std::string& trx);
 
 private:
   std::string trunkTransaction_;

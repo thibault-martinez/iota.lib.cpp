@@ -31,8 +31,12 @@ namespace API {
 
 namespace Responses {
 
+GetNeighbors::GetNeighbors(const std::vector<Models::Neighbor>& neighbors) : neighbors_(neighbors) {
+}
+
 void
 GetNeighbors::deserialize(const json& res) {
+  Base::deserialize(res);
   for (const auto& neighbor : res["neighbors"]) {
     this->neighbors_.emplace_back(neighbor.at("address").get<std::string>(),
                                   neighbor.at("numberOfAllTransactions").get<int64_t>(),
@@ -44,6 +48,16 @@ GetNeighbors::deserialize(const json& res) {
 const std::vector<Models::Neighbor>&
 GetNeighbors::getNeighbors() const {
   return this->neighbors_;
+}
+
+std::vector<Models::Neighbor>&
+GetNeighbors::getNeighbors() {
+  return this->neighbors_;
+}
+
+void
+GetNeighbors::setNeighbors(const std::vector<Models::Neighbor>& neighbors) {
+  this->neighbors_ = neighbors;
 }
 
 }  // namespace Responses

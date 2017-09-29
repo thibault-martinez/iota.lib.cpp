@@ -41,6 +41,16 @@ GetNewAddresses::getAddresses() const {
   return this->addresses_;
 }
 
+std::vector<IOTA::Types::Trytes>&
+GetNewAddresses::getAddresses() {
+  return this->addresses_;
+}
+
+void
+GetNewAddresses::setAddresses(const std::vector<IOTA::Types::Trytes>& addresses) {
+  this->addresses_ = addresses;
+}
+
 }  // namespace Responses
 
 }  // namespace API

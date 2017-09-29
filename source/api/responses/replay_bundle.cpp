@@ -40,6 +40,16 @@ ReplayBundle::getSuccessfully() const {
   return successfully_;
 }
 
+std::vector<bool>&
+ReplayBundle::getSuccessfully() {
+  return successfully_;
+}
+
+void
+ReplayBundle::setSuccessfully(const std::vector<bool>& successful) {
+  successfully_ = successful;
+}
+
 }  // namespace Responses
 
 }  // namespace API

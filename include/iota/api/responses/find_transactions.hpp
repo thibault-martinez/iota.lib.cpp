@@ -48,17 +48,39 @@ namespace Responses {
  */
 class FindTransactions : public Base {
 public:
-  FindTransactions()  = default;
+  /**
+   * full init ctor
+   */
+  explicit FindTransactions(const std::vector<IOTA::Types::Trytes>& hashes = {});
+
+  /**
+   * default dtor
+   */
   ~FindTransactions() = default;
 
 public:
+  /**
+   * init class based on json data
+   *
+   * @param res json data to be used for deserialization
+   */
   void deserialize(const json& res);
 
 public:
-  /*
-   * The list of transactions.
+  /**
+   * @return hashes
    */
-  const std::vector<IOTA::Types::Trytes>& getHashes() const;
+  const std::vector<std::string>& getHashes() const;
+
+  /**
+   * @return hashes (non const version)
+   */
+  std::vector<std::string>& getHashes();
+
+  /**
+   * @param hashes new hashes for api call
+   */
+  void setHashes(const std::vector<std::string>& hashes);
 
 private:
   std::vector<IOTA::Types::Trytes> hashes_;

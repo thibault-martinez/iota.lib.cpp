@@ -31,14 +31,23 @@ namespace API {
 
 namespace Responses {
 
+GetInclusionStates::GetInclusionStates(const std::vector<bool>& states) : states_(states) {
+}
+
 void
 GetInclusionStates::deserialize(const json& res) {
+  Base::deserialize(res);
   this->states_ = res.at("states").get<std::vector<bool>>();
 }
 
 const std::vector<bool>&
 GetInclusionStates::getStates() const {
   return this->states_;
+}
+
+void
+GetInclusionStates::setStates(const std::vector<bool>& states) {
+  this->states_ = states;
 }
 
 }  // namespace Responses

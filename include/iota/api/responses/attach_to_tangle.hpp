@@ -51,17 +51,39 @@ namespace Responses {
  */
 class AttachToTangle : public Base {
 public:
-  AttachToTangle()  = default;
+  /**
+   * full init ctor
+   */
+  AttachToTangle(const std::vector<std::string>& trytes = {});
+
+  /**
+   * default dtor
+   */
   ~AttachToTangle() = default;
 
 public:
+  /**
+   * init class based on json data
+   *
+   * @param res json data to be used for deserialization
+   */
   void deserialize(const json& res);
 
 public:
-  /*
-   * The list of trytes.
+  /**
+   * @return trytes
    */
   const std::vector<std::string>& getTrytes() const;
+
+  /**
+   * @return trytes (non const version)
+   */
+  std::vector<std::string>& getTrytes();
+
+  /**
+   * @param trytes new trytes for api call
+   */
+  void setTrytes(const std::vector<std::string>& trytes);
 
 private:
   std::vector<std::string> trytes_;

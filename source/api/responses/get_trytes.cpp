@@ -31,14 +31,28 @@ namespace API {
 
 namespace Responses {
 
+GetTrytes::GetTrytes(const std::vector<std::string>& trytes) : trytes_(trytes) {
+}
+
 void
 GetTrytes::deserialize(const json& res) {
+  Base::deserialize(res);
   this->trytes_ = res.at("trytes").get<std::vector<std::string>>();
 }
 
 const std::vector<std::string>&
 GetTrytes::getTrytes() const {
   return this->trytes_;
+}
+
+std::vector<std::string>&
+GetTrytes::getTrytes() {
+  return this->trytes_;
+}
+
+void
+GetTrytes::setTrytes(const std::vector<std::string>& trytes) {
+  this->trytes_ = trytes;
 }
 
 }  // namespace Responses

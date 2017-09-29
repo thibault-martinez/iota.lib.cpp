@@ -46,17 +46,39 @@ namespace Responses {
  */
 class GetNeighbors : public Base {
 public:
-  GetNeighbors()  = default;
+  /**
+   * full init ctor
+   */
+  explicit GetNeighbors(const std::vector<Models::Neighbor>& neighbors = {});
+
+  /**
+   * default dtor
+   */
   ~GetNeighbors() = default;
 
 public:
+  /**
+   * init class based on json data
+   *
+   * @param res json data to be used for deserialization
+   */
   void deserialize(const json& res);
 
 public:
-  /*
-   * The neighbors.
+  /**
+   * @return neighbors.
    */
   const std::vector<Models::Neighbor>& getNeighbors() const;
+
+  /**
+   * @return neighbors. (non const version)
+   */
+  std::vector<Models::Neighbor>& getNeighbors();
+
+  /**
+   * @param neighbors new neighbors for api response
+   */
+  void setNeighbors(const std::vector<Models::Neighbor>& neighbors);
 
 private:
   std::vector<Models::Neighbor> neighbors_;

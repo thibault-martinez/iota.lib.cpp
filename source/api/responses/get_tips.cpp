@@ -31,14 +31,28 @@ namespace API {
 
 namespace Responses {
 
+GetTips::GetTips(const std::vector<std::string>& hashes) : hashes_(hashes) {
+}
+
 void
 GetTips::deserialize(const json& res) {
+  Base::deserialize(res);
   this->hashes_ = res.at("hashes").get<std::vector<std::string>>();
 }
 
 const std::vector<std::string>&
 GetTips::getHashes() const {
   return this->hashes_;
+}
+
+std::vector<std::string>&
+GetTips::getHashes() {
+  return this->hashes_;
+}
+
+void
+GetTips::setHashes(const std::vector<std::string>& hashes) {
+  this->hashes_ = hashes;
 }
 
 }  // namespace Responses

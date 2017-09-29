@@ -31,14 +31,28 @@ namespace API {
 
 namespace Responses {
 
+AttachToTangle::AttachToTangle(const std::vector<std::string>& trytes) : trytes_(trytes) {
+}
+
 void
 AttachToTangle::deserialize(const json& res) {
+  Base::deserialize(res);
   this->trytes_ = res.at("trytes").get<std::vector<std::string>>();
 }
 
 const std::vector<std::string>&
 AttachToTangle::getTrytes() const {
   return this->trytes_;
+}
+
+std::vector<std::string>&
+AttachToTangle::getTrytes() {
+  return this->trytes_;
+}
+
+void
+AttachToTangle::setTrytes(const std::vector<std::string>& trytes) {
+  this->trytes_ = trytes;
 }
 
 }  // namespace Responses
