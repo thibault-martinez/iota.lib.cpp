@@ -36,7 +36,6 @@
 #include <iota/api/responses/get_transfers.hpp>
 #include <iota/api/responses/replay_bundle.hpp>
 #include <iota/api/responses/send_transfer.hpp>
-#include <iota/api/responses/store_transactions.hpp>
 #include <iota/crypto/sponge_factory.hpp>
 #include <iota/models/bundle.hpp>
 #include <iota/models/transfer.hpp>
@@ -268,7 +267,7 @@ public:
   /*
    * Wrapper function that does broadcastTransactions and storeTransactions.
    */
-  Responses::StoreTransactions broadcastAndStore(const std::vector<Types::Trytes>& trytes) const;
+  Responses::Base broadcastAndStore(const std::vector<Types::Trytes>& trytes) const;
 
   Responses::FindTransactions findTransactionsByAddresses(
       const std::vector<Types::Trytes>& addresses) const;

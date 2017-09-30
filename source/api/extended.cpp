@@ -661,7 +661,7 @@ Extended::sendTrytes(const std::vector<Types::Trytes>& trytes, const unsigned in
   return trx;
 }
 
-Responses::StoreTransactions
+Responses::Base
 Extended::broadcastAndStore(const std::vector<Types::Trytes>& trytes) const {
   this->broadcastTransactions(trytes);
   return this->storeTransactions(trytes);

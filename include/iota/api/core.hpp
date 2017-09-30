@@ -27,7 +27,6 @@
 
 #include <iota/api/responses/add_neighbors.hpp>
 #include <iota/api/responses/attach_to_tangle.hpp>
-#include <iota/api/responses/broadcast_transactions.hpp>
 #include <iota/api/responses/find_transactions.hpp>
 #include <iota/api/responses/get_balances.hpp>
 #include <iota/api/responses/get_inclusion_states.hpp>
@@ -36,9 +35,7 @@
 #include <iota/api/responses/get_tips.hpp>
 #include <iota/api/responses/get_transactions_to_approve.hpp>
 #include <iota/api/responses/get_trytes.hpp>
-#include <iota/api/responses/interrupt_attaching_to_tangle.hpp>
 #include <iota/api/responses/remove_neighbors.hpp>
-#include <iota/api/responses/store_transactions.hpp>
 #include <iota/api/service.hpp>
 
 namespace IOTA {
@@ -149,18 +146,17 @@ public:
    * Interrupts and completely aborts the attachToTangle process.
    * https://iota.readme.io/docs/interruptattachingtotangle
    */
-  Responses::InterruptAttachingToTangle interruptAttachingToTangle() const;
+  Responses::Base interruptAttachingToTangle() const;
   /*
    * Broadcast a list of transactions to all neighbors. The input trytes for this call are
    * provided by attachToTangle. https://iota.readme.io/docs/broadcasttransactions
    */
-  Responses::BroadcastTransactions broadcastTransactions(
-      const std::vector<std::string>& trytes) const;
+  Responses::Base broadcastTransactions(const std::vector<std::string>& trytes) const;
   /*
    * Store transactions into the local storage. The trytes to be used for this call are returned
    * by attachToTangle. https://iota.readme.io/docs/storetransactions
    */
-  Responses::StoreTransactions storeTransactions(const std::vector<std::string>& trytes) const;
+  Responses::Base storeTransactions(const std::vector<std::string>& trytes) const;
 
 private:
   Service service_;
