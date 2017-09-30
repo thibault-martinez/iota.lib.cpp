@@ -369,14 +369,13 @@ Extended::prepareTransfers(const Types::Trytes& seed, int security,
   std::vector<std::string> signatureFragments;
   long                     totalValue = 0;
   std::string              tag;
-  Crypto::Checksum         cs;
 
   //  Iterate over all transfers, get totalValue
   //  and prepare the signatureFragments, message and tag
   for (auto& transfer : transfers) {
     // If address with checksum then remove checksum
-    if (cs.isValid(transfer.getAddress()))
-      transfer.setAddress(cs.remove(transfer.getAddress()));
+    if (Crypto::Checksum::isValid(transfer.getAddress()))
+      transfer.setAddress(Crypto::Checksum::remove(transfer.getAddress()));
 
     int signatureMessageLength = 1;
 
@@ -795,8 +794,6 @@ std::vector<Models::Transaction>
 Extended::initiateTransfer(int securitySum, const std::string& inputAddress,
                            const std::string&             remainderAddress,
                            std::vector<Models::Transfer>& transfers) const {
-  Crypto::Checksum checksum;
-
   //! If message or tag is not supplied, provide it
   //! Also remove the checksum of the address if it's there
 
@@ -809,8 +806,8 @@ Extended::initiateTransfer(int securitySum, const std::string& inputAddress,
       transfer.setTag(Types::Utils::rightPad(transfer.getTag(), 27, '9'));
     }
 
-    if (checksum.isValid(transfer.getAddress())) {
-      transfer.setAddress(checksum.remove(transfer.getAddress()));
+    if (Crypto::Checksum::isValid(transfer.getAddress())) {
+      transfer.setAddress(Crypto::Checksum::remove(transfer.getAddress()));
     }
   }
 
@@ -944,8 +941,7 @@ Extended::newAddress(const Types::Trytes& seed, const int32_t& index, const int3
   auto address      = Types::tritsToTrytes(addressTrits);
 
   if (checksum) {
-    Crypto::Checksum c;
-    address = c.add(address);
+    address = Crypto::Checksum::add(address);
   }
   return address;
 }
@@ -955,8 +951,7 @@ Extended::signInputsAndReturn(const std::string& seed, const std::vector<Models:
                               Models::Bundle&                 bundle,
                               const std::vector<std::string>& signatureFragments) const {
   // TODO param ?
-  auto curl = Crypto::create(this->cryptoType_);
-  bundle.finalize(curl);
+  bundle.finalize(Crypto::create(this->cryptoType_));
   bundle.addTrytes(signatureFragments);
 
   //  SIGNING OF INPUTS

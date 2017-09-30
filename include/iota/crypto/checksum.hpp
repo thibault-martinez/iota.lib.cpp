@@ -26,28 +26,20 @@
 #pragma once
 
 #include <iota/crypto/kerl.hpp>
+#include <iota/crypto/sponge_factory.hpp>
 
 namespace IOTA {
 
 namespace Crypto {
 
-class Checksum {
-public:
-  Checksum();
-  virtual ~Checksum();
+namespace Checksum {
 
-public:
-  Types::Trytes add(const Types::Trytes& address);
-  Types::Trytes remove(const Types::Trytes& address) const;
-  bool         isValid(const Types::Trytes& address);
+Types::Trytes add(const Types::Trytes& address);
+Types::Trytes remove(const Types::Trytes& address);
+Types::Trytes check(const Types::Trytes& address, const SpongeType& type = SpongeType::KERL);
+bool          isValid(const Types::Trytes& address);
 
-private:
-  Types::Trytes check(const Types::Trytes& address);
-
-private:
-  // TODO custom sponge ?
-  Kerl kerl_;
-};
+}  // namespace Checksum
 
 }  // namespace Crypto
 
