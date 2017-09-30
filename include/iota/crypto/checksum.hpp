@@ -26,28 +26,56 @@
 #pragma once
 
 #include <iota/crypto/kerl.hpp>
+#include <iota/crypto/sponge_factory.hpp>
 
 namespace IOTA {
 
 namespace Crypto {
 
-class Checksum {
-public:
-  Checksum();
-  virtual ~Checksum();
+/**
+ * Defines utility methods to add/remove the checksum to/from an address.
+ */
+namespace Checksum {
 
-public:
-  Types::Trytes add(const Types::Trytes& address);
-  Types::Trytes remove(const Types::Trytes& address) const;
-  bool         isValid(const Types::Trytes& address);
+/**
+ * Add the checksum to the specified address.
+ *
+ * @param address The address without checksum.
+ *
+ * @return The address with checksum.
+ **/
+Types::Trytes add(const Types::Trytes& address);
 
-private:
-  Types::Trytes check(const Types::Trytes& address);
+/**
+ * Remove the checksum from the specified address.
+ *
+ * @param address The address with checksum.
+ *
+ * @return The address without checksum.
+ **/
+Types::Trytes remove(const Types::Trytes& address);
 
-private:
-  // TODO custom sponge ?
-  Kerl kerl_;
-};
+/**
+ * Actual computation of the address checksum.
+ *
+ * @param address The address.
+ * @param type The sponge type to be used for checksum.
+ *
+ * @return The checksum.
+ **/
+Types::Trytes check(const Types::Trytes& address, const SpongeType& type = SpongeType::KERL);
+
+/**
+ * Determine whether the specified address with checksum has a valid checksum.
+ *
+ * @param address The address with checksum.
+ *
+ * @return true if the specified address with checksum has a valid checksum otherwise,
+ * false.
+ **/
+bool isValid(const Types::Trytes& address);
+
+}  // namespace Checksum
 
 }  // namespace Crypto
 

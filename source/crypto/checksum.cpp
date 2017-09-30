@@ -30,39 +30,38 @@ namespace IOTA {
 
 namespace Crypto {
 
-Checksum::Checksum() {
-}
+namespace Checksum {
 
-Checksum::~Checksum() {
+Types::Trytes
+add(const Types::Trytes& address) {
+  return address + check(address);
 }
 
 Types::Trytes
-Checksum::add(const Types::Trytes& address) {
-  return address + this->check(address);
-}
-
-Types::Trytes
-Checksum::remove(const Types::Trytes& address) const {
+remove(const Types::Trytes& address) {
   return address.substr(0, SeedLength);
 }
 
+Types::Trytes
+check(const Types::Trytes& address, const SpongeType& type) {
+  auto         sponge = create(type);
+  Types::Trits checksumTrits(TritHashLength);
+
+  sponge->absorb(Types::trytesToTrits(address));
+  sponge->squeeze(checksumTrits);
+  auto checksum = Types::tritsToTrytes(checksumTrits);
+  return checksum.substr(SeedLength - ChecksumLength);
+}
+
 bool
-Checksum::isValid(const Types::Trytes& addressWithChecksum) {
+isValid(const Types::Trytes& addressWithChecksum) {
   auto addressWithoutChecksum         = remove(addressWithChecksum);
   auto addressWithRecalculateChecksum = add(addressWithoutChecksum);
 
   return addressWithRecalculateChecksum == addressWithChecksum;
 }
 
-Types::Trytes
-Checksum::check(const Types::Trytes& address) {
-  Types::Trits checksumTrits(TritHashLength);
-  this->kerl_.reset();
-  this->kerl_.absorb(Types::trytesToTrits(address));
-  this->kerl_.squeeze(checksumTrits);
-  auto checksum = Types::tritsToTrytes(checksumTrits);
-  return checksum.substr(SeedLength - ChecksumLength);
-}
+}  // namespace Checksum
 
 }  // namespace Crypto
 
