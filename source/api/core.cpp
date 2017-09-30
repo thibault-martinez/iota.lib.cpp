@@ -114,21 +114,19 @@ Core::attachToTangle(const std::string& trunkTransaction, const std::string& bra
       trunkTransaction, branchTransaction, minWeightMagnitude, trytes);
 }
 
-Responses::InterruptAttachingToTangle
+Responses::Base
 Core::interruptAttachingToTangle() const {
-  return this->service_
-      .request<Requests::InterruptAttachingToTangle, Responses::InterruptAttachingToTangle>();
+  return this->service_.request<Requests::InterruptAttachingToTangle, Responses::Base>();
 }
 
-Responses::BroadcastTransactions
+Responses::Base
 Core::broadcastTransactions(const std::vector<Types::Trytes>& trytes) const {
-  return this->service_.request<Requests::BroadcastTransactions, Responses::BroadcastTransactions>(
-      trytes);
+  return this->service_.request<Requests::BroadcastTransactions, Responses::Base>(trytes);
 }
 
-Responses::StoreTransactions
+Responses::Base
 Core::storeTransactions(const std::vector<Types::Trytes>& trytes) const {
-  return this->service_.request<Requests::StoreTransactions, Responses::StoreTransactions>(trytes);
+  return this->service_.request<Requests::StoreTransactions, Responses::Base>(trytes);
 }
 
 }  // namespace API
