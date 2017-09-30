@@ -572,11 +572,10 @@ Extended::getBundle(const Types::Trytes& transaction) const {
 
   //! Validate the signatures
   for (const auto& signature : signaturesToValidate) {
-    Crypto::Signing s;
-    const auto&     addr  = signature.getAddress();
-    const auto&     frags = signature.getSignatureFragments();
+    const auto& addr  = signature.getAddress();
+    const auto& frags = signature.getSignatureFragments();
 
-    if (!s.validateSignatures(addr, frags, bundleHash)) {
+    if (!Crypto::Signing::validateSignatures(addr, frags, bundleHash)) {
       throw Errors::IllegalState("Invalid Signature");
     }
   }
@@ -931,13 +930,9 @@ Extended::initiateTransfer(int securitySum, const std::string& inputAddress,
 Types::Trytes
 Extended::newAddress(const Types::Trytes& seed, const int32_t& index, const int32_t& security,
                      bool checksum) const {
-  // TODO custom sponge
-  // Crypto::create(cryptoType_)
-  Crypto::Signing s;
-
-  auto key          = s.key(seed, index, security);
-  auto digests      = s.digests(key);
-  auto addressTrits = s.address(digests);
+  auto key          = Crypto::Signing::key(seed, index, security);
+  auto digests      = Crypto::Signing::digests(key);
+  auto addressTrits = Crypto::Signing::address(digests);
   auto address      = Types::tritsToTrytes(addressTrits);
 
   if (checksum) {
@@ -975,11 +970,10 @@ Extended::signInputsAndReturn(const std::string& seed, const std::vector<Models:
 
       auto bundleHash = tx.getBundle();
 
-      Crypto::Signing s;
       // Get corresponding private key of address
       // TODO Do we have to use the previous curl ?
       // int[] key = new Signing(curl).key(Converter.trits(seed), keyIndex, keySecurity);
-      auto key = s.key(seed, keyIndex, keySecurity);
+      auto key = Crypto::Signing::key(seed, keyIndex, keySecurity);
 
       //  First 6561 trits for the firstFragment
       std::vector<int8_t> firstFragment(&key[0], &key[6561]);
@@ -991,7 +985,8 @@ Extended::signInputsAndReturn(const std::string& seed, const std::vector<Models:
       std::vector<int8_t> firstBundleFragment(&normalizedBundleHash[0], &normalizedBundleHash[27]);
 
       //  Calculate the new signatureFragment with the first bundle fragment
-      auto firstSignedFragment = s.signatureFragment(firstBundleFragment, firstFragment);
+      auto firstSignedFragment =
+          Crypto::Signing::signatureFragment(firstBundleFragment, firstFragment);
 
       //  Convert signature to trytes and assign the new signatureFragment
       tx.setSignatureFragments(Types::tritsToTrytes(firstSignedFragment));
@@ -1012,7 +1007,8 @@ Extended::signInputsAndReturn(const std::string& seed, const std::vector<Models:
                                                      &normalizedBundleHash[27 * 2]);
 
             //  Calculate the new signature
-            auto secondSignedFragment = s.signatureFragment(secondBundleFragment, secondFragment);
+            auto secondSignedFragment =
+                Crypto::Signing::signatureFragment(secondBundleFragment, secondFragment);
 
             //  Convert signature to trytes and assign it again to this bundle entry
             txb.setSignatureFragments(Types::tritsToTrytes(secondSignedFragment));

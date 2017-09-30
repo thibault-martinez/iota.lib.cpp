@@ -28,34 +28,27 @@
 #include <iostream>
 #include <vector>
 
-#include <iota/crypto/kerl.hpp>
+#include <iota/types/trinary.hpp>
 
 namespace IOTA {
 
 namespace Crypto {
 
-class Signing {
-public:
-  Signing();
-  virtual ~Signing();
+namespace Signing {
 
-public:
-  Types::Trits key(const Types::Trytes& seed, const unsigned int& index = 0,
-                  const unsigned int& security = 1);
-  Types::Trits digest(const std::vector<int8_t>& normalizedBundleFragment,
-                     const Types::Trits&         signatureFragment);
-  Types::Trits digests(const Types::Trits& key);
-  Types::Trits address(const Types::Trits& digests);
-  Types::Trits signatureFragment(const std::vector<int8_t>& normalizedBundleFragment,
-                                const Types::Trits&         keyFragment);
-  bool        validateSignatures(const Types::Trytes&              expectedAddress,
-                                 const std::vector<Types::Trytes>& signatureFragments,
-                                 const Types::Trytes&              bundleHash);
+Types::Trits key(const Types::Trytes& seed, const unsigned int& index = 0,
+                 const unsigned int& security = 1);
+Types::Trits digest(const std::vector<int8_t>& normalizedBundleFragment,
+                    const Types::Trits&        signatureFragment);
+Types::Trits digests(const Types::Trits& key);
+Types::Trits address(const Types::Trits& digests);
+Types::Trits signatureFragment(const std::vector<int8_t>& normalizedBundleFragment,
+                               const Types::Trits&        keyFragment);
+bool         validateSignatures(const Types::Trytes&              expectedAddress,
+                                const std::vector<Types::Trytes>& signatureFragments,
+                                const Types::Trytes&              bundleHash);
 
-private:
-  // TODO Sponge
-  Kerl kerl_;
-};
+};  // namespace Signing
 
 }  // namespace Crypto
 

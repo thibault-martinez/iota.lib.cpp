@@ -36,7 +36,6 @@ TEST(SigningTest, Key) {
   std::string   line;
   ASSERT_TRUE(file.is_open());
   std::getline(file, line);
-  IOTA::Crypto::Signing s;
   while (std::getline(file, line)) {
     auto semicolon = line.find(';');
     auto seed      = line.substr(0, semicolon);
@@ -50,7 +49,7 @@ TEST(SigningTest, Key) {
     semicolon      = rest.find(';');
     auto key       = rest.substr(0, semicolon);
     rest           = rest.substr(semicolon + 1);
-    EXPECT_EQ(key, IOTA::Types::tritsToTrytes(s.key(seed, index, security)));
+    EXPECT_EQ(key, IOTA::Types::tritsToTrytes(IOTA::Crypto::Signing::key(seed, index, security)));
   }
 }
 
@@ -59,13 +58,12 @@ TEST(SigningTest, Address) {
   std::string   line;
   ASSERT_TRUE(file.is_open());
   std::getline(file, line);
-  IOTA::Crypto::Signing s;
   while (std::getline(file, line)) {
     auto               semicolon    = line.find(';');
     auto               digests      = line.substr(0, semicolon);
     auto               address      = line.substr(semicolon + 1);
     IOTA::Types::Trits digestsTrits = IOTA::Types::trytesToTrits(digests);
-    IOTA::Types::Trits addressTrits = s.address(digestsTrits);
+    IOTA::Types::Trits addressTrits = IOTA::Crypto::Signing::address(digestsTrits);
     EXPECT_EQ(address, IOTA::Types::tritsToTrytes(addressTrits));
   }
 }
@@ -75,13 +73,12 @@ TEST(SigningTest, Digests) {
   std::string   line;
   ASSERT_TRUE(file.is_open());
   std::getline(file, line);
-  IOTA::Crypto::Signing s;
   while (std::getline(file, line)) {
     auto               semicolon    = line.find(';');
     auto               key          = line.substr(0, semicolon);
     auto               digests      = line.substr(semicolon + 1);
     IOTA::Types::Trits keyTrits     = IOTA::Types::trytesToTrits(key);
-    IOTA::Types::Trits digestsTrits = s.digests(keyTrits);
+    IOTA::Types::Trits digestsTrits = IOTA::Crypto::Signing::digests(keyTrits);
     EXPECT_EQ(digests, IOTA::Types::tritsToTrytes(digestsTrits));
   }
 }
@@ -91,7 +88,6 @@ TEST(SigningTest, SignatureFragments) {
   std::string   line;
   ASSERT_TRUE(file.is_open());
   std::getline(file, line);
-  IOTA::Crypto::Signing s;
   while (std::getline(file, line)) {
     auto semicolon        = line.find(';');
     auto keyTrytes        = line.substr(0, semicolon);
@@ -109,10 +105,10 @@ TEST(SigningTest, SignatureFragments) {
     IOTA::Models::Bundle bundle;
     auto                 normalizedBundleHash = bundle.normalizedBundle(bundleHashTrytes);
     auto                 keyTrits             = IOTA::Types::trytesToTrits(keyTrytes);
-    auto                 sign0Trits           = s.signatureFragment(
+    auto                 sign0Trits           = IOTA::Crypto::Signing::signatureFragment(
         std::vector<int8_t>{ &normalizedBundleHash[0], &normalizedBundleHash[27] },
         std::vector<int8_t>{ &keyTrits[0], &keyTrits[6561] });
-    auto sign1Trits = s.signatureFragment(
+    auto sign1Trits = IOTA::Crypto::Signing::signatureFragment(
         std::vector<int8_t>{ &normalizedBundleHash[27], &normalizedBundleHash[27 * 2] },
         std::vector<int8_t>{ &keyTrits[6561], &keyTrits[6561 * 2] });
     EXPECT_EQ(sign0Trytes, IOTA::Types::tritsToTrytes(sign0Trits));
@@ -125,7 +121,6 @@ TEST(SigningTest, ValidateSignatures) {
   std::string   line;
   ASSERT_TRUE(file.is_open());
   std::getline(file, line);
-  IOTA::Crypto::Signing s;
   while (std::getline(file, line)) {
     auto semicolon  = line.find(';');
     auto addr       = line.substr(0, semicolon);
@@ -145,7 +140,7 @@ TEST(SigningTest, ValidateSignatures) {
 
     IOTA::Models::Bundle bundle;
     auto                 normalizedBundleHash = bundle.normalizedBundle(bundleHash);
-    auto                 res = s.validateSignatures(addr, { sign0, sign1 }, bundleHash);
+    auto res = IOTA::Crypto::Signing::validateSignatures(addr, { sign0, sign1 }, bundleHash);
     EXPECT_EQ(static_cast<int>(res), std::stoi(valid));
   }
 }
