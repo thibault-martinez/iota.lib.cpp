@@ -25,7 +25,6 @@
 
 #pragma once
 
-#include <iota/crypto/kerl.hpp>
 #include <iota/crypto/sponge_factory.hpp>
 
 namespace IOTA {
