@@ -1,4 +1,4 @@
-
+//
 // MIT License
 //
 // Copyright (c) 2017 Thibault Martinez
@@ -34,7 +34,14 @@ namespace Models {
 
 class Transaction {
 public:
-  Transaction()  = default;
+  /**
+   * default ctor
+   */
+  Transaction();
+
+  /**
+   * default dtor
+   */
   ~Transaction() = default;
 
   /**
