@@ -34,19 +34,75 @@ namespace IOTA {
 
 namespace Crypto {
 
+/**
+ * Signing related functions.
+ */
 namespace Signing {
 
+/**
+ * Derive a private key from a seed.
+ *
+ * @param seed The seed.
+ * @param index The index of the key.
+ * @param security The security level of the key.
+ *
+ * @return The key as trits.
+ */
 Types::Trits key(const Types::Trytes& seed, const unsigned int& index = 0,
                  const unsigned int& security = 1);
+
+/**
+ * Compute hash x normalizedBundleFragment[i] for each fragment in the signature.
+ *
+ * @param normalizedBundleFragment The bundle fragment.
+ * @param signatureFragment The signature fragment.
+ *
+ * @return The digest.
+ */
 Types::Trits digest(const std::vector<int8_t>& normalizedBundleFragment,
                     const Types::Trits&        signatureFragment);
+
+/**
+ * Compute digests from key.
+ *
+ * @param key The key.
+ *
+ * @return The digests.
+ */
 Types::Trits digests(const Types::Trits& key);
+
+/**
+ * Compute address from digests.
+ *
+ * @param digests The digests.
+ *
+ * @return The address.
+ */
 Types::Trits address(const Types::Trits& digests);
+
+/**
+ * Compute signature from bundle fragment and key fragment.
+ *
+ * @param normalizedBundleFragment The bundle fragment.
+ * @param keyFragment The key fragment.
+ *
+ * @return The signature fragment.
+ */
 Types::Trits signatureFragment(const std::vector<int8_t>& normalizedBundleFragment,
                                const Types::Trits&        keyFragment);
-bool         validateSignatures(const Types::Trytes&              expectedAddress,
-                                const std::vector<Types::Trytes>& signatureFragments,
-                                const Types::Trytes&              bundleHash);
+
+/**
+ * Validate signature fragments.
+ *
+ * @param expectedAddress The expected address.
+ * @param signatureFragments The signature fragments.
+ * @param bundleHash The bundle hash.
+ *
+ * @return whether signature fragment are valid or not.
+ */
+bool validateSignatures(const Types::Trytes&              expectedAddress,
+                        const std::vector<Types::Trytes>& signatureFragments,
+                        const Types::Trytes&              bundleHash);
 
 };  // namespace Signing
 
