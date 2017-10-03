@@ -59,7 +59,9 @@ Curl::absorb(const Types::Trits& trits, unsigned int offset, unsigned int length
   }
 
   do {
-    arrayCopy(trits, state_, offset, length < TritHashLength ? length : TritHashLength);
+    arrayCopy<int8_t>(trits.cbegin() + offset, state_.begin(),
+                      length < TritHashLength ? length : TritHashLength);
+
     transform();
     offset += TritHashLength;
   } while ((length -= TritHashLength) > 0);
@@ -76,7 +78,9 @@ Curl::squeeze(Types::Trits& trits, unsigned int offset, unsigned int length) {
   }
 
   do {
-    arrayCopy(state_, trits, offset, length < TritHashLength ? length : TritHashLength);
+    arrayCopy<int8_t>(state_.cbegin(), trits.begin() + offset,
+                      length < TritHashLength ? length : TritHashLength);
+
     transform();
     offset += TritHashLength;
   } while ((length -= TritHashLength) > 0);
@@ -98,7 +102,7 @@ Curl::transform() {
   int prev_scratchpadIndex = 0;
 
   for (int round = 0; round < NumberOfRounds; round++) {
-    arrayCopy(state_, scratchpad_, 0, StateLength);
+    arrayCopy<int8_t>(state_.cbegin(), scratchpad_.begin(), StateLength);
 
     for (int stateIndex = 0; stateIndex < StateLength; stateIndex++) {
       prev_scratchpadIndex = scratchpadIndex;
@@ -115,8 +119,8 @@ Curl::pairTransform() {
   int scratchpadIndex = 0;
 
   for (int round = 0; round < NumberOfRounds; round++) {
-    arrayCopy(stateLow_, scratchpadLow_, 0, StateLength);
-    arrayCopy(stateHigh_, scratchpadHigh_, 0, StateLength);
+    arrayCopy<int64_t>(stateLow_.cbegin(), scratchpadLow_.begin(), StateLength);
+    arrayCopy<int64_t>(stateHigh_.cbegin(), scratchpadHigh_.begin(), StateLength);
 
     for (int stateIndex = 0; stateIndex < StateLength; stateIndex++) {
       int64_t alpha = scratchpadLow_[scratchpadIndex];
@@ -134,8 +138,12 @@ void
 Curl::absorb(const std::vector<int64_t>& rawLowTrits, const std::vector<int64_t>& rawHighTrits,
              int offset, unsigned int length) {
   do {
-    arrayCopy(rawLowTrits, stateLow_, offset, length < TritHashLength ? length : TritHashLength);
-    arrayCopy(rawHighTrits, stateHigh_, offset, length < TritHashLength ? length : TritHashLength);
+    arrayCopy<int64_t>(rawLowTrits.cbegin() + offset, stateLow_.begin(),
+                       length < TritHashLength ? length : TritHashLength);
+
+    arrayCopy<int64_t>(rawHighTrits.cbegin() + offset, stateHigh_.begin(),
+                       length < TritHashLength ? length : TritHashLength);
+
     pairTransform();
     offset += TritHashLength;
   } while ((length -= TritHashLength) > 0);
@@ -145,8 +153,12 @@ void
 Curl::squeeze(std::vector<int64_t>& rawLowTrits, std::vector<int64_t>& rawHighTrits, int offset,
               unsigned int length) {
   do {
-    arrayCopy(stateLow_, rawLowTrits, offset, length < TritHashLength ? length : TritHashLength);
-    arrayCopy(stateHigh_, rawHighTrits, offset, length < TritHashLength ? length : TritHashLength);
+    arrayCopy<int64_t>(stateLow_.cbegin(), rawLowTrits.begin() + offset,
+                       length < TritHashLength ? length : TritHashLength);
+
+    arrayCopy<int64_t>(stateHigh_.cbegin(), rawHighTrits.begin() + offset,
+                       length < TritHashLength ? length : TritHashLength);
+
     pairTransform();
     offset += TritHashLength;
   } while ((length -= TritHashLength) > 0);
