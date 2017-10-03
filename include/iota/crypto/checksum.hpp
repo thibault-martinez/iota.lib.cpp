@@ -32,7 +32,7 @@ namespace IOTA {
 namespace Crypto {
 
 /**
- * Defines utility methods to add/remove the checksum to/from an address.
+ * Defines utility functions to add/remove the checksum to/from an address.
  */
 namespace Checksum {
 
