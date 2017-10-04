@@ -138,6 +138,15 @@ intToTrits(const int& value) {
   return trits;
 }
 
+Types::Trits
+intToTrits(const int& value, std::size_t length) {
+  auto res = intToTrits(value);
+
+  res.resize(length, 0);
+
+  return res;
+}
+
 bool
 isValidTrit(const int8_t& trit) {
   return trit == -1 or trit == 0 or trit == 1;

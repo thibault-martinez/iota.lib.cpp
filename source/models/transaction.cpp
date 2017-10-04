@@ -227,13 +227,13 @@ Transaction::operator!=(Transaction rhs) const {
 
 std::string
 Transaction::toTrytes() const {
-  auto value = IOTA::Types::tritsToTrytes(IOTA::Types::intToTrits(getValue()), SeedLength);
+  auto value = IOTA::Types::tritsToTrytes(IOTA::Types::intToTrits(getValue(), SeedLength));
   auto timestamp =
-      IOTA::Types::tritsToTrytes(IOTA::Types::intToTrits(getTimestamp()), TryteAlphabetLength);
+      IOTA::Types::tritsToTrytes(IOTA::Types::intToTrits(getTimestamp(), TryteAlphabetLength));
   auto currentIndex =
-      IOTA::Types::tritsToTrytes(IOTA::Types::intToTrits(getCurrentIndex()), TryteAlphabetLength);
+      IOTA::Types::tritsToTrytes(IOTA::Types::intToTrits(getCurrentIndex(), TryteAlphabetLength));
   auto lastIndex =
-      IOTA::Types::tritsToTrytes(IOTA::Types::intToTrits(getLastIndex()), TryteAlphabetLength);
+      IOTA::Types::tritsToTrytes(IOTA::Types::intToTrits(getLastIndex(), TryteAlphabetLength));
 
   return getSignatureFragments() + getAddress() + value + getTag() + timestamp + currentIndex +
          lastIndex + getBundle() + getTrunkTransaction() + getBranchTransaction() + getNonce();
@@ -267,15 +267,16 @@ Transaction::initFromTrytes(const std::string& trytes) {
   setHash(IOTA::Types::tritsToTrytes(hash));
   //! Signature
   setSignatureFragments(
-      trytes.substr(SignatureFragmentsOffset.first, SignatureFragmentsOffset.second));
+      trytes.substr(SignatureFragmentsOffset.first,
+                    SignatureFragmentsOffset.second - SignatureFragmentsOffset.first));
   //! Address
-  setAddress(trytes.substr(AddressOffset.first, AddressOffset.second));
+  setAddress(trytes.substr(AddressOffset.first, AddressOffset.second - AddressOffset.first));
   //! Value
   setValue(IOTA::Types::tritsToInt<int64_t>(IOTA::Types::Trits(
       std::vector<int8_t>{ std::begin(transactionTrits) + ValueOffset.first,
                            std::begin(transactionTrits) + ValueOffset.second })));
   //! Tag
-  setTag(trytes.substr(TagOffset.first, TagOffset.second));
+  setTag(trytes.substr(TagOffset.first, TagOffset.second - TagOffset.first));
   //! Timestamp
   setTimestamp(IOTA::Types::tritsToInt<int64_t>(IOTA::Types::Trits(
       std::vector<int8_t>{ std::begin(transactionTrits) + TimestampOffset.first,
@@ -289,13 +290,13 @@ Transaction::initFromTrytes(const std::string& trytes) {
       std::vector<int8_t>{ std::begin(transactionTrits) + LastIndexOffset.first,
                            std::begin(transactionTrits) + LastIndexOffset.second })));
   //! Bundle
-  setBundle(trytes.substr(BundleOffset.first, BundleOffset.second));
+  setBundle(trytes.substr(BundleOffset.first, BundleOffset.second - BundleOffset.first));
   //! Trunk Transaction
-  setTrunkTransaction(trytes.substr(TrunkOffset.first, TrunkOffset.second));
+  setTrunkTransaction(trytes.substr(TrunkOffset.first, TrunkOffset.second - TrunkOffset.first));
   //! Branch Transaction
-  setBranchTransaction(trytes.substr(BranchOffset.first, BranchOffset.second));
+  setBranchTransaction(trytes.substr(BranchOffset.first, BranchOffset.second - BranchOffset.first));
   //! Nonce
-  setNonce(trytes.substr(NonceOffset.first, NonceOffset.second));
+  setNonce(trytes.substr(NonceOffset.first, NonceOffset.second - NonceOffset.first));
 }
 
 }  // namespace Models

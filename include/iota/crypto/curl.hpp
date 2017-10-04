@@ -28,9 +28,9 @@
 #include <algorithm>
 #include <vector>
 
+#include <iota/constants.hpp>
 #include <iota/crypto/i_sponge.hpp>
 #include <iota/types/trinary.hpp>
-#include <iota/constants.hpp>
 
 namespace IOTA {
 
@@ -117,9 +117,9 @@ private:
    * @ length number of bytes to copy
    */
   template <typename T>
-  void arrayCopy(const std::vector<T>& input, std::vector<T>& output, int offset, int length) {
-    std::transform(input.cbegin(), input.cbegin() + length, output.begin() + offset,
-                   [](T c) { return c; });
+  void arrayCopy(const typename std::vector<T>::const_iterator& input,
+                 const typename std::vector<T>::iterator& output, int length) {
+    std::transform(input, input + length, output, [](T c) { return c; });
   }
 
 private:
