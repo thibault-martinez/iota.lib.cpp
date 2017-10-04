@@ -44,10 +44,11 @@ const std::pair<int, int> Transaction::TrunkOffset              = { 2430, 2511 }
 const std::pair<int, int> Transaction::BranchOffset             = { 2511, 2592 };
 const std::pair<int, int> Transaction::NonceOffset              = { 2592, 2673 };
 
-Transaction::Transaction() : value_(0), timestamp_(0), currentIndex_(0), lastIndex_(0) {
+Transaction::Transaction()
+    : value_(0), timestamp_(0), currentIndex_(0), lastIndex_(0), persistence_(false) {
 }
 
-Transaction::Transaction(const std::string& trytes) {
+Transaction::Transaction(const std::string& trytes) : persistence_(false) {
   initFromTrytes(trytes);
 }
 
@@ -67,7 +68,8 @@ Transaction::Transaction(const std::string& signatureFragments, int64_t currentI
       bundle_(bundle),
       trunkTransaction_(trunkTransaction),
       branchTransaction_(branchTransaction),
-      nonce_(nonce) {
+      nonce_(nonce),
+      persistence_(false) {
 }
 
 Transaction::Transaction(const std::string& address, int64_t value, const std::string& tag,
