@@ -79,7 +79,8 @@ Transaction::Transaction(const std::string& address, int64_t value, const std::s
       tag_(tag),
       timestamp_(timestamp),
       currentIndex_(0),
-      lastIndex_(0) {
+      lastIndex_(0),
+      persistence_(false) {
 }
 
 bool
