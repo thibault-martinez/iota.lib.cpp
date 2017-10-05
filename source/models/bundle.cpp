@@ -86,13 +86,13 @@ Bundle::finalize(const std::shared_ptr<IOTA::Crypto::ISponge>& customSponge) {
     trx.setCurrentIndex(i);
     trx.setLastIndex(transactions_.size() - 1);
 
-    auto value = IOTA::Types::tritsToTrytes(IOTA::Types::intToTrits(trx.getValue()), SeedLength);
-    auto timestamp      = IOTA::Types::tritsToTrytes(IOTA::Types::intToTrits(trx.getTimestamp()),
-                                                TryteAlphabetLength);
-    auto currentIndex   = IOTA::Types::tritsToTrytes(IOTA::Types::intToTrits(trx.getCurrentIndex()),
-                                                   TryteAlphabetLength);
-    auto lastIndexTrits = IOTA::Types::tritsToTrytes(IOTA::Types::intToTrits(trx.getLastIndex()),
-                                                     TryteAlphabetLength);
+    auto value = IOTA::Types::tritsToTrytes(IOTA::Types::intToTrits(trx.getValue(), SeedLength));
+    auto timestamp = IOTA::Types::tritsToTrytes(
+        IOTA::Types::intToTrits(trx.getTimestamp(), TryteAlphabetLength));
+    auto currentIndex = IOTA::Types::tritsToTrytes(
+        IOTA::Types::intToTrits(trx.getCurrentIndex(), TryteAlphabetLength));
+    auto lastIndexTrits = IOTA::Types::tritsToTrytes(
+        IOTA::Types::intToTrits(trx.getLastIndex(), TryteAlphabetLength));
 
     auto t = IOTA::Types::trytesToTrits(trx.getAddress() + value + trx.getTag() + timestamp +
                                         currentIndex + lastIndexTrits);
