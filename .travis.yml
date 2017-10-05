@@ -25,8 +25,6 @@
 
 language: cpp
 
-dist: trusty
-
 compiler:
   - gcc
   - clang
@@ -39,10 +37,6 @@ os:
   - linux
   - osx
 
-branches:
-  only:
-    - master
-
 addons:
   apt:
     sources:
@@ -51,7 +45,6 @@ addons:
       - gcc-4.9
       - g++-4.9
       - clang
-      - cmake3
       - lcov
 
 before_install:
@@ -59,8 +52,6 @@ before_install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install llvm --with-clang; fi
 
 install:
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install ccache; fi
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then export PATH="/usr/local/opt/ccache/libexec:$PATH"; fi
   - if [ "$CXX" = "g++" ]; then export CXX="g++-4.9" CC="gcc-4.9"; fi
   - if [ ! -d $TRAVIS_BUILD_DIR/boost_includes/boost ]; then curl -OL https://dl.bintray.com/boostorg/release/1.64.0/source/boost_1_64_0.tar.gz && tar xf boost_1_64_0.tar.gz && mkdir -p $TRAVIS_BUILD_DIR/boost_includes && cp -r boost_1_64_0/boost $TRAVIS_BUILD_DIR/boost_includes; fi
   - export CXXFLAGS=-isystem\ $TRAVIS_BUILD_DIR/boost_includes
