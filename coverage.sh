@@ -1,16 +1,41 @@
 #!/bin/bash
 
-# Generate initial coverage information
-lcov -c -i -d . -o .coverage.base
+#
+# MIT License
+#
+# Copyright (c) 2017 Thibault Martinez
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+#
+#
+
+# Generate baseline coverage data file
+lcov --capture --initial --directory . --output-file coverage_base.info
 
 # Generate coverage based on executed tests
-lcov -c -d . -o .coverage.run
+lcov --capture --directory . --output-file coverage_test.info
 
 # Merge coverage tracefiles
-lcov -a .coverage.base -a .coverage.run  -o .coverage.info
+lcov --add-tracefile coverage_base.info --add-tracefile coverage_test.info --output-file coverage_merge.info
 
-# Filtering, extracting project files
-lcov -e .coverage.info "`pwd`/source/*" "`pwd`/include/*" -o .coverage.info
+# Removing unwanted files from coverage
+lcov --remove coverage_merge.info "`pwd`/external/*" "`pwd`/test/*" "/include/*" "/usr/*" -o coverage.info
 
 # Upload coverage
 bash <(curl -s https://codecov.io/bash) || echo "Codecov did not collect coverage reports"

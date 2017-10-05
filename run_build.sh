@@ -1,3 +1,5 @@
+#! /bin/bash
+
 #
 # MIT License
 #
@@ -22,8 +24,6 @@
 # SOFTWARE.
 #
 #
-
-#! /bin/bash
 
 RED='\033[0;31m' # Red
 BB='\033[0;34m'  # Blue
