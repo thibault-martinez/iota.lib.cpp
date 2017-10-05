@@ -29,8 +29,9 @@ compiler:
   - gcc
   - clang
 
-cache: ccache
-  directories:
+cache:
+  - ccache
+  - directories:
     - $TRAVIS_BUILD_DIR/boost_includes
 
 os:
