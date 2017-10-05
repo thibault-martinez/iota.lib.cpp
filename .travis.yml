@@ -62,7 +62,7 @@ install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install ccache; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then export PATH="/usr/local/opt/ccache/libexec:$PATH"; fi
   - if [ "$CXX" = "g++" ]; then export CXX="g++-4.9" CC="gcc-4.9"; fi
-  - if [ ! -d $TRAVIS_BUILD_DIR/boost_includes ]; then curl -OL https://dl.bintray.com/boostorg/release/1.64.0/source/boost_1_64_0.tar.gz && tar xf boost_1_64_0.tar.gz && mkdir $TRAVIS_BUILD_DIR/boost_includes && cp -r boost_1_64_0/boost $TRAVIS_BUILD_DIR/boost_includes; fi
+  - if [ ! -d $TRAVIS_BUILD_DIR/boost_includes/boost ]; then curl -OL https://dl.bintray.com/boostorg/release/1.64.0/source/boost_1_64_0.tar.gz && tar xf boost_1_64_0.tar.gz && mkdir $TRAVIS_BUILD_DIR/boost_includes && cp -r boost_1_64_0/boost $TRAVIS_BUILD_DIR/boost_includes; fi
   - export CXXFLAGS=-isystem\ $TRAVIS_BUILD_DIR/boost_includes
 
 script: ./run_build.sh
