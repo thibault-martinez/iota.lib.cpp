@@ -62,8 +62,9 @@ install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install ccache; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then export PATH="/usr/local/opt/ccache/libexec:$PATH"; fi
   - if [ "$CXX" = "g++" ]; then export CXX="g++-4.9" CC="gcc-4.9"; fi
-  - if [ ! -d $TRAVIS_BUILD_DIR/boost_1_64_0 ]; then curl -OL https://dl.bintray.com/boostorg/release/1.64.0/source/boost_1_64_0.tar.gz && tar xf boost_1_64_0.tar.gz && cd boost_1_64_0 && ./bootstrap.sh && cd ..; fi
-  - cd boost_1_64_0 && sudo ./b2 install -d0 && cd ..
+  - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then if [ ! -d $TRAVIS_BUILD_DIR/boost_1_64_0 ]; then curl -OL https://dl.bintray.com/boostorg/release/1.64.0/source/boost_1_64_0.tar.gz && tar xf boost_1_64_0.tar.gz && cd boost_1_64_0 && ./bootstrap.sh && cd ..; fi; fi
+  - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then cd boost_1_64_0 && sudo ./b2 install -d0 && cd ..; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then HOMEBREW_VERBOSE_USING_DOTS=1 brew install --verbose boost --c++11 --without-single --without-static; fi
 
 script: ./run_build.sh
 
