@@ -65,48 +65,11 @@ public:
    */
   void squeeze(IOTA::Types::Trits& trits, unsigned int offset = 0, unsigned int length = 0);
 
-  /**
-   * absorb the input into the current state
-   *
-   * @param lowTrists input trists to be applied (absorbed) on current state
-   * @param highTrists input trists to be applied (absorbed) on current state
-   * @param offset offset at which the current state should be modified
-   * @param length length of the given input that should be used for absorption
-   */
-  void absorb(const std::vector<int64_t>& lowTrits, const std::vector<int64_t>& highTrits,
-              int offset, unsigned int length);
-
-  /**
-   * squeeze the current state to the given input/output
-   *
-   * @param lowTrists input trists to be applied (absorbed) on current state
-   * @param highTrists input trists to be applied (absorbed) on current state
-   * @param offset offset at which the input trists should be modified
-   * @param length length of the current state that should be used for squeezing
-   */
-  void squeeze(std::vector<int64_t>& lowTrits, std::vector<int64_t>& highTrits, int offset,
-               unsigned int length);
-
-  /**
-   * @return current state of the sponge fonction
-   */
-  IOTA::Types::Trits getState() const;
-
-  /**
-   * @return current paired state of the sponge fonction
-   */
-  std::pair<std::vector<int64_t>, std::vector<int64_t>> getPairedState() const;
-
 private:
   /**
    * Apply sponge fonction transformation algorithm during absorption/squeezing
    */
   void transform();
-
-  /**
-   * Same as transform, but for pair-curl
-   */
-  void pairTransform();
 
   /**
    * Copy input[0, length] to output[offset, offset+length]
@@ -131,12 +94,12 @@ private:
   /**
    * Constant: number of round for transform algorithm
    */
-  static const int32_t NumberOfRounds = 27;
+  static const int32_t NumberOfRounds = 81;
 
   /**
    * Constant: truth table for conversions in transform
    */
-  static constexpr int TruthTable[] = { 1, 0, -1, 2, 1, -1, 0, 2, -1, 1, 0 };
+  static int TruthTable[];
 
 private:
   /**
@@ -145,29 +108,9 @@ private:
   std::vector<int8_t> state_;
 
   /**
-   * state low for pair transformation
-   */
-  std::vector<int64_t> stateLow_;
-
-  /**
-   * state high for pair transformation
-   */
-  std::vector<int64_t> stateHigh_;
-
-  /**
    * stratch pad for transformation
    */
   std::vector<int8_t> scratchpad_;
-
-  /**
-   * stratch pad for pair transformation
-   */
-  std::vector<int64_t> scratchpadLow_;
-
-  /**
-   * stratch pad for pair transformation
-   */
-  std::vector<int64_t> scratchpadHigh_;
 };
 
 }  // namespace Crypto

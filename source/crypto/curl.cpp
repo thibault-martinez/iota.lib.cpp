@@ -30,22 +30,14 @@ namespace IOTA {
 
 namespace Crypto {
 
-constexpr int Curl::TruthTable[];
+int Curl::TruthTable[] = { 1, 0, -1, 2, 1, -1, 0, 2, -1, 1, 0 };
 
-Curl::Curl()
-    : state_(StateLength, 0),
-      stateLow_(StateLength, 0xFFFFFFFFFFFFFFFFL),
-      stateHigh_(StateLength, 0xFFFFFFFFFFFFFFFFL),
-      scratchpad_(StateLength, 0),
-      scratchpadLow_(StateLength, 0),
-      scratchpadHigh_(StateLength, 0) {
+Curl::Curl() : state_(StateLength, 0), scratchpad_(StateLength, 0) {
 }
 
 void
 Curl::reset() {
-  state_     = std::vector<int8_t>(StateLength, 0);
-  stateLow_  = std::vector<int64_t>(StateLength, 0xFFFFFFFFFFFFFFFFL);
-  stateHigh_ = std::vector<int64_t>(StateLength, 0xFFFFFFFFFFFFFFFFL);
+  state_ = std::vector<int8_t>(StateLength, 0);
 }
 
 void
@@ -63,6 +55,7 @@ Curl::absorb(const Types::Trits& trits, unsigned int offset, unsigned int length
                       length < TritHashLength ? length : TritHashLength);
 
     transform();
+
     offset += TritHashLength;
   } while ((length -= TritHashLength) > 0);
 }
@@ -82,18 +75,9 @@ Curl::squeeze(Types::Trits& trits, unsigned int offset, unsigned int length) {
                       length < TritHashLength ? length : TritHashLength);
 
     transform();
+
     offset += TritHashLength;
   } while ((length -= TritHashLength) > 0);
-}
-
-Types::Trits
-Curl::getState() const {
-  return Types::Trits{ state_ };
-}
-
-std::pair<std::vector<int64_t>, std::vector<int64_t>>
-Curl::getPairedState() const {
-  return { stateLow_, stateHigh_ };
 }
 
 void
@@ -112,56 +96,6 @@ Curl::transform() {
           TruthTable[scratchpad_[prev_scratchpadIndex] + (scratchpad_[scratchpadIndex] << 2) + 5];
     }
   }
-}
-
-void
-Curl::pairTransform() {
-  int scratchpadIndex = 0;
-
-  for (int round = 0; round < NumberOfRounds; round++) {
-    arrayCopy<int64_t>(stateLow_.cbegin(), scratchpadLow_.begin(), StateLength);
-    arrayCopy<int64_t>(stateHigh_.cbegin(), scratchpadHigh_.begin(), StateLength);
-
-    for (int stateIndex = 0; stateIndex < StateLength; stateIndex++) {
-      int64_t alpha = scratchpadLow_[scratchpadIndex];
-      int64_t beta  = scratchpadHigh_[scratchpadIndex];
-      int64_t gamma = scratchpadHigh_[scratchpadIndex += (scratchpadIndex < 365 ? 364 : -365)];
-      int64_t delta = (alpha | (~gamma)) & (scratchpadLow_[scratchpadIndex] ^ beta);
-
-      stateLow_[stateIndex]  = ~delta;
-      stateHigh_[stateIndex] = (alpha ^ gamma) | delta;
-    }
-  }
-}
-
-void
-Curl::absorb(const std::vector<int64_t>& rawLowTrits, const std::vector<int64_t>& rawHighTrits,
-             int offset, unsigned int length) {
-  do {
-    arrayCopy<int64_t>(rawLowTrits.cbegin() + offset, stateLow_.begin(),
-                       length < TritHashLength ? length : TritHashLength);
-
-    arrayCopy<int64_t>(rawHighTrits.cbegin() + offset, stateHigh_.begin(),
-                       length < TritHashLength ? length : TritHashLength);
-
-    pairTransform();
-    offset += TritHashLength;
-  } while ((length -= TritHashLength) > 0);
-}
-
-void
-Curl::squeeze(std::vector<int64_t>& rawLowTrits, std::vector<int64_t>& rawHighTrits, int offset,
-              unsigned int length) {
-  do {
-    arrayCopy<int64_t>(stateLow_.cbegin(), rawLowTrits.begin() + offset,
-                       length < TritHashLength ? length : TritHashLength);
-
-    arrayCopy<int64_t>(stateHigh_.cbegin(), rawHighTrits.begin() + offset,
-                       length < TritHashLength ? length : TritHashLength);
-
-    pairTransform();
-    offset += TritHashLength;
-  } while ((length -= TritHashLength) > 0);
 }
 
 }  // namespace Crypto

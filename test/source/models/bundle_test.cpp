@@ -197,6 +197,12 @@ TEST(Bundle, GteOperator) {
   EXPECT_EQ(gt_lhs >= gt_rhs, true);
 }
 
+//!
+//! Tests are based on real values (can be found on iota tangle explorer)
+//! Input are valid transactions
+//! Output is a valid bundle hash
+//!
+
 TEST(Bundle, Finalize) {
   IOTA::Models::Bundle b;
 
