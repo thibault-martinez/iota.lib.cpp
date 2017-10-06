@@ -78,153 +78,153 @@ GetNodeInfo::deserialize(const json& res) {
 
 const std::string&
 GetNodeInfo::getAppName() const {
-  return this->appName_;
+  return appName_;
 }
 
 void
 GetNodeInfo::setAppName(const std::string& appName) {
-  this->appName_ = appName;
+  appName_ = appName;
 }
 
 const std::string&
 GetNodeInfo::getAppVersion() const {
-  return this->appVersion_;
+  return appVersion_;
 }
 
 void
 GetNodeInfo::setAppVersion(const std::string& appVersion) {
-  this->appVersion_ = appVersion;
+  appVersion_ = appVersion;
 }
 
 const int64_t&
 GetNodeInfo::getJreAvailableProcessors() const {
-  return this->jreAvailableProcessors_;
+  return jreAvailableProcessors_;
 }
 
 void
 GetNodeInfo::setJreAvailableProcessors(const int64_t& jreAvailableProcessors) {
-  this->jreAvailableProcessors_ = jreAvailableProcessors;
+  jreAvailableProcessors_ = jreAvailableProcessors;
 }
 
 const int64_t&
 GetNodeInfo::getJreFreeMemory() const {
-  return this->jreFreeMemory_;
+  return jreFreeMemory_;
 }
 
 void
 GetNodeInfo::setJreFreeMemory(const int64_t& jreFreeMemory) {
-  this->jreFreeMemory_ = jreFreeMemory;
+  jreFreeMemory_ = jreFreeMemory;
 }
 
 const int64_t&
 GetNodeInfo::getJreMaxMemory() const {
-  return this->jreMaxMemory_;
+  return jreMaxMemory_;
 }
 
 void
 GetNodeInfo::setJreMaxMemory(const int64_t& jreMaxMemory) {
-  this->jreMaxMemory_ = jreMaxMemory;
+  jreMaxMemory_ = jreMaxMemory;
 }
 
 const int64_t&
 GetNodeInfo::getJreTotalMemory() const {
-  return this->jreTotalMemory_;
+  return jreTotalMemory_;
 }
 
 void
 GetNodeInfo::setJreTotalMemory(const int64_t& jreTotalMemory) {
-  this->jreTotalMemory_ = jreTotalMemory;
+  jreTotalMemory_ = jreTotalMemory;
 }
 
 const std::string&
 GetNodeInfo::getLatestMilestone() const {
-  return this->latestMilestone_;
+  return latestMilestone_;
 }
 
 void
 GetNodeInfo::setLatestMilestone(const std::string& latestMilestone) {
-  this->latestMilestone_ = latestMilestone;
+  latestMilestone_ = latestMilestone;
 }
 
 const int64_t&
 GetNodeInfo::getLatestMilestoneIndex() const {
-  return this->latestMilestoneIndex_;
+  return latestMilestoneIndex_;
 }
 
 void
 GetNodeInfo::setLatestMilestoneIndex(const int64_t& latestMilestoneIndex) {
-  this->latestMilestoneIndex_ = latestMilestoneIndex;
+  latestMilestoneIndex_ = latestMilestoneIndex;
 }
 
 const std::string&
 GetNodeInfo::getLatestSolidSubtangleMilestone() const {
-  return this->latestSolidSubtangleMilestone_;
+  return latestSolidSubtangleMilestone_;
 }
 
 void
 GetNodeInfo::setLatestSolidSubtangleMilestone(const std::string& latestSolidSubtangleMilestone) {
-  this->latestSolidSubtangleMilestone_ = latestSolidSubtangleMilestone;
+  latestSolidSubtangleMilestone_ = latestSolidSubtangleMilestone;
 }
 
 const int64_t&
 GetNodeInfo::getLatestSolidSubtangleMilestoneIndex() const {
-  return this->latestSolidSubtangleMilestoneIndex_;
+  return latestSolidSubtangleMilestoneIndex_;
 }
 
 void
 GetNodeInfo::setLatestSolidSubtangleMilestoneIndex(
     const int64_t& latestSolidSubtangleMilestoneIndex) {
-  this->latestSolidSubtangleMilestoneIndex_ = latestSolidSubtangleMilestoneIndex;
+  latestSolidSubtangleMilestoneIndex_ = latestSolidSubtangleMilestoneIndex;
 }
 
 const int64_t&
 GetNodeInfo::getNeighbors() const {
-  return this->neighbors_;
+  return neighbors_;
 }
 
 void
 GetNodeInfo::setNeighbors(const int64_t& neighbors) {
-  this->neighbors_ = neighbors;
+  neighbors_ = neighbors;
 }
 
 const int64_t&
 GetNodeInfo::getPacketsQueueSize() const {
-  return this->packetsQueueSize_;
+  return packetsQueueSize_;
 }
 
 void
 GetNodeInfo::setPacketsQueueSize(const int64_t& packetsQueueSize) {
-  this->packetsQueueSize_ = packetsQueueSize;
+  packetsQueueSize_ = packetsQueueSize;
 }
 
 const int64_t&
 GetNodeInfo::getTime() const {
-  return this->time_;
+  return time_;
 }
 
 void
 GetNodeInfo::setTime(const int64_t& time) {
-  this->time_ = time;
+  time_ = time;
 }
 
 const int64_t&
 GetNodeInfo::getTips() const {
-  return this->tips_;
+  return tips_;
 }
 
 void
 GetNodeInfo::setTips(const int64_t& tips) {
-  this->tips_ = tips;
+  tips_ = tips;
 }
 
 const int64_t&
 GetNodeInfo::getTransactionsToRequest() const {
-  return this->transactionsToRequest_;
+  return transactionsToRequest_;
 }
 
 void
 GetNodeInfo::setTransactionsToRequest(const int64_t& transactionsToRequest) {
-  this->transactionsToRequest_ = transactionsToRequest;
+  transactionsToRequest_ = transactionsToRequest;
 }
 
 }  // namespace Responses

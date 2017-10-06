@@ -39,39 +39,39 @@ GetBalances::GetBalances(const std::vector<std::string>& balances, const std::st
 void
 GetBalances::deserialize(const json& res) {
   Base::deserialize(res);
-  this->balances_       = res.at("balances").get<std::vector<std::string>>();
-  this->milestone_      = res.at("milestone").get<std::string>();
-  this->milestoneIndex_ = res.at("milestoneIndex").get<int64_t>();
+  balances_       = res.at("balances").get<std::vector<std::string>>();
+  milestone_      = res.at("milestone").get<std::string>();
+  milestoneIndex_ = res.at("milestoneIndex").get<int64_t>();
 }
 
 const std::vector<std::string>&
 GetBalances::getBalances() const {
-  return this->balances_;
+  return balances_;
 }
 
 void
 GetBalances::setBalances(const std::vector<std::string>& balances) {
-  this->balances_ = balances;
+  balances_ = balances;
 }
 
 const std::string&
 GetBalances::getMilestone() const {
-  return this->milestone_;
+  return milestone_;
 }
 
 void
 GetBalances::setMilestone(const std::string& milestone) {
-  this->milestone_ = milestone;
+  milestone_ = milestone;
 }
 
 const int64_t&
 GetBalances::getMilestoneIndex() const {
-  return this->milestoneIndex_;
+  return milestoneIndex_;
 }
 
 void
 GetBalances::setMilestoneIndex(const int64_t& milestoneIndex) {
-  this->milestoneIndex_ = milestoneIndex;
+  milestoneIndex_ = milestoneIndex;
 }
 
 }  // namespace Responses

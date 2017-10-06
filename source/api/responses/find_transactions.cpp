@@ -38,22 +38,22 @@ FindTransactions::FindTransactions(const std::vector<IOTA::Types::Trytes>& hashe
 void
 FindTransactions::deserialize(const json& res) {
   Base::deserialize(res);
-  this->hashes_ = res.at("hashes").get<std::vector<std::string>>();
+  hashes_ = res.at("hashes").get<std::vector<std::string>>();
 }
 
 const std::vector<std::string>&
 FindTransactions::getHashes() const {
-  return this->hashes_;
+  return hashes_;
 }
 
 std::vector<std::string>&
 FindTransactions::getHashes() {
-  return this->hashes_;
+  return hashes_;
 }
 
 void
 FindTransactions::setHashes(const std::vector<std::string>& hashes) {
-  this->hashes_ = hashes;
+  hashes_ = hashes;
 }
 
 }  // namespace Responses

@@ -156,21 +156,21 @@ isValidTrit(const int8_t& trit) {
 
 //
 // Trits::Trits(const std::vector<int8_t>& values) : values_(values) {
-//   if (this->isValid() == false)
+//   if (isValid() == false)
 //     throw std::exception();
 // }
 //
 //
 // bool
 // Trits::canTrytes() const {
-//   return this->values_.size() % 3 == 0;
+//   return values_.size() % 3 == 0;
 // }
 //
 //
 // bool
 // Trytes::isValid() const {
-//   return std::find_if_not(std::begin(this->values_), std::end(this->values_),
-//                           Trytes::isValidTryte) == std::end(this->values_);
+//   return std::find_if_not(std::begin(values_), std::end(values_),
+//                           Trytes::isValidTryte) == std::end(values_);
 // }
 //
 

@@ -44,10 +44,10 @@ AttachToTangle::AttachToTangle(const std::string& trunkTransaction,
 void
 AttachToTangle::serialize(json& data) {
   Base::serialize(data);
-  data["trunkTransaction"]   = this->trunkTransaction_;
-  data["branchTransaction"]  = this->branchTransaction_;
-  data["minWeightMagnitude"] = this->minWeightMagnitude_;
-  data["trytes"]             = this->trytes_;
+  data["trunkTransaction"]   = trunkTransaction_;
+  data["branchTransaction"]  = branchTransaction_;
+  data["minWeightMagnitude"] = minWeightMagnitude_;
+  data["trytes"]             = trytes_;
 }
 
 const std::string&

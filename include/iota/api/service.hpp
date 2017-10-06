@@ -49,7 +49,7 @@ public:
     json data;
     request.serialize(data);
 
-    auto url     = cpr::Url{ "http://" + this->host_ + ":" + std::to_string(this->port_) };
+    auto url     = cpr::Url{ "http://" + host_ + ":" + std::to_string(port_) };
     auto body    = cpr::Body{ data.dump() };
     auto headers = cpr::Header{ { "Content-Type", "text/json" },
                                 { "Content-Length", std::to_string(body.size()) } };

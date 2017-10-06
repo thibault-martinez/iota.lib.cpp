@@ -39,42 +39,42 @@ Input::Input(const IOTA::Types::Trytes& address, const int64_t& balance, const i
 
 const IOTA::Types::Trytes&
 Input::getAddress() const {
-  return this->address_;
+  return address_;
 }
 
 void
 Input::setAddress(const IOTA::Types::Trytes& addr) {
-  this->address_ = addr;
+  address_ = addr;
 }
 
 const int64_t&
 Input::getBalance() const {
-  return this->balance_;
+  return balance_;
 }
 
 void
 Input::setBalance(const int64_t& balance) {
-  this->balance_ = balance;
+  balance_ = balance;
 }
 
 const int32_t&
 Input::getKeyIndex() const {
-  return this->keyIndex_;
+  return keyIndex_;
 }
 
 void
 Input::setKeyIndex(const int32_t& keyIndex) {
-  this->keyIndex_ = keyIndex;
+  keyIndex_ = keyIndex;
 }
 
 const int32_t&
 Input::getSecurity() const {
-  return this->security_;
+  return security_;
 }
 
 void
 Input::setSecurity(const int32_t& security) {
-  this->security_ = security;
+  security_ = security;
 }
 
 }  // namespace Models

@@ -41,7 +41,7 @@ Kerl::~Kerl() {
 
 void
 Kerl::reset() {
-  this->keccak_.reset();
+  keccak_.reset();
 }
 
 void
@@ -57,7 +57,7 @@ Kerl::absorb(const Types::Trits& trits, unsigned int offset, unsigned int length
     tritsChunk.back() = 0;
     auto bytesChunk   = Types::tritsToBytes(tritsChunk);
 
-    this->keccak_.update(bytesChunk);
+    keccak_.update(bytesChunk);
     offset += TritHashLength;
   }
 }
@@ -69,14 +69,14 @@ Kerl::squeeze(Types::Trits& trits, unsigned int offset, unsigned int length) {
   if (length % TritHashLength != 0)
     throw Errors::Crypto("Kerl::squeeze failed : illegal length");
   while (offset < length) {
-    auto bytes = this->keccak_.squeeze();
+    auto bytes = keccak_.squeeze();
     trits      = Types::bytesToTrits(bytes);
 
     trits[TritHashLength - 1] = 0;
     std::transform(bytes.begin(), bytes.end(), bytes.begin(),
                    [](const int8_t& byte) { return byte ^ 0xFF; });
-    this->keccak_.reset();
-    this->keccak_.update(bytes);
+    keccak_.reset();
+    keccak_.update(bytes);
     offset += TritHashLength;
   }
 }

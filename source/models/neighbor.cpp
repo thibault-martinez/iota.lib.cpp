@@ -44,42 +44,42 @@ Neighbor::Neighbor(const IOTA::Types::Trytes& address, const int64_t& numberOfAl
 
 const IOTA::Types::Trytes&
 Neighbor::getAddress() const {
-  return this->address_;
+  return address_;
 }
 
 void
 Neighbor::setAddress(const IOTA::Types::Trytes& addr) {
-  this->address_ = addr;
+  address_ = addr;
 }
 
 const int64_t&
 Neighbor::getNumberOfAllTransactions() const {
-  return this->numberOfAllTransactions_;
+  return numberOfAllTransactions_;
 }
 
 void
 Neighbor::setNumberOfAllTransactions(const int64_t& nbTrx) {
-  this->numberOfAllTransactions_ = nbTrx;
+  numberOfAllTransactions_ = nbTrx;
 }
 
 const int64_t&
 Neighbor::getNumberOfInvalidTransactions() const {
-  return this->numberOfInvalidTransactions_;
+  return numberOfInvalidTransactions_;
 }
 
 void
 Neighbor::setNumberOfInvalidTransactions(const int64_t& nbTrx) {
-  this->numberOfInvalidTransactions_ = nbTrx;
+  numberOfInvalidTransactions_ = nbTrx;
 }
 
 const int64_t&
 Neighbor::getNumberOfNewTransactions() const {
-  return this->numberOfNewTransactions_;
+  return numberOfNewTransactions_;
 }
 
 void
 Neighbor::setNumberOfNewTransactions(const int64_t& nbTrx) {
-  this->numberOfNewTransactions_ = nbTrx;
+  numberOfNewTransactions_ = nbTrx;
 }
 
 }  // namespace Models

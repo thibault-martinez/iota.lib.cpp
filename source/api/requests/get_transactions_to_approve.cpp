@@ -38,7 +38,7 @@ GetTransactionsToApprove::GetTransactionsToApprove(const int& depth)
 void
 GetTransactionsToApprove::serialize(json& data) {
   Base::serialize(data);
-  data["depth"] = this->depth_;
+  data["depth"] = depth_;
 }
 
 int

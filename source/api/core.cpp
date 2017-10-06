@@ -51,27 +51,27 @@ Core::~Core() {
 
 Responses::GetNodeInfo
 Core::getNodeInfo() const {
-  return this->service_.request<Requests::GetNodeInfo, Responses::GetNodeInfo>();
+  return service_.request<Requests::GetNodeInfo, Responses::GetNodeInfo>();
 }
 
 Responses::GetNeighbors
 Core::getNeighbors() const {
-  return this->service_.request<Requests::GetNeighbors, Responses::GetNeighbors>();
+  return service_.request<Requests::GetNeighbors, Responses::GetNeighbors>();
 }
 
 Responses::AddNeighbors
 Core::addNeighbors(const std::vector<std::string>& uris) const {
-  return this->service_.request<Requests::AddNeighbors, Responses::AddNeighbors>(uris);
+  return service_.request<Requests::AddNeighbors, Responses::AddNeighbors>(uris);
 }
 
 Responses::RemoveNeighbors
 Core::removeNeighbors(const std::vector<std::string>& uris) const {
-  return this->service_.request<Requests::RemoveNeighbors, Responses::RemoveNeighbors>(uris);
+  return service_.request<Requests::RemoveNeighbors, Responses::RemoveNeighbors>(uris);
 }
 
 Responses::GetTips
 Core::getTips() const {
-  return this->service_.request<Requests::GetTips, Responses::GetTips>();
+  return service_.request<Requests::GetTips, Responses::GetTips>();
 }
 
 Responses::FindTransactions
@@ -79,54 +79,54 @@ Core::findTransactions(const std::vector<Types::Trytes>& addresses,
                        const std::vector<Types::Trytes>& digests,
                        const std::vector<Types::Trytes>& approvees,
                        const std::vector<Types::Trytes>& bundles) const {
-  return this->service_.request<Requests::FindTransactions, Responses::FindTransactions>(
+  return service_.request<Requests::FindTransactions, Responses::FindTransactions>(
       addresses, digests, approvees, bundles);
 }
 
 Responses::GetTrytes
 Core::getTrytes(const std::vector<std::string>& hashes) const {
-  return this->service_.request<Requests::GetTrytes, Responses::GetTrytes>(hashes);
+  return service_.request<Requests::GetTrytes, Responses::GetTrytes>(hashes);
 }
 
 Responses::GetInclusionStates
 Core::getInclusionStates(const std::vector<std::string>& transactions,
                          const std::vector<std::string>& tips) const {
-  return this->service_.request<Requests::GetInclusionStates, Responses::GetInclusionStates>(
+  return service_.request<Requests::GetInclusionStates, Responses::GetInclusionStates>(
       transactions, tips);
 }
 
 Responses::GetBalances
 Core::getBalances(const std::vector<std::string>& addresses, const int& threshold) const {
-  return this->service_.request<Requests::GetBalances, Responses::GetBalances>(addresses,
+  return service_.request<Requests::GetBalances, Responses::GetBalances>(addresses,
                                                                                threshold);
 }
 
 Responses::GetTransactionsToApprove
 Core::getTransactionsToApprove(const int& depth) const {
-  return this->service_
+  return service_
       .request<Requests::GetTransactionsToApprove, Responses::GetTransactionsToApprove>(depth);
 }
 
 Responses::AttachToTangle
 Core::attachToTangle(const std::string& trunkTransaction, const std::string& branchTransaction,
                      const int& minWeightMagnitude, const std::vector<std::string>& trytes) const {
-  return this->service_.request<Requests::AttachToTangle, Responses::AttachToTangle>(
+  return service_.request<Requests::AttachToTangle, Responses::AttachToTangle>(
       trunkTransaction, branchTransaction, minWeightMagnitude, trytes);
 }
 
 Responses::Base
 Core::interruptAttachingToTangle() const {
-  return this->service_.request<Requests::InterruptAttachingToTangle, Responses::Base>();
+  return service_.request<Requests::InterruptAttachingToTangle, Responses::Base>();
 }
 
 Responses::Base
 Core::broadcastTransactions(const std::vector<Types::Trytes>& trytes) const {
-  return this->service_.request<Requests::BroadcastTransactions, Responses::Base>(trytes);
+  return service_.request<Requests::BroadcastTransactions, Responses::Base>(trytes);
 }
 
 Responses::Base
 Core::storeTransactions(const std::vector<Types::Trytes>& trytes) const {
-  return this->service_.request<Requests::StoreTransactions, Responses::Base>(trytes);
+  return service_.request<Requests::StoreTransactions, Responses::Base>(trytes);
 }
 
 }  // namespace API

@@ -39,28 +39,28 @@ GetTransactionsToApprove::GetTransactionsToApprove(const std::string& trunkTrans
 void
 GetTransactionsToApprove::deserialize(const json& res) {
   Base::deserialize(res);
-  this->trunkTransaction_  = res.at("trunkTransaction").get<std::string>();
-  this->branchTransaction_ = res.at("branchTransaction").get<std::string>();
+  trunkTransaction_  = res.at("trunkTransaction").get<std::string>();
+  branchTransaction_ = res.at("branchTransaction").get<std::string>();
 }
 
 const std::string&
 GetTransactionsToApprove::getTrunkTransaction() const {
-  return this->trunkTransaction_;
+  return trunkTransaction_;
 }
 
 void
 GetTransactionsToApprove::setTrunkTransaction(const std::string& trunkTransaction) {
-  this->trunkTransaction_ = trunkTransaction;
+  trunkTransaction_ = trunkTransaction;
 }
 
 const std::string&
 GetTransactionsToApprove::getBranchTransaction() const {
-  return this->branchTransaction_;
+  return branchTransaction_;
 }
 
 void
 GetTransactionsToApprove::setBranchTransaction(const std::string& branchTransaction) {
-  this->branchTransaction_ = branchTransaction;
+  branchTransaction_ = branchTransaction;
 }
 
 }  // namespace Responses
