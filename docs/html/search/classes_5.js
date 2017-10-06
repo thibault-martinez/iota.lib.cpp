@@ -10,7 +10,7 @@ var searchData=
   ['getnewaddresses',['GetNewAddresses',['../class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_new_addresses.html',1,'IOTA::API::Responses']]],
   ['getnodeinfo',['GetNodeInfo',['../class_i_o_t_a_1_1_a_p_i_1_1_requests_1_1_get_node_info.html',1,'IOTA::API::Requests::GetNodeInfo'],['../class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_node_info.html',1,'IOTA::API::Responses::GetNodeInfo']]],
   ['gettips',['GetTips',['../class_i_o_t_a_1_1_a_p_i_1_1_requests_1_1_get_tips.html',1,'IOTA::API::Requests::GetTips'],['../class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_tips.html',1,'IOTA::API::Responses::GetTips']]],
-  ['gettransactionstoapprove',['GetTransactionsToApprove',['../class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_transactions_to_approve.html',1,'IOTA::API::Responses::GetTransactionsToApprove'],['../class_i_o_t_a_1_1_a_p_i_1_1_requests_1_1_get_transactions_to_approve.html',1,'IOTA::API::Requests::GetTransactionsToApprove']]],
+  ['gettransactionstoapprove',['GetTransactionsToApprove',['../class_i_o_t_a_1_1_a_p_i_1_1_requests_1_1_get_transactions_to_approve.html',1,'IOTA::API::Requests::GetTransactionsToApprove'],['../class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_transactions_to_approve.html',1,'IOTA::API::Responses::GetTransactionsToApprove']]],
   ['gettransfers',['GetTransfers',['../class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_transfers.html',1,'IOTA::API::Responses']]],
   ['gettrytes',['GetTrytes',['../class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_trytes.html',1,'IOTA::API::Responses::GetTrytes'],['../class_i_o_t_a_1_1_a_p_i_1_1_requests_1_1_get_trytes.html',1,'IOTA::API::Requests::GetTrytes']]]
 ];
