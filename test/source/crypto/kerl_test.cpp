@@ -31,7 +31,7 @@
 #include <iota/errors/crypto.hpp>
 #include <test/utils/dependencies.hpp>
 
-TEST(KerlTest, Exceptions) {
+TEST(Kerl, Exceptions) {
   IOTA::Crypto::Kerl k;
   IOTA::Types::Trits trits = IOTA::Types::trytesToTrits(
       "GYOMKVTSNHVJNCNFBBAH9AAMXLPLLLROQY99QN9DLSJUHDPBLCFFAIQXZA9BKMBJCYSFHFPXAHDWZFEIZ");
@@ -41,7 +41,7 @@ TEST(KerlTest, Exceptions) {
   EXPECT_THROW(k.squeeze(trits, 0, 42), IOTA::Errors::Crypto);
 }
 
-TEST(KerlTest, TrytesAndHashes) {
+TEST(Kerl, TrytesAndHashes) {
   std::ifstream file(get_deps_folder() + "/kerlTrytesAndHashes");
   std::string   line;
   ASSERT_TRUE(file.is_open());
@@ -59,7 +59,7 @@ TEST(KerlTest, TrytesAndHashes) {
   }
 }
 
-TEST(KerlTest, MultiTrytesAndHash) {
+TEST(Kerl, MultiTrytesAndHash) {
   std::ifstream file(get_deps_folder() + "/kerlMultiTrytesAndHash");
   std::string   line;
   ASSERT_TRUE(file.is_open());
@@ -77,7 +77,7 @@ TEST(KerlTest, MultiTrytesAndHash) {
   }
 }
 
-TEST(KerlTest, TrytesAndMultiSqueeze) {
+TEST(Kerl, TrytesAndMultiSqueeze) {
   std::ifstream file(get_deps_folder() + "/kerlTrytesAndMultiSqueeze");
   std::string   line;
   ASSERT_TRUE(file.is_open());

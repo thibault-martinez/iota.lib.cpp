@@ -38,8 +38,27 @@ public:
   virtual ~Kerl();
 
 public:
+  /**
+   * Reset current state of the sponge.
+   */
   void reset();
+
+  /**
+   * Absorb the input trits into the current state of the sponge.
+   *
+   * @param trits Input trits to be applied (absorbed) on current state of the sponge.
+   * @param offset Offset at which the current state of the sponge should be modified.
+   * @param length Length of the given input that should be used for absorption.
+   */
   void absorb(const Types::Trits& trits, unsigned int offset = 0, unsigned int length = 0);
+
+  /**
+   * Squeeze the current state of the sponge to the given trits.
+   *
+   * @param trits Trits to be updated (squeezed) based on current state of the sponge.
+   * @param offset Offset at which the trits should be modified.
+   * @param length Length of the current state of the sponge that should be used for squeezing.
+   */
   void squeeze(Types::Trits& trits, unsigned int offset = 0, unsigned int length = 0);
 
 private:
