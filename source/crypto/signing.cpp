@@ -50,7 +50,6 @@ key(const Types::Trytes& seed, const unsigned int& index, const unsigned int& se
     }
   }
 
-  k.reset();
   k.absorb(seedTrits);
   k.squeeze(seedTrits);
   k.reset();
@@ -73,7 +72,6 @@ digest(const std::vector<int8_t>& normalizedBundleFragment, const Types::Trits& 
   Kerl k1;
   Kerl k2;
 
-  k1.reset();
   for (unsigned int i = 0; i < FragmentLength; i++) {
     Types::Trits buffer(&signatureFragment[i * TritHashLength],
                         &signatureFragment[(i + 1) * TritHashLength]);
@@ -124,7 +122,6 @@ Types::Trits
 address(const Types::Trits& digests) {
   Kerl         k;
   Types::Trits addressTrits(TritHashLength);
-  k.reset();
   k.absorb(digests);
   k.squeeze(addressTrits);
   return addressTrits;
