@@ -38,8 +38,8 @@ GetBalances::GetBalances(const std::vector<std::string>& addresses, const int& t
 void
 GetBalances::serialize(json& data) {
   Base::serialize(data);
-  data["addresses"] = this->addresses_;
-  data["threshold"] = this->threshold_;
+  data["addresses"] = addresses_;
+  data["threshold"] = threshold_;
 }
 
 const std::vector<Types::Trytes>&

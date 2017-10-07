@@ -79,7 +79,7 @@ Extended::getInputs(const std::string& seed, const int32_t& security, const int3
     std::vector<std::string> allAddresses;
 
     for (int i = start; i < end; ++i) {
-      allAddresses.push_back(this->newAddress(seed, i, security, false));
+      allAddresses.push_back(newAddress(seed, i, security, false));
     }
 
     return getBalancesAndFormat(allAddresses, threshold, start, stopWatch, security);
@@ -166,7 +166,7 @@ Extended::getNewAddresses(const Types::Trytes& seed, const uint32_t& index, cons
   // Simply generate and return the list of all addresses.
   if (total) {
     for (uint32_t i = index; i < index + total; ++i) {
-      allAddresses.push_back(this->newAddress(seed, i, security, checksum));
+      allAddresses.push_back(newAddress(seed, i, security, checksum));
     }
   }
   // Case 2 : no total provided.
@@ -174,10 +174,10 @@ Extended::getNewAddresses(const Types::Trytes& seed, const uint32_t& index, cons
   // of addresses.
   else {
     for (int32_t i = index; true; i++) {
-      auto newAddress = this->newAddress(seed, i, security, checksum);
-      auto res        = this->findTransactionsByAddresses({ newAddress });
+      auto addr = newAddress(seed, i, security, checksum);
+      auto res  = findTransactionsByAddresses({ addr });
 
-      allAddresses.push_back(newAddress);
+      allAddresses.push_back(addr);
       if (res.getHashes().empty()) {
         break;
       }
@@ -351,7 +351,7 @@ Extended::prepareTransfers(const Types::Trytes& seed, int security,
                            std::vector<Models::Transfer>& transfers, const std::string& remainder,
                            const std::vector<Models::Input>& inputs, bool validateInputs) const {
   // Validate transfers object
-  if (!this->isTransfersCollectionValid(transfers)) {
+  if (!isTransfersCollectionValid(transfers)) {
     throw Errors::IllegalState("Invalid transfer");
   }
 
@@ -424,8 +424,8 @@ Extended::prepareTransfers(const Types::Trytes& seed, int security,
   // Get inputs if we are sending tokens
   if (totalValue != 0) {
     if (!validateInputs)
-      return this->addRemainder(seed, security, inputs, bundle, tag, totalValue, remainder,
-                                signatureFragments);
+      return addRemainder(seed, security, inputs, bundle, tag, totalValue, remainder,
+                          signatureFragments);
     //  Case 1: user provided inputs
     //  Validate the inputs by calling getBalances
     if (!validateInputs)
@@ -439,7 +439,7 @@ Extended::prepareTransfers(const Types::Trytes& seed, int security,
       }
 
       // TODO 100 ?
-      auto balancesResponse = this->getBalances(inputsAddresses, 100);
+      auto balancesResponse = getBalances(inputsAddresses, 100);
       auto balances         = balancesResponse.getBalances();
 
       std::vector<Models::Input> confirmedInputs;
@@ -467,8 +467,8 @@ Extended::prepareTransfers(const Types::Trytes& seed, int security,
         throw Errors::IllegalState("Not enough balance");
       }
 
-      return this->addRemainder(seed, security, confirmedInputs, bundle, tag, totalValue, remainder,
-                                signatureFragments);
+      return addRemainder(seed, security, confirmedInputs, bundle, tag, totalValue, remainder,
+                          signatureFragments);
     }
 
     //  Case 2: Get inputs deterministically
@@ -476,14 +476,14 @@ Extended::prepareTransfers(const Types::Trytes& seed, int security,
     //  If no inputs provided, derive the addresses from the seed and
     //  confirm that the inputs exceed the threshold
     else {
-      auto newinputs = this->getInputs(seed, security, 0, 0, totalValue);
+      auto newinputs = getInputs(seed, security, 0, 0, totalValue);
       // If inputs with enough balance
       return addRemainder(seed, security, newinputs.getInput(), bundle, tag, totalValue, remainder,
                           signatureFragments);
     }
   } else {
     // If no input required, don't sign and simply finalize the bundle
-    auto curl = Crypto::create(this->cryptoType_);
+    auto curl = Crypto::create(cryptoType_);
     bundle.finalize(curl);
     bundle.addTrytes(signatureFragments);
 
@@ -643,13 +643,13 @@ std::vector<Models::Transaction>
 Extended::sendTrytes(const std::vector<Types::Trytes>& trytes, const unsigned int& depth,
                      const unsigned int& minWeightMagnitude) const {
   // Get branch and trunk
-  auto tta = this->getTransactionsToApprove(depth);
+  auto tta = getTransactionsToApprove(depth);
 
   // Attach to tangle, do pow
-  auto res = this->attachToTangle(tta.getTrunkTransaction(), tta.getBranchTransaction(),
-                                  minWeightMagnitude, trytes);
+  auto res = attachToTangle(tta.getTrunkTransaction(), tta.getBranchTransaction(),
+                            minWeightMagnitude, trytes);
 
-  this->broadcastAndStore(res.getTrytes());
+  broadcastAndStore(res.getTrytes());
 
   std::vector<Models::Transaction> trx;
 
@@ -662,28 +662,28 @@ Extended::sendTrytes(const std::vector<Types::Trytes>& trytes, const unsigned in
 
 Responses::Base
 Extended::broadcastAndStore(const std::vector<Types::Trytes>& trytes) const {
-  this->broadcastTransactions(trytes);
-  return this->storeTransactions(trytes);
+  broadcastTransactions(trytes);
+  return storeTransactions(trytes);
 }
 
 Responses::FindTransactions
 Extended::findTransactionsByAddresses(const std::vector<Types::Trytes>& addresses) const {
-  return this->findTransactions(addresses, {}, {}, {});
+  return findTransactions(addresses, {}, {}, {});
 }
 
 Responses::FindTransactions
 Extended::findTransactionsByDigests(const std::vector<Types::Trytes>& digests) const {
-  return this->findTransactions({}, digests, {}, {});
+  return findTransactions({}, digests, {}, {});
 }
 
 Responses::FindTransactions
 Extended::findTransactionsByApprovees(const std::vector<Types::Trytes>& approvees) const {
-  return this->findTransactions({}, {}, approvees, {});
+  return findTransactions({}, {}, approvees, {});
 }
 
 Responses::FindTransactions
 Extended::findTransactionsByBundles(const std::vector<Types::Trytes>& bundles) const {
-  return this->findTransactions({}, {}, {}, bundles);
+  return findTransactions({}, {}, {}, bundles);
 }
 
 Responses::GetAccountData
@@ -745,18 +745,18 @@ Extended::addRemainder(const Types::Trytes& seed, const unsigned int& security,
         // Remainder bundle entry
         bundle.addTransaction(1, remainderAddress, remainder, tag, timestamp);
         // Final function for signing inputs
-        return this->signInputsAndReturn(seed, inputs, bundle, signatureFragments);
+        return signInputsAndReturn(seed, inputs, bundle, signatureFragments);
       } else if (remainder > 0) {
         // Generate a new Address by calling getNewAddress
-        auto res = this->getNewAddresses(seed, 0, security, false, 0, false);
+        auto res = getNewAddresses(seed, 0, security, false, 0, false);
         // Remainder bundle entry
         bundle.addTransaction(1, res.getAddresses()[0], remainder, tag, timestamp);
         // Final function for signing inputs
-        return this->signInputsAndReturn(seed, inputs, bundle, signatureFragments);
+        return signInputsAndReturn(seed, inputs, bundle, signatureFragments);
       } else {
         // If there is no remainder, do not add transaction to bundle
         // simply sign and return
-        return this->signInputsAndReturn(seed, inputs, bundle, signatureFragments);
+        return signInputsAndReturn(seed, inputs, bundle, signatureFragments);
       }
       // If multiple inputs provided, subtract the totalTransferValue by
       // the inputs balance
@@ -946,7 +946,7 @@ Extended::signInputsAndReturn(const std::string& seed, const std::vector<Models:
                               Models::Bundle&                 bundle,
                               const std::vector<std::string>& signatureFragments) const {
   // TODO param ?
-  bundle.finalize(Crypto::create(this->cryptoType_));
+  bundle.finalize(Crypto::create(cryptoType_));
   bundle.addTrytes(signatureFragments);
 
   //  SIGNING OF INPUTS

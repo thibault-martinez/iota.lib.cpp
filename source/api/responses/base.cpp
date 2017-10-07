@@ -36,17 +36,17 @@ Base::Base(const int64_t& duration) : duration_(duration) {
 
 void
 Base::deserialize(const json& res) {
-  this->duration_ = res.at("duration").get<long>();
+  duration_ = res.at("duration").get<long>();
 }
 
 const int64_t&
 Base::getDuration() const {
-  return this->duration_;
+  return duration_;
 }
 
 void
 Base::setDuration(const int64_t& duration) {
-  this->duration_ = duration;
+  duration_ = duration;
 }
 
 }  // namespace Responses

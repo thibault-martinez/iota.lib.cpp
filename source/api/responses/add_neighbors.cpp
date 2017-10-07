@@ -37,17 +37,17 @@ AddNeighbors::AddNeighbors(const int64_t& addedNeighbors) : addedNeighbors_(adde
 void
 AddNeighbors::deserialize(const json& res) {
   Base::deserialize(res);
-  this->addedNeighbors_ = res.at("addedNeighbors").get<int64_t>();
+  addedNeighbors_ = res.at("addedNeighbors").get<int64_t>();
 }
 
 const int64_t&
 AddNeighbors::getAddedNeighbors() const {
-  return this->addedNeighbors_;
+  return addedNeighbors_;
 }
 
 void
 AddNeighbors::setAddedNeighbors(const int64_t& addedNeighbors) {
-  this->addedNeighbors_ = addedNeighbors;
+  addedNeighbors_ = addedNeighbors;
 }
 
 }  // namespace Responses

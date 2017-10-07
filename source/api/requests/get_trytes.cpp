@@ -37,7 +37,7 @@ GetTrytes::GetTrytes(const std::vector<std::string>& hashes) : Base("getTrytes")
 void
 GetTrytes::serialize(json& data) {
   Base::serialize(data);
-  data["hashes"] = this->hashes_;
+  data["hashes"] = hashes_;
 }
 
 const std::vector<std::string>&

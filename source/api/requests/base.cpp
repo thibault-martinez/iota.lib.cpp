@@ -36,7 +36,7 @@ Base::Base(const std::string& command) : command_(command) {
 
 void
 Base::serialize(json& data) {
-  data = json{ { "command", this->command_ } };
+  data = json{ { "command", command_ } };
 }
 
 }  // namespace Requests

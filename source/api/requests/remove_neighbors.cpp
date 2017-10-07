@@ -53,7 +53,7 @@ RemoveNeighbors::setUris(const std::vector<std::string>& uris) {
 void
 RemoveNeighbors::serialize(json& data) {
   Base::serialize(data);
-  data["uris"] = this->uris_;
+  data["uris"] = uris_;
 }
 
 }  // namespace Requests
