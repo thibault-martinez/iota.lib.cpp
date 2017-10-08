@@ -49,6 +49,16 @@ Base::setDuration(const int64_t& duration) {
   duration_ = duration;
 }
 
+const int16_t&
+Base::getStatusCode() const {
+  return statusCode_;
+}
+
+void
+Base::setStatusCode(const int16_t& statusCode) {
+  statusCode_ = statusCode;
+}
+
 }  // namespace Responses
 
 }  // namespace API
