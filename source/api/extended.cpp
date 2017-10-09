@@ -195,6 +195,12 @@ Extended::getNewAddresses(const Types::Trytes& seed, const uint32_t& index, cons
 Models::Bundle
 Extended::traverseBundle(const std::string& trunkTx) const {
   Models::Bundle bundle;
+
+  //! Check for invalid hash
+  if (!Types::isValidHash(trunkTx)) {
+    throw Errors::IllegalState("Invalid transaction supplied.");
+  }
+
   return traverseBundle(trunkTx, "", bundle);
 }
 
@@ -213,6 +219,10 @@ Extended::traverseBundle(const std::string& trunkTx, std::string bundleHash,
   // If first transaction to search is not a tail, return error
   if (bundleHash.empty() && !trx.isTailTransaction()) {
     throw Errors::IllegalState("Invalid tail transaction supplied.");
+  }
+  // Detect infinite recursion
+  if (trx.getTrunkTransaction() == trx.getHash()) {
+    throw Errors::IllegalState("Invalid transaction supplied.");
   }
 
   // If no bundle hash, define it
@@ -509,10 +519,8 @@ Extended::getBundle(const Types::Trytes& transaction) const {
 
   //! init curl
   auto curl = Crypto::create(Crypto::SpongeType::KERL);
-  curl->reset();
 
   std::vector<Models::Signature> signaturesToValidate;
-
   for (std::size_t i = 0; i < bundle.getTransactions().size(); ++i) {
     const auto& trx = bundle.getTransactions()[i];
 
@@ -525,7 +533,7 @@ Extended::getBundle(const Types::Trytes& transaction) const {
     totalSum += trxValue;
 
     //! Absorb bundle hash + value + timestamp + lastIndex + currentIndex trytes.
-    curl->absorb(Types::trytesToTrits(trx.toTrytes().substr(2187, 2187 + 162)));
+    curl->absorb(Types::trytesToTrits(trx.toTrytes().substr(2187, 162)));
 
     //! if transaction has some value, we can processs next transactions
     if (trxValue >= 0) {

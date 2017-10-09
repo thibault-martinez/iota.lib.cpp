@@ -49,6 +49,11 @@ GetBalances::getBalances() const {
   return balances_;
 }
 
+std::vector<std::string>&
+GetBalances::getBalances() {
+  return balances_;
+}
+
 void
 GetBalances::setBalances(const std::vector<std::string>& balances) {
   balances_ = balances;

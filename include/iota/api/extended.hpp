@@ -199,14 +199,11 @@ public:
                                               bool validateInputs = true) const;
 
   /**
-   * This function returns the bundle which is associated with a transaction. Input can by any type
-   * of transaction (tail and non-tail). If there are multiple bundles (because of a replay for
-   * example), it will return multiple bundles. It also does important validation checking
-   * (signatures, sum, order) to ensure that the correct bundle is returned.
+   * Gets the associated bundle transactions of a single transaction
+   * Does validation of signatures, total sum as well as bundle order
    *
-   * @param transaction The transaction encoded in trytes.
-   * @return an array of bundle, if there are multiple arrays it means that there are conflicting
-   * bundles.
+   * @param transaction Hash of a tail transaction
+   * @return array of transactions belonging to bundle corresponding to the input trx
    */
   Responses::GetBundle getBundle(const Types::Trytes& transaction) const;
 

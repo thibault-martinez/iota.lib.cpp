@@ -70,6 +70,11 @@ isValidAddress(const Trytes& s) {
          isValidTrytes(s);
 }
 
+bool
+isValidHash(const Trytes& s) {
+  return s.length() == HashLength && isValidTrytes(s);
+}
+
 std::vector<int8_t>
 tritsToBytes(const Trits& trits) {
   Types::BigInt decimal;
