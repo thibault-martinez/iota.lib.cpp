@@ -31,7 +31,7 @@ namespace API {
 
 namespace Responses {
 
-Base::Base(const int64_t& duration) : duration_(duration) {
+Base::Base(const int64_t& duration) : duration_(duration), statusCode_(0) {
 }
 
 void
