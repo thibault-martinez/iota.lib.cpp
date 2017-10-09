@@ -143,6 +143,8 @@ public:
    * have to confirm more transactions).
    * https://iota.readme.io/docs/gettransactionstoapprove
    *
+   * @param depth The number of bundles to go back to determine the transactions for approval.
+   *
    * @return The response.
    */
   Responses::GetTransactionsToApprove getTransactionsToApprove(const int& depth) const;

@@ -113,3 +113,13 @@ TEST(Core, GetTrytes) {
   ASSERT_EQ(res.getStatusCode(), 400);
   EXPECT_GE(res.getDuration(), 0);
 }
+
+TEST(Core, GetTransactionsToApprove) {
+  IOTA::API::Core api(get_proxy_host(), get_proxy_port());
+  auto            res = api.getTransactionsToApprove(27);
+
+  ASSERT_EQ(res.getStatusCode(), 200);
+  EXPECT_GE(res.getDuration(), 0);
+  EXPECT_TRUE(IOTA::Types::isValidHash(res.getTrunkTransaction()));
+  EXPECT_TRUE(IOTA::Types::isValidHash(res.getBranchTransaction()));
+}
