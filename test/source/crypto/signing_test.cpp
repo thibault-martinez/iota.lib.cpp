@@ -29,7 +29,7 @@
 
 #include <iota/crypto/signing.hpp>
 #include <iota/models/bundle.hpp>
-#include <test/utils/dependencies.hpp>
+#include <test/utils/configuration.hpp>
 
 TEST(SigningTest, Key) {
   std::ifstream file(get_deps_folder() + "/signingKey");

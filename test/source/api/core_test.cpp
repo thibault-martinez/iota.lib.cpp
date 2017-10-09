@@ -23,16 +23,29 @@
 //
 //
 
-#include <string>
+#include <gtest/gtest.h>
 
-static std::string deps_folder;
+#include <iota/api/core.hpp>
+#include <test/utils/configuration.hpp>
 
-const std::string&
-get_deps_folder(void) {
-  return deps_folder;
-}
+TEST(Core, GetNodeInfo) {
+  IOTA::API::Core api(get_proxy_host(), get_proxy_port());
+  auto            res = api.getNodeInfo();
 
-void
-set_deps_folder(const std::string& folder) {
-  deps_folder = folder;
+  ASSERT_EQ(res.getStatusCode(), 200);
+  EXPECT_FALSE(res.getAppName().empty());
+  EXPECT_FALSE(res.getAppVersion().empty());
+  EXPECT_GE(res.getJreAvailableProcessors(), 0);
+  EXPECT_GE(res.getJreFreeMemory(), 0);
+  EXPECT_GE(res.getJreMaxMemory(), 0);
+  EXPECT_GE(res.getJreTotalMemory(), 0);
+  EXPECT_FALSE(res.getLatestMilestone().empty());
+  EXPECT_GE(res.getLatestMilestoneIndex(), 0);
+  EXPECT_FALSE(res.getLatestSolidSubtangleMilestone().empty());
+  EXPECT_GE(res.getLatestSolidSubtangleMilestoneIndex(), 0);
+  EXPECT_GE(res.getNeighbors(), 0);
+  EXPECT_GE(res.getPacketsQueueSize(), 0);
+  EXPECT_GE(res.getTime(), 0);
+  EXPECT_GE(res.getTips(), 0);
+  EXPECT_GE(res.getTransactionsToRequest(), 0);
 }

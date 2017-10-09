@@ -51,14 +51,12 @@ public:
   Core(const std::string& host, const unsigned int& port);
   virtual ~Core();
 
-  // public:
-  //   template <typename Request, typename Response, typename... Args>
-  //   Response test(Args&&... args);
-
 public:
   /*
    * Returns information about your node.
    * https://iota.readme.io/docs/getnodeinfo
+   *
+   * @return The response.
    */
   Responses::GetNodeInfo getNodeInfo() const;
   /*

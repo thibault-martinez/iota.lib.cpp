@@ -29,7 +29,7 @@
 
 #include <iota/crypto/kerl.hpp>
 #include <iota/errors/crypto.hpp>
-#include <test/utils/dependencies.hpp>
+#include <test/utils/configuration.hpp>
 
 TEST(Kerl, Exceptions) {
   IOTA::Crypto::Kerl k;
