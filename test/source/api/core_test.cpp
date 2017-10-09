@@ -59,3 +59,12 @@ TEST(Core, GetNeighbors) {
   EXPECT_GE(res.getDuration(), 0);
   EXPECT_TRUE(res.getNeighbors().size() >= 0);
 }
+
+TEST(Core, GetTips) {
+  IOTA::API::Core api(get_proxy_host(), get_proxy_port());
+  auto            res = api.getTips();
+
+  ASSERT_EQ(res.getStatusCode(), 200);
+  EXPECT_GE(res.getDuration(), 0);
+  EXPECT_TRUE(res.getHashes().size() >= 0);
+}
