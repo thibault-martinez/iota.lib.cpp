@@ -9,6 +9,5 @@ var searchData=
   ['isponge',['ISponge',['../class_i_o_t_a_1_1_crypto_1_1_i_sponge.html',1,'IOTA::Crypto']]],
   ['istailtransaction',['isTailTransaction',['../class_i_o_t_a_1_1_models_1_1_transaction.html#afa77d6f80ad64798e536df13abdf90e6',1,'IOTA::Models::Transaction']]],
   ['isvalid',['isValid',['../class_i_o_t_a_1_1_models_1_1_transfer.html#a0b4b138274e1a49844396ca0b89b958f',1,'IOTA::Models::Transfer::isValid()'],['../namespace_i_o_t_a_1_1_crypto_1_1_checksum.html#a5213910786d68a08c8fbab6fdef93793',1,'IOTA::Crypto::Checksum::isValid()']]],
-  ['iota_20c_2b_2b_20library',['IOTA C++ Library',['../md__r_e_a_d_m_e.html',1,'']]],
   ['signing',['Signing',['../namespace_i_o_t_a_1_1_crypto_1_1_signing.html',1,'IOTA::Crypto']]]
 ];

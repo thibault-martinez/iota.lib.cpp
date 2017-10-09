@@ -70,6 +70,8 @@ $(function() {
 <div class="title">IOTA::API::Extended Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p><code>#include &lt;<a class="el" href="extended_8hpp_source.html">extended.hpp</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for IOTA::API::Extended:</div>
 <div class="dyncontent">
@@ -85,8 +87,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:adbf8ccbfec9fddd40496b7b185129615"><td class="memItemLeft" align="right" valign="top"><a id="adbf8ccbfec9fddd40496b7b185129615"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>Extended</b> (const std::string &amp;host, const unsigned int &amp;port, Crypto::SpongeType cryptoType=Crypto::SpongeType::KERL)</td></tr>
 <tr class="separator:adbf8ccbfec9fddd40496b7b185129615"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae9ce22667dbb383ff396c5a37b2b5d82"><td class="memItemLeft" align="right" valign="top"><a id="ae9ce22667dbb383ff396c5a37b2b5d82"></a>
-<a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_balances_and_format.html">Responses::GetBalancesAndFormat</a>&#160;</td><td class="memItemRight" valign="bottom"><b>getInputs</b> (const std::string &amp;seed, const int32_t &amp;security, const int32_t &amp;start, const int32_t &amp;end, const int64_t &amp;threshold) const</td></tr>
+<tr class="memitem:ae9ce22667dbb383ff396c5a37b2b5d82"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_balances_and_format.html">Responses::GetBalancesAndFormat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_extended.html#ae9ce22667dbb383ff396c5a37b2b5d82">getInputs</a> (const std::string &amp;seed, const int32_t &amp;security, const int32_t &amp;start, const int32_t &amp;end, const int64_t &amp;threshold) const</td></tr>
 <tr class="separator:ae9ce22667dbb383ff396c5a37b2b5d82"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad406eec7a28f697248bf1306050c789f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_balances_and_format.html">Responses::GetBalancesAndFormat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_extended.html#ad406eec7a28f697248bf1306050c789f">getBalancesAndFormat</a> (const std::vector&lt; std::string &gt; &amp;addresses, const int64_t &amp;threshold, const int32_t &amp;start, <a class="el" href="class_i_o_t_a_1_1_utils_1_1_stop_watch.html">Utils::StopWatch</a> stopWatch, const int32_t &amp;security) const</td></tr>
 <tr class="separator:ad406eec7a28f697248bf1306050c789f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -111,20 +112,15 @@ std::vector&lt; Types::Trytes &gt;&#160;</td><td class="memItemRight" valign="bo
 <tr class="separator:a699d47d59998dcb5c4c377dd7dfeb9fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aae0bbe508888acfe6f97aca3d9e0da86"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_bundle.html">Responses::GetBundle</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_extended.html#aae0bbe508888acfe6f97aca3d9e0da86">getBundle</a> (const Types::Trytes &amp;transaction) const</td></tr>
 <tr class="separator:aae0bbe508888acfe6f97aca3d9e0da86"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaaeca1333d27be96799fbdfdd60292ff"><td class="memItemLeft" align="right" valign="top"><a id="aaaeca1333d27be96799fbdfdd60292ff"></a>
-<a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_transfers.html">Responses::GetTransfers</a>&#160;</td><td class="memItemRight" valign="bottom"><b>getTransfers</b> (const Types::Trytes &amp;seed, int security, int start, int end, bool inclusionStates) const</td></tr>
+<tr class="memitem:aaaeca1333d27be96799fbdfdd60292ff"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_transfers.html">Responses::GetTransfers</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_extended.html#aaaeca1333d27be96799fbdfdd60292ff">getTransfers</a> (const Types::Trytes &amp;seed, int security, int start, int end, bool inclusionStates) const</td></tr>
 <tr class="separator:aaaeca1333d27be96799fbdfdd60292ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0ce339b570682f2c559abf35fb57388b"><td class="memItemLeft" align="right" valign="top"><a id="a0ce339b570682f2c559abf35fb57388b"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>replayTransfer</b> () const</td></tr>
+<tr class="memitem:a0ce339b570682f2c559abf35fb57388b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_extended.html#a0ce339b570682f2c559abf35fb57388b">replayTransfer</a> () const</td></tr>
 <tr class="separator:a0ce339b570682f2c559abf35fb57388b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9e2687ef56ef0340cd21be97f4d359f8"><td class="memItemLeft" align="right" valign="top"><a id="a9e2687ef56ef0340cd21be97f4d359f8"></a>
-<a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_send_transfer.html">Responses::SendTransfer</a>&#160;</td><td class="memItemRight" valign="bottom"><b>sendTransfer</b> (const Types::Trytes &amp;seed, int security, int depth, int minWeightMagnitude, std::vector&lt; <a class="el" href="class_i_o_t_a_1_1_models_1_1_transfer.html">Models::Transfer</a> &gt; &amp;transfers, const std::vector&lt; <a class="el" href="class_i_o_t_a_1_1_models_1_1_input.html">Models::Input</a> &gt; &amp;inputs, const Types::Trytes &amp;address) const</td></tr>
+<tr class="memitem:a9e2687ef56ef0340cd21be97f4d359f8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_send_transfer.html">Responses::SendTransfer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_extended.html#a9e2687ef56ef0340cd21be97f4d359f8">sendTransfer</a> (const Types::Trytes &amp;seed, int security, int depth, int minWeightMagnitude, std::vector&lt; <a class="el" href="class_i_o_t_a_1_1_models_1_1_transfer.html">Models::Transfer</a> &gt; &amp;transfers, const std::vector&lt; <a class="el" href="class_i_o_t_a_1_1_models_1_1_input.html">Models::Input</a> &gt; &amp;inputs, const Types::Trytes &amp;address) const</td></tr>
 <tr class="separator:a9e2687ef56ef0340cd21be97f4d359f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0e1d2f616a5fa494dfaedf4891f26fb3"><td class="memItemLeft" align="right" valign="top"><a id="a0e1d2f616a5fa494dfaedf4891f26fb3"></a>
-std::vector&lt; <a class="el" href="class_i_o_t_a_1_1_models_1_1_transaction.html">Models::Transaction</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>sendTrytes</b> (const std::vector&lt; Types::Trytes &gt; &amp;trytes, const unsigned int &amp;depth, const unsigned int &amp;minWeightMagnitude) const</td></tr>
+<tr class="memitem:a0e1d2f616a5fa494dfaedf4891f26fb3"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="class_i_o_t_a_1_1_models_1_1_transaction.html">Models::Transaction</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_extended.html#a0e1d2f616a5fa494dfaedf4891f26fb3">sendTrytes</a> (const std::vector&lt; Types::Trytes &gt; &amp;trytes, const unsigned int &amp;depth, const unsigned int &amp;minWeightMagnitude) const</td></tr>
 <tr class="separator:a0e1d2f616a5fa494dfaedf4891f26fb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa84894cbaa3fa57252a8a34a75e0d7ab"><td class="memItemLeft" align="right" valign="top"><a id="aa84894cbaa3fa57252a8a34a75e0d7ab"></a>
-<a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_base.html">Responses::Base</a>&#160;</td><td class="memItemRight" valign="bottom"><b>broadcastAndStore</b> (const std::vector&lt; Types::Trytes &gt; &amp;trytes) const</td></tr>
+<tr class="memitem:aa84894cbaa3fa57252a8a34a75e0d7ab"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_base.html">Responses::Base</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_extended.html#aa84894cbaa3fa57252a8a34a75e0d7ab">broadcastAndStore</a> (const std::vector&lt; Types::Trytes &gt; &amp;trytes) const</td></tr>
 <tr class="separator:aa84894cbaa3fa57252a8a34a75e0d7ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afeaa343b818b96bac952af0064f627ae"><td class="memItemLeft" align="right" valign="top"><a id="afeaa343b818b96bac952af0064f627ae"></a>
 <a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_find_transactions.html">Responses::FindTransactions</a>&#160;</td><td class="memItemRight" valign="bottom"><b>findTransactionsByAddresses</b> (const std::vector&lt; Types::Trytes &gt; &amp;addresses) const</td></tr>
@@ -195,7 +191,9 @@ std::vector&lt; <a class="el" href="class_i_o_t_a_1_1_models_1_1_transaction.htm
 <a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_base.html">Responses::Base</a>&#160;</td><td class="memItemRight" valign="bottom"><b>storeTransactions</b> (const std::vector&lt; std::string &gt; &amp;trytes) const</td></tr>
 <tr class="separator:a56c75ff7eddd65e6383fbea7a27fd8ef inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_core"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_extended.html">Extended</a> API calls which will help do just about anything possible with IOTA. These are mostly wrapper functions of <a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_core.html">Core</a> API calls. <a href="https://github.com/iotaledger/wiki/blob/master/api-proposal.md#proposed-api-calls">https://github.com/iotaledger/wiki/blob/master/api-proposal.md#proposed-api-calls</a> </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a6778a71eceba8c6fb202c6f2362b9804"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6778a71eceba8c6fb202c6f2362b9804">&#9670;&nbsp;</a></span>addRemainder()</h2>
 
@@ -270,6 +268,25 @@ std::vector&lt; <a class="el" href="class_i_o_t_a_1_1_models_1_1_transaction.htm
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="aa84894cbaa3fa57252a8a34a75e0d7ab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa84894cbaa3fa57252a8a34a75e0d7ab">&#9670;&nbsp;</a></span>broadcastAndStore()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_base.html">Responses::Base</a> IOTA::API::Extended::broadcastAndStore </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; Types::Trytes &gt; &amp;&#160;</td>
+          <td class="paramname"><em>trytes</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Wrapper function that does broadcastTransactions and storeTransactions. </p>
 
 </div>
 </div>
@@ -563,6 +580,14 @@ std::vector&lt; <a class="el" href="class_i_o_t_a_1_1_models_1_1_transaction.htm
         </tr>
       </table>
 </div><div class="memdoc">
+<p>This function returns the bundle which is associated with a transaction. Input can by any type of transaction (tail and non-tail). If there are multiple bundles (because of a replay for example), it will return multiple bundles. It also does important validation checking (signatures, sum, order) to ensure that the correct bundle is returned.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">transaction</td><td>The transaction encoded in trytes. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>an array of bundle, if there are multiple arrays it means that there are conflicting bundles. </dd></dl>
 <p>get bundle hash for transaction</p>
 <p>init curl</p>
 <p>sums up transaction values</p>
@@ -573,6 +598,63 @@ std::vector&lt; <a class="el" href="class_i_o_t_a_1_1_models_1_1_transaction.htm
 <p>Check if bundle hash is the same as returned by tx object</p>
 <p>Last tx in the bundle should have currentIndex == lastIndex</p>
 <p>Validate the signatures </p>
+
+</div>
+</div>
+<a id="ae9ce22667dbb383ff396c5a37b2b5d82"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae9ce22667dbb383ff396c5a37b2b5d82">&#9670;&nbsp;</a></span>getInputs()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_balances_and_format.html">Responses::GetBalancesAndFormat</a> IOTA::API::Extended::getInputs </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>seed</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t &amp;&#160;</td>
+          <td class="paramname"><em>security</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t &amp;&#160;</td>
+          <td class="paramname"><em>start</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t &amp;&#160;</td>
+          <td class="paramname"><em>end</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int64_t &amp;&#160;</td>
+          <td class="paramname"><em>threshold</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Gets all possible inputs of a seed and returns them with the total balance. This is either done deterministically (by genearating all addresses until findTransactions is empty and doing getBalances), or by providing a key range to use for searching through.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">seed</td><td>Tryte-encoded seed. It should be noted that this seed is not transferred. </td></tr>
+    <tr><td class="paramname">security</td><td>The Security level of private key / seed. </td></tr>
+    <tr><td class="paramname">start</td><td>Starting key index. </td></tr>
+    <tr><td class="paramname">end</td><td>Ending key index. </td></tr>
+    <tr><td class="paramname">threshold</td><td>Min balance required. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -695,6 +777,64 @@ std::vector&lt; <a class="el" href="class_i_o_t_a_1_1_models_1_1_transaction.htm
 
 </div>
 </div>
+<a id="aaaeca1333d27be96799fbdfdd60292ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaaeca1333d27be96799fbdfdd60292ff">&#9670;&nbsp;</a></span>getTransfers()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_transfers.html">Responses::GetTransfers</a> IOTA::API::Extended::getTransfers </td>
+          <td>(</td>
+          <td class="paramtype">const Types::Trytes &amp;&#160;</td>
+          <td class="paramname"><em>seed</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>security</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>start</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>end</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>inclusionStates</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Returns the transfers which are associated with a seed. The transfers are determined by either calculating deterministically which addresses were already used, or by providing a list of indexes to get the transfers from.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">seed</td><td>Tryte-encoded seed. It should be noted that this seed is not transferred. </td></tr>
+    <tr><td class="paramname">security</td><td>The security level of private key / seed. </td></tr>
+    <tr><td class="paramname">start</td><td>Starting key index. </td></tr>
+    <tr><td class="paramname">end</td><td>Ending key index. </td></tr>
+    <tr><td class="paramname">inclusionStates</td><td>If <code>true</code>, it gets the inclusion states of the transfers. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Bundle of transfers. </dd></dl>
+
+</div>
+</div>
 <a id="ad5c237db6d1ccff2417613496a651bc9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad5c237db6d1ccff2417613496a651bc9">&#9670;&nbsp;</a></span>initiateTransfer()</h2>
 
@@ -804,6 +944,140 @@ std::vector&lt; <a class="el" href="class_i_o_t_a_1_1_models_1_1_transaction.htm
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Analyzed Transaction objects. </dd></dl>
+
+</div>
+</div>
+<a id="a0ce339b570682f2c559abf35fb57388b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ce339b570682f2c559abf35fb57388b">&#9670;&nbsp;</a></span>replayTransfer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void IOTA::API::Extended::replayTransfer </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Takes a tail transaction hash as input, gets the bundle associated with the transaction and then replays the bundle by attaching it to the tangle. </p>
+
+</div>
+</div>
+<a id="a9e2687ef56ef0340cd21be97f4d359f8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9e2687ef56ef0340cd21be97f4d359f8">&#9670;&nbsp;</a></span>sendTransfer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_send_transfer.html">Responses::SendTransfer</a> IOTA::API::Extended::sendTransfer </td>
+          <td>(</td>
+          <td class="paramtype">const Types::Trytes &amp;&#160;</td>
+          <td class="paramname"><em>seed</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>security</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>depth</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>minWeightMagnitude</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::vector&lt; <a class="el" href="class_i_o_t_a_1_1_models_1_1_transfer.html">Models::Transfer</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>transfers</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="class_i_o_t_a_1_1_models_1_1_input.html">Models::Input</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>inputs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Types::Trytes &amp;&#160;</td>
+          <td class="paramname"><em>address</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Wrapper function that basically does prepareTransfers, as well as attachToTangle and finally, it broadcasts and stores the transactions locally.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">seed</td><td>Tryte-encoded seed </td></tr>
+    <tr><td class="paramname">security</td><td>The security level of private key / seed. </td></tr>
+    <tr><td class="paramname">depth</td><td>The depth. </td></tr>
+    <tr><td class="paramname">minWeightMagnitude</td><td>The minimum weight magnitude. </td></tr>
+    <tr><td class="paramname">transfers</td><td>Array of transfer objects. </td></tr>
+    <tr><td class="paramname">inputs</td><td>List of inputs used for funding the transfer. </td></tr>
+    <tr><td class="paramname">address</td><td>If defined, this address will be used for sending the remainder value (of the inputs) to. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Array of Transaction objects. </dd></dl>
+
+</div>
+</div>
+<a id="a0e1d2f616a5fa494dfaedf4891f26fb3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e1d2f616a5fa494dfaedf4891f26fb3">&#9670;&nbsp;</a></span>sendTrytes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; <a class="el" href="class_i_o_t_a_1_1_models_1_1_transaction.html">Models::Transaction</a> &gt; IOTA::API::Extended::sendTrytes </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; Types::Trytes &gt; &amp;&#160;</td>
+          <td class="paramname"><em>trytes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const unsigned int &amp;&#160;</td>
+          <td class="paramname"><em>depth</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const unsigned int &amp;&#160;</td>
+          <td class="paramname"><em>minWeightMagnitude</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Wrapper function that gets transactions to approve, attaches to Tangle, broadcasts and stores.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">trytes</td><td>The trytes. </td></tr>
+    <tr><td class="paramname">depth</td><td>The depth. </td></tr>
+    <tr><td class="paramname">minWeightMagnitude</td><td>The minimum weight magnitude. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Transactions objects. </dd></dl>
 
 </div>
 </div>

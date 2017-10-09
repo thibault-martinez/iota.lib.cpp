@@ -45,7 +45,7 @@ namespace IOTA {
 
 namespace API {
 
-/*
+/**
  * Extended API calls which will help do just about anything possible with IOTA. These
  * are mostly wrapper functions of Core API calls.
  * https://github.com/iotaledger/wiki/blob/master/api-proposal.md#proposed-api-calls
@@ -57,7 +57,7 @@ public:
   virtual ~Extended();
 
 public:
-  /*
+  /**
    * Gets all possible inputs of a seed and returns them with the total balance. This is either done
    * deterministically (by genearating all addresses until findTransactions is empty and doing
    * getBalances), or by providing a key range to use for searching through.
@@ -198,7 +198,7 @@ public:
                                               const std::vector<Models::Input>& inputs,
                                               bool validateInputs = true) const;
 
-  /*
+  /**
    * This function returns the bundle which is associated with a transaction. Input can by any type
    * of transaction (tail and non-tail). If there are multiple bundles (because of a replay for
    * example), it will return multiple bundles. It also does important validation checking
@@ -210,7 +210,7 @@ public:
    */
   Responses::GetBundle getBundle(const Types::Trytes& transaction) const;
 
-  /*
+  /**
    * Returns the transfers which are associated with a seed. The transfers are determined by either
    * calculating deterministically which addresses were already used, or by providing a list of
    * indexes to get the transfers from.
@@ -226,13 +226,13 @@ public:
   Responses::GetTransfers getTransfers(const Types::Trytes& seed, int security, int start, int end,
                                        bool inclusionStates) const;
 
-  /*
+  /**
    * Takes a tail transaction hash as input, gets the bundle associated with the transaction and
    * then replays the bundle by attaching it to the tangle.
    */
   void replayTransfer() const;
 
-  /*
+  /**
    * Wrapper function that basically does prepareTransfers, as well as attachToTangle and finally,
    * it broadcasts and stores the transactions locally.
    *
@@ -252,7 +252,7 @@ public:
                                        const std::vector<Models::Input>& inputs,
                                        const Types::Trytes&              address) const;
 
-  /*
+  /**
    * Wrapper function that gets transactions to approve, attaches to Tangle, broadcasts and stores.
    *
    * @param trytes             The trytes.
@@ -264,7 +264,7 @@ public:
                                               const unsigned int&               depth,
                                               const unsigned int& minWeightMagnitude) const;
 
-  /*
+  /**
    * Wrapper function that does broadcastTransactions and storeTransactions.
    */
   Responses::Base broadcastAndStore(const std::vector<Types::Trytes>& trytes) const;
