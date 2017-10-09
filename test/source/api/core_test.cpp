@@ -33,6 +33,7 @@ TEST(Core, GetNodeInfo) {
   auto            res = api.getNodeInfo();
 
   ASSERT_EQ(res.getStatusCode(), 200);
+  EXPECT_GE(res.getDuration(), 0);
   EXPECT_FALSE(res.getAppName().empty());
   EXPECT_FALSE(res.getAppVersion().empty());
   EXPECT_GE(res.getJreAvailableProcessors(), 0);
@@ -48,4 +49,13 @@ TEST(Core, GetNodeInfo) {
   EXPECT_GE(res.getTime(), 0);
   EXPECT_GE(res.getTips(), 0);
   EXPECT_GE(res.getTransactionsToRequest(), 0);
+}
+
+TEST(Core, GetNeighbors) {
+  IOTA::API::Core api(get_proxy_host(), get_proxy_port());
+  auto            res = api.getNeighbors();
+
+  ASSERT_EQ(res.getStatusCode(), 200);
+  EXPECT_GE(res.getDuration(), 0);
+  EXPECT_TRUE(res.getNeighbors().size() >= 0);
 }
