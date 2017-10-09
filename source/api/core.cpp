@@ -43,7 +43,7 @@ namespace IOTA {
 
 namespace API {
 
-Core::Core(const std::string& host, const unsigned int& port) : service_(host, port) {
+Core::Core(const std::string& host, const uint16_t& port) : service_(host, port) {
 }
 
 Core::~Core() {
@@ -91,20 +91,19 @@ Core::getTrytes(const std::vector<std::string>& hashes) const {
 Responses::GetInclusionStates
 Core::getInclusionStates(const std::vector<std::string>& transactions,
                          const std::vector<std::string>& tips) const {
-  return service_.request<Requests::GetInclusionStates, Responses::GetInclusionStates>(
-      transactions, tips);
+  return service_.request<Requests::GetInclusionStates, Responses::GetInclusionStates>(transactions,
+                                                                                       tips);
 }
 
 Responses::GetBalances
 Core::getBalances(const std::vector<std::string>& addresses, const int& threshold) const {
-  return service_.request<Requests::GetBalances, Responses::GetBalances>(addresses,
-                                                                               threshold);
+  return service_.request<Requests::GetBalances, Responses::GetBalances>(addresses, threshold);
 }
 
 Responses::GetTransactionsToApprove
 Core::getTransactionsToApprove(const int& depth) const {
-  return service_
-      .request<Requests::GetTransactionsToApprove, Responses::GetTransactionsToApprove>(depth);
+  return service_.request<Requests::GetTransactionsToApprove, Responses::GetTransactionsToApprove>(
+      depth);
 }
 
 Responses::AttachToTangle

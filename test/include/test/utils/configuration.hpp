@@ -28,4 +28,4 @@
 const std::string& get_deps_folder(void);
 void               set_deps_folder(const std::string& folder);
 const std::string& get_proxy_host(void);
-const int16_t&     get_proxy_port(void);
+const uint16_t&    get_proxy_port(void);

@@ -29,7 +29,7 @@ namespace IOTA {
 
 namespace API {
 
-Service::Service(const std::string& host, const unsigned int& port) : host_(host), port_(port) {
+Service::Service(const std::string& host, const uint16_t& port) : host_(host), port_(port) {
 }
 
 Service::~Service() {

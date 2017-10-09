@@ -27,7 +27,7 @@
 
 static std::string deps_folder;
 static std::string proxy_host = "node.iotawallet.info";
-static int16_t     proxy_port = 14265;
+static uint16_t    proxy_port = 14265;
 
 const std::string&
 get_deps_folder(void) {
@@ -44,7 +44,7 @@ get_proxy_host(void) {
   return proxy_host;
 }
 
-const int16_t&
+const uint16_t&
 get_proxy_port(void) {
   return proxy_port;
 }

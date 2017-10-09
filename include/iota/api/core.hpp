@@ -48,7 +48,7 @@ namespace API {
  */
 class Core {
 public:
-  Core(const std::string& host, const unsigned int& port);
+  Core(const std::string& host, const uint16_t& port);
   virtual ~Core();
 
 public:

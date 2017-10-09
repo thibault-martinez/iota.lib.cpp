@@ -38,7 +38,7 @@ namespace API {
 
 class Service {
 public:
-  Service(const std::string& host, const unsigned int& port);
+  Service(const std::string& host, const uint16_t& port);
   virtual ~Service();
 
 public:
