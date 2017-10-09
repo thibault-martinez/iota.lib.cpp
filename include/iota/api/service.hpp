@@ -57,6 +57,7 @@ public:
 
     Response response;
     response.deserialize(json::parse(res.text));
+    response.setStatusCode(res.status_code);
 
     return response;
   }

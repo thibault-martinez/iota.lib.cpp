@@ -71,8 +71,19 @@ public:
    */
   void setDuration(const int64_t& duration);
 
+  /**
+   * @return status code of operation
+   */
+  const int16_t& getStatusCode() const;
+
+  /**
+   * @param statusCode set statusCode of operation
+   */
+  void setStatusCode(const int16_t& statusCode);
+
 private:
   int64_t duration_;
+  int16_t statusCode_;
 };
 
 }  // namespace Responses

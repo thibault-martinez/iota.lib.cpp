@@ -31,7 +31,7 @@ namespace API {
 
 namespace Responses {
 
-Base::Base(const int64_t& duration) : duration_(duration) {
+Base::Base(const int64_t& duration) : duration_(duration), statusCode_(0) {
 }
 
 void
@@ -47,6 +47,16 @@ Base::getDuration() const {
 void
 Base::setDuration(const int64_t& duration) {
   duration_ = duration;
+}
+
+const int16_t&
+Base::getStatusCode() const {
+  return statusCode_;
+}
+
+void
+Base::setStatusCode(const int16_t& statusCode) {
+  statusCode_ = statusCode;
 }
 
 }  // namespace Responses
