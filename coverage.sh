@@ -38,4 +38,4 @@ echo "Removing unwanted files from coverage."
 lcov --remove coverage_merge.info "`pwd`/external/*" "`pwd`/test/*" "/include/*" "/usr/*" -o coverage.info
 
 echo "Uploading coverage."
-bash <(curl -s https://codecov.io/bash) || echo "Codecov did not collect coverage reports"
+bash <(curl -s https://codecov.io/bash) -f coverage.info || echo "Codecov did not collect coverage reports"
