@@ -3,3 +3,4 @@
 -Iexternal/cpr/include
 -Iexternal/Keccak/include
 -Iexternal/json/src
+-Itest/include/

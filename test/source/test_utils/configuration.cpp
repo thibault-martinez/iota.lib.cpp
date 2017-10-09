@@ -25,5 +25,26 @@
 
 #include <string>
 
-const std::string& get_deps_folder(void);
-void               set_deps_folder(const std::string& folder);
+static std::string deps_folder;
+static std::string proxy_host = "node.iotawallet.info";
+static int16_t     proxy_port = 14265;
+
+const std::string&
+get_deps_folder(void) {
+  return deps_folder;
+}
+
+void
+set_deps_folder(const std::string& folder) {
+  deps_folder = folder;
+}
+
+const std::string&
+get_proxy_host(void) {
+  return proxy_host;
+}
+
+const int16_t&
+get_proxy_port(void) {
+  return proxy_port;
+}

@@ -28,7 +28,7 @@
 #include <gtest/gtest.h>
 
 #include <iota/crypto/keccak384.hpp>
-#include <test/utils/dependencies.hpp>
+#include <test/utils/configuration.hpp>
 
 TEST(Keccak384Test, digest) {
   std::ifstream file(get_deps_folder() + "/keccak384");
