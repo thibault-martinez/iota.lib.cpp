@@ -51,7 +51,7 @@ public:
 
     auto url     = cpr::Url{ "http://" + host_ + ":" + std::to_string(port_) };
     auto body    = cpr::Body{ data.dump() };
-    auto headers = cpr::Header{ { "Content-Type", "text/json" },
+    auto headers = cpr::Header{ { "Content-Type", "application/json" },
                                 { "Content-Length", std::to_string(body.size()) } };
     auto res     = cpr::Post(url, body, headers);
 
