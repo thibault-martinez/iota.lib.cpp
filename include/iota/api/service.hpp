@@ -56,8 +56,10 @@ public:
     auto res     = cpr::Post(url, body, headers);
 
     Response response;
-    response.deserialize(json::parse(res.text));
     response.setStatusCode(res.status_code);
+    // TODO set duration ?
+    if (res.status_code == 200)
+      response.deserialize(json::parse(res.text));
 
     return response;
   }

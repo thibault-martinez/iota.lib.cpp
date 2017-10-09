@@ -108,6 +108,8 @@ public:
    * easily converted into the actual transaction object. See utility functions for more details.
    * https://iota.readme.io/docs/gettrytes
    *
+   * @param hashes The list of transaction hashes to get trytes from.
+   *
    * @return The response.
    */
   Responses::GetTrytes getTrytes(const std::vector<std::string>& hashes) const;
