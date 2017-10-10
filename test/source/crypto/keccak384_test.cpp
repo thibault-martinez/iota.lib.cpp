@@ -30,7 +30,7 @@
 #include <iota/crypto/keccak384.hpp>
 #include <test/utils/configuration.hpp>
 
-TEST(Keccak384Test, digest) {
+TEST(Keccak384, digest) {
   std::ifstream file(get_deps_folder() + "/keccak384");
   std::string   line;
   ASSERT_TRUE(file.is_open());
@@ -39,8 +39,8 @@ TEST(Keccak384Test, digest) {
     auto                semicolon = line.find(';');
     auto                input     = line.substr(0, semicolon);
     auto                digest    = line.substr(semicolon + 1);
-    std::vector<int8_t> vinput(std::begin(input), std::end(input));
-    k.update(vinput);
+    std::vector<int8_t> v(std::begin(input), std::end(input));
+    k.absorb(v);
     EXPECT_EQ(digest, k.digest());
     k.reset();
   }

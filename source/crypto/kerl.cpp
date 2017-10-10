@@ -57,7 +57,7 @@ Kerl::absorb(const Types::Trits& trits, unsigned int offset, unsigned int length
     tritsChunk.back() = 0;
     auto bytesChunk   = Types::tritsToBytes(tritsChunk);
 
-    keccak_.update(bytesChunk);
+    keccak_.absorb(bytesChunk);
     offset += TritHashLength;
   }
 }
@@ -76,7 +76,7 @@ Kerl::squeeze(Types::Trits& trits, unsigned int offset, unsigned int length) {
     std::transform(bytes.begin(), bytes.end(), bytes.begin(),
                    [](const int8_t& byte) { return byte ^ 0xFF; });
     keccak_.reset();
-    keccak_.update(bytes);
+    keccak_.absorb(bytes);
     offset += TritHashLength;
   }
 }

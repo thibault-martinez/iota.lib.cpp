@@ -46,13 +46,40 @@ public:
   virtual ~Keccak384();
 
 public:
-  void                reset();
-  void                update(const std::vector<int8_t>& values);
-  std::vector<int8_t> finalize();
+  /**
+   * Reset internal state of the sponge.
+   */
+  void reset();
+  /**
+   * Absorb the given values into the internal state of the sponge.
+   *
+   * @param values The values.
+   */
+  void absorb(const std::vector<int8_t>& values);
+  /**
+   * Squeeze out the internal state of the sponge.
+   *
+   * @return The values.
+   */
   std::vector<int8_t> squeeze();
-  std::string         digest();
+  // TODO Is it useless ?
+  // /**
+  //  * To be called after all input blocks have been input and to get output.
+  //  *
+  //  * @return The output data.
+  //  */
+  // std::vector<int8_t> finalize();
+  /**
+   * Get an hexadecimal digest of the ouput.
+   *
+   * @return the hexadecimal digest.
+   */
+  std::string digest();
 
 private:
+  /**
+   * Initialization routine.
+   */
   void initialize();
 
 private:
