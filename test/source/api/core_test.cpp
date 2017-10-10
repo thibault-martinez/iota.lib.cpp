@@ -114,6 +114,29 @@ TEST(Core, GetTrytes) {
   EXPECT_GE(res.getDuration(), 0);
 }
 
+TEST(Core, GetBalances) {
+  IOTA::API::Core api(get_proxy_host(), get_proxy_port());
+  auto            res = api.getBalances(
+      { "HBBYKAKTILIPVUKFOTSLHGENPTXYBNKXZFQFR9VQFWNBMTQNRVOUKPVPRNBSZVVILMAFBKOTBLGLWLOHQ" }, 100);
+
+  ASSERT_EQ(res.getStatusCode(), 200);
+  EXPECT_GE(res.getDuration(), 0);
+  EXPECT_FALSE(res.getBalances().empty());
+  EXPECT_TRUE(IOTA::Types::isValidHash(res.getMilestone()));
+  EXPECT_GE(res.getMilestoneIndex(), 0);
+
+  res = api.getBalances({ "9999" }, 100);
+
+  ASSERT_EQ(res.getStatusCode(), 400);
+  EXPECT_GE(res.getDuration(), 0);
+
+  res = api.getBalances(
+      { "HBBYKAKTILIPVUKFOTSLHGENPTXYBNKXZFQFR9VQFWNBMTQNRVOUKPVPRNBSZVVILMAFBKOTBLGLWLOHQ" }, 0);
+
+  ASSERT_EQ(res.getStatusCode(), 400);
+  EXPECT_GE(res.getDuration(), 0);
+}
+
 TEST(Core, GetTransactionsToApprove) {
   IOTA::API::Core api(get_proxy_host(), get_proxy_port());
   auto            res = api.getTransactionsToApprove(27);
