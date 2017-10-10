@@ -301,9 +301,9 @@ public:
 
   /**
    * @param hash The hash of a transaction
-   * @return hash of the tail transaction of the bundle to which the input trx belongs.
+   * @return hash of the tail transaction of the bundle to which the input trx belongs or EmptyHash
    */
-  const Types::Trytes& findTailTransactionHash(const Types::Trytes& hash) const;
+  Types::Trytes findTailTransactionHash(const Types::Trytes& hash) const;
 
   /**
    * @param seed               Tryte-encoded seed.

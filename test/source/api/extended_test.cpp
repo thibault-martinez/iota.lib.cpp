@@ -26,6 +26,7 @@
 #include <gtest/gtest.h>
 
 #include <iota/api/extended.hpp>
+#include <iota/constants.hpp>
 #include <iota/errors/illegal_state.hpp>
 #include <test/utils/configuration.hpp>
 
@@ -621,4 +622,36 @@ TEST(Extended, FindTransactionObjectsByBundleInvalidHash) {
   auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
 
   EXPECT_THROW(api.findTransactionObjectsByBundle({ "salut" }), IOTA::Errors::IllegalState);
+}
+
+TEST(Extended, FindTailTransactionHash) {
+  auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
+  auto res = api.findTailTransactionHash(
+      { "SOVJUIVPGKWKRAYOJHV9JQFGZAUWHXTLNRWXWOVEGABCBAHDFOFKVZVORLHFDBBBCBFDEPXNM9NK99999" });
+
+  EXPECT_EQ(res,
+            "VYTOQWVKMNIDHAFFQOBXKNEPIBKCIRBMVNPAINDCEHXTUWBRGJCMOVQQNNBUBCMBHYDNYSIVBUORA9999");
+}
+
+TEST(Extended, FindTailTransactionHashWithTailTrx) {
+  auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
+  auto res = api.findTailTransactionHash(
+      { "VYTOQWVKMNIDHAFFQOBXKNEPIBKCIRBMVNPAINDCEHXTUWBRGJCMOVQQNNBUBCMBHYDNYSIVBUORA9999" });
+
+  EXPECT_EQ(res,
+            "VYTOQWVKMNIDHAFFQOBXKNEPIBKCIRBMVNPAINDCEHXTUWBRGJCMOVQQNNBUBCMBHYDNYSIVBUORA9999");
+}
+
+TEST(Extended, FindTailTransactionHashWithBundle) {
+  auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
+  auto res = api.findTailTransactionHash(
+      "OTTLTEEKYQHLMGCKGSKMEELHZXNHU9DHODIIZGTLAO9SKRUBWQAIBVWYLLPZFBHOZAXTT9FECVWQEXBVC");
+
+  EXPECT_EQ(res, IOTA::EmptyHash);
+}
+
+TEST(Extended, FindTailTransactionHashWithInvalid) {
+  auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
+
+  EXPECT_THROW(api.findTailTransactionHash("salut"), IOTA::Errors::IllegalState);
 }

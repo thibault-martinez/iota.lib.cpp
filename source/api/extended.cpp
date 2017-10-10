@@ -716,7 +716,7 @@ Extended::getAccountData(const Types::Trytes& seed, int security, int index, boo
            stopWatch.getElapsedTimeMilliSeconds().count() };
 }
 
-const Types::Trytes&
+Types::Trytes
 Extended::findTailTransactionHash(const Types::Trytes& hash) const {
   auto gtr = getTrytes({ hash });
 
@@ -730,11 +730,19 @@ Extended::findTailTransactionHash(const Types::Trytes& hash) const {
     throw Errors::IllegalState("Invalid trytes, could not create object");
   }
 
-  if (trx.getCurrentIndex() == 0) {
+  //! check if current trx is tail
+  if (trx.isTailTransaction()) {
     return trx.getHash();
   }
 
-  return findTailTransactionHash(trx.getBundle());
+  //! if not, fetch based on bundle hash
+  for (const auto& trx : findTransactionObjectsByBundle({ trx.getBundle() })) {
+    if (trx.isTailTransaction()) {
+      return trx.getHash();
+    }
+  }
+
+  return EmptyHash;
 }
 
 std::vector<std::string>
