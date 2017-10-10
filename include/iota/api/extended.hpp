@@ -123,7 +123,7 @@ public:
    * transaction hash is not a tail, we return an error.
    *
    * @param trunkTx    Hash of a trunk or a tail transaction of a bundle.
-   * @param bundleHash The bundle hashe.
+   * @param bundleHash The bundle hash.
    * @param bundle     Bundle to be populated.
    * @return Filled bundle corresponding to tail transaction.
    */
