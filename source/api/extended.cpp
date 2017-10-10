@@ -250,6 +250,14 @@ Extended::findTransactionObjects(const std::vector<IOTA::Types::Trytes>& input) 
 
 std::vector<Models::Transaction>
 Extended::findTransactionObjectsByBundle(const std::vector<IOTA::Types::Trytes>& input) const {
+  // check hashes format
+  for (const auto& hash : input) {
+    if (!Types::isValidHash(hash)) {
+      throw Errors::IllegalState(
+          "findTransactionObjectsByBundle parameter is not a valid array of hashes");
+    }
+  }
+
   // get the transaction objects of the transactions
   return getTransactionsObjects(findTransactions({}, {}, {}, input).getHashes());
 }
