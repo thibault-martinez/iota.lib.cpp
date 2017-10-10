@@ -250,6 +250,14 @@ Extended::findTransactionObjects(const std::vector<IOTA::Types::Trytes>& input) 
 
 std::vector<Models::Transaction>
 Extended::findTransactionObjectsByBundle(const std::vector<IOTA::Types::Trytes>& input) const {
+  // check hashes format
+  for (const auto& hash : input) {
+    if (!Types::isValidHash(hash)) {
+      throw Errors::IllegalState(
+          "findTransactionObjectsByBundle parameter is not a valid array of hashes");
+    }
+  }
+
   // get the transaction objects of the transactions
   return getTransactionsObjects(findTransactions({}, {}, {}, input).getHashes());
 }
@@ -708,7 +716,7 @@ Extended::getAccountData(const Types::Trytes& seed, int security, int index, boo
            stopWatch.getElapsedTimeMilliSeconds().count() };
 }
 
-const Types::Trytes&
+Types::Trytes
 Extended::findTailTransactionHash(const Types::Trytes& hash) const {
   auto gtr = getTrytes({ hash });
 
@@ -722,11 +730,19 @@ Extended::findTailTransactionHash(const Types::Trytes& hash) const {
     throw Errors::IllegalState("Invalid trytes, could not create object");
   }
 
-  if (trx.getCurrentIndex() == 0) {
+  //! check if current trx is tail
+  if (trx.isTailTransaction()) {
     return trx.getHash();
   }
 
-  return findTailTransactionHash(trx.getBundle());
+  //! if not, fetch based on bundle hash
+  for (const auto& trx : findTransactionObjectsByBundle({ trx.getBundle() })) {
+    if (trx.isTailTransaction()) {
+      return trx.getHash();
+    }
+  }
+
+  return EmptyHash;
 }
 
 std::vector<std::string>
