@@ -108,8 +108,12 @@ TEST(Core, GetTrytes) {
       "99999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999"
       "99999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999"
       "99999");
+}
 
-  res = api.getTrytes({ "9999" });
+TEST(Core, GetTrytesInvalidHash) {
+  IOTA::API::Core api(get_proxy_host(), get_proxy_port());
+
+  auto res = api.getTrytes({ "9999" });
   ASSERT_EQ(res.getStatusCode(), 400);
   EXPECT_GE(res.getDuration(), 0);
 }
@@ -124,13 +128,19 @@ TEST(Core, GetBalances) {
   EXPECT_FALSE(res.getBalances().empty());
   EXPECT_TRUE(IOTA::Types::isValidHash(res.getMilestone()));
   EXPECT_GE(res.getMilestoneIndex(), 0);
+}
 
-  res = api.getBalances({ "9999" }, 100);
+TEST(Core, GetBalancesInvalidAddress) {
+  IOTA::API::Core api(get_proxy_host(), get_proxy_port());
+  auto            res = api.getBalances({ "9999" }, 100);
 
   ASSERT_EQ(res.getStatusCode(), 400);
   EXPECT_GE(res.getDuration(), 0);
+}
 
-  res = api.getBalances(
+TEST(Core, GetBalancesInvalidThreshold) {
+  IOTA::API::Core api(get_proxy_host(), get_proxy_port());
+  auto            res = api.getBalances(
       { "HBBYKAKTILIPVUKFOTSLHGENPTXYBNKXZFQFR9VQFWNBMTQNRVOUKPVPRNBSZVVILMAFBKOTBLGLWLOHQ" }, 0);
 
   ASSERT_EQ(res.getStatusCode(), 400);
