@@ -736,9 +736,9 @@ Extended::findTailTransactionHash(const Types::Trytes& hash) const {
   }
 
   //! if not, fetch based on bundle hash
-  for (const auto& trx : findTransactionObjectsByBundle({ trx.getBundle() })) {
-    if (trx.isTailTransaction()) {
-      return trx.getHash();
+  for (const auto& t : findTransactionObjectsByBundle({ trx.getBundle() })) {
+    if (t.isTailTransaction()) {
+      return t.getHash();
     }
   }
 
