@@ -76,11 +76,11 @@ Core::getTips() const {
 
 Responses::FindTransactions
 Core::findTransactions(const std::vector<Types::Trytes>& addresses,
-                       const std::vector<Types::Trytes>& digests,
+                       const std::vector<Types::Trytes>& tags,
                        const std::vector<Types::Trytes>& approvees,
                        const std::vector<Types::Trytes>& bundles) const {
   return service_.request<Requests::FindTransactions, Responses::FindTransactions>(
-      addresses, digests, approvees, bundles);
+      addresses, tags, approvees, bundles);
 }
 
 Responses::GetTrytes

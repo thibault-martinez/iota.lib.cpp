@@ -266,15 +266,43 @@ public:
    */
   Responses::Base broadcastAndStore(const std::vector<Types::Trytes>& trytes) const;
 
+  /**
+   * Find the transactions which match the specified addresses.
+   *
+   * @param addresses The list of addresses.
+   *
+   * @return the list of transactions which have the specified address as an input/output field.
+   */
   Responses::FindTransactions findTransactionsByAddresses(
       const std::vector<Types::Trytes>& addresses) const;
 
-  Responses::FindTransactions findTransactionsByDigests(
-      const std::vector<Types::Trytes>& digests) const;
+  /**
+   * Find the transactions which match the specified tags.
+   *
+   * @param tags The list of transaction tags.
+   *
+   * @return the list of transactions which contain the specified tag value.
+   */
+  Responses::FindTransactions findTransactionsByTags(const std::vector<Types::Trytes>& tags) const;
 
+  /**
+   * Find the transactions which match the specified approvees.
+   *
+   * @param approvees The list of approvees of a transaction.
+   *
+   * @return the list of transaction which reference (i.e. confirm) the specified transactions.
+   */
   Responses::FindTransactions findTransactionsByApprovees(
       const std::vector<Types::Trytes>& approvees) const;
 
+  /**
+   * Find the transactions which match the specified bundles.
+   *
+   * @param bundles The list of bundle hashes that need to be extended to 81 chars by padding the
+   * hash with 9's.
+   *
+   * @return the list of transactions which contain the specified bundle hash.
+   */
   Responses::FindTransactions findTransactionsByBundles(
       const std::vector<Types::Trytes>& bundles) const;
 

@@ -688,8 +688,8 @@ Extended::findTransactionsByAddresses(const std::vector<Types::Trytes>& addresse
 }
 
 Responses::FindTransactions
-Extended::findTransactionsByDigests(const std::vector<Types::Trytes>& digests) const {
-  return findTransactions({}, digests, {}, {});
+Extended::findTransactionsByTags(const std::vector<Types::Trytes>& tags) const {
+  return findTransactions({}, tags, {}, {});
 }
 
 Responses::FindTransactions

@@ -655,3 +655,60 @@ TEST(Extended, FindTailTransactionHashWithInvalid) {
 
   EXPECT_THROW(api.findTailTransactionHash("salut"), IOTA::Errors::IllegalState);
 }
+
+TEST(Extended, FindTransactionsByAddresses) {
+  auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
+  auto res = api.findTransactionsByAddresses(
+      { "KPWCHICGJZXKE9GSUDXZYUAPLHAKAHYHDXNPHENTERYMMBQOPSQIDENXKLKCEYCPVTZQLEEJVYJZV9BWU" });
+
+  ASSERT_EQ(res.getStatusCode(), 200);
+  EXPECT_FALSE(res.getHashes().empty());
+}
+
+TEST(Extended, FindTransactionsByAddressesInvalidAddress) {
+  auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
+  auto res = api.findTransactionsByAddresses({ "9999" });
+
+  ASSERT_EQ(res.getStatusCode(), 400);
+}
+
+TEST(Extended, FindTransactionsByTags) {
+  auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
+  auto res = api.findTransactionsByTags({ "QEXL99999999999999999999999999" });
+
+  ASSERT_EQ(res.getStatusCode(), 200);
+  EXPECT_FALSE(res.getHashes().empty());
+}
+
+TEST(Extended, FindTransactionsByApprovees) {
+  auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
+  auto res = api.findTransactionsByApprovees(
+      { "GFJUYJQRNSNGLSMAZUYRZEMKQRYZS9WACJQPSVDHLMUSDKDJZQ9TAWQCWJKFJTEQBSAI9ROLVQLH99999" });
+
+  ASSERT_EQ(res.getStatusCode(), 200);
+  EXPECT_FALSE(res.getHashes().empty());
+}
+
+TEST(Extended, FindTransactionsByApproveesInvalidApprovee) {
+  auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
+  auto res = api.findTransactionsByApprovees({ "9999" });
+
+  ASSERT_EQ(res.getStatusCode(), 400);
+}
+
+TEST(Extended, FindTransactionsByBundles) {
+  auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
+  auto res = api.findTransactionsByBundles(
+      { "XCRFXNBPLVMWLSMCUQVNXAKICTH9AHRIZWUEWKTIQNIZXITSPLIQPEPZEGBYLEWWEXYJMIWAYYAAWFJC9" });
+
+  ASSERT_EQ(res.getStatusCode(), 200);
+  EXPECT_FALSE(res.getHashes().empty());
+}
+
+TEST(Extended, FindTransactionsByBundlesInvalidBundle) {
+  auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
+  auto res = api.findTransactionsByBundles({ "9999" });
+
+  // TODO Should it be checked before as an exception ?
+  ASSERT_EQ(res.getStatusCode(), 400);
+}

@@ -54,7 +54,7 @@ public:
    * full init ctor
    */
   explicit FindTransactions(const std::vector<Types::Trytes>& addresses = {},
-                            const std::vector<Types::Trytes>& digests   = {},
+                            const std::vector<Types::Trytes>& tags      = {},
                             const std::vector<Types::Trytes>& approvees = {},
                             const std::vector<Types::Trytes>& bundles   = {});
 
@@ -89,19 +89,19 @@ public:
 
 public:
   /**
-   * @return digests
+   * @return tags
    */
-  const std::vector<Types::Trytes>& getDigests() const;
+  const std::vector<Types::Trytes>& getTags() const;
 
   /**
-   * @return digests (non const version)
+   * @return tags (non const version)
    */
-  std::vector<Types::Trytes>& getDigests();
+  std::vector<Types::Trytes>& getTags();
 
   /**
-   * @param digests new digests for api call
+   * @param tags new tags for api call
    */
-  void setDigests(const std::vector<Types::Trytes>& digests);
+  void setTags(const std::vector<Types::Trytes>& tags);
 
 public:
   /**
@@ -137,7 +137,7 @@ public:
 
 private:
   std::vector<Types::Trytes> addresses_;
-  std::vector<Types::Trytes> digests_;
+  std::vector<Types::Trytes> tags_;
   std::vector<Types::Trytes> approvees_;
   std::vector<Types::Trytes> bundles_;
 };

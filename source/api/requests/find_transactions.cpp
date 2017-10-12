@@ -32,12 +32,12 @@ namespace API {
 namespace Requests {
 
 FindTransactions::FindTransactions(const std::vector<Types::Trytes>& addresses,
-                                   const std::vector<Types::Trytes>& digests,
+                                   const std::vector<Types::Trytes>& tags,
                                    const std::vector<Types::Trytes>& approvees,
                                    const std::vector<Types::Trytes>& bundles)
     : Base("findTransactions"),
       addresses_(addresses),
-      digests_(digests),
+      tags_(tags),
       approvees_(approvees),
       bundles_(bundles) {
 }
@@ -45,7 +45,7 @@ void
 FindTransactions::serialize(json& data) {
   Base::serialize(data);
   data["addresses"] = addresses_;
-  data["digests"]   = digests_;
+  data["tags"]      = tags_;
   data["approvees"] = approvees_;
   data["bundles"]   = bundles_;
 }
@@ -66,18 +66,18 @@ FindTransactions::setAddresses(const std::vector<Types::Trytes>& addrs) {
 }
 
 const std::vector<Types::Trytes>&
-FindTransactions::getDigests() const {
-  return digests_;
+FindTransactions::getTags() const {
+  return tags_;
 }
 
 std::vector<Types::Trytes>&
-FindTransactions::getDigests() {
-  return digests_;
+FindTransactions::getTags() {
+  return tags_;
 }
 
 void
-FindTransactions::setDigests(const std::vector<Types::Trytes>& digests) {
-  digests_ = digests;
+FindTransactions::setTags(const std::vector<Types::Trytes>& tags) {
+  tags_ = tags;
 }
 
 const std::vector<Types::Trytes>&

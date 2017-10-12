@@ -100,7 +100,7 @@ public:
    * @return The response.
    */
   Responses::FindTransactions findTransactions(const std::vector<Types::Trytes>& addresses,
-                                               const std::vector<Types::Trytes>& digests,
+                                               const std::vector<Types::Trytes>& tags,
                                                const std::vector<Types::Trytes>& approvees,
                                                const std::vector<Types::Trytes>& bundles) const;
   /*
@@ -131,6 +131,9 @@ public:
    * milestone as well as the index with which the confirmed balance was determined. The balances
    * is returned as a list in the same order as the addresses were provided as input.
    * https://iota.readme.io/docs/getbalances
+   *
+   * @param addresses The list of addresses you want to get the confirmed balance from.
+   * @param threshold The confirmation threshold, should be set to 100.
    *
    * @return The response.
    */
