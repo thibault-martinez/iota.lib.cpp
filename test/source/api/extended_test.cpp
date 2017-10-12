@@ -716,7 +716,7 @@ TEST(Extended, FindTransactionsByBundlesInvalidBundle) {
 TEST(Extended, GetAccountData) {
   auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
   auto res = api.getAccountData(
-      "IHDEENZYITYVYSPKAURUZAQKGVJEREFDJMYTANNXXGPZ9GJWTEOJJ9IPMXOGZNQLSNMFDSQOTZAEETUEA", 2, 0,
+      "IHDEENZYITYVYSPKAURUZAQKGVJEREFDJMYTANNXXGPZ9GJWTEOJJ9IPMXOGZNQLSNMFDSQOTZAEETUEA", 0, 2,
       true, 0, true, 0, 0, true, 0);
 
   EXPECT_EQ(res.getAddresses(), std::vector<IOTA::Types::Trytes>(
@@ -796,7 +796,7 @@ TEST(Extended, GetAccountData) {
 TEST(Extended, GetAccountDataInvalidSeed) {
   auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
 
-  EXPECT_THROW(api.getAccountData("hello", 2, 0, true, 0, true, 0, 0, true, 0),
+  EXPECT_THROW(api.getAccountData("hello", 0, 2, true, 0, true, 0, 0, true, 0),
                IOTA::Errors::IllegalState);
 }
 
@@ -805,15 +805,15 @@ TEST(Extended, GetAccountDataInvalidSecurity) {
 
   EXPECT_THROW(
       api.getAccountData(
-          "IHDEENZYITYVYSPKAURUZAQKGVJEREFDJMYTANNXXGPZ9GJWTEOJJ9IPMXOGZNQLSNMFDSQOTZAEETUEA", 42,
-          0, true, 0, true, 0, 0, true, 0),
+          "IHDEENZYITYVYSPKAURUZAQKGVJEREFDJMYTANNXXGPZ9GJWTEOJJ9IPMXOGZNQLSNMFDSQOTZAEETUEA", 0,
+          42, true, 0, true, 0, 0, true, 0),
       IOTA::Errors::IllegalState);
 }
 
 TEST(Extended, GetAccountDataWithoutChechsum) {
   auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
   auto res = api.getAccountData(
-      "IHDEENZYITYVYSPKAURUZAQKGVJEREFDJMYTANNXXGPZ9GJWTEOJJ9IPMXOGZNQLSNMFDSQOTZAEETUEA", 2, 0,
+      "IHDEENZYITYVYSPKAURUZAQKGVJEREFDJMYTANNXXGPZ9GJWTEOJJ9IPMXOGZNQLSNMFDSQOTZAEETUEA", 0, 2,
       false, 0, true, 0, 0, true, 0);
 
   EXPECT_EQ(
@@ -893,7 +893,7 @@ TEST(Extended, GetAccountDataWithoutChechsum) {
 TEST(Extended, GetAccountDataTotal) {
   auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
   auto res = api.getAccountData(
-      "IHDEENZYITYVYSPKAURUZAQKGVJEREFDJMYTANNXXGPZ9GJWTEOJJ9IPMXOGZNQLSNMFDSQOTZAEETUEA", 2, 0,
+      "IHDEENZYITYVYSPKAURUZAQKGVJEREFDJMYTANNXXGPZ9GJWTEOJJ9IPMXOGZNQLSNMFDSQOTZAEETUEA", 0, 2,
       true, 1, true, 0, 0, true, 0);
 
   EXPECT_EQ(res.getAddresses(), std::vector<IOTA::Types::Trytes>(
@@ -971,7 +971,7 @@ TEST(Extended, GetAccountDataTotal) {
 TEST(Extended, GetAccountDataReturnAll) {
   auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
   auto res = api.getAccountData(
-      "IHDEENZYITYVYSPKAURUZAQKGVJEREFDJMYTANNXXGPZ9GJWTEOJJ9IPMXOGZNQLSNMFDSQOTZAEETUEA", 2, 0,
+      "IHDEENZYITYVYSPKAURUZAQKGVJEREFDJMYTANNXXGPZ9GJWTEOJJ9IPMXOGZNQLSNMFDSQOTZAEETUEA", 0, 2,
       true, 0, false, 0, 0, true, 0);
 
   EXPECT_EQ(res.getAddresses(),
@@ -1049,7 +1049,7 @@ TEST(Extended, GetAccountDataReturnAll) {
 TEST(Extended, GetAccountDataStartEnd) {
   auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
   auto res = api.getAccountData(
-      "IHDEENZYITYVYSPKAURUZAQKGVJEREFDJMYTANNXXGPZ9GJWTEOJJ9IPMXOGZNQLSNMFDSQOTZAEETUEA", 2, 0,
+      "IHDEENZYITYVYSPKAURUZAQKGVJEREFDJMYTANNXXGPZ9GJWTEOJJ9IPMXOGZNQLSNMFDSQOTZAEETUEA", 0, 2,
       true, 0, true, 1, 1, true, 0);
 
   EXPECT_EQ(res.getAddresses(),
@@ -1067,7 +1067,7 @@ TEST(Extended, GetAccountDataMin) {
 
   EXPECT_THROW(
       api.getAccountData(
-          "IHDEENZYITYVYSPKAURUZAQKGVJEREFDJMYTANNXXGPZ9GJWTEOJJ9IPMXOGZNQLSNMFDSQOTZAEETUEA", 2, 0,
+          "IHDEENZYITYVYSPKAURUZAQKGVJEREFDJMYTANNXXGPZ9GJWTEOJJ9IPMXOGZNQLSNMFDSQOTZAEETUEA", 0, 2,
           true, 0, true, 0, 0, true, 1000),
       IOTA::Errors::IllegalState);
 }
