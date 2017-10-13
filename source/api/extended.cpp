@@ -49,8 +49,8 @@ Extended::~Extended() {
  */
 
 Responses::GetBalancesAndFormat
-Extended::getInputs(const std::string& seed, const int32_t& security, const int32_t& start,
-                    const int32_t& end, const int64_t& threshold) const {
+Extended::getInputs(const std::string& seed, const int32_t& start, const int32_t& end,
+                    const int32_t& security, const int64_t& threshold) const {
   Utils::StopWatch stopWatch;
 
   // validate the seed
@@ -82,7 +82,7 @@ Extended::getInputs(const std::string& seed, const int32_t& security, const int3
       allAddresses.push_back(newAddress(seed, i, security, false));
     }
 
-    return getBalancesAndFormat(allAddresses, threshold, start, stopWatch, security);
+    return getBalancesAndFormat(allAddresses, threshold, start, security, stopWatch);
   }
   //  Case 2: iterate till threshold || end
   //
@@ -91,14 +91,14 @@ Extended::getInputs(const std::string& seed, const int32_t& security, const int3
   //  We then do getBalance, format the output and return it
   else {
     auto res = getNewAddresses(seed, start, security, false, 0, true);
-    return getBalancesAndFormat(res.getAddresses(), threshold, start, stopWatch, security);
+    return getBalancesAndFormat(res.getAddresses(), threshold, start, security, stopWatch);
   }
 }
 
 Responses::GetBalancesAndFormat
 Extended::getBalancesAndFormat(const std::vector<std::string>& addresses, const int64_t& threshold,
-                               const int32_t& start, Utils::StopWatch stopWatch,
-                               const int32_t& security) const {
+                               const int32_t& start, const int32_t& security,
+                               Utils::StopWatch stopWatch) const {
   if (security < 1 || security > 3) {
     throw Errors::IllegalState("Invalid Security Level");
   }
@@ -494,7 +494,7 @@ Extended::prepareTransfers(const Types::Trytes& seed, int security,
     //  If no inputs provided, derive the addresses from the seed and
     //  confirm that the inputs exceed the threshold
     else {
-      auto newinputs = getInputs(seed, security, 0, 0, totalValue);
+      auto newinputs = getInputs(seed, 0, 0, security, totalValue);
       // If inputs with enough balance
       return addRemainder(seed, security, newinputs.getInput(), bundle, tag, totalValue, remainder,
                           signatureFragments);
@@ -600,7 +600,7 @@ Extended::getBundle(const Types::Trytes& transaction) const {
 }
 
 Responses::GetTransfers
-Extended::getTransfers(const Types::Trytes& seed, int security, int start, int end,
+Extended::getTransfers(const Types::Trytes& seed, int start, int end, int security,
                        bool inclusionStates) const {
   Utils::StopWatch stopWatch;
 
@@ -703,14 +703,14 @@ Extended::findTransactionsByBundles(const std::vector<Types::Trytes>& bundles) c
 }
 
 Responses::GetAccountData
-Extended::getAccountData(const Types::Trytes& seed, int security, int index, bool checksum,
+Extended::getAccountData(const Types::Trytes& seed, int index, int security, bool checksum,
                          int total, bool returnAll, int start, int end, bool inclusionStates,
                          long threshold) const {
   Utils::StopWatch stopWatch;
 
   auto gna = getNewAddresses(seed, index, security, checksum, total, returnAll);
-  auto gtr = getTransfers(seed, security, start, end, inclusionStates);
-  auto gbr = getInputs(seed, security, start, end, threshold);
+  auto gtr = getTransfers(seed, start, end, security, inclusionStates);
+  auto gbr = getInputs(seed, start, end, security, threshold);
 
   return { gna.getAddresses(), gtr.getTransfers(), gbr.getTotalBalance(),
            stopWatch.getElapsedTimeMilliSeconds().count() };

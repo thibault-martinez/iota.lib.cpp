@@ -68,8 +68,8 @@ public:
    * @param end       Ending key index.
    * @param threshold Min balance required.
    */
-  Responses::GetBalancesAndFormat getInputs(const std::string& seed, const int32_t& security,
-                                            const int32_t& start, const int32_t& end,
+  Responses::GetBalancesAndFormat getInputs(const std::string& seed, const int32_t& start,
+                                            const int32_t& end, const int32_t& security,
                                             const int64_t& threshold) const;
 
   /**
@@ -85,8 +85,8 @@ public:
   Responses::GetBalancesAndFormat getBalancesAndFormat(const std::vector<std::string>& addresses,
                                                        const int64_t&                  threshold,
                                                        const int32_t&                  start,
-                                                       Utils::StopWatch                stopWatch,
-                                                       const int32_t& security) const;
+                                                       const int32_t&                  security,
+                                                       Utils::StopWatch stopWatch = {}) const;
 
   /**
    * Generates a new address from a seed and returns the remainderAddress.
@@ -220,7 +220,7 @@ public:
    * @param inclusionStates If <code>true</code>, it gets the inclusion states of the transfers.
    * @return Bundle of transfers.
    */
-  Responses::GetTransfers getTransfers(const Types::Trytes& seed, int security, int start, int end,
+  Responses::GetTransfers getTransfers(const Types::Trytes& seed, int start, int end, int security,
                                        bool inclusionStates) const;
 
   /**
@@ -313,17 +313,17 @@ public:
    * transferred.
    * @param security        The Security level of private key / seed.
    * @param index           Key index to start search from. If the index is provided, the generation
-   * of the address is not deterministic.
+   * of the address is not deterministic. Default is 0.
    * @param checksum        Adds 9-tryte address checksum.
-   * @param total           Total number of addresses to generate.
+   * @param total           Total number of addresses to generate. 0 for unlimited
    * @param returnAll       If <code>true</code>, it returns all addresses which were
    * deterministically generated (until findTransactions returns null).
-   * @param start           Starting key index.
-   * @param end             Ending key index.
+   * @param start           Starting key index. 0 to skip.
+   * @param end             Ending key index. 0 to skip.
    * @param inclusionStates If <code>true</code>, it gets the inclusion states of the transfers.
-   * @param threshold       Min balance required.
+   * @param threshold       Min balance required. 0 to skip.
    */
-  Responses::GetAccountData getAccountData(const Types::Trytes& seed, int security, int index,
+  Responses::GetAccountData getAccountData(const Types::Trytes& seed, int index, int security,
                                            bool checksum, int total, bool returnAll, int start,
                                            int end, bool inclusionStates, long threshold) const;
 
