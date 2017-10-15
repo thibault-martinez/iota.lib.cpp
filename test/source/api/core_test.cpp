@@ -201,3 +201,63 @@ TEST(Core, BroadcastTransactionsInvalidTrytes) {
 
   ASSERT_EQ(res.getStatusCode(), 400);
 }
+
+TEST(Core, FindTransactionsWithAddress) {
+  IOTA::API::Core api(get_proxy_host(), get_proxy_port());
+  auto            res = api.findTransactions(
+      { "KPWCHICGJZXKE9GSUDXZYUAPLHAKAHYHDXNPHENTERYMMBQOPSQIDENXKLKCEYCPVTZQLEEJVYJZV9BWU" }, {},
+      {}, {});
+
+  ASSERT_EQ(res.getStatusCode(), 200);
+  EXPECT_FALSE(res.getHashes().empty());
+}
+
+TEST(Core, FindTransactionsWithInvalidAddress) {
+  IOTA::API::Core api(get_proxy_host(), get_proxy_port());
+  auto            res = api.findTransactions({ "9999" }, {}, {}, {});
+
+  ASSERT_EQ(res.getStatusCode(), 400);
+}
+
+TEST(Core, FindTransactionsWithTag) {
+  IOTA::API::Core api(get_proxy_host(), get_proxy_port());
+  auto            res = api.findTransactions({}, { "QEXL99999999999999999999999999" }, {}, {});
+
+  ASSERT_EQ(res.getStatusCode(), 200);
+  EXPECT_FALSE(res.getHashes().empty());
+}
+
+TEST(Core, FindTransactionsWithApprovee) {
+  IOTA::API::Core api(get_proxy_host(), get_proxy_port());
+  auto            res = api.findTransactions(
+      {}, {},
+      { "GFJUYJQRNSNGLSMAZUYRZEMKQRYZS9WACJQPSVDHLMUSDKDJZQ9TAWQCWJKFJTEQBSAI9ROLVQLH99999" }, {});
+
+  ASSERT_EQ(res.getStatusCode(), 200);
+  EXPECT_FALSE(res.getHashes().empty());
+}
+
+TEST(Core, FindTransactionsWithInvalidApprovee) {
+  IOTA::API::Core api(get_proxy_host(), get_proxy_port());
+  auto            res = api.findTransactions({}, {}, { "9999" }, {});
+
+  ASSERT_EQ(res.getStatusCode(), 400);
+}
+
+TEST(Core, FindTransactionsWithBundle) {
+  IOTA::API::Core api(get_proxy_host(), get_proxy_port());
+  auto            res = api.findTransactions(
+      {}, {}, {},
+      { "XCRFXNBPLVMWLSMCUQVNXAKICTH9AHRIZWUEWKTIQNIZXITSPLIQPEPZEGBYLEWWEXYJMIWAYYAAWFJC9" });
+
+  ASSERT_EQ(res.getStatusCode(), 200);
+  EXPECT_FALSE(res.getHashes().empty());
+}
+
+TEST(Core, FindTransactionsWithInvalidBundle) {
+  IOTA::API::Core api(get_proxy_host(), get_proxy_port());
+  auto            res = api.findTransactions({}, {}, {}, { "9999" });
+
+  // TODO Should it be checked before as an exception ?
+  ASSERT_EQ(res.getStatusCode(), 400);
+}

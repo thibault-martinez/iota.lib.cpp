@@ -102,6 +102,12 @@ public:
    * approvees. Using multiple of these input fields returns the intersection of the values.
    * https://iota.readme.io/docs/findtransactions
    *
+   * @param addresses The list of addresses.
+   * @param tags The list of transaction tags.
+   * @param approvees The list of approvees of a transaction.
+   * @param bundles The List of bundle hashes. The hashes need to be extended to 81chars by padding
+   * the hash with 9's.
+   *
    * @return The response.
    */
   Responses::FindTransactions findTransactions(const std::vector<Types::Trytes>& addresses,
