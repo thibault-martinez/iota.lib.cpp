@@ -23,7 +23,16 @@
 #
 #
 
-# set(BUILD_CPR_TESTS OFF CACHE BOOL)
-add_subdirectory(external/cpr)
-include_directories(${CPR_INCLUDE_DIRS})
-target_link_libraries(${CMAKE_PROJECT_NAME} ${CPR_LIBRARIES})
+ExternalProject_Add("cpr_dep"
+                    GIT_SUBMODULES ""
+                    CMAKE_ARGS "-DBUILD_CPR_TESTS=OFF"
+                    CMAKE_ARGS "-DBUILD_TESTING=0"
+                    CMAKE_ARGS "-DCMAKE_INSTALL_PREFIX=${CMAKE_SOURCE_DIR}/deps"
+                    CMAKE_ARGS "-DCMAKE_ARCHIVE_OUTPUT_DIRECTORY=${CMAKE_SOURCE_DIR}/deps/lib"
+                    CMAKE_ARGS "-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=${CMAKE_SOURCE_DIR}/deps/lib"
+                    CMAKE_ARGS "-Wno-dev"
+                    SOURCE_DIR "${CMAKE_SOURCE_DIR}/external/cpr")
+
+include_directories(${CMAKE_SOURCE_DIR}/external/cpr/include)
+target_link_libraries(${CMAKE_PROJECT_NAME} cpr curl)
+add_dependencies(${CMAKE_PROJECT_NAME} cpr_dep)

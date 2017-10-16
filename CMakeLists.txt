@@ -26,6 +26,7 @@
 ########## GLOBAL CONFIGURATION ##########
 
 cmake_minimum_required(VERSION 3.1.0)
+include(${CMAKE_ROOT}/Modules/ExternalProject.cmake)
 
 project(iota VERSION "0.0.0")
 enable_language(C CXX)
@@ -71,6 +72,11 @@ find_package(Boost 1.64.0)
 if(Boost_FOUND)
   include_directories(${Boost_INCLUDE_DIRS})
 endif()
+
+########## DEPENDENCIES ##########
+
+include_directories(${CMAKE_SOURCE_DIR}/deps/include)
+link_directories(${CMAKE_SOURCE_DIR}/deps/lib)
 
 ########## LIBRARY ##########
 

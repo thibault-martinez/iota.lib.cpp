@@ -33,6 +33,7 @@
 
 # Build
 build
+deps
 
 # Temporary files
 tmp
