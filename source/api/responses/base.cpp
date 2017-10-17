@@ -59,6 +59,16 @@ Base::setStatusCode(const int16_t& statusCode) {
   statusCode_ = statusCode;
 }
 
+const std::string&
+Base::getError() const {
+  return error_;
+}
+
+void
+Base::setError(const std::string& error) {
+  error_ = error;
+}
+
 }  // namespace Responses
 
 }  // namespace API

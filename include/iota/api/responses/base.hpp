@@ -81,9 +81,20 @@ public:
    */
   void setStatusCode(const int16_t& statusCode);
 
+  /**
+   * @return error of operation
+   */
+  const std::string& getError() const;
+
+  /**
+   * @param error set error of operation
+   */
+  void setError(const std::string& error);
+
 private:
-  int64_t duration_;
-  int16_t statusCode_;
+  int64_t     duration_;
+  int16_t     statusCode_;
+  std::string error_;
 };
 
 }  // namespace Responses

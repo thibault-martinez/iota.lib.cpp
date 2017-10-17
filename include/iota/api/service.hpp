@@ -60,6 +60,9 @@ public:
     // TODO set duration ?
     if (res.status_code == 200)
       response.deserialize(json::parse(res.text));
+    else
+      // TODO in deserialize ?
+      response.setError(json::parse(res.text)["error"]);
 
     return response;
   }
