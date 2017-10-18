@@ -116,6 +116,7 @@ TEST(Core, GetTrytesInvalidHash) {
   auto res = api.getTrytes({ "9999" });
   ASSERT_EQ(res.getStatusCode(), 400);
   EXPECT_GE(res.getDuration(), 0);
+  EXPECT_EQ(res.getError(), "Invalid hash input");
 }
 
 TEST(Core, GetBalances) {
@@ -136,6 +137,7 @@ TEST(Core, GetBalancesInvalidAddress) {
 
   ASSERT_EQ(res.getStatusCode(), 400);
   EXPECT_GE(res.getDuration(), 0);
+  EXPECT_EQ(res.getError(), "Invalid addresses input");
 }
 
 TEST(Core, GetBalancesInvalidThreshold) {
@@ -145,6 +147,7 @@ TEST(Core, GetBalancesInvalidThreshold) {
 
   ASSERT_EQ(res.getStatusCode(), 400);
   EXPECT_GE(res.getDuration(), 0);
+  EXPECT_EQ(res.getError(), "Illegal 'threshold'");
 }
 
 TEST(Core, GetTransactionsToApprove) {
@@ -200,6 +203,8 @@ TEST(Core, BroadcastTransactionsInvalidTrytes) {
   auto            res = api.broadcastTransactions({ "9999" });
 
   ASSERT_EQ(res.getStatusCode(), 400);
+  EXPECT_GE(res.getDuration(), 0);
+  EXPECT_EQ(res.getError(), "Invalid trytes input");
 }
 
 TEST(Core, FindTransactionsWithAddress) {
@@ -217,6 +222,8 @@ TEST(Core, FindTransactionsWithInvalidAddress) {
   auto            res = api.findTransactions({ "9999" }, {}, {}, {});
 
   ASSERT_EQ(res.getStatusCode(), 400);
+  EXPECT_GE(res.getDuration(), 0);
+  EXPECT_EQ(res.getError(), "Invalid address input");
 }
 
 TEST(Core, FindTransactionsWithTag) {
@@ -242,6 +249,8 @@ TEST(Core, FindTransactionsWithInvalidApprovee) {
   auto            res = api.findTransactions({}, {}, { "9999" }, {});
 
   ASSERT_EQ(res.getStatusCode(), 400);
+  EXPECT_GE(res.getDuration(), 0);
+  EXPECT_EQ(res.getError(), "Invalid approvees hash");
 }
 
 TEST(Core, FindTransactionsWithBundle) {
@@ -260,4 +269,6 @@ TEST(Core, FindTransactionsWithInvalidBundle) {
 
   // TODO Should it be checked before as an exception ?
   ASSERT_EQ(res.getStatusCode(), 400);
+  EXPECT_GE(res.getDuration(), 0);
+  EXPECT_EQ(res.getError(), "Invalid bundle hash");
 }

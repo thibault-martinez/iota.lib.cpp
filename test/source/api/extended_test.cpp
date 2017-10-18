@@ -670,6 +670,8 @@ TEST(Extended, FindTransactionsByAddressesInvalidAddress) {
   auto res = api.findTransactionsByAddresses({ "9999" });
 
   ASSERT_EQ(res.getStatusCode(), 400);
+  EXPECT_GE(res.getDuration(), 0);
+  EXPECT_EQ(res.getError(), "Invalid address input");
 }
 
 TEST(Extended, FindTransactionsByTags) {
@@ -694,6 +696,8 @@ TEST(Extended, FindTransactionsByApproveesInvalidApprovee) {
   auto res = api.findTransactionsByApprovees({ "9999" });
 
   ASSERT_EQ(res.getStatusCode(), 400);
+  EXPECT_GE(res.getDuration(), 0);
+  EXPECT_EQ(res.getError(), "Invalid approvees hash");
 }
 
 TEST(Extended, FindTransactionsByBundles) {
@@ -711,6 +715,8 @@ TEST(Extended, FindTransactionsByBundlesInvalidBundle) {
 
   // TODO Should it be checked before as an exception ?
   ASSERT_EQ(res.getStatusCode(), 400);
+  EXPECT_GE(res.getDuration(), 0);
+  EXPECT_EQ(res.getError(), "Invalid bundle hash");
 }
 
 TEST(Extended, GetAccountData) {
