@@ -113,6 +113,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ad8d35bca48c99d1bd215e8c2765f34b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab409caec628427f684b403c26b3446fb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_base.html#ab409caec628427f684b403c26b3446fb">setStatusCode</a> (const int16_t &amp;statusCode)</td></tr>
 <tr class="separator:ab409caec628427f684b403c26b3446fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad522ea9a8b09b922b30b77010eaea04a"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_base.html#ad522ea9a8b09b922b30b77010eaea04a">getError</a> () const</td></tr>
+<tr class="separator:ad522ea9a8b09b922b30b77010eaea04a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee18aa5cb9348777d628605a1f9eaa74"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_base.html#aee18aa5cb9348777d628605a1f9eaa74">setError</a> (const std::string &amp;error)</td></tr>
+<tr class="separator:aee18aa5cb9348777d628605a1f9eaa74"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ac5f64bc6a926f8419985c71e5bf16716"></a>
@@ -222,6 +226,24 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ad522ea9a8b09b922b30b77010eaea04a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad522ea9a8b09b922b30b77010eaea04a">&#9670;&nbsp;</a></span>getError()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string &amp; IOTA::API::Responses::Base::getError </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>error of operation </dd></dl>
+
+</div>
+</div>
 <a id="ad8d35bca48c99d1bd215e8c2765f34b1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad8d35bca48c99d1bd215e8c2765f34b1">&#9670;&nbsp;</a></span>getStatusCode()</h2>
 
@@ -258,6 +280,30 @@ Public Member Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">duration</td><td>set duration of operation </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aee18aa5cb9348777d628605a1f9eaa74"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aee18aa5cb9348777d628605a1f9eaa74">&#9670;&nbsp;</a></span>setError()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void IOTA::API::Responses::Base::setError </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>error</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">error</td><td>set error of operation </td></tr>
   </table>
   </dd>
 </dl>
