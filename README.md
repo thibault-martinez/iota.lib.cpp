@@ -4,6 +4,7 @@
 
 # IOTA C++ Library
 [![Build Status](https://travis-ci.org/thibault-martinez/iota.lib.cpp.svg?branch=master)](https://travis-ci.org/thibault-martinez/iota.lib.cpp)
+[![Build status](https://ci.appveyor.com/api/projects/status/512okcym7n737v4r?svg=true)](https://ci.appveyor.com/project/Cylix/iota-lib-cpp)
 [![Coverage Status](https://codecov.io/gh/thibault-martinez/iota.lib.cpp/branch/master/graph/badge.svg)](https://codecov.io/gh/thibault-martinez/iota.lib.cpp)
 [![MIT License](https://img.shields.io/packagist/l/doctrine/orm.svg)]()
 
