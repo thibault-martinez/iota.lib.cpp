@@ -230,13 +230,13 @@ Transaction::operator!=(Transaction rhs) const {
 
 std::string
 Transaction::toTrytes() const {
-  auto value = IOTA::Types::tritsToTrytes(IOTA::Types::intToTrits(getValue(), SeedLength));
+  auto value = IOTA::Types::tritsToTrytes(IOTA::Types::intToTrits((int)getValue(), SeedLength));
   auto timestamp =
-      IOTA::Types::tritsToTrytes(IOTA::Types::intToTrits(getTimestamp(), TryteAlphabetLength));
+      IOTA::Types::tritsToTrytes(IOTA::Types::intToTrits((int)getTimestamp(), TryteAlphabetLength));
   auto currentIndex =
-      IOTA::Types::tritsToTrytes(IOTA::Types::intToTrits(getCurrentIndex(), TryteAlphabetLength));
+      IOTA::Types::tritsToTrytes(IOTA::Types::intToTrits((int)getCurrentIndex(), TryteAlphabetLength));
   auto lastIndex =
-      IOTA::Types::tritsToTrytes(IOTA::Types::intToTrits(getLastIndex(), TryteAlphabetLength));
+      IOTA::Types::tritsToTrytes(IOTA::Types::intToTrits((int)getLastIndex(), TryteAlphabetLength));
 
   return getSignatureFragments() + getAddress() + value + getTag() + timestamp + currentIndex +
          lastIndex + getBundle() + getTrunkTransaction() + getBranchTransaction() + getNonce();

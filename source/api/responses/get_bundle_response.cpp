@@ -23,7 +23,7 @@
 //
 //
 
-#include <iota/api/responses/replay_bundle.hpp>
+#include <iota/api/responses/get_bundle.hpp>
 
 namespace IOTA {
 
@@ -31,23 +31,23 @@ namespace API {
 
 namespace Responses {
 
-ReplayBundle::ReplayBundle(const std::vector<bool>& successful, long duration)
-    : Base(duration), successfully_(successful) {
+GetBundle::GetBundle(const std::vector<Models::Transaction>& transactions, const int64_t& duration)
+    : Base(duration), transactions_(transactions) {
 }
 
-const std::vector<bool>&
-ReplayBundle::getSuccessfully() const {
-  return successfully_;
+const std::vector<Models::Transaction>&
+GetBundle::getTransactions() const {
+  return transactions_;
 }
 
-std::vector<bool>&
-ReplayBundle::getSuccessfully() {
-  return successfully_;
+std::vector<Models::Transaction>&
+GetBundle::getTransactions() {
+  return transactions_;
 }
 
 void
-ReplayBundle::setSuccessfully(const std::vector<bool>& successful) {
-  successfully_ = successful;
+GetBundle::setTransactions(const std::vector<Models::Transaction>& transactions) {
+  transactions_ = transactions;
 }
 
 }  // namespace Responses

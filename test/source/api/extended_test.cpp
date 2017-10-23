@@ -35,7 +35,7 @@ TEST(Extended, GetBundleTransactionHash) {
   auto res = api.getBundle(
       "VYTOQWVKMNIDHAFFQOBXKNEPIBKCIRBMVNPAINDCEHXTUWBRGJCMOVQQNNBUBCMBHYDNYSIVBUORA9999");
 
-  EXPECT_EQ(res.getTransactions().size(), 2);
+  EXPECT_EQ(res.getTransactions().size(), 2UL);
 
   const auto& trx1 = res.getTransactions()[0];
   EXPECT_EQ(
@@ -168,7 +168,7 @@ TEST(Extended, TraverseBundleTransactionHash) {
   auto res = api.traverseBundle(
       "VYTOQWVKMNIDHAFFQOBXKNEPIBKCIRBMVNPAINDCEHXTUWBRGJCMOVQQNNBUBCMBHYDNYSIVBUORA9999");
 
-  EXPECT_EQ(res.getTransactions().size(), 2);
+  EXPECT_EQ(res.getTransactions().size(), 2UL);
 
   const auto& trx1 = res.getTransactions()[0];
   EXPECT_EQ(
@@ -303,7 +303,7 @@ TEST(Extended, TraverseBundleFullTransactionHash) {
       "VYTOQWVKMNIDHAFFQOBXKNEPIBKCIRBMVNPAINDCEHXTUWBRGJCMOVQQNNBUBCMBHYDNYSIVBUORA9999", "",
       bundle);
 
-  EXPECT_EQ(res.getTransactions().size(), 2);
+  EXPECT_EQ(res.getTransactions().size(), 2UL);
 
   const auto& trx1 = res.getTransactions()[0];
   EXPECT_EQ(
@@ -445,7 +445,7 @@ TEST(Extended, TraverseBundleFullInvalidBundleHash) {
       "VYTOQWVKMNIDHAFFQOBXKNEPIBKCIRBMVNPAINDCEHXTUWBRGJCMOVQQNNBUBCMBHYDNYSIVBUORA9999", "yolo",
       bundle);
 
-  EXPECT_EQ(res.getTransactions().size(), 0);
+  EXPECT_EQ(res.getTransactions().size(), 0UL);
 }
 
 TEST(Extended, TraverseBundleFullIntermediateTrxWithAppending) {
@@ -455,7 +455,7 @@ TEST(Extended, TraverseBundleFullIntermediateTrxWithAppending) {
       "SOVJUIVPGKWKRAYOJHV9JQFGZAUWHXTLNRWXWOVEGABCBAHDFOFKVZVORLHFDBBBCBFDEPXNM9NK99999",
       "OTTLTEEKYQHLMGCKGSKMEELHZXNHU9DHODIIZGTLAO9SKRUBWQAIBVWYLLPZFBHOZAXTT9FECVWQEXBVC", bundle);
 
-  EXPECT_EQ(res.getTransactions().size(), 2);
+  EXPECT_EQ(res.getTransactions().size(), 2UL);
 
   const auto& trx1 = res.getTransactions()[0];
   EXPECT_EQ(trx1.getAddress(), "address");
@@ -515,7 +515,7 @@ TEST(Extended, FindTransactionObjectsByBundle) {
   auto res = api.findTransactionObjectsByBundle(
       { "OTTLTEEKYQHLMGCKGSKMEELHZXNHU9DHODIIZGTLAO9SKRUBWQAIBVWYLLPZFBHOZAXTT9FECVWQEXBVC" });
 
-  EXPECT_EQ(res.size(), 2);
+  EXPECT_EQ(res.size(), 2UL);
 
   const auto& trx1 = res[1];
   EXPECT_EQ(
@@ -615,7 +615,7 @@ TEST(Extended, FindTransactionObjectsByBundleInvalidTrxHash) {
   auto res = api.findTransactionObjectsByBundle(
       { "SOVJUIVPGKWKRAYOJHV9JQFGZAUWHXTLNRWXWOVEGABCBAHDFOFKVZVORLHFDBBBCBFDEPXNM9NK99999" });
 
-  EXPECT_EQ(res.size(), 0);
+  EXPECT_EQ(res.size(), 0UL);
 }
 
 TEST(Extended, FindTransactionObjectsByBundleInvalidHash) {
@@ -970,7 +970,7 @@ TEST(Extended, GetBalancesAndFormat) {
                                       0, 0, 2);
 
   EXPECT_EQ(res.getTotalBalance(), 617650144175136);
-  EXPECT_EQ(res.getInput().size(), 2);
+  EXPECT_EQ(res.getInput().size(), 2UL);
 
   const auto& input_1 = res.getInput()[0];
   EXPECT_EQ(
@@ -1022,7 +1022,7 @@ TEST(Extended, GetBalancesAndFormatStart) {
                                       0, 10, 2);
 
   EXPECT_EQ(res.getTotalBalance(), 617650144175136);
-  EXPECT_EQ(res.getInput().size(), 2);
+  EXPECT_EQ(res.getInput().size(), 2UL);
 
   const auto& input_1 = res.getInput()[0];
   EXPECT_EQ(

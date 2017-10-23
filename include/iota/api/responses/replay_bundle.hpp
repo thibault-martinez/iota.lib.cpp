@@ -45,7 +45,7 @@ public:
   /**
    * full init ctor
    */
-  ReplayBundle(const std::vector<bool>& successful, long duration);
+  ReplayBundle(const std::vector<bool>& successful, const int64_t& duration);
 
   /**
    * default dtor

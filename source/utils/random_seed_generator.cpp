@@ -24,6 +24,7 @@
 //
 
 #include <algorithm>
+#include <iterator>
 #include <random>
 
 #include <iota/utils/random_seed_generator.hpp>

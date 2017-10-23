@@ -47,7 +47,7 @@ public:
    * @param transactions transactions returned by GetBundle
    * @param duration duration of GetBundle
    */
-  GetBundle(const std::vector<Models::Transaction>& transactions, long duration);
+  GetBundle(const std::vector<Models::Transaction>& transactions, const int64_t& duration);
 
   /**
    * default dtor

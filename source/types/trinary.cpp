@@ -154,7 +154,7 @@ intToTrits(const int& value, std::size_t length) {
 
 bool
 isValidTrit(const int8_t& trit) {
-  return trit == -1 or trit == 0 or trit == 1;
+  return trit == -1 || trit == 0 || trit == 1;
 }
 
 // TODO still useful ?

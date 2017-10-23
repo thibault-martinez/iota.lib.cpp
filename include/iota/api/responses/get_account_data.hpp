@@ -51,7 +51,7 @@ public:
    * full init ctor
    */
   GetAccountData(const std::vector<IOTA::Types::Trytes>& addresses,
-                 const std::vector<Models::Bundle>& transferBundle, long balance, long duration);
+                 const std::vector<Models::Bundle>& transferBundle, const int64_t& balance, const int64_t& duration);
 
   /**
    * default dtor
@@ -94,17 +94,17 @@ public:
   /**
    * @return The balance.
    */
-  long getBalance() const;
+  const int64_t& getBalance() const;
 
   /**
    * @param balance new balance for GetAccountData response
    */
-  void setBalance(long balance);
+  void setBalance(const int64_t& balance);
 
 private:
   std::vector<IOTA::Types::Trytes> addresses_;
   std::vector<Models::Bundle>      transferBundle_;
-  long                             balance_;
+  int64_t                          balance_;
 };
 
 }  // namespace Responses

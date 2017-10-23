@@ -45,7 +45,7 @@ public:
   /**
    * full init ctor
    */
-  SendTransfer(const std::vector<bool>& successful, long duration);
+  SendTransfer(const std::vector<bool>& successful, const int64_t& duration);
 
   /**
    * default dtor

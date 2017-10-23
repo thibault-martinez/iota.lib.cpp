@@ -50,7 +50,7 @@ public:
   /**
    * full init ctor
    */
-  GetTransfers(const std::vector<Models::Bundle>& transferBundle, long duration);
+  GetTransfers(const std::vector<Models::Bundle>& transferBundle, const int64_t& duration);
 
   /**
    * default dtor

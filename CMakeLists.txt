@@ -68,11 +68,6 @@ include_directories("external/json/src")
 file(GLOB_RECURSE KECCAK_SOURCE_FILES external/keccak/source/*.cpp)
 set(PROJECT_SOURCE_FILES ${PROJECT_SOURCE_FILES} ${KECCAK_SOURCE_FILES})
 
-find_package(Boost 1.64.0)
-if(Boost_FOUND)
-  include_directories(${Boost_INCLUDE_DIRS})
-endif()
-
 ########## DEPENDENCIES ##########
 
 include_directories(${CMAKE_SOURCE_DIR}/deps/include)
@@ -89,6 +84,7 @@ include(compilation_settings)
 ########## EXTERNAL LIBRARIES SETTINGS ##########
 
 include(cpr_settings)
+include(boost_settings)
 
 ########## TEST SETTINGS ##########
 

@@ -96,29 +96,29 @@ TEST(Bundle, IsEmptyWithPush) {
 
 TEST(Bundle, GetLengthWithCtor) {
   IOTA::Models::Bundle b({ { "addr", 0, "tag", 0 } });
-  EXPECT_EQ(b.getLength(), 1);
+  EXPECT_EQ(b.getLength(), 1UL);
 }
 
 TEST(Bundle, GetLengthWithDefaultCtor) {
   IOTA::Models::Bundle b;
-  EXPECT_EQ(b.getLength(), 0);
+  EXPECT_EQ(b.getLength(), 0UL);
 }
 
 TEST(Bundle, GetLengthWithAdd) {
   IOTA::Models::Bundle b;
-  EXPECT_EQ(b.getLength(), 0);
+  EXPECT_EQ(b.getLength(), 0UL);
 
   b.addTransaction({ "addr", 0, "tag", 0 });
-  EXPECT_EQ(b.getLength(), 1);
+  EXPECT_EQ(b.getLength(), 1UL);
 }
 
 TEST(Bundle, GetLengthWithPush) {
   IOTA::Models::Bundle b;
-  EXPECT_EQ(b.getLength(), 0);
+  EXPECT_EQ(b.getLength(), 0UL);
 
   auto& trx = b.getTransactions();
   trx.push_back({ "addr", 0, "tag", 0 });
-  EXPECT_EQ(b.getLength(), 1);
+  EXPECT_EQ(b.getLength(), 1UL);
 }
 
 TEST(Bundle, EqOperator) {

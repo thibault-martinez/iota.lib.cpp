@@ -23,7 +23,7 @@
 //
 //
 
-#include <iota/api/responses/get_transfers.hpp>
+#include <iota/api/responses/get_account_data.hpp>
 
 namespace IOTA {
 
@@ -31,23 +31,53 @@ namespace API {
 
 namespace Responses {
 
-GetTransfers::GetTransfers(const std::vector<Models::Bundle>& transferBundle, long duration)
-    : Base(duration), transferBundle_(transferBundle) {
+GetAccountData::GetAccountData() : balance_(0) {
+}
+
+GetAccountData::GetAccountData(const std::vector<IOTA::Types::Trytes>& addresses,
+                               const std::vector<Models::Bundle>& transferBundle, const int64_t& balance,
+                               const int64_t& duration)
+    : Base(duration), addresses_(addresses), transferBundle_(transferBundle), balance_(balance) {
+}
+
+const std::vector<IOTA::Types::Trytes>&
+GetAccountData::getAddresses() const {
+  return addresses_;
+}
+
+std::vector<IOTA::Types::Trytes>&
+GetAccountData::getAddresses() {
+  return addresses_;
+}
+
+void
+GetAccountData::setAddresses(const std::vector<IOTA::Types::Trytes>& addresses) {
+  addresses_ = addresses;
 }
 
 const std::vector<Models::Bundle>&
-GetTransfers::getTransfers() const {
+GetAccountData::getTransfers() const {
   return transferBundle_;
 }
 
 std::vector<Models::Bundle>&
-GetTransfers::getTransfers() {
+GetAccountData::getTransfers() {
   return transferBundle_;
 }
 
 void
-GetTransfers::setTransfers(const std::vector<Models::Bundle>& transfers) {
+GetAccountData::setTransfers(const std::vector<Models::Bundle>& transfers) {
   transferBundle_ = transfers;
+}
+
+const int64_t&
+GetAccountData::getBalance() const {
+  return balance_;
+}
+
+void
+GetAccountData::setBalance(const int64_t& balance) {
+  balance_ = balance;
 }
 
 }  // namespace Responses

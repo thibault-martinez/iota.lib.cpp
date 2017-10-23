@@ -347,7 +347,7 @@ public:
   std::vector<std::string> addRemainder(const Types::Trytes& seed, const unsigned int& security,
                                         const std::vector<Models::Input>& inputs,
                                         Models::Bundle& bundle, const std::string& tag,
-                                        const long&                     totalValue,
+                                        const int64_t&                     totalValue,
                                         const Types::Trytes&            remainderAddress,
                                         const std::vector<std::string>& signatureFragments) const;
 

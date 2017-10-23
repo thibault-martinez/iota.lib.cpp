@@ -23,7 +23,7 @@
 //
 //
 
-#include <iota/api/responses/send_transfer.hpp>
+#include <iota/api/responses/get_transfers.hpp>
 
 namespace IOTA {
 
@@ -31,23 +31,23 @@ namespace API {
 
 namespace Responses {
 
-SendTransfer::SendTransfer(const std::vector<bool>& successful, long duration)
-    : Base(duration), successfully_(successful) {
+GetTransfers::GetTransfers(const std::vector<Models::Bundle>& transferBundle, const int64_t& duration)
+    : Base(duration), transferBundle_(transferBundle) {
 }
 
-const std::vector<bool>&
-SendTransfer::getSuccessfully() const {
-  return successfully_;
+const std::vector<Models::Bundle>&
+GetTransfers::getTransfers() const {
+  return transferBundle_;
 }
 
-std::vector<bool>&
-SendTransfer::getSuccessfully() {
-  return successfully_;
+std::vector<Models::Bundle>&
+GetTransfers::getTransfers() {
+  return transferBundle_;
 }
 
 void
-SendTransfer::setSuccessfully(const std::vector<bool>& successful) {
-  successfully_ = successful;
+GetTransfers::setTransfers(const std::vector<Models::Bundle>& transfers) {
+  transferBundle_ = transfers;
 }
 
 }  // namespace Responses

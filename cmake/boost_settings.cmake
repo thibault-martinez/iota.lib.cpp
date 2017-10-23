@@ -23,42 +23,20 @@
 #
 #
 
-language: cpp
+find_package(Boost 1.64.0)
+if(Boost_FOUND)
+  include_directories(${Boost_INCLUDE_DIRS})
+else()
+  ExternalProject_Add("boost_dep"
+                      URL https://dl.bintray.com/boostorg/release/1.64.0/source/boost_1_64_0.tar.gz
+                      DOWNLOAD_DIR ${CMAKE_SOURCE_DIR}/external
+                      SOURCE_DIR ${CMAKE_SOURCE_DIR}/external/boost
+                      BUILD_IN_SOURCE 1
+                      UPDATE_COMMAND ""
+                      CONFIGURE_COMMAND ""
+                      BUILD_COMMAND ""
+                      INSTALL_COMMAND "")
 
-compiler:
-  - gcc
-  - clang
-
-cache:
-  - ccache
-  - directories:
-    - $TRAVIS_BUILD_DIR/boost_includes
-
-os:
-  - linux
-  - osx
-
-addons:
-  apt:
-    sources:
-      - ubuntu-toolchain-r-test
-    packages:
-      - gcc-4.9
-      - g++-4.9
-      - clang
-      - lcov
-
-before_install:
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update; fi
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install llvm --with-clang; fi
-
-install:
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install ccache; fi
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then export PATH="/usr/local/opt/ccache/libexec:$PATH"; fi
-  - if [ "$CXX" = "g++" ]; then export CXX="g++-4.9" CC="gcc-4.9"; fi
-
-script: ./run_build.sh
-
-after_success:
-  - cd ${TRAVIS_BUILD_DIR}
-  - ./coverage.sh
+  add_dependencies(${CMAKE_PROJECT_NAME} boost_dep)
+  include_directories(${CMAKE_SOURCE_DIR}/external/boost)
+endif()

@@ -385,7 +385,7 @@ Extended::prepareTransfers(const Types::Trytes& seed, int security,
 
   Models::Bundle           bundle;
   std::vector<std::string> signatureFragments;
-  long                     totalValue = 0;
+  int64_t                  totalValue = 0;
   std::string              tag;
 
   //  Iterate over all transfers, get totalValue
@@ -400,7 +400,7 @@ Extended::prepareTransfers(const Types::Trytes& seed, int security,
     // If message longer than 2187 trytes, increase signatureMessageLength (add 2nd transaction)
     if (transfer.getMessage().size() > MaxTrxMsgLength) {
       // Get total length, message / maxLength (2187 trytes)
-      signatureMessageLength += std::floor(transfer.getMessage().length() / MaxTrxMsgLength);
+      signatureMessageLength += (int)std::floor(transfer.getMessage().length() / MaxTrxMsgLength);
 
       std::string msgCopy = transfer.getMessage();
 
@@ -424,7 +424,7 @@ Extended::prepareTransfers(const Types::Trytes& seed, int security,
     }
 
     // get current timestamp in seconds
-    long timestamp = Utils::StopWatch::now().count();
+    int64_t timestamp = Utils::StopWatch::now().count();
 
     // If no tag defined, get 27 tryte tag.
     tag = transfer.getTag().empty() ? "999999999999999999999999999" : transfer.getTag();
@@ -522,7 +522,7 @@ Extended::getBundle(const Types::Trytes& transaction) const {
 
   //! get bundle hash for transaction
   auto          bundle     = traverseBundle(transaction);
-  long          totalSum   = 0;
+  int64_t       totalSum   = 0;
   Types::Trytes bundleHash = bundle.getTransactions()[0].getBundle();
 
   //! init curl
@@ -748,15 +748,15 @@ Extended::findTailTransactionHash(const Types::Trytes& hash) const {
 std::vector<std::string>
 Extended::addRemainder(const Types::Trytes& seed, const unsigned int& security,
                        const std::vector<Models::Input>& inputs, Models::Bundle& bundle,
-                       const std::string& tag, const long& totalValue,
+                       const std::string& tag, const int64_t& totalValue,
                        const Types::Trytes&            remainderAddress,
                        const std::vector<std::string>& signatureFragments) const {
   auto totalTransferValue = totalValue;
 
   for (const auto& input : inputs) {
-    auto thisBalance = input.getBalance();
-    auto toSubtract  = -thisBalance;
-    long timestamp   = Utils::StopWatch::now().count();
+    auto thisBalance  = input.getBalance();
+    auto toSubtract   = -thisBalance;
+    int64_t timestamp = Utils::StopWatch::now().count();
     // Add input as bundle entry
     bundle.addTransaction(input.getSecurity(), input.getAddress(), toSubtract, tag, timestamp);
     // If there is a remainder value
@@ -851,7 +851,7 @@ Extended::initiateTransfer(int securitySum, const std::string& inputAddress,
 
   //! Create a new bundle
   Models::Bundle           bundle;
-  int                      totalValue = 0;
+  int64_t                  totalValue = 0;
   std::vector<std::string> signatureFragments;
   std::string              tag;
 
@@ -863,7 +863,7 @@ Extended::initiateTransfer(int securitySum, const std::string& inputAddress,
     //! If message longer than 2187 trytes, increase signatureMessageLength (add 2nd transaction)
     if (transfer.getMessage().length() > MaxTrxMsgLength) {
       //! Get total length, message / maxLength (MaxTrxMsgLength trytes)
-      signatureMessageLength += std::floor(transfer.getMessage().length() / MaxTrxMsgLength);
+      signatureMessageLength += (int)std::floor(transfer.getMessage().length() / MaxTrxMsgLength);
 
       //! copy msg
       std::string msgCopy = transfer.getMessage();
@@ -883,7 +883,7 @@ Extended::initiateTransfer(int securitySum, const std::string& inputAddress,
     }
 
     //! get current timestamp in seconds
-    long timestamp = Utils::StopWatch::now().count();
+    int64_t timestamp = Utils::StopWatch::now().count();
 
     //! If no tag defined, get 27 tryte tag.
     if (transfer.getTag().empty()) {
@@ -913,7 +913,7 @@ Extended::initiateTransfer(int securitySum, const std::string& inputAddress,
   }
 
   // get current timestamp in seconds
-  long timestamp = Utils::StopWatch::now().count();
+  int64_t timestamp = Utils::StopWatch::now().count();
 
   if (totalBalance > 0) {
     long toSubtract = -totalBalance;
@@ -931,7 +931,7 @@ Extended::initiateTransfer(int securitySum, const std::string& inputAddress,
   //! If there is a remainder value
   //! Add extra output to send remaining funds to
   if (totalBalance > totalValue) {
-    long remainder = totalBalance - totalValue;
+    int64_t remainder = totalBalance - totalValue;
 
     // Remainder bundle entry if necessary
     if (remainderAddress.empty()) {
