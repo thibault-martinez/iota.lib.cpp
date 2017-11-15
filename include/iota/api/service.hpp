@@ -52,7 +52,8 @@ public:
     auto url     = cpr::Url{ "http://" + host_ + ":" + std::to_string(port_) };
     auto body    = cpr::Body{ data.dump() };
     auto headers = cpr::Header{ { "Content-Type", "application/json" },
-                                { "Content-Length", std::to_string(body.size()) } };
+                                { "Content-Length", std::to_string(body.size()) },
+                                { "X-IOTA-API-Version", "1" } };
     auto res     = cpr::Post(url, body, headers);
 
     Response response;
