@@ -35,14 +35,14 @@ namespace Models {
 const std::pair<int, int> Transaction::SignatureFragmentsOffset = { 0, 2187 };
 const std::pair<int, int> Transaction::AddressOffset            = { 2187, 2268 };
 const std::pair<int, int> Transaction::ValueOffset              = { 6804, 6837 };
-const std::pair<int, int> Transaction::TagOffset                = { 2295, 2322 };
+const std::pair<int, int> Transaction::TagOffset                = { 2592, 2619 };
 const std::pair<int, int> Transaction::TimestampOffset          = { 6966, 6993 };
 const std::pair<int, int> Transaction::CurrentIndexOffset       = { 6993, 7020 };
 const std::pair<int, int> Transaction::LastIndexOffset          = { 7020, 7047 };
 const std::pair<int, int> Transaction::BundleOffset             = { 2349, 2430 };
 const std::pair<int, int> Transaction::TrunkOffset              = { 2430, 2511 };
 const std::pair<int, int> Transaction::BranchOffset             = { 2511, 2592 };
-const std::pair<int, int> Transaction::NonceOffset              = { 2592, 2673 };
+const std::pair<int, int> Transaction::NonceOffset              = { 2646, 2673 };
 
 Transaction::Transaction()
     : value_(0), timestamp_(0), currentIndex_(0), lastIndex_(0), persistence_(false) {
@@ -233,8 +233,8 @@ Transaction::toTrytes() const {
   auto value = IOTA::Types::tritsToTrytes(IOTA::Types::intToTrits((int)getValue(), SeedLength));
   auto timestamp =
       IOTA::Types::tritsToTrytes(IOTA::Types::intToTrits((int)getTimestamp(), TryteAlphabetLength));
-  auto currentIndex =
-      IOTA::Types::tritsToTrytes(IOTA::Types::intToTrits((int)getCurrentIndex(), TryteAlphabetLength));
+  auto currentIndex = IOTA::Types::tritsToTrytes(
+      IOTA::Types::intToTrits((int)getCurrentIndex(), TryteAlphabetLength));
   auto lastIndex =
       IOTA::Types::tritsToTrytes(IOTA::Types::intToTrits((int)getLastIndex(), TryteAlphabetLength));
 

@@ -754,9 +754,9 @@ Extended::addRemainder(const Types::Trytes& seed, const unsigned int& security,
   auto totalTransferValue = totalValue;
 
   for (const auto& input : inputs) {
-    auto thisBalance  = input.getBalance();
-    auto toSubtract   = -thisBalance;
-    int64_t timestamp = Utils::StopWatch::now().count();
+    auto    thisBalance = input.getBalance();
+    auto    toSubtract  = -thisBalance;
+    int64_t timestamp   = Utils::StopWatch::now().count();
     // Add input as bundle entry
     bundle.addTransaction(input.getSecurity(), input.getAddress(), toSubtract, tag, timestamp);
     // If there is a remainder value
