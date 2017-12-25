@@ -27,6 +27,8 @@
 
 #include <iostream>
 
+#include <iota/constants.hpp>
+
 #include <cpr/cpr.h>
 #include <json.hpp>
 
@@ -53,7 +55,7 @@ public:
     auto body    = cpr::Body{ data.dump() };
     auto headers = cpr::Header{ { "Content-Type", "application/json" },
                                 { "Content-Length", std::to_string(body.size()) },
-                                { "X-IOTA-API-Version", "1" } };
+                                { "X-IOTA-API-Version", APIVersion } };
     auto res     = cpr::Post(url, body, headers);
 
     Response response;

@@ -23,7 +23,9 @@
 //
 //
 
-#include <iostream>
+#pragma once
+
+#include <string>
 
 namespace IOTA {
 
@@ -43,5 +45,7 @@ const unsigned int MaxTrxMsgLength           = 2187;
 
 const std::string EmptyHash =
     "999999999999999999999999999999999999999999999999999999999999999999999999999999999";
+
+const std::string APIVersion = "1.2.0";
 
 }  // namespace IOTA
