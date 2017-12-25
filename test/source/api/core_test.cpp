@@ -116,7 +116,7 @@ TEST(Core, GetTrytesInvalidHash) {
   auto res = api.getTrytes({ "9999" });
   ASSERT_EQ(res.getStatusCode(), 400);
   EXPECT_GE(res.getDuration(), 0);
-  EXPECT_EQ(res.getError(), "Invalid hash input");
+  EXPECT_EQ(res.getError(), "Invalid hashes input");
 }
 
 TEST(Core, GetBalances) {
@@ -223,7 +223,7 @@ TEST(Core, FindTransactionsWithInvalidAddress) {
 
   ASSERT_EQ(res.getStatusCode(), 400);
   EXPECT_GE(res.getDuration(), 0);
-  EXPECT_EQ(res.getError(), "Invalid address input");
+  EXPECT_EQ(res.getError(), "Invalid addresses input");
 }
 
 TEST(Core, FindTransactionsWithTag) {
@@ -250,7 +250,7 @@ TEST(Core, FindTransactionsWithInvalidApprovee) {
 
   ASSERT_EQ(res.getStatusCode(), 400);
   EXPECT_GE(res.getDuration(), 0);
-  EXPECT_EQ(res.getError(), "Invalid approvees hash");
+  EXPECT_EQ(res.getError(), "Invalid approvees input");
 }
 
 TEST(Core, FindTransactionsWithBundle) {
@@ -270,5 +270,5 @@ TEST(Core, FindTransactionsWithInvalidBundle) {
   // TODO Should it be checked before as an exception ?
   ASSERT_EQ(res.getStatusCode(), 400);
   EXPECT_GE(res.getDuration(), 0);
-  EXPECT_EQ(res.getError(), "Invalid bundle hash");
+  EXPECT_EQ(res.getError(), "Invalid bundles input");
 }
