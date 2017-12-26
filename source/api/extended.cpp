@@ -52,7 +52,7 @@ Extended::~Extended() {
 Responses::GetBalancesAndFormat
 Extended::getInputs(const std::string& seed, const int32_t& start, const int32_t& end,
                     const int32_t& security, const int64_t& threshold) const {
-  Utils::StopWatch stopWatch;
+  const Utils::StopWatch stopWatch;
 
   // validate the seed
   if ((!Types::isValidTrytes(seed))) {
@@ -80,7 +80,7 @@ Extended::getInputs(const std::string& seed, const int32_t& start, const int32_t
     std::vector<std::string> allAddresses;
 
     for (int i = start; i < end; ++i) {
-      allAddresses.push_back(newAddress(seed, i, security, false));
+      allAddresses.emplace_back(newAddress(seed, i, security, false));
     }
 
     return getBalancesAndFormat(allAddresses, threshold, start, security, stopWatch);
@@ -91,7 +91,7 @@ Extended::getInputs(const std::string& seed, const int32_t& start, const int32_t
   //  Calls getNewAddress and deterministically generates and returns all addresses
   //  We then do getBalance, format the output and return it
   else {
-    auto res = getNewAddresses(seed, start, security, false, 0, true);
+    const auto res = getNewAddresses(seed, start, security, false, 0, true);
     return getBalancesAndFormat(res.getAddresses(), threshold, start, security, stopWatch);
   }
 }
@@ -99,7 +99,7 @@ Extended::getInputs(const std::string& seed, const int32_t& start, const int32_t
 Responses::GetBalancesAndFormat
 Extended::getBalancesAndFormat(const std::vector<std::string>& addresses, const int64_t& threshold,
                                const int32_t& start, const int32_t& security,
-                               Utils::StopWatch stopWatch) const {
+                               const Utils::StopWatch& stopWatch) const {
   if (security < 1 || security > 3) {
     throw Errors::IllegalState("Invalid Security Level");
   }
@@ -125,7 +125,7 @@ Extended::getBalancesAndFormat(const std::vector<std::string>& addresses, const 
     }
 
     //! Add input to result and increase totalBalance of all aggregated inputs
-    inputs.push_back({ address, balance, start + i, security });
+    inputs.emplace_back(address, balance, start + i, security);
     totalBalance += balance;
 
     if (!thresholdReached && totalBalance >= threshold) {
@@ -149,7 +149,7 @@ Extended::getBalancesAndFormat(const std::vector<std::string>& addresses, const 
 Responses::GetNewAddresses
 Extended::getNewAddresses(const Types::Trytes& seed, const uint32_t& index, const int32_t& security,
                           bool checksum, const int32_t& total, bool returnAll) const {
-  Utils::StopWatch stopWatch;
+  const Utils::StopWatch stopWatch;
 
   // Validate the seed
   if ((!Types::isValidTrytes(seed))) {
@@ -167,7 +167,7 @@ Extended::getNewAddresses(const Types::Trytes& seed, const uint32_t& index, cons
   // Simply generate and return the list of all addresses.
   if (total) {
     for (uint32_t i = index; i < index + total; ++i) {
-      allAddresses.push_back(newAddress(seed, i, security, checksum));
+      allAddresses.emplace_back(newAddress(seed, i, security, checksum));
     }
   }
   // Case 2 : no total provided.
@@ -175,10 +175,10 @@ Extended::getNewAddresses(const Types::Trytes& seed, const uint32_t& index, cons
   // of addresses.
   else {
     for (int32_t i = index; true; i++) {
-      auto addr = newAddress(seed, i, security, checksum);
-      auto res  = findTransactionsByAddresses({ addr });
+      const auto addr = newAddress(seed, i, security, checksum);
+      const auto res  = findTransactionsByAddresses({ addr });
 
-      allAddresses.push_back(addr);
+      allAddresses.emplace_back(std::move(addr));
       if (res.getHashes().empty()) {
         break;
       }
@@ -209,14 +209,14 @@ Models::Bundle
 Extended::traverseBundle(const std::string& trunkTx, std::string bundleHash,
                          Models::Bundle& bundle) const {
   //! get trytes for transaction
-  Responses::GetTrytes gtr = getTrytes({ trunkTx });
+  const auto gtr = getTrytes({ trunkTx });
   // If fail to get trytes, return error
   if (gtr.getTrytes().empty()) {
     throw Errors::IllegalState("Bundle transactions not visible");
   }
 
   //! get transaction itself
-  auto trx = Models::Transaction{ gtr.getTrytes()[0] };
+  const auto trx = Models::Transaction{ gtr.getTrytes()[0] };
   // If first transaction to search is not a tail, return error
   if (bundleHash.empty() && !trx.isTailTransaction()) {
     throw Errors::IllegalState("Invalid tail transaction supplied.");
@@ -270,13 +270,13 @@ Extended::getTransactionsObjects(const std::vector<IOTA::Types::Trytes>& hashes)
   }
 
   //! get trytes forhashes
-  Responses::GetTrytes trytesResponse = getTrytes(hashes);
+  const auto trytesResponse = getTrytes(hashes);
 
   //! build response
   std::vector<Models::Transaction> trxs;
 
   for (const auto& tryte : trytesResponse.getTrytes()) {
-    trxs.push_back(Models::Transaction{ tryte });
+    trxs.emplace_back(tryte);
   }
 
   return trxs;
@@ -286,7 +286,7 @@ std::vector<Models::Bundle>
 Extended::bundlesFromAddresses(const std::vector<IOTA::Types::Trytes>& addresses,
                                bool                                    withInclusionStates) const {
   //! find transactions for addresses
-  std::vector<Models::Transaction> trxs = findTransactionObjects(addresses);
+  const auto trxs = findTransactionObjects(addresses);
 
   //! filter tail/non tail transactions
   std::vector<IOTA::Types::Trytes> tailTransactions;
@@ -295,10 +295,10 @@ Extended::bundlesFromAddresses(const std::vector<IOTA::Types::Trytes>& addresses
   // Sort tail and nonTails
   for (const auto& trx : trxs) {
     if (trx.isTailTransaction()) {
-      tailTransactions.push_back(trx.getHash());
+      tailTransactions.emplace_back(trx.getHash());
     } else if (std::find(nonTailBundleHashes.begin(), nonTailBundleHashes.end(), trx.getBundle()) ==
                nonTailBundleHashes.end()) {
-      nonTailBundleHashes.push_back(trx.getBundle());
+      nonTailBundleHashes.emplace_back(trx.getBundle());
     }
   }
 
@@ -306,14 +306,13 @@ Extended::bundlesFromAddresses(const std::vector<IOTA::Types::Trytes>& addresses
   //! TODO: this will maybe re-query some tail transactions we already got (and we do filter that
   //! out in the next for loop) we maybe can filter the bundle list passed to
   //! findTransactionObjectsByBundle by restructuring the previous loop
-  std::vector<Models::Transaction> bundleObjects =
-      findTransactionObjectsByBundle(nonTailBundleHashes);
+  const auto bundleObjects = findTransactionObjectsByBundle(nonTailBundleHashes);
 
   //! add tail transactions found with findTransactionObjectsByBundle
   for (const auto& trx : bundleObjects) {
     if (trx.isTailTransaction() && std::find(tailTransactions.begin(), tailTransactions.end(),
                                              trx.getHash()) == tailTransactions.end()) {
-      tailTransactions.push_back(trx.getHash());
+      tailTransactions.emplace_back(trx.getHash());
     }
   }
 
@@ -332,7 +331,7 @@ Extended::bundlesFromAddresses(const std::vector<IOTA::Types::Trytes>& addresses
   IOTA::Utils::parallel_for(0, tailTransactions.size(), [&](int i) {
     try {
       const auto& transaction    = tailTransactions[i];
-      auto        bundleResponse = getBundle(transaction);
+      const auto  bundleResponse = getBundle(transaction);
       auto        gbr            = Models::Bundle{ bundleResponse.getTransactions() };
 
       if (not gbr.getTransactions().empty()) {
@@ -451,12 +450,12 @@ Extended::prepareTransfers(const Types::Trytes& seed, int security,
       // Get list if addresses of the provided inputs
       std::vector<std::string> inputsAddresses;
       for (const auto& input : inputs) {
-        inputsAddresses.push_back(input.getAddress());
+        inputsAddresses.emplace_back(input.getAddress());
       }
 
       // TODO 100 ?
-      auto balancesResponse = getBalances(inputsAddresses, 100);
-      auto balances         = balancesResponse.getBalances();
+      const auto balancesResponse = getBalances(inputsAddresses, 100);
+      const auto balances         = balancesResponse.getBalances();
 
       std::vector<Models::Input> confirmedInputs;
       int                        totalBalance = 0;
@@ -492,22 +491,22 @@ Extended::prepareTransfers(const Types::Trytes& seed, int security,
     //  If no inputs provided, derive the addresses from the seed and
     //  confirm that the inputs exceed the threshold
     else {
-      auto newinputs = getInputs(seed, 0, 0, security, totalValue);
+      const auto newinputs = getInputs(seed, 0, 0, security, totalValue);
       // If inputs with enough balance
       return addRemainder(seed, security, newinputs.getInput(), bundle, tag, totalValue, remainder,
                           signatureFragments);
     }
   } else {
     // If no input required, don't sign and simply finalize the bundle
-    auto curl = Crypto::create(cryptoType_);
+    const auto curl = Crypto::create(cryptoType_);
     bundle.finalize(curl);
     bundle.addTrytes(signatureFragments);
 
-    auto                     trxb = bundle.getTransactions();
+    const auto               trxb = bundle.getTransactions();
     std::vector<std::string> bundleTrytes;
 
     for (const auto& trx : trxb) {
-      bundleTrytes.push_back(trx.toTrytes());
+      bundleTrytes.emplace_back(trx.toTrytes());
     }
     std::reverse(bundleTrytes.begin(), bundleTrytes.end());
     return bundleTrytes;
@@ -516,15 +515,15 @@ Extended::prepareTransfers(const Types::Trytes& seed, int security,
 
 Responses::GetBundle
 Extended::getBundle(const Types::Trytes& transaction) const {
-  Utils::StopWatch stopWatch;
+  const Utils::StopWatch stopWatch;
 
   //! get bundle hash for transaction
-  auto          bundle     = traverseBundle(transaction);
+  const auto    bundle     = traverseBundle(transaction);
   int64_t       totalSum   = 0;
   Types::Trytes bundleHash = bundle.getTransactions()[0].getBundle();
 
   //! init curl
-  auto curl = Crypto::create(Crypto::SpongeType::KERL);
+  const auto curl = Crypto::create(Crypto::SpongeType::KERL);
 
   std::vector<Models::Signature> signaturesToValidate;
   for (std::size_t i = 0; i < bundle.getTransactions().size(); ++i) {
@@ -600,7 +599,7 @@ Extended::getBundle(const Types::Trytes& transaction) const {
 Responses::GetTransfers
 Extended::getTransfers(const Types::Trytes& seed, int start, int end, int security,
                        bool inclusionStates) const {
-  Utils::StopWatch stopWatch;
+  const Utils::StopWatch stopWatch;
 
   // Validate the seed
   if ((!Types::isValidTrytes(seed))) {
@@ -618,8 +617,8 @@ Extended::getTransfers(const Types::Trytes& seed, int start, int end, int securi
     throw Errors::IllegalState("Invalid inputs provided");
   }
 
-  auto gnr     = getNewAddresses(seed, start, security, false, end, true);
-  auto bundles = bundlesFromAddresses(gnr.getAddresses(), inclusionStates);
+  const auto gna     = getNewAddresses(seed, start, security, false, end, true);
+  const auto bundles = bundlesFromAddresses(gna.getAddresses(), inclusionStates);
 
   return { bundles, stopWatch.getElapsedTimeMilliSeconds().count() };
 }
@@ -638,16 +637,16 @@ Extended::sendTransfer(const Types::Trytes& seed, int security, int depth, int m
     throw Errors::IllegalState("Invalid Security Level");
   }
 
-  Utils::StopWatch stopWatch;
+  const Utils::StopWatch stopWatch;
 
-  auto trytes = prepareTransfers(seed, security, transfers, address, inputs);
-  auto trxs   = sendTrytes(trytes, depth, minWeightMagnitude);
+  const auto trytes = prepareTransfers(seed, security, transfers, address, inputs);
+  const auto trxs   = sendTrytes(trytes, depth, minWeightMagnitude);
 
   std::vector<bool> successful;
 
   for (const auto& trx : trxs) {
     auto response = findTransactionsByBundles({ trx.getBundle() });
-    successful.push_back(!response.getHashes().empty());
+    successful.emplace_back(!response.getHashes().empty());
   }
 
   return { successful, stopWatch.getElapsedTimeMilliSeconds().count() };
@@ -657,11 +656,11 @@ std::vector<Models::Transaction>
 Extended::sendTrytes(const std::vector<Types::Trytes>& trytes, const unsigned int& depth,
                      const unsigned int& minWeightMagnitude) const {
   // Get branch and trunk
-  auto tta = getTransactionsToApprove(depth);
+  const auto tta = getTransactionsToApprove(depth);
 
   // Attach to tangle, do pow
-  auto res = attachToTangle(tta.getTrunkTransaction(), tta.getBranchTransaction(),
-                            minWeightMagnitude, trytes);
+  const auto res = attachToTangle(tta.getTrunkTransaction(), tta.getBranchTransaction(),
+                                  minWeightMagnitude, trytes);
 
   broadcastAndStore(res.getTrytes());
 
@@ -704,19 +703,19 @@ Responses::GetAccountData
 Extended::getAccountData(const Types::Trytes& seed, int index, int security, bool checksum,
                          int total, bool returnAll, int start, int end, bool inclusionStates,
                          long threshold) const {
-  Utils::StopWatch stopWatch;
+  const Utils::StopWatch stopWatch;
 
-  auto gna = getNewAddresses(seed, index, security, checksum, total, returnAll);
-  auto gtr = getTransfers(seed, start, end, security, inclusionStates);
-  auto gbr = getInputs(seed, start, end, security, threshold);
+  const auto gna = getNewAddresses(seed, index, security, checksum, total, returnAll);
+  const auto gtr = getTransfers(seed, start, end, security, inclusionStates);
+  const auto gip = getInputs(seed, start, end, security, threshold);
 
-  return { gna.getAddresses(), gtr.getTransfers(), gbr.getTotalBalance(),
+  return { gna.getAddresses(), gtr.getTransfers(), gip.getTotalBalance(),
            stopWatch.getElapsedTimeMilliSeconds().count() };
 }
 
 Types::Trytes
 Extended::findTailTransactionHash(const Types::Trytes& hash) const {
-  auto gtr = getTrytes({ hash });
+  const auto gtr = getTrytes({ hash });
 
   if (gtr.getTrytes().empty()) {
     throw Errors::IllegalState("Bundle transactions not visible");
@@ -791,21 +790,21 @@ Extended::addRemainder(const Types::Trytes& seed, const unsigned int& security,
 
 Responses::ReplayBundle
 Extended::replayBundle(const Types::Trytes& transaction, int depth, int minWeightMagnitude) {
-  Utils::StopWatch stopWatch;
+  const Utils::StopWatch stopWatch;
 
   auto bundleResponse = getBundle(transaction);
 
   std::vector<Types::Trytes> bundleTrytes;
   for (const auto& trx : bundleResponse.getTransactions()) {
-    bundleTrytes.push_back(trx.toTrytes());
+    bundleTrytes.emplace_back(trx.toTrytes());
   }
 
-  auto trxs = sendTrytes(bundleTrytes, depth, minWeightMagnitude);
+  const auto trxs = sendTrytes(bundleTrytes, depth, minWeightMagnitude);
 
   std::vector<bool> successful;
   for (const auto& trx : trxs) {
     auto response = findTransactionsByBundles({ trx.getBundle() });
-    successful.push_back(!response.getHashes().empty());
+    successful.emplace_back(!response.getHashes().empty());
   }
 
   return { successful, stopWatch.getElapsedTimeMilliSeconds().count() };
@@ -1044,7 +1043,7 @@ Extended::signInputsAndReturn(const std::string& seed, const std::vector<Models:
 
   // Convert all bundle entries into trytes
   for (const auto& tx : bundle.getTransactions()) {
-    bundleTrytes.push_back(tx.toTrytes());
+    bundleTrytes.emplace_back(tx.toTrytes());
   }
   std::reverse(bundleTrytes.begin(), bundleTrytes.end());
   return bundleTrytes;

@@ -66,7 +66,7 @@ StopWatch::resume() {
 }
 
 std::chrono::milliseconds
-StopWatch::getElapsedTimeMilliSeconds() {
+StopWatch::getElapsedTimeMilliSeconds() const {
   if (running_) {
     return now() - startTime_;
   }
@@ -75,7 +75,7 @@ StopWatch::getElapsedTimeMilliSeconds() {
 }
 
 std::chrono::seconds
-StopWatch::getElapsedTimeSeconds() {
+StopWatch::getElapsedTimeSeconds() const {
   return std::chrono::duration_cast<std::chrono::seconds>(getElapsedTimeMilliSeconds());
 }
 
