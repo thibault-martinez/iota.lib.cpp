@@ -228,7 +228,7 @@ TEST(Core, FindTransactionsWithInvalidAddress) {
 
 TEST(Core, FindTransactionsWithTag) {
   IOTA::API::Core api(get_proxy_host(), get_proxy_port());
-  auto            res = api.findTransactions({}, { "QEXL99999999999999999999999999" }, {}, {});
+  auto            res = api.findTransactions({}, { "SECONDBUYREST99999999999999" }, {}, {});
 
   ASSERT_EQ(res.getStatusCode(), 200);
   EXPECT_FALSE(res.getHashes().empty());
@@ -238,7 +238,7 @@ TEST(Core, FindTransactionsWithApprovee) {
   IOTA::API::Core api(get_proxy_host(), get_proxy_port());
   auto            res = api.findTransactions(
       {}, {},
-      { "GFJUYJQRNSNGLSMAZUYRZEMKQRYZS9WACJQPSVDHLMUSDKDJZQ9TAWQCWJKFJTEQBSAI9ROLVQLH99999" }, {});
+      { "OLDZZVN9XULLFAJYUOIVMVME99RWQMXUHGVKDISCKXDNBEFRGGNMCVUXSEJGRMWCAIHQVPYCJJELA9999" }, {});
 
   ASSERT_EQ(res.getStatusCode(), 200);
   EXPECT_FALSE(res.getHashes().empty());
@@ -257,7 +257,7 @@ TEST(Core, FindTransactionsWithBundle) {
   IOTA::API::Core api(get_proxy_host(), get_proxy_port());
   auto            res = api.findTransactions(
       {}, {}, {},
-      { "XCRFXNBPLVMWLSMCUQVNXAKICTH9AHRIZWUEWKTIQNIZXITSPLIQPEPZEGBYLEWWEXYJMIWAYYAAWFJC9" });
+      { "OFMGOKXKIUKHO9ZKRJFADHUHJVXOAFEORITLBHVP9RBQBYHGJXWJUWMKWFWZBUCU9VDKWSNEFFQWEI9X9" });
 
   ASSERT_EQ(res.getStatusCode(), 200);
   EXPECT_FALSE(res.getHashes().empty());
