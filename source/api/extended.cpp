@@ -32,6 +32,7 @@
 #include <iota/models/signature.hpp>
 #include <iota/models/transaction.hpp>
 #include <iota/types/utils.hpp>
+#include <iota/utils/parallel_for.hpp>
 
 namespace IOTA {
 
@@ -328,30 +329,27 @@ Extended::bundlesFromAddresses(const std::vector<IOTA::Types::Trytes>& addresses
   }
 
   std::vector<Models::Bundle> bundles;
-  //! TODO: was done in parallel in java lib, do we need to or performance are fine in cpp?
-  for (std::size_t i = 0; i < tailTransactions.size(); ++i) {
+  IOTA::Utils::parallel_for(0, tailTransactions.size(), [&](int i) {
     try {
       const auto& transaction    = tailTransactions[i];
       auto        bundleResponse = getBundle(transaction);
       auto        gbr            = Models::Bundle{ bundleResponse.getTransactions() };
 
-      if (gbr.getTransactions().empty()) {
-        continue;
-      }
+      if (not gbr.getTransactions().empty()) {
+        if (withInclusionStates) {
+          bool inclusion = inclusionStates.getStates()[i];
 
-      if (withInclusionStates) {
-        bool inclusion = inclusionStates.getStates()[i];
-
-        for (auto& t : gbr.getTransactions()) {
-          t.setPersistence(inclusion);
+          for (auto& t : gbr.getTransactions()) {
+            t.setPersistence(inclusion);
+          }
         }
-      }
 
-      bundles.push_back(std::move(gbr));
+        bundles.push_back(std::move(gbr));
+      }
     } catch (const std::runtime_error&) {
       // If error returned from getBundle, ignore it because the bundle was most likely incorrect
     }
-  }
+  });
 
   std::sort(bundles.begin(), bundles.end());
 
