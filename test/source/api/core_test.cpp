@@ -210,7 +210,7 @@ TEST(Core, BroadcastTransactionsInvalidTrytes) {
 TEST(Core, FindTransactionsWithAddress) {
   IOTA::API::Core api(get_proxy_host(), get_proxy_port());
   auto            res = api.findTransactions(
-      { "KPWCHICGJZXKE9GSUDXZYUAPLHAKAHYHDXNPHENTERYMMBQOPSQIDENXKLKCEYCPVTZQLEEJVYJZV9BWU" }, {},
+      { "UVHTRMDTQXZSZCKDIWUZLAPAUWNRKSJZSZUGGNOUGG9OVNVUW9ZHPWMX9XTMQEICQBIJMQOBSYQWTWMAC" }, {},
       {}, {});
 
   ASSERT_EQ(res.getStatusCode(), 200);

@@ -583,7 +583,7 @@ Extended::getBundle(const Types::Trytes& transaction) const {
 
   //! Last tx in the bundle should have currentIndex == lastIndex
   const auto& lastTrx = bundle.getTransactions()[bundle.getLength() - 1];
-  if (lastTrx.getCurrentIndex() != (lastTrx.getLastIndex()))
+  if (lastTrx.getCurrentIndex() != lastTrx.getLastIndex())
     throw Errors::IllegalState("Invalid Bundle");
 
   //! Validate the signatures
