@@ -751,9 +751,10 @@ TEST(Extended, GetAccountDataWithoutChechsum) {
       "NMONSFDSHMERABGGDPKRGDJ9WUBUZEDLUTWVPZGJRJFPNWACSGEXGRGCVOR9JFJGPBMWYBPCFSCRXQXZT", 0, 2,
       false, 0, true, 0, 0, true, 0);
 
-  EXPECT_EQ(res.getAddresses(),
-            std::vector<IOTA::Types::Trytes>({ "GIZCVPBCVUWSUPCRNVQKYNCGMUMOGHPDPHDPPQDX9GFFTOTSKWP"
-                                               "NGMUEDEPFNBPKUZJTWKE9IOPGLGCSDFSLNTBDWY" }));
+  EXPECT_EQ(
+      res.getAddresses(),
+      std::vector<IOTA::Types::Trytes>(
+          { "GIZCVPBCVUWSUPCRNVQKYNCGMUMOGHPDPHDPPQDX9GFFTOTSKWPNGMUEDEPFNBPKUZJTWKE9IOPGLGCSD" }));
 
   EXPECT_EQ(res.getTransfers(), std::vector<IOTA::Models::Bundle>({}));
   EXPECT_EQ(res.getBalance(), 0);
