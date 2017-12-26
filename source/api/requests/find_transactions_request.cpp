@@ -44,10 +44,22 @@ FindTransactions::FindTransactions(const std::vector<Types::Trytes>& addresses,
 void
 FindTransactions::serialize(json& data) {
   Base::serialize(data);
-  data["addresses"] = addresses_;
-  data["tags"]      = tags_;
-  data["approvees"] = approvees_;
-  data["bundles"]   = bundles_;
+
+  if (!addresses_.empty()) {
+    data["addresses"] = addresses_;
+  }
+
+  if (!tags_.empty()) {
+    data["tags"] = tags_;
+  }
+
+  if (!approvees_.empty()) {
+    data["approvees"] = approvees_;
+  }
+
+  if (!bundles_.empty()) {
+    data["bundles"] = bundles_;
+  }
 }
 
 const std::vector<Types::Trytes>&
