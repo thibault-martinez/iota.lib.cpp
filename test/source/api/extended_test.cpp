@@ -449,7 +449,7 @@ TEST(Extended, TraverseBundleFullIntermediateTrxWithAppending) {
   auto api    = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
   auto bundle = IOTA::Models::Bundle{ { IOTA::Models::Transaction{ "address", 42, "tag", 21 } } };
   auto res    = api.traverseBundle(
-      "XIPC9YDDY9TVVWEEHCAUTHQYOXRUUNSIQWCQKUZP9OFVBPPWLRNCRUJGEVPNNSKIUSCOQKOBXRJWTCNOC",
+      "WEUFYWFILTIO9VVELPIQNSYY9QGTO9OAGPZXQFRBH9HWGECXIVASOBICAVNQOGQUHLYOMZWQOPYDZ9999",
       "OFMGOKXKIUKHO9ZKRJFADHUHJVXOAFEORITLBHVP9RBQBYHGJXWJUWMKWFWZBUCU9VDKWSNEFFQWEI9X9", bundle);
 
   EXPECT_EQ(res.getTransactions().size(), 2UL);
@@ -460,7 +460,7 @@ TEST(Extended, TraverseBundleFullIntermediateTrxWithAppending) {
   EXPECT_EQ(trx1.getTag(), "tag");
   EXPECT_EQ(trx1.getTimestamp(), 21);
 
-  const auto& trx2 = res.getTransactions()[3];
+  const auto& trx2 = res.getTransactions()[1];
   EXPECT_EQ(
       trx2.getSignatureFragments(),
       "99999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999"
