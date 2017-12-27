@@ -57,12 +57,12 @@ public:
   /**
    * @return Elapsed time in milliseconds.
    */
-  std::chrono::milliseconds getElapsedTimeMilliSeconds();
+  std::chrono::milliseconds getElapsedTimeMilliSeconds() const;
 
   /**
    * @return Elapsed time in seconds.
    */
-  std::chrono::seconds getElapsedTimeSeconds();
+  std::chrono::seconds getElapsedTimeSeconds() const;
 
 public:
   /**

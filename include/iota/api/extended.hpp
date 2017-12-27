@@ -82,11 +82,9 @@ public:
    * @param security  The security level of private key / seed.
    * @return Inputs object.
    **/
-  Responses::GetBalancesAndFormat getBalancesAndFormat(const std::vector<std::string>& addresses,
-                                                       const int64_t&                  threshold,
-                                                       const int32_t&                  start,
-                                                       const int32_t&                  security,
-                                                       Utils::StopWatch stopWatch = {}) const;
+  Responses::GetBalancesAndFormat getBalancesAndFormat(
+      const std::vector<std::string>& addresses, const int64_t& threshold, const int32_t& start,
+      const int32_t& security, const Utils::StopWatch& stopWatch = {}) const;
 
   /**
    * Generates a new address from a seed and returns the remainderAddress.
@@ -347,7 +345,7 @@ public:
   std::vector<std::string> addRemainder(const Types::Trytes& seed, const unsigned int& security,
                                         const std::vector<Models::Input>& inputs,
                                         Models::Bundle& bundle, const std::string& tag,
-                                        const int64_t&                     totalValue,
+                                        const int64_t&                  totalValue,
                                         const Types::Trytes&            remainderAddress,
                                         const std::vector<std::string>& signatureFragments) const;
 

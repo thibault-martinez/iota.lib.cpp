@@ -23,60 +23,36 @@
 //
 //
 
-#include <iota/utils/stop_watch.hpp>
+#pragma once
+
+#include <atomic>
+#include <future>
+#include <vector>
 
 namespace IOTA {
 
 namespace Utils {
 
-StopWatch::StopWatch() {
-  restart();
-}
-
+template <typename F>
 void
-StopWatch::restart() {
-  startTime_ = now();
-  running_   = true;
-}
+parallel_for(int begin, int end, F fn) {
+  std::atomic<int>               idx(begin);
+  int                            num_cpus = std::thread::hardware_concurrency();
+  std::vector<std::future<void>> futures(num_cpus);
 
-std::chrono::milliseconds
-StopWatch::now() {
-  return std::chrono::duration_cast<std::chrono::milliseconds>(
-      std::chrono::system_clock::now().time_since_epoch());
-}
-
-void
-StopWatch::pause() {
-  if (!running_) {
-    return;
+  for (int cpu = 0; cpu != num_cpus; ++cpu) {
+    futures[cpu] = std::async(std::launch::async, [&idx, end, &fn]() {
+      for (;;) {
+        int i = idx++;
+        if (i >= end)
+          break;
+        fn(i);
+      }
+    });
   }
-
-  currentTime_ = getElapsedTimeMilliSeconds();
-  running_     = false;
-}
-
-void
-StopWatch::resume() {
-  if (running_) {
-    return;
+  for (int cpu = 0; cpu != num_cpus; ++cpu) {
+    futures[cpu].get();
   }
-
-  running_   = true;
-  startTime_ = now() - currentTime_;
-}
-
-std::chrono::milliseconds
-StopWatch::getElapsedTimeMilliSeconds() const {
-  if (running_) {
-    return now() - startTime_;
-  }
-
-  return currentTime_;
-}
-
-std::chrono::seconds
-StopWatch::getElapsedTimeSeconds() const {
-  return std::chrono::duration_cast<std::chrono::seconds>(getElapsedTimeMilliSeconds());
 }
 
 }  // namespace Utils
