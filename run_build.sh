@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/bin/bash
 
 #
 # MIT License
@@ -25,36 +25,34 @@
 #
 #
 
-RED='\033[0;31m' # Red
-BB='\033[0;34m'  # Blue
-NC='\033[0m' # No Color
-BG='\033[0;32m' # Green
+BLUE='\033[0;34m'
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+NORMAL='\033[0m'
 
-error() { >&2 echo -e "${RED}$1${NC}"; }
-showinfo() { echo -e "${BG}$1${NC}"; }
-workingprocess() { echo -e "${BB}$1${NC}"; }
-allert () { echo -e "${RED}$1${NC}"; }
+info() { echo -e "${BLUE}$1${NORMAL}"; }
+success() { echo -e "${GREEN}$1${NORMAL}"; }
+fail() { >&2 echo -e "${RED}$1${NORMAL}"; }
 
-# Building project
+############################
+info "Building project..." #
+############################
 mkdir -p build
 cd build
 cmake -DCMAKE_BUILD_TYPE=Debug ..
 make -j4
-# Checks if last comand didn't output 0
-# $? checks what last command outputed
-# If output is 0 then command is succesfuly executed
-# If command fails it outputs number between 0 to 255
 if [ $? -ne 0 ]; then
-    error "Error: there are compile errors!"
-	# Terminate script and outputs 3
-    exit 3
+    fail "Error : compilation failed !"
+    exit 1
 fi
 
-showinfo "Running tests ..."
+#########################
+info "Running tests..." #
+#########################
 ./bin/runUnitTests ../test/files $1
 if [ $? -ne 0 ]; then
-    error "Error: there are failed tests!"
-    exit 4
+    fail "Error : tests failed !"
+    exit 1
 fi
 
-workingprocess "All tests compile and pass."
+success "Everything is ok !"
