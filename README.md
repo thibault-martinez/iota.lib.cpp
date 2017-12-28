@@ -1,11 +1,12 @@
 <p align="center">
-   <img src="https://insights.ubuntu.com/wp-content/uploads/38b6/IOTA.png"/>
+   <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Iota_logo.png/1200px-Iota_logo.png"/>
 </p>
 
 # IOTA C++ Library
 [![Build Status](https://travis-ci.org/thibault-martinez/iota.lib.cpp.svg?branch=master)](https://travis-ci.org/thibault-martinez/iota.lib.cpp)
 [![Build status](https://ci.appveyor.com/api/projects/status/512okcym7n737v4r?svg=true)](https://ci.appveyor.com/project/Cylix/iota-lib-cpp)
 [![Coverage Status](https://codecov.io/gh/thibault-martinez/iota.lib.cpp/branch/master/graph/badge.svg)](https://codecov.io/gh/thibault-martinez/iota.lib.cpp)
+[![Read the Docs (version)](https://img.shields.io/readthedocs/pip/stable.svg)](https://thibault-martinez.github.io/iota.lib.cpp/html/)
 [![MIT License](https://img.shields.io/packagist/l/doctrine/orm.svg)]()
 
 This is not (yet) an official C++ client library for the [IOTA Reference Implementation (IRI)](https://github.com/iotaledger/iri).
