@@ -646,7 +646,7 @@ Extended::sendTransfer(const Types::Trytes& seed, int security, int depth, int m
 
   for (const auto& trx : trxs) {
     auto response = findTransactionsByBundles({ trx.getBundle() });
-    successful.emplace_back(!response.getHashes().empty());
+    successful.push_back(!response.getHashes().empty());
   }
 
   return { successful, stopWatch.getElapsedTimeMilliSeconds().count() };
@@ -804,7 +804,7 @@ Extended::replayBundle(const Types::Trytes& transaction, int depth, int minWeigh
   std::vector<bool> successful;
   for (const auto& trx : trxs) {
     auto response = findTransactionsByBundles({ trx.getBundle() });
-    successful.emplace_back(!response.getHashes().empty());
+    successful.push_back(!response.getHashes().empty());
   }
 
   return { successful, stopWatch.getElapsedTimeMilliSeconds().count() };
