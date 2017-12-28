@@ -25,58 +25,17 @@
 
 #pragma once
 
-#include <cstdint>
-
-#include <json.hpp>
-
-using json = nlohmann::json;
+#include <iota/errors/generic.hpp>
 
 namespace IOTA {
 
-namespace API {
+namespace Errors {
 
-namespace Responses {
-
-/*
- * generic API call response.
- */
-class Base {
+class Unrecognized : public Generic {
 public:
-  /**
-   * full init ctor
-   */
-  explicit Base(const int64_t& duration = 0);
-
-  /**
-   * default dtor
-   */
-  virtual ~Base() = default;
-
-public:
-  /**
-   * init class based on json data
-   *
-   * @param res json data to be used for deserialization
-   */
-  virtual void deserialize(const json& res);
-
-public:
-  /**
-   * @return duration of operation
-   */
-  const int64_t& getDuration() const;
-
-  /**
-   * @param duration set duration of operation
-   */
-  void setDuration(const int64_t& duration);
-
-private:
-  int64_t duration_;
+  Unrecognized(const std::string& content) : Generic(content){};
 };
 
-}  // namespace Responses
-
-}  // namespace API
+}  // namespace Errors
 
 }  // namespace IOTA

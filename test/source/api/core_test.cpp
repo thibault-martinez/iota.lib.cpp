@@ -27,12 +27,12 @@
 
 #include <iota/api/core.hpp>
 #include <test/utils/configuration.hpp>
+#include <test/utils/expect_exception.hpp>
 
 TEST(Core, GetNodeInfo) {
   IOTA::API::Core api(get_proxy_host(), get_proxy_port());
   auto            res = api.getNodeInfo();
 
-  ASSERT_EQ(res.getStatusCode(), 200);
   EXPECT_GE(res.getDuration(), 0);
   EXPECT_FALSE(res.getAppName().empty());
   EXPECT_FALSE(res.getAppVersion().empty());
@@ -55,7 +55,6 @@ TEST(Core, GetNeighbors) {
   IOTA::API::Core api(get_proxy_host(), get_proxy_port());
   auto            res = api.getNeighbors();
 
-  ASSERT_EQ(res.getStatusCode(), 200);
   EXPECT_GE(res.getDuration(), 0);
   EXPECT_TRUE(res.getNeighbors().size() >= 0);
 }
@@ -64,7 +63,6 @@ TEST(Core, GetTips) {
   IOTA::API::Core api(get_proxy_host(), get_proxy_port());
   auto            res = api.getTips();
 
-  ASSERT_EQ(res.getStatusCode(), 200);
   EXPECT_GE(res.getDuration(), 0);
   EXPECT_TRUE(res.getHashes().size() >= 0);
 }
@@ -74,7 +72,6 @@ TEST(Core, GetTrytes) {
   auto            res = api.getTrytes(
       { "OAATQS9VQLSXCLDJVJJVYUGONXAXOFMJOZNSYWRZSWECMXAQQURHQBJNLD9IOFEPGZEPEMPXCIVRX9999" });
 
-  ASSERT_EQ(res.getStatusCode(), 200);
   EXPECT_GE(res.getDuration(), 0);
   EXPECT_EQ(
       res.getTrytes()[0],
@@ -111,12 +108,13 @@ TEST(Core, GetTrytes) {
 }
 
 TEST(Core, GetTrytesInvalidHash) {
-  IOTA::API::Core api(get_proxy_host(), get_proxy_port());
+  IOTA::API::Core                 api(get_proxy_host(), get_proxy_port());
+  IOTA::API::Responses::GetTrytes res;
 
-  auto res = api.getTrytes({ "9999" });
-  ASSERT_EQ(res.getStatusCode(), 400);
+  EXPECT_EXCEPTION(res = api.getTrytes({ "9999" });
+                   , IOTA::Errors::BadRequest, "Invalid hashes input")
+
   EXPECT_GE(res.getDuration(), 0);
-  EXPECT_EQ(res.getError(), "Invalid hashes input");
 }
 
 TEST(Core, GetBalances) {
@@ -124,7 +122,6 @@ TEST(Core, GetBalances) {
   auto            res = api.getBalances(
       { "HBBYKAKTILIPVUKFOTSLHGENPTXYBNKXZFQFR9VQFWNBMTQNRVOUKPVPRNBSZVVILMAFBKOTBLGLWLOHQ" }, 100);
 
-  ASSERT_EQ(res.getStatusCode(), 200);
   EXPECT_GE(res.getDuration(), 0);
   EXPECT_FALSE(res.getBalances().empty());
   EXPECT_TRUE(IOTA::Types::isValidHash(res.getMilestone()));
@@ -132,29 +129,32 @@ TEST(Core, GetBalances) {
 }
 
 TEST(Core, GetBalancesInvalidAddress) {
-  IOTA::API::Core api(get_proxy_host(), get_proxy_port());
-  auto            res = api.getBalances({ "9999" }, 100);
+  IOTA::API::Core                   api(get_proxy_host(), get_proxy_port());
+  IOTA::API::Responses::GetBalances res;
 
-  ASSERT_EQ(res.getStatusCode(), 400);
+  EXPECT_EXCEPTION(res = api.getBalances({ "9999" }, 100);
+                   , IOTA::Errors::BadRequest, "Invalid addresses input")
+
   EXPECT_GE(res.getDuration(), 0);
-  EXPECT_EQ(res.getError(), "Invalid addresses input");
 }
 
 TEST(Core, GetBalancesInvalidThreshold) {
-  IOTA::API::Core api(get_proxy_host(), get_proxy_port());
-  auto            res = api.getBalances(
-      { "HBBYKAKTILIPVUKFOTSLHGENPTXYBNKXZFQFR9VQFWNBMTQNRVOUKPVPRNBSZVVILMAFBKOTBLGLWLOHQ" }, 0);
+  IOTA::API::Core                   api(get_proxy_host(), get_proxy_port());
+  IOTA::API::Responses::GetBalances res;
 
-  ASSERT_EQ(res.getStatusCode(), 400);
+  EXPECT_EXCEPTION(
+      res = api.getBalances(
+          { "HBBYKAKTILIPVUKFOTSLHGENPTXYBNKXZFQFR9VQFWNBMTQNRVOUKPVPRNBSZVVILMAFBKOTBLGLWLOHQ" },
+          0);
+      , IOTA::Errors::BadRequest, "Illegal 'threshold'")
+
   EXPECT_GE(res.getDuration(), 0);
-  EXPECT_EQ(res.getError(), "Illegal 'threshold'");
 }
 
 TEST(Core, GetTransactionsToApprove) {
   IOTA::API::Core api(get_proxy_host(), get_proxy_port());
   auto            res = api.getTransactionsToApprove(27);
 
-  ASSERT_EQ(res.getStatusCode(), 200);
   EXPECT_GE(res.getDuration(), 0);
   EXPECT_TRUE(IOTA::Types::isValidHash(res.getTrunkTransaction()));
   EXPECT_TRUE(IOTA::Types::isValidHash(res.getBranchTransaction()));
@@ -194,17 +194,17 @@ TEST(Core, BroadcastTransactions) {
         "NODGFBEVNMD9EN9RVOZRQPDDZTDPYGVCLHXJLKALICWRLPYDLIJTTSUKRUHITDWGAVWZ9999SECONDBUYREST99999"
         "999999999KXOBTNUJE999999999MMMMMMMMMGA999INA9999999999999999999" });
 
-  ASSERT_EQ(res.getStatusCode(), 200);
   EXPECT_GE(res.getDuration(), 0);
 }
 
 TEST(Core, BroadcastTransactionsInvalidTrytes) {
-  IOTA::API::Core api(get_proxy_host(), get_proxy_port());
-  auto            res = api.broadcastTransactions({ "9999" });
+  IOTA::API::Core            api(get_proxy_host(), get_proxy_port());
+  IOTA::API::Responses::Base res;
 
-  ASSERT_EQ(res.getStatusCode(), 400);
+  EXPECT_EXCEPTION(res = api.broadcastTransactions({ "9999" });
+                   , IOTA::Errors::BadRequest, "Invalid trytes input")
+
   EXPECT_GE(res.getDuration(), 0);
-  EXPECT_EQ(res.getError(), "Invalid trytes input");
 }
 
 TEST(Core, FindTransactionsWithAddress) {
@@ -213,24 +213,23 @@ TEST(Core, FindTransactionsWithAddress) {
       { "UVHTRMDTQXZSZCKDIWUZLAPAUWNRKSJZSZUGGNOUGG9OVNVUW9ZHPWMX9XTMQEICQBIJMQOBSYQWTWMAC" }, {},
       {}, {});
 
-  ASSERT_EQ(res.getStatusCode(), 200);
   EXPECT_FALSE(res.getHashes().empty());
 }
 
 TEST(Core, FindTransactionsWithInvalidAddress) {
-  IOTA::API::Core api(get_proxy_host(), get_proxy_port());
-  auto            res = api.findTransactions({ "9999" }, {}, {}, {});
+  IOTA::API::Core                        api(get_proxy_host(), get_proxy_port());
+  IOTA::API::Responses::FindTransactions res;
 
-  ASSERT_EQ(res.getStatusCode(), 400);
+  EXPECT_EXCEPTION(res = api.findTransactions({ "9999" }, {}, {}, {});
+                   , IOTA::Errors::BadRequest, "Invalid addresses input")
+
   EXPECT_GE(res.getDuration(), 0);
-  EXPECT_EQ(res.getError(), "Invalid addresses input");
 }
 
 TEST(Core, FindTransactionsWithTag) {
   IOTA::API::Core api(get_proxy_host(), get_proxy_port());
   auto            res = api.findTransactions({}, { "SECONDBUYREST99999999999999" }, {}, {});
 
-  ASSERT_EQ(res.getStatusCode(), 200);
   EXPECT_FALSE(res.getHashes().empty());
 }
 
@@ -240,17 +239,17 @@ TEST(Core, FindTransactionsWithApprovee) {
       {}, {},
       { "OLDZZVN9XULLFAJYUOIVMVME99RWQMXUHGVKDISCKXDNBEFRGGNMCVUXSEJGRMWCAIHQVPYCJJELA9999" }, {});
 
-  ASSERT_EQ(res.getStatusCode(), 200);
   EXPECT_FALSE(res.getHashes().empty());
 }
 
 TEST(Core, FindTransactionsWithInvalidApprovee) {
-  IOTA::API::Core api(get_proxy_host(), get_proxy_port());
-  auto            res = api.findTransactions({}, {}, { "9999" }, {});
+  IOTA::API::Core                        api(get_proxy_host(), get_proxy_port());
+  IOTA::API::Responses::FindTransactions res;
 
-  ASSERT_EQ(res.getStatusCode(), 400);
+  EXPECT_EXCEPTION(res = api.findTransactions({}, {}, { "9999" }, {});
+                   , IOTA::Errors::BadRequest, "Invalid approvees input")
+
   EXPECT_GE(res.getDuration(), 0);
-  EXPECT_EQ(res.getError(), "Invalid approvees input");
 }
 
 TEST(Core, FindTransactionsWithBundle) {
@@ -259,16 +258,15 @@ TEST(Core, FindTransactionsWithBundle) {
       {}, {}, {},
       { "OFMGOKXKIUKHO9ZKRJFADHUHJVXOAFEORITLBHVP9RBQBYHGJXWJUWMKWFWZBUCU9VDKWSNEFFQWEI9X9" });
 
-  ASSERT_EQ(res.getStatusCode(), 200);
   EXPECT_FALSE(res.getHashes().empty());
 }
 
 TEST(Core, FindTransactionsWithInvalidBundle) {
-  IOTA::API::Core api(get_proxy_host(), get_proxy_port());
-  auto            res = api.findTransactions({}, {}, {}, { "9999" });
+  IOTA::API::Core                        api(get_proxy_host(), get_proxy_port());
+  IOTA::API::Responses::FindTransactions res;
 
-  // TODO Should it be checked before as an exception ?
-  ASSERT_EQ(res.getStatusCode(), 400);
+  EXPECT_EXCEPTION(res = api.findTransactions({}, {}, {}, { "9999" });
+                   , IOTA::Errors::BadRequest, "Invalid bundles input")
+
   EXPECT_GE(res.getDuration(), 0);
-  EXPECT_EQ(res.getError(), "Invalid bundles input");
 }

@@ -25,58 +25,11 @@
 
 #pragma once
 
-#include <cstdint>
-
-#include <json.hpp>
-
-using json = nlohmann::json;
-
-namespace IOTA {
-
-namespace API {
-
-namespace Responses {
-
-/*
- * generic API call response.
- */
-class Base {
-public:
-  /**
-   * full init ctor
-   */
-  explicit Base(const int64_t& duration = 0);
-
-  /**
-   * default dtor
-   */
-  virtual ~Base() = default;
-
-public:
-  /**
-   * init class based on json data
-   *
-   * @param res json data to be used for deserialization
-   */
-  virtual void deserialize(const json& res);
-
-public:
-  /**
-   * @return duration of operation
-   */
-  const int64_t& getDuration() const;
-
-  /**
-   * @param duration set duration of operation
-   */
-  void setDuration(const int64_t& duration);
-
-private:
-  int64_t duration_;
-};
-
-}  // namespace Responses
-
-}  // namespace API
-
-}  // namespace IOTA
+#define EXPECT_EXCEPTION(STATEMENT, EXCEPTION_TYPE, MESSAGE) \
+  try {                                                      \
+    { STATEMENT } FAIL();                                    \
+  } catch (const EXCEPTION_TYPE& e) {                        \
+    EXPECT_STREQ(MESSAGE, e.what());                         \
+  } catch (...) {                                            \
+    FAIL();                                                  \
+  }
