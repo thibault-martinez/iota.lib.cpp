@@ -28,6 +28,10 @@
 #include <iostream>
 
 #include <iota/constants.hpp>
+#include <iota/errors/bad_request.hpp>
+#include <iota/errors/internal_server_error.hpp>
+#include <iota/errors/unauthorized.hpp>
+#include <iota/errors/unrecognized.hpp>
 
 #include <cpr/cpr.h>
 #include <json.hpp>
@@ -59,13 +63,17 @@ public:
     auto res     = cpr::Post(url, body, headers);
 
     Response response;
-    response.setStatusCode(res.status_code);
     // TODO set duration ?
     if (res.status_code == 200)
       response.deserialize(json::parse(res.text));
+    else if (res.status_code == 400)
+      throw Errors::BadRequest(json::parse(res.text)["error"].get<std::string>());
+    else if (res.status_code == 401)
+      throw Errors::Unauthorized(json::parse(res.text)["error"].get<std::string>());
+    else if (res.status_code == 500)
+      throw Errors::InternalServerError(json::parse(res.text)["error"].get<std::string>());
     else
-      // TODO in deserialize ?
-      response.setError(json::parse(res.text)["error"]);
+      throw Errors::Unrecognized(json::parse(res.text)["error"].get<std::string>());
 
     return response;
   }

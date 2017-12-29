@@ -23,6 +23,8 @@
 //
 //
 
+#pragma once
+
 #include <string>
 
 const std::string& get_deps_folder(void);
