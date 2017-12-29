@@ -32,17 +32,21 @@ namespace IOTA {
 
 namespace Models {
 
-const std::pair<int, int> Transaction::SignatureFragmentsOffset = { 0, 2187 };
-const std::pair<int, int> Transaction::AddressOffset            = { 2187, 2268 };
-const std::pair<int, int> Transaction::ValueOffset              = { 6804, 6837 };
-const std::pair<int, int> Transaction::TagOffset                = { 2592, 2619 };
-const std::pair<int, int> Transaction::TimestampOffset          = { 6966, 6993 };
-const std::pair<int, int> Transaction::CurrentIndexOffset       = { 6993, 7020 };
-const std::pair<int, int> Transaction::LastIndexOffset          = { 7020, 7047 };
-const std::pair<int, int> Transaction::BundleOffset             = { 2349, 2430 };
-const std::pair<int, int> Transaction::TrunkOffset              = { 2430, 2511 };
-const std::pair<int, int> Transaction::BranchOffset             = { 2511, 2592 };
-const std::pair<int, int> Transaction::NonceOffset              = { 2646, 2673 };
+const std::pair<int, int> Transaction::SignatureFragmentsOffset            = { 0, 2187 };
+const std::pair<int, int> Transaction::AddressOffset                       = { 2187, 2268 };
+const std::pair<int, int> Transaction::ValueOffset                         = { 6804, 6837 };
+const std::pair<int, int> Transaction::TagOffset                           = { 2592, 2619 };
+const std::pair<int, int> Transaction::TimestampOffset                     = { 6966, 6993 };
+const std::pair<int, int> Transaction::CurrentIndexOffset                  = { 6993, 7020 };
+const std::pair<int, int> Transaction::LastIndexOffset                     = { 7020, 7047 };
+const std::pair<int, int> Transaction::BundleOffset                        = { 2349, 2430 };
+const std::pair<int, int> Transaction::TrunkOffset                         = { 2430, 2511 };
+const std::pair<int, int> Transaction::BranchOffset                        = { 2511, 2592 };
+const std::pair<int, int> Transaction::NonceOffset                         = { 2646, 2673 };
+const std::pair<int, int> Transaction::ObsoleteTagOffset                   = { 2295, 2322 };
+const std::pair<int, int> Transaction::AttachmentTimestampOffset           = { 7857, 7884 };
+const std::pair<int, int> Transaction::AttachmentTimestampLowerBoundOffset = { 7884, 7911 };
+const std::pair<int, int> Transaction::AttachmentTimestampUpperBoundOffset = { 7911, 7938 };
 
 Transaction::Transaction()
     : value_(0), timestamp_(0), currentIndex_(0), lastIndex_(0), persistence_(false) {
@@ -138,6 +142,16 @@ Transaction::setTag(const std::string& tag) {
   tag_ = tag;
 }
 
+const std::string&
+Transaction::getObsoleteTag() const {
+  return obsoleteTag_;
+}
+
+void
+Transaction::setObsoleteTag(const std::string& tag) {
+  obsoleteTag_ = tag;
+}
+
 int64_t
 Transaction::getTimestamp() const {
   return timestamp_;
@@ -146,6 +160,36 @@ Transaction::getTimestamp() const {
 void
 Transaction::setTimestamp(int64_t timestamp) {
   timestamp_ = timestamp;
+}
+
+int64_t
+Transaction::getAttachmentTimestamp() const {
+  return attachmentTimestamp_;
+}
+
+void
+Transaction::setAttachmentTimestamp(int64_t timestamp) {
+  attachmentTimestamp_ = timestamp;
+}
+
+int64_t
+Transaction::getAttachmentTimestampLowerBound() const {
+  return attachmentTimestampLowerBound_;
+}
+
+void
+Transaction::setAttachmentTimestampLowerBound(int64_t timestamp) {
+  attachmentTimestampLowerBound_ = timestamp;
+}
+
+int64_t
+Transaction::getAttachmentTimestampUpperBound() const {
+  return attachmentTimestampUpperBound_;
+}
+
+void
+Transaction::setAttachmentTimestampUpperBound(int64_t timestamp) {
+  attachmentTimestampUpperBound_ = timestamp;
 }
 
 int64_t
@@ -237,9 +281,18 @@ Transaction::toTrytes() const {
       IOTA::Types::intToTrits((int)getCurrentIndex(), TryteAlphabetLength));
   auto lastIndex =
       IOTA::Types::tritsToTrytes(IOTA::Types::intToTrits((int)getLastIndex(), TryteAlphabetLength));
+  auto attachmentTimestamp = IOTA::Types::tritsToTrytes(
+      IOTA::Types::intToTrits((int)getAttachmentTimestamp(), TryteAlphabetLength));
+  auto attachmentTimestampLowerBound = IOTA::Types::tritsToTrytes(
+      IOTA::Types::intToTrits((int)getAttachmentTimestampLowerBound(), TryteAlphabetLength));
+  auto attachmentTimestampUpperBound = IOTA::Types::tritsToTrytes(
+      IOTA::Types::intToTrits((int)getAttachmentTimestampUpperBound(), TryteAlphabetLength));
+  auto tag = getTag().empty() ? getObsoleteTag() : getTag();
 
-  return getSignatureFragments() + getAddress() + value + getTag() + timestamp + currentIndex +
-         lastIndex + getBundle() + getTrunkTransaction() + getBranchTransaction() + getNonce();
+  return getSignatureFragments() + getAddress() + value + getObsoleteTag() + timestamp +
+         currentIndex + lastIndex + getBundle() + getTrunkTransaction() + getBranchTransaction() +
+         tag + attachmentTimestamp + attachmentTimestampLowerBound + attachmentTimestampUpperBound +
+         getNonce();
 }
 
 void
@@ -278,12 +331,29 @@ Transaction::initFromTrytes(const std::string& trytes) {
   setValue(IOTA::Types::tritsToInt<int64_t>(IOTA::Types::Trits(
       std::vector<int8_t>{ std::begin(transactionTrits) + ValueOffset.first,
                            std::begin(transactionTrits) + ValueOffset.second })));
+  //! Obsolete Tag
+  setObsoleteTag(
+      trytes.substr(ObsoleteTagOffset.first, ObsoleteTagOffset.second - ObsoleteTagOffset.first));
   //! Tag
   setTag(trytes.substr(TagOffset.first, TagOffset.second - TagOffset.first));
   //! Timestamp
   setTimestamp(IOTA::Types::tritsToInt<int64_t>(IOTA::Types::Trits(
       std::vector<int8_t>{ std::begin(transactionTrits) + TimestampOffset.first,
                            std::begin(transactionTrits) + TimestampOffset.second })));
+  //! Attachment Timestamp
+  setAttachmentTimestamp(IOTA::Types::tritsToInt<int64_t>(IOTA::Types::Trits(
+      std::vector<int8_t>{ std::begin(transactionTrits) + AttachmentTimestampOffset.first,
+                           std::begin(transactionTrits) + AttachmentTimestampOffset.second })));
+  //! Attachment Timestamp Lower Bound
+  setAttachmentTimestampLowerBound(
+      IOTA::Types::tritsToInt<int64_t>(IOTA::Types::Trits(std::vector<int8_t>{
+          std::begin(transactionTrits) + AttachmentTimestampLowerBoundOffset.first,
+          std::begin(transactionTrits) + AttachmentTimestampLowerBoundOffset.second })));
+  //! Attachment Timestamp Upper Bound
+  setAttachmentTimestampUpperBound(
+      IOTA::Types::tritsToInt<int64_t>(IOTA::Types::Trits(std::vector<int8_t>{
+          std::begin(transactionTrits) + AttachmentTimestampUpperBoundOffset.first,
+          std::begin(transactionTrits) + AttachmentTimestampUpperBoundOffset.second })));
   //! Current Index
   setCurrentIndex(IOTA::Types::tritsToInt<int64_t>(IOTA::Types::Trits(
       std::vector<int8_t>{ std::begin(transactionTrits) + CurrentIndexOffset.first,

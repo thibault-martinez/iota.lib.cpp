@@ -649,7 +649,8 @@ TEST(Extended, FindTailTransactionHashWithBundle) {
 TEST(Extended, FindTailTransactionHashWithInvalid) {
   auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
 
-  EXPECT_THROW(api.findTailTransactionHash("salut"), IOTA::Errors::IllegalState);
+  EXPECT_EXCEPTION(api.findTailTransactionHash("salut");
+                   , IOTA::Errors::BadRequest, "Invalid hashes input");
 }
 
 TEST(Extended, FindTransactionsByAddresses) {
@@ -716,7 +717,7 @@ TEST(Extended, FindTransactionsByBundlesInvalidBundle) {
 TEST(Extended, GetAccountData) {
   auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
   auto res = api.getAccountData(
-      "NMONSFDSHMERABGGDPKRGDJ9WUBUZEDLUTWVPZGJRJFPNWACSGEXGRGCVOR9JFJGPBMWYBPCFSCRXQXZT", 0, 2,
+      "IHDEENZYITYVYSPKAURUZAQKGVJEREFDJMYTANNXXGPZ9GJWTEOJJ9IPMXOGZNQLSNMFDSQOTZAEETUEA", 0, 2,
       true, 0, true, 0, 0, true, 0);
 
   EXPECT_EQ(res.getAddresses(),

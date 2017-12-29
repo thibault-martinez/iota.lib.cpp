@@ -139,6 +139,20 @@ public:
   void setTag(const std::string& tag);
 
   /**
+   * Get the obsolete tag.
+   *
+   * @return The obsolete tag.
+   */
+  const std::string& getObsoleteTag() const;
+
+  /**
+   * Set the obsolete tag.
+   *
+   * @param tag The obsolete tag.
+   */
+  void setObsoleteTag(const std::string& tag);
+
+  /**
    * Get the timestamp.
    *
    * @return The timestamp.
@@ -151,6 +165,48 @@ public:
    * @param timestamp The timestamp.
    */
   void setTimestamp(int64_t timestamp);
+
+  /**
+   * Get the attachment timestamp.
+   *
+   * @return The attachment timestamp.
+   */
+  int64_t getAttachmentTimestamp() const;
+
+  /**
+   * Set the attachment timestamp.
+   *
+   * @param timestamp The attachment timestamp.
+   */
+  void setAttachmentTimestamp(int64_t timestamp);
+
+  /**
+   * Get the attachment timestamp lower bound.
+   *
+   * @return The attachment timestamp lower bound.
+   */
+  int64_t getAttachmentTimestampLowerBound() const;
+
+  /**
+   * Set the attachment timestamp lower bound.
+   *
+   * @param timestamp The attachment timestamp lower bound.
+   */
+  void setAttachmentTimestampLowerBound(int64_t timestamp);
+
+  /**
+   * Get the attachment timestamp upper bound.
+   *
+   * @return The attachment timestamp upper bound.
+   */
+  int64_t getAttachmentTimestampUpperBound() const;
+
+  /**
+   * Set the attachment timestamp upper bound.
+   *
+   * @param timestamp The attachment timestamp upper bound.
+   */
+  void setAttachmentTimestampUpperBound(int64_t timestamp);
 
   /**
    * Get the current index.
@@ -286,6 +342,10 @@ private:
   static const std::pair<int, int> TrunkOffset;
   static const std::pair<int, int> BranchOffset;
   static const std::pair<int, int> NonceOffset;
+  static const std::pair<int, int> ObsoleteTagOffset;
+  static const std::pair<int, int> AttachmentTimestampOffset;
+  static const std::pair<int, int> AttachmentTimestampLowerBoundOffset;
+  static const std::pair<int, int> AttachmentTimestampUpperBoundOffset;
 
 private:
   /**
@@ -314,9 +374,29 @@ private:
   std::string tag_;
 
   /**
+   * obsolete tag of the transaction
+   */
+  std::string obsoleteTag_;
+
+  /**
    * ts at which transaction was issued
    */
   int64_t timestamp_;
+
+  /**
+   * attachment timestamp
+   */
+  int64_t attachmentTimestamp_;
+
+  /**
+   * lower bound of the attachment timestamp
+   */
+  int64_t attachmentTimestampLowerBound_;
+
+  /**
+   * upper bound of the attachment timestamp
+   */
+  int64_t attachmentTimestampUpperBound_;
 
   /**
    * index of the transaction in the bundle
