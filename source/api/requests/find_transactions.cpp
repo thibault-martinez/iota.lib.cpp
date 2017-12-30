@@ -24,6 +24,7 @@
 //
 
 #include <iota/api/requests/find_transactions.hpp>
+#include <iota/crypto/checksum.hpp>
 
 namespace IOTA {
 
@@ -46,6 +47,10 @@ FindTransactions::serialize(json& data) {
   Base::serialize(data);
 
   if (!addresses_.empty()) {
+    std::transform(std::begin(addresses_), std::end(addresses_), std::begin(addresses_),
+                   [](const Types::Trytes& address) -> Types::Trytes {
+                     return IOTA::Crypto::Checksum::remove(address);
+                   });
     data["addresses"] = addresses_;
   }
 
