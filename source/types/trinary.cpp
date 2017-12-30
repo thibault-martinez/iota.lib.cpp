@@ -122,9 +122,9 @@ tritsToTrytes(const Trits& trits, unsigned int length) {
 }
 
 Types::Trits
-intToTrits(const int& value) {
+intToTrits(const int64_t& value) {
   Types::Trits trits;
-  unsigned int absoluteValue = std::abs(value);
+  uint64_t     absoluteValue = std::abs(value);
 
   while (absoluteValue > 0) {
     int8_t remainder = absoluteValue % 3;
@@ -137,14 +137,16 @@ intToTrits(const int& value) {
 
     trits.push_back(remainder);
   }
+
   if (value < 0) {
     std::transform(std::begin(trits), std::end(trits), std::begin(trits), std::negate<int>());
   }
+
   return trits;
 }
 
 Types::Trits
-intToTrits(const int& value, std::size_t length) {
+intToTrits(const int64_t& value, std::size_t length) {
   auto res = intToTrits(value);
 
   res.resize(length, 0);
