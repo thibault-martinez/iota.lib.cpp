@@ -274,19 +274,19 @@ Transaction::operator!=(Transaction rhs) const {
 
 std::string
 Transaction::toTrytes() const {
-  auto value = IOTA::Types::tritsToTrytes(IOTA::Types::intToTrits((int)getValue(), SeedLength));
+  auto value = IOTA::Types::tritsToTrytes(IOTA::Types::intToTrits(getValue(), SeedLength));
   auto timestamp =
-      IOTA::Types::tritsToTrytes(IOTA::Types::intToTrits((int)getTimestamp(), TryteAlphabetLength));
-  auto currentIndex = IOTA::Types::tritsToTrytes(
-      IOTA::Types::intToTrits((int)getCurrentIndex(), TryteAlphabetLength));
+      IOTA::Types::tritsToTrytes(IOTA::Types::intToTrits(getTimestamp(), TryteAlphabetLength));
+  auto currentIndex =
+      IOTA::Types::tritsToTrytes(IOTA::Types::intToTrits(getCurrentIndex(), TryteAlphabetLength));
   auto lastIndex =
-      IOTA::Types::tritsToTrytes(IOTA::Types::intToTrits((int)getLastIndex(), TryteAlphabetLength));
+      IOTA::Types::tritsToTrytes(IOTA::Types::intToTrits(getLastIndex(), TryteAlphabetLength));
   auto attachmentTimestamp = IOTA::Types::tritsToTrytes(
-      IOTA::Types::intToTrits((int)getAttachmentTimestamp(), TryteAlphabetLength));
+      IOTA::Types::intToTrits(getAttachmentTimestamp(), TryteAlphabetLength));
   auto attachmentTimestampLowerBound = IOTA::Types::tritsToTrytes(
-      IOTA::Types::intToTrits((int)getAttachmentTimestampLowerBound(), TryteAlphabetLength));
+      IOTA::Types::intToTrits(getAttachmentTimestampLowerBound(), TryteAlphabetLength));
   auto attachmentTimestampUpperBound = IOTA::Types::tritsToTrytes(
-      IOTA::Types::intToTrits((int)getAttachmentTimestampUpperBound(), TryteAlphabetLength));
+      IOTA::Types::intToTrits(getAttachmentTimestampUpperBound(), TryteAlphabetLength));
   auto tag = getTag().empty() ? getObsoleteTag() : getTag();
 
   return getSignatureFragments() + getAddress() + value + getObsoleteTag() + timestamp +

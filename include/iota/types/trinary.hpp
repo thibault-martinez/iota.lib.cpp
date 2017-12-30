@@ -74,8 +74,8 @@ Trits  trytesToTrits(const Trytes& trytes);
 Trytes tritsToTrytes(const Trits& trits);
 Trytes tritsToTrytes(const Trits& trits, unsigned int length);
 
-Types::Trits intToTrits(const int& value);
-Types::Trits intToTrits(const int& value, std::size_t length);
+Types::Trits intToTrits(const int64_t& value);
+Types::Trits intToTrits(const int64_t& value, std::size_t length);
 
 template <typename T>
 T
