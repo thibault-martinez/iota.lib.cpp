@@ -49,7 +49,7 @@ addons:
       - lcov
 
 before_install:
-  - update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-4.9 90
+  - sudo update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-4.9 90
   - pip install --user cpp-coveralls
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install llvm --with-clang; fi
