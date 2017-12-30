@@ -433,8 +433,8 @@ TEST(Extended, TraverseBundleFullInvalidHash) {
   auto api    = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
   auto bundle = IOTA::Models::Bundle{};
 
-  EXPECT_EXCEPTION(api.traverseBundle("salut", "Invalid hashes input", bundle);
-                   , IOTA::Errors::BadRequest, "");
+  EXPECT_EXCEPTION(api.traverseBundle("salut", "hello", bundle);
+                   , IOTA::Errors::BadRequest, "Invalid hashes input");
 }
 
 TEST(Extended, TraverseBundleFullInvalidBundleHash) {
