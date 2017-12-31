@@ -51,7 +51,7 @@ public:
   /**
    * full init ctor
    */
-  explicit GetBalances(const std::vector<std::string>& addresses = {}, const int& threshold = 0);
+  explicit GetBalances(const std::vector<Types::Trytes>& addresses = {}, const int& threshold = 0);
 
   /**
    * default dtor
@@ -97,7 +97,7 @@ private:
   /*
    * List of addresses you want to get the confirmed balance from.
    */
-  std::vector<std::string> addresses_;
+  std::vector<Types::Trytes> addresses_;
   /*
    * Confirmation threshold, should be set to 100.
    */
