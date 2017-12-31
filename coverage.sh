@@ -35,7 +35,7 @@ echo "Merging coverage tracefiles."
 lcov --add-tracefile coverage_base.info --add-tracefile coverage_test.info --output-file coverage_merge.info
 
 echo "Removing unwanted files from coverage."
-lcov --remove coverage_merge.info "`pwd`/external/*" "`pwd`/test/*" "/include/*" "/usr/*" -o coverage.info
+lcov --remove coverage_merge.info "`pwd`/external/*" "`pwd`/test/*" "/usr/*" -o coverage.info
 
 echo "Uploading coverage."
-bash <(curl -s https://codecov.io/bash) -f coverage.info || echo "Codecov did not collect coverage reports"
+coveralls --no-gcov --lcov-file coverage.info
