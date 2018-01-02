@@ -287,6 +287,8 @@ Extended::bundlesFromAddresses(const std::vector<IOTA::Types::Trytes>& addresses
                                bool                                    withInclusionStates) const {
   //! find transactions for addresses
   const auto trxs = findTransactionObjects(addresses);
+  if (trxs.empty())
+    return {};
 
   //! filter tail/non tail transactions
   std::vector<IOTA::Types::Trytes> tailTransactions;
