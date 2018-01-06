@@ -553,7 +553,7 @@ Extended::getBundle(const Types::Trytes& transaction) const {
 
     //! Find the subsequent txs with the remaining signature fragment
     for (std::size_t y = i + 1; y < bundle.getTransactions().size(); ++y) {
-      const auto& newBundleTx = bundle.getTransactions()[i];
+      const auto& newBundleTx = bundle.getTransactions()[y];
 
       // Check if new tx is part of the signature fragment
       if (newBundleTx.getAddress() == trx.getAddress() && newBundleTx.getValue() == 0) {
