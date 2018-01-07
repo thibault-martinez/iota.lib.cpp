@@ -64,40 +64,93 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><div class="image">
-<img src="https://insights.ubuntu.com/wp-content/uploads/38b6/IOTA.png"/>
+<img src="https://raw.githubusercontent.com/iotaledger/documentation/master/source/images/iota-logo.png" alt="IOTA Logo"/>
 </div>
- <h1>IOTA C++ Library</h1>
-<p><a href="https://travis-ci.org/thibault-martinez/iota.lib.cpp"></a> <a href="https://codecov.io/gh/thibault-martinez/iota.lib.cpp"></a> [</p><div class="image">
-<object type="image/svg+xml" data="https://img.shields.io/packagist/l/doctrine/orm.svg" alt="MIT License"></object>
-</div>
-<p>]()</p>
+<h1>IOTA C++ Library</h1>
+<p><a href="https://travis-ci.org/thibault-martinez/iota.lib.cpp"></a> <a href="https://ci.appveyor.com/project/Cylix/iota-lib-cpp"></a> <a href="https://coveralls.io/github/thibault-martinez/iota.lib.cpp?branch=master"></a> <a href="https://thibault-martinez.github.io/iota.lib.cpp/html/"></a> <a href="https://github.com/thibault-martinez/iota.lib.cpp/blob/master/LICENSE"></a></p>
 <p>This is not (yet) an official C++ client library for the <a href="https://github.com/iotaledger/iri">IOTA Reference Implementation (IRI)</a>.</p>
 <p>It implements both the <a href="https://iota.readme.io/docs/getting-started">official API</a>, as well as <a href="https://github.com/iotaledger/wiki/blob/master/api-proposal.md#proposed-api-calls">newly proposed features</a>.</p>
-<h2>Warning</h2>
-<p>This is an early beta release, expect unexpected results.</p>
-<p>There may be performance and stability issues.</p>
-<p>This library is still in early development and there may be breaking changes in the near future.</p>
+<h2>Table of Contents</h2>
+<ol type="1">
+<li><a href="#disclaimer">Disclaimer</a></li>
+</ol>
+<ol type="1">
+<li><a href="#documentation">Documentation</a><ol type="a">
+<li><a href="#installation">Installation</a></li>
+</ol>
+<ol type="a">
+<li><a href="#getting-started">Getting Started</a></li>
+</ol>
+<ol type="a">
+<li><a href="#doxygen">Doxygen</a></li>
+</ol>
+<ol type="a">
+<li><a href="#wiki">Wiki</a></li>
+</ol>
+<ol type="a">
+<li><a href="#examples">Examples</a></li>
+</ol>
+</li>
+</ol>
+<ol type="1">
+<li><a href="#technologies--dependencies">Technologies &amp; dependencies</a><ol type="a">
+<li><a href="#technologies">Technologies</a></li>
+</ol>
+<ol type="a">
+<li><a href="#dependencies">Dependencies</a></li>
+</ol>
+</li>
+</ol>
+<ol type="1">
+<li><a href="#community">Community</a><ol type="a">
+<li><a href="#resources">Resources</a></li>
+</ol>
+<ol type="a">
+<li><a href="#contributing">Contributing</a></li>
+</ol>
+<ol type="a">
+<li><a href="#donating">Donating</a></li>
+</ol>
+</li>
+</ol>
+<h2>Disclaimer</h2>
+<ul>
+<li>This is an early beta release, expect unexpected results.</li>
+<li>There may be performance and stability issues.</li>
+<li>This library is still in early development and there may be breaking changes in the near future.</li>
+<li>You may loose all your money...</li>
+</ul>
+<h2>Documentation</h2>
+<h3>Installation</h3>
+<div class="fragment"><div class="line">git clone --recursive git@github.com:thibault-martinez/iota.lib.cpp.git</div><div class="line">cd iota.lib.cpp</div><div class="line">mkdir build</div><div class="line">cd build</div><div class="line">cmake ..</div><div class="line">make</div></div><!-- fragment --><h3>Getting Started</h3>
+<div class="fragment"><div class="line"><a class="code" href="class_i_o_t_a_1_1_a_p_i_1_1_core.html">IOTA::API::Core</a> api(<span class="stringliteral">&quot;node.iotawallet.info&quot;</span>, 14265);</div><div class="line"><span class="keyword">auto</span>            res = api.getTransactionsToApprove(27);</div><div class="line"></div><div class="line">std::cout &lt;&lt; res.getTrunkTransaction() &lt;&lt; std::endl;</div><div class="line">std::cout &lt;&lt; res.getBranchTransaction() &lt;&lt; std::endl;</div></div><!-- fragment --><h3>Doxygen</h3>
+<p>A <a href="https://thibault-martinez.github.io/iota.lib.cpp/html/">Doxygen documentation</a> is available and provides full API documentation for the library.</p>
+<h3>Wiki</h3>
+<p>A <a href="https://github.com/thibault-martinez/iota.lib.cpp/wiki">Wiki</a> is available and provides full documentation for the library as well as <a href="https://github.com/thibault-martinez/iota.lib.cpp/wiki/Installation">installation explanations</a>.</p>
+<h3>Examples</h3>
+<p>There's an extensive list of <b>test cases</b> on the <a href="https://github.com/thibault-martinez/iota.lib.cpp/tree/master/test/source">test folder</a> that can be used as reference when developing apps with IOTA.</p>
 <h2>Technologies &amp; dependencies</h2>
+<h3>Technologies</h3>
 <p>This library currently uses C++11.</p>
-<p>Dependencies</p>
+<h3>Dependencies</h3>
 <ul>
 <li><a href="https://github.com/boostorg/multiprecision">Boost Multiprecision</a></li>
 <li><a href="https://github.com/whoshuu/cpr">C++ Requests</a></li>
 <li><a href="https://github.com/nlohmann/json">JSON For Modern C++</a></li>
 <li><a href="https://github.com/gvanas/KeccakCodePackage">Keccak Code Package</a></li>
 </ul>
-<h2>Example</h2>
-<p>Coming soon.</p>
-<h2>Wiki</h2>
-<p>A <a href="https://github.com/thibault-martinez/iota.lib.cpp/wiki">Wiki</a> is available and provides full documentation for the library as well as <a href="https://github.com/thibault-martinez/iota.lib.cpp/wiki/Installation">installation explanations</a>.</p>
-<h2>Doxygen Documentation</h2>
-<p>A <a href="https://thibault-martinez.github.io/iota.lib.cpp/html/">Doxygen documentation</a> is available and provides full API documentation for the library.</p>
-<h2>Contributing</h2>
-<p>Please report any issues using the <a href="https://github.com/thibault-martinez/iota.lib.cpp/issues">Issue Tracker</a>.</p>
 <h2>Community</h2>
-<p>If you want to get involved in the community, need help with getting setup, have any issues related with the library or just want to discuss Blockchain, Distributed Ledgers and IoT with other people, feel free to join our <a href="http://slack.iota.org/">Slack</a>.</p>
-<p>You can also ask questions on our <a href="https://forum.iota.org/">dedicated forum</a>.</p>
-<h2>Donating</h2>
+<h3>Resources</h3>
+<p>If you want to get involved in the community, need help with getting setup, have any issues related with the library or just want to discuss Blockchain, Distributed Ledgers and IoT with other people, feel free to visit one of our resources :</p>
+<ul>
+<li><a href="https://iota.org/">Website</a></li>
+<li><a href="http://slack.iota.org/">Slack</a></li>
+<li><a href="https://forum.iota.org/">Forum</a></li>
+<li><a href="https://iota.stackexchange.com/">Stack Exchange</a></li>
+</ul>
+<h3>Contributing</h3>
+<p>Please report any issues using the <a href="https://github.com/thibault-martinez/iota.lib.cpp/issues">Issue Tracker</a>.</p>
+<h3>Donating</h3>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

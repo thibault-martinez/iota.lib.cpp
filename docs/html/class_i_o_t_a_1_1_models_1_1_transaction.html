@@ -79,10 +79,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a53695323fb3949101baf56c2803f1ffc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac564746981508cac083ae1777c636070"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_models_1_1_transaction.html#ac564746981508cac083ae1777c636070">Transaction</a> (const std::string &amp;trytes)</td></tr>
 <tr class="separator:ac564746981508cac083ae1777c636070"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a53a5be6d65d7e34b72c2c8716521c838"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_models_1_1_transaction.html#a53a5be6d65d7e34b72c2c8716521c838">Transaction</a> (const std::string &amp;signatureFragments, int64_t currentIndex, int64_t lastIndex, const std::string &amp;nonce, const std::string &amp;hash, const std::string &amp;tag, int64_t timestamp, const std::string &amp;trunkTransaction, const std::string &amp;branchTransaction, const std::string &amp;address, int64_t value, const std::string &amp;bundle)</td></tr>
-<tr class="separator:a53a5be6d65d7e34b72c2c8716521c838"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5e292363324bd2c9508e375c426bf16a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_models_1_1_transaction.html#a5e292363324bd2c9508e375c426bf16a">Transaction</a> (const std::string &amp;address, int64_t value, const std::string &amp;tag, int64_t timestamp)</td></tr>
-<tr class="separator:a5e292363324bd2c9508e375c426bf16a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9eeef54f5724be0a83a63c6406255fcb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_models_1_1_transaction.html#a9eeef54f5724be0a83a63c6406255fcb">Transaction</a> (const std::string &amp;signatureFragments, int64_t currentIndex, int64_t lastIndex, const std::string &amp;nonce, const std::string &amp;hash, const std::string &amp;obsoleteTag, int64_t timestamp, const std::string &amp;trunkTransaction, const std::string &amp;branchTransaction, const std::string &amp;address, int64_t value, const std::string &amp;bundle, const std::string &amp;tag, int64_t attachmentTimestamp, int64_t attachmentTimestampLowerBound, int64_t attachmentTimestampUpperBound)</td></tr>
+<tr class="separator:a9eeef54f5724be0a83a63c6406255fcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e979ec209c1eb0aa132389cc74efe94"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_models_1_1_transaction.html#a8e979ec209c1eb0aa132389cc74efe94">Transaction</a> (const std::string &amp;address, int64_t value, const std::string &amp;obsoleteTag, int64_t timestamp, int64_t attachmentTimestamp=0, int64_t attachmentTimestampLowerBound=0, int64_t attachmentTimestampUpperBound=0)</td></tr>
+<tr class="separator:a8e979ec209c1eb0aa132389cc74efe94"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afa77d6f80ad64798e536df13abdf90e6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_models_1_1_transaction.html#afa77d6f80ad64798e536df13abdf90e6">isTailTransaction</a> () const</td></tr>
 <tr class="separator:afa77d6f80ad64798e536df13abdf90e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3de11bbdb39c46ec9505ca91a5036cf0"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_models_1_1_transaction.html#a3de11bbdb39c46ec9505ca91a5036cf0">getHash</a> () const</td></tr>
@@ -105,10 +105,26 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a5c6117a48bf939a29927bf62cd73b3b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5e026964d4cc981e0497de0bb04d82fe"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_models_1_1_transaction.html#a5e026964d4cc981e0497de0bb04d82fe">setTag</a> (const std::string &amp;tag)</td></tr>
 <tr class="separator:a5e026964d4cc981e0497de0bb04d82fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa9198950083e41bd5c9d25ba1acdbddd"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_models_1_1_transaction.html#aa9198950083e41bd5c9d25ba1acdbddd">getObsoleteTag</a> () const</td></tr>
+<tr class="separator:aa9198950083e41bd5c9d25ba1acdbddd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a924a428a19eb4c3ea535435d43d7fc3c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_models_1_1_transaction.html#a924a428a19eb4c3ea535435d43d7fc3c">setObsoleteTag</a> (const std::string &amp;tag)</td></tr>
+<tr class="separator:a924a428a19eb4c3ea535435d43d7fc3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a74c574b98c3ada1e0aac8e1937266e36"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_models_1_1_transaction.html#a74c574b98c3ada1e0aac8e1937266e36">getTimestamp</a> () const</td></tr>
 <tr class="separator:a74c574b98c3ada1e0aac8e1937266e36"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab189245a9d41e349f793afd208abd923"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_models_1_1_transaction.html#ab189245a9d41e349f793afd208abd923">setTimestamp</a> (int64_t timestamp)</td></tr>
 <tr class="separator:ab189245a9d41e349f793afd208abd923"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a900656403a1bb304315cd94b1d0e8102"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_models_1_1_transaction.html#a900656403a1bb304315cd94b1d0e8102">getAttachmentTimestamp</a> () const</td></tr>
+<tr class="separator:a900656403a1bb304315cd94b1d0e8102"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a484c6c2524456e6d6a166743ec25db70"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_models_1_1_transaction.html#a484c6c2524456e6d6a166743ec25db70">setAttachmentTimestamp</a> (int64_t timestamp)</td></tr>
+<tr class="separator:a484c6c2524456e6d6a166743ec25db70"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10766883764110b8c532d07c8593e797"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_models_1_1_transaction.html#a10766883764110b8c532d07c8593e797">getAttachmentTimestampLowerBound</a> () const</td></tr>
+<tr class="separator:a10766883764110b8c532d07c8593e797"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0383a6681872f3f3528a6c682851a169"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_models_1_1_transaction.html#a0383a6681872f3f3528a6c682851a169">setAttachmentTimestampLowerBound</a> (int64_t timestamp)</td></tr>
+<tr class="separator:a0383a6681872f3f3528a6c682851a169"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a45fda26ec25ac035874a10b9a5df2774"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_models_1_1_transaction.html#a45fda26ec25ac035874a10b9a5df2774">getAttachmentTimestampUpperBound</a> () const</td></tr>
+<tr class="separator:a45fda26ec25ac035874a10b9a5df2774"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a154ffc5e97920565b92d200d88aeb998"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_models_1_1_transaction.html#a154ffc5e97920565b92d200d88aeb998">setAttachmentTimestampUpperBound</a> (int64_t timestamp)</td></tr>
+<tr class="separator:a154ffc5e97920565b92d200d88aeb998"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9c6be655aa157062cfc34a9d6faee4fd"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_models_1_1_transaction.html#a9c6be655aa157062cfc34a9d6faee4fd">getCurrentIndex</a> () const</td></tr>
 <tr class="separator:a9c6be655aa157062cfc34a9d6faee4fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad583c7f19fe19b6fc8fa3e5528d61b3b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_models_1_1_transaction.html#ad583c7f19fe19b6fc8fa3e5528d61b3b">setCurrentIndex</a> (int64_t currentIndex)</td></tr>
@@ -218,8 +234,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a53a5be6d65d7e34b72c2c8716521c838"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a53a5be6d65d7e34b72c2c8716521c838">&#9670;&nbsp;</a></span>Transaction() <span class="overload">[3/4]</span></h2>
+<a id="a9eeef54f5724be0a83a63c6406255fcb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9eeef54f5724be0a83a63c6406255fcb">&#9670;&nbsp;</a></span>Transaction() <span class="overload">[3/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -258,7 +274,7 @@ Public Member Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>tag</em>, </td>
+          <td class="paramname"><em>obsoleteTag</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -294,7 +310,31 @@ Public Member Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>bundle</em>&#160;</td>
+          <td class="paramname"><em>bundle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>tag</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int64_t&#160;</td>
+          <td class="paramname"><em>attachmentTimestamp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int64_t&#160;</td>
+          <td class="paramname"><em>attachmentTimestampLowerBound</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int64_t&#160;</td>
+          <td class="paramname"><em>attachmentTimestampUpperBound</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -307,8 +347,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a5e292363324bd2c9508e375c426bf16a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5e292363324bd2c9508e375c426bf16a">&#9670;&nbsp;</a></span>Transaction() <span class="overload">[4/4]</span></h2>
+<a id="a8e979ec209c1eb0aa132389cc74efe94"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8e979ec209c1eb0aa132389cc74efe94">&#9670;&nbsp;</a></span>Transaction() <span class="overload">[4/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -329,13 +369,31 @@ Public Member Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>tag</em>, </td>
+          <td class="paramname"><em>obsoleteTag</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int64_t&#160;</td>
-          <td class="paramname"><em>timestamp</em>&#160;</td>
+          <td class="paramname"><em>timestamp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int64_t&#160;</td>
+          <td class="paramname"><em>attachmentTimestamp</em> = <code>0</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int64_t&#160;</td>
+          <td class="paramname"><em>attachmentTimestampLowerBound</em> = <code>0</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int64_t&#160;</td>
+          <td class="paramname"><em>attachmentTimestampUpperBound</em> = <code>0</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -365,6 +423,63 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Get the address.</p>
 <dl class="section return"><dt>Returns</dt><dd>The address. </dd></dl>
+
+</div>
+</div>
+<a id="a900656403a1bb304315cd94b1d0e8102"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a900656403a1bb304315cd94b1d0e8102">&#9670;&nbsp;</a></span>getAttachmentTimestamp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int64_t IOTA::Models::Transaction::getAttachmentTimestamp </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Get the attachment timestamp.</p>
+<dl class="section return"><dt>Returns</dt><dd>The attachment timestamp. </dd></dl>
+
+</div>
+</div>
+<a id="a10766883764110b8c532d07c8593e797"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a10766883764110b8c532d07c8593e797">&#9670;&nbsp;</a></span>getAttachmentTimestampLowerBound()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int64_t IOTA::Models::Transaction::getAttachmentTimestampLowerBound </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Get the attachment timestamp lower bound.</p>
+<dl class="section return"><dt>Returns</dt><dd>The attachment timestamp lower bound. </dd></dl>
+
+</div>
+</div>
+<a id="a45fda26ec25ac035874a10b9a5df2774"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a45fda26ec25ac035874a10b9a5df2774">&#9670;&nbsp;</a></span>getAttachmentTimestampUpperBound()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int64_t IOTA::Models::Transaction::getAttachmentTimestampUpperBound </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Get the attachment timestamp upper bound.</p>
+<dl class="section return"><dt>Returns</dt><dd>The attachment timestamp upper bound. </dd></dl>
 
 </div>
 </div>
@@ -479,6 +594,25 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Get the nonce.</p>
 <dl class="section return"><dt>Returns</dt><dd>The nonce. </dd></dl>
+
+</div>
+</div>
+<a id="aa9198950083e41bd5c9d25ba1acdbddd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa9198950083e41bd5c9d25ba1acdbddd">&#9670;&nbsp;</a></span>getObsoleteTag()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string &amp; IOTA::Models::Transaction::getObsoleteTag </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Get the obsolete tag.</p>
+<dl class="section return"><dt>Returns</dt><dd>The obsolete tag. </dd></dl>
 
 </div>
 </div>
@@ -617,8 +751,12 @@ Public Member Functions</h2></td></tr>
 <p><a class="el" href="class_i_o_t_a_1_1_models_1_1_signature.html">Signature</a></p>
 <p>Address</p>
 <p>Value</p>
+<p>Obsolete Tag</p>
 <p>Tag</p>
 <p>Timestamp</p>
+<p>Attachment Timestamp</p>
+<p>Attachment Timestamp Lower Bound</p>
+<p>Attachment Timestamp Upper Bound</p>
 <p>Current Index</p>
 <p>Last Index</p>
 <p><a class="el" href="class_i_o_t_a_1_1_models_1_1_bundle.html">Bundle</a></p>
@@ -715,6 +853,81 @@ Public Member Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">address</td><td>The address. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a484c6c2524456e6d6a166743ec25db70"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a484c6c2524456e6d6a166743ec25db70">&#9670;&nbsp;</a></span>setAttachmentTimestamp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void IOTA::Models::Transaction::setAttachmentTimestamp </td>
+          <td>(</td>
+          <td class="paramtype">int64_t&#160;</td>
+          <td class="paramname"><em>timestamp</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Set the attachment timestamp.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">timestamp</td><td>The attachment timestamp. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a0383a6681872f3f3528a6c682851a169"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0383a6681872f3f3528a6c682851a169">&#9670;&nbsp;</a></span>setAttachmentTimestampLowerBound()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void IOTA::Models::Transaction::setAttachmentTimestampLowerBound </td>
+          <td>(</td>
+          <td class="paramtype">int64_t&#160;</td>
+          <td class="paramname"><em>timestamp</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Set the attachment timestamp lower bound.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">timestamp</td><td>The attachment timestamp lower bound. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a154ffc5e97920565b92d200d88aeb998"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a154ffc5e97920565b92d200d88aeb998">&#9670;&nbsp;</a></span>setAttachmentTimestampUpperBound()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void IOTA::Models::Transaction::setAttachmentTimestampUpperBound </td>
+          <td>(</td>
+          <td class="paramtype">int64_t&#160;</td>
+          <td class="paramname"><em>timestamp</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Set the attachment timestamp upper bound.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">timestamp</td><td>The attachment timestamp upper bound. </td></tr>
   </table>
   </dd>
 </dl>
@@ -865,6 +1078,31 @@ Public Member Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">nonce</td><td>The trunk nonce. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a924a428a19eb4c3ea535435d43d7fc3c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a924a428a19eb4c3ea535435d43d7fc3c">&#9670;&nbsp;</a></span>setObsoleteTag()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void IOTA::Models::Transaction::setObsoleteTag </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>tag</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Set the obsolete tag.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">tag</td><td>The obsolete tag. </td></tr>
   </table>
   </dd>
 </dl>
