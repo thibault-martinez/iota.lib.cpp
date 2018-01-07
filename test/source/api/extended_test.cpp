@@ -815,28 +815,28 @@ TEST(Extended, GetAccountDataMin) {
 
 TEST(Extended, GetBalancesAndFormat) {
   auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
-  auto res = api.getBalancesAndFormat({ "FFUIAREGAAAHNTPJRGRFCNCNOTKTKPWJEGUDWQHZVVO9MTAXZIDMXBMWJX"
-                                        "TLUBHNFNKYCCTQUXOUYFKX99MUZJEPYD",
-                                        "FFUIAREGAAAHNTPJRGRFCNCNOTKTKPWJEGUDWQHZVVO9MTAXZIDMXBMWJX"
-                                        "TLUBHNFNKYCCTQUXOUYFKX99MUZJEPYD" },
+  auto res = api.getBalancesAndFormat({ "RHKWT9JUSAJIQJVDZJYI9KZLGXFFRW9IZSQG9YSCKQXMDSBAHKGEZUXNSB"
+                                        "XHZIPVK9RPCVNEALKSTCJBXAZGOLIVKB",
+                                        "RHKWT9JUSAJIQJVDZJYI9KZLGXFFRW9IZSQG9YSCKQXMDSBAHKGEZUXNSB"
+                                        "XHZIPVK9RPCVNEALKSTCJBXAZGOLIVKB" },
                                       0, 0, 2);
 
-  EXPECT_EQ(res.getTotalBalance(), 617650144175136);
+  EXPECT_EQ(res.getTotalBalance(), 96974289686080);
   EXPECT_EQ(res.getInput().size(), 2UL);
 
   const auto& input_1 = res.getInput()[0];
   EXPECT_EQ(
       input_1.getAddress(),
-      "FFUIAREGAAAHNTPJRGRFCNCNOTKTKPWJEGUDWQHZVVO9MTAXZIDMXBMWJXTLUBHNFNKYCCTQUXOUYFKX99MUZJEPYD");
-  EXPECT_EQ(input_1.getBalance(), 308825072087568);
+      "RHKWT9JUSAJIQJVDZJYI9KZLGXFFRW9IZSQG9YSCKQXMDSBAHKGEZUXNSBXHZIPVK9RPCVNEALKSTCJBXAZGOLIVKB");
+  EXPECT_EQ(input_1.getBalance(), 48487144843040);
   EXPECT_EQ(input_1.getKeyIndex(), 0);
   EXPECT_EQ(input_1.getSecurity(), 2);
 
   const auto& input_2 = res.getInput()[1];
   EXPECT_EQ(
       input_2.getAddress(),
-      "FFUIAREGAAAHNTPJRGRFCNCNOTKTKPWJEGUDWQHZVVO9MTAXZIDMXBMWJXTLUBHNFNKYCCTQUXOUYFKX99MUZJEPYD");
-  EXPECT_EQ(input_2.getBalance(), 308825072087568);
+      "RHKWT9JUSAJIQJVDZJYI9KZLGXFFRW9IZSQG9YSCKQXMDSBAHKGEZUXNSBXHZIPVK9RPCVNEALKSTCJBXAZGOLIVKB");
+  EXPECT_EQ(input_2.getBalance(), 48487144843040);
   EXPECT_EQ(input_2.getKeyIndex(), 1);
   EXPECT_EQ(input_2.getSecurity(), 2);
 }
@@ -844,51 +844,49 @@ TEST(Extended, GetBalancesAndFormat) {
 TEST(Extended, GetBalancesAndFormatInvalidSecurity) {
   auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
 
-  EXPECT_THROW(
-      api.getBalancesAndFormat({ "FFUIAREGAAAHNTPJRGRFCNCNOTKTKPWJEGUDWQHZVVO9MTAXZIDMXBMWJX"
-                                 "TLUBHNFNKYCCTQUXOUYFKX99MUZJEPYD",
-                                 "FFUIAREGAAAHNTPJRGRFCNCNOTKTKPWJEGUDWQHZVVO9MTAXZIDMXBMWJX"
-                                 "TLUBHNFNKYCCTQUXOUYFKX99MUZJEPYD" },
-                               0, 0, 0),
-      IOTA::Errors::IllegalState);
+  EXPECT_THROW(api.getBalancesAndFormat({ "RHKWT9JUSAJIQJVDZJYI9KZLGXFFRW9IZSQG9YSCKQXMDSBAHKGEZUXN"
+                                          "SBXHZIPVK9RPCVNEALKSTCJBXAZGOLIVKB",
+                                          "RHKWT9JUSAJIQJVDZJYI9KZLGXFFRW9IZSQG9YSCKQXMDSBAHKGEZUXN"
+                                          "SBXHZIPVK9RPCVNEALKSTCJBXAZGOLIVKB" },
+                                        0, 0, 0),
+               IOTA::Errors::IllegalState);
 }
 
 TEST(Extended, GetBalancesAndFormatInvalidBalance) {
   auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
 
-  EXPECT_THROW(
-      api.getBalancesAndFormat({ "FFUIAREGAAAHNTPJRGRFCNCNOTKTKPWJEGUDWQHZVVO9MTAXZIDMXBMWJX"
-                                 "TLUBHNFNKYCCTQUXOUYFKX99MUZJEPYD",
-                                 "FFUIAREGAAAHNTPJRGRFCNCNOTKTKPWJEGUDWQHZVVO9MTAXZIDMXBMWJX"
-                                 "TLUBHNFNKYCCTQUXOUYFKX99MUZJEPYD" },
-                               717650144175136, 0, 2),
-      IOTA::Errors::IllegalState);
+  EXPECT_THROW(api.getBalancesAndFormat({ "RHKWT9JUSAJIQJVDZJYI9KZLGXFFRW9IZSQG9YSCKQXMDSBAHKGEZUXN"
+                                          "SBXHZIPVK9RPCVNEALKSTCJBXAZGOLIVKB",
+                                          "RHKWT9JUSAJIQJVDZJYI9KZLGXFFRW9IZSQG9YSCKQXMDSBAHKGEZUXN"
+                                          "SBXHZIPVK9RPCVNEALKSTCJBXAZGOLIVKB" },
+                                        717650144175136, 0, 2),
+               IOTA::Errors::IllegalState);
 }
 
 TEST(Extended, GetBalancesAndFormatStart) {
   auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
-  auto res = api.getBalancesAndFormat({ "FFUIAREGAAAHNTPJRGRFCNCNOTKTKPWJEGUDWQHZVVO9MTAXZIDMXBMWJX"
-                                        "TLUBHNFNKYCCTQUXOUYFKX99MUZJEPYD",
-                                        "FFUIAREGAAAHNTPJRGRFCNCNOTKTKPWJEGUDWQHZVVO9MTAXZIDMXBMWJX"
-                                        "TLUBHNFNKYCCTQUXOUYFKX99MUZJEPYD" },
+  auto res = api.getBalancesAndFormat({ "RHKWT9JUSAJIQJVDZJYI9KZLGXFFRW9IZSQG9YSCKQXMDSBAHKGEZUXNSB"
+                                        "XHZIPVK9RPCVNEALKSTCJBXAZGOLIVKB",
+                                        "RHKWT9JUSAJIQJVDZJYI9KZLGXFFRW9IZSQG9YSCKQXMDSBAHKGEZUXNSB"
+                                        "XHZIPVK9RPCVNEALKSTCJBXAZGOLIVKB" },
                                       0, 10, 2);
 
-  EXPECT_EQ(res.getTotalBalance(), 617650144175136);
+  EXPECT_EQ(res.getTotalBalance(), 96974289686080);
   EXPECT_EQ(res.getInput().size(), 2UL);
 
   const auto& input_1 = res.getInput()[0];
   EXPECT_EQ(
       input_1.getAddress(),
-      "FFUIAREGAAAHNTPJRGRFCNCNOTKTKPWJEGUDWQHZVVO9MTAXZIDMXBMWJXTLUBHNFNKYCCTQUXOUYFKX99MUZJEPYD");
-  EXPECT_EQ(input_1.getBalance(), 308825072087568);
+      "RHKWT9JUSAJIQJVDZJYI9KZLGXFFRW9IZSQG9YSCKQXMDSBAHKGEZUXNSBXHZIPVK9RPCVNEALKSTCJBXAZGOLIVKB");
+  EXPECT_EQ(input_1.getBalance(), 48487144843040);
   EXPECT_EQ(input_1.getKeyIndex(), 10);
   EXPECT_EQ(input_1.getSecurity(), 2);
 
   const auto& input_2 = res.getInput()[1];
   EXPECT_EQ(
       input_2.getAddress(),
-      "FFUIAREGAAAHNTPJRGRFCNCNOTKTKPWJEGUDWQHZVVO9MTAXZIDMXBMWJXTLUBHNFNKYCCTQUXOUYFKX99MUZJEPYD");
-  EXPECT_EQ(input_2.getBalance(), 308825072087568);
+      "RHKWT9JUSAJIQJVDZJYI9KZLGXFFRW9IZSQG9YSCKQXMDSBAHKGEZUXNSBXHZIPVK9RPCVNEALKSTCJBXAZGOLIVKB");
+  EXPECT_EQ(input_2.getBalance(), 48487144843040);
   EXPECT_EQ(input_2.getKeyIndex(), 11);
   EXPECT_EQ(input_2.getSecurity(), 2);
 }
