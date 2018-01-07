@@ -170,40 +170,40 @@ Bundle::normalizedBundle(const std::string& bundleHash) {
 
 bool
 Bundle::operator<(const Bundle& rhs) const {
-  int64_t lhsTS = empty() ? 0 : getTransactions()[0].getTimestamp();
-  int64_t rhsTS = rhs.empty() ? 0 : rhs.getTransactions()[0].getTimestamp();
+  int64_t lhsTS = empty() ? 0 : getTransactions()[0].getAttachmentTimestamp();
+  int64_t rhsTS = rhs.empty() ? 0 : rhs.getTransactions()[0].getAttachmentTimestamp();
 
   return lhsTS < rhsTS;
 }
 
 bool
 Bundle::operator>(const Bundle& rhs) const {
-  int64_t lhsTS = empty() ? 0 : getTransactions()[0].getTimestamp();
-  int64_t rhsTS = rhs.empty() ? 0 : rhs.getTransactions()[0].getTimestamp();
+  int64_t lhsTS = empty() ? 0 : getTransactions()[0].getAttachmentTimestamp();
+  int64_t rhsTS = rhs.empty() ? 0 : rhs.getTransactions()[0].getAttachmentTimestamp();
 
   return lhsTS > rhsTS;
 }
 
 bool
 Bundle::operator<=(const Bundle& rhs) const {
-  int64_t lhsTS = empty() ? 0 : getTransactions()[0].getTimestamp();
-  int64_t rhsTS = rhs.empty() ? 0 : rhs.getTransactions()[0].getTimestamp();
+  int64_t lhsTS = empty() ? 0 : getTransactions()[0].getAttachmentTimestamp();
+  int64_t rhsTS = rhs.empty() ? 0 : rhs.getTransactions()[0].getAttachmentTimestamp();
 
   return lhsTS <= rhsTS;
 }
 
 bool
 Bundle::operator>=(const Bundle& rhs) const {
-  int64_t lhsTS = empty() ? 0 : getTransactions()[0].getTimestamp();
-  int64_t rhsTS = rhs.empty() ? 0 : rhs.getTransactions()[0].getTimestamp();
+  int64_t lhsTS = empty() ? 0 : getTransactions()[0].getAttachmentTimestamp();
+  int64_t rhsTS = rhs.empty() ? 0 : rhs.getTransactions()[0].getAttachmentTimestamp();
 
   return lhsTS >= rhsTS;
 }
 
 bool
 Bundle::operator==(const Bundle& rhs) const {
-  int64_t lhsTS = empty() ? 0 : getTransactions()[0].getTimestamp();
-  int64_t rhsTS = rhs.empty() ? 0 : rhs.getTransactions()[0].getTimestamp();
+  int64_t lhsTS = empty() ? 0 : getTransactions()[0].getAttachmentTimestamp();
+  int64_t rhsTS = rhs.empty() ? 0 : rhs.getTransactions()[0].getAttachmentTimestamp();
 
   return lhsTS == rhsTS;
 }

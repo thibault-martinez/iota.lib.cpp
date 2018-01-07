@@ -330,6 +330,8 @@ Extended::bundlesFromAddresses(const std::vector<IOTA::Types::Trytes>& addresses
   }
 
   std::vector<Models::Bundle> bundles;
+  std::mutex                  bundlesMtx;
+
   IOTA::Utils::parallel_for(0, tailTransactions.size(), [&](int i) {
     try {
       const auto& transaction    = tailTransactions[i];
@@ -345,6 +347,7 @@ Extended::bundlesFromAddresses(const std::vector<IOTA::Types::Trytes>& addresses
           }
         }
 
+        std::lock_guard<std::mutex> lock(bundlesMtx);
         bundles.push_back(std::move(gbr));
       }
     } catch (const std::runtime_error&) {

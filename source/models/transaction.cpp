@@ -49,7 +49,14 @@ const std::pair<int, int> Transaction::AttachmentTimestampLowerBoundOffset = { 7
 const std::pair<int, int> Transaction::AttachmentTimestampUpperBoundOffset = { 7911, 7938 };
 
 Transaction::Transaction()
-    : value_(0), timestamp_(0), currentIndex_(0), lastIndex_(0), persistence_(false) {
+    : value_(0),
+      timestamp_(0),
+      attachmentTimestamp_(0),
+      attachmentTimestampLowerBound_(0),
+      attachmentTimestampUpperBound_(0),
+      currentIndex_(0),
+      lastIndex_(0),
+      persistence_(false) {
 }
 
 Transaction::Transaction(const std::string& trytes) : persistence_(false) {
@@ -58,15 +65,22 @@ Transaction::Transaction(const std::string& trytes) : persistence_(false) {
 
 Transaction::Transaction(const std::string& signatureFragments, int64_t currentIndex,
                          int64_t lastIndex, const std::string& nonce, const std::string& hash,
-                         const std::string& tag, int64_t timestamp,
+                         const std::string& obsoleteTag, int64_t timestamp,
                          const std::string& trunkTransaction, const std::string& branchTransaction,
-                         const std::string& address, int64_t value, const std::string& bundle)
+                         const std::string& address, int64_t value, const std::string& bundle,
+                         const std::string& tag, int64_t attachmentTimestamp,
+                         int64_t attachmentTimestampLowerBound,
+                         int64_t attachmentTimestampUpperBound)
     : hash_(hash),
       signatureFragments_(signatureFragments),
       address_(address),
       value_(value),
       tag_(tag),
+      obsoleteTag_(obsoleteTag),
       timestamp_(timestamp),
+      attachmentTimestamp_(attachmentTimestamp),
+      attachmentTimestampLowerBound_(attachmentTimestampLowerBound),
+      attachmentTimestampUpperBound_(attachmentTimestampUpperBound),
       currentIndex_(currentIndex),
       lastIndex_(lastIndex),
       bundle_(bundle),
@@ -76,12 +90,17 @@ Transaction::Transaction(const std::string& signatureFragments, int64_t currentI
       persistence_(false) {
 }
 
-Transaction::Transaction(const std::string& address, int64_t value, const std::string& tag,
-                         int64_t timestamp)
+Transaction::Transaction(const std::string& address, int64_t value, const std::string& obsoleteTag,
+                         int64_t timestamp, int64_t attachmentTimestamp,
+                         int64_t attachmentTimestampLowerBound,
+                         int64_t attachmentTimestampUpperBound)
     : address_(address),
       value_(value),
-      tag_(tag),
+      obsoleteTag_(obsoleteTag),
       timestamp_(timestamp),
+      attachmentTimestamp_(attachmentTimestamp),
+      attachmentTimestampLowerBound_(attachmentTimestampLowerBound),
+      attachmentTimestampUpperBound_(attachmentTimestampUpperBound),
       currentIndex_(0),
       lastIndex_(0),
       persistence_(false) {

@@ -53,15 +53,18 @@ public:
    * Initializes a new instance of the Transaction class.
    */
   Transaction(const std::string& signatureFragments, int64_t currentIndex, int64_t lastIndex,
-              const std::string& nonce, const std::string& hash, const std::string& tag,
+              const std::string& nonce, const std::string& hash, const std::string& obsoleteTag,
               int64_t timestamp, const std::string& trunkTransaction,
               const std::string& branchTransaction, const std::string& address, int64_t value,
-              const std::string& bundle);
+              const std::string& bundle, const std::string& tag, int64_t attachmentTimestamp,
+              int64_t attachmentTimestampLowerBound, int64_t attachmentTimestampUpperBound);
 
   /**
    * Initializes a new instance of the Transaction class.
    */
-  Transaction(const std::string& address, int64_t value, const std::string& tag, int64_t timestamp);
+  Transaction(const std::string& address, int64_t value, const std::string& obsoleteTag,
+              int64_t timestamp, int64_t attachmentTimestamp = 0,
+              int64_t attachmentTimestampLowerBound = 0, int64_t attachmentTimestampUpperBound = 0);
 
 public:
   /**

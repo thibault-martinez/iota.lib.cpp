@@ -448,9 +448,10 @@ TEST(Extended, TraverseBundleFullInvalidBundleHash) {
 }
 
 TEST(Extended, TraverseBundleFullIntermediateTrxWithAppending) {
-  auto api    = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
-  auto bundle = IOTA::Models::Bundle{ { IOTA::Models::Transaction{ "address", 42, "tag", 21 } } };
-  auto res    = api.traverseBundle(
+  auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
+  auto bundle =
+      IOTA::Models::Bundle{ { IOTA::Models::Transaction{ "address", 42, "obsolete_tag", 21 } } };
+  auto res = api.traverseBundle(
       "WEUFYWFILTIO9VVELPIQNSYY9QGTO9OAGPZXQFRBH9HWGECXIVASOBICAVNQOGQUHLYOMZWQOPYDZ9999",
       "OFMGOKXKIUKHO9ZKRJFADHUHJVXOAFEORITLBHVP9RBQBYHGJXWJUWMKWFWZBUCU9VDKWSNEFFQWEI9X9", bundle);
 
@@ -459,7 +460,7 @@ TEST(Extended, TraverseBundleFullIntermediateTrxWithAppending) {
   const auto& trx1 = res.getTransactions()[0];
   EXPECT_EQ(trx1.getAddress(), "address");
   EXPECT_EQ(trx1.getValue(), 42);
-  EXPECT_EQ(trx1.getTag(), "tag");
+  EXPECT_EQ(trx1.getObsoleteTag(), "obsolete_tag");
   EXPECT_EQ(trx1.getTimestamp(), 21);
 
   const auto& trx2 = res.getTransactions()[1];
@@ -713,20 +714,6 @@ TEST(Extended, FindTransactionsByBundlesInvalidBundle) {
                    , IOTA::Errors::BadRequest, "Invalid bundles input")
 
   EXPECT_GE(res.getDuration(), 0);
-}
-
-TEST(Extended, GetAccountData) {
-  auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
-  auto res = api.getAccountData(
-      "IHDEENZYITYVYSPKAURUZAQKGVJEREFDJMYTANNXXGPZ9GJWTEOJJ9IPMXOGZNQLSNMFDSQOTZAEETUEA", 0, 2,
-      true, 0, true, 0, 0, true, 0);
-
-  EXPECT_EQ(res.getAddresses(),
-            std::vector<IOTA::Types::Trytes>({ "GIZCVPBCVUWSUPCRNVQKYNCGMUMOGHPDPHDPPQDX9GFFTOTSKWP"
-                                               "NGMUEDEPFNBPKUZJTWKE9IOPGLGCSDFSLNTBDWY" }));
-
-  EXPECT_EQ(res.getTransfers(), std::vector<IOTA::Models::Bundle>({}));
-  EXPECT_EQ(res.getBalance(), 0);
 }
 
 TEST(Extended, GetAccountDataInvalidSeed) {
