@@ -81,6 +81,10 @@ add_library(${CMAKE_PROJECT_NAME} STATIC ${PROJECT_SOURCE_FILES})
 
 include(compilation_settings)
 
+if(TRAVIS_KEEP_ALIVE)
+  set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES COMPILE_DEFINITIONS "TRAVIS_KEEP_ALIVE=${TRAVIS_KEEP_ALIVE}")
+endif(TRAVIS_KEEP_ALIVE)
+
 ########## EXTERNAL LIBRARIES SETTINGS ##########
 
 include(cpr_settings)

@@ -39,7 +39,7 @@ info "Building project..." #
 ############################
 mkdir -p build
 cd build
-cmake -DCMAKE_BUILD_TYPE=Debug ..
+cmake -DCMAKE_BUILD_TYPE=Debug -DTRAVIS_KEEP_ALIVE=1 ..
 make -j4
 if [ $? -ne 0 ]; then
     fail "Error : compilation failed !"
