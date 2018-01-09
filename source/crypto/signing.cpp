@@ -90,32 +90,156 @@ digest(const std::vector<int8_t>& normalizedBundleFragment, const Types::Trits& 
 
 Types::Trits
 digests(const Types::Trits& key) {
+  // std::size_t security = key.size() / KeyLength;
+  //
+  // Types::Trits digests(security * TritHashLength);
+  // Types::Trits keyFragment(KeyLength);
+  // Kerl         kerl;
+  //
+  // for (std::size_t i = 0; i < security; ++i) {
+  //   IOTA::Types::Utils::arrayCopy<int8_t>(key.begin() + i * KeyLength, keyFragment.begin(),
+  //                                         KeyLength);
+  //
+  //   for (int j = 0; j < FragmentLength; ++j) {
+  //     for (int k = 0; k < FragmentLength - 1; ++k) {
+  //       kerl.reset();
+  //       kerl.absorb(keyFragment, j * TritHashLength, TritHashLength);
+  //       kerl.squeeze(keyFragment, j * TritHashLength, TritHashLength);
+  //     }
+  //   }
+  //
+  //   kerl.reset();
+  //   kerl.absorb(keyFragment, 0, keyFragment.size());
+  //   kerl.squeeze(digests, i * TritHashLength, TritHashLength);
+  // }
+  //
+  // return digests;
+
   Kerl         k;
   auto         numKeys = key.size() / (TritHashLength * FragmentLength);
   Types::Trits digests;
 
   for (unsigned int i = 0; i < numKeys; ++i) {
-    Types::Trits keyFragment(&key[i * TritHashLength * FragmentLength],
-                             &key[(i + 1) * TritHashLength * FragmentLength]);
+    // if (i * TritHashLength * FragmentLength >= key.size()) {
+    //   std::cerr << "invalid index (1) " << (i * TritHashLength * FragmentLength) << std::endl;
+    // }
+    //
+    // if ((i + 1) * TritHashLength * FragmentLength - 1 >= key.size()) {
+    //   std::cerr << "invalid index (2) " << ((i + 1) * TritHashLength * FragmentLength) <<
+    //   std::endl;
+    // }
+
+    Types::Trits keyFragment(key.begin() + (i * TritHashLength * FragmentLength),
+                             key.begin() + ((i + 1) * TritHashLength * FragmentLength));
     for (unsigned int j = 0; j < FragmentLength; ++j) {
-      Types::Trits buffer(&keyFragment[j * TritHashLength], &keyFragment[(j + 1) * TritHashLength]);
+      // if (j * TritHashLength >= keyFragment.size()) {
+      //   std::cerr << "invalid index (3) " << (j * TritHashLength) << std::endl;
+      // }
+      //
+      // if ((j + 1) * TritHashLength - 1 >= keyFragment.size()) {
+      //   std::cerr << "invalid index (4) " << ((j + 1) * TritHashLength) << std::endl;
+      // }
+
+      Types::Trits buffer(keyFragment.begin() + (j * TritHashLength),
+                          keyFragment.begin() + ((j + 1) * TritHashLength));
       for (unsigned int l = 0; l < FragmentLength - 1; ++l) {
+        // std::cout << "reset (1)" << std::endl;
         k.reset();
+        // std::cout << "absorb (1)" << std::endl;
         k.absorb(buffer);
+        // std::cout << "squeeze (1)" << std::endl;
         k.squeeze(buffer);
+        // std::cout << "done (1)" << std::endl;
       }
       // TODO optimize
       for (unsigned int l = 0; l < 243; ++l) {
+        // if (j * 243 + l >= keyFragment.size()) {
+        //   std::cerr << "invalid index (5) " << (j * 243 + l) << std::endl;
+        // }
+        //
+        // if (l >= buffer.size()) {
+        //   std::cerr << "invalid index (5) " << l << std::endl;
+        // }
+
         keyFragment[j * 243 + l] = buffer[l];
       }
     }
+
+    // std::cout << "reset (2)" << std::endl;
     k.reset();
+    // std::cout << "absorb (2)" << std::endl;
     k.absorb(keyFragment);
     Types::Trits buffer(TritHashLength);
+    // std::cout << "squeeze (2)" << std::endl;
     k.squeeze(buffer);
+    // std::cout << "insert (2)" << std::endl;
     digests.insert(std::end(digests), std::begin(buffer), std::end(buffer));
+    // std::cout << "done (2)" << std::endl;
   }
   return digests;
+
+  //
+  // Kerl         k;
+  // auto         numKeys = key.size() / (TritHashLength * FragmentLength);
+  // Types::Trits digests;
+  //
+  // for (unsigned int i = 0; i < numKeys; ++i) {
+  //   if (i * TritHashLength * FragmentLength >= key.size()) {
+  //     std::cerr << "invalid index (1) " << (i * TritHashLength * FragmentLength) << std::endl;
+  //   }
+  //
+  //   if ((i + 1) * TritHashLength * FragmentLength >= key.size()) {
+  //     std::cerr << "invalid index (2) " << ((i + 1) * TritHashLength * FragmentLength) <<
+  //     std::endl;
+  //   }
+  //
+  //   Types::Trits keyFragment(&key[i * TritHashLength * FragmentLength],
+  //                            &key[(i + 1) * TritHashLength * FragmentLength]);
+  //   for (unsigned int j = 0; j < FragmentLength; ++j) {
+  //     if (j * TritHashLength >= keyFragment.size()) {
+  //       std::cerr << "invalid index (3) " << (j * TritHashLength) << std::endl;
+  //     }
+  //
+  //     if ((j + 1) * TritHashLength >= keyFragment.size()) {
+  //       std::cerr << "invalid index (4) " << ((j + 1) * TritHashLength) << std::endl;
+  //     }
+  //
+  //     Types::Trits buffer(&keyFragment[j * TritHashLength], &keyFragment[(j + 1) *
+  //     TritHashLength]); for (unsigned int l = 0; l < FragmentLength - 1; ++l) {
+  //       std::cout << "reset (1)" << std::endl;
+  //       k.reset();
+  //       std::cout << "absorb (1)" << std::endl;
+  //       k.absorb(buffer);
+  //       std::cout << "squeeze (1)" << std::endl;
+  //       k.squeeze(buffer);
+  //       std::cout << "done (1)" << std::endl;
+  //     }
+  //     // TODO optimize
+  //     for (unsigned int l = 0; l < 243; ++l) {
+  //       if (j * 243 + l >= keyFragment.size()) {
+  //         std::cerr << "invalid index (5) " << (j * 243 + l) << std::endl;
+  //       }
+  //
+  //       if (l >= buffer.size()) {
+  //         std::cerr << "invalid index (5) " << l << std::endl;
+  //       }
+  //
+  //       keyFragment[j * 243 + l] = buffer[l];
+  //     }
+  //   }
+  //
+  //   std::cout << "reset (2)" << std::endl;
+  //   k.reset();
+  //   std::cout << "absorb (2)" << std::endl;
+  //   k.absorb(keyFragment);
+  //   Types::Trits buffer(TritHashLength);
+  //   std::cout << "squeeze (2)" << std::endl;
+  //   k.squeeze(buffer);
+  //   std::cout << "insert (2)" << std::endl;
+  //   digests.insert(std::end(digests), std::begin(buffer), std::end(buffer));
+  //   std::cout << "done (2)" << std::endl;
+  // }
+  // return digests;
 }
 
 Types::Trits
