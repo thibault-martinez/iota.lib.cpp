@@ -31,16 +31,13 @@ namespace IOTA {
 
 namespace Crypto {
 
-class ISponge {
+class IPow {
 public:
-  ISponge(){};
-  virtual ~ISponge(){};
+  IPow(){};
+  virtual ~IPow(){};
 
 public:
-  virtual void reset()                                                                        = 0;
-  virtual void absorb(const Types::Trits& trits, unsigned int offset = 0,
-                      unsigned int length = 0)                                                = 0;
-  virtual void squeeze(Types::Trits& trits, unsigned int offset = 0, unsigned int length = 0) = 0;
+  virtual Types::Trytes perform(const Types::Trytes& trytes, int minWeightMagnitude) const = 0;
 };
 
 }  // namespace Crypto
