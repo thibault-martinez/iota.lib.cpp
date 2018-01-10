@@ -136,7 +136,8 @@ signatureFragment(const std::vector<int8_t>& normalizedBundleFragment,
   Types::Trits signatureFragment;
 
   for (unsigned int i = 0; i < FragmentLength; ++i) {
-    Types::Trits buffer(&keyFragment[i * TritHashLength], &keyFragment[(i + 1) * TritHashLength]);
+    Types::Trits buffer(keyFragment.begin() + i * TritHashLength,
+                        keyFragment.begin() + (i + 1) * TritHashLength);
     // TODO 13 ? Constant
     for (int j = 0; j < 13 - normalizedBundleFragment[i]; ++j) {
       k.reset();
@@ -159,8 +160,8 @@ validateSignatures(const Types::Trytes&              expectedAddr,
   Types::Trits                     digests;
 
   for (unsigned int i = 0; i < 3; i++) {
-    normalizedBundleFragments.emplace_back(&normalizedBundleHash[i * FragmentLength],
-                                           &normalizedBundleHash[(i + 1) * FragmentLength]);
+    normalizedBundleFragments.emplace_back(normalizedBundleHash.begin() + i * FragmentLength,
+                                           normalizedBundleHash.begin() + (i + 1) * FragmentLength);
   }
 
   for (unsigned int i = 0; i < signatureFragments.size(); ++i) {
