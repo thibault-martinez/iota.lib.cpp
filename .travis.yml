@@ -25,41 +25,72 @@
 
 language: cpp
 
-compiler:
-  - gcc
-  - clang
-
 cache:
   - ccache
   - directories:
     - $TRAVIS_BUILD_DIR/boost_includes
 
-os:
-  - linux
-  - osx
+matrix:
+  include:
+    # OSX x GCC4.9
+    - os: osx
+      osx_image: xcode8
+      env:
+        - MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9"
 
-addons:
-  apt:
-    sources:
-      - ubuntu-toolchain-r-test
-    packages:
-      - gcc-4.9
-      - g++-4.9
-      - clang
-      - lcov
+    # OSX x CLang (xcode 8)
+    - os: osx
+      osx_image: xcode8
+      env:
+        - MATRIX_EVAL="CC=clang && CXX=clang++"
+
+    # Linux x GCC4.9
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-4.9
+      env:
+         - MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9"
+
+    # Linux x CLang 3.6
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+            - llvm-toolchain-precise-3.6
+          packages:
+            - clang-3.6
+      env:
+        - MATRIX_EVAL="CC=clang-3.6 && CXX=clang++-3.6"
 
 before_install:
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-4.9 90; fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then pip install --user cpp-coveralls; fi
+  # brew update on osx
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update; fi
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install llvm --with-clang; fi
 
 install:
+  # ccache on osx
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install ccache; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then export PATH="/usr/local/opt/ccache/libexec:$PATH"; fi
-  - if [[ "$TRAVIS_OS_NAME" != "osx" && "$CXX" = "g++" ]]; then export CXX="g++-4.9" CC="gcc-4.9"; fi
 
-script: ./run_build.sh
+  #  lcov & coveralls on linux
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install lcov; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then pip install --user cpp-coveralls; fi
+
+before_script:
+  # setup environment
+  - eval "${MATRIX_EVAL}"
+
+script:
+  - mkdir -p build
+  - cd build
+  - cmake -DCMAKE_BUILD_TYPE=Debug -DTRAVIS_KEEP_ALIVE=1 ..
+  - make -j4
+  - ./bin/runUnitTests ../test/files $1
 
 after_success:
+  # test coverage
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then cd ${TRAVIS_BUILD_DIR}; ./coverage.sh; fi
