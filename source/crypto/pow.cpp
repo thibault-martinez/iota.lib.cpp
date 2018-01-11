@@ -85,7 +85,7 @@ Pow::~Pow() {
 }
 
 Types::Trytes
-Pow::perform(const Types::Trytes& trytes, int minWeightMagnitude) const {
+Pow::operator()(const Types::Trytes& trytes, int minWeightMagnitude) const {
   // if (!stopGO) {
   //   stopGO = true;
   //   return "", errors.New("pow is already running, stopped");
