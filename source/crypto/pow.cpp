@@ -133,17 +133,7 @@ Pow::perform(const Types::Trytes& trytes, int minWeightMagnitude) const {
   hmid[nonceOffset + 3] = high3;
 
   incrN(0, lmid, hmid);  // TODO replace 0 by i
-  std::cout << "\nlmid [";
-  for (auto c : lmid) {
-    std::cout << c << " ";
-  }
-  std::cout << "]" << std::endl;
 
-  std::cout << "\nhmid [";
-  for (auto c : hmid) {
-    std::cout << c << " ";
-  }
-  std::cout << "]" << std::endl;
   int64_t            cnt;
   IOTA::Types::Trits nonce = loop(lmid, hmid, minWeightMagnitude, &cnt);
   // mutex.Lock();
@@ -192,6 +182,19 @@ Pow::transform64(uint64_t* lmid, uint64_t* hmid) const {
     tmp    = *hto;
     *hto   = *hfrom;
     *hfrom = tmp;
+
+    // std::cout << "\nlto [";
+    // for (int j = 0; j < stateSize; ++j) {
+    //   std::cout << (*lto)[j] << " ";
+    // }
+    // std::cout << "]" << std::endl;
+    //
+    // std::cout << "\nhto [";
+    // for (int j = 0; j < stateSize; ++j) {
+    //   std::cout << (*hto)[j] << " ";
+    // }
+    // std::cout << "]" << std::endl;
+    // exit(42);
   }
   for (int j = 0; j < stateSize; ++j) {
     int t1 = indices[j];
@@ -206,8 +209,8 @@ Pow::transform64(uint64_t* lmid, uint64_t* hmid) const {
     (*hto)[j] = (alpha ^ gamma) | delta;
   }
 
-  std::memcpy(lmid, ltmp, stateSize);
-  std::memcpy(hmid, htmp, stateSize);
+  std::memcpy(lmid, ltmp, sizeof(*ltmp) * stateSize);
+  std::memcpy(hmid, htmp, sizeof(*htmp) * stateSize);
   delete[] ltmp;
   delete[] htmp;
 }
