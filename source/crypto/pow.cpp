@@ -23,12 +23,19 @@
 //
 //
 
-// TODO Where to put them ?
-static constexpr int stateSize      = 729;
-static constexpr int numberOfRounds = 81;
-bool                 stop           = true;
-int                  countGo        = 1;
-static constexpr int indices[]      = {
+#include <cstring>
+
+#include <iota/crypto/curl.hpp>
+#include <iota/crypto/pow.hpp>
+
+namespace IOTA {
+
+namespace Crypto {
+
+static bool stop = true;
+
+// TODO
+static constexpr int indices[] = {
   0,   364, 728, 363, 727, 362, 726, 361, 725, 360, 724, 359, 723, 358, 722, 357, 721, 356, 720,
   355, 719, 354, 718, 353, 717, 352, 716, 351, 715, 350, 714, 349, 713, 348, 712, 347, 711, 346,
   710, 345, 709, 344, 708, 343, 707, 342, 706, 341, 705, 340, 704, 339, 703, 338, 702, 337, 701,
@@ -70,56 +77,29 @@ static constexpr int indices[]      = {
   368, 3,   367, 2,   366, 1,   365, 0
 };
 
-#include <cstring>
-
-#include <iota/crypto/curl.hpp>
-#include <iota/crypto/pow.hpp>
-
-namespace IOTA {
-namespace Crypto {
-
 Pow::Pow() {
 }
 
 Pow::~Pow() {
 }
 
+// TODO still need to be multi-threaded
 Types::Trytes
 Pow::operator()(const Types::Trytes& trytes, int minWeightMagnitude) const {
-  // if (!stopGO) {
-  //   stopGO = true;
-  //   return "", errors.New("pow is already running, stopped");
-  // }
-  // if (trytes == "") {
-  //   return "", errors.New("invalid trytes");
-  // }
-  countGo = 0;
-  stop    = false;
+  stop = false;
   IOTA::Crypto::Curl c;
 
   // TODO Harcoded value, should be kept with Transaction
   IOTA::Types::Trits trits = IOTA::Types::trytesToTrits(trytes.substr(0, 2592));
-  //
   c.absorb(trits);
   auto state = c.getState();
   auto tr    = IOTA::Types::trytesToTrits(trytes);
   // TODO Harcoded value, should be kept with Transaction
   std::copy(std::begin(tr) + 7776, std::end(tr), std::begin(state));
-  // // copy(c.state, tr [transactionTrinarySize - HashSize:]);
-  //
+
   IOTA::Types::Trytes result;
-  // var wg sync.WaitGroup;
-  // var mutex sync.Mutex;
-  // std::cout << "\nState [";
-  // for (auto& c : state) {
-  //   std::cout << (int)c << " ";
-  // }
-  // std::cout << "]" << std::endl;
-  // for (int i = 0; i < PowProcs; i++) {
-  // wg.Add(1);
-  // go func(i int) {
-  uint64_t lmid[stateSize];  // pour para
-  uint64_t hmid[stateSize];  // pour para
+  uint64_t            lmid[stateSize];
+  uint64_t            hmid[stateSize];
 
   para(lmid, hmid, state);
 
@@ -134,20 +114,11 @@ Pow::operator()(const Types::Trytes& trytes, int minWeightMagnitude) const {
 
   incrN(0, lmid, hmid);  // TODO replace 0 by i
 
-  int64_t            cnt;
-  IOTA::Types::Trits nonce = loop(lmid, hmid, minWeightMagnitude, &cnt);
-  // mutex.Lock();
+  IOTA::Types::Trits nonce = loop(lmid, hmid, minWeightMagnitude);
   if (nonce.empty() == false) {
     result = IOTA::Types::tritsToTrytes(nonce);
     stop   = true;
   }
-  countGo += cnt;
-  // mutex.Unlock();
-  // wg.Done();
-  // }
-  // (i)
-  // }  // namespace Crypto
-  // wg.Wait();
   stop = true;
   return result;
 }
@@ -156,10 +127,10 @@ void
 Pow::transform64(uint64_t* lmid, uint64_t* hmid) const {
   uint64_t*  ltmp  = new uint64_t[stateSize];
   uint64_t*  htmp  = new uint64_t[stateSize];
-  uint64_t** lfrom = &lmid;  // TODO types
-  uint64_t** hfrom = &hmid;  // TODO types
-  uint64_t** lto   = &ltmp;  // TODO types
-  uint64_t** hto   = &htmp;  // TODO types
+  uint64_t** lfrom = &lmid;
+  uint64_t** hfrom = &hmid;
+  uint64_t** lto   = &ltmp;
+  uint64_t** hto   = &htmp;
 
   for (int r = 0; r < numberOfRounds - 1; ++r) {
     for (int j = 0; j < stateSize; ++j) {
@@ -182,20 +153,8 @@ Pow::transform64(uint64_t* lmid, uint64_t* hmid) const {
     tmp    = *hto;
     *hto   = *hfrom;
     *hfrom = tmp;
-
-    // std::cout << "\nlto [";
-    // for (int j = 0; j < stateSize; ++j) {
-    //   std::cout << (*lto)[j] << " ";
-    // }
-    // std::cout << "]" << std::endl;
-    //
-    // std::cout << "\nhto [";
-    // for (int j = 0; j < stateSize; ++j) {
-    //   std::cout << (*hto)[j] << " ";
-    // }
-    // std::cout << "]" << std::endl;
-    // exit(42);
   }
+
   for (int j = 0; j < stateSize; ++j) {
     int t1 = indices[j];
     int t2 = indices[j + 1];
@@ -283,23 +242,20 @@ Pow::check(const uint64_t* l, const uint64_t* h, int m) const {
 }
 
 Types::Trits
-Pow::loop(uint64_t* lmid, uint64_t* hmid, int m, int64_t* cnt) const {
+Pow::loop(uint64_t* lmid, uint64_t* hmid, int m) const {
   uint64_t lcpy[stateSize];
   uint64_t hcpy[stateSize];
   uint64_t i;
   for (i = 0; !incr(lmid, hmid) && !stop; ++i) {
     std::memcpy(lcpy, lmid, sizeof(lcpy));
     std::memcpy(hcpy, hmid, sizeof(hcpy));
-    // transform64(&lcpy, &hcpy); TODO That was like that;
     transform64(lcpy, hcpy);
     int64_t n = check(lcpy, hcpy, m);
     if (n >= 0) {
       Types::Trits nonce = seri(lmid, hmid, static_cast<uint64_t>(n));
-      *cnt               = i * 64;
       return nonce;
     }
   }
-  *cnt = i * 64;
   return {};
 }
 

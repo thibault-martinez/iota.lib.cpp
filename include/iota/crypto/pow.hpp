@@ -51,6 +51,9 @@ private:
   static constexpr uint64_t nonceInitStart      = nonceOffset + 4;
   static constexpr uint64_t nonceIncrementStart = nonceInitStart + NonceLength / 3;
 
+  static constexpr int stateSize      = 729;  // TODO constants
+  static constexpr int numberOfRounds = 81;   // TODO constants
+
 public:
   Pow();
   virtual ~Pow();
@@ -64,7 +67,7 @@ private:
   void         incrN(uint n, uint64_t* lmid, uint64_t* hmid) const;
   Types::Trits seri(const uint64_t* l, const uint64_t* h, uint64_t n) const;
   int64_t      check(const uint64_t* l, const uint64_t* h, int m) const;
-  Types::Trits loop(uint64_t* lmid, uint64_t* hmid, int m, int64_t* cnt) const;
+  Types::Trits loop(uint64_t* lmid, uint64_t* hmid, int m) const;
   void         para(uint64_t* l, uint64_t* h, const Types::Trits& in) const;
 };
 
