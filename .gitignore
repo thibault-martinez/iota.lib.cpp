@@ -33,9 +33,9 @@
 
 # Build
 build
+build_*
 deps
-external/boost
-external/boost_1_64_0.tar.gz
+external/*boost*
 
 # Temporary files
 tmp
