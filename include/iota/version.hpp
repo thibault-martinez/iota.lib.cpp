@@ -25,7 +25,7 @@
 
 #pragma once
 
-#define IOTA_VERSION_MAJOR 0
+#define IOTA_VERSION_MAJOR 1
 #define IOTA_VERSION_MINOR 0
 #define IOTA_VERSION_PATCH 0
-#define IOTA_VERSION "0.0.0"
+#define IOTA_VERSION "1.0.0"
