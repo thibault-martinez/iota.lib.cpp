@@ -30,6 +30,7 @@
 #include <iota/constants.hpp>
 #include <iota/errors/bad_request.hpp>
 #include <iota/errors/internal_server_error.hpp>
+#include <iota/errors/timeout.hpp>
 #include <iota/errors/unauthorized.hpp>
 #include <iota/errors/unrecognized.hpp>
 
@@ -43,6 +44,9 @@ namespace IOTA {
 namespace API {
 
 class Service {
+private:
+  static const int timeout = 10;
+
 public:
   Service(const std::string& host, const uint16_t& port);
   virtual ~Service();
@@ -60,7 +64,11 @@ public:
     auto headers = cpr::Header{ { "Content-Type", "application/json" },
                                 { "Content-Length", std::to_string(body.size()) },
                                 { "X-IOTA-API-Version", APIVersion } };
-    auto res     = cpr::Post(url, body, headers);
+    auto res     = cpr::Post(url, body, headers, cpr::Timeout{ timeout * 1000 });
+
+    if (res.elapsed >= timeout) {
+      throw Errors::Timeout("IRI timed out after " + std::to_string(timeout) + "s");
+    }
 
     Response response;
     // TODO set duration ?
