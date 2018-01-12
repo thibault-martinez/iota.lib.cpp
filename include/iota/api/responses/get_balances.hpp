@@ -28,6 +28,7 @@
 #include <json.hpp>
 
 #include <iota/api/responses/base.hpp>
+#include <iota/types/trinary.hpp>
 
 using json = nlohmann::json;
 
@@ -51,7 +52,7 @@ public:
    * full init ctor
    */
   explicit GetBalances(const std::vector<std::string>& balances = {},
-                       const std::string& milestone = "", const int64_t& milestoneIndex = 0);
+                       const Types::Trytes& milestone = "", const int64_t& milestoneIndex = 0);
 
   /**
    * default dtor
@@ -86,12 +87,12 @@ public:
   /**
    * @return milestone.
    */
-  const std::string& getMilestone() const;
+  const Types::Trytes& getMilestone() const;
 
   /**
    * @param milestone new milestone for api response
    */
-  void setMilestone(const std::string& milestone);
+  void setMilestone(const Types::Trytes& milestone);
 
 public:
   /**
@@ -106,7 +107,7 @@ public:
 
 private:
   std::vector<std::string> balances_;
-  std::string              milestone_;
+  Types::Trytes            milestone_;
   int64_t                  milestoneIndex_;
 };
 

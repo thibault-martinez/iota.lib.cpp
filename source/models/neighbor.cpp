@@ -33,7 +33,7 @@ Neighbor::Neighbor()
     : numberOfAllTransactions_(0), numberOfInvalidTransactions_(0), numberOfNewTransactions_(0) {
 }
 
-Neighbor::Neighbor(const IOTA::Types::Trytes& address, const int64_t& numberOfAllTransactions,
+Neighbor::Neighbor(const Types::Trytes& address, const int64_t& numberOfAllTransactions,
                    const int64_t& numberOfInvalidTransactions,
                    const int64_t& numberOfNewTransactions)
     : address_(address),
@@ -42,13 +42,13 @@ Neighbor::Neighbor(const IOTA::Types::Trytes& address, const int64_t& numberOfAl
       numberOfNewTransactions_(numberOfNewTransactions) {
 }
 
-const IOTA::Types::Trytes&
+const Types::Trytes&
 Neighbor::getAddress() const {
   return address_;
 }
 
 void
-Neighbor::setAddress(const IOTA::Types::Trytes& addr) {
+Neighbor::setAddress(const Types::Trytes& addr) {
   address_ = addr;
 }
 

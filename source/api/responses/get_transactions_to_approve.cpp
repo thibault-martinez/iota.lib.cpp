@@ -31,35 +31,35 @@ namespace API {
 
 namespace Responses {
 
-GetTransactionsToApprove::GetTransactionsToApprove(const std::string& trunkTransaction,
-                                                   const std::string& branchTransaction)
+GetTransactionsToApprove::GetTransactionsToApprove(const Types::Trytes& trunkTransaction,
+                                                   const Types::Trytes& branchTransaction)
     : trunkTransaction_(trunkTransaction), branchTransaction_(branchTransaction) {
 }
 
 void
 GetTransactionsToApprove::deserialize(const json& res) {
   Base::deserialize(res);
-  trunkTransaction_  = res.at("trunkTransaction").get<std::string>();
-  branchTransaction_ = res.at("branchTransaction").get<std::string>();
+  trunkTransaction_  = res.at("trunkTransaction").get<Types::Trytes>();
+  branchTransaction_ = res.at("branchTransaction").get<Types::Trytes>();
 }
 
-const std::string&
+const Types::Trytes&
 GetTransactionsToApprove::getTrunkTransaction() const {
   return trunkTransaction_;
 }
 
 void
-GetTransactionsToApprove::setTrunkTransaction(const std::string& trunkTransaction) {
+GetTransactionsToApprove::setTrunkTransaction(const Types::Trytes& trunkTransaction) {
   trunkTransaction_ = trunkTransaction;
 }
 
-const std::string&
+const Types::Trytes&
 GetTransactionsToApprove::getBranchTransaction() const {
   return branchTransaction_;
 }
 
 void
-GetTransactionsToApprove::setBranchTransaction(const std::string& branchTransaction) {
+GetTransactionsToApprove::setBranchTransaction(const Types::Trytes& branchTransaction) {
   branchTransaction_ = branchTransaction;
 }
 

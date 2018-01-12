@@ -29,7 +29,6 @@
 
 #include <iota/api/responses/base.hpp>
 #include <iota/models/bundle.hpp>
-#include <iota/types/trinary.hpp>
 
 namespace IOTA {
 

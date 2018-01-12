@@ -42,7 +42,7 @@ public:
   BigInt(const cpp_int& value);
 
 public:
-  void                fromTrits(const IOTA::Types::Trits& trits);
+  void                fromTrits(const Types::Trits& trits);
   Types::Trits        toTrits() const;
   void                fromBytes(const std::vector<int8_t>& bytes);
   std::vector<int8_t> toBytes() const;

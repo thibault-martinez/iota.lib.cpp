@@ -41,7 +41,7 @@ static std::vector<std::vector<int8_t>> trytesTrits = {
 
 bool
 isValidTryte(const char& tryte) {
-  return TryteAlphabet.find(tryte) != std::string::npos;
+  return TryteAlphabet.find(tryte) != Types::Trytes::npos;
 }
 
 bool
@@ -158,28 +158,6 @@ bool
 isValidTrit(const int8_t& trit) {
   return trit == -1 || trit == 0 || trit == 1;
 }
-
-// TODO still useful ?
-
-//
-// Trits::Trits(const std::vector<int8_t>& values) : values_(values) {
-//   if (isValid() == false)
-//     throw std::exception();
-// }
-//
-//
-// bool
-// Trits::canTrytes() const {
-//   return values_.size() % 3 == 0;
-// }
-//
-//
-// bool
-// Trytes::isValid() const {
-//   return std::find_if_not(std::begin(values_), std::end(values_),
-//                           Trytes::isValidTryte) == std::end(values_);
-// }
-//
 
 }  // namespace Types
 

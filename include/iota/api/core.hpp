@@ -124,7 +124,7 @@ public:
    *
    * @return The response.
    */
-  Responses::GetTrytes getTrytes(const std::vector<std::string>& hashes) const;
+  Responses::GetTrytes getTrytes(const std::vector<Types::Trytes>& hashes) const;
 
   /*
    * Get the inclusion states of a set of transactions. This is for determining if a transaction
@@ -136,8 +136,8 @@ public:
    *
    * @return The response.
    */
-  Responses::GetInclusionStates getInclusionStates(const std::vector<std::string>& transactions,
-                                                   const std::vector<std::string>& tips) const;
+  Responses::GetInclusionStates getInclusionStates(const std::vector<Types::Trytes>& transactions,
+                                                   const std::vector<Types::Trytes>& tips) const;
 
   /*
    * Similar to getInclusionStates. It returns the confirmed balance which a list of addresses
@@ -151,8 +151,8 @@ public:
    *
    * @return The response.
    */
-  Responses::GetBalances getBalances(const std::vector<std::string>& addresses,
-                                     const int&                      threshold) const;
+  Responses::GetBalances getBalances(const std::vector<Types::Trytes>& addresses,
+                                     const int&                        threshold) const;
 
   /*
    * Tip selection which returns trunkTransaction and branchTransaction. The input value is depth,
@@ -179,10 +179,10 @@ public:
    *
    * @return The response.
    */
-  Responses::AttachToTangle attachToTangle(const std::string&              trunkTransaction,
-                                           const std::string&              branchTransaction,
-                                           const int&                      minWeightMagnitude,
-                                           const std::vector<std::string>& trytes) const;
+  Responses::AttachToTangle attachToTangle(const Types::Trytes&              trunkTransaction,
+                                           const Types::Trytes&              branchTransaction,
+                                           const int&                        minWeightMagnitude,
+                                           const std::vector<Types::Trytes>& trytes) const;
 
   /*
    * Interrupts and completely aborts the attachToTangle process.
@@ -200,7 +200,7 @@ public:
    *
    * @return The response.
    */
-  Responses::Base broadcastTransactions(const std::vector<std::string>& trytes) const;
+  Responses::Base broadcastTransactions(const std::vector<Types::Trytes>& trytes) const;
 
   /*
    * Store transactions into the local storage. The trytes to be used for this call are returned
@@ -208,7 +208,7 @@ public:
    *
    * @return The response.
    */
-  Responses::Base storeTransactions(const std::vector<std::string>& trytes) const;
+  Responses::Base storeTransactions(const std::vector<Types::Trytes>& trytes) const;
 
 private:
   Service service_;

@@ -48,7 +48,7 @@ public:
   /**
    * full init ctor
    */
-  GetNewAddresses(const std::vector<IOTA::Types::Trytes>& addresses, const int64_t& duration);
+  GetNewAddresses(const std::vector<Types::Trytes>& addresses, const int64_t& duration);
 
   /**
    * default dtor
@@ -59,20 +59,20 @@ public:
   /**
    * @return The addresses.
    */
-  const std::vector<IOTA::Types::Trytes>& getAddresses() const;
+  const std::vector<Types::Trytes>& getAddresses() const;
 
   /**
    * @return The addresses. (non const version)
    */
-  std::vector<IOTA::Types::Trytes>& getAddresses();
+  std::vector<Types::Trytes>& getAddresses();
 
   /**
    * @param addresses new addresses for api response
    */
-  void setAddresses(const std::vector<IOTA::Types::Trytes>& addresses);
+  void setAddresses(const std::vector<Types::Trytes>& addresses);
 
 private:
-  std::vector<IOTA::Types::Trytes> addresses_;
+  std::vector<Types::Trytes> addresses_;
 };
 
 }  // namespace Responses

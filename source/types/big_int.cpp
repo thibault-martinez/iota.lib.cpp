@@ -40,7 +40,7 @@ BigInt::BigInt(const cpp_int& value) : cpp_int(value) {
 }
 
 void
-BigInt::fromTrits(const IOTA::Types::Trits& trits) {
+BigInt::fromTrits(const Types::Trits& trits) {
   assign(0);
   for (unsigned int i = 0; i < trits.size(); ++i) {
     *this += trits[i] * boost::multiprecision::pow(cpp_int(3), i);

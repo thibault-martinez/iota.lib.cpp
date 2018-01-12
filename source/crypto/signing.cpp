@@ -38,7 +38,7 @@ namespace Signing {
 Types::Trits
 key(const Types::Trytes& seed, const unsigned int& index, const unsigned int& security) {
   Kerl         k;
-  Types::Trits seedTrits = IOTA::Types::trytesToTrits(seed);
+  Types::Trits seedTrits = Types::trytesToTrits(seed);
 
   for (unsigned int i = 0; i < index; ++i) {
     for (unsigned int j = 0; j < TritHashLength; ++j) {
@@ -166,12 +166,12 @@ validateSignatures(const Types::Trytes&              expectedAddr,
 
   for (unsigned int i = 0; i < signatureFragments.size(); ++i) {
     auto digestBuffer =
-        digest(normalizedBundleFragments[i % 3], IOTA::Types::trytesToTrits(signatureFragments[i]));
+        digest(normalizedBundleFragments[i % 3], Types::trytesToTrits(signatureFragments[i]));
 
     digests.insert(std::end(digests), std::begin(digestBuffer), std::end(digestBuffer));
   }
 
-  auto addr = IOTA::Types::tritsToTrytes(address(digests));
+  auto addr = Types::tritsToTrytes(address(digests));
 
   return addr == expectedAddr;
 }

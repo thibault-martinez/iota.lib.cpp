@@ -33,8 +33,8 @@ namespace IOTA {
 
 namespace Types {
 
-typedef std::vector<int8_t> Trits;
-typedef std::string         Trytes;
+using Trits  = std::vector<int8_t>;
+using Trytes = std::string;
 
 bool isValidTryte(const char& tryte);
 

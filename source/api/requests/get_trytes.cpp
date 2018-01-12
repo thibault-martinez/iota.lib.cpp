@@ -31,7 +31,8 @@ namespace API {
 
 namespace Requests {
 
-GetTrytes::GetTrytes(const std::vector<std::string>& hashes) : Base("getTrytes"), hashes_(hashes) {
+GetTrytes::GetTrytes(const std::vector<Types::Trytes>& hashes)
+    : Base("getTrytes"), hashes_(hashes) {
 }
 
 void
@@ -40,18 +41,18 @@ GetTrytes::serialize(json& data) {
   data["hashes"] = hashes_;
 }
 
-const std::vector<std::string>&
+const std::vector<Types::Trytes>&
 GetTrytes::getHashes() const {
   return hashes_;
 }
 
-std::vector<std::string>&
+std::vector<Types::Trytes>&
 GetTrytes::getHashes() {
   return hashes_;
 }
 
 void
-GetTrytes::setHashes(const std::vector<std::string>& hashes) {
+GetTrytes::setHashes(const std::vector<Types::Trytes>& hashes) {
   hashes_ = hashes;
 }
 

@@ -80,8 +80,8 @@ public:
    * @param tag                    The tag.
    * @param timestamp              The timestamp.
    */
-  void addTransaction(int32_t signatureMessageLength, const std::string& address, int64_t value,
-                      const std::string& tag, int64_t timestamp);
+  void addTransaction(int32_t signatureMessageLength, const Types::Trytes& address, int64_t value,
+                      const Types::Trytes& tag, int64_t timestamp);
 
   /**
    * Adds a bundle entry.
@@ -102,7 +102,7 @@ public:
    *
    * @param signatureFragments The signature fragments.
    */
-  void addTrytes(const std::vector<std::string>& signatureFragments);
+  void addTrytes(const std::vector<Types::Trytes>& signatureFragments);
 
   /**
    * Normalized the bundle.
@@ -110,7 +110,7 @@ public:
    * @param bundleHash The bundle hash.
    * @return normalizedBundle A normalized bundle hash.
    */
-  std::vector<int8_t> normalizedBundle(const std::string& bundleHash);
+  std::vector<int8_t> normalizedBundle(const Types::Trytes& bundleHash);
 
 public:
   /**

@@ -28,6 +28,7 @@
 #include <json.hpp>
 
 #include <iota/api/responses/base.hpp>
+#include <iota/types/trinary.hpp>
 
 using json = nlohmann::json;
 
@@ -50,8 +51,8 @@ public:
   explicit GetNodeInfo(const std::string& appName = "", const std::string& appVersion = "",
                        int64_t jreAvailableProcessors = 0, int64_t jreFreeMemory = 0,
                        int64_t jreMaxMemory = 0, int64_t jreTotalMemory = 0,
-                       const std::string& latestMilestone = "", int64_t latestMilestoneIndex = 0,
-                       const std::string& latestSolidSubtangleMilestone = "",
+                       const Types::Trytes& latestMilestone = "", int64_t latestMilestoneIndex = 0,
+                       const Types::Trytes& latestSolidSubtangleMilestone = "",
                        int64_t latestSolidSubtangleMilestoneIndex = 0, int64_t neighbors = 0,
                        int64_t packetsQueueSize = 0, int64_t time = 0, int64_t tips = 0,
                        int64_t transactionsToRequest = 0);
@@ -141,12 +142,12 @@ public:
   /**
    * @return Latest milestone that was signed off by the coordinator.
    */
-  const std::string& getLatestMilestone() const;
+  const Types::Trytes& getLatestMilestone() const;
 
   /**
    * @param latestMilestone new latest milestone for api response
    */
-  void setLatestMilestone(const std::string& latestMilestone);
+  void setLatestMilestone(const Types::Trytes& latestMilestone);
 
 public:
   /**
@@ -166,12 +167,12 @@ public:
    * subtangle of coordinator-approved transactions, and have a consistent view
    * of all referenced transactions.
    */
-  const std::string& getLatestSolidSubtangleMilestone() const;
+  const Types::Trytes& getLatestSolidSubtangleMilestone() const;
 
   /**
    * @param latestSolidSubtangleMilestone new latest solid subtangle milestone for api response
    */
-  void setLatestSolidSubtangleMilestone(const std::string& latestSolidSubtangleMilestone);
+  void setLatestSolidSubtangleMilestone(const Types::Trytes& latestSolidSubtangleMilestone);
 
 public:
   /**
@@ -241,21 +242,21 @@ public:
   void setTransactionsToRequest(const int64_t& transactionsToRequest);
 
 private:
-  std::string appName_;
-  std::string appVersion_;
-  int64_t     jreAvailableProcessors_;
-  int64_t     jreFreeMemory_;
-  int64_t     jreMaxMemory_;
-  int64_t     jreTotalMemory_;
-  std::string latestMilestone_;
-  int64_t     latestMilestoneIndex_;
-  std::string latestSolidSubtangleMilestone_;
-  int64_t     latestSolidSubtangleMilestoneIndex_;
-  int64_t     neighbors_;
-  int64_t     packetsQueueSize_;
-  int64_t     time_;
-  int64_t     tips_;
-  int64_t     transactionsToRequest_;
+  std::string   appName_;
+  std::string   appVersion_;
+  int64_t       jreAvailableProcessors_;
+  int64_t       jreFreeMemory_;
+  int64_t       jreMaxMemory_;
+  int64_t       jreTotalMemory_;
+  Types::Trytes latestMilestone_;
+  int64_t       latestMilestoneIndex_;
+  Types::Trytes latestSolidSubtangleMilestone_;
+  int64_t       latestSolidSubtangleMilestoneIndex_;
+  int64_t       neighbors_;
+  int64_t       packetsQueueSize_;
+  int64_t       time_;
+  int64_t       tips_;
+  int64_t       transactionsToRequest_;
 };
 
 }  // namespace Responses

@@ -38,7 +38,7 @@ void
 GetNeighbors::deserialize(const json& res) {
   Base::deserialize(res);
   for (const auto& neighbor : res["neighbors"]) {
-    neighbors_.emplace_back(neighbor.at("address").get<std::string>(),
+    neighbors_.emplace_back(neighbor.at("address").get<Types::Trytes>(),
                             neighbor.at("numberOfAllTransactions").get<int64_t>(),
                             neighbor.at("numberOfInvalidTransactions").get<int64_t>(),
                             neighbor.at("numberOfNewTransactions").get<int64_t>());

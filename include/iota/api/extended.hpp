@@ -68,7 +68,7 @@ public:
    * @param end       Ending key index.
    * @param threshold Min balance required.
    */
-  Responses::GetBalancesAndFormat getInputs(const std::string& seed, const int32_t& start,
+  Responses::GetBalancesAndFormat getInputs(const Types::Trytes& seed, const int32_t& start,
                                             const int32_t& end, const int32_t& security,
                                             const int64_t& threshold) const;
 
@@ -83,7 +83,7 @@ public:
    * @return Inputs object.
    **/
   Responses::GetBalancesAndFormat getBalancesAndFormat(
-      const std::vector<std::string>& addresses, const int64_t& threshold, const int32_t& start,
+      const std::vector<Types::Trytes>& addresses, const int64_t& threshold, const int32_t& start,
       const int32_t& security, const Utils::StopWatch& stopWatch = {}) const;
 
   /**
@@ -100,7 +100,7 @@ public:
    * generated (until findTransactions returns null).
    * @return An array of strings with the specifed number of addresses.
    */
-  Responses::GetNewAddresses getNewAddresses(const std::string& seed, const uint32_t& index = 0,
+  Responses::GetNewAddresses getNewAddresses(const Types::Trytes& seed, const uint32_t& index = 0,
                                              const int32_t& security = 2, bool checksum = false,
                                              const int32_t& total     = 0,
                                              bool           returnAll = false) const;
@@ -113,7 +113,7 @@ public:
    * @param trunkTx    Hash of a trunk or a tail transaction of a bundle.
    * @return Filled bundle corresponding to tail transaction.
    */
-  Models::Bundle traverseBundle(const std::string& trunkTx) const;
+  Models::Bundle traverseBundle(const Types::Trytes& trunkTx) const;
 
   /**
    * Basically traverse the Bundle by going down the trunkTransactions until
@@ -125,7 +125,7 @@ public:
    * @param bundle     Bundle to be populated.
    * @return Filled bundle corresponding to tail transaction.
    */
-  Models::Bundle traverseBundle(const std::string& trunkTx, std::string bundleHash,
+  Models::Bundle traverseBundle(const Types::Trytes& trunkTx, Types::Trytes bundleHash,
                                 Models::Bundle& bundle) const;
 
   /**
@@ -342,12 +342,11 @@ public:
    * (of the inputs) to.
    * @param signatureFragments The signature fragments.
    */
-  std::vector<std::string> addRemainder(const Types::Trytes& seed, const unsigned int& security,
-                                        const std::vector<Models::Input>& inputs,
-                                        Models::Bundle& bundle, const std::string& tag,
-                                        const int64_t&                  totalValue,
-                                        const Types::Trytes&            remainderAddress,
-                                        const std::vector<std::string>& signatureFragments) const;
+  std::vector<Types::Trytes> addRemainder(
+      const Types::Trytes& seed, const unsigned int& security,
+      const std::vector<Models::Input>& inputs, Models::Bundle& bundle, const Types::Trytes& tag,
+      const int64_t& totalValue, const Types::Trytes& remainderAddress,
+      const std::vector<Types::Trytes>& signatureFragments) const;
 
   /**
    * Replays a transfer by doing Proof of Work again.
@@ -390,9 +389,9 @@ private:
   Types::Trytes newAddress(const Types::Trytes& seed, const int32_t& index, const int32_t& security,
                            bool checksum) const;
 
-  std::vector<std::string> signInputsAndReturn(
-      const std::string& seed, const std::vector<Models::Input>& inputs, Models::Bundle& bundle,
-      const std::vector<std::string>& signatureFragments) const;
+  std::vector<Types::Trytes> signInputsAndReturn(
+      const Types::Trytes& seed, const std::vector<Models::Input>& inputs, Models::Bundle& bundle,
+      const std::vector<Types::Trytes>& signatureFragments) const;
 
   /**
    * @return true if all transfers are valid, false otherwise

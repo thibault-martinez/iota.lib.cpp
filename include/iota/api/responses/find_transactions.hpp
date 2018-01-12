@@ -51,7 +51,7 @@ public:
   /**
    * full init ctor
    */
-  explicit FindTransactions(const std::vector<IOTA::Types::Trytes>& hashes = {});
+  explicit FindTransactions(const std::vector<Types::Trytes>& hashes = {});
 
   /**
    * default dtor
@@ -70,20 +70,20 @@ public:
   /**
    * @return hashes
    */
-  const std::vector<std::string>& getHashes() const;
+  const std::vector<Types::Trytes>& getHashes() const;
 
   /**
    * @return hashes (non const version)
    */
-  std::vector<std::string>& getHashes();
+  std::vector<Types::Trytes>& getHashes();
 
   /**
    * @param hashes new hashes for api call
    */
-  void setHashes(const std::vector<std::string>& hashes);
+  void setHashes(const std::vector<Types::Trytes>& hashes);
 
 private:
-  std::vector<IOTA::Types::Trytes> hashes_;
+  std::vector<Types::Trytes> hashes_;
 };
 
 }  // namespace Responses

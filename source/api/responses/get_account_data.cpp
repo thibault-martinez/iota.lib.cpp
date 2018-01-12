@@ -34,24 +34,24 @@ namespace Responses {
 GetAccountData::GetAccountData() : balance_(0) {
 }
 
-GetAccountData::GetAccountData(const std::vector<IOTA::Types::Trytes>& addresses,
-                               const std::vector<Models::Bundle>& transferBundle, const int64_t& balance,
-                               const int64_t& duration)
+GetAccountData::GetAccountData(const std::vector<Types::Trytes>&  addresses,
+                               const std::vector<Models::Bundle>& transferBundle,
+                               const int64_t& balance, const int64_t& duration)
     : Base(duration), addresses_(addresses), transferBundle_(transferBundle), balance_(balance) {
 }
 
-const std::vector<IOTA::Types::Trytes>&
+const std::vector<Types::Trytes>&
 GetAccountData::getAddresses() const {
   return addresses_;
 }
 
-std::vector<IOTA::Types::Trytes>&
+std::vector<Types::Trytes>&
 GetAccountData::getAddresses() {
   return addresses_;
 }
 
 void
-GetAccountData::setAddresses(const std::vector<IOTA::Types::Trytes>& addresses) {
+GetAccountData::setAddresses(const std::vector<Types::Trytes>& addresses) {
   addresses_ = addresses;
 }
 

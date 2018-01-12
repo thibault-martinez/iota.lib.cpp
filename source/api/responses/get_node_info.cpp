@@ -34,8 +34,8 @@ namespace Responses {
 GetNodeInfo::GetNodeInfo(const std::string& appName, const std::string& appVersion,
                          int64_t jreAvailableProcessors, int64_t jreFreeMemory,
                          int64_t jreMaxMemory, int64_t jreTotalMemory,
-                         const std::string& latestMilestone, int64_t latestMilestoneIndex,
-                         const std::string& latestSolidSubtangleMilestone,
+                         const Types::Trytes& latestMilestone, int64_t latestMilestoneIndex,
+                         const Types::Trytes& latestSolidSubtangleMilestone,
                          int64_t latestSolidSubtangleMilestoneIndex, int64_t neighbors,
                          int64_t packetsQueueSize, int64_t time, int64_t tips,
                          int64_t transactionsToRequest)
@@ -65,9 +65,9 @@ GetNodeInfo::deserialize(const json& res) {
   jreFreeMemory_                      = res.at("jreFreeMemory").get<int64_t>();
   jreMaxMemory_                       = res.at("jreMaxMemory").get<int64_t>();
   jreTotalMemory_                     = res.at("jreTotalMemory").get<int64_t>();
-  latestMilestone_                    = res.at("latestMilestone").get<std::string>();
+  latestMilestone_                    = res.at("latestMilestone").get<Types::Trytes>();
   latestMilestoneIndex_               = res.at("latestMilestoneIndex").get<int64_t>();
-  latestSolidSubtangleMilestone_      = res.at("latestSolidSubtangleMilestone").get<std::string>();
+  latestSolidSubtangleMilestone_      = res.at("latestSolidSubtangleMilestone").get<Types::Trytes>();
   latestSolidSubtangleMilestoneIndex_ = res.at("latestSolidSubtangleMilestoneIndex").get<int64_t>();
   neighbors_                          = res.at("neighbors").get<int64_t>();
   packetsQueueSize_                   = res.at("packetsQueueSize").get<int64_t>();
@@ -136,13 +136,13 @@ GetNodeInfo::setJreTotalMemory(const int64_t& jreTotalMemory) {
   jreTotalMemory_ = jreTotalMemory;
 }
 
-const std::string&
+const Types::Trytes&
 GetNodeInfo::getLatestMilestone() const {
   return latestMilestone_;
 }
 
 void
-GetNodeInfo::setLatestMilestone(const std::string& latestMilestone) {
+GetNodeInfo::setLatestMilestone(const Types::Trytes& latestMilestone) {
   latestMilestone_ = latestMilestone;
 }
 
@@ -156,13 +156,13 @@ GetNodeInfo::setLatestMilestoneIndex(const int64_t& latestMilestoneIndex) {
   latestMilestoneIndex_ = latestMilestoneIndex;
 }
 
-const std::string&
+const Types::Trytes&
 GetNodeInfo::getLatestSolidSubtangleMilestone() const {
   return latestSolidSubtangleMilestone_;
 }
 
 void
-GetNodeInfo::setLatestSolidSubtangleMilestone(const std::string& latestSolidSubtangleMilestone) {
+GetNodeInfo::setLatestSolidSubtangleMilestone(const Types::Trytes& latestSolidSubtangleMilestone) {
   latestSolidSubtangleMilestone_ = latestSolidSubtangleMilestone;
 }
 

@@ -31,23 +31,23 @@ namespace API {
 
 namespace Responses {
 
-GetNewAddresses::GetNewAddresses(const std::vector<IOTA::Types::Trytes>& addresses,
-                                 const int64_t&                          duration)
+GetNewAddresses::GetNewAddresses(const std::vector<Types::Trytes>& addresses,
+                                 const int64_t&                    duration)
     : Base(duration), addresses_(addresses) {
 }
 
-const std::vector<IOTA::Types::Trytes>&
+const std::vector<Types::Trytes>&
 GetNewAddresses::getAddresses() const {
   return addresses_;
 }
 
-std::vector<IOTA::Types::Trytes>&
+std::vector<Types::Trytes>&
 GetNewAddresses::getAddresses() {
   return addresses_;
 }
 
 void
-GetNewAddresses::setAddresses(const std::vector<IOTA::Types::Trytes>& addresses) {
+GetNewAddresses::setAddresses(const std::vector<Types::Trytes>& addresses) {
   addresses_ = addresses;
 }
 

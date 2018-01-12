@@ -31,9 +31,9 @@ namespace API {
 
 namespace Requests {
 
-AttachToTangle::AttachToTangle(const std::string& trunkTransaction,
-                               const std::string& branchTransaction, const int& minWeightMagnitude,
-                               const std::vector<std::string>& trytes)
+AttachToTangle::AttachToTangle(const Types::Trytes& trunkTransaction,
+                               const Types::Trytes& branchTransaction, const int& minWeightMagnitude,
+                               const std::vector<Types::Trytes>& trytes)
     : Base("attachToTangle"),
       trunkTransaction_(trunkTransaction),
       branchTransaction_(branchTransaction),
@@ -50,23 +50,23 @@ AttachToTangle::serialize(json& data) {
   data["trytes"]             = trytes_;
 }
 
-const std::string&
+const Types::Trytes&
 AttachToTangle::getTrunkTransaction() const {
   return trunkTransaction_;
 }
 
 void
-AttachToTangle::setTrunkTransaction(const std::string& trx) {
+AttachToTangle::setTrunkTransaction(const Types::Trytes& trx) {
   trunkTransaction_ = trx;
 }
 
-const std::string&
+const Types::Trytes&
 AttachToTangle::getBranchTransaction() const {
   return branchTransaction_;
 }
 
 void
-AttachToTangle::setBranchTransaction(const std::string& trx) {
+AttachToTangle::setBranchTransaction(const Types::Trytes& trx) {
   branchTransaction_ = trx;
 }
 
@@ -80,18 +80,18 @@ AttachToTangle::setMinWeightMagnitude(int weight) {
   minWeightMagnitude_ = weight;
 }
 
-const std::vector<std::string>&
+const std::vector<Types::Trytes>&
 AttachToTangle::getTrytes() const {
   return trytes_;
 }
 
-std::vector<std::string>&
+std::vector<Types::Trytes>&
 AttachToTangle::getTrytes() {
   return trytes_;
 }
 
 void
-AttachToTangle::setTrytes(const std::vector<std::string>& trytes) {
+AttachToTangle::setTrytes(const std::vector<Types::Trytes>& trytes) {
   trytes_ = trytes;
 }
 

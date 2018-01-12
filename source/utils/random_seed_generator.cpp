@@ -27,8 +27,8 @@
 #include <iterator>
 #include <random>
 
-#include <iota/utils/random_seed_generator.hpp>
 #include <iota/constants.hpp>
+#include <iota/utils/random_seed_generator.hpp>
 
 namespace IOTA {
 
@@ -40,13 +40,13 @@ RandomSeedGenerator::RandomSeedGenerator() {
 RandomSeedGenerator::~RandomSeedGenerator() {
 }
 
-std::string
+Types::Trytes
 RandomSeedGenerator::operator()() {
   std::random_device                 rd;
   std::default_random_engine         dre(rd());
   std::uniform_int_distribution<int> uid(0, TryteAlphabetLength - 1);
 
-  std::string str;
+  Types::Trytes str;
   str.reserve(SeedLength);
   std::generate_n(std::back_inserter(str), SeedLength, [&]() { return TryteAlphabet[uid(dre)]; });
   return str;

@@ -28,6 +28,8 @@
 #include <string>
 #include <utility>
 
+#include <iota/types/trinary.hpp>
+
 namespace IOTA {
 
 namespace Models {
@@ -47,22 +49,23 @@ public:
   /**
    * Initializes a new instance of the Transaction class.
    */
-  explicit Transaction(const std::string& trytes);
+  explicit Transaction(const Types::Trytes& trytes);
 
   /**
    * Initializes a new instance of the Transaction class.
    */
-  Transaction(const std::string& signatureFragments, int64_t currentIndex, int64_t lastIndex,
-              const std::string& nonce, const std::string& hash, const std::string& obsoleteTag,
-              int64_t timestamp, const std::string& trunkTransaction,
-              const std::string& branchTransaction, const std::string& address, int64_t value,
-              const std::string& bundle, const std::string& tag, int64_t attachmentTimestamp,
+  Transaction(const Types::Trytes& signatureFragments, int64_t currentIndex, int64_t lastIndex,
+              const Types::Trytes& nonce, const Types::Trytes& hash,
+              const Types::Trytes& obsoleteTag, int64_t timestamp,
+              const Types::Trytes& trunkTransaction, const Types::Trytes& branchTransaction,
+              const Types::Trytes& address, int64_t value, const Types::Trytes& bundle,
+              const Types::Trytes& tag, int64_t attachmentTimestamp,
               int64_t attachmentTimestampLowerBound, int64_t attachmentTimestampUpperBound);
 
   /**
    * Initializes a new instance of the Transaction class.
    */
-  Transaction(const std::string& address, int64_t value, const std::string& obsoleteTag,
+  Transaction(const Types::Trytes& address, int64_t value, const Types::Trytes& obsoleteTag,
               int64_t timestamp, int64_t attachmentTimestamp = 0,
               int64_t attachmentTimestampLowerBound = 0, int64_t attachmentTimestampUpperBound = 0);
 
@@ -77,42 +80,42 @@ public:
    *
    * @return The hash.
    */
-  const std::string& getHash() const;
+  const Types::Trytes& getHash() const;
 
   /**
    * Set the hash.
    *
    * @param hash The hash.
    */
-  void setHash(const std::string& hash);
+  void setHash(const Types::Trytes& hash);
 
   /**
    * Get the signature fragments.
    *
    * @return The signature fragments.
    */
-  const std::string& getSignatureFragments() const;
+  const Types::Trytes& getSignatureFragments() const;
 
   /**
    * Set the signature fragments.
    *
    * @param signatureFragments The signature fragments.
    */
-  void setSignatureFragments(const std::string& signatureFragments);
+  void setSignatureFragments(const Types::Trytes& signatureFragments);
 
   /**
    * Get the address.
    *
    * @return The address.
    */
-  const std::string& getAddress() const;
+  const Types::Trytes& getAddress() const;
 
   /**
    * Set the address.
    *
    * @param address The address.
    */
-  void setAddress(const std::string& address);
+  void setAddress(const Types::Trytes& address);
 
   /**
    * Get the value.
@@ -132,28 +135,28 @@ public:
    *
    * @return The tag.
    */
-  const std::string& getTag() const;
+  const Types::Trytes& getTag() const;
 
   /**
    * Set the tag.
    *
    * @param tag The tag.
    */
-  void setTag(const std::string& tag);
+  void setTag(const Types::Trytes& tag);
 
   /**
    * Get the obsolete tag.
    *
    * @return The obsolete tag.
    */
-  const std::string& getObsoleteTag() const;
+  const Types::Trytes& getObsoleteTag() const;
 
   /**
    * Set the obsolete tag.
    *
    * @param tag The obsolete tag.
    */
-  void setObsoleteTag(const std::string& tag);
+  void setObsoleteTag(const Types::Trytes& tag);
 
   /**
    * Get the timestamp.
@@ -244,56 +247,56 @@ public:
    *
    * @return The bundle.
    */
-  const std::string& getBundle() const;
+  const Types::Trytes& getBundle() const;
 
   /**
    * Set the bundle.
    *
    * @param bundle The bundle.
    */
-  void setBundle(const std::string& bundle);
+  void setBundle(const Types::Trytes& bundle);
 
   /**
    * Get the trunk transaction.
    *
    * @return The trunk transaction.
    */
-  const std::string& getTrunkTransaction() const;
+  const Types::Trytes& getTrunkTransaction() const;
 
   /**
    * Set the trunk transaction.
    *
    * @param trunkTransaction The trunk transaction.
    */
-  void setTrunkTransaction(const std::string& trunkTransaction);
+  void setTrunkTransaction(const Types::Trytes& trunkTransaction);
 
   /**
    * Get the branch transaction.
    *
    * @return The branch transaction.
    */
-  const std::string& getBranchTransaction() const;
+  const Types::Trytes& getBranchTransaction() const;
 
   /**
    * Set the branch transaction.
    *
    * @param branchTransaction The branch transaction.
    */
-  void setBranchTransaction(const std::string& branchTransaction);
+  void setBranchTransaction(const Types::Trytes& branchTransaction);
 
   /**
    * Get the nonce.
    *
    * @return The nonce.
    */
-  const std::string& getNonce() const;
+  const Types::Trytes& getNonce() const;
 
   /**
    * Set the nonce.
    *
    * @param nonce The trunk nonce.
    */
-  void setNonce(const std::string& nonce);
+  void setNonce(const Types::Trytes& nonce);
 
   /**
    * Get the persistence.
@@ -326,12 +329,12 @@ public:
   /**
    * Converts the transaction to the corresponding trytes representation
    */
-  std::string toTrytes() const;
+  Types::Trytes toTrytes() const;
 
   /**
    * Initializes a new instance of the Transaction class based on tryte string.
    */
-  void initFromTrytes(const std::string& trytes);
+  void initFromTrytes(const Types::Trytes& trytes);
 
 private:
   static const std::pair<int, int> SignatureFragmentsOffset;
@@ -354,17 +357,17 @@ private:
   /**
    * hash of the transaction
    */
-  std::string hash_;
+  Types::Trytes hash_;
 
   /**
    * signature of the transaction
    */
-  std::string signatureFragments_;
+  Types::Trytes signatureFragments_;
 
   /**
    * address of the transaction
    */
-  std::string address_;
+  Types::Trytes address_;
 
   /**
    * value sent
@@ -374,12 +377,12 @@ private:
   /**
    * tag of the transaction
    */
-  std::string tag_;
+  Types::Trytes tag_;
 
   /**
    * obsolete tag of the transaction
    */
-  std::string obsoleteTag_;
+  Types::Trytes obsoleteTag_;
 
   /**
    * ts at which transaction was issued
@@ -414,22 +417,22 @@ private:
   /**
    * bundle hash
    */
-  std::string bundle_;
+  Types::Trytes bundle_;
 
   /**
    * trunk transaction hash
    */
-  std::string trunkTransaction_;
+  Types::Trytes trunkTransaction_;
 
   /**
    * branch transaction hash
    */
-  std::string branchTransaction_;
+  Types::Trytes branchTransaction_;
 
   /**
    * nounce
    */
-  std::string nonce_;
+  Types::Trytes nonce_;
 
   /**
    * whether transaction is persisted or not

@@ -50,8 +50,9 @@ public:
   /**
    * full init ctor
    */
-  GetAccountData(const std::vector<IOTA::Types::Trytes>& addresses,
-                 const std::vector<Models::Bundle>& transferBundle, const int64_t& balance, const int64_t& duration);
+  GetAccountData(const std::vector<Types::Trytes>&  addresses,
+                 const std::vector<Models::Bundle>& transferBundle, const int64_t& balance,
+                 const int64_t& duration);
 
   /**
    * default dtor
@@ -62,17 +63,17 @@ public:
   /**
    * @return The addresses.
    */
-  const std::vector<IOTA::Types::Trytes>& getAddresses() const;
+  const std::vector<Types::Trytes>& getAddresses() const;
 
   /**
    * @return The addresses (non-const version).
    */
-  std::vector<IOTA::Types::Trytes>& getAddresses();
+  std::vector<Types::Trytes>& getAddresses();
 
   /**
    * @param addresses new vector of addresses for GetAccountData response
    */
-  void setAddresses(const std::vector<IOTA::Types::Trytes>& addresses);
+  void setAddresses(const std::vector<Types::Trytes>& addresses);
 
 public:
   /**
@@ -102,9 +103,9 @@ public:
   void setBalance(const int64_t& balance);
 
 private:
-  std::vector<IOTA::Types::Trytes> addresses_;
-  std::vector<Models::Bundle>      transferBundle_;
-  int64_t                          balance_;
+  std::vector<Types::Trytes>  addresses_;
+  std::vector<Models::Bundle> transferBundle_;
+  int64_t                     balance_;
 };
 
 }  // namespace Responses

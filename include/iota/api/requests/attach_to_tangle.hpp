@@ -28,6 +28,7 @@
 #include <json.hpp>
 
 #include <iota/api/requests/base.hpp>
+#include <iota/types/trinary.hpp>
 
 using json = nlohmann::json;
 
@@ -53,10 +54,10 @@ public:
   /**
    * full init ctor
    */
-  explicit AttachToTangle(const std::string&              trunkTransaction   = "",
-                          const std::string&              branchTransaction  = "",
-                          const int&                      minWeightMagnitude = 0,
-                          const std::vector<std::string>& trytes             = {});
+  explicit AttachToTangle(const Types::Trytes&              trunkTransaction   = "",
+                          const Types::Trytes&              branchTransaction  = "",
+                          const int&                        minWeightMagnitude = 0,
+                          const std::vector<Types::Trytes>& trytes             = {});
 
   /**
    * default dtor
@@ -75,23 +76,23 @@ public:
   /**
    * @return trunk transaction
    */
-  const std::string& getTrunkTransaction() const;
+  const Types::Trytes& getTrunkTransaction() const;
 
   /**
    * @param trx new trunk transaction for api call
    */
-  void setTrunkTransaction(const std::string& trx);
+  void setTrunkTransaction(const Types::Trytes& trx);
 
 public:
   /**
    * @return branch transaction
    */
-  const std::string& getBranchTransaction() const;
+  const Types::Trytes& getBranchTransaction() const;
 
   /**
    * @param trx new branch transaction for api call
    */
-  void setBranchTransaction(const std::string& trx);
+  void setBranchTransaction(const Types::Trytes& trx);
 
 public:
   /**
@@ -108,27 +109,27 @@ public:
   /**
    * @return trytes
    */
-  const std::vector<std::string>& getTrytes() const;
+  const std::vector<Types::Trytes>& getTrytes() const;
 
   /**
    * @return trytes (non const version)
    */
-  std::vector<std::string>& getTrytes();
+  std::vector<Types::Trytes>& getTrytes();
 
   /**
    * @param trytes new trytes for api call
    */
-  void setTrytes(const std::vector<std::string>& trytes);
+  void setTrytes(const std::vector<Types::Trytes>& trytes);
 
 private:
   /*
    * Trunk transaction to approve.
    */
-  std::string trunkTransaction_;
+  Types::Trytes trunkTransaction_;
   /*
    * Branch transaction to approve.
    */
-  std::string branchTransaction_;
+  Types::Trytes branchTransaction_;
   /*
    * Proof of Work intensity. Minimum value is 18.
    */
@@ -136,7 +137,7 @@ private:
   /*
    * List of trytes (raw transaction data) to attach to the tangle.
    */
-  std::vector<std::string> trytes_;
+  std::vector<Types::Trytes> trytes_;
 };
 
 }  // namespace Requests

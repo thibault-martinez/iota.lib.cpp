@@ -84,19 +84,19 @@ Core::findTransactions(const std::vector<Types::Trytes>& addresses,
 }
 
 Responses::GetTrytes
-Core::getTrytes(const std::vector<std::string>& hashes) const {
+Core::getTrytes(const std::vector<Types::Trytes>& hashes) const {
   return service_.request<Requests::GetTrytes, Responses::GetTrytes>(hashes);
 }
 
 Responses::GetInclusionStates
-Core::getInclusionStates(const std::vector<std::string>& transactions,
-                         const std::vector<std::string>& tips) const {
+Core::getInclusionStates(const std::vector<Types::Trytes>& transactions,
+                         const std::vector<Types::Trytes>& tips) const {
   return service_.request<Requests::GetInclusionStates, Responses::GetInclusionStates>(transactions,
                                                                                        tips);
 }
 
 Responses::GetBalances
-Core::getBalances(const std::vector<std::string>& addresses, const int& threshold) const {
+Core::getBalances(const std::vector<Types::Trytes>& addresses, const int& threshold) const {
   return service_.request<Requests::GetBalances, Responses::GetBalances>(addresses, threshold);
 }
 
@@ -107,8 +107,9 @@ Core::getTransactionsToApprove(const int& depth) const {
 }
 
 Responses::AttachToTangle
-Core::attachToTangle(const std::string& trunkTransaction, const std::string& branchTransaction,
-                     const int& minWeightMagnitude, const std::vector<std::string>& trytes) const {
+Core::attachToTangle(const Types::Trytes& trunkTransaction, const Types::Trytes& branchTransaction,
+                     const int&                        minWeightMagnitude,
+                     const std::vector<Types::Trytes>& trytes) const {
   return service_.request<Requests::AttachToTangle, Responses::AttachToTangle>(
       trunkTransaction, branchTransaction, minWeightMagnitude, trytes);
 }

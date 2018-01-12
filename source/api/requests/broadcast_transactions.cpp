@@ -31,7 +31,7 @@ namespace API {
 
 namespace Requests {
 
-BroadcastTransactions::BroadcastTransactions(const std::vector<std::string>& trytes)
+BroadcastTransactions::BroadcastTransactions(const std::vector<Types::Trytes>& trytes)
     : Base("broadcastTransactions"), trytes_(trytes) {
 }
 
@@ -41,18 +41,18 @@ BroadcastTransactions::serialize(json& data) {
   data["trytes"] = trytes_;
 }
 
-const std::vector<std::string>&
+const std::vector<Types::Trytes>&
 BroadcastTransactions::getTrytes() const {
   return trytes_;
 }
 
-std::vector<std::string>&
+std::vector<Types::Trytes>&
 BroadcastTransactions::getTrytes() {
   return trytes_;
 }
 
 void
-BroadcastTransactions::setTrytes(const std::vector<std::string>& trytes) {
+BroadcastTransactions::setTrytes(const std::vector<Types::Trytes>& trytes) {
   trytes_ = trytes;
 }
 

@@ -43,15 +43,14 @@ public:
   /**
    * Full constructor
    */
-  Transfer(const std::string& timestamp, const IOTA::Types::Trytes& address,
-           const IOTA::Types::Trytes& hash, bool persistence, int64_t value,
-           const std::string& message, const std::string& tag);
+  Transfer(const std::string& timestamp, const Types::Trytes& address, const Types::Trytes& hash,
+           bool persistence, int64_t value, const std::string& message, const Types::Trytes& tag);
 
   /**
    * Short constructor
    */
-  Transfer(const IOTA::Types::Trytes& address, int64_t value, const std::string& message,
-           const std::string& tag);
+  Transfer(const Types::Trytes& address, int64_t value, const Types::Trytes& message,
+           const Types::Trytes& tag);
 
   /**
    * Destructor
@@ -64,28 +63,28 @@ public:
    *
    * @return The address.
    */
-  const IOTA::Types::Trytes& getAddress() const;
+  const Types::Trytes& getAddress() const;
 
   /**
    * Set the address.
    *
    * @param address The address.
    */
-  void setAddress(const IOTA::Types::Trytes& address);
+  void setAddress(const Types::Trytes& address);
 
   /**
    * Get the hash.
    *
    * @return The hash.
    */
-  const IOTA::Types::Trytes& getHash() const;
+  const Types::Trytes& getHash() const;
 
   /**
    * Set the hash.
    *
    * @param hash The hash.
    */
-  void setHash(const IOTA::Types::Trytes& hash);
+  void setHash(const Types::Trytes& hash);
 
   /**
    * Get the persistence.
@@ -134,28 +133,28 @@ public:
    *
    * @return The message.
    */
-  const std::string& getMessage() const;
+  const Types::Trytes& getMessage() const;
 
   /**
    * Set the message.
    *
    * @param message The message.
    */
-  void setMessage(const std::string& message);
+  void setMessage(const Types::Trytes& message);
 
   /**
    * Get the tag.
    *
    * @return The tag.
    */
-  const std::string& getTag() const;
+  const Types::Trytes& getTag() const;
 
   /**
    * Set the tag.
    *
    * @param tag The tag.
    */
-  void setTag(const std::string& tag);
+  void setTag(const Types::Trytes& tag);
 
   /**
    * @return <code>true</code> if the transfer is valid; otherwise, <code>false</code>>.
@@ -163,13 +162,13 @@ public:
   bool isValid() const;
 
 private:
-  std::string         timestamp_;
-  IOTA::Types::Trytes address_;
-  IOTA::Types::Trytes hash_;
-  bool                persistence_;
-  int64_t             value_;
-  std::string         message_;
-  std::string         tag_;
+  std::string   timestamp_;
+  Types::Trytes address_;
+  Types::Trytes hash_;
+  bool          persistence_;
+  int64_t       value_;
+  Types::Trytes message_;
+  Types::Trytes tag_;
 };
 
 }  // namespace Models

@@ -29,33 +29,33 @@ namespace IOTA {
 
 namespace Models {
 
-const IOTA::Types::Trytes&
+const Types::Trytes&
 Signature::getAddress() const {
   return address_;
 }
 
-Signature::Signature(const IOTA::Types::Trytes&              addr,
-                     const std::vector<IOTA::Types::Trytes>& signatureFragments)
+Signature::Signature(const Types::Trytes&              addr,
+                     const std::vector<Types::Trytes>& signatureFragments)
     : address_(addr), signatureFragments_(signatureFragments) {
 }
 
 void
-Signature::setAddress(const IOTA::Types::Trytes& address) {
+Signature::setAddress(const Types::Trytes& address) {
   address_ = address;
 }
 
-const std::vector<IOTA::Types::Trytes>&
+const std::vector<Types::Trytes>&
 Signature::getSignatureFragments() const {
   return signatureFragments_;
 }
 
-std::vector<IOTA::Types::Trytes>&
+std::vector<Types::Trytes>&
 Signature::getSignatureFragments() {
   return signatureFragments_;
 }
 
 void
-Signature::setSignatureFragments(const std::vector<IOTA::Types::Trytes>& signatureFragments) {
+Signature::setSignatureFragments(const std::vector<Types::Trytes>& signatureFragments) {
   signatureFragments_ = signatureFragments;
 }
 

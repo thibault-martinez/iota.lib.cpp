@@ -31,7 +31,7 @@ namespace API {
 
 namespace Responses {
 
-GetBalances::GetBalances(const std::vector<std::string>& balances, const std::string& milestone,
+GetBalances::GetBalances(const std::vector<std::string>& balances, const Types::Trytes& milestone,
                          const int64_t& milestoneIndex)
     : balances_(balances), milestone_(milestone), milestoneIndex_(milestoneIndex) {
 }
@@ -40,7 +40,7 @@ void
 GetBalances::deserialize(const json& res) {
   Base::deserialize(res);
   balances_       = res.at("balances").get<std::vector<std::string>>();
-  milestone_      = res.at("milestone").get<std::string>();
+  milestone_      = res.at("milestone").get<Types::Trytes>();
   milestoneIndex_ = res.at("milestoneIndex").get<int64_t>();
 }
 
@@ -59,13 +59,13 @@ GetBalances::setBalances(const std::vector<std::string>& balances) {
   balances_ = balances;
 }
 
-const std::string&
+const Types::Trytes&
 GetBalances::getMilestone() const {
   return milestone_;
 }
 
 void
-GetBalances::setMilestone(const std::string& milestone) {
+GetBalances::setMilestone(const Types::Trytes& milestone) {
   milestone_ = milestone;
 }
 

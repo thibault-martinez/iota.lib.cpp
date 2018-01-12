@@ -51,8 +51,8 @@ public:
   /**
    * full init ctor
    */
-  explicit GetInclusionStates(const std::vector<std::string>& transactions = {},
-                              const std::vector<std::string>& tips         = {});
+  explicit GetInclusionStates(const std::vector<Types::Trytes>& transactions = {},
+                              const std::vector<Types::Trytes>& tips         = {});
 
   /**
    * default dtor
@@ -103,11 +103,11 @@ private:
   /*
    * List of transactions you want to get the inclusion state for.
    */
-  std::vector<std::string> transactions_;
+  std::vector<Types::Trytes> transactions_;
   /*
    * List of tips (including milestones) you want to search for the inclusion state.
    */
-  std::vector<std::string> tips_;
+  std::vector<Types::Trytes> tips_;
 };
 
 }  // namespace Requests

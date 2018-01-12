@@ -28,6 +28,7 @@
 #include <json.hpp>
 
 #include <iota/api/requests/base.hpp>
+#include <iota/types/trinary.hpp>
 
 using json = nlohmann::json;
 
@@ -48,7 +49,7 @@ public:
   /**
    * full init ctor
    */
-  explicit StoreTransactions(const std::vector<std::string>& trytes = {});
+  explicit StoreTransactions(const std::vector<Types::Trytes>& trytes = {});
 
   /**
    * default dtor
@@ -67,23 +68,23 @@ public:
   /**
    * @return trytes
    */
-  const std::vector<std::string>& getTrytes() const;
+  const std::vector<Types::Trytes>& getTrytes() const;
 
   /**
    * @return trytes (non const version)
    */
-  std::vector<std::string>& getTrytes();
+  std::vector<Types::Trytes>& getTrytes();
 
   /**
    * @param trytes new trytes for api call
    */
-  void setTrytes(const std::vector<std::string>& trytes);
+  void setTrytes(const std::vector<Types::Trytes>& trytes);
 
 private:
   /*
    * List of raw data of transactions to be rebroadcast.
    */
-  std::vector<std::string> trytes_;
+  std::vector<Types::Trytes> trytes_;
 };
 
 }  // namespace Requests

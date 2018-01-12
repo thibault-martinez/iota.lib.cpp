@@ -26,6 +26,7 @@
 #pragma once
 
 #include <iostream>
+#include <iota/types/trinary.hpp>
 
 namespace IOTA {
 
@@ -37,7 +38,7 @@ public:
   virtual ~RandomSeedGenerator();
 
 public:
-  std::string operator()();
+  Types::Trytes operator()();
 };
 
 }  // namespace Utils

@@ -44,8 +44,7 @@ public:
   /**
    * full init ctor
    */
-  Signature(const IOTA::Types::Trytes&              addr,
-            const std::vector<IOTA::Types::Trytes>& signatureFragments);
+  Signature(const Types::Trytes& addr, const std::vector<Types::Trytes>& signatureFragments);
 
   /**
    * default dtor
@@ -56,32 +55,32 @@ public:
   /**
    * @return The address.
    */
-  const IOTA::Types::Trytes& getAddress() const;
+  const Types::Trytes& getAddress() const;
 
   /**
    * @param address The address.
    */
-  void setAddress(const IOTA::Types::Trytes& address);
+  void setAddress(const Types::Trytes& address);
 
 public:
   /**
    * @return The signatureFragments.
    */
-  const std::vector<IOTA::Types::Trytes>& getSignatureFragments() const;
+  const std::vector<Types::Trytes>& getSignatureFragments() const;
 
   /**
    * @return The signatureFragments.
    */
-  std::vector<IOTA::Types::Trytes>& getSignatureFragments();
+  std::vector<Types::Trytes>& getSignatureFragments();
 
   /**
    * @param signatureFragments The signatureFragments.
    */
-  void setSignatureFragments(const std::vector<IOTA::Types::Trytes>& signatureFragments);
+  void setSignatureFragments(const std::vector<Types::Trytes>& signatureFragments);
 
 private:
-  IOTA::Types::Trytes              address_;
-  std::vector<IOTA::Types::Trytes> signatureFragments_;
+  Types::Trytes              address_;
+  std::vector<Types::Trytes> signatureFragments_;
 };
 
 }  // namespace Models

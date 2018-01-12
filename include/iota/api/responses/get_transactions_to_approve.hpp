@@ -28,6 +28,7 @@
 #include <json.hpp>
 
 #include <iota/api/responses/base.hpp>
+#include <iota/types/trinary.hpp>
 
 using json = nlohmann::json;
 
@@ -50,8 +51,8 @@ public:
   /**
    * full init ctor
    */
-  GetTransactionsToApprove(const std::string& trunkTransaction  = "",
-                           const std::string& branchTransaction = "");
+  GetTransactionsToApprove(const Types::Trytes& trunkTransaction  = "",
+                           const Types::Trytes& branchTransaction = "");
 
   /**
    * default dtor
@@ -70,27 +71,27 @@ public:
   /**
    * @return trunk transaction
    */
-  const std::string& getTrunkTransaction() const;
+  const Types::Trytes& getTrunkTransaction() const;
 
   /**
    * @param trx new trunk transaction for api call
    */
-  void setTrunkTransaction(const std::string& trx);
+  void setTrunkTransaction(const Types::Trytes& trx);
 
 public:
   /**
    * @return branch transaction
    */
-  const std::string& getBranchTransaction() const;
+  const Types::Trytes& getBranchTransaction() const;
 
   /**
    * @param trx new branch transaction for api call
    */
-  void setBranchTransaction(const std::string& trx);
+  void setBranchTransaction(const Types::Trytes& trx);
 
 private:
-  std::string trunkTransaction_;
-  std::string branchTransaction_;
+  Types::Trytes trunkTransaction_;
+  Types::Trytes branchTransaction_;
 };
 
 }  // namespace Responses

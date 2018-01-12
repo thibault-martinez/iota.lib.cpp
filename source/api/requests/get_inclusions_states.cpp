@@ -31,8 +31,8 @@ namespace API {
 
 namespace Requests {
 
-GetInclusionStates::GetInclusionStates(const std::vector<std::string>& transactions,
-                                       const std::vector<std::string>& tips)
+GetInclusionStates::GetInclusionStates(const std::vector<Types::Trytes>& transactions,
+                                       const std::vector<Types::Trytes>& tips)
     : Base("getInclusionStates"), transactions_(transactions), tips_(tips) {
 }
 

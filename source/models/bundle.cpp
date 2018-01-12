@@ -60,8 +60,8 @@ Bundle::empty() const {
 }
 
 void
-Bundle::addTransaction(int32_t signatureMessageLength, const std::string& address, int64_t value,
-                       const std::string& tag, int64_t timestamp) {
+Bundle::addTransaction(int32_t signatureMessageLength, const Types::Trytes& address, int64_t value,
+                       const Types::Trytes& tag, int64_t timestamp) {
   for (int i = 0; i < signatureMessageLength; i++) {
     transactions_.push_back({ address, i == 0 ? value : 0, tag, timestamp });
   }
@@ -73,9 +73,9 @@ Bundle::addTransaction(const Transaction& transaction) {
 }
 
 void
-Bundle::finalize(const std::shared_ptr<IOTA::Crypto::ISponge>& customSponge) {
-  std::shared_ptr<IOTA::Crypto::ISponge> sponge =
-      customSponge ? customSponge : IOTA::Crypto::create(IOTA::Crypto::SpongeType::KERL);
+Bundle::finalize(const std::shared_ptr<Crypto::ISponge>& customSponge) {
+  std::shared_ptr<Crypto::ISponge> sponge =
+      customSponge ? customSponge : Crypto::create(Crypto::SpongeType::KERL);
 
   //! ensure sponge is reset
   sponge->reset();
@@ -86,16 +86,16 @@ Bundle::finalize(const std::shared_ptr<IOTA::Crypto::ISponge>& customSponge) {
     trx.setCurrentIndex(i);
     trx.setLastIndex(transactions_.size() - 1);
 
-    auto value = IOTA::Types::tritsToTrytes(IOTA::Types::intToTrits(trx.getValue(), SeedLength));
-    auto timestamp = IOTA::Types::tritsToTrytes(
-        IOTA::Types::intToTrits(trx.getTimestamp(), TryteAlphabetLength));
-    auto currentIndex = IOTA::Types::tritsToTrytes(
-        IOTA::Types::intToTrits(trx.getCurrentIndex(), TryteAlphabetLength));
-    auto lastIndexTrits = IOTA::Types::tritsToTrytes(
-        IOTA::Types::intToTrits(trx.getLastIndex(), TryteAlphabetLength));
+    auto value = Types::tritsToTrytes(Types::intToTrits(trx.getValue(), SeedLength));
+    auto timestamp =
+        Types::tritsToTrytes(Types::intToTrits(trx.getTimestamp(), TryteAlphabetLength));
+    auto currentIndex =
+        Types::tritsToTrytes(Types::intToTrits(trx.getCurrentIndex(), TryteAlphabetLength));
+    auto lastIndexTrits =
+        Types::tritsToTrytes(Types::intToTrits(trx.getLastIndex(), TryteAlphabetLength));
 
-    auto t = IOTA::Types::trytesToTrits(trx.getAddress() + value + trx.getTag() + timestamp +
-                                        currentIndex + lastIndexTrits);
+    auto t = Types::trytesToTrits(trx.getAddress() + value + trx.getTag() + timestamp +
+                                  currentIndex + lastIndexTrits);
 
     sponge->absorb(t);
   }
@@ -103,15 +103,15 @@ Bundle::finalize(const std::shared_ptr<IOTA::Crypto::ISponge>& customSponge) {
   IOTA::Types::Trits hash(TritHashLength);
   sponge->squeeze(hash);
 
-  std::string hashInTrytes = IOTA::Types::tritsToTrytes(hash);
+  Types::Trytes hashInTrytes = Types::tritsToTrytes(hash);
   for (std::size_t i = 0; i < transactions_.size(); i++) {
     transactions_[i].setBundle(hashInTrytes);
   }
 }
 
 void
-Bundle::addTrytes(const std::vector<std::string>& signatureFragments) {
-  std::string emptySignatureFragment = IOTA::Types::Utils::rightPad("", 2187, '9');
+Bundle::addTrytes(const std::vector<Types::Trytes>& signatureFragments) {
+  Types::Trytes emptySignatureFragment = Types::Utils::rightPad("", 2187, '9');
 
   for (unsigned int i = 0; i < transactions_.size(); i++) {
     auto& transaction = transactions_[i];
@@ -133,15 +133,14 @@ Bundle::addTrytes(const std::vector<std::string>& signatureFragments) {
 }
 
 std::vector<int8_t>
-Bundle::normalizedBundle(const std::string& bundleHash) {
+Bundle::normalizedBundle(const Types::Trytes& bundleHash) {
   std::vector<int8_t> normalizedBundle(SeedLength, 0);
 
   for (int i = 0; i < 3; i++) {
     long sum = 0;
     for (unsigned int j = 0; j < TryteAlphabetLength; j++) {
-      sum += (normalizedBundle[i * TryteAlphabetLength + j] =
-                  IOTA::Types::tritsToInt<int32_t>(IOTA::Types::trytesToTrits(
-                      std::string(1, bundleHash[i * TryteAlphabetLength + j]))));
+      sum += (normalizedBundle[i * TryteAlphabetLength + j] = Types::tritsToInt<int32_t>(
+                  Types::trytesToTrits(Types::Trytes(1, bundleHash[i * TryteAlphabetLength + j]))));
     }
 
     if (sum >= 0) {

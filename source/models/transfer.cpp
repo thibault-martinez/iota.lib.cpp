@@ -34,9 +34,9 @@ namespace Models {
 Transfer::Transfer() : persistence_(false), value_(0) {
 }
 
-Transfer::Transfer(const std::string& timestamp, const IOTA::Types::Trytes& address,
-                   const IOTA::Types::Trytes& hash, bool persistence, int64_t value,
-                   const std::string& message, const std::string& tag)
+Transfer::Transfer(const std::string& timestamp, const Types::Trytes& address,
+                   const Types::Trytes& hash, bool persistence, int64_t value,
+                   const Types::Trytes& message, const Types::Trytes& tag)
     : timestamp_(timestamp),
       address_(address),
       hash_(hash),
@@ -46,28 +46,28 @@ Transfer::Transfer(const std::string& timestamp, const IOTA::Types::Trytes& addr
       tag_(tag) {
 }
 
-Transfer::Transfer(const IOTA::Types::Trytes& address, int64_t value, const std::string& message,
-                   const std::string& tag)
+Transfer::Transfer(const Types::Trytes& address, int64_t value, const Types::Trytes& message,
+                   const Types::Trytes& tag)
     : address_(address), persistence_(false), value_(value), message_(message), tag_(tag) {
 }
 
-const IOTA::Types::Trytes&
+const Types::Trytes&
 Transfer::getAddress() const {
   return address_;
 }
 
 void
-Transfer::setAddress(const IOTA::Types::Trytes& address) {
+Transfer::setAddress(const Types::Trytes& address) {
   address_ = address;
 }
 
-const IOTA::Types::Trytes&
+const Types::Trytes&
 Transfer::getHash() const {
   return hash_;
 }
 
 void
-Transfer::setHash(const IOTA::Types::Trytes& hash) {
+Transfer::setHash(const Types::Trytes& hash) {
   hash_ = hash;
 }
 
@@ -101,39 +101,39 @@ Transfer::setValue(int64_t value) {
   value_ = value;
 }
 
-const std::string&
+const Types::Trytes&
 Transfer::getMessage() const {
   return message_;
 }
 
 void
-Transfer::setMessage(const std::string& message) {
+Transfer::setMessage(const Types::Trytes& message) {
   message_ = message;
 }
 
-const std::string&
+const Types::Trytes&
 Transfer::getTag() const {
   return tag_;
 }
 
 void
-Transfer::setTag(const std::string& tag) {
+Transfer::setTag(const Types::Trytes& tag) {
   tag_ = tag;
 }
 
 bool
 Transfer::isValid() const {
-  if (!IOTA::Types::isValidAddress(getAddress())) {
+  if (!Types::isValidAddress(getAddress())) {
     return false;
   }
 
   // Check if message is correct trytes of any length
-  if (!IOTA::Types::isValidTrytes(getMessage())) {
+  if (!Types::isValidTrytes(getMessage())) {
     return false;
   }
 
   // Check if tag is correct trytes of {0,27} trytes
-  return IOTA::Types::isValidTrytes(getTag()) && getTag().length() == TagLength;
+  return Types::isValidTrytes(getTag()) && getTag().length() == TagLength;
 }
 
 }  // namespace Models

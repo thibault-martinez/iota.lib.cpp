@@ -41,7 +41,7 @@ public:
   /**
    * full init ctor
    */
-  Input(const IOTA::Types::Trytes& address, const int64_t& balance, const int32_t& keyIndex,
+  Input(const Types::Trytes& address, const int64_t& balance, const int32_t& keyIndex,
         const int32_t& security);
 
   /**
@@ -53,12 +53,12 @@ public:
   /**
    * @return Address of your peer.
    */
-  const IOTA::Types::Trytes& getAddress() const;
+  const Types::Trytes& getAddress() const;
 
   /**
    * @param addr set address of your peer
    */
-  void setAddress(const IOTA::Types::Trytes& addr);
+  void setAddress(const Types::Trytes& addr);
 
 public:
   /**
@@ -94,10 +94,10 @@ public:
   void setSecurity(const int32_t& security);
 
 private:
-  IOTA::Types::Trytes address_;
-  int64_t             balance_;
-  int32_t             keyIndex_;
-  int32_t             security_;
+  Types::Trytes address_;
+  int64_t       balance_;
+  int32_t       keyIndex_;
+  int32_t       security_;
 };
 
 }  // namespace Models

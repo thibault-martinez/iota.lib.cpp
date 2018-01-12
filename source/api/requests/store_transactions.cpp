@@ -31,7 +31,7 @@ namespace API {
 
 namespace Requests {
 
-StoreTransactions::StoreTransactions(const std::vector<std::string>& trytes)
+StoreTransactions::StoreTransactions(const std::vector<Types::Trytes>& trytes)
     : Base("storeTransactions"), trytes_(trytes) {
 }
 
@@ -41,18 +41,18 @@ StoreTransactions::serialize(json& data) {
   data["trytes"] = trytes_;
 }
 
-const std::vector<std::string>&
+const std::vector<Types::Trytes>&
 StoreTransactions::getTrytes() const {
   return trytes_;
 }
 
-std::vector<std::string>&
+std::vector<Types::Trytes>&
 StoreTransactions::getTrytes() {
   return trytes_;
 }
 
 void
-StoreTransactions::setTrytes(const std::vector<std::string>& trytes) {
+StoreTransactions::setTrytes(const std::vector<Types::Trytes>& trytes) {
   trytes_ = trytes;
 }
 

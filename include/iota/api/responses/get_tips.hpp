@@ -28,6 +28,7 @@
 #include <json.hpp>
 
 #include <iota/api/responses/base.hpp>
+#include <iota/types/trinary.hpp>
 
 using json = nlohmann::json;
 
@@ -47,7 +48,7 @@ public:
   /**
    * full init ctor
    */
-  explicit GetTips(const std::vector<std::string>& hashes = {});
+  explicit GetTips(const std::vector<Types::Trytes>& hashes = {});
 
   /**
    * default dtor
@@ -66,20 +67,20 @@ public:
   /**
    * @return hashes
    */
-  const std::vector<std::string>& getHashes() const;
+  const std::vector<Types::Trytes>& getHashes() const;
 
   /**
    * @return hashes (non const version)
    */
-  std::vector<std::string>& getHashes();
+  std::vector<Types::Trytes>& getHashes();
 
   /**
    * @param hashes new hashes for api call
    */
-  void setHashes(const std::vector<std::string>& hashes);
+  void setHashes(const std::vector<Types::Trytes>& hashes);
 
 private:
-  std::vector<std::string> hashes_;
+  std::vector<Types::Trytes> hashes_;
 };
 
 }  // namespace Responses

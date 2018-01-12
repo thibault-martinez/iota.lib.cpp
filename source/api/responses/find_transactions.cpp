@@ -31,28 +31,27 @@ namespace API {
 
 namespace Responses {
 
-FindTransactions::FindTransactions(const std::vector<IOTA::Types::Trytes>& hashes)
-    : hashes_(hashes) {
+FindTransactions::FindTransactions(const std::vector<Types::Trytes>& hashes) : hashes_(hashes) {
 }
 
 void
 FindTransactions::deserialize(const json& res) {
   Base::deserialize(res);
-  hashes_ = res.at("hashes").get<std::vector<std::string>>();
+  hashes_ = res.at("hashes").get<std::vector<Types::Trytes>>();
 }
 
-const std::vector<std::string>&
+const std::vector<Types::Trytes>&
 FindTransactions::getHashes() const {
   return hashes_;
 }
 
-std::vector<std::string>&
+std::vector<Types::Trytes>&
 FindTransactions::getHashes() {
   return hashes_;
 }
 
 void
-FindTransactions::setHashes(const std::vector<std::string>& hashes) {
+FindTransactions::setHashes(const std::vector<Types::Trytes>& hashes) {
   hashes_ = hashes;
 }
 

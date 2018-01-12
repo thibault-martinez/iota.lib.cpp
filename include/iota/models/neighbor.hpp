@@ -41,7 +41,7 @@ public:
   /**
    * full init ctor
    */
-  Neighbor(const IOTA::Types::Trytes& address, const int64_t& numberOfAllTransactions,
+  Neighbor(const Types::Trytes& address, const int64_t& numberOfAllTransactions,
            const int64_t& numberOfInvalidTransactions, const int64_t& numberOfNewTransactions);
 
   /**
@@ -53,12 +53,12 @@ public:
   /**
    * @return Address of your peer.
    */
-  const IOTA::Types::Trytes& getAddress() const;
+  const Types::Trytes& getAddress() const;
 
   /**
    * @param addr set address of your peer
    */
-  void setAddress(const IOTA::Types::Trytes& addr);
+  void setAddress(const Types::Trytes& addr);
 
 public:
   /**
@@ -95,10 +95,10 @@ public:
   void setNumberOfNewTransactions(const int64_t& nbTrx);
 
 private:
-  IOTA::Types::Trytes address_;
-  int64_t             numberOfAllTransactions_;
-  int64_t             numberOfInvalidTransactions_;
-  int64_t             numberOfNewTransactions_;
+  Types::Trytes address_;
+  int64_t       numberOfAllTransactions_;
+  int64_t       numberOfInvalidTransactions_;
+  int64_t       numberOfNewTransactions_;
 };
 
 }  // namespace Models
