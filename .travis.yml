@@ -32,19 +32,19 @@ cache:
 
 matrix:
   include:
-    # OSX x GCC4.9
+    # OSX x GCC4.9 x Release
     - os: osx
       osx_image: xcode8
       env:
-        - MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9"
+        - MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9 && CMAKE_BUILD_TYPE=Release"
 
-    # OSX x CLang (xcode 8)
+    # OSX x CLang (xcode 8) x Release
     - os: osx
       osx_image: xcode8
       env:
-        - MATRIX_EVAL="CC=clang && CXX=clang++"
+        - MATRIX_EVAL="CC=clang && CXX=clang++ && CMAKE_BUILD_TYPE=Release"
 
-    # Linux x GCC4.9
+    # Linux x GCC4.9 x Debug (for coverage)
     - os: linux
       addons:
         apt:
@@ -53,9 +53,20 @@ matrix:
           packages:
             - g++-4.9
       env:
-         - MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9"
+         - MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9 && CMAKE_BUILD_TYPE=Debug && COVERAGE=1"
 
-    # Linux x CLang 3.6
+    # Linux x GCC4.9 x Release
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-4.9
+      env:
+         - MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9 && CMAKE_BUILD_TYPE=Release"
+
+    # Linux x CLang 3.6 x Release
     - os: linux
       addons:
         apt:
@@ -65,7 +76,7 @@ matrix:
           packages:
             - clang-3.6
       env:
-        - MATRIX_EVAL="CC=clang-3.6 && CXX=clang++-3.6"
+        - MATRIX_EVAL="CC=clang-3.6 && CXX=clang++-3.6 && CMAKE_BUILD_TYPE=Release"
 
 before_install:
   # brew update on osx
@@ -87,10 +98,10 @@ before_script:
 script:
   - mkdir -p build
   - cd build
-  - cmake -DCMAKE_BUILD_TYPE=Debug -DTRAVIS_KEEP_ALIVE=1 ..
+  - cmake -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -DBUILD_TESTS=1 -DTRAVIS_KEEP_ALIVE=1 ..
   - make -j4
-  - ./bin/runUnitTests ../test/files $1
+  - ./bin/runUnitTests ../test/files
 
 after_success:
   # test coverage
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then cd ${TRAVIS_BUILD_DIR}; ./coverage.sh; fi
+  - if [[ "$COVERAGE" == "1" ]]; then cd ${TRAVIS_BUILD_DIR}; ./coverage.sh; fi

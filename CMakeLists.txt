@@ -92,9 +92,12 @@ include(boost_settings)
 
 ########## TEST SETTINGS ##########
 
-if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+if (CMAKE_BUILD_TYPE STREQUAL "Debug")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O0")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --coverage")
+ENDIF()
+
+if (BUILD_TESTS)
   include(gtest_settings)
   add_subdirectory(test)
 ENDIF()
