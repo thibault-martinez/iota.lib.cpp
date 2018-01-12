@@ -39,6 +39,7 @@ const unsigned int SeedLengthWithChecksum    = 90;
 const unsigned int AddressLength             = 81;
 const unsigned int AddressLengthWithChecksum = 90;
 const unsigned int HashLength                = 81;
+const unsigned int NonceLength               = 81;
 const unsigned int ByteHashLength            = 48;
 const unsigned int TritHashLength            = 243;
 const unsigned int MaxTrxMsgLength           = 2187;
