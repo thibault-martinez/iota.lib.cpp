@@ -177,7 +177,7 @@ Pow::transform64(uint64_t* lmid, uint64_t* hmid) const {
 bool
 Pow::incr(uint64_t* lmid, uint64_t* hmid) const {
   uint64_t carry = 1;
-  uint     i;
+  uint32_t i;
 
   for (i = nonceInitStart; i < TritHashLength && carry != 0; ++i) {
     uint64_t low  = lmid[i];
@@ -190,10 +190,10 @@ Pow::incr(uint64_t* lmid, uint64_t* hmid) const {
 }
 
 void
-Pow::incrN(uint n, uint64_t* lmid, uint64_t* hmid) const {
-  for (uint j = 0; j < n; ++j) {
+Pow::incrN(uint32_t n, uint64_t* lmid, uint64_t* hmid) const {
+  for (uint32_t j = 0; j < n; ++j) {
     uint64_t carry = 1;
-    for (uint i = nonceInitStart; i < nonceIncrementStart && carry != 0; ++i) {
+    for (uint32_t i = nonceInitStart; i < nonceIncrementStart && carry != 0; ++i) {
       uint64_t low  = lmid[i];
       uint64_t high = hmid[i];
       lmid[i]       = high ^ low;
@@ -207,7 +207,7 @@ Types::Trits
 Pow::seri(const uint64_t* l, const uint64_t* h, uint64_t n) const {
   Types::Trits r(NonceLength);
 
-  for (uint i = nonceOffset; i < TritHashLength; ++i) {
+  for (uint32_t i = nonceOffset; i < TritHashLength; ++i) {
     uint64_t ll = (l[i] >> n) & 1;
     uint64_t hh = (h[i] >> n) & 1;
     if (hh == 0 && ll == 1) {
@@ -227,7 +227,7 @@ int64_t
 Pow::check(const uint64_t* l, const uint64_t* h, int m) const {
   uint64_t nonceProbe = hBits;
 
-  for (uint i = TritHashLength - m; i < TritHashLength; ++i) {
+  for (uint32_t i = TritHashLength - m; i < TritHashLength; ++i) {
     nonceProbe &= ~(l[i] ^ h[i]);
     if (nonceProbe == 0) {
       return -1;

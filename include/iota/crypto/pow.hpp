@@ -64,7 +64,7 @@ public:
 private:
   void         transform64(uint64_t* lmid, uint64_t* hmid) const;
   bool         incr(uint64_t* lmid, uint64_t* hmid) const;
-  void         incrN(uint n, uint64_t* lmid, uint64_t* hmid) const;
+  void         incrN(uint32_t n, uint64_t* lmid, uint64_t* hmid) const;
   Types::Trits seri(const uint64_t* l, const uint64_t* h, uint64_t n) const;
   int64_t      check(const uint64_t* l, const uint64_t* h, int m) const;
   Types::Trits loop(uint64_t* lmid, uint64_t* hmid, int m) const;
