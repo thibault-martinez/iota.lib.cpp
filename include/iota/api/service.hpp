@@ -45,7 +45,7 @@ namespace API {
 
 class Service {
 private:
-  static const int timeout = 10;
+  static const int timeout = 60;
 
 public:
   Service(const std::string& host, const uint16_t& port);
