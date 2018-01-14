@@ -175,10 +175,6 @@ Extended::getNewAddresses(const Types::Trytes& seed, const uint32_t& index, cons
   // of addresses.
   else {
     for (int32_t i = index; true; i++) {
-#ifdef TRAVIS_KEEP_ALIVE
-      std::cout << "TRAVIS_KEEP_ALIVE: getNewAddresses[" << i << "]" << std::endl;
-#endif /* TRAVIS_KEEP_ALIVE */
-
       const auto addr = newAddress(seed, i, security, checksum);
       const auto res  = findTransactionsByAddresses({ addr });
 
@@ -337,16 +333,6 @@ Extended::bundlesFromAddresses(const std::vector<Types::Trytes>& addresses,
   std::mutex                  bundlesMtx;
 
   Utils::parallel_for(0, tailTransactions.size(), [&](int i) {
-#ifdef TRAVIS_KEEP_ALIVE
-    //! This part can be very slow, especially if network bandwidth is limited
-    //! When running tests on Travis, Travis stops and report failure if the program does not output
-    //! anything for too long
-    //! So if TRAVIS_KEEP_ALIVE is defined, then we add some intermediate output while running the
-    //! tests to make sure Travis does not termine the tests while it is actually running
-    std::cout << "TRAVIS_KEEP_ALIVE: bundlesFromAddresses[" << tailTransactions[i] << "]"
-              << std::endl;
-#endif /* TRAVIS_KEEP_ALIVE */
-
     try {
       const auto& transaction    = tailTransactions[i];
       const auto  bundleResponse = getBundle(transaction);

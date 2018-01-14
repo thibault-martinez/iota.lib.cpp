@@ -38,10 +38,25 @@ void
 GetNeighbors::deserialize(const json& res) {
   Base::deserialize(res);
   for (const auto& neighbor : res["neighbors"]) {
-    neighbors_.emplace_back(neighbor.at("address").get<Types::Trytes>(),
-                            neighbor.at("numberOfAllTransactions").get<int64_t>(),
-                            neighbor.at("numberOfInvalidTransactions").get<int64_t>(),
-                            neighbor.at("numberOfNewTransactions").get<int64_t>());
+    Models::Neighbor obj;
+
+    if (neighbor.count("address")) {
+      obj.setAddress(neighbor.at("address").get<Types::Trytes>());
+    }
+
+    if (neighbor.count("numberOfAllTransactions")) {
+      obj.setNumberOfAllTransactions(neighbor.at("numberOfAllTransactions").get<int64_t>());
+    }
+
+    if (neighbor.count("numberOfInvalidTransactions")) {
+      obj.setNumberOfInvalidTransactions(neighbor.at("numberOfInvalidTransactions").get<int64_t>());
+    }
+
+    if (neighbor.count("numberOfNewTransactions")) {
+      obj.setNumberOfNewTransactions(neighbor.at("numberOfNewTransactions").get<int64_t>());
+    }
+
+    neighbors_.push_back(std::move(obj));
   }
 }
 

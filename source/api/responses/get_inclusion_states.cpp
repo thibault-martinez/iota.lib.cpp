@@ -37,7 +37,10 @@ GetInclusionStates::GetInclusionStates(const std::vector<bool>& states) : states
 void
 GetInclusionStates::deserialize(const json& res) {
   Base::deserialize(res);
-  states_ = res.at("states").get<std::vector<bool>>();
+
+  if (res.count("states")) {
+    states_ = res.at("states").get<std::vector<bool>>();
+  }
 }
 
 const std::vector<bool>&

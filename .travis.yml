@@ -83,22 +83,44 @@ before_install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update; fi
 
 install:
-  # ccache on osx
+  ####
+  # OSX
+  ####
+  # ccache
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install ccache; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then export PATH="/usr/local/opt/ccache/libexec:$PATH"; fi
+  # java
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew cask install java; fi
 
-  #  lcov & coveralls on linux
+  ####
+  # Linux
+  ####
+  # lcov & coveralls
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install lcov; fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then pip install --user cpp-coveralls; fi
+  # java
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install default-jre; fi
+  # maven
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install maven; fi
 
 before_script:
   # setup environment
   - eval "${MATRIX_EVAL}"
+  # set IRI
+  - git clone https://github.com/iotaledger/iri.git
+  - cd iri
+  - cp ../test/testnet/Snapshot.txt src/main/resources
+  - cp ../test/testnet/Snapshot.java src/main/java/com/iota/iri/Snapshot.java
+  - mvn clean compile
+  - mvn package
+  - cp -r ../test/testnet/testnetdb .
+  - java -jar target/iri-1.4.1.6.jar --testnet -p 14265 &
+  - cd ..
 
 script:
   - mkdir -p build
   - cd build
-  - cmake -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -DBUILD_TESTS=1 -DTRAVIS_KEEP_ALIVE=1 ..
+  - cmake -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -DBUILD_TESTS=1 ..
   - make -j4
   - ./bin/runUnitTests ../test/files
 

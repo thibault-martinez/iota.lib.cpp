@@ -79,6 +79,11 @@ Core::findTransactions(const std::vector<Types::Trytes>& addresses,
                        const std::vector<Types::Trytes>& tags,
                        const std::vector<Types::Trytes>& approvees,
                        const std::vector<Types::Trytes>& bundles) const {
+  //! skip request if no input, simply return empty
+  if (addresses.empty() && tags.empty() && approvees.empty() && bundles.empty()) {
+    return Responses::FindTransactions();
+  }
+
   return service_.request<Requests::FindTransactions, Responses::FindTransactions>(
       addresses, tags, approvees, bundles);
 }

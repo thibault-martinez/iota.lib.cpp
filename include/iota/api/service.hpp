@@ -66,22 +66,41 @@ public:
                                 { "X-IOTA-API-Version", APIVersion } };
     auto res     = cpr::Post(url, body, headers, cpr::Timeout{ timeout * 1000 });
 
-    if (res.elapsed >= timeout) {
-      throw Errors::Timeout("IRI timed out after " + std::to_string(timeout) + "s");
+    json        resJson;
+    std::string error;
+    try {
+      resJson = json::parse(res.text);
+
+      if (resJson.count("error")) {
+        error = resJson["error"].get<std::string>();
+      }
+    } catch (const std::runtime_error&) {
+      if (res.elapsed >= timeout) {
+        throw Errors::Timeout("IRI timed out after " + std::to_string(timeout) + "s");
+      }
+
+      throw Errors::Unrecognized("invalid reply from node (unrecognized format): " + res.text);
     }
 
     Response response;
     // TODO set duration ?
-    if (res.status_code == 200)
-      response.deserialize(json::parse(res.text));
-    else if (res.status_code == 400)
-      throw Errors::BadRequest(json::parse(res.text)["error"].get<std::string>());
-    else if (res.status_code == 401)
-      throw Errors::Unauthorized(json::parse(res.text)["error"].get<std::string>());
-    else if (res.status_code == 500)
-      throw Errors::InternalServerError(json::parse(res.text)["error"].get<std::string>());
-    else
-      throw Errors::Unrecognized(json::parse(res.text)["error"].get<std::string>());
+    switch (res.status_code) {
+      case 200:
+        response.deserialize(resJson);
+        break;
+      case 400:
+        throw Errors::BadRequest(error);
+      case 401:
+        throw Errors::Unauthorized(error);
+      case 500:
+        throw Errors::InternalServerError(error);
+      default:
+        if (res.elapsed >= timeout) {
+          throw Errors::Timeout("IRI timed out after " + std::to_string(timeout) + "s");
+        }
+
+        throw Errors::Unrecognized(error);
+    }
 
     return response;
   }

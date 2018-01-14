@@ -36,7 +36,9 @@ Base::Base(const int64_t& duration) : duration_(duration) {
 
 void
 Base::deserialize(const json& res) {
-  duration_ = res.at("duration").get<long>();
+  if (res.count("duration")) {
+    duration_ = res.at("duration").get<long>();
+  }
 }
 
 const int64_t&
