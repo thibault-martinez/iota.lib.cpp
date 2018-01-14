@@ -91,8 +91,6 @@ install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then export PATH="/usr/local/opt/ccache/libexec:$PATH"; fi
   # java
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew cask install java; fi
-  # maven
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install maven; fi
 
   ####
   # Linux
