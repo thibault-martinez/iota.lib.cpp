@@ -442,7 +442,7 @@ TEST(Extended, GetAccountData) {
       IOTA::Models::Bundle({ IOTA::Models::Transaction(ACCOUNT_1_BUNDLE_8_TRX_1_TRYTES),
                              IOTA::Models::Transaction(ACCOUNT_1_BUNDLE_8_TRX_2_TRYTES) }));
 
-  EXPECT_EQ(res.getTransfers().size(), expectedBundleRes.size());
+  ASSERT_EQ(res.getTransfers().size(), expectedBundleRes.size());
 
   for (size_t i = 0; i < expectedBundleRes.size(); ++i) {
     EXPECT_EQ(res.getTransfers()[i], expectedBundleRes[i]);
