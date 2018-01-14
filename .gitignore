@@ -42,3 +42,6 @@ tmp
 
 # OSX files
 .DS_Store
+
+# IOTA
+iri
