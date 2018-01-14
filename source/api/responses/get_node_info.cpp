@@ -59,21 +59,67 @@ GetNodeInfo::GetNodeInfo(const std::string& appName, const std::string& appVersi
 void
 GetNodeInfo::deserialize(const json& res) {
   Base::deserialize(res);
-  appName_                            = res.at("appName").get<std::string>();
-  appVersion_                         = res.at("appVersion").get<std::string>();
-  jreAvailableProcessors_             = res.at("jreAvailableProcessors").get<int64_t>();
-  jreFreeMemory_                      = res.at("jreFreeMemory").get<int64_t>();
-  jreMaxMemory_                       = res.at("jreMaxMemory").get<int64_t>();
-  jreTotalMemory_                     = res.at("jreTotalMemory").get<int64_t>();
-  latestMilestone_                    = res.at("latestMilestone").get<Types::Trytes>();
-  latestMilestoneIndex_               = res.at("latestMilestoneIndex").get<int64_t>();
-  latestSolidSubtangleMilestone_      = res.at("latestSolidSubtangleMilestone").get<Types::Trytes>();
-  latestSolidSubtangleMilestoneIndex_ = res.at("latestSolidSubtangleMilestoneIndex").get<int64_t>();
-  neighbors_                          = res.at("neighbors").get<int64_t>();
-  packetsQueueSize_                   = res.at("packetsQueueSize").get<int64_t>();
-  time_                               = res.at("time").get<int64_t>();
-  tips_                               = res.at("tips").get<int64_t>();
-  transactionsToRequest_              = res.at("transactionsToRequest").get<int64_t>();
+
+  if (res.count("appName")) {
+    appName_ = res.at("appName").get<std::string>();
+  }
+
+  if (res.count("appVersion")) {
+    appVersion_ = res.at("appVersion").get<std::string>();
+  }
+
+  if (res.count("jreAvailableProcessors")) {
+    jreAvailableProcessors_ = res.at("jreAvailableProcessors").get<int64_t>();
+  }
+
+  if (res.count("jreFreeMemory")) {
+    jreFreeMemory_ = res.at("jreFreeMemory").get<int64_t>();
+  }
+
+  if (res.count("jreMaxMemory")) {
+    jreMaxMemory_ = res.at("jreMaxMemory").get<int64_t>();
+  }
+
+  if (res.count("jreTotalMemory")) {
+    jreTotalMemory_ = res.at("jreTotalMemory").get<int64_t>();
+  }
+
+  if (res.count("latestMilestone")) {
+    latestMilestone_ = res.at("latestMilestone").get<Types::Trytes>();
+  }
+
+  if (res.count("latestMilestoneIndex")) {
+    latestMilestoneIndex_ = res.at("latestMilestoneIndex").get<int64_t>();
+  }
+
+  if (res.count("latestSolidSubtangleMilestone")) {
+    latestSolidSubtangleMilestone_ = res.at("latestSolidSubtangleMilestone").get<Types::Trytes>();
+  }
+
+  if (res.count("latestSolidSubtangleMilestoneIndex")) {
+    latestSolidSubtangleMilestoneIndex_ =
+        res.at("latestSolidSubtangleMilestoneIndex").get<int64_t>();
+  }
+
+  if (res.count("neighbors")) {
+    neighbors_ = res.at("neighbors").get<int64_t>();
+  }
+
+  if (res.count("packetsQueueSize")) {
+    packetsQueueSize_ = res.at("packetsQueueSize").get<int64_t>();
+  }
+
+  if (res.count("time")) {
+    time_ = res.at("time").get<int64_t>();
+  }
+
+  if (res.count("tips")) {
+    tips_ = res.at("tips").get<int64_t>();
+  }
+
+  if (res.count("transactionsToRequest")) {
+    transactionsToRequest_ = res.at("transactionsToRequest").get<int64_t>();
+  }
 }
 
 const std::string&

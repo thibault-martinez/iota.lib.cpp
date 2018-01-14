@@ -37,7 +37,10 @@ GetTips::GetTips(const std::vector<Types::Trytes>& hashes) : hashes_(hashes) {
 void
 GetTips::deserialize(const json& res) {
   Base::deserialize(res);
-  hashes_ = res.at("hashes").get<std::vector<Types::Trytes>>();
+
+  if (res.count("hashes")) {
+    hashes_ = res.at("hashes").get<std::vector<Types::Trytes>>();
+  }
 }
 
 const std::vector<Types::Trytes>&

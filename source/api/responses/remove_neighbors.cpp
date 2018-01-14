@@ -38,7 +38,10 @@ RemoveNeighbors::RemoveNeighbors(const int64_t& removedNeighbors)
 void
 RemoveNeighbors::deserialize(const json& res) {
   Base::deserialize(res);
-  removedNeighbors_ = res.at("removedNeighbors").get<int64_t>();
+
+  if (res.count("removedNeighbors")) {
+    removedNeighbors_ = res.at("removedNeighbors").get<int64_t>();
+  }
 }
 
 const int64_t&

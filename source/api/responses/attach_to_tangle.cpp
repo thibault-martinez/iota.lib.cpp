@@ -37,7 +37,10 @@ AttachToTangle::AttachToTangle(const std::vector<Types::Trytes>& trytes) : tryte
 void
 AttachToTangle::deserialize(const json& res) {
   Base::deserialize(res);
-  trytes_ = res.at("trytes").get<std::vector<Types::Trytes>>();
+
+  if (res.count("trytes")) {
+    trytes_ = res.at("trytes").get<std::vector<Types::Trytes>>();
+  }
 }
 
 const std::vector<Types::Trytes>&
