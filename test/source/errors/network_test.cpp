@@ -25,9 +25,9 @@
 
 #include <gtest/gtest.h>
 
-#include <iota/errors/timeout.hpp>
+#include <iota/errors/network.hpp>
 #include <test/utils/expect_exception.hpp>
 
-TEST(Errors, Timeout) {
-  EXPECT_EXCEPTION(throw(IOTA::Errors::Timeout("Timeout"));, IOTA::Errors::Timeout, "Timeout")
+TEST(Errors, Network) {
+  EXPECT_EXCEPTION(throw(IOTA::Errors::Network("Network"));, IOTA::Errors::Network, "Network")
 }

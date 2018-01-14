@@ -31,9 +31,9 @@ namespace IOTA {
 
 namespace Errors {
 
-class Timeout : public Generic {
+class Network : public Generic {
 public:
-  Timeout(const std::string& content) : Generic(content){};
+  Network(const std::string& content) : Generic(content){};
 };
 
 }  // namespace Errors

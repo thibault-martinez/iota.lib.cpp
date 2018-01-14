@@ -30,7 +30,7 @@
 #include <iota/constants.hpp>
 #include <iota/errors/bad_request.hpp>
 #include <iota/errors/internal_server_error.hpp>
-#include <iota/errors/timeout.hpp>
+#include <iota/errors/network.hpp>
 #include <iota/errors/unauthorized.hpp>
 #include <iota/errors/unrecognized.hpp>
 
@@ -66,8 +66,12 @@ public:
                                 { "X-IOTA-API-Version", APIVersion } };
     auto res     = cpr::Post(url, body, headers, cpr::Timeout{ timeout * 1000 });
 
+    if (res.error.code != cpr::ErrorCode::OK)
+      throw Errors::Network(res.error.message);
+
     json        resJson;
     std::string error;
+
     try {
       resJson = json::parse(res.text);
 
@@ -76,10 +80,10 @@ public:
       }
     } catch (const std::runtime_error&) {
       if (res.elapsed >= timeout) {
-        throw Errors::Timeout("IRI timed out after " + std::to_string(timeout) + "s");
+        throw Errors::Network("Time out after " + std::to_string(timeout) + "s");
       }
 
-      throw Errors::Unrecognized("invalid reply from node (unrecognized format): " + res.text);
+      throw Errors::Unrecognized("Invalid reply from node (unrecognized format): " + res.text);
     }
 
     Response response;
@@ -96,7 +100,7 @@ public:
         throw Errors::InternalServerError(error);
       default:
         if (res.elapsed >= timeout) {
-          throw Errors::Timeout("IRI timed out after " + std::to_string(timeout) + "s");
+          throw Errors::Network("Time out after " + std::to_string(timeout) + "s");
         }
 
         throw Errors::Unrecognized(error);
