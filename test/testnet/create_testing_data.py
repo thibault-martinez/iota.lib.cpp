@@ -6,33 +6,18 @@ from iota.crypto.signing import KeyGenerator
 
 #
 # Create a new bundle transaction
-# Use same address for input and output address to key the state of network unchanged, just adding a trx
-#
-#   From seed: SXDHBTSTV9YHWKFFAZBHQXJTQHTO9HJMDBZHOJDKV9MMAODELRICQAQMEOCZXZKO9USMBUAKJCAYTF9TM
-#   From addr: FWPSSVXWSJRZLKWYKSVJIURDU9IKBAVPBJVTAXDJTYCJHSRUTKLVWKIN9AEEFNMONNDKVAIAXVRKLQSLCHZRXZWU9C
-#   To seed:   SXDHBTSTV9YHWKFFAZBHQXJTQHTO9HJMDBZHOJDKV9MMAODELRICQAQMEOCZXZKO9USMBUAKJCAYTF9TM
-#   To addr:   FWPSSVXWSJRZLKWYKSVJIURDU9IKBAVPBJVTAXDJTYCJHSRUTKLVWKIN9AEEFNMONNDKVAIAXVRKLQSLCHZRXZWU9C
-#   Amount:    832480
-#
+# Send from 42 iota account 2 to account 3
 #
 
 # Connect to the node
-api = Iota('http://localhost:14265', "SXDHBTSTV9YHWKFFAZBHQXJTQHTO9HJMDBZHOJDKV9MMAODELRICQAQMEOCZXZKO9USMBUAKJCAYTF9TM")
+api = Iota('http://localhost:14265', "S9YOBZWUIHQFGHQCUOFCKHFR99IJMSZNNHUDXRAGDZKLGEBGPNDWROALSUODRJNMFFQHDVNISRMVMPVNE")
 
-# Send transaction to myself containing all fund of the input address
+# Trx setup
 output_trx = ProposedTransaction(
-    address = Address("FWPSSVXWSJRZLKWYKSVJIURDU9IKBAVPBJVTAXDJTYCJHSRUTKLVWKIN9AEEFNMONNDKVAIAXVRKLQSLCHZRXZWU9C"),
-    message = TryteString.from_string("Sending some money to MySeLf"),
+    address = Address("E9LVPMKJIAGCIPVKMUOYTQMSYAUQDUMEYUUCLXRQUWJJ9JXRDXQNGIOUPQVIMIWHFIRXD9QSYOP9KG9BWARSINOJ9W"),
+    message = TryteString.from_string("Sending some money"),
     tag     = Tag("PACIFICSOUND"),
-    value   = 832480)
-
-# The input address with the exact amount to send
-input_addr = Address(
-    'FWPSSVXWSJRZLKWYKSVJIURDU9IKBAVPBJVTAXDJTYCJHSRUTKLVWKIN9AEEFNMONNDKVAIAXVRKLQSLCHZRXZWU9C',
-    balance        = 832480,
-    key_index      = 0,
-    security_level = 1
-)
+    value   = 42)
 
 # Propagate
-api.send_transfer(1, [output_trx], [input_addr])
+api.send_transfer(1, [output_trx])
