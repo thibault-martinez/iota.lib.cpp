@@ -78,6 +78,22 @@ matrix:
       env:
         - MATRIX_EVAL="CC=clang-3.6 && CXX=clang++-3.6 && CMAKE_BUILD_TYPE=Release"
 
+  # allow the coverage build to fail
+  # --coverage compiler options seems to generate unstable code that should not be trusted
+  allow_failures:
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-4.9
+      env:
+         - MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9 && CMAKE_BUILD_TYPE=Debug && COVERAGE=1"
+
+  # allow for fast finish, even if the optional coverage build is not done yet
+  fast_finish: true
+
 before_install:
   # brew update on osx
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update; fi
