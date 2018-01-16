@@ -455,7 +455,7 @@ static const int64_t BUNDLE_1_TRX_4_VALUE = 2448;
 
 //!
 //! Bundle 2
-//! Initial funding of account_2:address 1
+//! Initial funding of account_2:address_1
 //!
 static const std::string BUNDLE_2_HASH =
     "HXHZLBBTDVIEQBKJDX9PJNYIONOPKRWFVWNSFDLERYDBOZHHWLXVAFJEGVQUXGYWHJFBHFSXFGFOPJWZX";
