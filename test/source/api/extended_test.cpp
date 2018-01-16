@@ -635,6 +635,80 @@ TEST(Extended, GetAccountDataMin) {
                IOTA::Errors::IllegalState);
 }
 
+TEST(Extended, GetInputs) {
+  auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
+  auto res = api.getInputs(ACCOUNT_2_SEED, 0, 0, 2, 0);
+
+  EXPECT_EQ(res.getTotalBalance(), ACCOUNT_2_FUND);
+  ASSERT_EQ(res.getInput().size(), 4UL);
+
+  //! Note that the first address is skipped because it has no fund
+
+  auto input1 = res.getInput()[0];
+  EXPECT_EQ(input1.getAddress(), ACCOUNT_2_ADDRESS_2_HASH_WITHOUT_CHECKSUM);
+  EXPECT_EQ(input1.getBalance(), ACCOUNT_2_ADDRESS_2_FUND);
+  EXPECT_EQ(input1.getKeyIndex(), 1);
+  EXPECT_EQ(input1.getSecurity(), 2);
+
+  auto input2 = res.getInput()[1];
+  EXPECT_EQ(input2.getAddress(), ACCOUNT_2_ADDRESS_3_HASH_WITHOUT_CHECKSUM);
+  EXPECT_EQ(input2.getBalance(), ACCOUNT_2_ADDRESS_3_FUND);
+  EXPECT_EQ(input2.getKeyIndex(), 2);
+  EXPECT_EQ(input2.getSecurity(), 2);
+
+  auto input3 = res.getInput()[2];
+  EXPECT_EQ(input3.getAddress(), ACCOUNT_2_ADDRESS_4_HASH_WITHOUT_CHECKSUM);
+  EXPECT_EQ(input3.getBalance(), ACCOUNT_2_ADDRESS_4_FUND);
+  EXPECT_EQ(input3.getKeyIndex(), 3);
+  EXPECT_EQ(input3.getSecurity(), 2);
+
+  auto input4 = res.getInput()[3];
+  EXPECT_EQ(input4.getAddress(), ACCOUNT_2_ADDRESS_5_HASH_WITHOUT_CHECKSUM);
+  EXPECT_EQ(input4.getBalance(), ACCOUNT_2_ADDRESS_5_FUND);
+  EXPECT_EQ(input4.getKeyIndex(), 4);
+  EXPECT_EQ(input4.getSecurity(), 2);
+}
+
+TEST(Extended, GetInputsInvalidSeed) {
+  auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
+
+  EXPECT_THROW(api.getInputs("hello", 0, 0, 2, 0), IOTA::Errors::IllegalState);
+}
+
+TEST(Extended, GetInputsInvalidSecurity) {
+  auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
+
+  EXPECT_THROW(api.getInputs(ACCOUNT_2_SEED, 0, 0, 42, 0), IOTA::Errors::IllegalState);
+}
+
+TEST(Extended, GetInputsStartEnd) {
+  auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
+  auto res = api.getInputs(ACCOUNT_2_SEED, 2, 4, 2, 0);
+
+  EXPECT_EQ(res.getTotalBalance(), ACCOUNT_2_ADDRESS_3_FUND + ACCOUNT_2_ADDRESS_4_FUND);
+  ASSERT_EQ(res.getInput().size(), 2UL);
+
+  //! Note that the first address is skipped because it has no fund
+
+  auto input1 = res.getInput()[0];
+  EXPECT_EQ(input1.getAddress(), ACCOUNT_2_ADDRESS_3_HASH_WITHOUT_CHECKSUM);
+  EXPECT_EQ(input1.getBalance(), ACCOUNT_2_ADDRESS_3_FUND);
+  EXPECT_EQ(input1.getKeyIndex(), 2);
+  EXPECT_EQ(input1.getSecurity(), 2);
+
+  auto input2 = res.getInput()[1];
+  EXPECT_EQ(input2.getAddress(), ACCOUNT_2_ADDRESS_4_HASH_WITHOUT_CHECKSUM);
+  EXPECT_EQ(input2.getBalance(), ACCOUNT_2_ADDRESS_4_FUND);
+  EXPECT_EQ(input2.getKeyIndex(), 3);
+  EXPECT_EQ(input2.getSecurity(), 2);
+}
+
+TEST(Extended, GetInputMin) {
+  auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
+
+  EXPECT_THROW(api.getInputs(ACCOUNT_2_SEED, 0, 0, 2, 1000000), IOTA::Errors::IllegalState);
+}
+
 TEST(Extended, GetBalancesAndFormat) {
   auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
   auto res = api.getBalancesAndFormat(
