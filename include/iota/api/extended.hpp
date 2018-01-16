@@ -139,25 +139,22 @@ public:
       const std::vector<IOTA::Types::Trytes>& addresses, bool inclusionStates) const;
 
   /**
-   * Wrapper function for findTransactions, getTrytes and transactionObjects.
-   * Returns the transactionObject of a transaction hash. The input can be a valid findTransactions
-   * input.
+   * Lookup transactions for given addresses and return a list of transaction objects
    *
-   * @param input The inputs.
+   * @param addresses Addresses for which transactions objects should be found
    * @return Transactions.
    */
   std::vector<Models::Transaction> findTransactionObjects(
-      const std::vector<IOTA::Types::Trytes>& input) const;
+      const std::vector<IOTA::Types::Trytes>& addresses) const;
 
   /**
-   * Wrapper function for getTrytes and transactionObjects.
-   * Gets the trytes and transaction object from a list of transaction hashes.
+   * Lookup transactions for given transaction hashes and return a list of transaction objects
    *
-   * @param hashes The hashes
+   * @param trx_hashes Hashes of the transactions to find
    * @return Transaction objects.
    **/
   std::vector<Models::Transaction> getTransactionsObjects(
-      const std::vector<IOTA::Types::Trytes>& hashes) const;
+      const std::vector<IOTA::Types::Trytes>& trx_hashes) const;
 
   /**
    * Same as findTransactionObjects, but based on bundle hash
