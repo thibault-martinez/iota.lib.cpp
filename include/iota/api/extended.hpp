@@ -149,6 +149,7 @@ public:
 
   /**
    * Lookup transactions for given transaction hashes and return a list of transaction objects
+   * If a specific transaction does not exist, return valid transaction tryte 9-filled
    *
    * @param trx_hashes Hashes of the transactions to find
    * @return Transaction objects.
