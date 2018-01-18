@@ -27,12 +27,12 @@
 
 #include <iota/crypto/curl.hpp>
 #include <iota/crypto/pow.hpp>
+#include <iota/utils/parallel_for.hpp>
+#include <iota/utils/stop_watch.hpp>
 
 namespace IOTA {
 
 namespace Crypto {
-
-static bool stop = true;
 
 // TODO
 static constexpr int indices[] = {
@@ -77,16 +77,15 @@ static constexpr int indices[] = {
   368, 3,   367, 2,   366, 1,   365, 0
 };
 
-Pow::Pow() {
+Pow::Pow() : stop_(true) {
 }
 
 Pow::~Pow() {
 }
 
-// TODO still need to be multi-threaded
 Types::Trytes
-Pow::operator()(const Types::Trytes& trytes, int minWeightMagnitude) const {
-  stop = false;
+Pow::operator()(const Types::Trytes& trytes, int minWeightMagnitude) {
+  stop_ = false;
   IOTA::Crypto::Curl c;
 
   // TODO Harcoded value, should be kept with Transaction
@@ -98,28 +97,36 @@ Pow::operator()(const Types::Trytes& trytes, int minWeightMagnitude) const {
   std::copy(std::begin(tr) + 7776, std::end(tr), std::begin(state));
 
   IOTA::Types::Trytes result;
-  uint64_t            lmid[stateSize];
-  uint64_t            hmid[stateSize];
 
-  para(lmid, hmid, state);
+  Utils::parallel_for([this, &result, state, minWeightMagnitude](uint32_t i) {
+    uint64_t lmid[stateSize];
+    uint64_t hmid[stateSize];
 
-  lmid[nonceOffset]     = low0;
-  hmid[nonceOffset]     = high0;
-  lmid[nonceOffset + 1] = low1;
-  hmid[nonceOffset + 1] = high1;
-  lmid[nonceOffset + 2] = low2;
-  hmid[nonceOffset + 2] = high2;
-  lmid[nonceOffset + 3] = low3;
-  hmid[nonceOffset + 3] = high3;
+    para(lmid, hmid, state);
 
-  incrN(0, lmid, hmid);  // TODO replace 0 by i
+    lmid[nonceOffset]     = low0;
+    hmid[nonceOffset]     = high0;
+    lmid[nonceOffset + 1] = low1;
+    hmid[nonceOffset + 1] = high1;
+    lmid[nonceOffset + 2] = low2;
+    hmid[nonceOffset + 2] = high2;
+    lmid[nonceOffset + 3] = low3;
+    hmid[nonceOffset + 3] = high3;
 
-  IOTA::Types::Trits nonce = loop(lmid, hmid, minWeightMagnitude);
-  if (nonce.empty() == false) {
-    result = IOTA::Types::tritsToTrytes(nonce);
-    stop   = true;
-  }
-  stop = true;
+    for (uint32_t j = 0; j < i; ++j) {
+      incr(lmid, hmid);
+    }
+
+    IOTA::Types::Trits nonce = loop(lmid, hmid, minWeightMagnitude);
+
+    {
+      std::lock_guard<std::mutex> lock(mtx_);
+      if (nonce.empty() == false) {
+        result = IOTA::Types::tritsToTrytes(nonce);
+        stop_  = true;
+      }
+    }
+  });
   return result;
 }
 
@@ -189,20 +196,6 @@ Pow::incr(uint64_t* lmid, uint64_t* hmid) const {
   return i == TritHashLength;
 }
 
-void
-Pow::incrN(uint32_t n, uint64_t* lmid, uint64_t* hmid) const {
-  for (uint32_t j = 0; j < n; ++j) {
-    uint64_t carry = 1;
-    for (uint32_t i = nonceInitStart; i < nonceIncrementStart && carry != 0; ++i) {
-      uint64_t low  = lmid[i];
-      uint64_t high = hmid[i];
-      lmid[i]       = high ^ low;
-      hmid[i]       = low;
-      carry         = high & (~low);
-    }
-  }
-}
-
 Types::Trits
 Pow::seri(const uint64_t* l, const uint64_t* h, uint64_t n) const {
   Types::Trits r(NonceLength);
@@ -245,15 +238,13 @@ Types::Trits
 Pow::loop(uint64_t* lmid, uint64_t* hmid, int m) const {
   uint64_t lcpy[stateSize];
   uint64_t hcpy[stateSize];
-  uint64_t i;
-  for (i = 0; !incr(lmid, hmid) && !stop; ++i) {
+  for (uint64_t i = 0; !stop_ && !incr(lmid, hmid); ++i) {
     std::memcpy(lcpy, lmid, sizeof(lcpy));
     std::memcpy(hcpy, hmid, sizeof(hcpy));
     transform64(lcpy, hcpy);
     int64_t n = check(lcpy, hcpy, m);
     if (n >= 0) {
-      Types::Trits nonce = seri(lmid, hmid, static_cast<uint64_t>(n));
-      return nonce;
+      return seri(lmid, hmid, static_cast<uint64_t>(n));
     }
   }
   return {};

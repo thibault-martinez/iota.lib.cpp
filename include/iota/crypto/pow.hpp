@@ -25,6 +25,8 @@
 
 #pragma once
 
+#include <mutex>
+
 #include <iota/constants.hpp>
 #include <iota/crypto/i_pow.hpp>
 #include <iota/types/trinary.hpp>
@@ -59,16 +61,19 @@ public:
   virtual ~Pow();
 
 public:
-  Types::Trytes operator()(const Types::Trytes& trytes, int minWeightMagnitude) const;
+  Types::Trytes operator()(const Types::Trytes& trytes, int minWeightMagnitude);
 
 private:
   void         transform64(uint64_t* lmid, uint64_t* hmid) const;
   bool         incr(uint64_t* lmid, uint64_t* hmid) const;
-  void         incrN(uint32_t n, uint64_t* lmid, uint64_t* hmid) const;
   Types::Trits seri(const uint64_t* l, const uint64_t* h, uint64_t n) const;
   int64_t      check(const uint64_t* l, const uint64_t* h, int m) const;
   Types::Trits loop(uint64_t* lmid, uint64_t* hmid, int m) const;
   void         para(uint64_t* l, uint64_t* h, const Types::Trits& in) const;
+
+private:
+  bool       stop_;
+  std::mutex mtx_;
 };
 
 }  // namespace Crypto

@@ -1119,3 +1119,89 @@ TEST(Extended, FindTransactionObjectsInvalidHash) {
 
   EXPECT_THROW(api.findTransactionObjects({ "hello" }), IOTA::Errors::BadRequest);
 }
+
+TEST(Extended, GetLatestInclusion) {
+  auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
+
+  auto res = api.getLatestInclusion(
+      { BUNDLE_1_TRX_1_HASH, BUNDLE_1_TRX_2_HASH, BUNDLE_1_TRX_3_HASH, BUNDLE_1_TRX_4_HASH });
+
+  EXPECT_EQ(res.getStates(), std::vector<bool>({ true, true, true, true }));
+}
+
+TEST(Extended, GetLatestInclusionInvalidHash) {
+  auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
+
+  auto hash = BUNDLE_1_TRX_2_HASH;
+  hash[0]   = '9';
+
+  auto res = api.getLatestInclusion(
+      { BUNDLE_1_TRX_1_HASH, hash, BUNDLE_1_TRX_3_HASH, BUNDLE_1_TRX_4_HASH });
+
+  EXPECT_EQ(res.getStates(), std::vector<bool>({ true, false, true, true }));
+}
+
+TEST(Extended, GetTransfers) {
+  auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
+  auto res = api.getTransfers(ACCOUNT_2_SEED, 0, 0, 2, true);
+
+  std::vector<IOTA::Models::Bundle> expectedBundleRes;
+
+  expectedBundleRes.push_back(
+      IOTA::Models::Bundle({ IOTA::Models::Transaction(ACCOUNT_2_BUNDLE_1_TRX_1_TRYTES) }));
+
+  expectedBundleRes.push_back(
+      IOTA::Models::Bundle({ IOTA::Models::Transaction(ACCOUNT_2_BUNDLE_2_TRX_1_TRYTES) }));
+
+  expectedBundleRes.push_back(
+      IOTA::Models::Bundle({ IOTA::Models::Transaction(ACCOUNT_2_BUNDLE_3_TRX_1_TRYTES) }));
+
+  expectedBundleRes.push_back(
+      IOTA::Models::Bundle({ IOTA::Models::Transaction(ACCOUNT_2_BUNDLE_4_TRX_1_TRYTES) }));
+
+  expectedBundleRes.push_back(
+      IOTA::Models::Bundle({ IOTA::Models::Transaction(ACCOUNT_2_BUNDLE_5_TRX_1_TRYTES),
+                             IOTA::Models::Transaction(ACCOUNT_2_BUNDLE_5_TRX_2_TRYTES),
+                             IOTA::Models::Transaction(ACCOUNT_2_BUNDLE_5_TRX_3_TRYTES),
+                             IOTA::Models::Transaction(ACCOUNT_2_BUNDLE_5_TRX_4_TRYTES) }));
+
+  ASSERT_EQ(res.getTransfers().size(), expectedBundleRes.size());
+
+  for (size_t i = 0; i < expectedBundleRes.size(); ++i) {
+    EXPECT_EQ(res.getTransfers()[i], expectedBundleRes[i]);
+  }
+}
+
+TEST(Extended, GetTransfersInvalidSeed) {
+  auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
+
+  EXPECT_THROW(api.getTransfers("hello", 0, 0, 2, true), IOTA::Errors::IllegalState);
+}
+
+TEST(Extended, GetTransfersInvalidSecurity) {
+  auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
+
+  EXPECT_THROW(api.getTransfers(ACCOUNT_2_SEED, 0, 0, 42, true), IOTA::Errors::IllegalState);
+}
+
+TEST(Extended, GetTransfersStartEnd) {
+  auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
+  auto res = api.getTransfers(ACCOUNT_2_SEED, 1, 3, 2, true);
+
+  std::vector<IOTA::Models::Bundle> expectedBundleRes;
+
+  expectedBundleRes.push_back(
+      IOTA::Models::Bundle({ IOTA::Models::Transaction(ACCOUNT_2_BUNDLE_2_TRX_1_TRYTES) }));
+
+  expectedBundleRes.push_back(
+      IOTA::Models::Bundle({ IOTA::Models::Transaction(ACCOUNT_2_BUNDLE_3_TRX_1_TRYTES) }));
+
+  expectedBundleRes.push_back(
+      IOTA::Models::Bundle({ IOTA::Models::Transaction(ACCOUNT_2_BUNDLE_4_TRX_1_TRYTES) }));
+
+  ASSERT_EQ(res.getTransfers().size(), expectedBundleRes.size());
+
+  for (size_t i = 0; i < expectedBundleRes.size(); ++i) {
+    EXPECT_EQ(res.getTransfers()[i], expectedBundleRes[i]);
+  }
+}
