@@ -1119,3 +1119,24 @@ TEST(Extended, FindTransactionObjectsInvalidHash) {
 
   EXPECT_THROW(api.findTransactionObjects({ "hello" }), IOTA::Errors::BadRequest);
 }
+
+TEST(Extended, GetLatestInclusion) {
+  auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
+
+  auto res = api.getLatestInclusion(
+      { BUNDLE_1_TRX_1_HASH, BUNDLE_1_TRX_2_HASH, BUNDLE_1_TRX_3_HASH, BUNDLE_1_TRX_4_HASH });
+
+  EXPECT_EQ(res.getStates(), std::vector<bool>({ true, true, true, true }));
+}
+
+TEST(Extended, GetLatestInclusionInvalidHash) {
+  auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
+
+  auto hash = BUNDLE_1_TRX_2_HASH;
+  hash[0]   = '9';
+
+  auto res = api.getLatestInclusion(
+      { BUNDLE_1_TRX_1_HASH, hash, BUNDLE_1_TRX_3_HASH, BUNDLE_1_TRX_4_HASH });
+
+  EXPECT_EQ(res.getStates(), std::vector<bool>({ true, false, true, true }));
+}
