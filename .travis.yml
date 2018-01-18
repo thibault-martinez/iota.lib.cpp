@@ -112,12 +112,12 @@ install:
   # Linux
   ####
   # lcov & coveralls
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install lcov; fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then pip install --user cpp-coveralls; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get -qq install lcov; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then pip -q install --user cpp-coveralls; fi
   # java
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install default-jre; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get -qq install default-jre; fi
   # maven
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install maven; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get -qq install maven; fi
 
 before_script:
   # setup environment
@@ -128,7 +128,7 @@ before_script:
   - cp ../test/testnet/Snapshot.txt src/main/resources
   - cp ../test/testnet/Snapshot.java src/main/java/com/iota/iri/Snapshot.java
   - mvn clean compile -q
-  - mvn package
+  - mvn package -q
   - cp -r ../test/testnet/testnetdb .
   - java -jar target/iri-1.4.1.6.jar --testnet -p 14265 &
   - cd ..
