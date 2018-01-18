@@ -127,7 +127,7 @@ before_script:
   - cd iri
   - cp ../test/testnet/Snapshot.txt src/main/resources
   - cp ../test/testnet/Snapshot.java src/main/java/com/iota/iri/Snapshot.java
-  - mvn clean compile
+  - mvn clean compile -q
   - mvn package
   - cp -r ../test/testnet/testnetdb .
   - java -jar target/iri-1.4.1.6.jar --testnet -p 14265 &
