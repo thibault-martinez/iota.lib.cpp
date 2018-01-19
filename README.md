@@ -116,4 +116,4 @@ Please report any issues using the [Issue Tracker](https://github.com/thibault-m
 [documentation-badge]: https://img.shields.io/readthedocs/pip/stable.svg
 
 [license]: https://github.com/thibault-martinez/iota.lib.cpp/blob/master/LICENSE
-[license-badge]: https://img.shields.io/packagist/l/doctrine/orm.svg
+[license-badge]: https://img.shields.io/github/license/mashape/apistatus.svg
