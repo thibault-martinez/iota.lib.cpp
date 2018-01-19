@@ -38,25 +38,27 @@ namespace API {
 namespace Responses {
 
 /*
- * generic API call response.
+ * Generic API call response.
  */
 class Base {
 public:
   /**
-   * full init ctor
+   * Full init ctor.
+   *
+   * @param duration Duration of operation.
    */
   explicit Base(const int64_t& duration = 0);
 
   /**
-   * default dtor
+   * Default dtor.
    */
   virtual ~Base() = default;
 
 public:
   /**
-   * init class based on json data
+   * Initialization based on json data.
    *
-   * @param res json data to be used for deserialization
+   * @param res json data to be used for deserialization.
    */
   virtual void deserialize(const json& res);
 
@@ -72,6 +74,9 @@ public:
   void setDuration(const int64_t& duration);
 
 private:
+  /**
+   * Duration of operation.
+   */
   int64_t duration_;
 };
 

@@ -39,19 +39,21 @@ namespace Requests {
 
 /*
  * GetNeighbors API call request.
+ *
  * Returns the set of neighbors you are connected with, as well as their activity count. The
  * activity counter is reset after restarting IRI.
- * https://iota.readme.io/docs/getneighborsactivity
+ *
+ * https://iota.readme.io/reference#getneighborsactivity
  */
 class GetNeighbors : public Base {
 public:
   /**
-   * full init ctor
+   * Default ctor.
    */
-  GetNeighbors();
+  explicit GetNeighbors();
 
   /**
-   * default dtor
+   * Default dtor.
    */
   ~GetNeighbors() = default;
 };

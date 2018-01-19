@@ -37,27 +37,35 @@ namespace API {
 
 namespace Requests {
 
+/*
+ * Generic API call request.
+ */
 class Base {
 public:
   /**
-   * full init ctor
+   * Full init ctor.
+   *
+   * @param command The command name.
    */
-  Base(const std::string& command);
+  explicit Base(const std::string& command);
 
   /**
-   * default dtor
+   * Default dtor.
    */
   virtual ~Base() = default;
 
 public:
   /**
-   * serialize obj
+   * Serialize object.
    *
-   * @param res where to store serialisation
+   * @param res where to store serialisation.
    */
   virtual void serialize(json& res);
 
 private:
+  /**
+   * The command name.
+   */
   std::string command_;
 };
 

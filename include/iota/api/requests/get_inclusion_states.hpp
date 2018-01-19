@@ -37,65 +37,72 @@ namespace IOTA {
 namespace API {
 
 namespace Requests {
+
 /*
  * GetInclusionStates API call request.
+ *
  * Get the inclusion states of a set of transactions. This is for determining if a transaction was
  * accepted and confirmed by the network or not. You can search for multiple tips (and thus,
  * milestones) to get past inclusion states of transactions.
  * This API call simply returns a list of boolean values in the same order as the transaction list
  * you submitted, thus you get a true/false whether a transaction is confirmed or not.
- * https://iota.readme.io/docs/getinclusionstates
+ *
+ * https://iota.readme.io/reference#getinclusionstates
+ *
  */
 class GetInclusionStates : public Base {
 public:
   /**
-   * full init ctor
+   * Full init ctor.
+   *
+   * @param transactions List of transactions you want to get the inclusion state for.
+   * @param tips List of tips (including milestones) you want to search for the inclusion state.
    */
   explicit GetInclusionStates(const std::vector<Types::Trytes>& transactions = {},
                               const std::vector<Types::Trytes>& tips         = {});
 
   /**
-   * default dtor
+   * Default dtor.
    */
   ~GetInclusionStates() = default;
 
 public:
   /**
-   * serialize obj
+   * Serialize object.
    *
-   * @param res where to store serialisation
+   * @param res where to store serialisation.
    */
   void serialize(json& res);
 
 public:
   /**
-   * @return transactions
+   * @return transactions.
    */
   const std::vector<Types::Trytes>& getTransactions() const;
 
   /**
-   * @return transactions (non const version)
+   * @return transactions (non const version).
    */
   std::vector<Types::Trytes>& getTransactions();
 
   /**
-   * @param trxs new transactions for api call
+   * @param trxs new transactions for api call.
    */
   void setTransactions(const std::vector<Types::Trytes>& trxs);
 
 public:
   /**
-   * @return tips
+   * @return tips.
    */
   const std::vector<Types::Trytes>& getTips() const;
 
   /**
-   * @return tips (non const version)
+   * @return tips (non const version).
    */
   std::vector<Types::Trytes>& getTips();
 
   /**
-   * @param tips new tips for api call
+   * @param tips new tips for api call.
    */
   void setTips(const std::vector<Types::Trytes>& tips);
 

@@ -40,56 +40,61 @@ namespace Requests {
 
 /*
  * GetBalances API call request.
- * Similar to getInclusionStates. It returns the confirmed balance which a list of addresses have at
- * the latest confirmed milestone. In addition to the balances, it also returns the milestone as
- * well as the index with which the confirmed balance was determined. The balances is returned as a
- * list in the same order as the addresses were provided as input.
- * https://iota.readme.io/docs/getbalances
+ *
+ * Similar to getInclusionStates. It returns the confirmed balance which a list of addresses have
+ * at the latest confirmed milestone. In addition to the balances, it also returns the milestone
+ * as well as the index with which the confirmed balance was determined. The balances is returned
+ * as a list in the same order as the addresses were provided as input.
+ *
+ * https://iota.readme.io/reference#getbalances
  */
 class GetBalances : public Base {
 public:
   /**
-   * full init ctor
+   * Full init ctor.
+   *
+   * @param addresses List of addresses you want to get the confirmed balance from.
+   * @param threshold Confirmation threshold, should be set to 100.
    */
   explicit GetBalances(const std::vector<Types::Trytes>& addresses = {}, const int& threshold = 0);
 
   /**
-   * default dtor
+   * Default dtor.
    */
   ~GetBalances() = default;
 
 public:
   /**
-   * serialize obj
+   * Serialize object.
    *
-   * @param res where to store serialisation
+   * @param res where to store serialisation.
    */
   void serialize(json& res);
 
 public:
   /**
-   * @return addresses
+   * @return addresses.
    */
   const std::vector<Types::Trytes>& getAddresses() const;
 
   /**
-   * @return addresses (non const version)
+   * @return addresses (non const version).
    */
   std::vector<Types::Trytes>& getAddresses();
 
   /**
-   * @param addrs new addresses for api call
+   * @param addrs new addresses for api call.
    */
   void setAddresses(const std::vector<Types::Trytes>& addrs);
 
 public:
   /**
-   * @return threshold
+   * @return threshold.
    */
   int getThreshold() const;
 
   /**
-   * @param threshold new threshold for api call
+   * @param threshold new threshold for api call.
    */
   void setThreshold(int threshold);
 

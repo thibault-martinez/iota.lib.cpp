@@ -40,27 +40,31 @@ namespace Responses {
 
 /*
  * GetNeighbors API call response.
+ *
  * Returns the set of neighbors you are connected with, as well as their activity count. The
  * activity counter is reset after restarting IRI.
- * https://iota.readme.io/docs/getneighborsactivity
+ *
+ * https://iota.readme.io/reference#getneighborsactivity
  */
 class GetNeighbors : public Base {
 public:
   /**
-   * full init ctor
+   * Full init ctor.
+   *
+   * @param neighbors Set of neighbors you are connected with.
    */
   explicit GetNeighbors(const std::vector<Models::Neighbor>& neighbors = {});
 
   /**
-   * default dtor
+   * Default dtor.
    */
   ~GetNeighbors() = default;
 
 public:
   /**
-   * init class based on json data
+   * Initialization based on json data.
    *
-   * @param res json data to be used for deserialization
+   * @param res json data to be used for deserialization.
    */
   void deserialize(const json& res);
 
@@ -71,16 +75,20 @@ public:
   const std::vector<Models::Neighbor>& getNeighbors() const;
 
   /**
-   * @return neighbors. (non const version)
+   * @return neighbors. (non const version).
    */
   std::vector<Models::Neighbor>& getNeighbors();
 
   /**
-   * @param neighbors new neighbors for api response
+   * @param neighbors new neighbors for api response.
    */
   void setNeighbors(const std::vector<Models::Neighbor>& neighbors);
 
 private:
+  /**
+   * Set of neighbors you are connected with, as well as their activity count. The activity counter
+   * is reset after restarting IRI.
+   */
   std::vector<Models::Neighbor> neighbors_;
 };
 

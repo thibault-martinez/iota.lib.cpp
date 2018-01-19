@@ -40,43 +40,47 @@ namespace Requests {
 
 /*
  * StoreTransactions API call request.
+ *
  * Store transactions into the local storage. The trytes to be used for this call are returned by
  * attachToTangle.
- * https://iota.readme.io/docs/storetransactions
+ *
+ * https://iota.readme.io/reference#storetransactions
  */
 class StoreTransactions : public Base {
 public:
   /**
-   * full init ctor
+   * Full init ctor.
+   *
+   * @param trytes List of raw data of transactions to be rebroadcast.
    */
   explicit StoreTransactions(const std::vector<Types::Trytes>& trytes = {});
 
   /**
-   * default dtor
+   * Default dtor.
    */
   ~StoreTransactions() = default;
 
 public:
   /**
-   * serialize obj
+   * Serialize object.
    *
-   * @param res where to store serialisation
+   * @param res where to store serialisation.
    */
   void serialize(json& res);
 
 public:
   /**
-   * @return trytes
+   * @return trytes.
    */
   const std::vector<Types::Trytes>& getTrytes() const;
 
   /**
-   * @return trytes (non const version)
+   * @return trytes (non const version).
    */
   std::vector<Types::Trytes>& getTrytes();
 
   /**
-   * @param trytes new trytes for api call
+   * @param trytes new trytes for api call.
    */
   void setTrytes(const std::vector<Types::Trytes>& trytes);
 

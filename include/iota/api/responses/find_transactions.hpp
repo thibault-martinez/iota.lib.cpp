@@ -40,49 +40,61 @@ namespace Responses {
 
 /*
  * FindTransactions API call response.
- * Find the transactions which match the specified input and return. All input values are lists, for
- * which a list of return values (transaction hashes), in the same order, is returned for all
- * individual elements. The input fields can either be bundles, addresses, tags or approvees. Using
- * multiple of these input fields returns the intersection of the values.
- * https://iota.readme.io/docs/findtransactions
+ *
+ * Find the transactions which match the specified input and return. All input values are lists,
+ * for which a list of return values (transaction hashes), in the same order, is returned for all
+ * individual elements. The input fields can either be bundles, addresses, tags or approvees.
+ * Using multiple of these input fields returns the intersection of the values.
+ *
+ * https://iota.readme.io/reference#findtransactions
  */
 class FindTransactions : public Base {
 public:
   /**
-   * full init ctor
+   * Full init ctor.
+   *
+   * @param hashes The transaction hashes.
    */
   explicit FindTransactions(const std::vector<Types::Trytes>& hashes = {});
 
   /**
-   * default dtor
+   * Default dtor.
    */
   ~FindTransactions() = default;
 
 public:
   /**
-   * init class based on json data
+   * Initialization based on json data.
    *
-   * @param res json data to be used for deserialization
+   * @param res json data to be used for deserialization.
    */
   void deserialize(const json& res);
 
 public:
   /**
-   * @return hashes
+   * @return hashes.
    */
   const std::vector<Types::Trytes>& getHashes() const;
 
   /**
-   * @return hashes (non const version)
+   * @return hashes (non const version).
    */
   std::vector<Types::Trytes>& getHashes();
 
   /**
-   * @param hashes new hashes for api call
+   * @param hashes new hashes for api call.
    */
   void setHashes(const std::vector<Types::Trytes>& hashes);
 
 private:
+  /**
+   * The transaction hashes which are returned depend on your input. For each specified input value,
+   * the command will return the following:
+   * bundles: list of transactions which contain the specified bundle hash.
+   * addresses: list of transactions which have the specified address as an input/output field.
+   * tags: list of transactions which contain the specified tag value.
+   * approvees: list of transaction which reference (i.e. confirm) the specified transaction.
+   */
   std::vector<Types::Trytes> hashes_;
 };
 

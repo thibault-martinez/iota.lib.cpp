@@ -41,41 +41,44 @@ namespace Requests {
  * AddNeighbors API call request.
  * Add a list of neighbors to your node. It should be noted that this is only temporary, and the
  * added neighbors will be removed from your set of neighbors after you relaunch IRI.
- * https://iota.readme.io/docs/addneighors
+ *
+ * https://iota.readme.io/reference#addneighors
  */
 class AddNeighbors : public Base {
 public:
   /**
-   * full init ctor
+   * Full init ctor.
+   *
+   * @param uris List of URI elements.
    */
   explicit AddNeighbors(const std::vector<std::string>& uris = {});
 
   /**
-   * default dtor
+   * Default dtor.
    */
   ~AddNeighbors() = default;
 
 public:
   /**
-   * serialize obj
+   * Serialize object.
    *
-   * @param res where to store serialisation
+   * @param res where to store serialisation.
    */
   void serialize(json& res);
 
 public:
   /**
-   * @return uris
+   * @return uris.
    */
   const std::vector<std::string>& getUris() const;
 
   /**
-   * @return uris (non const version)
+   * @return uris (non const version).
    */
   std::vector<std::string>& getUris();
 
   /**
-   * @param uris new uris for addNeighbors API call
+   * @param uris new uris for addNeighbors API call.
    */
   void setUris(const std::vector<std::string>& uris);
 

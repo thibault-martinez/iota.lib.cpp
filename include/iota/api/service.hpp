@@ -54,7 +54,7 @@ public:
 public:
   template <typename Request, typename Response, typename... Args>
   Response request(Args&&... args) const {
-    auto request = Request(args...);
+    auto request = Request{ args... };
 
     json data;
     request.serialize(data);

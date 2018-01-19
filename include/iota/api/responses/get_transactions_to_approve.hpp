@@ -40,57 +40,68 @@ namespace Responses {
 
 /*
  * GetTransactionsToApprove API call response.
+ *
  * Tip selection which returns trunkTransaction and branchTransaction. The input value is depth,
  * which basically determines how many bundles to go back to for finding the transactions to
- * approve. The higher your depth value, the more "babysitting" you do for the network (as you have
- * to confirm more transactions).
- * https://iota.readme.io/docs/gettransactionstoapprove
+ * approve. The higher your depth value, the more "babysitting" you do for the network (as you
+ * have to confirm more transactions).
+ *
+ * https://iota.readme.io/reference#getbalances
  */
 class GetTransactionsToApprove : public Base {
 public:
   /**
-   * full init ctor
+   * Full init ctor.
+   *
+   * @param trunkTransaction The trunk transaction.
+   * @param branchTransaction The branch transaction.
    */
-  GetTransactionsToApprove(const Types::Trytes& trunkTransaction  = "",
-                           const Types::Trytes& branchTransaction = "");
+  explicit GetTransactionsToApprove(const Types::Trytes& trunkTransaction  = "",
+                                    const Types::Trytes& branchTransaction = "");
 
   /**
-   * default dtor
+   * Default dtor.
    */
   ~GetTransactionsToApprove() = default;
 
 public:
   /**
-   * init class based on json data
+   * Initialization based on json data.
    *
-   * @param res json data to be used for deserialization
+   * @param res json data to be used for deserialization.
    */
   void deserialize(const json& res);
 
 public:
   /**
-   * @return trunk transaction
+   * @return trunk transaction.
    */
   const Types::Trytes& getTrunkTransaction() const;
 
   /**
-   * @param trx new trunk transaction for api call
+   * @param trx new trunk transaction for api call.
    */
   void setTrunkTransaction(const Types::Trytes& trx);
 
 public:
   /**
-   * @return branch transaction
+   * @return branch transaction.
    */
   const Types::Trytes& getBranchTransaction() const;
 
   /**
-   * @param trx new branch transaction for api call
+   * @param trx new branch transaction for api call.
    */
   void setBranchTransaction(const Types::Trytes& trx);
 
 private:
+  /**
+   * Trunk transaction.
+   */
   Types::Trytes trunkTransaction_;
+  /**
+   * Branch transaction.
+   */
   Types::Trytes branchTransaction_;
 };
 

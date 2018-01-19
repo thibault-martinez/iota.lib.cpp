@@ -40,43 +40,47 @@ namespace Requests {
 
 /*
  * GetTrytes API call request.
+ *
  * Returns the raw transaction data (trytes) of a specific transaction. These trytes can then be
  * easily converted into the actual transaction object. See utility functions for more details.
- * https://iota.readme.io/docs/gettrytes
+ *
+ * https://iota.readme.io/reference#gettrytes
  */
 class GetTrytes : public Base {
 public:
   /**
-   * full init ctor
+   * Full init ctor.
+   *
+   * @param hashes List of transaction hashes of which you want to get trytes from.
    */
   explicit GetTrytes(const std::vector<Types::Trytes>& hashes = {});
 
   /**
-   * default dtor
+   * Default dtor.
    */
   ~GetTrytes() = default;
 
 public:
   /**
-   * serialize obj
+   * Serialize object.
    *
-   * @param res where to store serialisation
+   * @param res where to store serialisation.
    */
   void serialize(json& res);
 
 public:
   /**
-   * @return hashes
+   * @return hashes.
    */
   const std::vector<Types::Trytes>& getHashes() const;
 
   /**
-   * @return hashes (non const version)
+   * @return hashes (non const version).
    */
   std::vector<Types::Trytes>& getHashes();
 
   /**
-   * @param hashes new hashes for api call
+   * @param hashes new hashes for api call.
    */
   void setHashes(const std::vector<Types::Trytes>& hashes);
 

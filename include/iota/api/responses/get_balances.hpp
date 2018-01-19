@@ -40,30 +40,35 @@ namespace Responses {
 
 /*
  * GetBalances API call response.
- * Similar to getInclusionStates. It returns the confirmed balance which a list of addresses have at
- * the latest confirmed milestone. In addition to the balances, it also returns the milestone as
- * well as the index with which the confirmed balance was determined. The balances is returned as a
- * list in the same order as the addresses were provided as input.
- * https://iota.readme.io/docs/getbalances
+ *
+ * Similar to getInclusionStates. It returns the confirmed balance which a list of addresses have
+ * at the latest confirmed milestone. In addition to the balances, it also returns the milestone
+ * as well as the index with which the confirmed balance was determined. The balances is returned
+ * as a list in the same order as the addresses were provided as input.
+ *
+ * https://iota.readme.io/reference#getbalances
  */
 class GetBalances : public Base {
 public:
   /**
-   * full init ctor
+   * Full init ctor.
+   * @param balances The confirmed balances.
+   * @param milestone The latest confirmed milestone.
+   * @param milestoneIndex The latest confirmed milestone index.
    */
   explicit GetBalances(const std::vector<std::string>& balances = {},
                        const Types::Trytes& milestone = "", const int64_t& milestoneIndex = 0);
 
   /**
-   * default dtor
+   * Default dtor.
    */
   ~GetBalances() = default;
 
 public:
   /**
-   * init class based on json data
+   * Initialization based on json data.
    *
-   * @param res json data to be used for deserialization
+   * @param res json data to be used for deserialization.
    */
   void deserialize(const json& res);
 
@@ -74,12 +79,12 @@ public:
   const std::vector<std::string>& getBalances() const;
 
   /**
-   * @return balances. (non const version)
+   * @return balances. (non const version).
    */
   std::vector<std::string>& getBalances();
 
   /**
-   * @param balances new balances for api response
+   * @param balances new balances for api response.
    */
   void setBalances(const std::vector<std::string>& balances);
 
@@ -90,7 +95,7 @@ public:
   const Types::Trytes& getMilestone() const;
 
   /**
-   * @param milestone new milestone for api response
+   * @param milestone new milestone for api response.
    */
   void setMilestone(const Types::Trytes& milestone);
 
@@ -101,14 +106,23 @@ public:
   const int64_t& getMilestoneIndex() const;
 
   /**
-   * @param milestoneIndex new milestone index for api response
+   * @param milestoneIndex new milestone index for api response.
    */
   void setMilestoneIndex(const int64_t& milestoneIndex);
 
 private:
+  /**
+   * Confirmed balance in the same order as the addresses were provided as input.
+   */
   std::vector<std::string> balances_;
-  Types::Trytes            milestone_;
-  int64_t                  milestoneIndex_;
+  /**
+   * Latest confirmed milestone.
+   */
+  Types::Trytes milestone_;
+  /**
+   * Latest confirmed milestone index.
+   */
+  int64_t milestoneIndex_;
 };
 
 }  // namespace Responses

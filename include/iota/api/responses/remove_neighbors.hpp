@@ -39,27 +39,31 @@ namespace Responses {
 
 /*
  * RemoveNeighbors API call response.
- * Removes a list of neighbors to your node. This is only temporary, and if you have your neighbors
- * added via the command line, they will be retained after you restart your node.
- * https://iota.readme.io/docs/removeneighors
+ *
+ * Removes a list of neighbors to your node. This is only temporary, and if you have your
+ * neighbors added via the command line, they will be retained after you restart your node.
+ *
+ * https://iota.readme.io/reference#removeneighors
  */
 class RemoveNeighbors : public Base {
 public:
   /**
-   * full init ctor
+   * Full init ctor.
+   *
+   * @param removedNeighbors The number of removed neighbors.
    */
   explicit RemoveNeighbors(const int64_t& removedNeighbors = 0);
 
   /**
-   * default dtor
+   * Default dtor.
    */
   ~RemoveNeighbors() = default;
 
 public:
   /**
-   * init class based on json data
+   * Initialization based on json data.
    *
-   * @param res json data to be used for deserialization
+   * @param res json data to be used for deserialization.
    */
   void deserialize(const json& res);
 
@@ -70,11 +74,14 @@ public:
   const int64_t& getRemovedNeighbors() const;
 
   /**
-   * @param removedNeighbors new nb of removed neighbors for api response
+   * @param removedNeighbors new nb of removed neighbors for api response.
    */
   void setRemovedNeighbors(const int64_t& removedNeighbors);
 
 private:
+  /**
+   * Number of removed neighbors.
+   */
   int64_t removedNeighbors_;
 };
 

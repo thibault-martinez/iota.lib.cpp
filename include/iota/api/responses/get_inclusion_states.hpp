@@ -41,30 +41,35 @@ namespace Responses {
 
 /*
  * GetInclusionStates API call response.
+ *
  * Get the inclusion states of a set of transactions. This is for determining if a transaction was
  * accepted and confirmed by the network or not. You can search for multiple tips (and thus,
  * milestones) to get past inclusion states of transactions.
  * This API call simply returns a list of boolean values in the same order as the transaction list
  * you submitted, thus you get a true/false whether a transaction is confirmed or not.
- * https://iota.readme.io/docs/getinclusionstates
+ *
+ * https://iota.readme.io/reference#getinclusionstates
+ *
  */
 class GetInclusionStates : public Base {
 public:
   /**
-   * full init ctor
+   * Full init ctor.
+   *
+   * @param states The inclusion states.
    */
   explicit GetInclusionStates(const std::vector<bool>& states = {});
 
   /**
-   * default dtor
+   * Default dtor.
    */
   ~GetInclusionStates() = default;
 
 public:
   /**
-   * init class based on json data
+   * Initialization based on json data.
    *
-   * @param res json data to be used for deserialization
+   * @param res json data to be used for deserialization.
    */
   void deserialize(const json& res);
 
@@ -75,11 +80,15 @@ public:
   const std::vector<bool>& getStates() const;
 
   /**
-   * @param states new states for api response
+   * @param states new states for api response.
    */
   void setStates(const std::vector<bool>& states);
 
 private:
+  /**
+   * List of boolean values in the same order as the transaction list you submitted, thus you get a
+   * true/false whether a transaction is confirmed or not.
+   */
   std::vector<bool> states_;
 };
 

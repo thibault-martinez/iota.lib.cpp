@@ -40,6 +40,7 @@ namespace Responses {
 
 /*
  * AttachToTangle API call response.
+ *
  * Attaches the specified transactions (trytes) to the Tangle by doing Proof of Work. You need to
  * supply branchTransaction as well as trunkTransaction (basically the tips which you're going to
  * validate and reference with this transaction) - both of which you'll get through the
@@ -48,45 +49,52 @@ namespace Responses {
  * broadcastTransactions and storeTransactions. The returned tryte value, the last 243 trytes
  * basically consist of the: trunkTransaction + branchTransaction + nonce. These are valid trytes
  * which are then accepted by the network.
- * https://iota.readme.io/docs/attachtotangle
+ *
+ * https://iota.readme.io/reference#attachtotangle
  */
 class AttachToTangle : public Base {
 public:
   /**
-   * full init ctor
+   * Full init ctor.
+   *
+   * @param trytes The returned trytes.
    */
-  AttachToTangle(const std::vector<Types::Trytes>& trytes = {});
+  explicit AttachToTangle(const std::vector<Types::Trytes>& trytes = {});
 
   /**
-   * default dtor
+   * Default dtor.
    */
   ~AttachToTangle() = default;
 
 public:
   /**
-   * init class based on json data
+   * Initialization based on json data.
    *
-   * @param res json data to be used for deserialization
+   * @param res json data to be used for deserialization.
    */
   void deserialize(const json& res);
 
 public:
   /**
-   * @return trytes
+   * @return trytes.
    */
   const std::vector<Types::Trytes>& getTrytes() const;
 
   /**
-   * @return trytes (non const version)
+   * @return trytes (non const version).
    */
   std::vector<Types::Trytes>& getTrytes();
 
   /**
-   * @param trytes new trytes for api call
+   * @param trytes new trytes for api call.
    */
   void setTrytes(const std::vector<Types::Trytes>& trytes);
 
 private:
+  /**
+   * The returned tryte value, the last 243 trytes basically consist of the: trunkTransaction +
+   * branchTransaction + nonce.
+   */
   std::vector<Types::Trytes> trytes_;
 };
 

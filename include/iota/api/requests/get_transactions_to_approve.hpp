@@ -39,40 +39,44 @@ namespace Requests {
 
 /*
  * GetTransactionsToApprove API call request.
+ *
  * Tip selection which returns trunkTransaction and branchTransaction. The input value is depth,
  * which basically determines how many bundles to go back to for finding the transactions to
- * approve. The higher your depth value, the more "babysitting" you do for the network (as you have
- * to confirm more transactions).
- * https://iota.readme.io/docs/gettransactionstoapprove
+ * approve. The higher your depth value, the more "babysitting" you do for the network (as you
+ * have to confirm more transactions).
+ *
+ * https://iota.readme.io/reference#getbalances
  */
 class GetTransactionsToApprove : public Base {
 public:
   /**
-   * full init ctor
+   * Full init ctor.
+   *
+   * @param depth Number of bundles to go back to determine the transactions for approval.
    */
   explicit GetTransactionsToApprove(const int& depth = 0);
 
   /**
-   * default dtor
+   * Default dtor.
    */
   ~GetTransactionsToApprove() = default;
 
 public:
   /**
-   * serialize obj
+   * Serialize object.
    *
-   * @param res where to store serialisation
+   * @param res where to store serialisation.
    */
   void serialize(json& res);
 
 public:
   /**
-   * @return depth
+   * @return depth.
    */
   int getDepth() const;
 
   /**
-   * @param depth new depth for api call
+   * @param depth new depth for api call.
    */
   void setDepth(int depth);
 

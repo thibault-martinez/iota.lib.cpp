@@ -40,47 +40,54 @@ namespace Responses {
 
 /*
  * GetTrytes API call response.
+ *
  * Returns the raw transaction data (trytes) of a specific transaction. These trytes can then be
  * easily converted into the actual transaction object. See utility functions for more details.
- * https://iota.readme.io/docs/gettrytes
+ *
+ * https://iota.readme.io/reference#gettrytes
  */
 class GetTrytes : public Base {
 public:
   /**
-   * full init ctor
+   * Full init ctor.
+   *
+   * @param trytes The raw transaction data (trytes) of the transaction.
    */
   explicit GetTrytes(const std::vector<Types::Trytes>& trytes = {});
 
   /**
-   * default dtor
+   * Default dtor.
    */
   ~GetTrytes() = default;
 
 public:
   /**
-   * init class based on json data
+   * Initialization based on json data.
    *
-   * @param res json data to be used for deserialization
+   * @param res json data to be used for deserialization.
    */
   void deserialize(const json& res);
 
 public:
   /**
-   * @return trytes
+   * @return trytes.
    */
   const std::vector<Types::Trytes>& getTrytes() const;
 
   /**
-   * @return trytes (non const version)
+   * @return trytes (non const version).
    */
   std::vector<Types::Trytes>& getTrytes();
 
   /**
-   * @param trytes new trytes for api call
+   * @param trytes new trytes for api call.
    */
   void setTrytes(const std::vector<Types::Trytes>& trytes);
 
 private:
+  /**
+   * Raw transaction data (trytes) of the transaction.
+   */
   std::vector<Types::Trytes> trytes_;
 };
 

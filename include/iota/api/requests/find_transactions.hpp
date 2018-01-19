@@ -42,16 +42,24 @@ namespace Requests {
 
 /*
  * FindTransactions API call request.
- * Find the transactions which match the specified input and return. All input values are lists, for
- * which a list of return values (transaction hashes), in the same order, is returned for all
- * individual elements. The input fields can either be bundles, addresses, tags or approvees. Using
- * multiple of these input fields returns the intersection of the values.
- * https://iota.readme.io/docs/findtransactions
+ *
+ * Find the transactions which match the specified input and return. All input values are lists,
+ * for which a list of return values (transaction hashes), in the same order, is returned for all
+ * individual elements. The input fields can either be bundles, addresses, tags or approvees.
+ * Using multiple of these input fields returns the intersection of the values.
+ *
+ * https://iota.readme.io/reference#findtransactions
  */
 class FindTransactions : public Base {
 public:
   /**
-   * full init ctor
+   * Full init ctor.
+   *
+   * @param addresses List of addresses.
+   * @param tags List of transaction tags.
+   * @param approvees List of approvees of a transaction.
+   * @param bundles List of bundle hashes. The hashes need to be extended to 81chars by padding the
+   * hash with 9's.
    */
   explicit FindTransactions(const std::vector<Types::Trytes>& addresses = {},
                             const std::vector<Types::Trytes>& tags      = {},
@@ -59,86 +67,98 @@ public:
                             const std::vector<Types::Trytes>& bundles   = {});
 
   /**
-   * default dtor
+   * Default dtor.
    */
   ~FindTransactions() = default;
 
 public:
   /**
-   * serialize obj
+   * Serialize object.
    *
-   * @param res where to store serialisation
+   * @param res where to store serialisation.
    */
   void serialize(json& res);
 
 public:
   /**
-   * @return addresses
+   * @return addresses.
    */
   const std::vector<Types::Trytes>& getAddresses() const;
 
   /**
-   * @return addresses (non const version)
+   * @return addresses (non const version).
    */
   std::vector<Types::Trytes>& getAddresses();
 
   /**
-   * @param addrs new addresses for api call
+   * @param addrs new addresses for api call.
    */
   void setAddresses(const std::vector<Types::Trytes>& addrs);
 
 public:
   /**
-   * @return tags
+   * @return tags.
    */
   const std::vector<Types::Trytes>& getTags() const;
 
   /**
-   * @return tags (non const version)
+   * @return tags (non const version).
    */
   std::vector<Types::Trytes>& getTags();
 
   /**
-   * @param tags new tags for api call
+   * @param tags new tags for api call.
    */
   void setTags(const std::vector<Types::Trytes>& tags);
 
 public:
   /**
-   * @return approvees
+   * @return approvees.
    */
   const std::vector<Types::Trytes>& getApprovees() const;
 
   /**
-   * @return approvees (non const version)
+   * @return approvees (non const version).
    */
   std::vector<Types::Trytes>& getApprovees();
 
   /**
-   * @param approvees new approvees for api call
+   * @param approvees new approvees for api call.
    */
   void setApprovees(const std::vector<Types::Trytes>& approvees);
 
 public:
   /**
-   * @return bundles
+   * @return bundles.
    */
   const std::vector<Types::Trytes>& getBundles() const;
 
   /**
-   * @return bundles (non const version)
+   * @return bundles (non const version).
    */
   std::vector<Types::Trytes>& getBundles();
 
   /**
-   * @param bundles new bundles for api call
+   * @param bundles new bundles for api call.
    */
   void setBundles(const std::vector<Types::Trytes>& bundles);
 
 private:
+  /**
+   * List of addresses.
+   */
   std::vector<Types::Trytes> addresses_;
+  /**
+   * List of transaction tags.
+   */
   std::vector<Types::Trytes> tags_;
+  /**
+   * List of approvees of a transaction.
+   */
   std::vector<Types::Trytes> approvees_;
+  /**
+   * List of bundle hashes. The hashes need to be extended to 81chars by padding the hash with 9's.
+   */
   std::vector<Types::Trytes> bundles_;
 };
 

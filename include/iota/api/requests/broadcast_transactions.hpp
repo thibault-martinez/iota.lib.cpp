@@ -37,45 +37,50 @@ namespace IOTA {
 namespace API {
 
 namespace Requests {
+
 /*
  * BroadcastTransactions API call request.
- * Broadcast a list of transactions to all neighbors. The input trytes for this call are provided by
- * attachToTangle.
- * https://iota.readme.io/docs/broadcasttransactions
+ *
+ * Broadcast a list of transactions to all neighbors. The input trytes for this call are provided
+ * by attachToTangle.
+ *
+ * https://iota.readme.io/reference#broadcasttransactions
  */
 class BroadcastTransactions : public Base {
 public:
   /**
-   * full init ctor
+   * Full init ctor.
+   *
+   * @param trytes List of raw data of transactions to be rebroadcast.
    */
   explicit BroadcastTransactions(const std::vector<Types::Trytes>& trytes = {});
 
   /**
-   * default dtor
+   * Default dtor.
    */
   ~BroadcastTransactions() = default;
 
 public:
   /**
-   * serialize obj
+   * Serialize object.
    *
-   * @param res where to store serialisation
+   * @param res where to store serialisation.
    */
   void serialize(json& res);
 
 public:
   /**
-   * @return trytes
+   * @return trytes.
    */
   const std::vector<Types::Trytes>& getTrytes() const;
 
   /**
-   * @return trytes (non const version)
+   * @return trytes (non const version).
    */
   std::vector<Types::Trytes>& getTrytes();
 
   /**
-   * @param trytes new trytes for api call
+   * @param trytes new trytes for api call.
    */
   void setTrytes(const std::vector<Types::Trytes>& trytes);
 

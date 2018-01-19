@@ -41,25 +41,28 @@ namespace Responses {
  * AddNeighbors API call response.
  * Add a list of neighbors to your node. It should be noted that this is only temporary, and the
  * added neighbors will be removed from your set of neighbors after you relaunch IRI.
- * https://iota.readme.io/docs/addneighors
+ *
+ * https://iota.readme.io/reference#addneighors
  */
 class AddNeighbors : public Base {
 public:
   /**
-   * full init ctor
+   * Full init ctor.
+   *
+   * @param addedNeighbors The number of added neighbors.
    */
   explicit AddNeighbors(const int64_t& addedNeighbors = 0);
 
   /**
-   * default dtor
+   * Default dtor.
    */
   ~AddNeighbors() = default;
 
 public:
   /**
-   * init class based on json data
+   * Initialization based on json data.
    *
-   * @param res json data to be used for deserialization
+   * @param res json data to be used for deserialization.
    */
   void deserialize(const json& res);
 
@@ -70,11 +73,14 @@ public:
   const int64_t& getAddedNeighbors() const;
 
   /**
-   * @param addedNeighbors set number of added neighbors
+   * @param addedNeighbors set number of added neighbors.
    */
   void setAddedNeighbors(const int64_t& addedNeighbors);
 
 private:
+  /**
+   * Number of added neighbors.
+   */
   int64_t addedNeighbors_;
 };
 

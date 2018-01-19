@@ -39,43 +39,47 @@ namespace Requests {
 
 /*
  * RemoveNeighbors API call request.
- * Removes a list of neighbors to your node. This is only temporary, and if you have your neighbors
- * added via the command line, they will be retained after you restart your node.
- * https://iota.readme.io/docs/removeneighors
+ *
+ * Removes a list of neighbors to your node. This is only temporary, and if you have your
+ * neighbors added via the command line, they will be retained after you restart your node.
+ *
+ * https://iota.readme.io/reference#removeneighors
  */
 class RemoveNeighbors : public Base {
 public:
   /**
-   * full init ctor
+   * Full init ctor.
+   *
+   * @param uris List of URI elements.
    */
   explicit RemoveNeighbors(const std::vector<std::string>& uris = {});
 
   /**
-   * default dtor
+   * Default dtor.
    */
   ~RemoveNeighbors() = default;
 
 public:
   /**
-   * serialize obj
+   * Serialize object.
    *
-   * @param res where to store serialisation
+   * @param res where to store serialisation.
    */
   void serialize(json& res);
 
 public:
   /**
-   * @return uris
+   * @return uris.
    */
   const std::vector<std::string>& getUris() const;
 
   /**
-   * @return uris (non const version)
+   * @return uris (non const version).
    */
   std::vector<std::string>& getUris();
 
   /**
-   * @param uris new uris for addNeighbors API call
+   * @param uris new uris for addNeighbors API call.
    */
   void setUris(const std::vector<std::string>& uris);
 

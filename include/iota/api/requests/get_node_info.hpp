@@ -39,18 +39,20 @@ namespace Requests {
 
 /*
  * GetNodeInfo API call request.
+ *
  * Returns information about your node.
- * https://iota.readme.io/docs/getnodeinfo
+ *
+ * https://iota.readme.io/reference#getnodeinfo
  */
 class GetNodeInfo : public Base {
 public:
   /**
-   * full init ctor
+   * Default ctor.
    */
-  GetNodeInfo();
+  explicit GetNodeInfo();
 
   /**
-   * default dtor
+   * Default dtor.
    */
   ~GetNodeInfo() = default;
 };

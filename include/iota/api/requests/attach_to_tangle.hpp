@@ -37,8 +37,10 @@ namespace IOTA {
 namespace API {
 
 namespace Requests {
+
 /*
  * AttachToTangle API call request.
+ *
  * Attaches the specified transactions (trytes) to the Tangle by doing Proof of Work. You need to
  * supply branchTransaction as well as trunkTransaction (basically the tips which you're going to
  * validate and reference with this transaction) - both of which you'll get through the
@@ -47,12 +49,18 @@ namespace Requests {
  * broadcastTransactions and storeTransactions. The returned tryte value, the last 243 trytes
  * basically consist of the: trunkTransaction + branchTransaction + nonce. These are valid trytes
  * which are then accepted by the network.
- * https://iota.readme.io/docs/attachtotangle
+ *
+ * https://iota.readme.io/reference#attachtotangle
  */
 class AttachToTangle : public Base {
 public:
   /**
-   * full init ctor
+   * Full init ctor.
+   *
+   * @param trunkTransaction Trunk transaction to approve.
+   * @param branchTransaction Branch transaction to approve.
+   * @param minWeightMagnitude Proof of Work intensity. Minimum value is 18.
+   * @param trytes List of trytes (raw transaction data) to attach to the tangle.
    */
   explicit AttachToTangle(const Types::Trytes&              trunkTransaction   = "",
                           const Types::Trytes&              branchTransaction  = "",
@@ -60,64 +68,64 @@ public:
                           const std::vector<Types::Trytes>& trytes             = {});
 
   /**
-   * default dtor
+   * Default dtor.
    */
   ~AttachToTangle() = default;
 
 public:
   /**
-   * serialize obj
+   * Serialize object.
    *
-   * @param res where to store serialisation
+   * @param res where to store serialisation.
    */
   void serialize(json& res);
 
 public:
   /**
-   * @return trunk transaction
+   * @return trunk transaction.
    */
   const Types::Trytes& getTrunkTransaction() const;
 
   /**
-   * @param trx new trunk transaction for api call
+   * @param trx new trunk transaction for api call.
    */
   void setTrunkTransaction(const Types::Trytes& trx);
 
 public:
   /**
-   * @return branch transaction
+   * @return branch transaction.
    */
   const Types::Trytes& getBranchTransaction() const;
 
   /**
-   * @param trx new branch transaction for api call
+   * @param trx new branch transaction for api call.
    */
   void setBranchTransaction(const Types::Trytes& trx);
 
 public:
   /**
-   * @return min weight magnitude
+   * @return min weight magnitude.
    */
   int getMinWeightMagnitude() const;
 
   /**
-   * @param weight new min weight magnitude for api call
+   * @param weight new min weight magnitude for api call.
    */
   void setMinWeightMagnitude(int weight);
 
 public:
   /**
-   * @return trytes
+   * @return trytes.
    */
   const std::vector<Types::Trytes>& getTrytes() const;
 
   /**
-   * @return trytes (non const version)
+   * @return trytes (non const version).
    */
   std::vector<Types::Trytes>& getTrytes();
 
   /**
-   * @param trytes new trytes for api call
+   * @param trytes new trytes for api call.
    */
   void setTrytes(const std::vector<Types::Trytes>& trytes);
 

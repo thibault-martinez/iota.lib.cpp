@@ -40,46 +40,53 @@ namespace Responses {
 
 /*
  * GetTips API call response.
+ *
  * Returns the list of tips.
- * https://iota.readme.io/docs/gettips
+ *
+ * https://iota.readme.io/reference#gettips
  */
 class GetTips : public Base {
 public:
   /**
-   * full init ctor
+   * Full init ctor.
+   *
+   * @param hashes The list of tips.
    */
   explicit GetTips(const std::vector<Types::Trytes>& hashes = {});
 
   /**
-   * default dtor
+   * Default dtor.
    */
   ~GetTips() = default;
 
 public:
   /**
-   * init class based on json data
+   * Initialization based on json data.
    *
-   * @param res json data to be used for deserialization
+   * @param res json data to be used for deserialization.
    */
   void deserialize(const json& res);
 
 public:
   /**
-   * @return hashes
+   * @return hashes.
    */
   const std::vector<Types::Trytes>& getHashes() const;
 
   /**
-   * @return hashes (non const version)
+   * @return hashes (non const version).
    */
   std::vector<Types::Trytes>& getHashes();
 
   /**
-   * @param hashes new hashes for api call
+   * @param hashes new hashes for api call.
    */
   void setHashes(const std::vector<Types::Trytes>& hashes);
 
 private:
+  /**
+   * List of tips.
+   */
   std::vector<Types::Trytes> hashes_;
 };
 

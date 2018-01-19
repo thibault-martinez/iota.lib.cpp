@@ -39,18 +39,20 @@ namespace Requests {
 
 /*
  * GetTips API call request.
+ *
  * Returns the list of tips.
- * https://iota.readme.io/docs/gettips
+ *
+ * https://iota.readme.io/reference#gettips
  */
 class GetTips : public Base {
 public:
   /**
-   * full init ctor
+   * Default ctor.
    */
-  GetTips();
+  explicit GetTips();
 
   /**
-   * default dtor
+   * Default dtor.
    */
   ~GetTips() = default;
 };

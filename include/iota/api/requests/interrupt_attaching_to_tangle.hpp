@@ -39,18 +39,20 @@ namespace Requests {
 
 /*
  * InterruptAttachingToTangle API call request.
+ *
  * Interrupts and completely aborts the attachToTangle process.
- * https://iota.readme.io/docs/interruptattachingtotangle
+ *
+ * https://iota.readme.io/reference#interruptattachingtotangle
  */
 class InterruptAttachingToTangle : public Base {
 public:
   /**
-   * full init ctor
+   * Default ctor.
    */
-  InterruptAttachingToTangle();
+  explicit InterruptAttachingToTangle();
 
   /**
-   * default dtor
+   * Default dtor.
    */
   ~InterruptAttachingToTangle() = default;
 };
