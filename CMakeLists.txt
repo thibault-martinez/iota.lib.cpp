@@ -94,6 +94,7 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
 ENDIF()
 
 if (BUILD_TESTS)
+  enable_testing()
   include(gtest_settings)
   add_subdirectory(test)
 ENDIF()

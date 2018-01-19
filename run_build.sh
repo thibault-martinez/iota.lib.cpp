@@ -49,7 +49,7 @@ fi
 #########################
 info "Running tests..." #
 #########################
-./bin/runUnitTests ../test/files $1
+GTEST_COLOR=1 ctest -VV --test-command
 if [ $? -ne 0 ]; then
     fail "Error : tests failed !"
     exit 1

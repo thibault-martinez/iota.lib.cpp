@@ -23,19 +23,42 @@
 #
 #
 
-########## PROJECT TEST FILES ##########
+###
+# project
+###
+set(PROJECT iota_lib_cpp_tests)
+project(${PROJECT} CXX)
 
-file(GLOB_RECURSE PROJECT_TEST_FILES source/*.cpp)
 
-########## INCLUDE DIRS ########
+###
+# compilation options
+###
+if(NOT WIN32)
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+endif(NOT WIN32)
+
+
+###
+# includes
+###
 include_directories("include")
 
-########## EXECUTABLE ##########
 
-add_executable(runUnitTests ${PROJECT_TEST_FILES})
-target_link_libraries(runUnitTests googletest pthread ${CMAKE_PROJECT_NAME})
+###
+# executables
+###
+set(MAIN "source/main.cpp" "source/configuration.cpp")
+set(DIRS "source/**")
 
-target_compile_features(runUnitTests PRIVATE cxx_range_for)
-# add_sanitizers(runUnitTests)
+foreach(DIR ${DIRS})
+  file(GLOB s_${DIR} "${DIR}/*.cpp")
 
-add_test(AllTests runUnitTests)
+  foreach(SOURCE ${s_${DIR}})
+    get_filename_component(TEST_NAME ${SOURCE} NAME_WE)
+    add_executable(${TEST_NAME} ${MAIN} ${SOURCE})
+    target_compile_features(${TEST_NAME}  PRIVATE cxx_range_for)
+    target_link_libraries(${TEST_NAME} googletest pthread ${CMAKE_PROJECT_NAME})
+    add_test(NAME ${TEST_NAME}_tests COMMAND ${TEST_NAME} ${CMAKE_SOURCE_DIR}/test/files)
+  endforeach()
+
+endforeach()

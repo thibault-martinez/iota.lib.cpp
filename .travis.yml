@@ -25,10 +25,8 @@
 
 language: cpp
 
-cache:
-  - ccache
-  - directories:
-    - $TRAVIS_BUILD_DIR/boost_includes
+dist: trusty
+sudo: required
 
 matrix:
   include:
@@ -120,6 +118,8 @@ install:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get -qq install maven; fi
 
 before_script:
+  # Increase resources limitation
+  - ulimit -c unlimited -S
   # setup environment
   - eval "${MATRIX_EVAL}"
   # set IRI
@@ -137,8 +137,8 @@ script:
   - mkdir -p build
   - cd build
   - cmake -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -DBUILD_TESTS=1 ..
-  - make -j4
-  - ./bin/runUnitTests ../test/files
+  - make
+  - GTEST_COLOR=1 ctest -VV
 
 after_success:
   # test coverage
