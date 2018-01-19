@@ -48,10 +48,10 @@ include_directories("include")
 # executables
 ###
 set(MAIN "source/main.cpp" "source/configuration.cpp")
-set(DIRS "source/**")
+set(DIRS "source")
 
 foreach(DIR ${DIRS})
-  file(GLOB s_${DIR} "${DIR}/*.cpp")
+  file(GLOB_RECURSE s_${DIR} "${DIR}/*.cpp")
 
   foreach(SOURCE ${s_${DIR}})
     get_filename_component(TEST_NAME ${SOURCE} NAME_WE)
