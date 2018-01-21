@@ -38,6 +38,7 @@
 #include <iota/api/requests/interrupt_attaching_to_tangle.hpp>
 #include <iota/api/requests/remove_neighbors.hpp>
 #include <iota/api/requests/store_transactions.hpp>
+#include <iota/errors/illegal_state.hpp>
 
 namespace IOTA {
 
@@ -96,6 +97,14 @@ Core::getTrytes(const std::vector<Types::Trytes>& hashes) const {
 Responses::GetInclusionStates
 Core::getInclusionStates(const std::vector<Types::Trytes>& transactions,
                          const std::vector<Types::Trytes>& tips) const {
+  if (transactions.empty()) {
+    return Responses::GetInclusionStates{};
+  }
+
+  if (tips.empty()) {
+    throw Errors::IllegalState("Empty list of tips");
+  }
+
   return service_.request<Requests::GetInclusionStates, Responses::GetInclusionStates>(transactions,
                                                                                        tips);
 }

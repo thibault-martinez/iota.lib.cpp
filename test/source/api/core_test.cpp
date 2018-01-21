@@ -26,6 +26,7 @@
 #include <gtest/gtest.h>
 
 #include <iota/api/core.hpp>
+#include <iota/errors/illegal_state.hpp>
 #include <test/utils/configuration.hpp>
 #include <test/utils/constants.hpp>
 #include <test/utils/expect_exception.hpp>
@@ -215,4 +216,56 @@ TEST(Core, FindTransactionsWithInvalidBundle) {
                    , IOTA::Errors::BadRequest, "Invalid bundles input")
 
   EXPECT_GE(res.getDuration(), 0);
+}
+
+TEST(Core, GetInclusionStates) {
+  IOTA::API::Core api(get_proxy_host(), get_proxy_port());
+
+  //! bundle 2 is initial funding which occured before bundle 1 (additional trx)
+  auto res = api.getInclusionStates({ BUNDLE_2_TRX_1_HASH }, { BUNDLE_1_TRX_1_HASH });
+
+  EXPECT_EQ(res.getStates(), std::vector<bool>({ true }));
+}
+
+TEST(Core, GetInclusionStatesNoTrx) {
+  IOTA::API::Core api(get_proxy_host(), get_proxy_port());
+
+  //! bundle 2 is initial funding which occured before bundle 1 (additional trx)
+  auto res = api.getInclusionStates({}, { BUNDLE_1_TRX_1_HASH });
+
+  EXPECT_EQ(res.getStates(), std::vector<bool>({}));
+}
+
+TEST(Core, GetInclusionStatesOlderMilestone) {
+  IOTA::API::Core api(get_proxy_host(), get_proxy_port());
+
+  //! bundle 2 is initial funding which occured before bundle 1 (additional trx)
+  auto res = api.getInclusionStates({ BUNDLE_1_TRX_1_HASH }, { BUNDLE_2_TRX_1_HASH });
+
+  EXPECT_EQ(res.getStates(), std::vector<bool>({ false }));
+}
+
+TEST(Core, GetInclusionStatesNoMilestone) {
+  IOTA::API::Core api(get_proxy_host(), get_proxy_port());
+
+  EXPECT_EXCEPTION(api.getInclusionStates({ BUNDLE_2_TRX_1_HASH }, {});
+                   , IOTA::Errors::IllegalState, "Empty list of tips")
+}
+
+TEST(Core, GetInclusionStatesInvalidMilestone) {
+  IOTA::API::Core api(get_proxy_host(), get_proxy_port());
+
+  EXPECT_EXCEPTION(api.getInclusionStates({ BUNDLE_2_TRX_1_HASH }, { "hello" });
+                   , IOTA::Errors::BadRequest, "Invalid tips input")
+}
+
+TEST(Core, GetInclusionStatesInvalidHash) {
+  IOTA::API::Core api(get_proxy_host(), get_proxy_port());
+
+  auto hash = BUNDLE_2_TRX_1_HASH;
+  hash[0]   = '9';
+
+  auto res = api.getInclusionStates({ hash }, { BUNDLE_1_TRX_1_HASH });
+
+  EXPECT_EQ(res.getStates(), std::vector<bool>({ false }));
 }
