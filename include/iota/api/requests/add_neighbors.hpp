@@ -64,7 +64,7 @@ public:
    *
    * @param res where to store serialisation.
    */
-  void serialize(json& res);
+  void serialize(json& res) const;
 
 public:
   /**

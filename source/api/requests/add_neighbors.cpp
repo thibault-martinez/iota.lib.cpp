@@ -35,6 +35,12 @@ AddNeighbors::AddNeighbors(const std::vector<std::string>& uris)
     : Base("addNeighbors"), uris_(uris) {
 }
 
+void
+AddNeighbors::serialize(json& data) const {
+  Base::serialize(data);
+  data["uris"] = uris_;
+}
+
 const std::vector<std::string>&
 AddNeighbors::getUris() const {
   return uris_;
@@ -48,12 +54,6 @@ AddNeighbors::getUris() {
 void
 AddNeighbors::setUris(const std::vector<std::string>& uris) {
   uris_ = uris;
-}
-
-void
-AddNeighbors::serialize(json& data) {
-  Base::serialize(data);
-  data["uris"] = uris_;
 }
 
 }  // namespace Requests

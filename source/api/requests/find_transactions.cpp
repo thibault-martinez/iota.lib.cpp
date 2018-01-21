@@ -42,16 +42,15 @@ FindTransactions::FindTransactions(const std::vector<Types::Trytes>& addresses,
       approvees_(approvees),
       bundles_(bundles) {
 }
+
 void
-FindTransactions::serialize(json& data) {
+FindTransactions::serialize(json& data) const {
   Base::serialize(data);
 
   if (!addresses_.empty()) {
-    std::transform(std::begin(addresses_), std::end(addresses_), std::begin(addresses_),
-                   [](const Types::Trytes& address) -> Types::Trytes {
-                     return IOTA::Crypto::Checksum::remove(address);
-                   });
-    data["addresses"] = addresses_;
+    for (auto& address : addresses_) {
+      data["addresses"].emplace_back(IOTA::Crypto::Checksum::remove(address));
+    }
   }
 
   if (!tags_.empty()) {

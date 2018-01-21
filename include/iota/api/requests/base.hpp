@@ -60,7 +60,7 @@ public:
    *
    * @param res where to store serialisation.
    */
-  virtual void serialize(json& res);
+  virtual void serialize(json& res) const;
 
 private:
   /**

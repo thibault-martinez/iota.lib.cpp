@@ -37,7 +37,7 @@ GetInclusionStates::GetInclusionStates(const std::vector<Types::Trytes>& transac
 }
 
 void
-GetInclusionStates::serialize(json& data) {
+GetInclusionStates::serialize(json& data) const {
   Base::serialize(data);
   data["transactions"] = transactions_;
   data["tips"]         = tips_;

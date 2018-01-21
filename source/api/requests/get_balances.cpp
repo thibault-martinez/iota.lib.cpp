@@ -37,13 +37,12 @@ GetBalances::GetBalances(const std::vector<Types::Trytes>& addresses, const int&
 }
 
 void
-GetBalances::serialize(json& data) {
+GetBalances::serialize(json& data) const {
   Base::serialize(data);
-  std::transform(std::begin(addresses_), std::end(addresses_), std::begin(addresses_),
-                 [](const Types::Trytes& address) -> Types::Trytes {
-                   return IOTA::Crypto::Checksum::remove(address);
-                 });
-  data["addresses"] = addresses_;
+
+  for (auto& address : addresses_) {
+    data["addresses"].emplace_back(IOTA::Crypto::Checksum::remove(address));
+  }
   data["threshold"] = threshold_;
 }
 

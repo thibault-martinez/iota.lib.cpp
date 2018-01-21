@@ -31,8 +31,9 @@ namespace API {
 
 namespace Requests {
 
-AttachToTangle::AttachToTangle(const Types::Trytes& trunkTransaction,
-                               const Types::Trytes& branchTransaction, const int& minWeightMagnitude,
+AttachToTangle::AttachToTangle(const Types::Trytes&              trunkTransaction,
+                               const Types::Trytes&              branchTransaction,
+                               const int&                        minWeightMagnitude,
                                const std::vector<Types::Trytes>& trytes)
     : Base("attachToTangle"),
       trunkTransaction_(trunkTransaction),
@@ -42,7 +43,7 @@ AttachToTangle::AttachToTangle(const Types::Trytes& trunkTransaction,
 }
 
 void
-AttachToTangle::serialize(json& data) {
+AttachToTangle::serialize(json& data) const {
   Base::serialize(data);
   data["trunkTransaction"]   = trunkTransaction_;
   data["branchTransaction"]  = branchTransaction_;
