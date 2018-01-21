@@ -39,5 +39,5 @@ TEST(BaseRequest, SerializeShouldInitJson) {
 
   req.serialize(data);
 
-  EXPECT_EQ(data["command"], "cmd");
+  EXPECT_EQ(data["command"].get<std::string>(), "cmd");
 }
