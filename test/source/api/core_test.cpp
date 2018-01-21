@@ -52,12 +52,30 @@ TEST(Core, GetNodeInfo) {
   EXPECT_GE(res.getTransactionsToRequest(), 0);
 }
 
-TEST(Core, GetNeighbors) {
+TEST(Core, AddRemoveAndGetNeighbors) {
   IOTA::API::Core api(get_proxy_host(), get_proxy_port());
-  auto            res = api.getNeighbors();
 
-  EXPECT_GE(res.getDuration(), 0);
-  EXPECT_TRUE(res.getNeighbors().size() >= 0);
+  auto resGetEmpty = api.getNeighbors();
+  EXPECT_GE(resGetEmpty.getDuration(), 0);
+  EXPECT_EQ(resGetEmpty.getNeighbors().size(), 0UL);
+
+  auto resAdd = api.addNeighbors({ "udp://8.8.8.8:14265", "udp://8.8.8.5:14265" });
+  EXPECT_GE(resAdd.getDuration(), 0);
+  EXPECT_EQ(resAdd.getAddedNeighbors(), 2);
+
+  auto resGetAfterAdd = api.getNeighbors();
+  EXPECT_GE(resGetAfterAdd.getDuration(), 0);
+  ASSERT_EQ(resGetAfterAdd.getNeighbors().size(), 2UL);
+  EXPECT_EQ(resGetAfterAdd.getNeighbors()[0].getAddress(), "8.8.8.8:14265");
+  EXPECT_EQ(resGetAfterAdd.getNeighbors()[1].getAddress(), "8.8.8.5:14265");
+
+  auto resRemove = api.removeNeighbors({ "udp://8.8.8.8:14265", "udp://8.8.8.5:14265" });
+  EXPECT_GE(resRemove.getDuration(), 0);
+  EXPECT_EQ(resRemove.getRemovedNeighbors(), 2);
+
+  auto resGetAfterRemove = api.getNeighbors();
+  EXPECT_GE(resGetAfterRemove.getDuration(), 0);
+  EXPECT_EQ(resGetAfterRemove.getNeighbors().size(), 0UL);
 }
 
 TEST(Core, GetTips) {
