@@ -39,6 +39,11 @@ Base::serialize(json& data) const {
   data = json{ { "command", command_ } };
 }
 
+const std::string&
+Base::getCommandName() const {
+  return command_;
+}
+
 }  // namespace Requests
 
 }  // namespace API

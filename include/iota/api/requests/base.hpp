@@ -62,6 +62,12 @@ public:
    */
   virtual void serialize(json& res) const;
 
+public:
+  /**
+   * @return The command name.
+   */
+  const std::string& getCommandName() const;
+
 private:
   /**
    * The command name.
