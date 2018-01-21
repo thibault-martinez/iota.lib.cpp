@@ -25,6 +25,9 @@
 
 #include <gtest/gtest.h>
 
+#include <chrono>
+#include <thread>
+
 #include <iota/api/core.hpp>
 #include <iota/errors/illegal_state.hpp>
 #include <test/utils/configuration.hpp>
@@ -268,4 +271,29 @@ TEST(Core, GetInclusionStatesInvalidHash) {
   auto res = api.getInclusionStates({ hash }, { BUNDLE_1_TRX_1_HASH });
 
   EXPECT_EQ(res.getStates(), std::vector<bool>({ false }));
+}
+
+TEST(Core, InterruptAttachingToTangle) {
+  IOTA::API::Core api(get_proxy_host(), get_proxy_port());
+
+  IOTA::API::Responses::AttachToTangle attachToTangleRes;
+
+  //! run attach in background
+  std::thread t([&] {
+    attachToTangleRes = api.attachToTangle(BUNDLE_2_TRX_1_TRUNK, BUNDLE_2_TRX_1_BRANCH, 18,
+                                           { BUNDLE_2_TRX_1_TRYTES });
+
+  });
+
+  //! wait 2 sec to make sure thread started and request was sent
+  std::this_thread::sleep_for(std::chrono::seconds(2));
+
+  //! interrup
+  api.interruptAttachingToTangle();
+
+  //! wait for attach completion
+  t.join();
+
+  //! check that attach indeed failed
+  EXPECT_EQ(attachToTangleRes.getTrytes().size(), 0UL);
 }
