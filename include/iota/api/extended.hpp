@@ -220,12 +220,6 @@ public:
                                        bool inclusionStates) const;
 
   /**
-   * Takes a tail transaction hash as input, gets the bundle associated with the transaction and
-   * then replays the bundle by attaching it to the tangle.
-   */
-  void replayTransfer() const;
-
-  /**
    * Wrapper function that basically does prepareTransfers, as well as attachToTangle and finally,
    * it broadcasts and stores the transactions locally.
    *

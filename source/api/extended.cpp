@@ -628,10 +628,6 @@ Extended::getTransfers(const Types::Trytes& seed, int start, int end, int securi
   return { bundles, stopWatch.getElapsedTimeMilliSeconds().count() };
 }
 
-void
-Extended::replayTransfer() const {
-}
-
 Responses::SendTransfer
 Extended::sendTransfer(const Types::Trytes& seed, int security, int depth, int minWeightMagnitude,
                        std::vector<Models::Transfer>&    transfers,
