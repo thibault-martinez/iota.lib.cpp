@@ -102,8 +102,8 @@ TEST(Core, GetTrytesInvalidHash) {
   IOTA::API::Core                 api(get_proxy_host(), get_proxy_port());
   IOTA::API::Responses::GetTrytes res;
 
-  EXPECT_EXCEPTION(res = api.getTrytes({ "9999" });
-                   , IOTA::Errors::BadRequest, "Invalid hashes input")
+  EXPECT_EXCEPTION(res = api.getTrytes({ "9999" }), IOTA::Errors::BadRequest,
+                   "Invalid hashes input")
 
   EXPECT_GE(res.getDuration(), 0);
 }
@@ -121,8 +121,8 @@ TEST(Core, GetBalancesInvalidAddress) {
   IOTA::API::Core                   api(get_proxy_host(), get_proxy_port());
   IOTA::API::Responses::GetBalances res;
 
-  EXPECT_EXCEPTION(res = api.getBalances({ "9999" }, 100);
-                   , IOTA::Errors::BadRequest, "Invalid addresses input")
+  EXPECT_EXCEPTION(res = api.getBalances({ "9999" }, 100), IOTA::Errors::BadRequest,
+                   "Invalid addresses input")
 
   EXPECT_GE(res.getDuration(), 0);
 }
@@ -131,8 +131,8 @@ TEST(Core, GetBalancesInvalidThreshold) {
   IOTA::API::Core                   api(get_proxy_host(), get_proxy_port());
   IOTA::API::Responses::GetBalances res;
 
-  EXPECT_EXCEPTION(res = api.getBalances({ BUNDLE_1_TRX_1_TRYTES }, 0);
-                   , IOTA::Errors::BadRequest, "Illegal 'threshold'")
+  EXPECT_EXCEPTION(res = api.getBalances({ BUNDLE_1_TRX_1_TRYTES }, 0), IOTA::Errors::BadRequest,
+                   "Illegal 'threshold'")
 
   EXPECT_GE(res.getDuration(), 0);
 }
@@ -157,8 +157,8 @@ TEST(Core, BroadcastTransactionsInvalidTrytes) {
   IOTA::API::Core            api(get_proxy_host(), get_proxy_port());
   IOTA::API::Responses::Base res;
 
-  EXPECT_EXCEPTION(res = api.broadcastTransactions({ "9999" });
-                   , IOTA::Errors::BadRequest, "Invalid trytes input")
+  EXPECT_EXCEPTION(res = api.broadcastTransactions({ "9999" }), IOTA::Errors::BadRequest,
+                   "Invalid trytes input")
 
   EXPECT_GE(res.getDuration(), 0);
 }
@@ -174,8 +174,8 @@ TEST(Core, FindTransactionsWithInvalidAddress) {
   IOTA::API::Core                        api(get_proxy_host(), get_proxy_port());
   IOTA::API::Responses::FindTransactions res;
 
-  EXPECT_EXCEPTION(res = api.findTransactions({ "9999" }, {}, {}, {});
-                   , IOTA::Errors::BadRequest, "Invalid addresses input")
+  EXPECT_EXCEPTION(res = api.findTransactions({ "9999" }, {}, {}, {}), IOTA::Errors::BadRequest,
+                   "Invalid addresses input")
 
   EXPECT_GE(res.getDuration(), 0);
 }
@@ -198,8 +198,8 @@ TEST(Core, FindTransactionsWithInvalidApprovee) {
   IOTA::API::Core                        api(get_proxy_host(), get_proxy_port());
   IOTA::API::Responses::FindTransactions res;
 
-  EXPECT_EXCEPTION(res = api.findTransactions({}, {}, { "9999" }, {});
-                   , IOTA::Errors::BadRequest, "Invalid approvees input")
+  EXPECT_EXCEPTION(res = api.findTransactions({}, {}, { "9999" }, {}), IOTA::Errors::BadRequest,
+                   "Invalid approvees input")
 
   EXPECT_GE(res.getDuration(), 0);
 }
@@ -215,8 +215,8 @@ TEST(Core, FindTransactionsWithInvalidBundle) {
   IOTA::API::Core                        api(get_proxy_host(), get_proxy_port());
   IOTA::API::Responses::FindTransactions res;
 
-  EXPECT_EXCEPTION(res = api.findTransactions({}, {}, {}, { "9999" });
-                   , IOTA::Errors::BadRequest, "Invalid bundles input")
+  EXPECT_EXCEPTION(res = api.findTransactions({}, {}, {}, { "9999" }), IOTA::Errors::BadRequest,
+                   "Invalid bundles input")
 
   EXPECT_GE(res.getDuration(), 0);
 }
@@ -258,8 +258,8 @@ TEST(Core, GetInclusionStatesNoMilestone) {
 TEST(Core, GetInclusionStatesInvalidMilestone) {
   IOTA::API::Core api(get_proxy_host(), get_proxy_port());
 
-  EXPECT_EXCEPTION(api.getInclusionStates({ BUNDLE_2_TRX_1_HASH }, { "hello" });
-                   , IOTA::Errors::BadRequest, "Invalid tips input")
+  EXPECT_EXCEPTION(api.getInclusionStates({ BUNDLE_2_TRX_1_HASH }, { "hello" }),
+                   IOTA::Errors::BadRequest, "Invalid tips input")
 }
 
 TEST(Core, GetInclusionStatesInvalidHash) {

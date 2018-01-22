@@ -28,7 +28,9 @@
 #include <gtest/gtest.h>
 
 #include <iota/crypto/keccak384.hpp>
+#include <iota/errors/crypto.hpp>
 #include <test/utils/configuration.hpp>
+#include <test/utils/expect_exception.hpp>
 
 TEST(Keccak384, digest) {
   std::ifstream file(get_deps_folder() + "/keccak384");

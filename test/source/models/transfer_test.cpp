@@ -52,6 +52,18 @@ TEST(Transfer, CtorFull) {
   EXPECT_EQ(t.getTag(), "tag");
 }
 
+TEST(Transfer, CtorShort) {
+  IOTA::Models::Transfer t = { "addr", 1, "msg", "tag" };
+
+  EXPECT_EQ(t.getAddress(), "addr");
+  EXPECT_EQ(t.getHash(), "");
+  EXPECT_EQ(t.getPersistence(), false);
+  EXPECT_EQ(t.getTimestamp(), "");
+  EXPECT_EQ(t.getValue(), 1);
+  EXPECT_EQ(t.getMessage(), "msg");
+  EXPECT_EQ(t.getTag(), "tag");
+}
+
 TEST(Transfer, ConstGetters) {
   const IOTA::Models::Transfer t = { "ts", "addr", "hash", true, 1, "msg", "tag" };
 

@@ -29,5 +29,5 @@
 #include <test/utils/expect_exception.hpp>
 
 TEST(Errors, Network) {
-  EXPECT_EXCEPTION(throw(IOTA::Errors::Network("Network"));, IOTA::Errors::Network, "Network")
+  EXPECT_EXCEPTION(throw(IOTA::Errors::Network("Network")), IOTA::Errors::Network, "Network")
 }

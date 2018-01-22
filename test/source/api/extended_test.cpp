@@ -316,8 +316,8 @@ TEST(Extended, TraverseBundleFullInvalidHash) {
   auto api    = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
   auto bundle = IOTA::Models::Bundle{};
 
-  EXPECT_EXCEPTION(api.traverseBundle("salut", "hello", bundle);
-                   , IOTA::Errors::BadRequest, "Invalid hashes input");
+  EXPECT_EXCEPTION(api.traverseBundle("salut", "hello", bundle), IOTA::Errors::BadRequest,
+                   "Invalid hashes input");
 }
 
 TEST(Extended, TraverseBundleFullInvalidBundleHash) {
@@ -464,8 +464,8 @@ TEST(Extended, FindTailTransactionHashWithBundle) {
 TEST(Extended, FindTailTransactionHashWithInvalid) {
   auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
 
-  EXPECT_EXCEPTION(api.findTailTransactionHash("salut");
-                   , IOTA::Errors::BadRequest, "Invalid hashes input");
+  EXPECT_EXCEPTION(api.findTailTransactionHash("salut"), IOTA::Errors::BadRequest,
+                   "Invalid hashes input");
 }
 
 TEST(Extended, FindTransactionsByAddresses) {
@@ -479,8 +479,8 @@ TEST(Extended, FindTransactionsByAddressesInvalidAddress) {
   auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
   IOTA::API::Responses::FindTransactions res;
 
-  EXPECT_EXCEPTION(res = api.findTransactionsByAddresses({ "9999" });
-                   , IOTA::Errors::BadRequest, "Invalid addresses input")
+  EXPECT_EXCEPTION(res = api.findTransactionsByAddresses({ "9999" }), IOTA::Errors::BadRequest,
+                   "Invalid addresses input")
 
   EXPECT_GE(res.getDuration(), 0);
 }
@@ -503,8 +503,8 @@ TEST(Extended, FindTransactionsByApproveesInvalidApprovee) {
   auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
   IOTA::API::Responses::FindTransactions res;
 
-  EXPECT_EXCEPTION(res = api.findTransactionsByApprovees({ "9999" });
-                   , IOTA::Errors::BadRequest, "Invalid approvees input")
+  EXPECT_EXCEPTION(res = api.findTransactionsByApprovees({ "9999" }), IOTA::Errors::BadRequest,
+                   "Invalid approvees input")
 
   EXPECT_GE(res.getDuration(), 0);
 }
@@ -520,8 +520,8 @@ TEST(Extended, FindTransactionsByBundlesInvalidBundle) {
   auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
   IOTA::API::Responses::FindTransactions res;
 
-  EXPECT_EXCEPTION(res = api.findTransactionsByBundles({ "9999" });
-                   , IOTA::Errors::BadRequest, "Invalid bundles input")
+  EXPECT_EXCEPTION(res = api.findTransactionsByBundles({ "9999" }), IOTA::Errors::BadRequest,
+                   "Invalid bundles input")
 
   EXPECT_GE(res.getDuration(), 0);
 }

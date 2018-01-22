@@ -29,5 +29,5 @@
 #include <test/utils/expect_exception.hpp>
 
 TEST(Errors, Generic) {
-  EXPECT_EXCEPTION(throw(IOTA::Errors::Generic("Generic"));, IOTA::Errors::Generic, "Generic")
+  EXPECT_EXCEPTION(throw(IOTA::Errors::Generic("Generic")), IOTA::Errors::Generic, "Generic")
 }

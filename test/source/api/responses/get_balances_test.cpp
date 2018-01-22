@@ -27,6 +27,15 @@
 
 #include <iota/api/responses/get_balances.hpp>
 
+TEST(GetBalancesReponse, DefaultCtorShouldInitFields) {
+  const IOTA::API::Responses::GetBalances res;
+
+  EXPECT_EQ(res.getBalances(), std::vector<std::string>());
+  EXPECT_EQ(res.getMilestone(), "");
+  EXPECT_EQ(res.getMilestoneIndex(), 0);
+  EXPECT_EQ(res.getDuration(), 0);
+}
+
 TEST(GetBalancesReponse, CtorShouldInitFields) {
   const IOTA::API::Responses::GetBalances res{ { "bal1", "bal2", "bal3" }, "milestone", 1 };
 

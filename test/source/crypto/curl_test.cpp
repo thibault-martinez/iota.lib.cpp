@@ -26,6 +26,8 @@
 #include <gtest/gtest.h>
 
 #include <iota/crypto/curl.hpp>
+#include <iota/errors/crypto.hpp>
+#include <test/utils/expect_exception.hpp>
 
 //!
 //! Tests are based on real values (can be found on iota tangle explorer)
@@ -80,6 +82,26 @@ TEST(Curl, AbsorbAndSqeeze) {
 
   EXPECT_EQ(IOTA::Types::tritsToTrytes(res),
             "XKIQFBIIPYNNSQEXIKTZELEIVLFPPYCOYSCCCFRSGUFOS9QNUCLJOTRCHMIEVDZABIPPPAPKKWAWZFOFT");
+}
+
+TEST(Curl, AbsorbInvalidTritsLength) {
+  IOTA::Crypto::Curl c;
+  IOTA::Types::Trits trits;
+
+  trits.push_back(1);
+
+  EXPECT_EXCEPTION(c.absorb(trits, 0, 0), IOTA::Errors::Crypto,
+                   "Curl::absorb failed: illegal length");
+}
+
+TEST(Curl, SqueezeInvalidTritsLength) {
+  IOTA::Crypto::Curl c;
+  IOTA::Types::Trits trits;
+
+  trits.push_back(1);
+
+  EXPECT_EXCEPTION(c.squeeze(trits, 0, 0), IOTA::Errors::Crypto,
+                   "Curl::squeeze failed: illegal length");
 }
 
 TEST(Curl, Reset) {

@@ -29,6 +29,6 @@
 #include <test/utils/expect_exception.hpp>
 
 TEST(Errors, InternalServerError) {
-  EXPECT_EXCEPTION(throw(IOTA::Errors::InternalServerError("Internal Server Error"));
-                   , IOTA::Errors::InternalServerError, "Internal Server Error")
+  EXPECT_EXCEPTION(throw(IOTA::Errors::InternalServerError("Internal Server Error")),
+                   IOTA::Errors::InternalServerError, "Internal Server Error")
 }

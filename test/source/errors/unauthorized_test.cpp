@@ -29,6 +29,6 @@
 #include <test/utils/expect_exception.hpp>
 
 TEST(Errors, Unauthorized) {
-  EXPECT_EXCEPTION(throw(IOTA::Errors::Unauthorized("Unauthorized"));
-                   , IOTA::Errors::Unauthorized, "Unauthorized")
+  EXPECT_EXCEPTION(throw(IOTA::Errors::Unauthorized("Unauthorized")), IOTA::Errors::Unauthorized,
+                   "Unauthorized")
 }

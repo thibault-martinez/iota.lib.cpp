@@ -27,7 +27,8 @@
 
 #define EXPECT_EXCEPTION(STATEMENT, EXCEPTION_TYPE, MESSAGE) \
   try {                                                      \
-    { STATEMENT } FAIL();                                    \
+    { STATEMENT; }                                           \
+    FAIL();                                                  \
   } catch (const EXCEPTION_TYPE& e) {                        \
     EXPECT_STREQ(MESSAGE, e.what());                         \
   } catch (...) {                                            \

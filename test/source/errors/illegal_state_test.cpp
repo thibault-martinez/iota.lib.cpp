@@ -29,6 +29,6 @@
 #include <test/utils/expect_exception.hpp>
 
 TEST(Errors, IllegalState) {
-  EXPECT_EXCEPTION(throw(IOTA::Errors::IllegalState("Illegal State"));
-                   , IOTA::Errors::IllegalState, "Illegal State")
+  EXPECT_EXCEPTION(throw(IOTA::Errors::IllegalState("Illegal State")), IOTA::Errors::IllegalState,
+                   "Illegal State")
 }

@@ -27,6 +27,13 @@
 
 #include <iota/api/responses/get_trytes.hpp>
 
+TEST(GetTrytesResponse, DefaultCtorShouldInitFields) {
+  const IOTA::API::Responses::GetTrytes res;
+
+  EXPECT_EQ(res.getTrytes(), std::vector<IOTA::Types::Trytes>());
+  EXPECT_EQ(res.getDuration(), 0);
+}
+
 TEST(GetTrytesResponse, CtorShouldInitFields) {
   const IOTA::API::Responses::GetTrytes res{ { "TESTA", "TESTB" } };
 

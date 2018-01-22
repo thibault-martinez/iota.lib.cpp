@@ -56,6 +56,17 @@ TEST(Bundle, TransactionsGetterAndSetter) {
                                      IOTA::Models::Transaction("addr", 0, "tag", 0) });
 }
 
+TEST(Bundle, TransactionsGetterAndSetterEmplace) {
+  IOTA::Models::Bundle b;
+  EXPECT_EQ(b.getTransactions(), std::vector<IOTA::Models::Transaction>{});
+
+  b.addTransaction(3, "addr", 42, "tag", 21);
+  EXPECT_EQ(b.getTransactions(), std::vector<IOTA::Models::Transaction>(
+                                     { IOTA::Models::Transaction("addr", 42, "tag", 21),
+                                       IOTA::Models::Transaction("addr", 0, "tag", 0),
+                                       IOTA::Models::Transaction("addr", 0, "tag", 0) }));
+}
+
 TEST(Bundle, TransactionsNonConstGetter) {
   IOTA::Models::Bundle b;
   EXPECT_EQ(b.getTransactions(), std::vector<IOTA::Models::Transaction>{});

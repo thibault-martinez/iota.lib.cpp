@@ -29,5 +29,5 @@
 #include <test/utils/expect_exception.hpp>
 
 TEST(Errors, Crypto) {
-  EXPECT_EXCEPTION(throw(IOTA::Errors::Crypto("Crypto"));, IOTA::Errors::Crypto, "Crypto")
+  EXPECT_EXCEPTION(throw(IOTA::Errors::Crypto("Crypto")), IOTA::Errors::Crypto, "Crypto")
 }

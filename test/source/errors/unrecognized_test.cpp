@@ -29,6 +29,6 @@
 #include <test/utils/expect_exception.hpp>
 
 TEST(Errors, Unrecognized) {
-  EXPECT_EXCEPTION(throw(IOTA::Errors::Unrecognized("Unrecognized"));
-                   , IOTA::Errors::Unrecognized, "Unrecognized")
+  EXPECT_EXCEPTION(throw(IOTA::Errors::Unrecognized("Unrecognized")), IOTA::Errors::Unrecognized,
+                   "Unrecognized")
 }

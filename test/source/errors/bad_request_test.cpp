@@ -29,6 +29,6 @@
 #include <test/utils/expect_exception.hpp>
 
 TEST(Errors, BadRequest) {
-  EXPECT_EXCEPTION(throw(IOTA::Errors::BadRequest("Bad Request"));
-                   , IOTA::Errors::BadRequest, "Bad Request")
+  EXPECT_EXCEPTION(throw(IOTA::Errors::BadRequest("Bad Request")), IOTA::Errors::BadRequest,
+                   "Bad Request")
 }
