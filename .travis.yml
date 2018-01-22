@@ -125,12 +125,13 @@ before_script:
   # set IRI
   - git clone https://github.com/iotaledger/iri.git
   - cd iri
+  - git checkout 27aae832
   - cp ../test/testnet/Snapshot.txt src/main/resources
   - cp ../test/testnet/Snapshot.java src/main/java/com/iota/iri/Snapshot.java
   - mvn clean compile -q
   - mvn package -q
   - cp -r ../test/testnet/testnetdb .
-  - java -jar target/iri-1.4.1.6.jar --testnet -p 14265 &
+  - java -jar target/iri-1.4.1.7.jar --testnet -p 14265 &
   - cd ..
 
 script:
