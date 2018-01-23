@@ -61,7 +61,7 @@ public:
   virtual ~Pow();
 
 public:
-  Types::Trytes operator()(const Types::Trytes& trytes, int minWeightMagnitude);
+  Types::Trytes operator()(const Types::Trytes& trytes, int minWeightMagnitude) override;
 
 private:
   void         transform64(uint64_t* lmid, uint64_t* hmid) const;

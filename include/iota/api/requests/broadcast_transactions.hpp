@@ -66,7 +66,7 @@ public:
    *
    * @param res where to store serialisation.
    */
-  void serialize(json& res) const;
+  void serialize(json& res) const override;
 
 public:
   /**

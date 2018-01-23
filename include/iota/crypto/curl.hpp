@@ -45,7 +45,7 @@ public:
   /**
    * Reset current state of the crypto algorithm
    */
-  void reset();
+  void reset() override;
 
   /**
    * absorb the input into the current state
@@ -54,7 +54,7 @@ public:
    * @param offset offset at which the current state should be modified
    * @param length length of the given input that should be used for absorption
    */
-  void absorb(const Types::Trits& trits, unsigned int offset = 0, unsigned int length = 0);
+  void absorb(const Types::Trits& trits, unsigned int offset = 0, unsigned int length = 0) override;
 
   /**
    * squeeze the current state to the given input/output
@@ -63,7 +63,7 @@ public:
    * @param offset offset at which the input trists should be modified
    * @param length length of the current state that should be used for squeezing
    */
-  void squeeze(Types::Trits& trits, unsigned int offset = 0, unsigned int length = 0);
+  void squeeze(Types::Trits& trits, unsigned int offset = 0, unsigned int length = 0) override;
 
 public:
   const std::vector<int8_t>& getState() const;
