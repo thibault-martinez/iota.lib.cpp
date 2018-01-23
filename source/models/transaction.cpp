@@ -59,7 +59,15 @@ Transaction::Transaction()
       persistence_(false) {
 }
 
-Transaction::Transaction(const Types::Trytes& trytes) : persistence_(false) {
+Transaction::Transaction(const Types::Trytes& trytes)
+    : value_(0),
+      timestamp_(0),
+      attachmentTimestamp_(0),
+      attachmentTimestampLowerBound_(0),
+      attachmentTimestampUpperBound_(0),
+      currentIndex_(0),
+      lastIndex_(0),
+      persistence_(false) {
   initFromTrytes(trytes);
 }
 
@@ -322,6 +330,7 @@ Transaction::initFromTrytes(const Types::Trytes& trytes) {
   //! what length are we supposed to receive?
 
   // validity check
+  // TODO hardcoded values
   for (int i = 2279; i < 2295; i++) {
     if (trytes[i] != '9') {
       return;
