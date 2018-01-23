@@ -186,7 +186,7 @@ Extended::getNewAddresses(const Types::Trytes& seed, const uint32_t& index, cons
   }
 
   // Return only the last address that was generated.
-  if (not returnAll) {
+  if (!returnAll) {
     allAddresses.erase(std::begin(allAddresses), std::end(allAddresses) - 1);
   }
 
@@ -338,7 +338,7 @@ Extended::bundlesFromAddresses(const std::vector<Types::Trytes>& addresses,
       const auto  bundleResponse = getBundle(transaction);
       auto        gbr            = Models::Bundle{ bundleResponse.getTransactions() };
 
-      if (not gbr.getTransactions().empty()) {
+      if (!gbr.getTransactions().empty()) {
         if (withInclusionStates) {
           bool inclusion = inclusionStates.getStates()[i];
 
@@ -451,7 +451,7 @@ Extended::prepareTransfers(const Types::Trytes& seed, int security,
     if (!validateInputs)
       return addRemainder(seed, security, inputs, bundle, tag, totalValue, remainder,
                           signatureFragments);
-    if (not inputs.empty()) {
+    if (!inputs.empty()) {
       // Get list if addresses of the provided inputs
       std::vector<Types::Trytes> inputsAddresses;
       for (const auto& input : inputs) {
@@ -763,7 +763,7 @@ Extended::addRemainder(const Types::Trytes& seed, const unsigned int& security,
       auto remainder = thisBalance - totalTransferValue;
       // If user has provided remainder address
       // Use it to send remaining funds to
-      if (remainder > 0 && not remainderAddress.empty()) {
+      if (remainder > 0 && !remainderAddress.empty()) {
         // Remainder bundle entry
         bundle.addTransaction(1, remainderAddress, remainder, tag, timestamp);
         // Final function for signing inputs
