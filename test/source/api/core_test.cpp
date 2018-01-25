@@ -282,7 +282,6 @@ TEST(Core, InterruptAttachingToTangle) {
   std::thread t([&] {
     attachToTangleRes = api.attachToTangle(BUNDLE_2_TRX_1_TRUNK, BUNDLE_2_TRX_1_BRANCH, 18,
                                            { BUNDLE_2_TRX_1_TRYTES });
-
   });
 
   //! wait 2 sec to make sure thread started and request was sent
@@ -296,4 +295,39 @@ TEST(Core, InterruptAttachingToTangle) {
 
   //! check that attach indeed failed
   EXPECT_EQ(attachToTangleRes.getTrytes().size(), 0UL);
+}
+
+TEST(Core, StoreTransactionsEmpty) {
+  IOTA::API::Core api(get_proxy_host(), get_proxy_port());
+
+  EXPECT_EXCEPTION(api.storeTransactions({ "" }), IOTA::Errors::BadRequest, "Invalid trytes input")
+}
+
+TEST(Core, StoreTransactionsInvalidTrytes) {
+  IOTA::API::Core api(get_proxy_host(), get_proxy_port());
+
+  EXPECT_EXCEPTION(api.storeTransactions({ "INVALIDTRYTES" }), IOTA::Errors::BadRequest,
+                   "Invalid trytes input")
+}
+
+TEST(Core, StoreTransactionsAlmostInvalidTrytes) {
+  IOTA::API::Core api(get_proxy_host(), get_proxy_port());
+
+  auto tx   = BUNDLE_1_TRX_1_TRYTES;
+  tx.back() = '9';
+  EXPECT_EXCEPTION(api.storeTransactions({ "INVALIDTRYTES" }), IOTA::Errors::BadRequest,
+                   "Invalid trytes input")
+}
+
+TEST(Core, StoreTransactionsValidTrytes) {
+  IOTA::API::Core api(get_proxy_host(), get_proxy_port());
+
+  EXPECT_NO_THROW(api.storeTransactions({ BUNDLE_1_TRX_1_TRYTES }));
+}
+
+TEST(Core, StoreTransactionsValidMultiTrytes) {
+  IOTA::API::Core api(get_proxy_host(), get_proxy_port());
+
+  EXPECT_NO_THROW(api.storeTransactions({ BUNDLE_1_TRX_1_TRYTES, BUNDLE_1_TRX_2_TRYTES,
+                                          BUNDLE_1_TRX_3_TRYTES, BUNDLE_1_TRX_4_TRYTES }));
 }
