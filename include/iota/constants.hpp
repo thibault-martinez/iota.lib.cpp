@@ -40,12 +40,14 @@ const unsigned int  SeedLengthWithChecksum    = 90;
 const unsigned int  AddressLength             = 81;
 const unsigned int  AddressLengthWithChecksum = 90;
 const unsigned int  HashLength                = 81;
-const unsigned int  NonceLength               = 81;
+const unsigned int  NonceLength               = 27;
+const unsigned int  TritNonceLength           = 81;
 const unsigned int  ByteHashLength            = 48;
 const unsigned int  TritHashLength            = 243;
 const unsigned int  MaxTrxMsgLength           = 2187;
 
 const Types::Trytes EmptyHash(HashLength, '9');
+const Types::Trytes EmptyNonce(NonceLength, '9');
 
 const std::string APIVersion = "1.2.0";
 

@@ -73,8 +73,7 @@ Transaction::Transaction(const Types::Trytes& trytes)
 
 Transaction::Transaction(const Types::Trytes& signatureFragments, int64_t currentIndex,
                          int64_t lastIndex, const Types::Trytes& nonce, const Types::Trytes& hash,
-                         const Types::Trytes& obsoleteTag, int64_t timestamp,
-                         const Types::Trytes& trunkTransaction,
+                         int64_t timestamp, const Types::Trytes& trunkTransaction,
                          const Types::Trytes& branchTransaction, const Types::Trytes& address,
                          int64_t value, const Types::Trytes& bundle, const Types::Trytes& tag,
                          int64_t attachmentTimestamp, int64_t attachmentTimestampLowerBound,
@@ -84,7 +83,7 @@ Transaction::Transaction(const Types::Trytes& signatureFragments, int64_t curren
       address_(address),
       value_(value),
       tag_(tag),
-      obsoleteTag_(obsoleteTag),
+      obsoleteTag_(tag),
       timestamp_(timestamp),
       attachmentTimestamp_(attachmentTimestamp),
       attachmentTimestampLowerBound_(attachmentTimestampLowerBound),
@@ -98,13 +97,14 @@ Transaction::Transaction(const Types::Trytes& signatureFragments, int64_t curren
       persistence_(false) {
 }
 
-Transaction::Transaction(const Types::Trytes& address, int64_t value,
-                         const Types::Trytes& obsoleteTag, int64_t timestamp,
-                         int64_t attachmentTimestamp, int64_t attachmentTimestampLowerBound,
+Transaction::Transaction(const Types::Trytes& address, int64_t value, const Types::Trytes& tag,
+                         int64_t timestamp, int64_t attachmentTimestamp,
+                         int64_t attachmentTimestampLowerBound,
                          int64_t attachmentTimestampUpperBound)
     : address_(address),
       value_(value),
-      obsoleteTag_(obsoleteTag),
+      tag_(tag),
+      obsoleteTag_(tag),
       timestamp_(timestamp),
       attachmentTimestamp_(attachmentTimestamp),
       attachmentTimestampLowerBound_(attachmentTimestampLowerBound),

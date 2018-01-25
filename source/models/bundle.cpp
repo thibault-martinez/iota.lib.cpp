@@ -128,7 +128,7 @@ Bundle::addTrytes(const std::vector<Types::Trytes>& signatureFragments) {
     transaction.setBranchTransaction(EmptyHash);
 
     // Fill empty nonce
-    transaction.setNonce(EmptyHash);
+    transaction.setNonce(EmptyNonce);
   }
 }
 

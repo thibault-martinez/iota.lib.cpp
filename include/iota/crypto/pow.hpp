@@ -49,9 +49,9 @@ private:
   static constexpr uint64_t low3  = 0xFFC0000007FFFFFF;
   static constexpr uint64_t high3 = 0x003FFFFFFFFFFFFF;
 
-  static constexpr uint64_t nonceOffset         = TritHashLength - NonceLength;
+  static constexpr uint64_t nonceOffset         = TritHashLength - TritNonceLength;
   static constexpr uint64_t nonceInitStart      = nonceOffset + 4;
-  static constexpr uint64_t nonceIncrementStart = nonceInitStart + NonceLength / 3;
+  static constexpr uint64_t nonceIncrementStart = nonceInitStart + TritNonceLength / 3;
 
   static constexpr int stateSize      = 729;  // TODO constants
   static constexpr int numberOfRounds = 81;   // TODO constants

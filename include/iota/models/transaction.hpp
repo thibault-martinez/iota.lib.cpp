@@ -55,8 +55,7 @@ public:
    * Initializes a new instance of the Transaction class.
    */
   Transaction(const Types::Trytes& signatureFragments, int64_t currentIndex, int64_t lastIndex,
-              const Types::Trytes& nonce, const Types::Trytes& hash,
-              const Types::Trytes& obsoleteTag, int64_t timestamp,
+              const Types::Trytes& nonce, const Types::Trytes& hash, int64_t timestamp,
               const Types::Trytes& trunkTransaction, const Types::Trytes& branchTransaction,
               const Types::Trytes& address, int64_t value, const Types::Trytes& bundle,
               const Types::Trytes& tag, int64_t attachmentTimestamp,
@@ -65,7 +64,7 @@ public:
   /**
    * Initializes a new instance of the Transaction class.
    */
-  Transaction(const Types::Trytes& address, int64_t value, const Types::Trytes& obsoleteTag,
+  Transaction(const Types::Trytes& address, int64_t value, const Types::Trytes& tag,
               int64_t timestamp, int64_t attachmentTimestamp = 0,
               int64_t attachmentTimestampLowerBound = 0, int64_t attachmentTimestampUpperBound = 0);
 
