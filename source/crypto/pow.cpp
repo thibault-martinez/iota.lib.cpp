@@ -198,7 +198,7 @@ Pow::incr(uint64_t* lmid, uint64_t* hmid) const {
 
 Types::Trits
 Pow::seri(const uint64_t* l, const uint64_t* h, uint64_t n) const {
-  Types::Trits r(NonceLength);
+  Types::Trits r(TritNonceLength);
 
   for (uint32_t i = nonceOffset; i < TritHashLength; ++i) {
     uint64_t ll = (l[i] >> n) & 1;

@@ -372,12 +372,16 @@ Extended::prepareTransfers(const Types::Trytes& seed, int security,
                            const std::vector<Models::Input>& inputs, bool validateInputs) const {
   // Validate transfers object
   if (!isTransfersCollectionValid(transfers)) {
-    throw Errors::IllegalState("Invalid transfer");
+    throw Errors::IllegalState("Invalid Transfer");
   }
 
   // Validate the seed
-  if ((!Types::isValidTrytes(seed))) {
+  if (!Types::isValidTrytes(seed)) {
     throw Errors::IllegalState("Invalid Seed");
+  }
+
+  if (!remainder.empty() && !Types::isValidAddress(remainder)) {
+    throw Errors::IllegalState("Invalid Remainder");
   }
 
   // Validate the security level
@@ -1042,11 +1046,16 @@ Extended::signInputsAndReturn(const Types::Trytes& seed, const std::vector<Model
 
   std::vector<Types::Trytes> bundleTrytes;
 
+  std::sort(bundle.getTransactions().begin(), bundle.getTransactions().end(),
+            [](const Models::Transaction& lhs, const Models::Transaction& rhs) {
+              return lhs.getCurrentIndex() < rhs.getCurrentIndex();
+            });
+
   // Convert all bundle entries into trytes
   for (const auto& tx : bundle.getTransactions()) {
     bundleTrytes.emplace_back(tx.toTrytes());
   }
-  std::reverse(bundleTrytes.begin(), bundleTrytes.end());
+
   return bundleTrytes;
 }
 
