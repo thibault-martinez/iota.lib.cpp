@@ -146,23 +146,6 @@ TEST(Core, GetTransactionsToApprove) {
   EXPECT_TRUE(IOTA::Types::isValidHash(res.getBranchTransaction()));
 }
 
-TEST(Core, BroadcastTransactions) {
-  IOTA::API::Core api(get_proxy_host(), get_proxy_port());
-  auto            res = api.broadcastTransactions({ BUNDLE_1_TRX_1_TRYTES });
-
-  EXPECT_GE(res.getDuration(), 0);
-}
-
-TEST(Core, BroadcastTransactionsInvalidTrytes) {
-  IOTA::API::Core            api(get_proxy_host(), get_proxy_port());
-  IOTA::API::Responses::Base res;
-
-  EXPECT_EXCEPTION(res = api.broadcastTransactions({ "9999" }), IOTA::Errors::BadRequest,
-                   "Invalid trytes input")
-
-  EXPECT_GE(res.getDuration(), 0);
-}
-
 TEST(Core, FindTransactionsWithAddress) {
   IOTA::API::Core api(get_proxy_host(), get_proxy_port());
   auto            res = api.findTransactions({ BUNDLE_1_TRX_1_ADDRESS }, {}, {}, {});
@@ -297,17 +280,68 @@ TEST(Core, InterruptAttachingToTangle) {
   EXPECT_EQ(attachToTangleRes.getTrytes().size(), 0UL);
 }
 
+TEST(Core, BroadcastTransactionsEmpty) {
+  IOTA::API::Core api(get_proxy_host(), get_proxy_port());
+
+  IOTA::API::Responses::Base res;
+  EXPECT_EXCEPTION(res = api.storeTransactions({ "" }), IOTA::Errors::BadRequest,
+                   "Invalid trytes input")
+  EXPECT_GE(res.getDuration(), 0);
+}
+
+TEST(Core, BroadcastTransactionsInvalidTrytes) {
+  IOTA::API::Core api(get_proxy_host(), get_proxy_port());
+
+  IOTA::API::Responses::Base res;
+  EXPECT_EXCEPTION(res = api.storeTransactions({ "INVALIDTRYTES" }), IOTA::Errors::BadRequest,
+                   "Invalid trytes input")
+  EXPECT_GE(res.getDuration(), 0);
+}
+
+TEST(Core, BroadcastTransactionsAlmostInvalidTrytes) {
+  IOTA::API::Core api(get_proxy_host(), get_proxy_port());
+
+  auto tx   = BUNDLE_1_TRX_1_TRYTES;
+  tx.back() = '9';
+  IOTA::API::Responses::Base res;
+  EXPECT_EXCEPTION(res = api.storeTransactions({ "INVALIDTRYTES" }), IOTA::Errors::BadRequest,
+                   "Invalid trytes input")
+  EXPECT_GE(res.getDuration(), 0);
+}
+
+TEST(Core, BroadcastTransactionsValidTrytes) {
+  IOTA::API::Core api(get_proxy_host(), get_proxy_port());
+
+  IOTA::API::Responses::Base res;
+  EXPECT_NO_THROW(res = api.storeTransactions({ BUNDLE_1_TRX_1_TRYTES }));
+  EXPECT_GE(res.getDuration(), 0);
+}
+
+TEST(Core, BroadcastTransactionsValidMultiTrytes) {
+  IOTA::API::Core api(get_proxy_host(), get_proxy_port());
+
+  IOTA::API::Responses::Base res;
+  EXPECT_NO_THROW(res = api.storeTransactions({ BUNDLE_1_TRX_1_TRYTES, BUNDLE_1_TRX_2_TRYTES,
+                                                BUNDLE_1_TRX_3_TRYTES, BUNDLE_1_TRX_4_TRYTES }));
+  EXPECT_GE(res.getDuration(), 0);
+}
+
 TEST(Core, StoreTransactionsEmpty) {
   IOTA::API::Core api(get_proxy_host(), get_proxy_port());
 
-  EXPECT_EXCEPTION(api.storeTransactions({ "" }), IOTA::Errors::BadRequest, "Invalid trytes input")
+  IOTA::API::Responses::Base res;
+  EXPECT_EXCEPTION(res = api.storeTransactions({ "" }), IOTA::Errors::BadRequest,
+                   "Invalid trytes input")
+  EXPECT_GE(res.getDuration(), 0);
 }
 
 TEST(Core, StoreTransactionsInvalidTrytes) {
   IOTA::API::Core api(get_proxy_host(), get_proxy_port());
 
-  EXPECT_EXCEPTION(api.storeTransactions({ "INVALIDTRYTES" }), IOTA::Errors::BadRequest,
+  IOTA::API::Responses::Base res;
+  EXPECT_EXCEPTION(res = api.storeTransactions({ "INVALIDTRYTES" }), IOTA::Errors::BadRequest,
                    "Invalid trytes input")
+  EXPECT_GE(res.getDuration(), 0);
 }
 
 TEST(Core, StoreTransactionsAlmostInvalidTrytes) {
@@ -315,19 +349,25 @@ TEST(Core, StoreTransactionsAlmostInvalidTrytes) {
 
   auto tx   = BUNDLE_1_TRX_1_TRYTES;
   tx.back() = '9';
-  EXPECT_EXCEPTION(api.storeTransactions({ "INVALIDTRYTES" }), IOTA::Errors::BadRequest,
+  IOTA::API::Responses::Base res;
+  EXPECT_EXCEPTION(res = api.storeTransactions({ "INVALIDTRYTES" }), IOTA::Errors::BadRequest,
                    "Invalid trytes input")
+  EXPECT_GE(res.getDuration(), 0);
 }
 
 TEST(Core, StoreTransactionsValidTrytes) {
   IOTA::API::Core api(get_proxy_host(), get_proxy_port());
 
-  EXPECT_NO_THROW(api.storeTransactions({ BUNDLE_1_TRX_1_TRYTES }));
+  IOTA::API::Responses::Base res;
+  EXPECT_NO_THROW(res = api.storeTransactions({ BUNDLE_1_TRX_1_TRYTES }));
+  EXPECT_GE(res.getDuration(), 0);
 }
 
 TEST(Core, StoreTransactionsValidMultiTrytes) {
   IOTA::API::Core api(get_proxy_host(), get_proxy_port());
 
-  EXPECT_NO_THROW(api.storeTransactions({ BUNDLE_1_TRX_1_TRYTES, BUNDLE_1_TRX_2_TRYTES,
-                                          BUNDLE_1_TRX_3_TRYTES, BUNDLE_1_TRX_4_TRYTES }));
+  IOTA::API::Responses::Base res;
+  EXPECT_NO_THROW(res = api.storeTransactions({ BUNDLE_1_TRX_1_TRYTES, BUNDLE_1_TRX_2_TRYTES,
+                                                BUNDLE_1_TRX_3_TRYTES, BUNDLE_1_TRX_4_TRYTES }));
+  EXPECT_GE(res.getDuration(), 0);
 }
