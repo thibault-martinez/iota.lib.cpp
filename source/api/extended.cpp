@@ -447,9 +447,6 @@ Extended::prepareTransfers(const Types::Trytes& seed, int security,
 
   // Get inputs if we are sending tokens
   if (totalValue != 0) {
-    if (!validateInputs)
-      return addRemainder(seed, security, inputs, bundle, tag, totalValue, remainder,
-                          signatureFragments);
     //  Case 1: user provided inputs
     //  Validate the inputs by calling getBalances
     if (!validateInputs)
