@@ -828,6 +828,10 @@ Extended::initiateTransfer(int securitySum, const Types::Trytes& inputAddress,
       transfer.setTag(Types::Utils::rightPad(transfer.getTag(), 27, '9'));
     }
 
+    if (!Types::isValidAddress(transfer.getAddress())) {
+      throw Errors::IllegalState("Invalid transfer");
+    }
+
     if (Crypto::Checksum::isValid(transfer.getAddress())) {
       transfer.setAddress(Crypto::Checksum::remove(transfer.getAddress()));
     }
@@ -840,12 +844,12 @@ Extended::initiateTransfer(int securitySum, const Types::Trytes& inputAddress,
 
   //! validate input address
   if (!Types::isValidAddress(inputAddress)) {
-    throw Errors::IllegalState("Invalid address");
+    throw Errors::IllegalState("Invalid input address");
   }
 
   // validate remainder address
   if (!remainderAddress.empty() && !Types::isValidAddress(remainderAddress)) {
-    throw Errors::IllegalState("Invalid bundle");
+    throw Errors::IllegalState("Invalid remainder address");
   }
 
   //! Create a new bundle
@@ -884,13 +888,8 @@ Extended::initiateTransfer(int securitySum, const Types::Trytes& inputAddress,
     //! get current timestamp in seconds
     int64_t timestamp = Utils::StopWatch::now().count();
 
-    //! If no tag defined, get 27 tryte tag.
-    if (transfer.getTag().empty()) {
-      tag = Types::Utils::rightPad(transfer.getTag(), 27, '9');
-    }
-
     //! Pad for required TagLength tryte length
-    tag = Types::Utils::rightPad(tag, TagLength, '9');
+    tag = Types::Utils::rightPad(transfer.getTag(), TagLength, '9');
 
     //! Add first entry to the bundle
     bundle.addTransaction(signatureMessageLength, transfer.getAddress(), transfer.getValue(), tag,
@@ -906,8 +905,9 @@ Extended::initiateTransfer(int securitySum, const Types::Trytes& inputAddress,
   }
 
   long totalBalance = 0;
+  auto balances     = getBalances({ inputAddress }, 100).getBalances();
 
-  for (const auto& balance : getBalances({ inputAddress }, 100).getBalances()) {
+  for (const auto& balance : balances) {
     totalBalance += std::atol(balance.c_str());
   }
 
