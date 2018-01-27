@@ -413,13 +413,15 @@ Extended::prepareTransfers(const Types::Trytes& seed, int security,
 
       // While there is still a message, copy it
       while (!msgCopy.empty()) {
-        auto fragment = msgCopy.substr(0, MaxTrxMsgLength);
-        msgCopy       = msgCopy.substr(MaxTrxMsgLength);
+        Types::Trytes fragment = msgCopy.substr(0, MaxTrxMsgLength);
 
-        // Pad remainder of fragment
-        fragment = Types::Utils::rightPad(transfer.getMessage(), MaxTrxMsgLength, '9');
+        if (msgCopy.length() > MaxTrxMsgLength) {
+          msgCopy = msgCopy.substr(MaxTrxMsgLength, msgCopy.length());
+        } else {
+          msgCopy = "";
+        }
 
-        signatureFragments.push_back(fragment);
+        signatureFragments.push_back(Types::Utils::rightPad(fragment, MaxTrxMsgLength, '9'));
       }
     } else {
       // Else, get single fragment with 2187 of 9's trytes
@@ -875,7 +877,12 @@ Extended::initiateTransfer(int securitySum, const Types::Trytes& inputAddress,
       //! While there is still a message, copy it
       while (!msgCopy.empty()) {
         Types::Trytes fragment = msgCopy.substr(0, MaxTrxMsgLength);
-        msgCopy                = msgCopy.substr(MaxTrxMsgLength, msgCopy.length());
+
+        if (msgCopy.length() > MaxTrxMsgLength) {
+          msgCopy = msgCopy.substr(MaxTrxMsgLength, msgCopy.length());
+        } else {
+          msgCopy = "";
+        }
 
         // Pad remainder of fragment
         signatureFragments.push_back(Types::Utils::rightPad(fragment, MaxTrxMsgLength, '9'));
