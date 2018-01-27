@@ -38,8 +38,9 @@ namespace IOTA {
 
 namespace API {
 
-Extended::Extended(const std::string& host, const uint16_t& port, Crypto::SpongeType t)
-    : Core(host, port), cryptoType_(t) {
+Extended::Extended(const std::string& host, const uint16_t& port, bool localPow,
+                   Crypto::SpongeType t)
+    : Core(host, port, localPow), cryptoType_(t) {
 }
 
 Extended::~Extended() {

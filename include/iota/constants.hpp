@@ -48,6 +48,7 @@ const unsigned int  MaxTrxMsgLength           = 2187;
 
 const Types::Trytes EmptyHash(HashLength, '9');
 const Types::Trytes EmptyNonce(NonceLength, '9');
+const Types::Trytes EmptyTag(TagLength, '9');
 
 const std::string APIVersion = "1.2.0";
 

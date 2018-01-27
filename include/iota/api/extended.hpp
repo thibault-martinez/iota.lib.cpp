@@ -52,7 +52,7 @@ namespace API {
  */
 class Extended : public Core {
 public:
-  Extended(const std::string& host, const uint16_t& port,
+  Extended(const std::string& host, const uint16_t& port, bool localPow = true,
            Crypto::SpongeType cryptoType = Crypto::SpongeType::KERL);
   virtual ~Extended();
 

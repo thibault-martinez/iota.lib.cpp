@@ -59,7 +59,7 @@ public:
    *
    * @param trytes The returned trytes.
    */
-  explicit AttachToTangle(const std::vector<Types::Trytes>& trytes = {});
+  AttachToTangle(const std::vector<Types::Trytes>& trytes = {});
 
   /**
    * Default dtor.

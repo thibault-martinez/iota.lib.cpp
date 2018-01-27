@@ -50,7 +50,7 @@ namespace API {
  */
 class Core {
 public:
-  explicit Core(const std::string& host, const uint16_t& port);
+  explicit Core(const std::string& host, const uint16_t& port, bool localPow = true);
   virtual ~Core();
 
 public:
@@ -245,6 +245,7 @@ public:
 
 private:
   Service service_;
+  bool    localPow_;
 };
 
 }  // namespace API

@@ -38,13 +38,17 @@
 #include <iota/api/requests/interrupt_attaching_to_tangle.hpp>
 #include <iota/api/requests/remove_neighbors.hpp>
 #include <iota/api/requests/store_transactions.hpp>
+#include <iota/crypto/pow.hpp>
 #include <iota/errors/illegal_state.hpp>
+#include <iota/models/transaction.hpp>
+#include <iota/utils/stop_watch.hpp>
 
 namespace IOTA {
 
 namespace API {
 
-Core::Core(const std::string& host, const uint16_t& port) : service_(host, port) {
+Core::Core(const std::string& host, const uint16_t& port, bool localPow)
+    : service_(host, port), localPow_(localPow) {
 }
 
 Core::~Core() {
@@ -124,6 +128,24 @@ Responses::AttachToTangle
 Core::attachToTangle(const Types::Trytes& trunkTransaction, const Types::Trytes& branchTransaction,
                      const int&                        minWeightMagnitude,
                      const std::vector<Types::Trytes>& trytes) const {
+  if (localPow_) {
+    Crypto::Pow                pow;
+    std::vector<Types::Trytes> resultTrytes;
+    Types::Trytes              prevTx;
+    for (auto& txTrytes : trytes) {
+      auto tx = IOTA::Models::Transaction(txTrytes);
+      tx.setTrunkTransaction(prevTx.empty() ? trunkTransaction : prevTx);
+      tx.setBranchTransaction(prevTx.empty() ? branchTransaction : trunkTransaction);
+      if (tx.getTag().empty() || tx.getTag() == EmptyTag)
+        tx.setTag(tx.getObsoleteTag());
+      tx.setAttachmentTimestamp(Utils::StopWatch::now().count());
+      tx.setAttachmentTimestampLowerBound(0);
+      tx.setAttachmentTimestampUpperBound(3812798742493L);
+      resultTrytes.emplace_back(pow(tx.toTrytes(), minWeightMagnitude));
+      prevTx = IOTA::Models::Transaction(resultTrytes.back()).getHash();
+    }
+    return { resultTrytes };
+  }
   return service_.request<Requests::AttachToTangle, Responses::AttachToTangle>(
       trunkTransaction, branchTransaction, minWeightMagnitude, trytes);
 }
