@@ -750,9 +750,20 @@ Extended::findTailTransactionHash(const Types::Trytes& hash) const {
 std::vector<Types::Trytes>
 Extended::addRemainder(const Types::Trytes& seed, const unsigned int& security,
                        const std::vector<Models::Input>& inputs, Models::Bundle& bundle,
-                       const Types::Trytes& tag, const int64_t& totalValue,
+                       const Types::Trytes& unpadTag, const int64_t& totalValue,
                        const Types::Trytes&              remainderAddress,
                        const std::vector<Types::Trytes>& signatureFragments) const {
+  //! Validate the seed
+  if (!Types::isValidTrytes(seed)) {
+    throw Errors::IllegalState("Invalid Seed");
+  }
+
+  //! Validate the tag
+  auto tag = Types::Utils::rightPad(unpadTag, TagLength, '9');
+  if (!Types::isValidTrytes(tag)) {
+    throw Errors::IllegalState("Invalid Tag");
+  }
+
   auto totalTransferValue = totalValue;
 
   for (const auto& input : inputs) {
