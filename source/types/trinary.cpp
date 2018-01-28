@@ -154,11 +154,6 @@ intToTrits(const int64_t& value, std::size_t length) {
   return res;
 }
 
-bool
-isValidTrit(const int8_t& trit) {
-  return trit == -1 || trit == 0 || trit == 1;
-}
-
 }  // namespace Types
 
 }  // namespace IOTA
