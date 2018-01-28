@@ -25,6 +25,7 @@
 
 #include <iota/constants.hpp>
 #include <iota/crypto/checksum.hpp>
+#include <iota/errors/illegal_state.hpp>
 
 namespace IOTA {
 
@@ -39,22 +40,42 @@ add(const Types::Trytes& address) {
 
 Types::Trytes
 remove(const Types::Trytes& address) {
+  if (address.empty()) {
+    return "";
+  }
+
   return address.substr(0, SeedLength);
 }
 
 Types::Trytes
 check(const Types::Trytes& address, const SpongeType& type) {
+  //! skip invalid address, critical error
+  if (!Types::isValidAddress(address)) {
+    throw Errors::IllegalState("Invalid address, can not compute checksum");
+  }
+
   auto         sponge = create(type);
   Types::Trits checksumTrits(TritHashLength);
 
-  sponge->absorb(Types::trytesToTrits(address));
+  sponge->absorb(Types::trytesToTrits(address.substr(0, AddressLength)));
   sponge->squeeze(checksumTrits);
+
   auto checksum = Types::tritsToTrytes(checksumTrits);
-  return checksum.substr(SeedLength - ChecksumLength);
+  return checksum.substr(AddressLength - ChecksumLength);
 }
 
 bool
 isValid(const Types::Trytes& addressWithChecksum) {
+  //! skip invalid address
+  if (!Types::isValidAddress(addressWithChecksum)) {
+    return false;
+  }
+
+  //! if we do have an address without checksum, also skip
+  if (addressWithChecksum.length() != AddressLengthWithChecksum) {
+    return false;
+  }
+
   auto addressWithoutChecksum         = remove(addressWithChecksum);
   auto addressWithRecalculateChecksum = add(addressWithoutChecksum);
 

@@ -26,6 +26,8 @@
 #include <gtest/gtest.h>
 
 #include <iota/crypto/checksum.hpp>
+#include <iota/errors/illegal_state.hpp>
+#include <test/utils/expect_exception.hpp>
 
 TEST(Checksum, Add) {
   IOTA::Types::Trytes addressWithoutChecksum =
@@ -42,7 +44,11 @@ TEST(Checksum, Remove) {
   IOTA::Types::Trytes addressWithChecksum =
       "P9UDUZMN9DEXCRQEKLJYSBSBZFCHOBPJSDKMLCCVJDOVOFDWMNBZRIRRZJGINOUMPJBMYYZEGRTIDUABDODCNSCYJD";
 
-  EXPECT_EQ(IOTA::Crypto::Checksum::remove(addressWithChecksum), addressWithoutChecksum);
+  EXPECT_EQ(IOTA::Crypto::Checksum::remove(""), "");
+}
+
+TEST(Checksum, RemoveEmptyAddress) {
+  EXPECT_EQ(IOTA::Crypto::Checksum::remove(""), "");
 }
 
 TEST(Checksum, Check) {
@@ -53,9 +59,38 @@ TEST(Checksum, Check) {
   EXPECT_EQ(IOTA::Crypto::Checksum::check(address), check);
 }
 
+TEST(Checksum, CheckInvalidAddress) {
+  IOTA::Types::Trytes address =
+      "888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888";
+
+  EXPECT_EXCEPTION(IOTA::Crypto::Checksum::check(address), IOTA::Errors::IllegalState,
+                   "Invalid address, can not compute checksum");
+}
+
+TEST(Checksum, CheckAddressWithWrongChecksum) {
+  IOTA::Types::Trytes address =
+      "P9UDUZMN9DEXCRQEKLJYSBSBZFCHOBPJSDKMLCCVJDOVOFDWMNBZRIRRZJGINOUMPJBMYYZEGRTIDUABDAAAAAAAAA";
+  IOTA::Types::Trytes check = "ODCNSCYJD";
+
+  EXPECT_EQ(IOTA::Crypto::Checksum::check(address), check);
+}
+
 TEST(Checksum, IsValid) {
   IOTA::Types::Trytes address =
       "P9UDUZMN9DEXCRQEKLJYSBSBZFCHOBPJSDKMLCCVJDOVOFDWMNBZRIRRZJGINOUMPJBMYYZEGRTIDUABDODCNSCYJD";
 
   EXPECT_TRUE(IOTA::Crypto::Checksum::isValid(address));
+}
+
+TEST(Checksum, IsValidWithoutChecksum) {
+  IOTA::Types::Trytes address =
+      "P9UDUZMN9DEXCRQEKLJYSBSBZFCHOBPJSDKMLCCVJDOVOFDWMNBZRIRRZJGINOUMPJBMYYZEGRTIDUABD";
+
+  EXPECT_FALSE(IOTA::Crypto::Checksum::isValid(address));
+}
+
+TEST(Checksum, IsValidInvalidAddress) {
+  EXPECT_FALSE(
+      IOTA::Crypto::Checksum::isValid("888888888888888888888888888888888888888888888888888888888888"
+                                      "888888888888888888888888888888"));
 }
