@@ -95,7 +95,7 @@ Pow::operator()(const Types::Trytes& trytes, int minWeightMagnitude, int threads
   initialize(stateLow, stateHigh, trits);
 
   Utils::parallel_for(threads,
-                      [this, stateLow, stateHigh, minWeightMagnitude, &trits, &result](uint32_t i) {
+                      [this, stateLow, stateHigh, minWeightMagnitude, &result](uint32_t i) {
                         uint64_t stateLowCpy[stateSize];
                         uint64_t stateHighCpy[stateSize];
 
@@ -103,8 +103,8 @@ Pow::operator()(const Types::Trytes& trytes, int minWeightMagnitude, int threads
                         std::memcpy(stateHighCpy, stateHigh, stateSize * sizeof(uint64_t));
 
                         for (uint32_t j = 0; j < i; ++j) {
-                          increment(stateLowCpy, stateHighCpy, NonceLength + TritHashLength / 9,
-                                    NonceLength + (TritHashLength / 9) * 2);
+                          increment(stateLowCpy, stateHighCpy, nonceOffset + TritHashLength / 9,
+                                    nonceOffset + (TritHashLength / 9) * 2);
                         }
 
                         auto trits = loop(stateLowCpy, stateHighCpy, minWeightMagnitude);
@@ -181,11 +181,11 @@ void
 Pow::transform(uint64_t* curlStateLow, uint64_t* curlStateHigh, uint64_t* curlScratchpadLow,
                uint64_t* curlScratchpadHigh) const {
   int curlScratchpadIndex = 0;
-  for (int round = 0; round < Pow::numberOfRounds; ++round) {
-    std::memcpy(curlScratchpadLow, curlStateLow, Pow::stateSize * sizeof(uint64_t));
-    std::memcpy(curlScratchpadHigh, curlStateHigh, Pow::stateSize * sizeof(uint64_t));
+  for (int round = 0; round < numberOfRounds; ++round) {
+    std::memcpy(curlScratchpadLow, curlStateLow, stateSize * sizeof(uint64_t));
+    std::memcpy(curlScratchpadHigh, curlStateHigh, stateSize * sizeof(uint64_t));
 
-    for (int curlStateIndex = 0; curlStateIndex < Pow::stateSize; curlStateIndex++) {
+    for (int curlStateIndex = 0; curlStateIndex < stateSize; curlStateIndex++) {
       uint64_t alpha = curlScratchpadLow[curlScratchpadIndex];
       uint64_t beta  = curlScratchpadHigh[curlScratchpadIndex];
       if (curlScratchpadIndex < 365) {
@@ -206,14 +206,14 @@ void
 Pow::increment(uint64_t* midCurlStateCopyLow, uint64_t* midCurlStateCopyHigh, int fromIndex,
                int toIndex) const {
   for (int i = fromIndex; i < toIndex; ++i) {
-    if (midCurlStateCopyLow[i] == Pow::lBits) {
-      midCurlStateCopyLow[i]  = Pow::hBits;
-      midCurlStateCopyHigh[i] = Pow::lBits;
+    if (midCurlStateCopyLow[i] == lBits) {
+      midCurlStateCopyLow[i]  = hBits;
+      midCurlStateCopyHigh[i] = lBits;
     } else {
-      if (midCurlStateCopyHigh[i] == Pow::lBits) {
-        midCurlStateCopyHigh[i] = Pow::hBits;
+      if (midCurlStateCopyHigh[i] == lBits) {
+        midCurlStateCopyHigh[i] = hBits;
       } else {
-        midCurlStateCopyLow[i] = Pow::lBits;
+        midCurlStateCopyLow[i] = lBits;
       }
       break;
     }
