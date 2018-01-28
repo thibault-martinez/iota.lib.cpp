@@ -65,9 +65,6 @@ public:
    */
   void squeeze(Types::Trits& trits, unsigned int offset = 0, unsigned int length = 0) override;
 
-public:
-  const std::vector<int8_t>& getState() const;
-
 private:
   /**
    * Apply sponge fonction transformation algorithm during absorption/squeezing

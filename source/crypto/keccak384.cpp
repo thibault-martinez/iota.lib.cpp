@@ -47,31 +47,33 @@ Keccak384::reset() {
 
 void
 Keccak384::absorb(const std::vector<int8_t>& bytes) {
-  if (Keccak_HashUpdate(&khi_, reinterpret_cast<const BitSequence*>(bytes.data()),
-                        bytes.size() * 8) == FAIL) {
+  if (!hashUpdate(bytes)) {
     throw Errors::Crypto("Keccak384::update failed");
   }
+}
+
+bool
+Keccak384::hashUpdate(const std::vector<int8_t>& bytes) {
+  return Keccak_HashUpdate(&khi_, reinterpret_cast<const BitSequence*>(bytes.data()),
+                           bytes.size() * 8) != FAIL;
 }
 
 std::vector<int8_t>
 Keccak384::squeeze() {
   std::vector<int8_t> bytes(Keccak384::hashBitLength / 8);
-  if (Keccak_HashSqueeze(&khi_, reinterpret_cast<BitSequence*>(bytes.data()),
-                         khi_.fixedOutputLength) == FAIL) {
+
+  if (!hashSqueeze(bytes)) {
     throw Errors::Crypto("Keccak384::squeeze failed");
   }
+
   return bytes;
 }
 
-// TODO Is it useless ?
-// std::vector<int8_t>
-// Keccak384::finalize() {
-//   std::vector<int8_t> bytes(Keccak384::hashBitLength / 8);
-//   if (Keccak_HashFinal(&khi_, reinterpret_cast<BitSequence*>(bytes.data())) == FAIL) {
-//     throw Errors::Crypto("Keccak384::finalize failed");
-//   }
-//   return bytes;
-// }
+bool
+Keccak384::hashSqueeze(std::vector<int8_t>& bytes) {
+  return Keccak_HashSqueeze(&khi_, reinterpret_cast<BitSequence*>(bytes.data()),
+                            khi_.fixedOutputLength) != FAIL;
+}
 
 std::string
 Keccak384::digest() {
@@ -86,10 +88,15 @@ Keccak384::digest() {
 
 void
 Keccak384::initialize() {
-  if (Keccak_HashInitialize(&khi_, Keccak384::rate, Keccak384::capacity, Keccak384::hashBitLength,
-                            Keccak384::delimitedSuffix) == FAIL) {
+  if (!hashInitialize()) {
     throw Errors::Crypto("Keccak384::initialize failed");
   }
+}
+
+bool
+Keccak384::hashInitialize(void) {
+  return Keccak_HashInitialize(&khi_, Keccak384::rate, Keccak384::capacity,
+                               Keccak384::hashBitLength, Keccak384::delimitedSuffix) != FAIL;
 }
 
 }  // namespace Crypto

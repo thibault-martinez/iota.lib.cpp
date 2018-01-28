@@ -32,6 +32,21 @@
 #include <test/utils/configuration.hpp>
 #include <test/utils/expect_exception.hpp>
 
+class Keccak384Mock : public IOTA::Crypto::Keccak384 {
+protected:
+  bool hashUpdate(const std::vector<int8_t>&) {
+    return false;
+  }
+
+  bool hashSqueeze(std::vector<int8_t>&) {
+    return false;
+  }
+
+  bool hashInitialize(void) {
+    return false;
+  }
+};
+
 TEST(Keccak384, digest) {
   std::ifstream file(get_deps_folder() + "/keccak384");
   std::string   line;
@@ -46,4 +61,22 @@ TEST(Keccak384, digest) {
     EXPECT_EQ(digest, k.digest());
     k.reset();
   }
+}
+
+TEST(Keccak384, InitFail) {
+  Keccak384Mock mock;
+
+  EXPECT_EXCEPTION(mock.reset(), IOTA::Errors::Crypto, "Keccak384::initialize failed");
+}
+
+TEST(Keccak384, AbsorbFail) {
+  Keccak384Mock mock;
+
+  EXPECT_EXCEPTION(mock.absorb({}), IOTA::Errors::Crypto, "Keccak384::update failed");
+}
+
+TEST(Keccak384, SqueezeFail) {
+  Keccak384Mock mock;
+
+  EXPECT_EXCEPTION(mock.squeeze(), IOTA::Errors::Crypto, "Keccak384::squeeze failed");
 }

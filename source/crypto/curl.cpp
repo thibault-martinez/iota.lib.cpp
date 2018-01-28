@@ -80,11 +80,6 @@ Curl::squeeze(Types::Trits& trits, unsigned int offset, unsigned int length) {
   } while ((length -= TritHashLength) > 0);
 }
 
-const std::vector<int8_t>&
-Curl::getState() const {
-  return state_;
-}
-
 void
 Curl::transform() {
   int scratchpadIndex      = 0;

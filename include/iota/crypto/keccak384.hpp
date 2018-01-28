@@ -69,6 +69,22 @@ public:
    */
   std::string digest();
 
+protected:
+  /**
+  ** Keccak_HashUpdate wrapper to allow mock testing
+  */
+  virtual bool hashUpdate(const std::vector<int8_t>& bytes);
+
+  /**
+  ** Keccak_HashSqueeze wrapper to allow mock testing
+  */
+  virtual bool hashSqueeze(std::vector<int8_t>& bytes);
+
+  /**
+  ** Keccak_HashInitialize wrapper to allow mock testing
+  */
+  virtual bool hashInitialize(void);
+
 private:
   /**
    * Initialization routine.
