@@ -195,8 +195,10 @@ public:
                                               bool validateInputs = true) const;
 
   /**
-   * Gets the associated bundle transactions of a single transaction
-   * Does validation of signatures, total sum as well as bundle order
+   * Gets the associated bundle transactions of a single transaction.
+   * Does validation of signatures, total sum as well as bundle order.
+   * Basically the same as traverseBundle, but with bundle validity check (signature, order, value
+   * and hash check).
    *
    * @param transaction Hash of a tail transaction
    * @return array of transactions belonging to bundle corresponding to the input trx
