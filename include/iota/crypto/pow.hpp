@@ -61,15 +61,17 @@ public:
   virtual ~Pow();
 
 public:
-  Types::Trytes operator()(const Types::Trytes& trytes, int minWeightMagnitude) override;
+  Types::Trytes operator()(const Types::Trytes& trytes, int minWeightMagnitude,
+                           int threads = 0) override;
 
 private:
-  void         transform64(uint64_t* lmid, uint64_t* hmid) const;
-  bool         incr(uint64_t* lmid, uint64_t* hmid) const;
-  Types::Trits seri(const uint64_t* l, const uint64_t* h, uint64_t n) const;
-  int64_t      check(const uint64_t* l, const uint64_t* h, int m) const;
-  Types::Trits loop(uint64_t* lmid, uint64_t* hmid, int m) const;
-  void         para(uint64_t* l, uint64_t* h, const Types::Trits& in) const;
+  inline void         initialize(uint64_t* stateLow, uint64_t* stateHigh,
+                                 const IOTA::Types::Trits& trits) const;
+  inline void         transform(uint64_t* curlStateLow, uint64_t* curlStateHigh,
+                                uint64_t* curlScratchpadLow, uint64_t* curlScratchpadHigh) const;
+  inline void         increment(uint64_t* midCurlStateCopyLow, uint64_t* midCurlStateCopyHigh,
+                                int fromIndex, int toIndex) const;
+  inline Types::Trits loop(uint64_t* lmid, uint64_t* hmid, int minWeightMagnitude);
 
 private:
   bool       stop_;

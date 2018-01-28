@@ -27,6 +27,7 @@
 
 #include <atomic>
 #include <future>
+#include <iostream>
 #include <vector>
 
 namespace IOTA {
@@ -57,8 +58,8 @@ parallel_for(int begin, int end, F fn) {
 
 template <typename F>
 void
-parallel_for(F fn) {
-  int                            num_cpus = std::thread::hardware_concurrency();
+parallel_for(int threads, F fn) {
+  int num_cpus = threads == 0 ? std::thread::hardware_concurrency() : threads;
   std::vector<std::future<void>> futures(num_cpus);
 
   for (int cpu = 0; cpu != num_cpus; ++cpu) {

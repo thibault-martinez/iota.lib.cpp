@@ -84,190 +84,188 @@ Pow::~Pow() {
 }
 
 Types::Trytes
-Pow::operator()(const Types::Trytes& trytes, int minWeightMagnitude) {
-  stop_ = false;
-  IOTA::Crypto::Curl c;
-
-  // TODO Harcoded value, should be kept with Transaction
-  IOTA::Types::Trits trits = IOTA::Types::trytesToTrits(trytes.substr(0, 2592));
-  c.absorb(trits);
-  auto state = c.getState();
-  auto tr    = IOTA::Types::trytesToTrits(trytes);
-  // TODO Harcoded value, should be kept with Transaction
-  std::copy(std::begin(tr) + 7776, std::end(tr), std::begin(state));
-
+Pow::operator()(const Types::Trytes& trytes, int minWeightMagnitude, int threads) {
+  IOTA::Types::Trits  trits = IOTA::Types::trytesToTrits(trytes);
+  uint64_t            stateLow[stateSize];
+  uint64_t            stateHigh[stateSize];
   IOTA::Types::Trytes result;
 
-  Utils::parallel_for([this, &result, state, minWeightMagnitude](uint32_t i) {
-    uint64_t lmid[stateSize];
-    uint64_t hmid[stateSize];
+  stop_ = false;
 
-    para(lmid, hmid, state);
+  initialize(stateLow, stateHigh, trits);
 
-    lmid[nonceOffset]     = low0;
-    hmid[nonceOffset]     = high0;
-    lmid[nonceOffset + 1] = low1;
-    hmid[nonceOffset + 1] = high1;
-    lmid[nonceOffset + 2] = low2;
-    hmid[nonceOffset + 2] = high2;
-    lmid[nonceOffset + 3] = low3;
-    hmid[nonceOffset + 3] = high3;
+  Utils::parallel_for(threads,
+                      [this, stateLow, stateHigh, minWeightMagnitude, &trits, &result](uint32_t i) {
+                        uint64_t stateLowCpy[stateSize];
+                        uint64_t stateHighCpy[stateSize];
 
-    for (uint32_t j = 0; j < i; ++j) {
-      incr(lmid, hmid);
-    }
+                        std::memcpy(stateLowCpy, stateLow, stateSize * sizeof(uint64_t));
+                        std::memcpy(stateHighCpy, stateHigh, stateSize * sizeof(uint64_t));
 
-    IOTA::Types::Trits nonce = loop(lmid, hmid, minWeightMagnitude);
+                        for (uint32_t j = 0; j < i; ++j) {
+                          increment(stateLowCpy, stateHighCpy, NonceLength + TritHashLength / 9,
+                                    NonceLength + (TritHashLength / 9) * 2);
+                        }
 
-    {
-      std::lock_guard<std::mutex> lock(mtx_);
-      if (nonce.empty() == false) {
-        result = IOTA::Types::tritsToTrytes(nonce);
-        stop_  = true;
-      }
-    }
-  });
+                        auto trits = loop(stateLowCpy, stateHighCpy, minWeightMagnitude);
+                        if (!trits.empty())
+                          result = IOTA::Types::tritsToTrytes(trits);
+                      });
   return result;
 }
 
 void
-Pow::transform64(uint64_t* lmid, uint64_t* hmid) const {
-  uint64_t*  ltmp  = new uint64_t[stateSize];
-  uint64_t*  htmp  = new uint64_t[stateSize];
-  uint64_t** lfrom = &lmid;
-  uint64_t** hfrom = &hmid;
-  uint64_t** lto   = &ltmp;
-  uint64_t** hto   = &htmp;
-
-  for (int r = 0; r < numberOfRounds - 1; ++r) {
-    for (int j = 0; j < stateSize; ++j) {
-      int t1 = indices[j];
-      int t2 = indices[j + 1];
-
-      uint64_t alpha = (*lfrom)[t1];
-      uint64_t beta  = (*hfrom)[t1];
-      uint64_t gamma = (*hfrom)[t2];
-      uint64_t delta = (alpha | (~gamma)) & ((*lfrom)[t2] ^ beta);
-
-      (*lto)[j] = ~delta;
-      (*hto)[j] = (alpha ^ gamma) | delta;
-    }
-    uint64_t* tmp;
-    tmp    = *lto;
-    *lto   = *lfrom;
-    *lfrom = tmp;
-
-    tmp    = *hto;
-    *hto   = *hfrom;
-    *hfrom = tmp;
+Pow::initialize(uint64_t* stateLow, uint64_t* stateHigh, const IOTA::Types::Trits& trits) const {
+  for (int i = TritHashLength; i < stateSize; ++i) {
+    stateLow[i]  = hBits;
+    stateHigh[i] = hBits;
   }
 
-  for (int j = 0; j < stateSize; ++j) {
-    int t1 = indices[j];
-    int t2 = indices[j + 1];
+  int      offset = 0;
+  uint64_t curlScratchpadLow[stateSize];
+  uint64_t curlScratchpadHigh[stateSize];
+  for (unsigned int i = (TxLength - TritHashLength) / TritHashLength; i > 0; --i) {
+    for (unsigned int j = 0; j < TritHashLength; j++) {
+      switch (trits[offset++]) {
+        case 0: {
+          stateLow[j]  = hBits;
+          stateHigh[j] = hBits;
+          break;
+        }
+        case 1: {
+          stateLow[j]  = lBits;
+          stateHigh[j] = hBits;
+          break;
+        }
+        case -1: {
+          stateLow[j]  = hBits;
+          stateHigh[j] = lBits;
+          break;
+        }
+      }
+    }
 
-    uint64_t alpha = (*lfrom)[t1];
-    uint64_t beta  = (*hfrom)[t1];
-    uint64_t gamma = (*hfrom)[t2];
-    uint64_t delta = (alpha | (~gamma)) & ((*lfrom)[t2] ^ beta);
-
-    (*lto)[j] = ~delta;
-    (*hto)[j] = (alpha ^ gamma) | delta;
+    transform(stateLow, stateHigh, curlScratchpadLow, curlScratchpadHigh);
   }
 
-  std::memcpy(lmid, ltmp, sizeof(*ltmp) * stateSize);
-  std::memcpy(hmid, htmp, sizeof(*htmp) * stateSize);
-  delete[] ltmp;
-  delete[] htmp;
-}
-
-bool
-Pow::incr(uint64_t* lmid, uint64_t* hmid) const {
-  uint64_t carry = 1;
-  uint32_t i;
-
-  for (i = nonceInitStart; i < TritHashLength && carry != 0; ++i) {
-    uint64_t low  = lmid[i];
-    uint64_t high = hmid[i];
-    lmid[i]       = high ^ low;
-    hmid[i]       = low;
-    carry         = high & (~low);
-  }
-  return i == TritHashLength;
-}
-
-Types::Trits
-Pow::seri(const uint64_t* l, const uint64_t* h, uint64_t n) const {
-  Types::Trits r(TritNonceLength);
-
-  for (uint32_t i = nonceOffset; i < TritHashLength; ++i) {
-    uint64_t ll = (l[i] >> n) & 1;
-    uint64_t hh = (h[i] >> n) & 1;
-    if (hh == 0 && ll == 1) {
-      r[i - nonceOffset] = -1;
-    }
-    if (hh == 1 && ll == 1) {
-      r[i - nonceOffset] = 0;
-    }
-    if (hh == 1 && ll == 0) {
-      r[i - nonceOffset] = 1;
+  for (unsigned int i = 0; i < nonceOffset; ++i) {
+    switch (trits[offset++]) {
+      case 0: {
+        stateLow[i]  = hBits;
+        stateHigh[i] = hBits;
+        break;
+      }
+      case 1: {
+        stateLow[i]  = lBits;
+        stateHigh[i] = hBits;
+        break;
+      }
+      case -1: {
+        stateLow[i]  = hBits;
+        stateHigh[i] = lBits;
+      }
     }
   }
-  return r;
-}
 
-int64_t
-Pow::check(const uint64_t* l, const uint64_t* h, int m) const {
-  uint64_t nonceProbe = hBits;
-
-  for (uint32_t i = TritHashLength - m; i < TritHashLength; ++i) {
-    nonceProbe &= ~(l[i] ^ h[i]);
-    if (nonceProbe == 0) {
-      return -1;
-    }
-  }
-  for (int64_t i = 0; i < 64; i++) {
-    if (((nonceProbe >> i) & 1) == 1) {
-      return i;
-    }
-  }
-  return -1;
-}
-
-Types::Trits
-Pow::loop(uint64_t* lmid, uint64_t* hmid, int m) const {
-  uint64_t lcpy[stateSize];
-  uint64_t hcpy[stateSize];
-  for (uint64_t i = 0; !stop_ && !incr(lmid, hmid); ++i) {
-    std::memcpy(lcpy, lmid, sizeof(lcpy));
-    std::memcpy(hcpy, hmid, sizeof(hcpy));
-    transform64(lcpy, hcpy);
-    int64_t n = check(lcpy, hcpy, m);
-    if (n >= 0) {
-      return seri(lmid, hmid, static_cast<uint64_t>(n));
-    }
-  }
-  return {};
+  stateLow[nonceOffset + 0]  = low0;
+  stateHigh[nonceOffset + 0] = high0;
+  stateLow[nonceOffset + 1]  = low1;
+  stateHigh[nonceOffset + 1] = high1;
+  stateLow[nonceOffset + 2]  = low2;
+  stateHigh[nonceOffset + 2] = high2;
+  stateLow[nonceOffset + 3]  = low3;
+  stateHigh[nonceOffset + 3] = high3;
 }
 
 void
-Pow::para(uint64_t* l, uint64_t* h, const Types::Trits& in) const {
-  for (int i = 0; i < stateSize; ++i) {
-    switch (in[i]) {
-      case 0:
-        l[i] = hBits;
-        h[i] = hBits;
-        break;
-      case 1:
-        l[i] = lBits;
-        h[i] = hBits;
-        break;
-      case -1:
-        l[i] = hBits;
-        h[i] = lBits;
-        break;
+Pow::transform(uint64_t* curlStateLow, uint64_t* curlStateHigh, uint64_t* curlScratchpadLow,
+               uint64_t* curlScratchpadHigh) const {
+  int curlScratchpadIndex = 0;
+  for (int round = 0; round < Pow::numberOfRounds; ++round) {
+    std::memcpy(curlScratchpadLow, curlStateLow, Pow::stateSize * sizeof(uint64_t));
+    std::memcpy(curlScratchpadHigh, curlStateHigh, Pow::stateSize * sizeof(uint64_t));
+
+    for (int curlStateIndex = 0; curlStateIndex < Pow::stateSize; curlStateIndex++) {
+      uint64_t alpha = curlScratchpadLow[curlScratchpadIndex];
+      uint64_t beta  = curlScratchpadHigh[curlScratchpadIndex];
+      if (curlScratchpadIndex < 365) {
+        curlScratchpadIndex += 364;
+      } else {
+        curlScratchpadIndex += -365;
+      }
+      uint64_t gamma = curlScratchpadHigh[curlScratchpadIndex];
+      uint64_t delta = (alpha | (~gamma)) & (curlScratchpadLow[curlScratchpadIndex] ^ beta);
+
+      curlStateLow[curlStateIndex]  = ~delta;
+      curlStateHigh[curlStateIndex] = (alpha ^ gamma) | delta;
     }
   }
+}
+
+void
+Pow::increment(uint64_t* midCurlStateCopyLow, uint64_t* midCurlStateCopyHigh, int fromIndex,
+               int toIndex) const {
+  for (int i = fromIndex; i < toIndex; ++i) {
+    if (midCurlStateCopyLow[i] == Pow::lBits) {
+      midCurlStateCopyLow[i]  = Pow::hBits;
+      midCurlStateCopyHigh[i] = Pow::lBits;
+    } else {
+      if (midCurlStateCopyHigh[i] == Pow::lBits) {
+        midCurlStateCopyHigh[i] = Pow::hBits;
+      } else {
+        midCurlStateCopyLow[i] = Pow::lBits;
+      }
+      break;
+    }
+  }
+}
+
+// TODO param names
+Types::Trits
+Pow::loop(uint64_t* stateLowCpy, uint64_t* stateHighCpy, int minWeightMagnitude) {
+  uint64_t curlStateLow[stateSize];
+  uint64_t curlStateHigh[stateSize];
+  uint64_t curlScratchpadLow[stateSize];
+  uint64_t curlScratchpadHigh[stateSize];
+  uint64_t mask    = 1;
+  uint64_t outMask = 1;
+  while (stop_ == false) {
+    increment(stateLowCpy, stateHighCpy, 162 + (TritHashLength / 9) * 2, TritHashLength);
+
+    std::memcpy(curlStateLow, stateLowCpy, stateSize * sizeof(uint64_t));
+    std::memcpy(curlStateHigh, stateHighCpy, stateSize * sizeof(uint64_t));
+    transform(curlStateLow, curlStateHigh, curlScratchpadLow, curlScratchpadHigh);
+
+    mask = hBits;
+    for (int i = minWeightMagnitude; i-- > 0;) {
+      mask &= ~(curlStateLow[TritHashLength - 1 - i] ^ curlStateHigh[TritHashLength - 1 - i]);
+      if (mask == 0) {
+        break;
+      }
+    }
+    if (mask == 0) {
+      continue;
+    }
+
+    {
+      std::lock_guard<std::mutex> lock(mtx_);
+      if (stop_ == false) {
+        stop_ = true;
+        while ((outMask & mask) == 0) {
+          outMask <<= 1;
+        }
+        Types::Trits nonceTrits(TritNonceLength);
+        for (unsigned int i = 0; i < TritNonceLength; i++) {
+          nonceTrits[i] = (stateLowCpy[nonceOffset + i] & outMask) == 0
+                              ? 1
+                              : (stateHighCpy[nonceOffset + i] & outMask) == 0 ? -1 : 0;
+        }
+        return nonceTrits;
+      }
+    }
+    break;
+  }
+  return {};
 }
 
 }  // namespace Crypto

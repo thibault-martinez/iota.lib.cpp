@@ -45,6 +45,7 @@ const unsigned int  TritNonceLength           = 81;
 const unsigned int  ByteHashLength            = 48;
 const unsigned int  TritHashLength            = 243;
 const unsigned int  MaxTrxMsgLength           = 2187;
+const unsigned int  TxLength                  = 8019;
 
 const Types::Trytes EmptyHash(HashLength, '9');
 const Types::Trytes EmptyNonce(NonceLength, '9');

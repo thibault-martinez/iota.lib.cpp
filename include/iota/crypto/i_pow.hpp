@@ -37,7 +37,8 @@ public:
   virtual ~IPow(){};
 
 public:
-  virtual Types::Trytes operator()(const Types::Trytes& trytes, int minWeightMagnitude) = 0;
+  virtual Types::Trytes operator()(const Types::Trytes& trytes, int minWeightMagnitude,
+                                   int threads = 0) = 0;
 };
 
 }  // namespace Crypto
