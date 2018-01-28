@@ -25,6 +25,7 @@
 
 #include <iota/constants.hpp>
 #include <iota/crypto/sponge_factory.hpp>
+#include <iota/errors/illegal_state.hpp>
 #include <iota/models/transaction.hpp>
 #include <iota/types/trinary.hpp>
 
@@ -47,6 +48,7 @@ const std::pair<int, int> Transaction::ObsoleteTagOffset                   = { 2
 const std::pair<int, int> Transaction::AttachmentTimestampOffset           = { 7857, 7884 };
 const std::pair<int, int> Transaction::AttachmentTimestampLowerBoundOffset = { 7884, 7911 };
 const std::pair<int, int> Transaction::AttachmentTimestampUpperBoundOffset = { 7911, 7938 };
+const std::pair<int, int> Transaction::ValidityChunkOffset                 = { 2279, 2295 };
 
 Transaction::Transaction()
     : value_(0),
@@ -322,16 +324,12 @@ Transaction::toTrytes() const {
 
 void
 Transaction::initFromTrytes(const Types::Trytes& trytes) {
-  if (trytes.empty()) {
-    return;
+  if (trytes.size() != TrxTrytesLength) {
+    throw Errors::IllegalState("Invalid transaction trytes");
   }
 
-  //! TODO: length check
-  //! what length are we supposed to receive?
-
   // validity check
-  // TODO hardcoded values
-  for (int i = 2279; i < 2295; i++) {
+  for (int i = ValidityChunkOffset.first; i < ValidityChunkOffset.second; i++) {
     if (trytes[i] != '9') {
       return;
     }

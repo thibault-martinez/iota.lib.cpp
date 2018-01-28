@@ -70,9 +70,6 @@ Extended::getInputs(const Types::Trytes& seed, const int32_t& start, const int32
     throw Errors::IllegalState("Invalid inputs provided");
   }
 
-  // TODO Case 1 and 2 : can't we just delegate that to getNewAddresses
-  // TODO Seems to do the same thing.
-
   //  Case 1: start and end
   //
   //  If start and end is defined by the user, simply iterate through the keys
@@ -106,7 +103,8 @@ Extended::getBalancesAndFormat(const std::vector<Types::Trytes>& addresses,
   }
 
   //! retrieve balances for all given addresses
-  std::vector<std::string> balances = getBalances(addresses, 100).getBalances();
+  std::vector<std::string> balances =
+      getBalances(addresses, GetBalancesRecommandedConfirmationThreshold).getBalances();
 
   // If threshold defined, keep track of whether reached or not
   // else set default to true
@@ -131,11 +129,6 @@ Extended::getBalancesAndFormat(const std::vector<Types::Trytes>& addresses,
 
     if (!thresholdReached && totalBalance >= threshold) {
       thresholdReached = true;
-      //! TODO: is this break necessary? (that's the logic of the reference java client)
-      //! threshold is defined as minimum balance expected, but here we stop the process whenever
-      //! threshold is reached (if different from 0)
-      //! so is it an expected behavior? If so, why so? Maybe we will get more clues further during
-      //! the development of other API
       break;
     }
   }
@@ -306,8 +299,8 @@ Extended::bundlesFromAddresses(const std::vector<Types::Trytes>& addresses,
   }
 
   //! find transactions for bundles of non tail transactions
-  //! TODO: this will maybe re-query some tail transactions we already got (and we do filter that
-  //! out in the next for loop) we maybe can filter the bundle list passed to
+  //! TODO:v1.2.0(optimization): this will maybe re-query some tail transactions we already got (and
+  //! we do filter that out in the next for loop) we maybe can filter the bundle list passed to
   //! findTransactionObjectsByBundle by restructuring the previous loop
   const auto bundleObjects = findTransactionObjectsByBundle(nonTailBundleHashes);
 
@@ -366,7 +359,6 @@ Extended::getLatestInclusion(const std::vector<Types::Trytes>& hashes) const {
   return getInclusionStates(hashes, { getNodeInfo().getLatestSolidSubtangleMilestone() });
 }
 
-// TODO Response ?
 std::vector<Types::Trytes>
 Extended::prepareTransfers(const Types::Trytes& seed, int security,
                            std::vector<Models::Transfer>& transfers, const std::string& remainder,
@@ -462,9 +454,9 @@ Extended::prepareTransfers(const Types::Trytes& seed, int security,
         inputsAddresses.emplace_back(input.getAddress());
       }
 
-      // TODO 100 ?
-      const auto balancesResponse = getBalances(inputsAddresses, 100);
-      const auto balances         = balancesResponse.getBalances();
+      const auto balancesResponse =
+          getBalances(inputsAddresses, GetBalancesRecommandedConfirmationThreshold);
+      const auto balances = balancesResponse.getBalances();
 
       std::vector<Models::Input> confirmedInputs;
       int                        totalBalance = 0;
@@ -924,7 +916,8 @@ Extended::initiateTransfer(int securitySum, const Types::Trytes& inputAddress,
   }
 
   long totalBalance = 0;
-  auto balances     = getBalances({ inputAddress }, 100).getBalances();
+  auto balances =
+      getBalances({ inputAddress }, GetBalancesRecommandedConfirmationThreshold).getBalances();
 
   for (const auto& balance : balances) {
     totalBalance += std::atol(balance.c_str());
@@ -987,7 +980,6 @@ std::vector<Types::Trytes>
 Extended::signInputsAndReturn(const Types::Trytes& seed, const std::vector<Models::Input>& inputs,
                               Models::Bundle&                   bundle,
                               const std::vector<Types::Trytes>& signatureFragments) const {
-  // TODO param ?
   bundle.finalize(Crypto::create(cryptoType_));
   bundle.addTrytes(signatureFragments);
 
@@ -1013,8 +1005,6 @@ Extended::signInputsAndReturn(const Types::Trytes& seed, const std::vector<Model
       auto bundleHash = tx.getBundle();
 
       // Get corresponding private key of address
-      // TODO Do we have to use the previous curl ?
-      // int[] key = new Signing(curl).key(Converter.trits(seed), keyIndex, keySecurity);
       auto key = Crypto::Signing::key(seed, keyIndex, keySecurity);
 
       //  First 6561 trits for the firstFragment

@@ -25,7 +25,9 @@
 
 #include <gtest/gtest.h>
 
+#include <iota/errors/illegal_state.hpp>
 #include <iota/models/transaction.hpp>
+#include <test/utils/expect_exception.hpp>
 
 TEST(Transaction, DefaultCtor) {
   IOTA::Models::Transaction t;
@@ -165,27 +167,8 @@ TEST(Transaction, CtorFromTrxTrytesAndToTrytes) {
 }
 
 TEST(Transaction, CtorFromTrxTrytesEmptyTrytes) {
-  IOTA::Models::Transaction t{ {} };
-
-  EXPECT_EQ(t.getSignatureFragments(), "");
-  EXPECT_EQ(t.getCurrentIndex(), 0);
-  EXPECT_EQ(t.getLastIndex(), 0);
-  EXPECT_EQ(t.getNonce(), "");
-  EXPECT_EQ(t.getHash(), "");
-  EXPECT_EQ(t.getTag(), "");
-  EXPECT_EQ(t.getObsoleteTag(), "");
-  EXPECT_EQ(t.getTimestamp(), 0);
-  EXPECT_EQ(t.getAttachmentTimestamp(), 0);
-  EXPECT_EQ(t.getAttachmentTimestampLowerBound(), 0);
-  EXPECT_EQ(t.getAttachmentTimestampUpperBound(), 0);
-  EXPECT_EQ(t.getTrunkTransaction(), "");
-  EXPECT_EQ(t.getBranchTransaction(), "");
-  EXPECT_EQ(t.getAddress(), "");
-  EXPECT_EQ(t.getValue(), 0);
-  EXPECT_EQ(t.getBundle(), "");
-  EXPECT_EQ(t.getPersistence(), false);
-  EXPECT_EQ(t.toTrytes(),
-            "999999999999999999999999999999999999999999999999999999999999999999999999999999999");
+  EXPECT_EXCEPTION(IOTA::Models::Transaction t(""), IOTA::Errors::IllegalState,
+                   "Invalid transaction trytes");
 }
 
 TEST(Transaction, CtorFromTrxTrytesInvalidTrytes) {

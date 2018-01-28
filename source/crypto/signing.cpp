@@ -35,6 +35,11 @@ namespace Crypto {
 
 namespace Signing {
 
+//! When a tryte value is normalized, it is converted into a list of integers.
+//! The int values ranged from -13 to 13 (giving a set of 27 values, matching the alphabet length)
+//! This characteristic is used in the Signing algorithm
+static const int NormalizedTryteValueUpperBound = 13;
+
 Types::Trits
 key(const Types::Trytes& seed, const unsigned int& index, const unsigned int& security) {
   Kerl         k;
@@ -75,8 +80,7 @@ digest(const std::vector<int8_t>& normalizedBundleFragment, const Types::Trits& 
   for (unsigned int i = 0; i < FragmentLength; i++) {
     Types::Trits buffer(&signatureFragment[i * TritHashLength],
                         &signatureFragment[(i + 1) * TritHashLength]);
-    // TODO 13 ? Constant
-    for (unsigned int j = normalizedBundleFragment[i] + 13; j-- > 0;) {
+    for (unsigned int j = normalizedBundleFragment[i] + NormalizedTryteValueUpperBound; j-- > 0;) {
       k2.reset();
       k2.absorb(buffer);
       k2.squeeze(buffer);
@@ -105,7 +109,7 @@ digests(const Types::Trits& key) {
         k.absorb(buffer);
         k.squeeze(buffer);
       }
-      // TODO optimize
+      // TODO:1.2.0(optimization) optimize
       for (unsigned int l = 0; l < 243; ++l) {
         keyFragment[j * 243 + l] = buffer[l];
       }
@@ -138,8 +142,7 @@ signatureFragment(const std::vector<int8_t>& normalizedBundleFragment,
   for (unsigned int i = 0; i < FragmentLength; ++i) {
     Types::Trits buffer(keyFragment.begin() + i * TritHashLength,
                         keyFragment.begin() + (i + 1) * TritHashLength);
-    // TODO 13 ? Constant
-    for (int j = 0; j < 13 - normalizedBundleFragment[i]; ++j) {
+    for (int j = 0; j < NormalizedTryteValueUpperBound - normalizedBundleFragment[i]; ++j) {
       k.reset();
       k.absorb(buffer);
       k.squeeze(buffer);

@@ -32,8 +32,6 @@ namespace Crypto {
 
 namespace Checksum {
 
-// TODO add some checks + tests
-
 Types::Trytes
 add(const Types::Trytes& address) {
   return address + check(address);

@@ -62,13 +62,6 @@ public:
    * @return The values.
    */
   std::vector<int8_t> squeeze();
-  // TODO Is it useless ?
-  // /**
-  //  * To be called after all input blocks have been input and to get output.
-  //  *
-  //  * @return The output data.
-  //  */
-  // std::vector<int8_t> finalize();
   /**
    * Get an hexadecimal digest of the ouput.
    *

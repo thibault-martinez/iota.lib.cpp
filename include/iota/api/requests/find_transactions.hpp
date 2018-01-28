@@ -23,8 +23,6 @@
 //
 //
 
-// TODO Don't really like that design, refactor it later.
-
 #pragma once
 
 #include <json.hpp>

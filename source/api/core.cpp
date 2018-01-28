@@ -141,8 +141,10 @@ Core::attachToTangle(const Types::Trytes& trunkTransaction, const Types::Trytes&
       tx.setAttachmentTimestamp(Utils::StopWatch::now().count());
       tx.setAttachmentTimestampLowerBound(0);
       tx.setAttachmentTimestampUpperBound(3812798742493L);
-      resultTrytes.emplace_back(pow(tx.toTrytes(), minWeightMagnitude));
-      prevTx = IOTA::Models::Transaction(resultTrytes.back()).getHash();
+      tx.setNonce(pow(tx.toTrytes(), minWeightMagnitude));
+
+      resultTrytes.emplace_back(tx.toTrytes());
+      prevTx = tx.getHash();
     }
     return { resultTrytes };
   }

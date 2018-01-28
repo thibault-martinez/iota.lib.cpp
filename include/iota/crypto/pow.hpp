@@ -53,8 +53,8 @@ private:
   static constexpr uint64_t nonceInitStart      = nonceOffset + 4;
   static constexpr uint64_t nonceIncrementStart = nonceInitStart + TritNonceLength / 3;
 
-  static constexpr int stateSize      = 729;  // TODO constants
-  static constexpr int numberOfRounds = 81;   // TODO constants
+  static constexpr int stateSize      = PowStateSize;
+  static constexpr int numberOfRounds = PowNumberOfRounds;
 
 public:
   Pow();

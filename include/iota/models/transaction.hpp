@@ -351,6 +351,7 @@ private:
   static const std::pair<int, int> AttachmentTimestampOffset;
   static const std::pair<int, int> AttachmentTimestampLowerBoundOffset;
   static const std::pair<int, int> AttachmentTimestampUpperBoundOffset;
+  static const std::pair<int, int> ValidityChunkOffset;
 
 private:
   /**

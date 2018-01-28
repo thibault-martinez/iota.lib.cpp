@@ -76,7 +76,9 @@ public:
    * Gets the balances and formats the output.
    *
    * @param addresses The addresses.
-   * @param threshold Min balance required.
+   * @param threshold If set to 0, fetch balance for all input addresses. Otherwise, keep fetching
+   *                  until the threshold is reached. If threshold is > 0 and is not reached,
+   *                  Not Enough Balance exception is raised.
    * @param start     Starting key index.
    * @param stopWatch the stopwatch.
    * @param security  The security level of private key / seed.
