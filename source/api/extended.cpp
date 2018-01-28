@@ -413,13 +413,15 @@ Extended::prepareTransfers(const Types::Trytes& seed, int security,
 
       // While there is still a message, copy it
       while (!msgCopy.empty()) {
-        auto fragment = msgCopy.substr(0, MaxTrxMsgLength);
-        msgCopy       = msgCopy.substr(MaxTrxMsgLength);
+        Types::Trytes fragment = msgCopy.substr(0, MaxTrxMsgLength);
 
-        // Pad remainder of fragment
-        fragment = Types::Utils::rightPad(transfer.getMessage(), MaxTrxMsgLength, '9');
+        if (msgCopy.length() > MaxTrxMsgLength) {
+          msgCopy = msgCopy.substr(MaxTrxMsgLength, msgCopy.length());
+        } else {
+          msgCopy = "";
+        }
 
-        signatureFragments.push_back(fragment);
+        signatureFragments.push_back(Types::Utils::rightPad(fragment, MaxTrxMsgLength, '9'));
       }
     } else {
       // Else, get single fragment with 2187 of 9's trytes
@@ -748,9 +750,20 @@ Extended::findTailTransactionHash(const Types::Trytes& hash) const {
 std::vector<Types::Trytes>
 Extended::addRemainder(const Types::Trytes& seed, const unsigned int& security,
                        const std::vector<Models::Input>& inputs, Models::Bundle& bundle,
-                       const Types::Trytes& tag, const int64_t& totalValue,
+                       const Types::Trytes& unpadTag, const int64_t& totalValue,
                        const Types::Trytes&              remainderAddress,
                        const std::vector<Types::Trytes>& signatureFragments) const {
+  //! Validate the seed
+  if (!Types::isValidTrytes(seed)) {
+    throw Errors::IllegalState("Invalid Seed");
+  }
+
+  //! Validate the tag
+  auto tag = Types::Utils::rightPad(unpadTag, TagLength, '9');
+  if (!Types::isValidTrytes(tag)) {
+    throw Errors::IllegalState("Invalid Tag");
+  }
+
   auto totalTransferValue = totalValue;
 
   for (const auto& input : inputs) {
@@ -875,7 +888,12 @@ Extended::initiateTransfer(int securitySum, const Types::Trytes& inputAddress,
       //! While there is still a message, copy it
       while (!msgCopy.empty()) {
         Types::Trytes fragment = msgCopy.substr(0, MaxTrxMsgLength);
-        msgCopy                = msgCopy.substr(MaxTrxMsgLength, msgCopy.length());
+
+        if (msgCopy.length() > MaxTrxMsgLength) {
+          msgCopy = msgCopy.substr(MaxTrxMsgLength, msgCopy.length());
+        } else {
+          msgCopy = "";
+        }
 
         // Pad remainder of fragment
         signatureFragments.push_back(Types::Utils::rightPad(fragment, MaxTrxMsgLength, '9'));
