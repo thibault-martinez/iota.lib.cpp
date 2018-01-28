@@ -87,7 +87,6 @@ public:
     }
 
     Response response;
-    // TODO set duration ?
     switch (res.status_code) {
       case 200:
         response.deserialize(resJson);

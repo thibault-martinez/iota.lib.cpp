@@ -30,7 +30,10 @@
 
 #include <iota/api/core.hpp>
 #include <iota/constants.hpp>
+#include <iota/crypto/checksum.hpp>
 #include <iota/errors/illegal_state.hpp>
+#include <iota/models/bundle.hpp>
+#include <iota/utils/stop_watch.hpp>
 #include <test/utils/configuration.hpp>
 #include <test/utils/constants.hpp>
 #include <test/utils/expect_exception.hpp>
@@ -400,51 +403,71 @@ TEST(Core, StoreTransactionsValidMultiTrytes) {
 TEST(Core, AttachToTangleRemotePowOneTx) {
   IOTA::API::Core api(get_proxy_host(), get_proxy_port(), false);
 
-  auto tx1 = BUNDLE_1_TRX_1_TRYTES;
-  tx1.replace(IOTA::TrxTrytesLength - IOTA::NonceLength, IOTA::NonceLength, IOTA::NonceLength, '9');
-  auto res = api.attachToTangle(BUNDLE_1_TRX_1_TRUNK, BUNDLE_1_TRX_1_BRANCH, 14, { tx1 });
-
-  EXPECT_NO_THROW(api.storeTransactions(res.getTrytes()));
+  IOTA::Models::Bundle b;
+  b.addTransaction(1, IOTA::Crypto::Checksum::remove(ACCOUNT_4_ADDRESS_1_HASH), 0, IOTA::EmptyTag,
+                   IOTA::Utils::StopWatch::now().count());
+  b.finalize();
+  b.addTrytes({ EMPTY_SIGNATURE_FRAGMENT });
+  auto tx  = b.getTransactions()[0].toTrytes();
+  auto tta = api.getTransactionsToApprove(27);
+  auto att = api.attachToTangle(tta.getTrunkTransaction(), tta.getBranchTransaction(), 14, { tx });
+  auto trytes = att.getTrytes()[0];
+  api.storeTransactions({ trytes });
 }
 
 TEST(Core, AttachToTangleLocalPowOneTx) {
   IOTA::API::Core api(get_proxy_host(), get_proxy_port());
 
-  auto tx1 = BUNDLE_1_TRX_1_TRYTES;
-  tx1.replace(IOTA::TrxTrytesLength - IOTA::NonceLength, IOTA::NonceLength, IOTA::NonceLength, '9');
-  auto res = api.attachToTangle(BUNDLE_1_TRX_1_TRUNK, BUNDLE_1_TRX_1_BRANCH, 14, { tx1 });
-
-  EXPECT_NO_THROW(api.storeTransactions(res.getTrytes()));
+  IOTA::Models::Bundle b;
+  b.addTransaction(1, IOTA::Crypto::Checksum::remove(ACCOUNT_4_ADDRESS_1_HASH), 0, IOTA::EmptyTag,
+                   IOTA::Utils::StopWatch::now().count());
+  b.finalize();
+  b.addTrytes({ EMPTY_SIGNATURE_FRAGMENT });
+  auto tx  = b.getTransactions()[0].toTrytes();
+  auto tta = api.getTransactionsToApprove(27);
+  auto att = api.attachToTangle(tta.getTrunkTransaction(), tta.getBranchTransaction(), 14, { tx });
+  auto trytes = att.getTrytes()[0];
+  api.storeTransactions({ trytes });
 }
 
 TEST(Core, AttachToTangleRemotePowManyTx) {
   IOTA::API::Core api(get_proxy_host(), get_proxy_port(), false);
 
-  auto tx1 = BUNDLE_1_TRX_1_TRYTES;
-  auto tx2 = BUNDLE_1_TRX_2_TRYTES;
-  auto tx3 = BUNDLE_1_TRX_3_TRYTES;
-  auto tx4 = BUNDLE_1_TRX_4_TRYTES;
-  tx1.replace(IOTA::TrxTrytesLength - IOTA::NonceLength, IOTA::NonceLength, IOTA::NonceLength, '9');
-  tx2.replace(IOTA::TrxTrytesLength - IOTA::NonceLength, IOTA::NonceLength, IOTA::NonceLength, '9');
-  tx3.replace(IOTA::TrxTrytesLength - IOTA::NonceLength, IOTA::NonceLength, IOTA::NonceLength, '9');
-  tx4.replace(IOTA::TrxTrytesLength - IOTA::NonceLength, IOTA::NonceLength, IOTA::NonceLength, '9');
-  auto res =
-      api.attachToTangle(BUNDLE_1_TRX_1_TRUNK, BUNDLE_1_TRX_1_BRANCH, 14, { tx1, tx2, tx3, tx4 });
-  EXPECT_NO_THROW(api.storeTransactions(res.getTrytes()));
+  IOTA::Models::Bundle b;
+  b.addTransaction(1, IOTA::Crypto::Checksum::remove(ACCOUNT_4_ADDRESS_1_HASH), 0, IOTA::EmptyTag,
+                   IOTA::Utils::StopWatch::now().count());
+  b.addTransaction(1, IOTA::Crypto::Checksum::remove(ACCOUNT_4_ADDRESS_1_HASH), 0, IOTA::EmptyTag,
+                   IOTA::Utils::StopWatch::now().count());
+  b.addTransaction(1, IOTA::Crypto::Checksum::remove(ACCOUNT_4_ADDRESS_1_HASH), 0, IOTA::EmptyTag,
+                   IOTA::Utils::StopWatch::now().count());
+  b.addTransaction(1, IOTA::Crypto::Checksum::remove(ACCOUNT_4_ADDRESS_1_HASH), 0, IOTA::EmptyTag,
+                   IOTA::Utils::StopWatch::now().count());
+  b.finalize();
+  b.addTrytes({ EMPTY_SIGNATURE_FRAGMENT });
+  auto tx  = b.getTransactions()[0].toTrytes();
+  auto tta = api.getTransactionsToApprove(27);
+  auto att = api.attachToTangle(tta.getTrunkTransaction(), tta.getBranchTransaction(), 14, { tx });
+  auto trytes = att.getTrytes()[0];
+  api.storeTransactions({ trytes });
 }
 
 TEST(Core, AttachToTangleLocalPowManyTx) {
   IOTA::API::Core api(get_proxy_host(), get_proxy_port());
 
-  auto tx1 = BUNDLE_1_TRX_1_TRYTES;
-  auto tx2 = BUNDLE_1_TRX_2_TRYTES;
-  auto tx3 = BUNDLE_1_TRX_3_TRYTES;
-  auto tx4 = BUNDLE_1_TRX_4_TRYTES;
-  tx1.replace(IOTA::TrxTrytesLength - IOTA::NonceLength, IOTA::NonceLength, IOTA::NonceLength, '9');
-  tx2.replace(IOTA::TrxTrytesLength - IOTA::NonceLength, IOTA::NonceLength, IOTA::NonceLength, '9');
-  tx3.replace(IOTA::TrxTrytesLength - IOTA::NonceLength, IOTA::NonceLength, IOTA::NonceLength, '9');
-  tx4.replace(IOTA::TrxTrytesLength - IOTA::NonceLength, IOTA::NonceLength, IOTA::NonceLength, '9');
-  auto res =
-      api.attachToTangle(BUNDLE_1_TRX_1_TRUNK, BUNDLE_1_TRX_1_BRANCH, 14, { tx1, tx2, tx3, tx4 });
-  EXPECT_NO_THROW(api.storeTransactions(res.getTrytes()));
+  IOTA::Models::Bundle b;
+  b.addTransaction(1, IOTA::Crypto::Checksum::remove(ACCOUNT_4_ADDRESS_1_HASH), 0, IOTA::EmptyTag,
+                   IOTA::Utils::StopWatch::now().count());
+  b.addTransaction(1, IOTA::Crypto::Checksum::remove(ACCOUNT_4_ADDRESS_1_HASH), 0, IOTA::EmptyTag,
+                   IOTA::Utils::StopWatch::now().count());
+  b.addTransaction(1, IOTA::Crypto::Checksum::remove(ACCOUNT_4_ADDRESS_1_HASH), 0, IOTA::EmptyTag,
+                   IOTA::Utils::StopWatch::now().count());
+  b.addTransaction(1, IOTA::Crypto::Checksum::remove(ACCOUNT_4_ADDRESS_1_HASH), 0, IOTA::EmptyTag,
+                   IOTA::Utils::StopWatch::now().count());
+  b.finalize();
+  b.addTrytes({ EMPTY_SIGNATURE_FRAGMENT });
+  auto tx  = b.getTransactions()[0].toTrytes();
+  auto tta = api.getTransactionsToApprove(27);
+  auto att = api.attachToTangle(tta.getTrunkTransaction(), tta.getBranchTransaction(), 14, { tx });
+  auto trytes = att.getTrytes()[0];
+  api.storeTransactions({ trytes });
 }
