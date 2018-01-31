@@ -34,8 +34,8 @@ namespace Utils {
 
 class RandomSeedGenerator {
 public:
-  RandomSeedGenerator();
-  virtual ~RandomSeedGenerator();
+  RandomSeedGenerator()          = default;
+  virtual ~RandomSeedGenerator() = default;
 
 public:
   Types::Trytes operator()();

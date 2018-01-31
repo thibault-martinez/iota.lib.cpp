@@ -36,7 +36,7 @@ public:
   /**
    * default ctor
    */
-  Neighbor();
+  Neighbor() = default;
 
   /**
    * full init ctor
@@ -109,9 +109,9 @@ public:
 
 private:
   Types::Trytes address_;
-  int64_t       numberOfAllTransactions_;
-  int64_t       numberOfInvalidTransactions_;
-  int64_t       numberOfNewTransactions_;
+  int64_t       numberOfAllTransactions_     = 0;
+  int64_t       numberOfInvalidTransactions_ = 0;
+  int64_t       numberOfNewTransactions_     = 0;
 };
 
 }  // namespace Models

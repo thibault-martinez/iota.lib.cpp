@@ -37,9 +37,6 @@ Keccak384::Keccak384() {
   initialize();
 }
 
-Keccak384::~Keccak384() {
-}
-
 void
 Keccak384::reset() {
   initialize();

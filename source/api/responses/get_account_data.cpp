@@ -31,9 +31,6 @@ namespace API {
 
 namespace Responses {
 
-GetAccountData::GetAccountData() : balance_(0) {
-}
-
 GetAccountData::GetAccountData(const std::vector<Types::Trytes>&  addresses,
                                const std::vector<Models::Bundle>& transferBundle,
                                const int64_t& balance, const int64_t& duration)

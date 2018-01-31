@@ -34,12 +34,6 @@ namespace IOTA {
 
 namespace Utils {
 
-RandomSeedGenerator::RandomSeedGenerator() {
-}
-
-RandomSeedGenerator::~RandomSeedGenerator() {
-}
-
 Types::Trytes
 RandomSeedGenerator::operator()() {
   std::random_device                 rd;

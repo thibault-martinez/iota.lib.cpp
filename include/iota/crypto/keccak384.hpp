@@ -43,7 +43,7 @@ public:
 
 public:
   Keccak384();
-  virtual ~Keccak384();
+  virtual ~Keccak384() = default;
 
 public:
   /**

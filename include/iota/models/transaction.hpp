@@ -39,7 +39,7 @@ public:
   /**
    * default ctor
    */
-  Transaction();
+  Transaction() = default;
 
   /**
    * default dtor
@@ -372,7 +372,7 @@ private:
   /**
    * value sent
    */
-  int64_t value_;
+  int64_t value_ = 0;
 
   /**
    * tag of the transaction
@@ -387,32 +387,32 @@ private:
   /**
    * ts at which transaction was issued
    */
-  int64_t timestamp_;
+  int64_t timestamp_ = 0;
 
   /**
    * attachment timestamp
    */
-  int64_t attachmentTimestamp_;
+  int64_t attachmentTimestamp_ = 0;
 
   /**
    * lower bound of the attachment timestamp
    */
-  int64_t attachmentTimestampLowerBound_;
+  int64_t attachmentTimestampLowerBound_ = 0;
 
   /**
    * upper bound of the attachment timestamp
    */
-  int64_t attachmentTimestampUpperBound_;
+  int64_t attachmentTimestampUpperBound_ = 0;
 
   /**
    * index of the transaction in the bundle
    */
-  int64_t currentIndex_;
+  int64_t currentIndex_ = 0;
 
   /**
    * last transaction index of the bundle
    */
-  int64_t lastIndex_;
+  int64_t lastIndex_ = 0;
 
   /**
    * bundle hash
@@ -437,7 +437,7 @@ private:
   /**
    * whether transaction is persisted or not
    */
-  bool persistence_;
+  bool persistence_ = false;
 };
 
 }  // namespace Models

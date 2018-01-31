@@ -33,12 +33,6 @@ namespace IOTA {
 
 namespace Crypto {
 
-Kerl::Kerl() {
-}
-
-Kerl::~Kerl() {
-}
-
 void
 Kerl::reset() {
   keccak_.reset();

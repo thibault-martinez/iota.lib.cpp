@@ -50,26 +50,7 @@ const std::pair<int, int> Transaction::AttachmentTimestampLowerBoundOffset = { 7
 const std::pair<int, int> Transaction::AttachmentTimestampUpperBoundOffset = { 7911, 7938 };
 const std::pair<int, int> Transaction::ValidityChunkOffset                 = { 2279, 2295 };
 
-Transaction::Transaction()
-    : value_(0),
-      timestamp_(0),
-      attachmentTimestamp_(0),
-      attachmentTimestampLowerBound_(0),
-      attachmentTimestampUpperBound_(0),
-      currentIndex_(0),
-      lastIndex_(0),
-      persistence_(false) {
-}
-
-Transaction::Transaction(const Types::Trytes& trytes)
-    : value_(0),
-      timestamp_(0),
-      attachmentTimestamp_(0),
-      attachmentTimestampLowerBound_(0),
-      attachmentTimestampUpperBound_(0),
-      currentIndex_(0),
-      lastIndex_(0),
-      persistence_(false) {
+Transaction::Transaction(const Types::Trytes& trytes) {
   initFromTrytes(trytes);
 }
 

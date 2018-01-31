@@ -36,7 +36,7 @@ public:
   /**
    * default ctor
    */
-  Input();
+  Input() = default;
 
   /**
    * full init ctor
@@ -108,9 +108,9 @@ public:
 
 private:
   Types::Trytes address_;
-  int64_t       balance_;
-  int32_t       keyIndex_;
-  int32_t       security_;
+  int64_t       balance_  = 0;
+  int32_t       keyIndex_ = 0;
+  int32_t       security_ = 0;
 };
 
 }  // namespace Models

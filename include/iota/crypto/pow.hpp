@@ -57,8 +57,8 @@ private:
   static constexpr int numberOfRounds = PowNumberOfRounds;
 
 public:
-  Pow();
-  virtual ~Pow();
+  Pow()          = default;
+  virtual ~Pow() = default;
 
 public:
   Types::Trytes operator()(const Types::Trytes& trytes, int minWeightMagnitude,
@@ -74,7 +74,7 @@ private:
   inline Types::Trits loop(uint64_t* lmid, uint64_t* hmid, int minWeightMagnitude);
 
 private:
-  bool       stop_;
+  bool       stop_ = true;
   std::mutex mtx_;
 };
 

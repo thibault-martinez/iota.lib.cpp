@@ -30,10 +30,6 @@ namespace IOTA {
 
 namespace Models {
 
-//! make sure scalar types are initialized
-Transfer::Transfer() : value_(0) {
-}
-
 Transfer::Transfer(const Types::Trytes& address, int64_t value, const Types::Trytes& message,
                    const Types::Trytes& tag)
     : address_(address), value_(value), message_(message), tag_(tag) {

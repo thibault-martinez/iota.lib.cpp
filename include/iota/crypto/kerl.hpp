@@ -34,8 +34,8 @@ namespace Crypto {
 
 class Kerl : public ISponge {
 public:
-  Kerl();
-  virtual ~Kerl();
+  Kerl()          = default;
+  virtual ~Kerl() = default;
 
 public:
   /**

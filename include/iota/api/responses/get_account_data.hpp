@@ -45,7 +45,7 @@ public:
   /**
    * default ctor
    */
-  GetAccountData();
+  GetAccountData() = default;
 
   /**
    * full init ctor
@@ -105,7 +105,7 @@ public:
 private:
   std::vector<Types::Trytes>  addresses_;
   std::vector<Models::Bundle> transferBundle_;
-  int64_t                     balance_;
+  int64_t                     balance_ = 0;
 };
 
 }  // namespace Responses

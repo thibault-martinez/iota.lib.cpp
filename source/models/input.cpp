@@ -29,9 +29,6 @@ namespace IOTA {
 
 namespace Models {
 
-Input::Input() : balance_(0), keyIndex_(0), security_(0) {
-}
-
 Input::Input(const Types::Trytes& address, const int64_t& balance, const int32_t& keyIndex,
              const int32_t& security)
     : address_(address), balance_(balance), keyIndex_(keyIndex), security_(security) {

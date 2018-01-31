@@ -33,8 +33,8 @@ namespace Crypto {
 
 class IPow {
 public:
-  IPow(){};
-  virtual ~IPow(){};
+  IPow()          = default;
+  virtual ~IPow() = default;
 
 public:
   virtual Types::Trytes operator()(const Types::Trytes& trytes, int minWeightMagnitude,

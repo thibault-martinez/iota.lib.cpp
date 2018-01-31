@@ -38,7 +38,7 @@ public:
   /**
    * Default constructor
    */
-  Transfer();
+  Transfer() = default;
 
   /**
    * full constructor
@@ -128,7 +128,7 @@ public:
 
 private:
   Types::Trytes address_;
-  int64_t       value_;
+  int64_t       value_ = 0;
   Types::Trytes message_;
   Types::Trytes tag_;
 };

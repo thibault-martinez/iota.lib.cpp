@@ -29,10 +29,6 @@ namespace IOTA {
 
 namespace Models {
 
-Neighbor::Neighbor()
-    : numberOfAllTransactions_(0), numberOfInvalidTransactions_(0), numberOfNewTransactions_(0) {
-}
-
 Neighbor::Neighbor(const Types::Trytes& address, const int64_t& numberOfAllTransactions,
                    const int64_t& numberOfInvalidTransactions,
                    const int64_t& numberOfNewTransactions)

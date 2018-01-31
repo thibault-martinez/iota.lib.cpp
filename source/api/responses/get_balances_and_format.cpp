@@ -31,9 +31,6 @@ namespace API {
 
 namespace Responses {
 
-GetBalancesAndFormat::GetBalancesAndFormat() : totalBalance_(0) {
-}
-
 GetBalancesAndFormat::GetBalancesAndFormat(const std::vector<Models::Input>& inputs,
                                            const int64_t& totalBalance, const int64_t& duration)
     : Base(duration), inputs_(inputs), totalBalance_(totalBalance) {

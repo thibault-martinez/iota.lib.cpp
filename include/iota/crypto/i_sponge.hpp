@@ -33,8 +33,8 @@ namespace Crypto {
 
 class ISponge {
 public:
-  ISponge(){};
-  virtual ~ISponge(){};
+  ISponge()          = default;
+  virtual ~ISponge() = default;
 
 public:
   virtual void reset()                                                                        = 0;

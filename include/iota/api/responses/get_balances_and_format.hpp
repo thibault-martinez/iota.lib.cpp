@@ -53,7 +53,7 @@ public:
   /**
    * default ctor
    */
-  GetBalancesAndFormat();
+  GetBalancesAndFormat() = default;
 
   /**
    * full init ctor
@@ -95,7 +95,7 @@ public:
 
 private:
   std::vector<Models::Input> inputs_;
-  int64_t                    totalBalance_;
+  int64_t                    totalBalance_ = 0;
 };
 
 }  // namespace Responses

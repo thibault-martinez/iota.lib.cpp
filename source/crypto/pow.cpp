@@ -76,12 +76,6 @@ static constexpr int indices[] = {
   3,   367, 2,   366, 1,   365, 0
 };
 
-Pow::Pow() : stop_(true) {
-}
-
-Pow::~Pow() {
-}
-
 Types::Trytes
 Pow::operator()(const Types::Trytes& trytes, int minWeightMagnitude, int threads) {
   IOTA::Types::Trits  trits = IOTA::Types::trytesToTrits(trytes);
