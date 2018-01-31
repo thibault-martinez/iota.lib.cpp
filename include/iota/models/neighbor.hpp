@@ -94,6 +94,19 @@ public:
    */
   void setNumberOfNewTransactions(const int64_t& nbTrx);
 
+public:
+  /**
+   * @param rhs An object to compare with this object.
+   * @return whether the current neighbor is the same as the given one
+   */
+  bool operator==(const Neighbor& rhs) const;
+
+  /**
+   * @param rhs An object to compare with this object.
+   * @return whether the current neighbor is different from the given one
+   */
+  bool operator!=(const Neighbor& rhs) const;
+
 private:
   Types::Trytes address_;
   int64_t       numberOfAllTransactions_;

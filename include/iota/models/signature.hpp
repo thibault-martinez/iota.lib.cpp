@@ -78,6 +78,19 @@ public:
    */
   void setSignatureFragments(const std::vector<Types::Trytes>& signatureFragments);
 
+public:
+  /**
+   * @param rhs An object to compare with this object.
+   * @return whether the current signature is the same as the given one
+   */
+  bool operator==(const Signature& rhs) const;
+
+  /**
+   * @param rhs An object to compare with this object.
+   * @return whether the current signature is different from the given one
+   */
+  bool operator!=(const Signature& rhs) const;
+
 private:
   Types::Trytes              address_;
   std::vector<Types::Trytes> signatureFragments_;

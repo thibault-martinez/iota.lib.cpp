@@ -85,3 +85,47 @@ TEST(Input, SecurityGetterAndSetter) {
   i.setSecurity(1);
   EXPECT_EQ(i.getSecurity(), 1);
 }
+
+TEST(Input, EqOperator) {
+  IOTA::Models::Input lhs("addr", 1, 2, 3);
+  IOTA::Models::Input rhs("addr", 1, 2, 3);
+  EXPECT_TRUE(lhs == rhs);
+
+  IOTA::Models::Input lhs_neq_1("addr", 1, 2, 3);
+  IOTA::Models::Input rhs_neq_1("neq_addr", 1, 2, 3);
+  EXPECT_FALSE(lhs_neq_1 == rhs_neq_1);
+
+  IOTA::Models::Input lhs_neq_2("addr", 1, 2, 3);
+  IOTA::Models::Input rhs_neq_2("addr", 4, 2, 3);
+  EXPECT_FALSE(lhs_neq_2 == rhs_neq_2);
+
+  IOTA::Models::Input lhs_neq_3("addr", 1, 2, 3);
+  IOTA::Models::Input rhs_neq_3("addr", 1, 4, 3);
+  EXPECT_FALSE(lhs_neq_3 == rhs_neq_3);
+
+  IOTA::Models::Input lhs_neq_4("addr", 1, 2, 3);
+  IOTA::Models::Input rhs_neq_4("addr", 1, 2, 4);
+  EXPECT_FALSE(lhs_neq_4 == rhs_neq_4);
+}
+
+TEST(Input, NEqOperator) {
+  IOTA::Models::Input lhs("addr", 1, 2, 3);
+  IOTA::Models::Input rhs("addr", 1, 2, 3);
+  EXPECT_FALSE(lhs != rhs);
+
+  IOTA::Models::Input lhs_neq_1("addr", 1, 2, 3);
+  IOTA::Models::Input rhs_neq_1("neq_addr", 1, 2, 3);
+  EXPECT_TRUE(lhs_neq_1 != rhs_neq_1);
+
+  IOTA::Models::Input lhs_neq_2("addr", 1, 2, 3);
+  IOTA::Models::Input rhs_neq_2("addr", 4, 2, 3);
+  EXPECT_TRUE(lhs_neq_2 != rhs_neq_2);
+
+  IOTA::Models::Input lhs_neq_3("addr", 1, 2, 3);
+  IOTA::Models::Input rhs_neq_3("addr", 1, 4, 3);
+  EXPECT_TRUE(lhs_neq_3 != rhs_neq_3);
+
+  IOTA::Models::Input lhs_neq_4("addr", 1, 2, 3);
+  IOTA::Models::Input rhs_neq_4("addr", 1, 2, 4);
+  EXPECT_TRUE(lhs_neq_4 != rhs_neq_4);
+}

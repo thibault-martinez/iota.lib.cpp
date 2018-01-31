@@ -114,44 +114,26 @@ public:
 
 public:
   /**
-   * Compares the current object with another object of the same type.
-   *
    * @param rhs An object to compare with this object.
+   * @return whether the current bundle occured before the given one
    */
   bool operator<(const Bundle& rhs) const;
 
   /**
-   * Compares the current object with another object of the same type.
-   *
    * @param rhs An object to compare with this object.
+   * @return whether the current bundle occured after the given one
    */
   bool operator>(const Bundle& rhs) const;
 
   /**
-   * Compares the current object with another object of the same type.
-   *
    * @param rhs An object to compare with this object.
-   */
-  bool operator<=(const Bundle& rhs) const;
-
-  /**
-   * Compares the current object with another object of the same type.
-   *
-   * @param rhs An object to compare with this object.
-   */
-  bool operator>=(const Bundle& rhs) const;
-
-  /**
-   * Compares the current object with another object of the same type.
-   *
-   * @param rhs An object to compare with this object.
+   * @return whether the current bundle is the same as the given one
    */
   bool operator==(const Bundle& rhs) const;
 
   /**
-   * Compares the current object with another object of the same type.
-   *
    * @param rhs An object to compare with this object.
+   * @return whether the current bundle is different from the given one
    */
   bool operator!=(const Bundle& rhs) const;
 

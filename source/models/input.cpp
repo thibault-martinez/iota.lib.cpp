@@ -77,6 +77,17 @@ Input::setSecurity(const int32_t& security) {
   security_ = security;
 }
 
+bool
+Input::operator==(const Input& rhs) const {
+  return address_ == rhs.address_ && balance_ == rhs.balance_ && keyIndex_ == rhs.keyIndex_ &&
+         security_ == rhs.security_;
+}
+
+bool
+Input::operator!=(const Input& rhs) const {
+  return !operator==(rhs);
+}
+
 }  // namespace Models
 
 }  // namespace IOTA

@@ -31,24 +31,12 @@ namespace IOTA {
 namespace Models {
 
 //! make sure scalar types are initialized
-Transfer::Transfer() : persistence_(false), value_(0) {
-}
-
-Transfer::Transfer(const std::string& timestamp, const Types::Trytes& address,
-                   const Types::Trytes& hash, bool persistence, int64_t value,
-                   const Types::Trytes& message, const Types::Trytes& tag)
-    : timestamp_(timestamp),
-      address_(address),
-      hash_(hash),
-      persistence_(persistence),
-      value_(value),
-      message_(message),
-      tag_(tag) {
+Transfer::Transfer() : value_(0) {
 }
 
 Transfer::Transfer(const Types::Trytes& address, int64_t value, const Types::Trytes& message,
                    const Types::Trytes& tag)
-    : address_(address), persistence_(false), value_(value), message_(message), tag_(tag) {
+    : address_(address), value_(value), message_(message), tag_(tag) {
 }
 
 const Types::Trytes&
@@ -59,36 +47,6 @@ Transfer::getAddress() const {
 void
 Transfer::setAddress(const Types::Trytes& address) {
   address_ = address;
-}
-
-const Types::Trytes&
-Transfer::getHash() const {
-  return hash_;
-}
-
-void
-Transfer::setHash(const Types::Trytes& hash) {
-  hash_ = hash;
-}
-
-bool
-Transfer::getPersistence() const {
-  return persistence_;
-}
-
-void
-Transfer::setPersistence(bool persistence) {
-  persistence_ = persistence;
-}
-
-const std::string&
-Transfer::getTimestamp() const {
-  return timestamp_;
-}
-
-void
-Transfer::setTimestamp(const std::string& timestamp) {
-  timestamp_ = timestamp;
 }
 
 int64_t
@@ -134,6 +92,17 @@ Transfer::isValid() const {
 
   // Check if tag is correct trytes of {0,27} trytes
   return Types::isValidTrytes(getTag()) && getTag().length() == TagLength;
+}
+
+bool
+Transfer::operator==(const Transfer& rhs) const {
+  return address_ == rhs.address_ && value_ == rhs.value_ && tag_ == rhs.tag_ &&
+         message_ == rhs.message_;
+}
+
+bool
+Transfer::operator!=(const Transfer& rhs) const {
+  return !operator==(rhs);
 }
 
 }  // namespace Models

@@ -184,27 +184,11 @@ Bundle::operator>(const Bundle& rhs) const {
 }
 
 bool
-Bundle::operator<=(const Bundle& rhs) const {
-  int64_t lhsTS = empty() ? 0 : getTransactions()[0].getAttachmentTimestamp();
-  int64_t rhsTS = rhs.empty() ? 0 : rhs.getTransactions()[0].getAttachmentTimestamp();
-
-  return lhsTS <= rhsTS;
-}
-
-bool
-Bundle::operator>=(const Bundle& rhs) const {
-  int64_t lhsTS = empty() ? 0 : getTransactions()[0].getAttachmentTimestamp();
-  int64_t rhsTS = rhs.empty() ? 0 : rhs.getTransactions()[0].getAttachmentTimestamp();
-
-  return lhsTS >= rhsTS;
-}
-
-bool
 Bundle::operator==(const Bundle& rhs) const {
-  int64_t lhsTS = empty() ? 0 : getTransactions()[0].getAttachmentTimestamp();
-  int64_t rhsTS = rhs.empty() ? 0 : rhs.getTransactions()[0].getAttachmentTimestamp();
+  auto lhsHash = empty() ? "" : getTransactions()[0].getBundle();
+  auto rhsHash = rhs.empty() ? "" : rhs.getTransactions()[0].getBundle();
 
-  return lhsTS == rhsTS;
+  return lhsHash == rhsHash;
 }
 
 bool

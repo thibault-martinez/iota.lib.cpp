@@ -93,6 +93,19 @@ public:
    */
   void setSecurity(const int32_t& security);
 
+public:
+  /**
+   * @param rhs An object to compare with this object.
+   * @return whether the current input is the same as the given one
+   */
+  bool operator==(const Input& rhs) const;
+
+  /**
+   * @param rhs An object to compare with this object.
+   * @return whether the current input is different from the given one
+   */
+  bool operator!=(const Input& rhs) const;
+
 private:
   Types::Trytes address_;
   int64_t       balance_;

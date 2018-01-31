@@ -71,3 +71,31 @@ TEST(Signature, SignatureFragmentsNonConstGetter) {
   s.getSignatureFragments().push_back("abc");
   EXPECT_EQ(s.getSignatureFragments(), std::vector<IOTA::Types::Trytes>({ "abc" }));
 }
+
+TEST(Signature, EqOperator) {
+  IOTA::Models::Signature lhs_eq("addr", { "abc", "def", "ghi" });
+  IOTA::Models::Signature rhs_eq("addr", { "abc", "def", "ghi" });
+  EXPECT_TRUE(lhs_eq == rhs_eq);
+
+  IOTA::Models::Signature lhs_neq_1("addr", { "abc", "def", "ghi" });
+  IOTA::Models::Signature rhs_neq_1("neq_addr", { "abc", "def", "ghi" });
+  EXPECT_FALSE(lhs_neq_1 == rhs_neq_1);
+
+  IOTA::Models::Signature lhs_neq_2("addr", { "abc", "def", "ghi" });
+  IOTA::Models::Signature rhs_neq_2("addr", { "abc", "neq_def", "ghi" });
+  EXPECT_FALSE(lhs_neq_2 == rhs_neq_2);
+}
+
+TEST(Signature, NEqOperator) {
+  IOTA::Models::Signature lhs_eq("addr", { "abc", "def", "ghi" });
+  IOTA::Models::Signature rhs_eq("addr", { "abc", "def", "ghi" });
+  EXPECT_FALSE(lhs_eq != rhs_eq);
+
+  IOTA::Models::Signature lhs_neq_1("addr", { "abc", "def", "ghi" });
+  IOTA::Models::Signature rhs_neq_1("neq_addr", { "abc", "def", "ghi" });
+  EXPECT_TRUE(lhs_neq_1 != rhs_neq_1);
+
+  IOTA::Models::Signature lhs_neq_2("addr", { "abc", "def", "ghi" });
+  IOTA::Models::Signature rhs_neq_2("addr", { "abc", "neq_def", "ghi" });
+  EXPECT_TRUE(lhs_neq_2 != rhs_neq_2);
+}

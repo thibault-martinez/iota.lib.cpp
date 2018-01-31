@@ -85,3 +85,47 @@ TEST(Neighbor, NumberOfNewTransactionsGetterAndSetter) {
   n.setNumberOfNewTransactions(1);
   EXPECT_EQ(n.getNumberOfNewTransactions(), 1);
 }
+
+TEST(Neighbor, EqOperator) {
+  IOTA::Models::Neighbor lhs_eq_1("addr", 1, 2, 3);
+  IOTA::Models::Neighbor rhs_eq_1("addr", 1, 2, 3);
+  EXPECT_TRUE(lhs_eq_1 == rhs_eq_1);
+
+  IOTA::Models::Neighbor lhs_neq("addr", 1, 2, 3);
+  IOTA::Models::Neighbor rhs_neq("neq_addr", 1, 2, 3);
+  EXPECT_FALSE(lhs_neq == rhs_neq);
+
+  IOTA::Models::Neighbor lhs_eq_2("addr", 1, 2, 3);
+  IOTA::Models::Neighbor rhs_eq_2("addr", 4, 2, 3);
+  EXPECT_TRUE(lhs_eq_2 == rhs_eq_2);
+
+  IOTA::Models::Neighbor lhs_eq_3("addr", 1, 2, 3);
+  IOTA::Models::Neighbor rhs_eq_3("addr", 1, 4, 3);
+  EXPECT_TRUE(lhs_eq_3 == rhs_eq_3);
+
+  IOTA::Models::Neighbor lhs_eq_4("addr", 1, 2, 3);
+  IOTA::Models::Neighbor rhs_eq_4("addr", 1, 2, 4);
+  EXPECT_TRUE(lhs_eq_4 == rhs_eq_4);
+}
+
+TEST(Neighbor, NEqOperator) {
+  IOTA::Models::Neighbor lhs_eq_1("addr", 1, 2, 3);
+  IOTA::Models::Neighbor rhs_eq_1("addr", 1, 2, 3);
+  EXPECT_FALSE(lhs_eq_1 != rhs_eq_1);
+
+  IOTA::Models::Neighbor lhs_neq("addr", 1, 2, 3);
+  IOTA::Models::Neighbor rhs_neq("neq_addr", 1, 2, 3);
+  EXPECT_TRUE(lhs_neq != rhs_neq);
+
+  IOTA::Models::Neighbor lhs_eq_2("addr", 1, 2, 3);
+  IOTA::Models::Neighbor rhs_eq_2("addr", 4, 2, 3);
+  EXPECT_FALSE(lhs_eq_2 != rhs_eq_2);
+
+  IOTA::Models::Neighbor lhs_eq_3("addr", 1, 2, 3);
+  IOTA::Models::Neighbor rhs_eq_3("addr", 1, 4, 3);
+  EXPECT_FALSE(lhs_eq_3 != rhs_eq_3);
+
+  IOTA::Models::Neighbor lhs_eq_4("addr", 1, 2, 3);
+  IOTA::Models::Neighbor rhs_eq_4("addr", 1, 2, 4);
+  EXPECT_FALSE(lhs_eq_4 != rhs_eq_4);
+}

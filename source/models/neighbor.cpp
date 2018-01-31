@@ -82,6 +82,16 @@ Neighbor::setNumberOfNewTransactions(const int64_t& nbTrx) {
   numberOfNewTransactions_ = nbTrx;
 }
 
+bool
+Neighbor::operator==(const Neighbor& rhs) const {
+  return address_ == rhs.address_;
+}
+
+bool
+Neighbor::operator!=(const Neighbor& rhs) const {
+  return !operator==(rhs);
+}
+
 }  // namespace Models
 
 }  // namespace IOTA

@@ -41,13 +41,7 @@ public:
   Transfer();
 
   /**
-   * Full constructor
-   */
-  Transfer(const std::string& timestamp, const Types::Trytes& address, const Types::Trytes& hash,
-           bool persistence, int64_t value, const std::string& message, const Types::Trytes& tag);
-
-  /**
-   * Short constructor
+   * full constructor
    */
   Transfer(const Types::Trytes& address, int64_t value, const Types::Trytes& message,
            const Types::Trytes& tag);
@@ -71,48 +65,6 @@ public:
    * @param address The address.
    */
   void setAddress(const Types::Trytes& address);
-
-  /**
-   * Get the hash.
-   *
-   * @return The hash.
-   */
-  const Types::Trytes& getHash() const;
-
-  /**
-   * Set the hash.
-   *
-   * @param hash The hash.
-   */
-  void setHash(const Types::Trytes& hash);
-
-  /**
-   * Get the persistence.
-   *
-   * @return The persistence.
-   */
-  bool getPersistence() const;
-
-  /**
-   * Set the persistence.
-   *
-   * @param persistence The persistence.
-   */
-  void setPersistence(bool persistence);
-
-  /**
-   * Get the timestamp.
-   *
-   * @return The timestamp.
-   */
-  const std::string& getTimestamp() const;
-
-  /**
-   * Set the timestamp.
-   *
-   * @param timestamp The timestamp.
-   */
-  void setTimestamp(const std::string& timestamp);
 
   /**
    * Get the value.
@@ -161,11 +113,21 @@ public:
    **/
   bool isValid() const;
 
+public:
+  /**
+   * @param rhs An object to compare with this object.
+   * @return whether the current transfer is the same as the given one
+   */
+  bool operator==(const Transfer& rhs) const;
+
+  /**
+   * @param rhs An object to compare with this object.
+   * @return whether the current transfer is different from the given one
+   */
+  bool operator!=(const Transfer& rhs) const;
+
 private:
-  std::string   timestamp_;
   Types::Trytes address_;
-  Types::Trytes hash_;
-  bool          persistence_;
   int64_t       value_;
   Types::Trytes message_;
   Types::Trytes tag_;

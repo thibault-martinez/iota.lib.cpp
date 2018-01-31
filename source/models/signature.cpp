@@ -59,6 +59,16 @@ Signature::setSignatureFragments(const std::vector<Types::Trytes>& signatureFrag
   signatureFragments_ = signatureFragments;
 }
 
+bool
+Signature::operator==(const Signature& rhs) const {
+  return address_ == rhs.address_ && signatureFragments_ == rhs.signatureFragments_;
+}
+
+bool
+Signature::operator!=(const Signature& rhs) const {
+  return !operator==(rhs);
+}
+
 }  // namespace Models
 
 }  // namespace IOTA
