@@ -43,26 +43,26 @@ namespace Responses {
 class GetAccountData : public Base {
 public:
   /**
-   * default ctor
+   * Default ctor.
    */
   GetAccountData() = default;
 
   /**
-   * full init ctor
+   * Full init ctor.
    */
   GetAccountData(const std::vector<Types::Trytes>&  addresses,
                  const std::vector<Models::Bundle>& transferBundle, const int64_t& balance,
                  const int64_t& duration);
 
   /**
-   * json-based ctor.
+   * Json-based ctor.
    *
-   * @param res json to beused for deserialization
+   * @param res json to be used for deserialization.
    */
   explicit GetAccountData(const json& res);
 
   /**
-   * default dtor
+   * Default dtor.
    */
   ~GetAccountData() = default;
 

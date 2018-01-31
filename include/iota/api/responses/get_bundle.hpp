@@ -37,19 +37,19 @@ namespace Responses {
 class GetBundle : public Base {
 public:
   /**
-   * default ctor
+   * Default ctor.
    */
   GetBundle() = default;
 
   /**
-   * json-based ctor.
+   * Json-based ctor.
    *
-   * @param res json to beused for deserialization
+   * @param res json to be used for deserialization.
    */
   explicit GetBundle(const json& res);
 
   /**
-   * full init ctor
+   * Full init ctor.
    *
    * @param transactions transactions returned by GetBundle
    * @param duration duration of GetBundle
@@ -57,7 +57,7 @@ public:
   GetBundle(const std::vector<Models::Transaction>& transactions, const int64_t& duration);
 
   /**
-   * default dtor
+   * Default dtor.
    */
   ~GetBundle() = default;
 

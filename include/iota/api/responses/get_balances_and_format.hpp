@@ -51,25 +51,25 @@ namespace Responses {
 class GetBalancesAndFormat : public Base {
 public:
   /**
-   * default ctor
+   * Default ctor.
    */
   GetBalancesAndFormat() = default;
 
   /**
-   * full init ctor
+   * Full init ctor.
    */
   GetBalancesAndFormat(const std::vector<Models::Input>& inputs, const int64_t& totalBalance,
                        const int64_t& duration);
 
   /**
-   * json-based ctor.
+   * Json-based ctor.
    *
-   * @param res json to beused for deserialization
+   * @param res json to be used for deserialization.
    */
   explicit GetBalancesAndFormat(const json& res);
 
   /**
-   * default dtor
+   * Default dtor.
    */
   ~GetBalancesAndFormat() = default;
 

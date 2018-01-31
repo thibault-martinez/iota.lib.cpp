@@ -41,24 +41,24 @@ namespace Responses {
 class GetNewAddresses : public Base {
 public:
   /**
-   * default ctor
+   * Default ctor.
    */
   GetNewAddresses() = default;
 
   /**
-   * json-based ctor.
+   * Json-based ctor.
    *
-   * @param res json to beused for deserialization
+   * @param res json to be used for deserialization.
    */
   explicit GetNewAddresses(const json& res);
 
   /**
-   * full init ctor
+   * Full init ctor.
    */
   GetNewAddresses(const std::vector<Types::Trytes>& addresses, const int64_t& duration);
 
   /**
-   * default dtor
+   * Default dtor.
    */
   ~GetNewAddresses() = default;
 

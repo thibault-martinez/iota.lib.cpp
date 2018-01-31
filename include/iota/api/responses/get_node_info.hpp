@@ -80,9 +80,9 @@ public:
                        int64_t transactionsToRequest = 0);
 
   /**
-   * json-based ctor.
+   * Json-based ctor.
    *
-   * @param res json to beused for deserialization
+   * @param res json to be used for deserialization.
    */
   explicit GetNodeInfo(const json& res);
 

@@ -56,9 +56,9 @@ public:
   explicit GetTrytes(const std::vector<Types::Trytes>& trytes = {});
 
   /**
-   * json-based ctor.
+   * Json-based ctor.
    *
-   * @param res json to beused for deserialization
+   * @param res json to be used for deserialization.
    */
   explicit GetTrytes(const json& res);
 

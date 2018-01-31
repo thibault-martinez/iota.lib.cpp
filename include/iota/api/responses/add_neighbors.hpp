@@ -54,9 +54,9 @@ public:
   explicit AddNeighbors(const int64_t& addedNeighbors = 0);
 
   /**
-   * json-based ctor.
+   * Json-based ctor.
    *
-   * @param res json to beused for deserialization
+   * @param res json to be used for deserialization.
    */
   explicit AddNeighbors(const json& res);
 

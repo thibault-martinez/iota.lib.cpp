@@ -42,24 +42,24 @@ namespace Responses {
 class GetTransfers : public Base {
 public:
   /**
-   * default ctor
+   * Default ctor.
    */
   GetTransfers() = default;
 
   /**
-   * json-based ctor.
+   * Json-based ctor.
    *
-   * @param res json to beused for deserialization
+   * @param res json to be used for deserialization.
    */
   explicit GetTransfers(const json& res);
 
   /**
-   * full init ctor
+   * Full init ctor.
    */
   GetTransfers(const std::vector<Models::Bundle>& transferBundle, const int64_t& duration);
 
   /**
-   * default dtor
+   * Default dtor.
    */
   ~GetTransfers() = default;
 
