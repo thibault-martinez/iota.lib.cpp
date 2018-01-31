@@ -35,10 +35,6 @@ SendTransfer::SendTransfer(const std::vector<bool>& successful, const int64_t& d
     : Base(duration), successfully_(successful) {
 }
 
-SendTransfer::SendTransfer(const json& res) {
-  deserialize(res);
-}
-
 const std::vector<bool>&
 SendTransfer::getSuccessfully() const {
   return successfully_;

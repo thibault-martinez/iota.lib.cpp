@@ -42,13 +42,6 @@ public:
   GetBundle() = default;
 
   /**
-   * Json-based ctor.
-   *
-   * @param res json to be used for deserialization.
-   */
-  explicit GetBundle(const json& res);
-
-  /**
    * Full init ctor.
    *
    * @param transactions transactions returned by GetBundle

@@ -36,10 +36,6 @@ GetTransfers::GetTransfers(const std::vector<Models::Bundle>& transferBundle,
     : Base(duration), transferBundle_(transferBundle) {
 }
 
-GetTransfers::GetTransfers(const json& res) {
-  deserialize(res);
-}
-
 const std::vector<Models::Bundle>&
 GetTransfers::getTransfers() const {
   return transferBundle_;

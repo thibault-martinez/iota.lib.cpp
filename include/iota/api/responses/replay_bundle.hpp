@@ -43,13 +43,6 @@ public:
   ReplayBundle() = default;
 
   /**
-   * Json-based ctor.
-   *
-   * @param res json to be used for deserialization.
-   */
-  explicit ReplayBundle(const json& res);
-
-  /**
    * Full init ctor.
    */
   ReplayBundle(const std::vector<bool>& successful, const int64_t& duration);

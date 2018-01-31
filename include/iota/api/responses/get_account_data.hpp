@@ -55,13 +55,6 @@ public:
                  const int64_t& duration);
 
   /**
-   * Json-based ctor.
-   *
-   * @param res json to be used for deserialization.
-   */
-  explicit GetAccountData(const json& res);
-
-  /**
    * Default dtor.
    */
   ~GetAccountData() = default;
