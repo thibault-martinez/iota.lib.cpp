@@ -34,6 +34,10 @@ namespace Responses {
 GetTrytes::GetTrytes(const std::vector<Types::Trytes>& trytes) : trytes_(trytes) {
 }
 
+GetTrytes::GetTrytes(const json& res) {
+  deserialize(res);
+}
+
 void
 GetTrytes::deserialize(const json& res) {
   Base::deserialize(res);

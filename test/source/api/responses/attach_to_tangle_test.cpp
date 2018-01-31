@@ -28,7 +28,8 @@
 #include <iota/api/responses/attach_to_tangle.hpp>
 
 TEST(AttachToTangleResponse, CtorShouldInitFields) {
-  const IOTA::API::Responses::AttachToTangle res{ { "TESTA", "TESTB" } };
+  const IOTA::API::Responses::AttachToTangle res{ std::vector<IOTA::Types::Trytes>(
+      { "TESTA", "TESTB" }) };
 
   EXPECT_EQ(res.getTrytes(), std::vector<IOTA::Types::Trytes>({ "TESTA", "TESTB" }));
   EXPECT_EQ(res.getDuration(), 0);

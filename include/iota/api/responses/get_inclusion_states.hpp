@@ -61,6 +61,13 @@ public:
   explicit GetInclusionStates(const std::vector<bool>& states = {});
 
   /**
+   * json-based ctor.
+   *
+   * @param res json to beused for deserialization
+   */
+  explicit GetInclusionStates(const json& res);
+
+  /**
    * Default dtor.
    */
   ~GetInclusionStates() = default;

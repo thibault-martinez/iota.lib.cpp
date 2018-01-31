@@ -28,7 +28,9 @@
 #include <iota/api/requests/get_inclusion_states.hpp>
 
 TEST(GetInclusionStatesRequest, CtorShouldInitFields) {
-  const IOTA::API::Requests::GetInclusionStates req{ { "tx1", "tx2" }, { "tip1", "tip2" } };
+  const IOTA::API::Requests::GetInclusionStates req(
+      std::vector<IOTA::Types::Trytes>({ "tx1", "tx2" }),
+      std::vector<IOTA::Types::Trytes>({ "tip1", "tip2" }));
 
   EXPECT_EQ(req.getTransactions(), std::vector<IOTA::Types::Trytes>({ "tx1", "tx2" }));
   EXPECT_EQ(req.getTips(), std::vector<IOTA::Types::Trytes>({ "tip1", "tip2" }));

@@ -50,6 +50,13 @@ public:
   explicit Base(const int64_t& duration = 0);
 
   /**
+   * json-based ctor.
+   *
+   * @param res json to beused for deserialization
+   */
+  explicit Base(const json& res);
+
+  /**
    * Default dtor.
    */
   virtual ~Base() = default;

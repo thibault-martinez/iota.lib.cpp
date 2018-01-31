@@ -28,7 +28,7 @@
 #include <iota/api/responses/get_inclusion_states.hpp>
 
 TEST(GetInclusionStatesResponse, CtorShouldInitFields) {
-  const IOTA::API::Responses::GetInclusionStates res{ { true, false, true } };
+  const IOTA::API::Responses::GetInclusionStates res{ std::vector<bool>({ true, false, true }) };
 
   EXPECT_EQ(res.getStates(), std::vector<bool>({ true, false, true }));
   EXPECT_EQ(res.getDuration(), 0);

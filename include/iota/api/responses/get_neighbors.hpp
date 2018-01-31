@@ -56,6 +56,13 @@ public:
   explicit GetNeighbors(const std::vector<Models::Neighbor>& neighbors = {});
 
   /**
+   * json-based ctor.
+   *
+   * @param res json to beused for deserialization
+   */
+  explicit GetNeighbors(const json& res);
+
+  /**
    * Default dtor.
    */
   ~GetNeighbors() = default;

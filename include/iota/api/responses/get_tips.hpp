@@ -55,6 +55,13 @@ public:
   explicit GetTips(const std::vector<Types::Trytes>& hashes = {});
 
   /**
+   * json-based ctor.
+   *
+   * @param res json to beused for deserialization
+   */
+  explicit GetTips(const json& res);
+
+  /**
    * Default dtor.
    */
   ~GetTips() = default;

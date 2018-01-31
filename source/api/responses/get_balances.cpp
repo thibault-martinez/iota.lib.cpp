@@ -36,6 +36,10 @@ GetBalances::GetBalances(const std::vector<std::string>& balances, const Types::
     : balances_(balances), milestone_(milestone), milestoneIndex_(milestoneIndex) {
 }
 
+GetBalances::GetBalances(const json& res) {
+  deserialize(res);
+}
+
 void
 GetBalances::deserialize(const json& res) {
   Base::deserialize(res);

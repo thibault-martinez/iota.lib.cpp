@@ -43,6 +43,13 @@ public:
   SendTransfer() = default;
 
   /**
+   * json-based ctor.
+   *
+   * @param res json to beused for deserialization
+   */
+  explicit SendTransfer(const json& res);
+
+  /**
    * full init ctor
    */
   SendTransfer(const std::vector<bool>& successful, const int64_t& duration);

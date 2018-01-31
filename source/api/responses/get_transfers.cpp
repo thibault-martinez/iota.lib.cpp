@@ -31,8 +31,13 @@ namespace API {
 
 namespace Responses {
 
-GetTransfers::GetTransfers(const std::vector<Models::Bundle>& transferBundle, const int64_t& duration)
+GetTransfers::GetTransfers(const std::vector<Models::Bundle>& transferBundle,
+                           const int64_t&                     duration)
     : Base(duration), transferBundle_(transferBundle) {
+}
+
+GetTransfers::GetTransfers(const json& res) {
+  deserialize(res);
 }
 
 const std::vector<Models::Bundle>&

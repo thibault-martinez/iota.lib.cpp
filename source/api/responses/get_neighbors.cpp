@@ -34,6 +34,10 @@ namespace Responses {
 GetNeighbors::GetNeighbors(const std::vector<Models::Neighbor>& neighbors) : neighbors_(neighbors) {
 }
 
+GetNeighbors::GetNeighbors(const json& res) {
+  deserialize(res);
+}
+
 void
 GetNeighbors::deserialize(const json& res) {
   Base::deserialize(res);

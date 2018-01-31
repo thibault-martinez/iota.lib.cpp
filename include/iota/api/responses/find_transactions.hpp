@@ -58,6 +58,13 @@ public:
   explicit FindTransactions(const std::vector<Types::Trytes>& hashes = {});
 
   /**
+   * json-based ctor.
+   *
+   * @param res json to beused for deserialization
+   */
+  explicit FindTransactions(const json& res);
+
+  /**
    * Default dtor.
    */
   ~FindTransactions() = default;

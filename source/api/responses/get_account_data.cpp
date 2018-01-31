@@ -37,6 +37,10 @@ GetAccountData::GetAccountData(const std::vector<Types::Trytes>&  addresses,
     : Base(duration), addresses_(addresses), transferBundle_(transferBundle), balance_(balance) {
 }
 
+GetAccountData::GetAccountData(const json& res) {
+  deserialize(res);
+}
+
 const std::vector<Types::Trytes>&
 GetAccountData::getAddresses() const {
   return addresses_;

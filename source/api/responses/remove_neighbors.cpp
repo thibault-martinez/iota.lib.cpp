@@ -35,6 +35,10 @@ RemoveNeighbors::RemoveNeighbors(const int64_t& removedNeighbors)
     : removedNeighbors_(removedNeighbors) {
 }
 
+RemoveNeighbors::RemoveNeighbors(const json& res) {
+  deserialize(res);
+}
+
 void
 RemoveNeighbors::deserialize(const json& res) {
   Base::deserialize(res);

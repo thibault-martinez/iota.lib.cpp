@@ -47,6 +47,13 @@ public:
   GetTransfers() = default;
 
   /**
+   * json-based ctor.
+   *
+   * @param res json to beused for deserialization
+   */
+  explicit GetTransfers(const json& res);
+
+  /**
    * full init ctor
    */
   GetTransfers(const std::vector<Models::Bundle>& transferBundle, const int64_t& duration);

@@ -35,6 +35,10 @@ ReplayBundle::ReplayBundle(const std::vector<bool>& successful, const int64_t& d
     : Base(duration), successfully_(successful) {
 }
 
+ReplayBundle::ReplayBundle(const json& res) {
+  deserialize(res);
+}
+
 const std::vector<bool>&
 ReplayBundle::getSuccessfully() const {
   return successfully_;

@@ -62,6 +62,13 @@ public:
                        const int64_t& duration);
 
   /**
+   * json-based ctor.
+   *
+   * @param res json to beused for deserialization
+   */
+  explicit GetBalancesAndFormat(const json& res);
+
+  /**
    * default dtor
    */
   ~GetBalancesAndFormat() = default;

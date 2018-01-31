@@ -34,6 +34,10 @@ namespace Responses {
 AddNeighbors::AddNeighbors(const int64_t& addedNeighbors) : addedNeighbors_(addedNeighbors) {
 }
 
+AddNeighbors::AddNeighbors(const json& res) {
+  deserialize(res);
+}
+
 void
 AddNeighbors::deserialize(const json& res) {
   Base::deserialize(res);

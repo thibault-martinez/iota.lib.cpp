@@ -46,6 +46,13 @@ public:
   GetNewAddresses() = default;
 
   /**
+   * json-based ctor.
+   *
+   * @param res json to beused for deserialization
+   */
+  explicit GetNewAddresses(const json& res);
+
+  /**
    * full init ctor
    */
   GetNewAddresses(const std::vector<Types::Trytes>& addresses, const int64_t& duration);

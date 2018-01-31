@@ -55,6 +55,13 @@ public:
   explicit RemoveNeighbors(const int64_t& removedNeighbors = 0);
 
   /**
+   * json-based ctor.
+   *
+   * @param res json to beused for deserialization
+   */
+  explicit RemoveNeighbors(const json& res);
+
+  /**
    * Default dtor.
    */
   ~RemoveNeighbors() = default;

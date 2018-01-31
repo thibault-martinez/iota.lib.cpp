@@ -34,6 +34,10 @@ namespace Responses {
 Base::Base(const int64_t& duration) : duration_(duration) {
 }
 
+Base::Base(const json& res) {
+  deserialize(res);
+}
+
 void
 Base::deserialize(const json& res) {
   if (res.count("duration")) {

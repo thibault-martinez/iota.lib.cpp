@@ -34,6 +34,10 @@ namespace Responses {
 GetTips::GetTips(const std::vector<Types::Trytes>& hashes) : hashes_(hashes) {
 }
 
+GetTips::GetTips(const json& res) {
+  deserialize(res);
+}
+
 void
 GetTips::deserialize(const json& res) {
   Base::deserialize(res);

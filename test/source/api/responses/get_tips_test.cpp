@@ -28,7 +28,7 @@
 #include <iota/api/responses/get_tips.hpp>
 
 TEST(GetTipsResponse, CtorShouldInitFields) {
-  const IOTA::API::Responses::GetTips res{ { "TESTA", "TESTB" } };
+  const IOTA::API::Responses::GetTips res{ std::vector<IOTA::Types::Trytes>({ "TESTA", "TESTB" }) };
 
   EXPECT_EQ(res.getHashes(), std::vector<IOTA::Types::Trytes>({ "TESTA", "TESTB" }));
   EXPECT_EQ(res.getDuration(), 0);

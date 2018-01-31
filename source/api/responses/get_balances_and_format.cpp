@@ -36,6 +36,10 @@ GetBalancesAndFormat::GetBalancesAndFormat(const std::vector<Models::Input>& inp
     : Base(duration), inputs_(inputs), totalBalance_(totalBalance) {
 }
 
+GetBalancesAndFormat::GetBalancesAndFormat(const json& res) {
+  deserialize(res);
+}
+
 const std::vector<Models::Input>&
 GetBalancesAndFormat::getInput() const {
   return inputs_;

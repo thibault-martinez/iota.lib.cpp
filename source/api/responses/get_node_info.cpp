@@ -56,6 +56,10 @@ GetNodeInfo::GetNodeInfo(const std::string& appName, const std::string& appVersi
       transactionsToRequest_(transactionsToRequest) {
 }
 
+GetNodeInfo::GetNodeInfo(const json& res) {
+  deserialize(res);
+}
+
 void
 GetNodeInfo::deserialize(const json& res) {
   Base::deserialize(res);

@@ -89,8 +89,7 @@ public:
     Response response;
     switch (res.status_code) {
       case 200:
-        response.deserialize(resJson);
-        break;
+        return Response{ resJson };
       case 400:
         throw Errors::BadRequest(error);
       case 401:

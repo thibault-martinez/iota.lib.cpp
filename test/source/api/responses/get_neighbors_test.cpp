@@ -28,8 +28,8 @@
 #include <iota/api/responses/get_neighbors.hpp>
 
 TEST(GetNeighborsResponse, CtorShouldInitFields) {
-  const IOTA::API::Responses::GetNeighbors res{ { IOTA::Models::Neighbor{ "addr1", 1, 2, 3 },
-                                                  IOTA::Models::Neighbor{ "addr2", 4, 5, 6 } } };
+  const IOTA::API::Responses::GetNeighbors res{ std::vector<IOTA::Models::Neighbor>(
+      { IOTA::Models::Neighbor{ "addr1", 1, 2, 3 }, IOTA::Models::Neighbor{ "addr2", 4, 5, 6 } }) };
 
   EXPECT_EQ(res.getNeighbors().size(), 2UL);
 

@@ -35,6 +35,10 @@ GetBundle::GetBundle(const std::vector<Models::Transaction>& transactions, const
     : Base(duration), transactions_(transactions) {
 }
 
+GetBundle::GetBundle(const json& res) {
+  deserialize(res);
+}
+
 const std::vector<Models::Transaction>&
 GetBundle::getTransactions() const {
   return transactions_;

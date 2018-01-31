@@ -34,6 +34,10 @@ namespace Responses {
 GetInclusionStates::GetInclusionStates(const std::vector<bool>& states) : states_(states) {
 }
 
+GetInclusionStates::GetInclusionStates(const json& res) {
+  deserialize(res);
+}
+
 void
 GetInclusionStates::deserialize(const json& res) {
   Base::deserialize(res);

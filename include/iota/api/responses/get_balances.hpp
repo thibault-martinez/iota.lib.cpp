@@ -60,6 +60,13 @@ public:
                        const Types::Trytes& milestone = "", const int64_t& milestoneIndex = 0);
 
   /**
+   * json-based ctor.
+   *
+   * @param res json to beused for deserialization
+   */
+  explicit GetBalances(const json& res);
+
+  /**
    * Default dtor.
    */
   ~GetBalances() = default;

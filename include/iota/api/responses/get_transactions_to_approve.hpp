@@ -60,6 +60,13 @@ public:
                                     const Types::Trytes& branchTransaction = "");
 
   /**
+   * json-based ctor.
+   *
+   * @param res json to beused for deserialization
+   */
+  explicit GetTransactionsToApprove(const json& res);
+
+  /**
    * Default dtor.
    */
   ~GetTransactionsToApprove() = default;

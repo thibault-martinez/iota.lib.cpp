@@ -35,7 +35,8 @@ TEST(FindTransactionsResponse, DefaultCtorShouldInitFields) {
 }
 
 TEST(FindTransactionsResponse, CtorShouldInitFields) {
-  const IOTA::API::Responses::FindTransactions res{ { "TESTA", "TESTB" } };
+  const IOTA::API::Responses::FindTransactions res{ std::vector<IOTA::Types::Trytes>(
+      { "TESTA", "TESTB" }) };
 
   EXPECT_EQ(res.getHashes(), std::vector<IOTA::Types::Trytes>({ "TESTA", "TESTB" }));
   EXPECT_EQ(res.getDuration(), 0);

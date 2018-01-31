@@ -36,6 +36,10 @@ GetNewAddresses::GetNewAddresses(const std::vector<Types::Trytes>& addresses,
     : Base(duration), addresses_(addresses) {
 }
 
+GetNewAddresses::GetNewAddresses(const json& res) {
+  deserialize(res);
+}
+
 const std::vector<Types::Trytes>&
 GetNewAddresses::getAddresses() const {
   return addresses_;

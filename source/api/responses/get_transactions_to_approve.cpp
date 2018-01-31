@@ -36,6 +36,10 @@ GetTransactionsToApprove::GetTransactionsToApprove(const Types::Trytes& trunkTra
     : trunkTransaction_(trunkTransaction), branchTransaction_(branchTransaction) {
 }
 
+GetTransactionsToApprove::GetTransactionsToApprove(const json& res) {
+  deserialize(res);
+}
+
 void
 GetTransactionsToApprove::deserialize(const json& res) {
   Base::deserialize(res);

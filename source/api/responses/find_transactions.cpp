@@ -34,6 +34,10 @@ namespace Responses {
 FindTransactions::FindTransactions(const std::vector<Types::Trytes>& hashes) : hashes_(hashes) {
 }
 
+FindTransactions::FindTransactions(const json& res) {
+  deserialize(res);
+}
+
 void
 FindTransactions::deserialize(const json& res) {
   Base::deserialize(res);

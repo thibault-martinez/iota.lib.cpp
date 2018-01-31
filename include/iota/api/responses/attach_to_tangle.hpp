@@ -62,6 +62,13 @@ public:
   AttachToTangle(const std::vector<Types::Trytes>& trytes = {});
 
   /**
+   * json-based ctor.
+   *
+   * @param res json to beused for deserialization
+   */
+  explicit AttachToTangle(const json& res);
+
+  /**
    * Default dtor.
    */
   ~AttachToTangle() = default;

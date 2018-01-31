@@ -54,6 +54,13 @@ public:
   explicit AddNeighbors(const int64_t& addedNeighbors = 0);
 
   /**
+   * json-based ctor.
+   *
+   * @param res json to beused for deserialization
+   */
+  explicit AddNeighbors(const json& res);
+
+  /**
    * Default dtor.
    */
   ~AddNeighbors() = default;
