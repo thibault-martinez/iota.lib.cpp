@@ -47,8 +47,8 @@ namespace IOTA {
 
 namespace API {
 
-Core::Core(const std::string& host, const uint16_t& port, bool localPow)
-    : service_(host, port), localPow_(localPow) {
+Core::Core(const std::string& host, const uint16_t& port, bool localPow, int timeout)
+    : service_(host, port, timeout), localPow_(localPow) {
 }
 
 Core::~Core() {

@@ -50,7 +50,8 @@ namespace API {
  */
 class Core {
 public:
-  explicit Core(const std::string& host, const uint16_t& port, bool localPow = true);
+  explicit Core(const std::string& host, const uint16_t& port, bool localPow = true,
+                int timeout = 60);
   virtual ~Core();
 
 public:

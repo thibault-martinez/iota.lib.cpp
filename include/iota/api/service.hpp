@@ -44,11 +44,8 @@ namespace IOTA {
 namespace API {
 
 class Service {
-private:
-  static const int timeout = 60;
-
 public:
-  Service(const std::string& host, const uint16_t& port);
+  Service(const std::string& host, const uint16_t& port, int timeout = 60);
   virtual ~Service();
 
 public:
@@ -64,7 +61,7 @@ public:
     auto headers = cpr::Header{ { "Content-Type", "application/json" },
                                 { "Content-Length", std::to_string(body.size()) },
                                 { "X-IOTA-API-Version", APIVersion } };
-    auto res     = cpr::Post(url, body, headers, cpr::Timeout{ timeout * 1000 });
+    auto res     = cpr::Post(url, body, headers, cpr::Timeout{ timeout_ * 1000 });
 
     if (res.error.code != cpr::ErrorCode::OK)
       throw Errors::Network(res.error.message);
@@ -79,8 +76,8 @@ public:
         error = resJson["error"].get<std::string>();
       }
     } catch (const std::runtime_error&) {
-      if (res.elapsed >= timeout) {
-        throw Errors::Network("Time out after " + std::to_string(timeout) + "s");
+      if (res.elapsed >= timeout_) {
+        throw Errors::Network("Time out after " + std::to_string(timeout_) + "s");
       }
 
       throw Errors::Unrecognized("Invalid reply from node (unrecognized format): " + res.text);
@@ -97,8 +94,8 @@ public:
       case 500:
         throw Errors::InternalServerError(error);
       default:
-        if (res.elapsed >= timeout) {
-          throw Errors::Network("Time out after " + std::to_string(timeout) + "s");
+        if (res.elapsed >= timeout_) {
+          throw Errors::Network("Time out after " + std::to_string(timeout_) + "s");
         }
 
         throw Errors::Unrecognized(error);
@@ -110,6 +107,7 @@ public:
 private:
   std::string  host_;
   unsigned int port_;
+  const int    timeout_;
 };
 
 }  // namespace API
