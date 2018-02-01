@@ -36,9 +36,6 @@ BigInt::BigInt() : cpp_int(0) {
 BigInt::BigInt(const int& value) : cpp_int(value) {
 }
 
-BigInt::BigInt(const cpp_int& value) : cpp_int(value) {
-}
-
 void
 BigInt::fromTrits(const Types::Trits& trits) {
   assign(0);
