@@ -21,21 +21,3 @@ output_trx = ProposedTransaction(
 
 # Propagate
 api.send_transfer(1, [output_trx])
-
-#
-# Create a new bundle transaction
-# Send from 42 iota account 5 to account 5
-#
-
-# Connect to the node
-api = Iota('http://localhost:14265', "UYXMZDTITKOAPKPFCAZYB9DTPJ9VARFKCWVSYIOZROLBSUJECBLBZA99TTBFJTPUXEYN9PETLVENOHRKJ")
-
-# Trx setup
-output_trx = ProposedTransaction(
-    address = Address("BUDGFXLIN9FYRZGHQHQKEVIROEKCOVZUQKIFGRSOWGVBQEGVMPWDEAKGDPFPXUODDYVDLCEUL9VPPMLKA"),
-    message = TryteString.from_string("Sending some money"),
-    tag     = Tag("PACIFICSOUND"),
-    value   = 42)
-
-# Propagate
-api.send_transfer(1, [output_trx])

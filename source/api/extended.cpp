@@ -459,7 +459,7 @@ Extended::prepareTransfers(const Types::Trytes& seed, int security,
       const auto balances = balancesResponse.getBalances();
 
       std::vector<Models::Input> confirmedInputs;
-      int                        totalBalance = 0;
+      int64_t                    totalBalance = 0;
       int                        i            = 0;
       for (const auto& balance : balances) {
         long thisBalance = std::stol(balance);
