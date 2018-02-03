@@ -122,20 +122,8 @@ before_script:
   - ulimit -c unlimited -S
   # setup environment
   - eval "${MATRIX_EVAL}"
-  # set IRI
-  - git clone https://github.com/iotaledger/iri.git
-  - cd iri
-  - git checkout 8886df6e
-  - cp ../test/testnet/iri_config/Snapshot.txt src/main/resources
-  - cp ../test/testnet/iri_config/iri.ini .
-  - cp ../test/testnet/iri_patch/Snapshot.java src/main/java/com/iota/iri/Snapshot.java
-  - cp ../test/testnet/iri_patch/TransactionValidator.java src/main/java/com/iota/iri/TransactionValidator.java
-  - cp ../test/testnet/iri_patch/TransactionValidatorTest.java src/test/java/com/iota/iri/TransactionValidatorTest.java
-  - mvn clean compile -q
-  - mvn package -q
-  - cp -r ../test/testnet/testnetdb .
-  - java -jar target/iri-1.4.2.1.jar -c iri.ini 1> /dev/null &
-  - cd ..
+  # IRI setup
+  - ./test/testnet/iri_setup.sh
 
 script:
   - mkdir -p build
