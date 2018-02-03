@@ -58,18 +58,6 @@ matrix:
       env:
         - MATRIX_EVAL="CC=clang && CXX=clang++ && CMAKE_BUILD_TYPE=Release"
 
-    # OSX x Clang (xcode 8.1) x Release
-    - os: osx
-      osx_image: xcode8.1
-      env:
-        - MATRIX_EVAL="CC=clang && CXX=clang++ && CMAKE_BUILD_TYPE=Release"
-
-    # OSX x Clang (xcode 8.2) x Release
-    - os: osx
-      osx_image: xcode8.2
-      env:
-        - MATRIX_EVAL="CC=clang && CXX=clang++ && CMAKE_BUILD_TYPE=Release"
-
     # OSX x Clang (xcode 8.3) x Release
     - os: osx
       osx_image: xcode8.3
