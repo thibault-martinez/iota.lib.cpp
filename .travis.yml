@@ -110,8 +110,8 @@ install:
   # Linux
   ####
   # lcov & coveralls
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get -qq install lcov; fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then pip -q install --user cpp-coveralls; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" && "$COVERAGE" == "1" ]]; then sudo apt-get -qq install lcov; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" && "$COVERAGE" == "1" ]]; then pip -q install --user cpp-coveralls; fi
   # java
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get -qq install default-jre; fi
   # maven
