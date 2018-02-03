@@ -94,28 +94,28 @@ matrix:
 
 before_install:
   # brew update on osx
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update; fi
+  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew update; fi
 
 install:
   ####
   # OSX
   ####
   # ccache
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install ccache; fi
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then export PATH="/usr/local/opt/ccache/libexec:$PATH"; fi
+  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew install ccache; fi
+  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then export PATH="/usr/local/opt/ccache/libexec:$PATH"; fi
   # java
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew cask install java; fi
+  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew cask install java; fi
 
   ####
   # Linux
   ####
   # lcov & coveralls
-  - if [[ "$TRAVIS_OS_NAME" == "linux" && "$COVERAGE" == "1" ]]; then sudo apt-get -qq install lcov; fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" && "$COVERAGE" == "1" ]]; then pip -q install --user cpp-coveralls; fi
+  - if [ "$TRAVIS_OS_NAME" == "linux" ] && [ "$COVERAGE" == "1" ]; then sudo apt-get -qq install lcov; fi
+  - if [ "$TRAVIS_OS_NAME" == "linux" ] && [ "$COVERAGE" == "1" ]; then pip -q install --user cpp-coveralls; fi
   # java
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get -qq install default-jre; fi
+  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get -qq install default-jre; fi
   # maven
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get -qq install maven; fi
+  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get -qq install maven; fi
 
 before_script:
   # Increase resources limitation
@@ -146,4 +146,4 @@ script:
 
 after_success:
   # test coverage
-  - if [[ "$COVERAGE" == "1" ]]; then cd ${TRAVIS_BUILD_DIR}; ./coverage.sh; fi
+  - if [ "$COVERAGE" == "1" ]; then cd ${TRAVIS_BUILD_DIR}; ./coverage.sh; fi
