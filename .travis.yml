@@ -28,17 +28,69 @@ language: cpp
 dist: trusty
 sudo: required
 
+########################
+# Matrix Configuration #
+########################
+
 matrix:
   include:
-    # OSX x GCC4.9 x Release
+    # # OSX x GCC4.9 x Release
+    # - os: osx
+    #   osx_image: xcode8
+    #   env:
+    #     - MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9 && CMAKE_BUILD_TYPE=Release"
+
+    # OSX x Clang (xcode 6.4) x Release
+    - os: osx
+      osx_image: xcode6.4
+      env:
+        - MATRIX_EVAL="CC=clang && CXX=clang++ && CMAKE_BUILD_TYPE=Release"
+
+    # OSX x Clang (xcode 7.3) x Release
+    - os: osx
+      osx_image: xcode7.3
+      env:
+        - MATRIX_EVAL="CC=clang && CXX=clang++ && CMAKE_BUILD_TYPE=Release"
+
+    # OSX x Clang (xcode 8) x Release
     - os: osx
       osx_image: xcode8
       env:
-        - MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9 && CMAKE_BUILD_TYPE=Release"
+        - MATRIX_EVAL="CC=clang && CXX=clang++ && CMAKE_BUILD_TYPE=Release"
 
-    # OSX x CLang (xcode 8) x Release
+    # OSX x Clang (xcode 8.1) x Release
     - os: osx
-      osx_image: xcode8
+      osx_image: xcode8.1
+      env:
+        - MATRIX_EVAL="CC=clang && CXX=clang++ && CMAKE_BUILD_TYPE=Release"
+
+    # OSX x Clang (xcode 8.2) x Release
+    - os: osx
+      osx_image: xcode8.2
+      env:
+        - MATRIX_EVAL="CC=clang && CXX=clang++ && CMAKE_BUILD_TYPE=Release"
+
+    # OSX x Clang (xcode 8.3) x Release
+    - os: osx
+      osx_image: xcode8.3
+      env:
+        - MATRIX_EVAL="CC=clang && CXX=clang++ && CMAKE_BUILD_TYPE=Release"
+
+    # OSX x Clang (xcode 9) x Release
+    - os: osx
+      osx_image: xcode9
+      env:
+        - MATRIX_EVAL="CC=clang && CXX=clang++ && CMAKE_BUILD_TYPE=Release"
+
+    # OSX x Clang (xcode 9.1) x Release
+    - os: osx
+      osx_image: xcode9.1
+      env:
+        - MATRIX_EVAL="CC=clang && CXX=clang++ && CMAKE_BUILD_TYPE=Release"
+
+    # OSX x Clang (xcode 9.2) x Release
+    - os: osx
+      osx_image: xcode9.2
       env:
         - MATRIX_EVAL="CC=clang && CXX=clang++ && CMAKE_BUILD_TYPE=Release"
 
@@ -91,6 +143,10 @@ matrix:
 
   # allow for fast finish, even if the optional coverage build is not done yet
   fast_finish: true
+
+###################
+# Build Lifecycle #
+###################
 
 before_install:
   # brew update on osx
