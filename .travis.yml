@@ -40,69 +40,91 @@ matrix:
     #   env:
     #     - MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9 && CMAKE_BUILD_TYPE=Release"
 
-    # OSX x Clang (xcode 6.4) x Release
+    # OSX x Clang xcode 6.4 x Release
     - os: osx
       osx_image: xcode6.4
       env:
         - MATRIX_EVAL="CC=clang && CXX=clang++ && CMAKE_BUILD_TYPE=Release"
 
-    # OSX x Clang (xcode 7.3) x Release
+    # OSX x Clang xcode 7.3 x Release
     - os: osx
       osx_image: xcode7.3
       env:
         - MATRIX_EVAL="CC=clang && CXX=clang++ && CMAKE_BUILD_TYPE=Release"
 
-    # OSX x Clang (xcode 8) x Release
+    # OSX x Clang xcode 8 x Release
     - os: osx
       osx_image: xcode8
       env:
         - MATRIX_EVAL="CC=clang && CXX=clang++ && CMAKE_BUILD_TYPE=Release"
 
-    # OSX x Clang (xcode 8.3) x Release
+    # OSX x Clang xcode 8.3 x Release
     - os: osx
       osx_image: xcode8.3
       env:
         - MATRIX_EVAL="CC=clang && CXX=clang++ && CMAKE_BUILD_TYPE=Release"
 
-    # OSX x Clang (xcode 9) x Release
+    # OSX x Clang xcode 9 x Release
     - os: osx
       osx_image: xcode9
       env:
         - MATRIX_EVAL="CC=clang && CXX=clang++ && CMAKE_BUILD_TYPE=Release"
 
-    # OSX x Clang (xcode 9.1) x Release
+    # OSX x Clang xcode 9.1 x Release
     - os: osx
       osx_image: xcode9.1
       env:
         - MATRIX_EVAL="CC=clang && CXX=clang++ && CMAKE_BUILD_TYPE=Release"
 
-    # OSX x Clang (xcode 9.2) x Release
+    # OSX x Clang xcode 9.2 x Release
     - os: osx
       osx_image: xcode9.2
       env:
         - MATRIX_EVAL="CC=clang && CXX=clang++ && CMAKE_BUILD_TYPE=Release"
 
-    # Linux x GCC4.9 x Debug (for coverage)
+    # Linux x Gcc 4.9 x Release
     - os: linux
+      compiler: gcc
+      env: COMPILER=g++-4.9
       addons:
         apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - g++-4.9
-      env:
-         - MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9 && CMAKE_BUILD_TYPE=Debug && COVERAGE=1"
-
-    # Linux x GCC4.9 x Release
-    - os: linux
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - g++-4.9
+          sources: ['ubuntu-toolchain-r-test']
+          packages: ['g++-4.9']
       env:
          - MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9 && CMAKE_BUILD_TYPE=Release"
+
+    # Linux x Gcc 5 x Release
+    - os: linux
+      compiler: gcc
+      env: COMPILER=g++-5
+      addons:
+        apt:
+          sources: ['ubuntu-toolchain-r-test']
+          packages: ['g++-5']
+      env:
+         - MATRIX_EVAL="CC=gcc-5 && CXX=g++-5 && CMAKE_BUILD_TYPE=Release"
+
+    # Linux x Gcc 6 x Release
+    - os: linux
+      compiler: gcc
+      env: COMPILER=g++-6
+      addons:
+        apt:
+          sources: ['ubuntu-toolchain-r-test']
+          packages: ['g++-6']
+      env:
+         - MATRIX_EVAL="CC=gcc-6 && CXX=g++-6 && CMAKE_BUILD_TYPE=Release"
+
+    # Linux x Gcc 7 x Release
+    - os: linux
+      compiler: gcc
+      env: COMPILER=g++-7
+      addons:
+        apt:
+          sources: ['ubuntu-toolchain-r-test']
+          packages: ['g++-7']
+      env:
+         - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7 && CMAKE_BUILD_TYPE=Release"
 
     # Linux x CLang 3.6 x Release
     - os: linux
@@ -115,6 +137,17 @@ matrix:
             - clang-3.6
       env:
         - MATRIX_EVAL="CC=clang-3.6 && CXX=clang++-3.6 && CMAKE_BUILD_TYPE=Release"
+
+    # Linux x GCC4.9 x Debug (for coverage)
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-4.9
+      env:
+         - MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9 && CMAKE_BUILD_TYPE=Debug && COVERAGE=1"
 
   # allow the coverage build to fail
   # --coverage compiler options seems to generate unstable code that should not be trusted
