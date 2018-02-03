@@ -44,7 +44,7 @@ TEST(Extended, SendTransfer) {
                                 0, 2 };
   std::vector<IOTA::Models::Input> inputs = { input };
 
-  auto res = api.sendTransfer(ACCOUNT_5_SEED, 2, 27, 14, transfers, inputs,
+  auto res = api.sendTransfer(ACCOUNT_5_SEED, 2, 27, POW_LEVEL, transfers, inputs,
                               ACCOUNT_5_ADDRESS_1_HASH_WITHOUT_CHECKSUM);
 
   ASSERT_EQ(res.getSuccessfully().size(), 4UL);
@@ -62,7 +62,7 @@ TEST(Extended, SendTransferNoMessage) {
                                 0, 2 };
   std::vector<IOTA::Models::Input> inputs = { input };
 
-  auto res = api.sendTransfer(ACCOUNT_5_SEED, 2, 27, 14, transfers, inputs,
+  auto res = api.sendTransfer(ACCOUNT_5_SEED, 2, 27, POW_LEVEL, transfers, inputs,
                               ACCOUNT_5_ADDRESS_1_HASH_WITHOUT_CHECKSUM);
 
   ASSERT_EQ(res.getSuccessfully().size(), 4UL);
@@ -79,7 +79,7 @@ TEST(Extended, SendTransferInvalidTransferAddress) {
                                 0, 2 };
   std::vector<IOTA::Models::Input> inputs = { input };
 
-  EXPECT_EXCEPTION(api.sendTransfer(ACCOUNT_5_SEED, 2, 27, 14, transfers, inputs,
+  EXPECT_EXCEPTION(api.sendTransfer(ACCOUNT_5_SEED, 2, 27, POW_LEVEL, transfers, inputs,
                                     ACCOUNT_5_ADDRESS_1_HASH_WITHOUT_CHECKSUM),
                    IOTA::Errors::IllegalState, "Invalid Transfer");
 }
@@ -95,7 +95,7 @@ TEST(Extended, SendTransferInvalidTransferMessage) {
                                 0, 2 };
   std::vector<IOTA::Models::Input> inputs = { input };
 
-  EXPECT_EXCEPTION(api.sendTransfer(ACCOUNT_5_SEED, 2, 27, 14, transfers, inputs,
+  EXPECT_EXCEPTION(api.sendTransfer(ACCOUNT_5_SEED, 2, 27, POW_LEVEL, transfers, inputs,
                                     ACCOUNT_5_ADDRESS_1_HASH_WITHOUT_CHECKSUM),
                    IOTA::Errors::IllegalState, "Invalid Transfer");
 }
@@ -111,7 +111,7 @@ TEST(Extended, SendTransferInvalidTransferTag) {
                                 0, 2 };
   std::vector<IOTA::Models::Input> inputs = { input };
 
-  EXPECT_EXCEPTION(api.sendTransfer(ACCOUNT_5_SEED, 2, 27, 14, transfers, inputs,
+  EXPECT_EXCEPTION(api.sendTransfer(ACCOUNT_5_SEED, 2, 27, POW_LEVEL, transfers, inputs,
                                     ACCOUNT_5_ADDRESS_1_HASH_WITHOUT_CHECKSUM),
                    IOTA::Errors::IllegalState, "Invalid Transfer");
 }
@@ -128,7 +128,7 @@ TEST(Extended, SendTransferNotEnoughFund) {
                                 0, 2 };
   std::vector<IOTA::Models::Input> inputs = { input };
 
-  EXPECT_EXCEPTION(api.sendTransfer(ACCOUNT_5_SEED, 2, 27, 14, transfers, inputs,
+  EXPECT_EXCEPTION(api.sendTransfer(ACCOUNT_5_SEED, 2, 27, POW_LEVEL, transfers, inputs,
                                     ACCOUNT_5_ADDRESS_1_HASH_WITHOUT_CHECKSUM),
                    IOTA::Errors::IllegalState, "Not enough balance");
 }
@@ -144,7 +144,7 @@ TEST(Extended, SendTransferZeroTransfer) {
                                 0, 2 };
   std::vector<IOTA::Models::Input> inputs = { input };
 
-  auto res = api.sendTransfer(ACCOUNT_5_SEED, 2, 27, 14, transfers, inputs,
+  auto res = api.sendTransfer(ACCOUNT_5_SEED, 2, 27, POW_LEVEL, transfers, inputs,
                               ACCOUNT_5_ADDRESS_1_HASH_WITHOUT_CHECKSUM);
 
   ASSERT_EQ(res.getSuccessfully().size(), 1UL);
@@ -162,8 +162,9 @@ TEST(Extended, SendTransferInvalidRemainderAddress) {
                                 0, 2 };
   std::vector<IOTA::Models::Input> inputs = { input };
 
-  EXPECT_EXCEPTION(api.sendTransfer(ACCOUNT_5_SEED, 2, 27, 14, transfers, inputs, "invalid__"),
-                   IOTA::Errors::IllegalState, "Invalid Remainder");
+  EXPECT_EXCEPTION(
+      api.sendTransfer(ACCOUNT_5_SEED, 2, 27, POW_LEVEL, transfers, inputs, "invalid__"),
+      IOTA::Errors::IllegalState, "Invalid Remainder");
 }
 
 TEST(Extended, SendTransferInvalidSeed) {
@@ -177,7 +178,7 @@ TEST(Extended, SendTransferInvalidSeed) {
                                 0, 2 };
   std::vector<IOTA::Models::Input> inputs = { input };
 
-  EXPECT_EXCEPTION(api.sendTransfer("invalid__", 2, 27, 14, transfers, inputs,
+  EXPECT_EXCEPTION(api.sendTransfer("invalid__", 2, 27, POW_LEVEL, transfers, inputs,
                                     ACCOUNT_5_ADDRESS_1_HASH_WITHOUT_CHECKSUM),
                    IOTA::Errors::IllegalState, "Invalid Seed");
 }
@@ -191,7 +192,7 @@ TEST(Extended, SendTransferNoInput) {
 
   std::vector<IOTA::Models::Input> inputs = {};
 
-  auto res = api.sendTransfer(ACCOUNT_5_SEED, 2, 27, 14, transfers, inputs,
+  auto res = api.sendTransfer(ACCOUNT_5_SEED, 2, 27, POW_LEVEL, transfers, inputs,
                               ACCOUNT_5_ADDRESS_1_HASH_WITHOUT_CHECKSUM);
 
   ASSERT_EQ(res.getSuccessfully().size(), 4UL);
@@ -209,7 +210,7 @@ TEST(Extended, SendTransferNoRemainderAddress) {
                                 0, 2 };
   std::vector<IOTA::Models::Input> inputs = { input };
 
-  auto res = api.sendTransfer(ACCOUNT_5_SEED, 2, 27, 14, transfers, inputs, "");
+  auto res = api.sendTransfer(ACCOUNT_5_SEED, 2, 27, POW_LEVEL, transfers, inputs, "");
 
   ASSERT_EQ(res.getSuccessfully().size(), 4UL);
   EXPECT_EQ(res.getSuccessfully(), std::vector<bool>({ true, true, true, true }));
@@ -226,7 +227,7 @@ TEST(Extended, SendTransferSecurity) {
                                 0, 3 };
   std::vector<IOTA::Models::Input> inputs = { input };
 
-  auto res = api.sendTransfer(ACCOUNT_5_SEED, 2, 27, 14, transfers, inputs,
+  auto res = api.sendTransfer(ACCOUNT_5_SEED, 2, 27, POW_LEVEL, transfers, inputs,
                               ACCOUNT_5_ADDRESS_1_HASH_WITHOUT_CHECKSUM);
 
   ASSERT_EQ(res.getSuccessfully().size(), 5UL);
@@ -270,7 +271,7 @@ TEST(Extended, SendTransferLongMessage) {
                                 0, 2 };
   std::vector<IOTA::Models::Input> inputs = { input };
 
-  auto res = api.sendTransfer(ACCOUNT_5_SEED, 2, 27, 14, transfers, inputs,
+  auto res = api.sendTransfer(ACCOUNT_5_SEED, 2, 27, POW_LEVEL, transfers, inputs,
                               ACCOUNT_5_ADDRESS_1_HASH_WITHOUT_CHECKSUM);
 
   ASSERT_EQ(res.getSuccessfully().size(), 5UL);
@@ -288,7 +289,7 @@ TEST(Extended, SendTransferInvalidSecurity) {
                                 0, 2 };
   std::vector<IOTA::Models::Input> inputs = { input };
 
-  EXPECT_EXCEPTION(api.sendTransfer(ACCOUNT_5_SEED, 42, 27, 14, transfers, inputs,
+  EXPECT_EXCEPTION(api.sendTransfer(ACCOUNT_5_SEED, 42, 27, POW_LEVEL, transfers, inputs,
                                     ACCOUNT_5_ADDRESS_1_HASH_WITHOUT_CHECKSUM),
                    IOTA::Errors::IllegalState, "Invalid Security Level");
 }

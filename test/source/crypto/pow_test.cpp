@@ -36,7 +36,7 @@ TEST(Pow, OneThread1) {
   auto              tx = BUNDLE_1_TRX_1_TRYTES;
 
   tx.replace(IOTA::TrxTrytesLength - IOTA::NonceLength, IOTA::NonceLength, IOTA::NonceLength, '9');
-  auto nonce = p(tx, 14, 1);
+  auto nonce = p(tx, POW_LEVEL, 1);
   tx.replace(IOTA::TrxTrytesLength - IOTA::NonceLength, IOTA::NonceLength, nonce);
   EXPECT_NO_THROW(api.storeTransactions({ tx }));
 }
@@ -47,7 +47,7 @@ TEST(Pow, OneThread2) {
   auto              tx = BUNDLE_1_TRX_2_TRYTES;
 
   tx.replace(IOTA::TrxTrytesLength - IOTA::NonceLength, IOTA::NonceLength, IOTA::NonceLength, '9');
-  auto nonce = p(tx, 14, 1);
+  auto nonce = p(tx, POW_LEVEL, 1);
   tx.replace(IOTA::TrxTrytesLength - IOTA::NonceLength, IOTA::NonceLength, nonce);
   EXPECT_NO_THROW(api.storeTransactions({ tx }));
 }
@@ -58,7 +58,7 @@ TEST(Pow, OneThread3) {
   auto              tx = BUNDLE_1_TRX_3_TRYTES;
 
   tx.replace(IOTA::TrxTrytesLength - IOTA::NonceLength, IOTA::NonceLength, IOTA::NonceLength, '9');
-  auto nonce = p(tx, 14, 1);
+  auto nonce = p(tx, POW_LEVEL, 1);
   tx.replace(IOTA::TrxTrytesLength - IOTA::NonceLength, IOTA::NonceLength, nonce);
   EXPECT_NO_THROW(api.storeTransactions({ tx }));
 }
@@ -69,7 +69,7 @@ TEST(Pow, OneThread4) {
   auto              tx = BUNDLE_1_TRX_4_TRYTES;
 
   tx.replace(IOTA::TrxTrytesLength - IOTA::NonceLength, IOTA::NonceLength, IOTA::NonceLength, '9');
-  auto nonce = p(tx, 14, 1);
+  auto nonce = p(tx, POW_LEVEL, 1);
   tx.replace(IOTA::TrxTrytesLength - IOTA::NonceLength, IOTA::NonceLength, nonce);
   EXPECT_NO_THROW(api.storeTransactions({ tx }));
 }
@@ -80,7 +80,7 @@ TEST(Pow, MaxThreads1) {
   auto              tx = ACCOUNT_2_BUNDLE_1_TRX_1_TRYTES;
 
   tx.replace(IOTA::TrxTrytesLength - IOTA::NonceLength, IOTA::NonceLength, IOTA::NonceLength, '9');
-  auto nonce = p(tx, 14);
+  auto nonce = p(tx, POW_LEVEL);
   tx.replace(IOTA::TrxTrytesLength - IOTA::NonceLength, IOTA::NonceLength, nonce);
   EXPECT_NO_THROW(api.storeTransactions({ tx }));
 }
@@ -91,7 +91,7 @@ TEST(Pow, MaxThreads2) {
   auto              tx = ACCOUNT_2_BUNDLE_2_TRX_1_TRYTES;
 
   tx.replace(IOTA::TrxTrytesLength - IOTA::NonceLength, IOTA::NonceLength, IOTA::NonceLength, '9');
-  auto nonce = p(tx, 14);
+  auto nonce = p(tx, POW_LEVEL);
   tx.replace(IOTA::TrxTrytesLength - IOTA::NonceLength, IOTA::NonceLength, nonce);
   EXPECT_NO_THROW(api.storeTransactions({ tx }));
 }
@@ -102,7 +102,7 @@ TEST(Pow, MaxThreads3) {
   auto              tx = ACCOUNT_2_BUNDLE_3_TRX_1_TRYTES;
 
   tx.replace(IOTA::TrxTrytesLength - IOTA::NonceLength, IOTA::NonceLength, IOTA::NonceLength, '9');
-  auto nonce = p(tx, 14);
+  auto nonce = p(tx, POW_LEVEL);
   tx.replace(IOTA::TrxTrytesLength - IOTA::NonceLength, IOTA::NonceLength, nonce);
   EXPECT_NO_THROW(api.storeTransactions({ tx }));
 }
@@ -113,7 +113,7 @@ TEST(Pow, MaxThreads4) {
   auto              tx = ACCOUNT_2_BUNDLE_4_TRX_1_TRYTES;
 
   tx.replace(IOTA::TrxTrytesLength - IOTA::NonceLength, IOTA::NonceLength, IOTA::NonceLength, '9');
-  auto nonce = p(tx, 14);
+  auto nonce = p(tx, POW_LEVEL);
   tx.replace(IOTA::TrxTrytesLength - IOTA::NonceLength, IOTA::NonceLength, nonce);
   EXPECT_NO_THROW(api.storeTransactions({ tx }));
 }

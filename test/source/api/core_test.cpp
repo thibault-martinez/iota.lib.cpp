@@ -291,7 +291,7 @@ TEST(Core, InterruptAttachingToTangleLocalPow) {
 
   //! run attach in background
   std::thread t([&] {
-    attachToTangleRes = api.attachToTangle(BUNDLE_2_TRX_1_TRUNK, BUNDLE_2_TRX_1_BRANCH, 14,
+    attachToTangleRes = api.attachToTangle(BUNDLE_2_TRX_1_TRUNK, BUNDLE_2_TRX_1_BRANCH, POW_LEVEL,
                                            { BUNDLE_2_TRX_1_TRYTES });
   });
 
@@ -341,6 +341,7 @@ TEST(Core, BroadcastTransactionsValidTrytes) {
   IOTA::API::Core api(get_proxy_host(), get_proxy_port());
 
   IOTA::API::Responses::Base res;
+  res = api.storeTransactions({ BUNDLE_1_TRX_1_TRYTES });
   EXPECT_NO_THROW(res = api.storeTransactions({ BUNDLE_1_TRX_1_TRYTES }));
   EXPECT_GE(res.getDuration(), 0);
 }
@@ -410,7 +411,8 @@ TEST(Core, AttachToTangleRemotePowOneTx) {
   b.addTrytes({ EMPTY_SIGNATURE_FRAGMENT });
   auto tx  = b.getTransactions()[0].toTrytes();
   auto tta = api.getTransactionsToApprove(27);
-  auto att = api.attachToTangle(tta.getTrunkTransaction(), tta.getBranchTransaction(), 14, { tx });
+  auto att =
+      api.attachToTangle(tta.getTrunkTransaction(), tta.getBranchTransaction(), POW_LEVEL, { tx });
   auto trytes = att.getTrytes()[0];
   api.storeTransactions({ trytes });
 }
@@ -425,7 +427,8 @@ TEST(Core, AttachToTangleLocalPowOneTx) {
   b.addTrytes({ EMPTY_SIGNATURE_FRAGMENT });
   auto tx  = b.getTransactions()[0].toTrytes();
   auto tta = api.getTransactionsToApprove(27);
-  auto att = api.attachToTangle(tta.getTrunkTransaction(), tta.getBranchTransaction(), 14, { tx });
+  auto att =
+      api.attachToTangle(tta.getTrunkTransaction(), tta.getBranchTransaction(), POW_LEVEL, { tx });
   auto trytes = att.getTrytes()[0];
   api.storeTransactions({ trytes });
 }
@@ -446,7 +449,8 @@ TEST(Core, AttachToTangleRemotePowManyTx) {
   b.addTrytes({ EMPTY_SIGNATURE_FRAGMENT });
   auto tx  = b.getTransactions()[0].toTrytes();
   auto tta = api.getTransactionsToApprove(27);
-  auto att = api.attachToTangle(tta.getTrunkTransaction(), tta.getBranchTransaction(), 14, { tx });
+  auto att =
+      api.attachToTangle(tta.getTrunkTransaction(), tta.getBranchTransaction(), POW_LEVEL, { tx });
   auto trytes = att.getTrytes()[0];
   api.storeTransactions({ trytes });
 }
@@ -467,7 +471,8 @@ TEST(Core, AttachToTangleLocalPowManyTx) {
   b.addTrytes({ EMPTY_SIGNATURE_FRAGMENT });
   auto tx  = b.getTransactions()[0].toTrytes();
   auto tta = api.getTransactionsToApprove(27);
-  auto att = api.attachToTangle(tta.getTrunkTransaction(), tta.getBranchTransaction(), 14, { tx });
+  auto att =
+      api.attachToTangle(tta.getTrunkTransaction(), tta.getBranchTransaction(), POW_LEVEL, { tx });
   auto trytes = att.getTrytes()[0];
   api.storeTransactions({ trytes });
 }

@@ -36,20 +36,20 @@
 TEST(Extended, SendTrytesNothing) {
   IOTA::API::Extended api(get_proxy_host(), get_proxy_port());
 
-  EXPECT_NO_THROW(api.sendTrytes({}, 27, 14));
+  EXPECT_NO_THROW(api.sendTrytes({}, 27, POW_LEVEL));
 }
 
 TEST(Extended, SendTrytesEmpty) {
   IOTA::API::Extended api(get_proxy_host(), get_proxy_port());
 
-  EXPECT_EXCEPTION(api.sendTrytes({ "" }, 27, 14), IOTA::Errors::IllegalState,
+  EXPECT_EXCEPTION(api.sendTrytes({ "" }, 27, POW_LEVEL), IOTA::Errors::IllegalState,
                    "Invalid transaction trytes");
 }
 
 TEST(Extended, SendTrytesInvalidTrytes) {
   IOTA::API::Extended api(get_proxy_host(), get_proxy_port());
 
-  EXPECT_EXCEPTION(api.sendTrytes({ "INVALIDTRYTES" }, 27, 14), IOTA::Errors::IllegalState,
+  EXPECT_EXCEPTION(api.sendTrytes({ "INVALIDTRYTES" }, 27, POW_LEVEL), IOTA::Errors::IllegalState,
                    "Invalid transaction trytes");
 }
 
@@ -62,7 +62,7 @@ TEST(Extended, SendTrytesOne) {
   b.finalize();
   b.addTrytes({ EMPTY_SIGNATURE_FRAGMENT });
   auto tx = b.getTransactions()[0].toTrytes();
-  EXPECT_NO_THROW(api.sendTrytes({ tx }, 27, 14));
+  EXPECT_NO_THROW(api.sendTrytes({ tx }, 27, POW_LEVEL));
 }
 
 TEST(Extended, SendTrytesMulti) {
@@ -83,5 +83,5 @@ TEST(Extended, SendTrytesMulti) {
   auto tx1 = b.getTransactions()[1].toTrytes();
   auto tx2 = b.getTransactions()[2].toTrytes();
   auto tx3 = b.getTransactions()[3].toTrytes();
-  EXPECT_NO_THROW(api.sendTrytes({ tx0, tx1, tx2, tx3 }, 27, 14));
+  EXPECT_NO_THROW(api.sendTrytes({ tx0, tx1, tx2, tx3 }, 27, POW_LEVEL));
 }
