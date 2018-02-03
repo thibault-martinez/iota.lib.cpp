@@ -44,4 +44,4 @@ tmp
 .DS_Store
 
 # IOTA
-iri
+test/testnet/iri
