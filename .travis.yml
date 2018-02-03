@@ -134,7 +134,7 @@ before_script:
   - mvn clean compile -q
   - mvn package -q
   - cp -r ../test/testnet/testnetdb .
-  - java -jar target/iri-1.4.2.1.jar -c iri.ini &
+  - java -jar target/iri-1.4.2.1.jar -c iri.ini 1> /dev/null &
   - cd ..
 
 script:
