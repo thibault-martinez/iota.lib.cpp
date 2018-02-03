@@ -133,3 +133,31 @@ TEST(Transfer, IsValidInvalidTagLength) {
 
   EXPECT_FALSE(t.isValid());
 }
+
+TEST(Transfer, EqAndDiffOperators) {
+  IOTA::Models::Transfer t1 = { "addr1", 1, "msg1", "tag1" };
+  IOTA::Models::Transfer t2 = { "addr2", 2, "msg2", "tag2" };
+
+  EXPECT_EQ(t1 == t2, false);
+  EXPECT_EQ(t1 != t2, true);
+
+  t2.setAddress("addr1");
+
+  EXPECT_EQ(t1 == t2, false);
+  EXPECT_EQ(t1 != t2, true);
+
+  t2.setValue(1);
+
+  EXPECT_EQ(t1 == t2, false);
+  EXPECT_EQ(t1 != t2, true);
+
+  t2.setMessage("msg1");
+
+  EXPECT_EQ(t1 == t2, false);
+  EXPECT_EQ(t1 != t2, true);
+
+  t2.setTag("tag1");
+
+  EXPECT_EQ(t1 == t2, true);
+  EXPECT_EQ(t1 != t2, false);
+}
