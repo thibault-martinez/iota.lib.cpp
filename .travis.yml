@@ -244,6 +244,8 @@ matrix:
 before_install:
   # brew update on osx
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew update; fi
+  # setup environment
+  - eval "${MATRIX_EVAL}"
 
 install:
   ####
@@ -269,8 +271,6 @@ install:
 before_script:
   # Increase resources limitation
   - ulimit -c unlimited -S
-  # setup environment
-  - eval "${MATRIX_EVAL}"
   # IRI setup
   - ./test/testnet/iri_setup.sh
 
