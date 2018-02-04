@@ -34,7 +34,7 @@ It implements both the [official API](https://iota.readme.io/docs/getting-starte
 -   This is an early beta release, expect unexpected results.
 -   There may be performance and stability issues.
 -   This library is still in early development and there may be breaking changes in the near future.
--   You may loose all your money...
+-   You may lose all your money.
 
 ## Documentation
 
@@ -91,7 +91,7 @@ This library currently uses C++11.
 If you want to get involved in the community, need help with getting setup, have any issues related with the library or just want to discuss Blockchain, Distributed Ledgers and IoT with other people, feel free to visit one of our resources :
 
 -   [Website](https://iota.org/)
--   [Slack](http://slack.iota.org/)
+-   [Discord](https://discordapp.com/invite/fNGZXvh)
 -   [Forum](https://forum.iota.org/)
 -   [Stack Exchange](https://iota.stackexchange.com/)
 
@@ -100,6 +100,8 @@ If you want to get involved in the community, need help with getting setup, have
 Please report any issues using the [Issue Tracker](https://github.com/thibault-martinez/iota.lib.cpp/issues).
 
 ### Donating
+
+OZCTDHTFCB9PTAZWGYCGOA9XKDKPSHWVSZDJKZCOINNQTPNNEANGPBBDLSNGKDGCAAKBDVBOVCPTRLHTANMIRGFFGD
 
 [iota-logo]: https://raw.githubusercontent.com/iotaledger/documentation/master/source/images/iota-logo.png
 
