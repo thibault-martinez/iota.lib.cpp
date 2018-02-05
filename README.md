@@ -108,8 +108,9 @@ OZCTDHTFCB9PTAZWGYCGOA9XKDKPSHWVSZDJKZCOINNQTPNNEANGPBBDLSNGKDGCAAKBDVBOVCPTRLHT
 [travis]: https://travis-ci.org/thibault-martinez/iota.lib.cpp
 [travis-badge]: https://travis-ci.org/thibault-martinez/iota.lib.cpp.svg?branch=master
 
-[appveyor]: https://ci.appveyor.com/project/Cylix/iota-lib-cpp
-[appveyor-badge]: https://ci.appveyor.com/api/projects/status/512okcym7n737v4r?svg=true
+[appveyor]: https://ci.appveyor.com/project/thibault-martinez/iota-lib-cpp/branch/master
+[appveyor-badge]: https://ci.appveyor.com/api/projects/status/lp9awde5sykw16u0/branch/master?svg=true
+
 
 [coveralls]: https://coveralls.io/github/thibault-martinez/iota.lib.cpp?branch=master
 [coveralls-badge]: https://coveralls.io/repos/github/thibault-martinez/iota.lib.cpp/badge.svg?branch=master
@@ -118,4 +119,4 @@ OZCTDHTFCB9PTAZWGYCGOA9XKDKPSHWVSZDJKZCOINNQTPNNEANGPBBDLSNGKDGCAAKBDVBOVCPTRLHT
 [documentation-badge]: https://img.shields.io/readthedocs/pip/stable.svg
 
 [license]: https://github.com/thibault-martinez/iota.lib.cpp/blob/master/LICENSE
-[license-badge]: https://img.shields.io/github/license/mashape/apistatus.svg
+[license-badge]: https://img.shields.io/apm/l/vim-mode.svg
