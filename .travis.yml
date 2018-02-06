@@ -214,12 +214,25 @@ matrix:
     - os: linux
       addons:
         apt:
+          sources: ['ubuntu-toolchain-r-test']
+          packages: ['g++-4.9']
+      env:
+         - MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9 && CMAKE_BUILD_TYPE=Debug && CPPCHECK=1"
+      after_success:
+        cd ${TRAVIS_BUILD_DIR}; ./coverage.sh
+
+    # Linux x GCC4.9 x Debug (for cppcheck)
+    - os: linux
+      addons:
+        apt:
           sources:
             - ubuntu-toolchain-r-test
           packages:
             - g++-4.9
       env:
          - MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9 && CMAKE_BUILD_TYPE=Debug && COVERAGE=1"
+      after_success:
+        cppcheck --enable=all source/ test/ -I include/ --inconclusive --quiet --error-exitcode=1
 
   # allow the coverage build to fail
   # --coverage compiler options seems to generate unstable code that should not be trusted
@@ -280,7 +293,3 @@ script:
   - cmake -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -DBUILD_TESTS=1 ..
   - make
   - GTEST_COLOR=1 ctest -VV
-
-after_success:
-  # test coverage
-  - if [ "$COVERAGE" == "1" ]; then cd ${TRAVIS_BUILD_DIR}; ./coverage.sh; fi
