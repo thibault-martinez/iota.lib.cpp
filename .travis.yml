@@ -210,6 +210,14 @@ matrix:
       env:
         - MATRIX_EVAL="CC=clang-5.0 && CXX=clang++-5.0 && CMAKE_BUILD_TYPE=Release"
 
+    # OSX x Clang xcode 9.2 x Debug (cppcheck)
+    - os: osx
+      osx_image: xcode9.2
+      env:
+        - MATRIX_EVAL="brew install cppcheck && CC=clang && CXX=clang++ && CMAKE_BUILD_TYPE=Release"
+      script:
+        - cppcheck --enable=all source/ test/ -I include/ --inconclusive --quiet --error-exitcode=1
+
     # Linux x GCC4.9 x Debug (for cppcheck)
     - os: linux
       addons:
