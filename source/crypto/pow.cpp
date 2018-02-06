@@ -79,21 +79,21 @@ static constexpr int indices[] = {
 Types::Trytes
 Pow::operator()(const Types::Trytes& trytes, int minWeightMagnitude, int threads) {
   IOTA::Types::Trits  trits = IOTA::Types::trytesToTrits(trytes);
-  uint64_t            stateLow[stateSize];
-  uint64_t            stateHigh[stateSize];
+  std::vector<uint64_t> stateLow(stateSize);
+  std::vector<uint64_t> stateHigh(stateSize);
   IOTA::Types::Trytes result;
 
   stop_ = false;
 
-  initialize(stateLow, stateHigh, trits);
+  initialize(stateLow.data(), stateHigh.data(), trits);
 
   Utils::parallel_for(threads,
                       [this, stateLow, stateHigh, minWeightMagnitude, &result](uint32_t i) {
                         uint64_t stateLowCpy[stateSize];
                         uint64_t stateHighCpy[stateSize];
 
-                        std::memcpy(stateLowCpy, stateLow, stateSize * sizeof(uint64_t));
-                        std::memcpy(stateHighCpy, stateHigh, stateSize * sizeof(uint64_t));
+                        std::memcpy(stateLowCpy, stateLow.data(), stateSize * sizeof(uint64_t));
+                        std::memcpy(stateHighCpy, stateHigh.data(), stateSize * sizeof(uint64_t));
 
                         for (uint32_t j = 0; j < i; ++j) {
                           increment(stateLowCpy, stateHighCpy, nonceOffset + TritHashLength / 9,

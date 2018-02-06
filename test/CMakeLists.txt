@@ -54,13 +54,25 @@ foreach(DIR ${DIRS})
   file(GLOB_RECURSE s_${DIR} "${DIR}/*.cpp")
 
   foreach(SOURCE ${s_${DIR}})
+    # extract test name
     get_filename_component(TEST_NAME ${SOURCE} NAME_WE)
     get_filename_component(TEST_PATH ${SOURCE} PATH)
     get_filename_component(TEST_DIR ${TEST_PATH} NAME)
     set(TEST_FULL_NAME "${TEST_DIR}_${TEST_NAME}")
+
+    # new bin
     add_executable(${TEST_FULL_NAME} ${MAIN} ${SOURCE})
+
+    # compilation options
     target_compile_features(${TEST_FULL_NAME}  PRIVATE cxx_range_for)
-    target_link_libraries(${TEST_FULL_NAME} googletest pthread ${CMAKE_PROJECT_NAME})
+    target_link_libraries(${TEST_FULL_NAME} googletest ${CMAKE_PROJECT_NAME})
+
+    # platform specific compilation options
+    if (NOT WIN32)
+      target_link_libraries(${TEST_FULL_NAME} pthread)
+    ENDIF (NOT WIN32)
+
+    # ctest registration
     add_test(NAME ${TEST_FULL_NAME} COMMAND ${TEST_FULL_NAME} ${CMAKE_SOURCE_DIR}/test/files)
   endforeach()
 
