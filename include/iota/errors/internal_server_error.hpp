@@ -33,7 +33,7 @@ namespace Errors {
 
 class InternalServerError : public Generic {
 public:
-  InternalServerError(const std::string& content) : Generic(content){};
+  explicit InternalServerError(const std::string& content) : Generic(content){};
 };
 
 }  // namespace Errors

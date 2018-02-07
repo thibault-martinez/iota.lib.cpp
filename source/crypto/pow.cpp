@@ -78,10 +78,10 @@ static constexpr int indices[] = {
 
 Types::Trytes
 Pow::operator()(const Types::Trytes& trytes, int minWeightMagnitude, int threads) {
-  IOTA::Types::Trits  trits = IOTA::Types::trytesToTrits(trytes);
+  IOTA::Types::Trits    trits = IOTA::Types::trytesToTrits(trytes);
   std::vector<uint64_t> stateLow(stateSize);
   std::vector<uint64_t> stateHigh(stateSize);
-  IOTA::Types::Trytes result;
+  IOTA::Types::Trytes   result;
 
   stop_ = false;
 
@@ -108,7 +108,7 @@ Pow::operator()(const Types::Trytes& trytes, int minWeightMagnitude, int threads
 }
 
 void
-Pow::initialize(uint64_t* stateLow, uint64_t* stateHigh, const IOTA::Types::Trits& trits) const {
+Pow::initialize(uint64_t* stateLow, uint64_t* stateHigh, const IOTA::Types::Trits& trits) {
   for (int i = TritHashLength; i < stateSize; ++i) {
     stateLow[i]  = hBits;
     stateHigh[i] = hBits;
@@ -172,7 +172,7 @@ Pow::initialize(uint64_t* stateLow, uint64_t* stateHigh, const IOTA::Types::Trit
 
 void
 Pow::transform(uint64_t* stateLow, uint64_t* stateHigh, uint64_t* scratchpadLow,
-               uint64_t* scratchpadHigh) const {
+               uint64_t* scratchpadHigh) {
   int scratchpadIndex = 0;
   for (int round = 0; round < numberOfRounds; ++round) {
     std::memcpy(scratchpadLow, stateLow, stateSize * sizeof(uint64_t));
@@ -192,7 +192,7 @@ Pow::transform(uint64_t* stateLow, uint64_t* stateHigh, uint64_t* scratchpadLow,
 }
 
 void
-Pow::increment(uint64_t* stateLow, uint64_t* stateHigh, int fromIndex, int toIndex) const {
+Pow::increment(uint64_t* stateLow, uint64_t* stateHigh, int fromIndex, int toIndex) {
   for (int i = fromIndex; i < toIndex; ++i) {
     if (stateLow[i] == lBits) {
       stateLow[i]  = hBits;

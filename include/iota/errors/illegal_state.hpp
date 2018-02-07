@@ -33,7 +33,7 @@ namespace Errors {
 
 class IllegalState : public Generic {
 public:
-  IllegalState(const std::string& content) : Generic(content){};
+  explicit IllegalState(const std::string& content) : Generic(content){};
 };
 
 }  // namespace Errors

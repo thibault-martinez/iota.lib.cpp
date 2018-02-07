@@ -33,7 +33,7 @@ namespace Errors {
 
 class BadRequest : public Generic {
 public:
-  BadRequest(const std::string& content) : Generic(content){};
+  explicit BadRequest(const std::string& content) : Generic(content){};
 };
 
 }  // namespace Errors

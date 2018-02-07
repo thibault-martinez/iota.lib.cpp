@@ -68,19 +68,19 @@ public:
 
 public:
   /**
-   * @return input.
+   * @return inputs.
    */
-  const std::vector<Models::Input>& getInput() const;
+  const std::vector<Models::Input>& getInputs() const;
 
   /**
-   * @return input. (non const version)
+   * @return inputs. (non const version)
    */
-  std::vector<Models::Input>& getInput();
+  std::vector<Models::Input>& getInputs();
 
   /**
-   * @param input new input for api response
+   * @param inputs new inputs for api response
    */
-  void setInput(const std::vector<Models::Input>& input);
+  void setInputs(const std::vector<Models::Input>& inputs);
 
 public:
   /**

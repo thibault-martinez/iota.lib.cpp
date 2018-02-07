@@ -38,8 +38,8 @@ namespace Types {
 class BigInt : public cpp_int {
 public:
   BigInt();
-  BigInt(const int& value);
-  BigInt(const cpp_int& value);
+  explicit BigInt(const int& value);
+  explicit BigInt(const cpp_int& value);
 
 public:
   void                fromTrits(const Types::Trits& trits);

@@ -65,13 +65,12 @@ public:
                            int threads = 0) override;
 
 private:
-  inline void         initialize(uint64_t* stateLow, uint64_t* stateHigh,
-                                 const IOTA::Types::Trits& trits) const;
-  inline void         transform(uint64_t* curlStateLow, uint64_t* curlStateHigh,
-                                uint64_t* curlScratchpadLow, uint64_t* curlScratchpadHigh) const;
-  inline void         increment(uint64_t* midCurlStateCopyLow, uint64_t* midCurlStateCopyHigh,
-                                int fromIndex, int toIndex) const;
-  inline Types::Trits loop(uint64_t* lmid, uint64_t* hmid, int minWeightMagnitude);
+  static inline void initialize(uint64_t* stateLow, uint64_t* stateHigh,
+                                const IOTA::Types::Trits& trits);
+  static inline void transform(uint64_t* stateLow, uint64_t* stateHigh, uint64_t* scratchpadLow,
+                               uint64_t* scratchpadHigh);
+  static inline void increment(uint64_t* stateLow, uint64_t* stateHigh, int fromIndex, int toIndex);
+  inline Types::Trits loop(uint64_t* stateLow, uint64_t* stateHigh, int minWeightMagnitude);
 
 private:
   bool       stop_ = true;

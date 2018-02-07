@@ -58,9 +58,9 @@ public:
   /**
    * Serialize object.
    *
-   * @param res where to store serialisation.
+   * @param data where to store serialisation.
    */
-  virtual void serialize(json& res) const;
+  virtual void serialize(json& data) const;
 
 public:
   /**

@@ -35,7 +35,7 @@ namespace IOTA {
 namespace Utils {
 
 Types::Trytes
-RandomSeedGenerator::operator()() {
+RandomSeedGenerator::operator()() const {
   std::random_device                 rd;
   std::default_random_engine         dre(rd());
   std::uniform_int_distribution<int> uid(0, TryteAlphabetLength - 1);

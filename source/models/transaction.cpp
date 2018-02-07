@@ -273,12 +273,12 @@ Transaction::setPersistence(bool persistence) {
 }
 
 bool
-Transaction::operator==(Transaction rhs) const {
+Transaction::operator==(const Transaction& rhs) const {
   return hash_ == rhs.getHash();
 }
 
 bool
-Transaction::operator!=(Transaction rhs) const {
+Transaction::operator!=(const Transaction& rhs) const {
   return !operator==(rhs);
 }
 

@@ -146,7 +146,7 @@ Core::attachToTangle(const Types::Trytes& trunkTransaction, const Types::Trytes&
       resultTrytes.emplace_back(tx.toTrytes());
       prevTx = tx.getHash();
     }
-    return { resultTrytes };
+    return Responses::AttachToTangle(resultTrytes);
   }
   return service_.request<Requests::AttachToTangle, Responses::AttachToTangle>(
       trunkTransaction, branchTransaction, minWeightMagnitude, trytes);

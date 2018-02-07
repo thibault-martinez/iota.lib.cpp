@@ -39,8 +39,8 @@ namespace IOTA {
 namespace API {
 
 Extended::Extended(const std::string& host, const uint16_t& port, bool localPow, int timeout,
-                   Crypto::SpongeType t)
-    : Core(host, port, localPow, timeout), cryptoType_(t) {
+                   Crypto::SpongeType cryptoType)
+    : Core(host, port, localPow, timeout), cryptoType_(cryptoType) {
 }
 
 Extended::~Extended() {
@@ -494,7 +494,7 @@ Extended::prepareTransfers(const Types::Trytes& seed, int security,
     else {
       const auto newinputs = getInputs(seed, 0, 0, security, totalValue);
       // If inputs with enough balance
-      return addRemainder(seed, security, newinputs.getInput(), bundle, tag, totalValue, remainder,
+      return addRemainder(seed, security, newinputs.getInputs(), bundle, tag, totalValue, remainder,
                           signatureFragments);
     }
   } else {
@@ -797,7 +797,7 @@ Extended::addRemainder(const Types::Trytes& seed, const unsigned int& security,
 }
 
 Responses::ReplayBundle
-Extended::replayBundle(const Types::Trytes& transaction, int depth, int minWeightMagnitude) {
+Extended::replayBundle(const Types::Trytes& transaction, int depth, int minWeightMagnitude) const {
   const Utils::StopWatch stopWatch;
 
   auto bundleResponse = getBundle(transaction);
@@ -964,7 +964,7 @@ Extended::initiateTransfer(int securitySum, const Types::Trytes& inputAddress,
 
 Types::Trytes
 Extended::newAddress(const Types::Trytes& seed, const int32_t& index, const int32_t& security,
-                     bool checksum) const {
+                     bool checksum) {
   auto key          = Crypto::Signing::key(seed, index, security);
   auto digests      = Crypto::Signing::digests(key);
   auto addressTrits = Crypto::Signing::address(digests);
@@ -1066,7 +1066,7 @@ Extended::signInputsAndReturn(const Types::Trytes& seed, const std::vector<Model
 }
 
 bool
-Extended::isTransfersCollectionValid(const std::vector<Models::Transfer>& transfers) const {
+Extended::isTransfersCollectionValid(const std::vector<Models::Transfer>& transfers) {
   for (const auto& transfer : transfers) {
     if (!transfer.isValid()) {
       return false;

@@ -316,14 +316,14 @@ public:
    *
    * @param rhs other object to compare with
    */
-  bool operator==(Transaction rhs) const;
+  bool operator==(const Transaction& rhs) const;
 
   /**
    * comparison operator
    *
    * @param rhs other object to compare with
    */
-  bool operator!=(Transaction rhs) const;
+  bool operator!=(const Transaction& rhs) const;
 
   /**
    * Converts the transaction to the corresponding trytes representation

@@ -33,7 +33,7 @@ namespace Errors {
 
 class Unrecognized : public Generic {
 public:
-  Unrecognized(const std::string& content) : Generic(content){};
+  explicit Unrecognized(const std::string& content) : Generic(content){};
 };
 
 }  // namespace Errors

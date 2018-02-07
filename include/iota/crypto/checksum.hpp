@@ -67,12 +67,12 @@ Types::Trytes check(const Types::Trytes& address, const SpongeType& type = Spong
 /**
  * Determine whether the specified address with checksum has a valid checksum.
  *
- * @param address The address with checksum.
+ * @param addressWithChecksum The address with checksum.
  *
  * @return true if the specified address with checksum has a valid checksum otherwise,
  * false.
  **/
-bool isValid(const Types::Trytes& address);
+bool isValid(const Types::Trytes& addressWithChecksum);
 
 }  // namespace Checksum
 

@@ -340,8 +340,9 @@ public:
    */
   std::vector<Types::Trytes> addRemainder(
       const Types::Trytes& seed, const unsigned int& security,
-      const std::vector<Models::Input>& inputs, Models::Bundle& bundle, const Types::Trytes& tag,
-      const int64_t& totalValue, const Types::Trytes& remainderAddress,
+      const std::vector<Models::Input>& inputs, Models::Bundle& bundle,
+      const Types::Trytes& unpadTag, const int64_t& totalValue,
+      const Types::Trytes&              remainderAddress,
       const std::vector<Types::Trytes>& signatureFragments) const;
 
   /**
@@ -353,7 +354,7 @@ public:
    * @return Analyzed Transaction objects.
    */
   Responses::ReplayBundle replayBundle(const Types::Trytes& transaction, int depth,
-                                       int minWeightMagnitude);
+                                       int minWeightMagnitude) const;
 
   /**
    * Prepares transfer by generating the bundle with the corresponding cosigner transactions.
@@ -382,8 +383,8 @@ private:
    *
    * @return A new address.
    */
-  Types::Trytes newAddress(const Types::Trytes& seed, const int32_t& index, const int32_t& security,
-                           bool checksum) const;
+  static Types::Trytes newAddress(const Types::Trytes& seed, const int32_t& index,
+                                  const int32_t& security, bool checksum);
 
   std::vector<Types::Trytes> signInputsAndReturn(
       const Types::Trytes& seed, const std::vector<Models::Input>& inputs, Models::Bundle& bundle,
@@ -392,7 +393,7 @@ private:
   /**
    * @return true if all transfers are valid, false otherwise
    */
-  bool isTransfersCollectionValid(const std::vector<Models::Transfer>& transfers) const;
+  static bool isTransfersCollectionValid(const std::vector<Models::Transfer>& transfers);
 
 private:
   /**

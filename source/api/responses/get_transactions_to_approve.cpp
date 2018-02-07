@@ -59,8 +59,8 @@ GetTransactionsToApprove::getTrunkTransaction() const {
 }
 
 void
-GetTransactionsToApprove::setTrunkTransaction(const Types::Trytes& trunkTransaction) {
-  trunkTransaction_ = trunkTransaction;
+GetTransactionsToApprove::setTrunkTransaction(const Types::Trytes& trx) {
+  trunkTransaction_ = trx;
 }
 
 const Types::Trytes&
@@ -69,8 +69,8 @@ GetTransactionsToApprove::getBranchTransaction() const {
 }
 
 void
-GetTransactionsToApprove::setBranchTransaction(const Types::Trytes& branchTransaction) {
-  branchTransaction_ = branchTransaction;
+GetTransactionsToApprove::setBranchTransaction(const Types::Trytes& trx) {
+  branchTransaction_ = trx;
 }
 
 }  // namespace Responses

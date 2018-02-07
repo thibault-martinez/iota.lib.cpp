@@ -129,9 +129,9 @@ public:
   const int64_t& getJreAvailableProcessors() const;
 
   /**
-   * @param jreProc new procs for api response.
+   * @param jreAvailableProcessors new procs for api response.
    */
-  void setJreAvailableProcessors(const int64_t& jreProc);
+  void setJreAvailableProcessors(const int64_t& jreAvailableProcessors);
 
 public:
   /**
@@ -140,9 +140,9 @@ public:
   const int64_t& getJreFreeMemory() const;
 
   /**
-   * @param jreFreeMem new free mem for api response.
+   * @param jreFreeMemory new free mem for api response.
    */
-  void setJreFreeMemory(const int64_t& jreFreeMem);
+  void setJreFreeMemory(const int64_t& jreFreeMemory);
 
 public:
   /**
@@ -151,9 +151,9 @@ public:
   const int64_t& getJreMaxMemory() const;
 
   /**
-   * @param jreMaxMem new max mem for api response.
+   * @param jreMaxMemory new max mem for api response.
    */
-  void setJreMaxMemory(const int64_t& jreMaxMem);
+  void setJreMaxMemory(const int64_t& jreMaxMemory);
 
 public:
   /**
@@ -162,9 +162,9 @@ public:
   const int64_t& getJreTotalMemory() const;
 
   /**
-   * @param jreTotalMem new total mem for api response.
+   * @param jreTotalMemory new total mem for api response.
    */
-  void setJreTotalMemory(const int64_t& jreTotalMem);
+  void setJreTotalMemory(const int64_t& jreTotalMemory);
 
 public:
   /**
@@ -231,9 +231,9 @@ public:
   const int64_t& getPacketsQueueSize() const;
 
   /**
-   * @param queueSize new queueSize for api response.
+   * @param packetsQueueSize new queueSize for api response.
    */
-  void setPacketsQueueSize(const int64_t& queueSize);
+  void setPacketsQueueSize(const int64_t& packetsQueueSize);
 
 public:
   /**

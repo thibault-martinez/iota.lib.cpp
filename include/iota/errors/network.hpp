@@ -33,7 +33,7 @@ namespace Errors {
 
 class Network : public Generic {
 public:
-  Network(const std::string& content) : Generic(content){};
+  explicit Network(const std::string& content) : Generic(content){};
 };
 
 }  // namespace Errors

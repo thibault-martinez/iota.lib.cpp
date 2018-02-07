@@ -59,7 +59,7 @@ public:
    *
    * @param trytes The returned trytes.
    */
-  AttachToTangle(const std::vector<Types::Trytes>& trytes = {});
+  explicit AttachToTangle(const std::vector<Types::Trytes>& trytes = {});
 
   /**
    * Json-based ctor.

@@ -55,7 +55,7 @@ public:
    *
    * @param values The values.
    */
-  void absorb(const std::vector<int8_t>& values);
+  void absorb(const std::vector<int8_t>& bytes);
   /**
    * Squeeze out the internal state of the sponge.
    *
