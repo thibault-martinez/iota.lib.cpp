@@ -215,17 +215,8 @@ matrix:
       osx_image: xcode9.2
       env:
         - MATRIX_EVAL="brew install cppcheck && CC=clang && CXX=clang++ && CMAKE_BUILD_TYPE=Release"
-      script:
-        - cppcheck --enable=all source/ test/ -I include/ --inconclusive --quiet --error-exitcode=1
-
-    # Linux x GCC4.9 x Debug (for cppcheck)
-    - os: linux
-      addons:
-        apt:
-          sources: ['ubuntu-toolchain-r-test']
-          packages: ['g++-4.9', 'cppcheck']
-      env:
-         - MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9 && CMAKE_BUILD_TYPE=Debug && CPPCHECK=1"
+      before_script:
+        - echo "override"
       script:
         - cppcheck --enable=all source/ test/ -I include/ --inconclusive --quiet --error-exitcode=1
 
