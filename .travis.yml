@@ -214,7 +214,7 @@ matrix:
     - os: osx
       osx_image: xcode9.2
       env:
-        - MATRIX_EVAL="brew install cppcheck && CC=clang && CXX=clang++ && CMAKE_BUILD_TYPE=Release"
+        - MATRIX_EVAL="brew install cppcheck && CC=clang && CXX=clang++ && CPPCHECK=1"
       before_script:
         - echo "override"
       script:
@@ -236,6 +236,10 @@ matrix:
   # allow the coverage build to fail
   # --coverage compiler options seems to generate unstable code that should not be trusted
   allow_failures:
+    - os: osx
+      osx_image: xcode9.2
+      env:
+        - MATRIX_EVAL="brew install cppcheck && CC=clang && CXX=clang++ && CPPCHECK=1"
     - os: linux
       addons:
         apt:
