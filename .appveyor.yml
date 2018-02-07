@@ -69,6 +69,7 @@ init:
 
 install:
   - git submodule update --init --recursive
+  - sh test/testnet/iri_setup.sh
 
 before_build:
   - mkdir build
@@ -77,3 +78,6 @@ before_build:
 
 build:
   project: c:\projects\iota-lib-cpp\build\iota.sln
+
+test_script:
+  - ctest -C Release -VV
