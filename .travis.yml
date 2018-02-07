@@ -210,6 +210,16 @@ matrix:
       env:
         - MATRIX_EVAL="CC=clang-5.0 && CXX=clang++-5.0 && CMAKE_BUILD_TYPE=Release"
 
+    # OSX x Clang xcode 9.2 x Debug (cppcheck)
+    - os: osx
+      osx_image: xcode9.2
+      env:
+        - MATRIX_EVAL="brew install cppcheck && CC=clang && CXX=clang++ && CPPCHECK=1"
+      before_script:
+        - echo "override"
+      script:
+        - cppcheck --enable=all source/ test/ -I include/ --inconclusive --quiet --error-exitcode=1
+
     # Linux x GCC4.9 x Debug (for coverage)
     - os: linux
       addons:
@@ -220,10 +230,16 @@ matrix:
             - g++-4.9
       env:
          - MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9 && CMAKE_BUILD_TYPE=Debug && COVERAGE=1"
+      after_success:
+        - cd ${TRAVIS_BUILD_DIR}; ./coverage.sh
 
   # allow the coverage build to fail
   # --coverage compiler options seems to generate unstable code that should not be trusted
   allow_failures:
+    - os: osx
+      osx_image: xcode9.2
+      env:
+        - MATRIX_EVAL="brew install cppcheck && CC=clang && CXX=clang++ && CPPCHECK=1"
     - os: linux
       addons:
         apt:
@@ -280,7 +296,3 @@ script:
   - cmake -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -DBUILD_TESTS=1 ..
   - make
   - GTEST_COLOR=1 ctest -VV
-
-after_success:
-  # test coverage
-  - if [ "$COVERAGE" == "1" ]; then cd ${TRAVIS_BUILD_DIR}; ./coverage.sh; fi
