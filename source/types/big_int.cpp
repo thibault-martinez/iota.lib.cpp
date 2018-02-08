@@ -39,8 +39,10 @@ BigInt::BigInt(const int& value) : cpp_int(value) {
 void
 BigInt::fromTrits(const Types::Trits& trits) {
   assign(0);
+  cpp_int significance(1);
   for (unsigned int i = 0; i < trits.size(); ++i) {
-    *this += trits[i] * boost::multiprecision::pow(cpp_int(3), i);
+    *this += trits[i] * significance;
+    significance *= 3;
   }
 }
 
