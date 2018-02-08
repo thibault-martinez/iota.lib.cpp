@@ -220,7 +220,20 @@ matrix:
       script:
         - cppcheck --enable=all source/ test/ -I include/ --inconclusive --quiet --error-exitcode=1
 
-    # Linux x GCC4.9 x Debug (for coverage)
+    # Linux x GCC4.9 x Debug (documentation)
+    - os: linux
+      addons:
+        apt:
+          sources: ['ubuntu-toolchain-r-test']
+          packages: ['doxygen']
+      env:
+         - MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9 && CMAKE_BUILD_TYPE=Debug && DOCUMENTATION=1"
+      before_script:
+        - echo "override"
+      script:
+        - cd ${TRAVIS_BUILD_DIR}; doxygen .doxygen 2> err && cat err && [ ! -s err ]
+
+    # Linux x GCC4.9 x Debug (coverage)
     - os: linux
       addons:
         apt:
@@ -240,6 +253,13 @@ matrix:
       osx_image: xcode9.2
       env:
         - MATRIX_EVAL="brew install cppcheck && CC=clang && CXX=clang++ && CPPCHECK=1"
+    - os: linux
+      addons:
+        apt:
+          sources: ['ubuntu-toolchain-r-test']
+          packages: ['doxygen']
+      env:
+         - MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9 && CMAKE_BUILD_TYPE=Debug && DOCUMENTATION=1"
     - os: linux
       addons:
         apt:
