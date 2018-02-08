@@ -38,7 +38,7 @@ namespace API {
 
 namespace Responses {
 
-/*
+/**
  * GetNeighbors API call response.
  *
  * Returns the set of neighbors you are connected with, as well as their activity count. The

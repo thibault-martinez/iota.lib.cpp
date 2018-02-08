@@ -78,8 +78,8 @@ Functions</h2></td></tr>
 <tr class="separator:a0b01a7c1bb45c876f67092fbe1888522"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3e12b3863ddf512545eac6405a9044a9"><td class="memItemLeft" align="right" valign="top">Types::Trytes&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_i_o_t_a_1_1_crypto_1_1_checksum.html#a3e12b3863ddf512545eac6405a9044a9">check</a> (const Types::Trytes &amp;address, const SpongeType &amp;type=SpongeType::KERL)</td></tr>
 <tr class="separator:a3e12b3863ddf512545eac6405a9044a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5213910786d68a08c8fbab6fdef93793"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_i_o_t_a_1_1_crypto_1_1_checksum.html#a5213910786d68a08c8fbab6fdef93793">isValid</a> (const Types::Trytes &amp;address)</td></tr>
-<tr class="separator:a5213910786d68a08c8fbab6fdef93793"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab0e45e09913920852c0138df7ffe3e8c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_i_o_t_a_1_1_crypto_1_1_checksum.html#ab0e45e09913920852c0138df7ffe3e8c">isValid</a> (const Types::Trytes &amp;addressWithChecksum)</td></tr>
+<tr class="separator:ab0e45e09913920852c0138df7ffe3e8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Defines utility functions to add/remove the checksum to/from an address. </p>
@@ -147,8 +147,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a5213910786d68a08c8fbab6fdef93793"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5213910786d68a08c8fbab6fdef93793">&#9670;&nbsp;</a></span>isValid()</h2>
+<a id="ab0e45e09913920852c0138df7ffe3e8c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab0e45e09913920852c0138df7ffe3e8c">&#9670;&nbsp;</a></span>isValid()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -157,7 +157,7 @@ Functions</h2></td></tr>
           <td class="memname">bool IOTA::Crypto::Checksum::isValid </td>
           <td>(</td>
           <td class="paramtype">const Types::Trytes &amp;&#160;</td>
-          <td class="paramname"><em>address</em></td><td>)</td>
+          <td class="paramname"><em>addressWithChecksum</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -165,7 +165,7 @@ Functions</h2></td></tr>
 <p>Determine whether the specified address with checksum has a valid checksum.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">address</td><td>The address with checksum.</td></tr>
+    <tr><td class="paramname">addressWithChecksum</td><td>The address with checksum.</td></tr>
   </table>
   </dd>
 </dl>

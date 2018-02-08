@@ -38,7 +38,7 @@ namespace API {
 
 namespace Requests {
 
-/*
+/**
  * GetTrytes API call request.
  *
  * Returns the raw transaction data (trytes) of a specific transaction. These trytes can then be

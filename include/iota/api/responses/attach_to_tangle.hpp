@@ -38,7 +38,7 @@ namespace API {
 
 namespace Responses {
 
-/*
+/**
  * AttachToTangle API call response.
  *
  * Attaches the specified transactions (trytes) to the Tangle by doing Proof of Work. You need to

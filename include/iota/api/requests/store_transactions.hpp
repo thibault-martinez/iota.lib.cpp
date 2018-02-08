@@ -38,7 +38,7 @@ namespace API {
 
 namespace Requests {
 
-/*
+/**
  * StoreTransactions API call request.
  *
  * Store transactions into the local storage. The trytes to be used for this call are returned by

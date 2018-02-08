@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['validatesignatures',['validateSignatures',['../namespace_i_o_t_a_1_1_crypto_1_1_signing.html#adc241468316da6d95c8d610c3d7a43d9',1,'IOTA::Crypto::Signing']]]
+  ['unauthorized',['Unauthorized',['../class_i_o_t_a_1_1_errors_1_1_unauthorized.html',1,'IOTA::Errors']]],
+  ['unrecognized',['Unrecognized',['../class_i_o_t_a_1_1_errors_1_1_unrecognized.html',1,'IOTA::Errors']]]
 ];

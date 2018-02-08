@@ -38,7 +38,7 @@ namespace API {
 
 namespace Requests {
 
-/*
+/**
  * BroadcastTransactions API call request.
  *
  * Broadcast a list of transactions to all neighbors. The input trytes for this call are provided

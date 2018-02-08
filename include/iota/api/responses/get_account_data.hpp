@@ -37,7 +37,7 @@ namespace API {
 
 namespace Responses {
 
-/*
+/**
  * GetAccountData API call response.
  */
 class GetAccountData : public Base {

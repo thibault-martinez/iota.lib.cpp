@@ -70,6 +70,8 @@ $(function() {
 <div class="title">IOTA::API::Requests::BroadcastTransactions Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p><code>#include &lt;<a class="el" href="broadcast__transactions_8hpp_source.html">broadcast_transactions.hpp</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for IOTA::API::Requests::BroadcastTransactions:</div>
 <div class="dyncontent">
@@ -86,12 +88,12 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a24d06ea29f9ba55533d4e2f5bce6dd06"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5a7d8e4ebea1c11eacc6c99a399e6625"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_requests_1_1_broadcast_transactions.html#a5a7d8e4ebea1c11eacc6c99a399e6625">~BroadcastTransactions</a> ()=default</td></tr>
 <tr class="separator:a5a7d8e4ebea1c11eacc6c99a399e6625"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acb8a62c3de1663199e768a664ef1d839"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_requests_1_1_broadcast_transactions.html#acb8a62c3de1663199e768a664ef1d839">serialize</a> (json &amp;res)</td></tr>
-<tr class="separator:acb8a62c3de1663199e768a664ef1d839"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6c02aadd6bf4ebf0dba63436c9e382c1"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; Types::Trytes &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_requests_1_1_broadcast_transactions.html#a6c02aadd6bf4ebf0dba63436c9e382c1">getTrytes</a> () const</td></tr>
-<tr class="separator:a6c02aadd6bf4ebf0dba63436c9e382c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1a2dec27422fbbadcda97f8c6e8729c4"><td class="memItemLeft" align="right" valign="top">std::vector&lt; Types::Trytes &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_requests_1_1_broadcast_transactions.html#a1a2dec27422fbbadcda97f8c6e8729c4">getTrytes</a> ()</td></tr>
-<tr class="separator:a1a2dec27422fbbadcda97f8c6e8729c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3795cf726a726d2aee492b2885f396cd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_requests_1_1_broadcast_transactions.html#a3795cf726a726d2aee492b2885f396cd">serialize</a> (json &amp;data) const override</td></tr>
+<tr class="separator:a3795cf726a726d2aee492b2885f396cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1da567cafa7c1861e697df76f617a2f4"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; Types::Trytes &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_requests_1_1_broadcast_transactions.html#a1da567cafa7c1861e697df76f617a2f4">getTrytes</a> () const</td></tr>
+<tr class="separator:a1da567cafa7c1861e697df76f617a2f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a61143259ce826c506a0356f44155ac38"><td class="memItemLeft" align="right" valign="top">std::vector&lt; Types::Trytes &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_requests_1_1_broadcast_transactions.html#a61143259ce826c506a0356f44155ac38">getTrytes</a> ()</td></tr>
+<tr class="separator:a61143259ce826c506a0356f44155ac38"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aee13ed9317a46cb6155d03555e5fe42f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_requests_1_1_broadcast_transactions.html#aee13ed9317a46cb6155d03555e5fe42f">setTrytes</a> (const std::vector&lt; Types::Trytes &gt; &amp;trytes)</td></tr>
 <tr class="separator:aee13ed9317a46cb6155d03555e5fe42f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_requests_1_1_base"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_requests_1_1_base')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_requests_1_1_base.html">IOTA::API::Requests::Base</a></td></tr>
@@ -99,8 +101,14 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aba5d298949aa7a6761e6cbefd0181676 inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_requests_1_1_base"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aee8f8815f16636c1643f313460c96324 inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_requests_1_1_base"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_requests_1_1_base.html#aee8f8815f16636c1643f313460c96324">~Base</a> ()=default</td></tr>
 <tr class="separator:aee8f8815f16636c1643f313460c96324 inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_requests_1_1_base"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1fad94b0e3ed1fcffcbf605070fb1b54 inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_requests_1_1_base"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_requests_1_1_base.html#a1fad94b0e3ed1fcffcbf605070fb1b54">getCommandName</a> () const</td></tr>
+<tr class="separator:a1fad94b0e3ed1fcffcbf605070fb1b54 inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_requests_1_1_base"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_requests_1_1_broadcast_transactions.html">BroadcastTransactions</a> API call request.</p>
+<p>Broadcast a list of transactions to all neighbors. The input trytes for this call are provided by attachToTangle.</p>
+<p><a href="https://iota.readme.io/reference#broadcasttransactions">https://iota.readme.io/reference#broadcasttransactions</a> </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a24d06ea29f9ba55533d4e2f5bce6dd06"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a24d06ea29f9ba55533d4e2f5bce6dd06">&#9670;&nbsp;</a></span>BroadcastTransactions()</h2>
 
@@ -124,7 +132,13 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>full init ctor </p>
+<p>Full init ctor.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">trytes</td><td>List of raw data of transactions to be rebroadcast. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -150,49 +164,49 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>default dtor </p>
+<p>Default dtor. </p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a6c02aadd6bf4ebf0dba63436c9e382c1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6c02aadd6bf4ebf0dba63436c9e382c1">&#9670;&nbsp;</a></span>getTrytes() <span class="overload">[1/2]</span></h2>
+<a id="a1da567cafa7c1861e697df76f617a2f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1da567cafa7c1861e697df76f617a2f4">&#9670;&nbsp;</a></span>getTrytes() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const std::vector&lt; Types::Trytes &gt; &amp; IOTA::API::Requests::BroadcastTransactions::getTrytes </td>
+          <td class="memname">const std::vector&lt;Types::Trytes&gt;&amp; IOTA::API::Requests::BroadcastTransactions::getTrytes </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>trytes </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>trytes. </dd></dl>
 
 </div>
 </div>
-<a id="a1a2dec27422fbbadcda97f8c6e8729c4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1a2dec27422fbbadcda97f8c6e8729c4">&#9670;&nbsp;</a></span>getTrytes() <span class="overload">[2/2]</span></h2>
+<a id="a61143259ce826c506a0356f44155ac38"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a61143259ce826c506a0356f44155ac38">&#9670;&nbsp;</a></span>getTrytes() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::vector&lt; Types::Trytes &gt; &amp; IOTA::API::Requests::BroadcastTransactions::getTrytes </td>
+          <td class="memname">std::vector&lt;Types::Trytes&gt;&amp; IOTA::API::Requests::BroadcastTransactions::getTrytes </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>trytes (non const version) </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>trytes (non const version). </dd></dl>
 
 </div>
 </div>
-<a id="acb8a62c3de1663199e768a664ef1d839"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acb8a62c3de1663199e768a664ef1d839">&#9670;&nbsp;</a></span>serialize()</h2>
+<a id="a3795cf726a726d2aee492b2885f396cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3795cf726a726d2aee492b2885f396cd">&#9670;&nbsp;</a></span>serialize()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -204,25 +218,25 @@ Public Member Functions</h2></td></tr>
           <td class="memname">void IOTA::API::Requests::BroadcastTransactions::serialize </td>
           <td>(</td>
           <td class="paramtype">json &amp;&#160;</td>
-          <td class="paramname"><em>res</em></td><td>)</td>
-          <td></td>
+          <td class="paramname"><em>data</em></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>serialize obj</p>
+<p>Serialize object.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">res</td><td>where to store serialisation </td></tr>
+    <tr><td class="paramname">data</td><td>where to store serialisation. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Reimplemented from <a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_requests_1_1_base.html#acc225f988117dd82cf56170c1b9cd9f5">IOTA::API::Requests::Base</a>.</p>
+<p>Reimplemented from <a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_requests_1_1_base.html#a3849edbe6e3907fa93b76d4ba8860449">IOTA::API::Requests::Base</a>.</p>
 
 </div>
 </div>
@@ -243,16 +257,15 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">trytes</td><td>new trytes for api call </td></tr>
+    <tr><td class="paramname">trytes</td><td>new trytes for api call. </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following files:<ul>
+<hr/>The documentation for this class was generated from the following file:<ul>
 <li>include/iota/api/requests/<a class="el" href="broadcast__transactions_8hpp_source.html">broadcast_transactions.hpp</a></li>
-<li>source/api/requests/broadcast_transactions.cpp</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

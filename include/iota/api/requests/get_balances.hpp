@@ -38,7 +38,7 @@ namespace API {
 
 namespace Requests {
 
-/*
+/**
  * GetBalances API call request.
  *
  * Similar to getInclusionStates. It returns the confirmed balance which a list of addresses have

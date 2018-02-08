@@ -37,7 +37,7 @@ namespace API {
 
 namespace Requests {
 
-/*
+/**
  * GetTips API call request.
  *
  * Returns the list of tips.

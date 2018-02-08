@@ -70,6 +70,8 @@ $(function() {
 <div class="title">IOTA::API::Core Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p><code>#include &lt;<a class="el" href="core_8hpp_source.html">core.hpp</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for IOTA::API::Core:</div>
 <div class="dyncontent">
@@ -82,9 +84,9 @@ Inheritance diagram for IOTA::API::Core:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:adc5fde5ce7507142ee53e80462914a70"><td class="memItemLeft" align="right" valign="top"><a id="adc5fde5ce7507142ee53e80462914a70"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Core</b> (const std::string &amp;host, const uint16_t &amp;port)</td></tr>
-<tr class="separator:adc5fde5ce7507142ee53e80462914a70"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf36a2dd109c5ccc0d31c58bde7743ca"><td class="memItemLeft" align="right" valign="top"><a id="adf36a2dd109c5ccc0d31c58bde7743ca"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Core</b> (const std::string &amp;host, const uint16_t &amp;port, bool localPow=true, int timeout=60)</td></tr>
+<tr class="separator:adf36a2dd109c5ccc0d31c58bde7743ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa9d616c9db7893159f16ec1b0356927f"><td class="memItemLeft" align="right" valign="top"><a id="aa9d616c9db7893159f16ec1b0356927f"></a>
 <a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_node_info.html">Responses::GetNodeInfo</a>&#160;</td><td class="memItemRight" valign="bottom"><b>getNodeInfo</b> () const</td></tr>
 <tr class="separator:aa9d616c9db7893159f16ec1b0356927f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -100,7 +102,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:add317bef9e8d4f2e4eaec3e4b5c7e205"><td class="memItemLeft" align="right" valign="top"><a id="add317bef9e8d4f2e4eaec3e4b5c7e205"></a>
 <a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_tips.html">Responses::GetTips</a>&#160;</td><td class="memItemRight" valign="bottom"><b>getTips</b> () const</td></tr>
 <tr class="separator:add317bef9e8d4f2e4eaec3e4b5c7e205"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a554184bb1ea1e50e77e2097d75a9cdb0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_find_transactions.html">Responses::FindTransactions</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_core.html#a554184bb1ea1e50e77e2097d75a9cdb0">findTransactions</a> (const std::vector&lt; Types::Trytes &gt; &amp;addresses, const std::vector&lt; Types::Trytes &gt; &amp;tags, const std::vector&lt; Types::Trytes &gt; &amp;approvees, const std::vector&lt; Types::Trytes &gt; &amp;bundles) const</td></tr>
+<tr class="memitem:a554184bb1ea1e50e77e2097d75a9cdb0"><td class="memItemLeft" align="right" valign="top"><a id="a554184bb1ea1e50e77e2097d75a9cdb0"></a>
+<a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_find_transactions.html">Responses::FindTransactions</a>&#160;</td><td class="memItemRight" valign="bottom"><b>findTransactions</b> (const std::vector&lt; Types::Trytes &gt; &amp;addresses, const std::vector&lt; Types::Trytes &gt; &amp;tags, const std::vector&lt; Types::Trytes &gt; &amp;approvees, const std::vector&lt; Types::Trytes &gt; &amp;bundles) const</td></tr>
 <tr class="separator:a554184bb1ea1e50e77e2097d75a9cdb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad6f5cdbb41044f62c491f2dab06bf52b"><td class="memItemLeft" align="right" valign="top"><a id="ad6f5cdbb41044f62c491f2dab06bf52b"></a>
 <a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_trytes.html">Responses::GetTrytes</a>&#160;</td><td class="memItemRight" valign="bottom"><b>getTrytes</b> (const std::vector&lt; Types::Trytes &gt; &amp;hashes) const</td></tr>
@@ -127,51 +130,11 @@ Public Member Functions</h2></td></tr>
 <a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_base.html">Responses::Base</a>&#160;</td><td class="memItemRight" valign="bottom"><b>storeTransactions</b> (const std::vector&lt; Types::Trytes &gt; &amp;trytes) const</td></tr>
 <tr class="separator:a31fc2694189aacb9b1f55a1664661b84"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a554184bb1ea1e50e77e2097d75a9cdb0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a554184bb1ea1e50e77e2097d75a9cdb0">&#9670;&nbsp;</a></span>findTransactions()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_find_transactions.html">Responses::FindTransactions</a> IOTA::API::Core::findTransactions </td>
-          <td>(</td>
-          <td class="paramtype">const std::vector&lt; Types::Trytes &gt; &amp;&#160;</td>
-          <td class="paramname"><em>addresses</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::vector&lt; Types::Trytes &gt; &amp;&#160;</td>
-          <td class="paramname"><em>tags</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::vector&lt; Types::Trytes &gt; &amp;&#160;</td>
-          <td class="paramname"><em>approvees</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::vector&lt; Types::Trytes &gt; &amp;&#160;</td>
-          <td class="paramname"><em>bundles</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>skip request if no input, simply return empty </p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following files:<ul>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Strict implementation of IOTA core API commands.</p>
+<p><a href="https://iota.readme.io/reference">https://iota.readme.io/reference</a> </p>
+</div><hr/>The documentation for this class was generated from the following file:<ul>
 <li>include/iota/api/<a class="el" href="core_8hpp_source.html">core.hpp</a></li>
-<li>source/api/core.cpp</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

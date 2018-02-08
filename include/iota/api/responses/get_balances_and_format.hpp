@@ -38,7 +38,7 @@ namespace API {
 
 namespace Responses {
 
-/*
+/**
  * Response of extended API getInputs
  * Gets all possible inputs of a seed and returns them with the total balance. This is either done
  * deterministically (by genearating all addresses until findTransactions returns null for a

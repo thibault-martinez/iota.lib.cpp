@@ -37,7 +37,7 @@ namespace API {
 
 namespace Requests {
 
-/*
+/**
  * RemoveNeighbors API call request.
  *
  * Removes a list of neighbors to your node. This is only temporary, and if you have your

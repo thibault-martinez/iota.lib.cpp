@@ -38,7 +38,7 @@ namespace API {
 
 namespace Responses {
 
-/*
+/**
  * GetTips API call response.
  *
  * Returns the list of tips.

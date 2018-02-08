@@ -37,7 +37,7 @@ namespace API {
 
 namespace Requests {
 
-/*
+/**
  * InterruptAttachingToTangle API call request.
  *
  * Interrupts and completely aborts the attachToTangle process.

@@ -39,7 +39,7 @@ namespace API {
 
 namespace Responses {
 
-/*
+/**
  * GetInclusionStates API call response.
  *
  * Get the inclusion states of a set of transactions. This is for determining if a transaction was

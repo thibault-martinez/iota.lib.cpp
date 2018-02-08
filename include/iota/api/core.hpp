@@ -42,7 +42,7 @@ namespace IOTA {
 
 namespace API {
 
-/*
+/**
  * Strict implementation of IOTA core API commands.
  *
  * https://iota.readme.io/reference

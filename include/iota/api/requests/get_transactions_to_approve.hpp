@@ -37,7 +37,7 @@ namespace API {
 
 namespace Requests {
 
-/*
+/**
  * GetTransactionsToApprove API call request.
  *
  * Tip selection which returns trunkTransaction and branchTransaction. The input value is depth,
