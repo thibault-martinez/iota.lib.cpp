@@ -69,7 +69,7 @@ init:
 
 install:
   - git submodule update --init --recursive
-  - sh test/testnet/iri_setup.sh
+  - sh test/testnet/iri_setup_windows.sh
 
 before_build:
   - mkdir build
