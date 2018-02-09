@@ -68,7 +68,7 @@ init:
 
 install:
   - git submodule update --init --recursive
-  - sh test/testnet/iri_setup_windows.sh
+  - START sh test/testnet/iri_setup_windows.sh /B
   - set JAVA_TOOL_OPTIONS=-Xmx2000m
 
 before_build:
