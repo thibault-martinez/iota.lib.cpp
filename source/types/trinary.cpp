@@ -84,9 +84,81 @@ tritsToBytes(const Trits& trits) {
 
 Trits
 bytesToTrits(const std::vector<int8_t>& bytes) {
-  Types::BigInt decimal;
-  decimal.fromBytes(bytes);
-  return decimal.toTrits();
+  if (!bytes.size()) {
+    return std::vector<int8_t>(TritHashLength, 0);
+  }
+  int8_t sign = bytes[0] >= 0 ? 1 : -1;
+  size_t nr_bytes = bytes.size();
+  size_t size = (nr_bytes + 3) >> 2;
+  std::vector<uint32_t> div(size, 0);
+  uint32_t dw = sign == 1 ? 0 : (0xffffffff << 8);
+  for (size_t i = 0; i < nr_bytes; ++i) {
+    dw |= static_cast<uint8_t>(bytes[i]);
+    if (!((nr_bytes - i - 1) & 0x3)) {
+      div[(nr_bytes - i - 1) >> 2] = dw;
+      dw = 0;
+    }
+    dw <<= 8;
+  }
+
+  // negate two's complement if sign is negative
+  if (sign == -1) {
+    size_t i = 0;
+    for (; i < div.size(); ++i) {
+      div[i] = ~div[i] + 1;
+      if (div[i]) {
+        ++i;
+        break;
+      }
+    }
+    for (; i < div.size(); ++i) {
+      div[i] = ~div[i];
+    }
+  }
+
+  std::vector<int8_t> trits;
+
+  // strip leading zeroes
+  while (!div.back()) {
+    div.pop_back();
+  }
+
+  size_t j = div.size();
+  while (j) {
+    // divide by 3
+    uint64_t rem = 0;
+    for (size_t k = j; k > 0; --k) {
+      rem <<= 32;
+      rem += div[k - 1];
+      div[k - 1] = static_cast<uint32_t>(rem / 3);
+      rem %= 3;
+    }
+
+    if (!div.back()) {
+      div.pop_back();
+      j--;
+    }
+
+    if (rem > 1) {
+      // increment by 1
+      for (size_t k = 0; k < div.size(); ++k) {
+        div[k] = div[k] + 1;
+        if (div[k]) {
+          break;
+        }
+      }
+      if (!j || !div.back()) {
+        div.push_back(1);
+        j++;
+      }
+      rem -= 3;
+    }
+
+    trits.push_back(sign * static_cast<int8_t>(rem));
+  }
+
+  trits.resize(TritHashLength, 0);
+  return trits;
 }
 
 Trits
