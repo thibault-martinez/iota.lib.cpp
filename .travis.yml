@@ -23,13 +23,16 @@
 #
 #
 
-language: cpp
+########################
+# Global configuration #
+########################
 
+language: cpp
 dist: trusty
 sudo: required
 
 ########################
-# Matrix Configuration #
+# Matrix configuration #
 ########################
 
 matrix:
@@ -188,14 +191,14 @@ matrix:
           packages: ['g++-6', 'clang-5.0']
       env: MATRIX_EVAL="CC=clang-5.0 && CXX=clang++-5.0 && CMAKE_BUILD_TYPE=Release"
 
-    # OSX x Clang xcode 9.2 x Debug (cppcheck)
+    # OSX x Clang xcode 9.2 x Cppcheck
     - os: osx
       osx_image: xcode9.2
       env: MATRIX_EVAL="brew install cppcheck && CC=clang && CXX=clang++ && CPPCHECK=1"
       before_script: echo "override"
       script: cppcheck --enable=all source/ test/ -I include/ --inconclusive --quiet --error-exitcode=1
 
-    # Linux x GCC4.9 x Debug (documentation)
+    # Linux x GCC4.9 x Documentation
     - os: linux
       addons:
         apt:
@@ -205,19 +208,16 @@ matrix:
       before_script: echo "override"
       script: cd ${TRAVIS_BUILD_DIR}; doxygen .doxygen 2> err && cat err && [ ! -s err ]
 
-    # Linux x GCC4.9 x Debug (coverage)
+    # Linux x GCC4.9 x Debug x Coverage
     - os: linux
       addons:
         apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - g++-4.9
+          sources: ['ubuntu-toolchain-r-test']
+          packages: ['g++-4.9']
       env: MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9 && CMAKE_BUILD_TYPE=Debug && COVERAGE=1"
       after_success: cd ${TRAVIS_BUILD_DIR}; ./coverage.sh
 
-  # allow the coverage build to fail
-  # --coverage compiler options seems to generate unstable code that should not be trusted
+  # Allow quality control jobs to fail
   allow_failures:
     - os: osx
       osx_image: xcode9.2
@@ -235,11 +235,11 @@ matrix:
           packages: ['g++-4.9']
       env: MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9 && CMAKE_BUILD_TYPE=Debug && COVERAGE=1"
 
-  # allow for fast finish, even if the optional coverage build is not done yet
+  # Allow fast finish, even if the optional quality control jobs are not done yet
   fast_finish: true
 
 ###################
-# Build Lifecycle #
+# Build lifecycle #
 ###################
 
 before_install:
@@ -249,18 +249,18 @@ before_install:
   - eval "${MATRIX_EVAL}"
 
 install:
-  ####
-  # OSX
-  ####
+  #######
+  # OSX #
+  #######
   # ccache
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew install ccache; fi
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then export PATH="/usr/local/opt/ccache/libexec:$PATH"; fi
   # java
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew cask install java; fi
 
-  ####
-  # Linux
-  ####
+  #########
+  # Linux #
+  #########
   # lcov & coveralls
   - if [ "$TRAVIS_OS_NAME" == "linux" ] && [ "$COVERAGE" == "1" ]; then sudo apt-get -qq install lcov; fi
   - if [ "$TRAVIS_OS_NAME" == "linux" ] && [ "$COVERAGE" == "1" ]; then pip -q install --user cpp-coveralls; fi
