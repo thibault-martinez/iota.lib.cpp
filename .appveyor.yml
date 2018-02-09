@@ -51,15 +51,14 @@ image:
 
 configuration:
   - Release
-  - Debug
+  # AppVeyor only processes one build at a time, leading to a large queue of builds
+  # To avoid that, it is more convenient to skip Debug build, especially when the main target is Release environment
+  #- Debug
 
 environment:
   matrix:
     - arch: Win64
     - arch: Win32
-
-matrix:
-  fast_finish: true
 
 init:
   - set generator_arch=
