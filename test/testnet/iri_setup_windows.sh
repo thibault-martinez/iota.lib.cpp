@@ -33,8 +33,13 @@ cp ../iri_config/iri.ini .
 cp ../iri_patch/Snapshot.java src/main/java/com/iota/iri/Snapshot.java
 cp ../iri_patch/TransactionValidator.java src/main/java/com/iota/iri/TransactionValidator.java
 cp ../iri_patch/TransactionValidatorTest.java src/test/java/com/iota/iri/TransactionValidatorTest.java
-mvn clean compile -q
-mvn package -q
+echo clean compile
+mvn clean compile
+echo package
+mvn package
+echo cp
 cp -r ../testnetdb_windows ./testnetdb
-java -jar target/iri-1.4.2.1.jar -c iri.ini 1> /dev/null &
+echo run
+java -jar target/iri-1.4.2.1.jar -c iri.ini &
+echo done
 cd -
