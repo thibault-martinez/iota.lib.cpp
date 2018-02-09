@@ -128,7 +128,7 @@ tritsToBytes(const Trits& trits) {
   uint32_t msdw = data.back();
   size_t j = 32;
   for (; j > 0 && !(msdw & (0x1 << (j - 1))); --j);
-  size_t nr_bytes = 4 * (data.size() - 1) + (j >> 3) + 1;
+  size_t nr_bytes = ((data.size() - 1) << 2) + ((j + 7) >> 3);
 
   // negate two's complement if sign is negative
   if (sign == -1) {
