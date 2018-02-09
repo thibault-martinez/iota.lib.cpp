@@ -39,6 +39,6 @@ mvn clean compile
 echo package
 mvn package
 echo start
-Start-Process -PassThru java -jar target/iri-1.4.2.1.jar -c iri.ini
+START java -jar target/iri-1.4.2.1.jar -c iri.ini /B
 echo done
 cd -
