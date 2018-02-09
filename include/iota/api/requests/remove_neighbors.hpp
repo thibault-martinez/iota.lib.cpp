@@ -84,7 +84,7 @@ public:
   void setUris(const std::vector<std::string>& uris);
 
 private:
-  /*
+  /**
    * List of URI elements.
    */
   std::vector<std::string> uris_;

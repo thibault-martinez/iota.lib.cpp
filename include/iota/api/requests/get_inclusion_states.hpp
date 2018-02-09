@@ -107,11 +107,11 @@ public:
   void setTips(const std::vector<Types::Trytes>& tips);
 
 private:
-  /*
+  /**
    * List of transactions you want to get the inclusion state for.
    */
   std::vector<Types::Trytes> transactions_;
-  /*
+  /**
    * List of tips (including milestones) you want to search for the inclusion state.
    */
   std::vector<Types::Trytes> tips_;

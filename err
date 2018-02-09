@@ -1,0 +1,100 @@
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/models/input.hpp:34: warning: Compound IOTA::Models::Input is not documented.
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/crypto/i_sponge.hpp:34: warning: Compound IOTA::Crypto::ISponge is not documented.
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/errors/illegal_state.hpp:34: warning: Compound IOTA::Errors::IllegalState is not documented.
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/errors/unrecognized.hpp:34: warning: Compound IOTA::Errors::Unrecognized is not documented.
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/api/responses/get_new_addresses.hpp:41: warning: Compound IOTA::API::Responses::GetNewAddresses is not documented.
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/utils/stop_watch.hpp:34: warning: Compound IOTA::Utils::StopWatch is not documented.
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/api/responses/replay_bundle.hpp:38: warning: Compound IOTA::API::Responses::ReplayBundle is not documented.
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/api/service.hpp:46: warning: Compound IOTA::API::Service is not documented.
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/errors/internal_server_error.hpp:34: warning: Compound IOTA::Errors::InternalServerError is not documented.
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/models/neighbor.hpp:34: warning: Compound IOTA::Models::Neighbor is not documented.
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/utils/random_seed_generator.hpp:35: warning: Compound IOTA::Utils::RandomSeedGenerator is not documented.
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/api/responses/send_transfer.hpp:38: warning: Compound IOTA::API::Responses::SendTransfer is not documented.
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/models/transaction.hpp:37: warning: Compound IOTA::Models::Transaction is not documented.
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/crypto/curl.hpp:39: warning: Compound IOTA::Crypto::Curl is not documented.
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/models/transfer.hpp:36: warning: Compound IOTA::Models::Transfer is not documented.
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/errors/unauthorized.hpp:34: warning: Compound IOTA::Errors::Unauthorized is not documented.
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/api/responses/get_bundle.hpp:37: warning: Compound IOTA::API::Responses::GetBundle is not documented.
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/crypto/i_pow.hpp:34: warning: Compound IOTA::Crypto::IPow is not documented.
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/types/big_int.hpp:38: warning: Compound IOTA::Types::BigInt is not documented.
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/models/signature.hpp:37: warning: Compound IOTA::Models::Signature is not documented.
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/errors/crypto.hpp:34: warning: Compound IOTA::Errors::Crypto is not documented.
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/models/bundle.hpp:38: warning: Compound IOTA::Models::Bundle is not documented.
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/errors/network.hpp:34: warning: Compound IOTA::Errors::Network is not documented.
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/crypto/pow.hpp:38: warning: Compound IOTA::Crypto::Pow is not documented.
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/crypto/kerl.hpp:35: warning: Compound IOTA::Crypto::Kerl is not documented.
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/crypto/keccak384.hpp:37: warning: Compound IOTA::Crypto::Keccak384 is not documented.
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/errors/bad_request.hpp:34: warning: Compound IOTA::Errors::BadRequest is not documented.
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/api/core.hpp:53: warning: Member Core(const std::string &host, const uint16_t &port, bool localPow=true, int timeout=60) (function) of class IOTA::API::Core is not documented.
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/api/extended.hpp:55: warning: Member Extended(const std::string &host, const uint16_t &port, bool localPow=true, int timeout=60, Crypto::SpongeType cryptoType=Crypto::SpongeType::KERL) (function) of class IOTA::API::Extended is not documented.
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/api/extended.hpp:193: warning: Member prepareTransfers(const Types::Trytes &seed, int security, std::vector< Models::Transfer > &transfers, const std::string &remainder, const std::vector< Models::Input > &inputs, bool validateInputs=true) const (function) of class IOTA::API::Extended is not documented.
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/api/core.hpp:53: warning: Member Core(const std::string &host, const uint16_t &port, bool localPow=true, int timeout=60) (function) of class IOTA::API::Core is not documented.
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/api/extended.hpp:331: warning: argument 'tag' of command @param is not found in the argument list of IOTA::API::Extended::addRemainder(const Types::Trytes &seed, const unsigned int &security, const std::vector< Models::Input > &inputs, Models::Bundle &bundle, const Types::Trytes &unpadTag, const int64_t &totalValue, const Types::Trytes &remainderAddress, const std::vector< Types::Trytes > &signatureFragments) const
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/api/extended.hpp:341: warning: The following parameters of IOTA::API::Extended::addRemainder(const Types::Trytes &seed, const unsigned int &security, const std::vector< Models::Input > &inputs, Models::Bundle &bundle, const Types::Trytes &unpadTag, const int64_t &totalValue, const Types::Trytes &remainderAddress, const std::vector< Types::Trytes > &signatureFragments) const are not documented:
+  parameter 'unpadTag'
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/api/extended.hpp:341: warning: return type of member IOTA::API::Extended::addRemainder is not documented
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/api/extended.hpp:261: warning: parameters of member IOTA::API::Extended::broadcastAndStore are not (all) documented
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/api/extended.hpp:261: warning: return type of member IOTA::API::Extended::broadcastAndStore is not documented
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/api/extended.hpp:320: warning: return type of member IOTA::API::Extended::getAccountData is not documented
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/api/extended.hpp:71: warning: return type of member IOTA::API::Extended::getInputs is not documented
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/api/extended.hpp:369: warning: The following parameters of IOTA::API::Extended::initiateTransfer(int securitySum, const Types::Trytes &inputAddress, const Types::Trytes &remainderAddress, std::vector< Models::Transfer > &transfers) const are not documented:
+  parameter 'transfers'
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/api/service.hpp:48: warning: Member Service(const std::string &host, const uint16_t &port, int timeout=60) (function) of class IOTA::API::Service is not documented.
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/api/service.hpp:53: warning: Member request(Args &&... args) const (function) of class IOTA::API::Service is not documented.
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/api/responses/get_balances_and_format.hpp:61: warning: parameters of member IOTA::API::Responses::GetBalancesAndFormat::GetBalancesAndFormat are not (all) documented
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/api/responses/get_new_addresses.hpp:51: warning: parameters of member IOTA::API::Responses::GetNewAddresses::GetNewAddresses are not (all) documented
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/api/responses/get_transfers.hpp:52: warning: parameters of member IOTA::API::Responses::GetTransfers::GetTransfers are not (all) documented
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/api/responses/replay_bundle.hpp:48: warning: parameters of member IOTA::API::Responses::ReplayBundle::ReplayBundle are not (all) documented
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/api/responses/send_transfer.hpp:48: warning: parameters of member IOTA::API::Responses::SendTransfer::SendTransfer are not (all) documented
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/crypto/curl.hpp:51: warning: argument 'trists' of command @param is not found in the argument list of IOTA::Crypto::Curl::absorb(const Types::Trits &trits, unsigned int offset=0, unsigned int length=0)
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/crypto/curl.hpp:57: warning: The following parameters of IOTA::Crypto::Curl::absorb(const Types::Trits &trits, unsigned int offset=0, unsigned int length=0) are not documented:
+  parameter 'trits'
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/crypto/curl.hpp:60: warning: argument 'trists' of command @param is not found in the argument list of IOTA::Crypto::Curl::squeeze(Types::Trits &trits, unsigned int offset=0, unsigned int length=0)
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/crypto/curl.hpp:66: warning: The following parameters of IOTA::Crypto::Curl::squeeze(Types::Trits &trits, unsigned int offset=0, unsigned int length=0) are not documented:
+  parameter 'trits'
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/crypto/i_pow.hpp:40: warning: Member operator()(const Types::Trytes &trytes, int minWeightMagnitude, int threads=0)=0 (function) of class IOTA::Crypto::IPow is not documented.
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/crypto/i_sponge.hpp:40: warning: Member reset()=0 (function) of class IOTA::Crypto::ISponge is not documented.
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/crypto/i_sponge.hpp:41: warning: Member absorb(const Types::Trits &trits, unsigned int offset=0, unsigned int length=0)=0 (function) of class IOTA::Crypto::ISponge is not documented.
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/crypto/i_sponge.hpp:43: warning: Member squeeze(Types::Trits &trits, unsigned int offset=0, unsigned int length=0)=0 (function) of class IOTA::Crypto::ISponge is not documented.
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/crypto/keccak384.hpp:39: warning: Member rate (variable) of class IOTA::Crypto::Keccak384 is not documented.
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/crypto/keccak384.hpp:40: warning: Member capacity (variable) of class IOTA::Crypto::Keccak384 is not documented.
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/crypto/keccak384.hpp:41: warning: Member hashBitLength (variable) of class IOTA::Crypto::Keccak384 is not documented.
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/crypto/keccak384.hpp:42: warning: Member delimitedSuffix (variable) of class IOTA::Crypto::Keccak384 is not documented.
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/crypto/keccak384.hpp:54: warning: argument 'values' of command @param is not found in the argument list of IOTA::Crypto::Keccak384::absorb(const std::vector< int8_t > &bytes)
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/crypto/keccak384.hpp:58: warning: The following parameters of IOTA::Crypto::Keccak384::absorb(const std::vector< int8_t > &bytes) are not documented:
+  parameter 'bytes'
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/crypto/keccak384.hpp:86: warning: return type of member IOTA::Crypto::Keccak384::hashInitialize is not documented
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/crypto/keccak384.hpp:81: warning: parameters of member IOTA::Crypto::Keccak384::hashSqueeze are not (all) documented
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/crypto/keccak384.hpp:81: warning: return type of member IOTA::Crypto::Keccak384::hashSqueeze is not documented
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/crypto/keccak384.hpp:76: warning: parameters of member IOTA::Crypto::Keccak384::hashUpdate are not (all) documented
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/crypto/keccak384.hpp:76: warning: return type of member IOTA::Crypto::Keccak384::hashUpdate is not documented
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/crypto/pow.hpp:64: warning: Member operator()(const Types::Trytes &trytes, int minWeightMagnitude, int threads=0) override (function) of class IOTA::Crypto::Pow is not documented.
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/errors/bad_request.hpp:36: warning: Member BadRequest(const std::string &content) (function) of class IOTA::Errors::BadRequest is not documented.
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/errors/crypto.hpp:36: warning: Member Crypto(const std::string &content) (function) of class IOTA::Errors::Crypto is not documented.
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/errors/illegal_state.hpp:36: warning: Member IllegalState(const std::string &content) (function) of class IOTA::Errors::IllegalState is not documented.
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/errors/internal_server_error.hpp:36: warning: Member InternalServerError(const std::string &content) (function) of class IOTA::Errors::InternalServerError is not documented.
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/errors/network.hpp:36: warning: Member Network(const std::string &content) (function) of class IOTA::Errors::Network is not documented.
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/errors/unauthorized.hpp:36: warning: Member Unauthorized(const std::string &content) (function) of class IOTA::Errors::Unauthorized is not documented.
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/errors/unrecognized.hpp:36: warning: Member Unrecognized(const std::string &content) (function) of class IOTA::Errors::Unrecognized is not documented.
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/models/bundle.hpp:46: warning: Illegal command param as part of a <h1> tag
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/models/bundle.hpp:48: warning: parameters of member IOTA::Models::Bundle::Bundle are not (all) documented
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/models/bundle.hpp:69: warning: argument 'returns' of command @param is not found in the argument list of IOTA::Models::Bundle::empty() const
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/models/bundle.hpp:71: warning: return type of member IOTA::Models::Bundle::empty is not documented
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/models/input.hpp:44: warning: parameters of member IOTA::Models::Input::Input are not (all) documented
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/models/neighbor.hpp:44: warning: parameters of member IOTA::Models::Neighbor::Neighbor are not (all) documented
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/models/signature.hpp:47: warning: parameters of member IOTA::Models::Signature::Signature are not (all) documented
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/models/transaction.hpp:52: warning: parameters of member IOTA::Models::Transaction::Transaction are not (all) documented
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/models/transaction.hpp:57: warning: parameters of member IOTA::Models::Transaction::Transaction are not (all) documented
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/models/transaction.hpp:67: warning: parameters of member IOTA::Models::Transaction::Transaction are not (all) documented
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/models/transaction.hpp:336: warning: parameters of member IOTA::Models::Transaction::initFromTrytes are not (all) documented
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/models/transaction.hpp:326: warning: return type of member IOTA::Models::Transaction::operator!= is not documented
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/models/transaction.hpp:319: warning: return type of member IOTA::Models::Transaction::operator== is not documented
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/models/transaction.hpp:331: warning: return type of member IOTA::Models::Transaction::toTrytes is not documented
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/models/transfer.hpp:46: warning: parameters of member IOTA::Models::Transfer::Transfer are not (all) documented
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/types/big_int.hpp:41: warning: Member BigInt(const int &value) (function) of class IOTA::Types::BigInt is not documented.
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/types/big_int.hpp:42: warning: Member BigInt(const cpp_int &value) (function) of class IOTA::Types::BigInt is not documented.
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/types/big_int.hpp:45: warning: Member fromTrits(const Types::Trits &trits) (function) of class IOTA::Types::BigInt is not documented.
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/types/big_int.hpp:46: warning: Member toTrits() const (function) of class IOTA::Types::BigInt is not documented.
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/types/big_int.hpp:47: warning: Member fromBytes(const std::vector< int8_t > &bytes) (function) of class IOTA::Types::BigInt is not documented.
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/types/big_int.hpp:48: warning: Member toBytes() const (function) of class IOTA::Types::BigInt is not documented.
+/Users/Thibault/docker/debian/mount/iota.lib.cpp/include/iota/utils/random_seed_generator.hpp:41: warning: Member operator()() const (function) of class IOTA::Utils::RandomSeedGenerator is not documented.

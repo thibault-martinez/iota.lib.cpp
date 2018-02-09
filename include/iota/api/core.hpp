@@ -55,7 +55,7 @@ public:
   virtual ~Core();
 
 public:
-  /*
+  /**
    * Returns information about your node.
    *
    * https://iota.readme.io/reference#getnodeinfo
@@ -64,7 +64,7 @@ public:
    */
   Responses::GetNodeInfo getNodeInfo() const;
 
-  /*
+  /**
    * Returns the set of neighbors you are connected with, as well as their activity count. The
    * activity counter is reset after restarting IRI.
    *
@@ -74,7 +74,7 @@ public:
    */
   Responses::GetNeighbors getNeighbors() const;
 
-  /*
+  /**
    * Add a list of neighbors to your node. It should be noted that this is only temporary, and the
    * added neighbors will be removed from your set of neighbors after you relaunch IRI.
    *
@@ -86,7 +86,7 @@ public:
    */
   Responses::AddNeighbors addNeighbors(const std::vector<std::string>& uris) const;
 
-  /*
+  /**
    * Removes a list of neighbors to your node. This is only temporary, and if you have your
    * neighbors added via the command line, they will be retained after you restart your node.
    *
@@ -98,7 +98,7 @@ public:
    */
   Responses::RemoveNeighbors removeNeighbors(const std::vector<std::string>& uris) const;
 
-  /*
+  /**
    * Returns the list of tips.
    *
    * https://iota.readme.io/reference#gettips
@@ -107,7 +107,7 @@ public:
    */
   Responses::GetTips getTips() const;
 
-  /*
+  /**
    * Find the transactions which match the specified input and return. All input values are lists,
    * for which a list of return values (transaction hashes), in the same order, is returned for all
    * individual elements. The input fields can either be bundles, addresses, tags or approvees.
@@ -128,7 +128,7 @@ public:
                                                const std::vector<Types::Trytes>& approvees,
                                                const std::vector<Types::Trytes>& bundles) const;
 
-  /*
+  /**
    * Returns the raw transaction data (trytes) of a specific transaction. These trytes can then be
    * easily converted into the actual transaction object. See utility functions for more details.
    *
@@ -140,7 +140,7 @@ public:
    */
   Responses::GetTrytes getTrytes(const std::vector<Types::Trytes>& hashes) const;
 
-  /*
+  /**
    * Get the inclusion states of a set of transactions. This is for determining if a transaction was
    * accepted and confirmed by the network or not. You can search for multiple tips (and thus,
    * milestones) to get past inclusion states of transactions. This API call simply returns a list
@@ -157,7 +157,7 @@ public:
   Responses::GetInclusionStates getInclusionStates(const std::vector<Types::Trytes>& transactions,
                                                    const std::vector<Types::Trytes>& tips) const;
 
-  /*
+  /**
    * Similar to getInclusionStates. It returns the confirmed balance which a list of addresses have
    * at the latest confirmed milestone. In addition to the balances, it also returns the milestone
    * as well as the index with which the confirmed balance was determined. The balances is returned
@@ -173,7 +173,7 @@ public:
   Responses::GetBalances getBalances(const std::vector<Types::Trytes>& addresses,
                                      const int&                        threshold) const;
 
-  /*
+  /**
    * Tip selection which returns trunkTransaction and branchTransaction. The input value is depth,
    * which basically determines how many bundles to go back to for finding the transactions to
    * approve. The higher your depth value, the more "babysitting" you do for the network (as you
@@ -187,7 +187,7 @@ public:
    */
   Responses::GetTransactionsToApprove getTransactionsToApprove(const int& depth) const;
 
-  /*
+  /**
    * Attaches the specified transactions (trytes) to the Tangle by doing Proof of Work. You need to
    * supply branchTransaction as well as trunkTransaction (basically the tips which you're going to
    * validate and reference with this transaction) - both of which you'll get through the
@@ -211,7 +211,7 @@ public:
                                            const int&                        minWeightMagnitude,
                                            const std::vector<Types::Trytes>& trytes) const;
 
-  /*
+  /**
    * Interrupts and completely aborts the attachToTangle process.
    *
    * https://iota.readme.io/reference#interruptattachingtotangle
@@ -220,7 +220,7 @@ public:
    */
   Responses::Base interruptAttachingToTangle() const;
 
-  /*
+  /**
    * Broadcast a list of transactions to all neighbors. The input trytes for this call are provided
    * by attachToTangle.
    *
@@ -232,7 +232,7 @@ public:
    */
   Responses::Base broadcastTransactions(const std::vector<Types::Trytes>& trytes) const;
 
-  /*
+  /**
    * Store transactions into the local storage. The trytes to be used for this call are returned by
    * attachToTangle.
    *
@@ -245,8 +245,14 @@ public:
   Responses::Base storeTransactions(const std::vector<Types::Trytes>& trytes) const;
 
 private:
+  /**
+   * Internal service for api calls.
+   */
   Service service_;
-  bool    localPow_;
+  /**
+   * Defines whether PoW is done locally or remotely.
+   */
+  bool localPow_;
 };
 
 }  // namespace API

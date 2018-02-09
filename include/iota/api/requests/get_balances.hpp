@@ -99,11 +99,11 @@ public:
   void setThreshold(int threshold);
 
 private:
-  /*
+  /**
    * List of addresses you want to get the confirmed balance from.
    */
   std::vector<Types::Trytes> addresses_;
-  /*
+  /**
    * Confirmation threshold, should be set to 100.
    */
   int threshold_;

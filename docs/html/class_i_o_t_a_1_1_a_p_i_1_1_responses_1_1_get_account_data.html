@@ -86,8 +86,8 @@ Inheritance diagram for IOTA::API::Responses::GetAccountData:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a649fd0301a1d63a0c7cd7f7f2709c1d4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_account_data.html#a649fd0301a1d63a0c7cd7f7f2709c1d4">GetAccountData</a> ()=default</td></tr>
 <tr class="separator:a649fd0301a1d63a0c7cd7f7f2709c1d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a314367e081315f906f0dc9698cfd44a9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_account_data.html#a314367e081315f906f0dc9698cfd44a9">GetAccountData</a> (const std::vector&lt; Types::Trytes &gt; &amp;addresses, const std::vector&lt; <a class="el" href="class_i_o_t_a_1_1_models_1_1_bundle.html">Models::Bundle</a> &gt; &amp;transferBundle, const int64_t &amp;balance, const int64_t &amp;duration)</td></tr>
-<tr class="separator:a314367e081315f906f0dc9698cfd44a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2cb5bbae64e95a14dc4e6ad919ab7154"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_account_data.html#a2cb5bbae64e95a14dc4e6ad919ab7154">GetAccountData</a> (const std::vector&lt; Types::Trytes &gt; &amp;addresses, const std::vector&lt; <a class="el" href="class_i_o_t_a_1_1_models_1_1_bundle.html">Models::Bundle</a> &gt; &amp;transfers, const int64_t &amp;balance, const int64_t &amp;duration)</td></tr>
+<tr class="separator:a2cb5bbae64e95a14dc4e6ad919ab7154"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae9f19423ea5ab85ed6ff469f81f4b849"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_account_data.html#ae9f19423ea5ab85ed6ff469f81f4b849">~GetAccountData</a> ()=default</td></tr>
 <tr class="separator:ae9f19423ea5ab85ed6ff469f81f4b849"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae27356ddb69b320f1e615aa49015cddf"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; Types::Trytes &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_account_data.html#ae27356ddb69b320f1e615aa49015cddf">getAddresses</a> () const</td></tr>
@@ -121,7 +121,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:afe643e8cd59f5e453f71cc778673bfa8 inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_base"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_account_data.html">GetAccountData</a> API call response. </p>
+<div class="textblock"><p><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_account_data.html">GetAccountData</a> API call response.</p>
+<p>Similar to getTransfers, just a bit more comprehensive in the sense that it also returns the balance and addresses that are associated with your account (seed). This function is useful in getting all the relevant information of your account. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a649fd0301a1d63a0c7cd7f7f2709c1d4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a649fd0301a1d63a0c7cd7f7f2709c1d4">&#9670;&nbsp;</a></span>GetAccountData() <span class="overload">[1/2]</span></h2>
@@ -149,8 +150,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a314367e081315f906f0dc9698cfd44a9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a314367e081315f906f0dc9698cfd44a9">&#9670;&nbsp;</a></span>GetAccountData() <span class="overload">[2/2]</span></h2>
+<a id="a2cb5bbae64e95a14dc4e6ad919ab7154"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2cb5bbae64e95a14dc4e6ad919ab7154">&#9670;&nbsp;</a></span>GetAccountData() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -165,7 +166,7 @@ Public Member Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const std::vector&lt; <a class="el" href="class_i_o_t_a_1_1_models_1_1_bundle.html">Models::Bundle</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>transferBundle</em>, </td>
+          <td class="paramname"><em>transfers</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -186,7 +187,16 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Full init ctor. </p>
+<p>Full init ctor.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">addresses</td><td>The addresses. </td></tr>
+    <tr><td class="paramname">transfers</td><td>The transfers. </td></tr>
+    <tr><td class="paramname">balance</td><td>The balance. </td></tr>
+    <tr><td class="paramname">duration</td><td>The request duration. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

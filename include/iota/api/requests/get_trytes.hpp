@@ -85,7 +85,7 @@ public:
   void setHashes(const std::vector<Types::Trytes>& hashes);
 
 private:
-  /*
+  /**
    * List of transaction hashes of which you want to get trytes from.
    */
   std::vector<Types::Trytes> hashes_;

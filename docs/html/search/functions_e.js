@@ -68,5 +68,5 @@ var searchData=
   ['signaturefragment',['signatureFragment',['../namespace_i_o_t_a_1_1_crypto_1_1_signing.html#ae0519d93f263e2138d55fb0090114fd3',1,'IOTA::Crypto::Signing']]],
   ['squeeze',['squeeze',['../class_i_o_t_a_1_1_crypto_1_1_curl.html#aeec76a6fdf03342e3aa658fe43f02e7a',1,'IOTA::Crypto::Curl::squeeze()'],['../class_i_o_t_a_1_1_crypto_1_1_keccak384.html#a0a3f6b286006997a2a11a46e82b7feb5',1,'IOTA::Crypto::Keccak384::squeeze()'],['../class_i_o_t_a_1_1_crypto_1_1_kerl.html#a912768743de4d9a779fd33bcc848c217',1,'IOTA::Crypto::Kerl::squeeze()']]],
   ['stopwatch',['StopWatch',['../class_i_o_t_a_1_1_utils_1_1_stop_watch.html#afafbbe633ef55991ddbd179f33fe8fc1',1,'IOTA::Utils::StopWatch']]],
-  ['storetransactions',['StoreTransactions',['../class_i_o_t_a_1_1_a_p_i_1_1_requests_1_1_store_transactions.html#a3bab7c6d077fc9494c0d080c6a87c5ba',1,'IOTA::API::Requests::StoreTransactions']]]
+  ['storetransactions',['storeTransactions',['../class_i_o_t_a_1_1_a_p_i_1_1_core.html#a31fc2694189aacb9b1f55a1664661b84',1,'IOTA::API::Core::storeTransactions()'],['../class_i_o_t_a_1_1_a_p_i_1_1_requests_1_1_store_transactions.html#a3bab7c6d077fc9494c0d080c6a87c5ba',1,'IOTA::API::Requests::StoreTransactions::StoreTransactions()']]]
 ];

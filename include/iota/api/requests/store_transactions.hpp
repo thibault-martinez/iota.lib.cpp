@@ -85,7 +85,7 @@ public:
   void setTrytes(const std::vector<Types::Trytes>& trytes);
 
 private:
-  /*
+  /**
    * List of raw data of transactions to be rebroadcast.
    */
   std::vector<Types::Trytes> trytes_;

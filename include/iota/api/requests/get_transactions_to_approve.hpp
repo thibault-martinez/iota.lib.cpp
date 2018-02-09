@@ -81,7 +81,7 @@ public:
   void setDepth(int depth);
 
 private:
-  /*
+  /**
    * Number of bundles to go back to determine the transactions for approval.
    */
   int depth_;

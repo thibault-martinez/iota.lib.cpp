@@ -130,19 +130,19 @@ public:
   void setTrytes(const std::vector<Types::Trytes>& trytes);
 
 private:
-  /*
+  /**
    * Trunk transaction to approve.
    */
   Types::Trytes trunkTransaction_;
-  /*
+  /**
    * Branch transaction to approve.
    */
   Types::Trytes branchTransaction_;
-  /*
+  /**
    * Proof of Work intensity. Minimum value is 18.
    */
   int minWeightMagnitude_ = 0;
-  /*
+  /**
    * List of trytes (raw transaction data) to attach to the tangle.
    */
   std::vector<Types::Trytes> trytes_;
