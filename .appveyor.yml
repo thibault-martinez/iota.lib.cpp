@@ -65,7 +65,8 @@ init:
   - if "%arch%"=="Win64" (set generator_arch= Win64)
   - if "%APPVEYOR_BUILD_WORKER_IMAGE%"=="Visual Studio 2017" (set generator="Visual Studio 15 2017%generator_arch%")
   - if "%APPVEYOR_BUILD_WORKER_IMAGE%"=="Visual Studio 2015" (set generator="Visual Studio 14 2015%generator_arch%")
-  - set MAVEN_OPTS=-Xmx1500m
+  - set MAVEN_OPTS=-Xmx3000m
+  - set JAVA_TOOL_OPTIONS=-Xmx3000m
 
 install:
   - git submodule update --init --recursive
