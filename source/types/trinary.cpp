@@ -23,6 +23,8 @@
 //
 //
 
+#include <algorithm>
+
 #include <iota/constants.hpp>
 #include <iota/types/trinary.hpp>
 
