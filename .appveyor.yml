@@ -81,6 +81,8 @@ build:
 
 test_script:
 - ps: |
-    Start-Process java -ArgumentList '-jar', 'test/testnet/iri/target/iri-1.4.2.1.jar', '-c', 'test/testnet/iri/iri.ini'
+    Start-Job -ScriptBlock { java -jar test/testnet/iri/target/iri-1.4.2.1.jar -c test/testnet/iri/iri.ini 1> iri.1 2> iri.2 }
     Start-Sleep -s 120
+    Get-Content iri.1
+    Get-Content iri.2
     ctest -C Release -VV
