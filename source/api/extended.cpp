@@ -116,7 +116,7 @@ Extended::getBalancesAndFormat(const std::vector<Types::Trytes>& addresses,
 
   for (const auto& address : addresses) {
     //! retrieve balance for given address
-    long balance = std::stol(balances[++i]);
+    int64_t balance = std::stoll(balances[++i]);
 
     //! skip if no balance
     if (balance <= 0) {
@@ -462,7 +462,7 @@ Extended::prepareTransfers(const Types::Trytes& seed, int security,
       int64_t                    totalBalance = 0;
       int                        i            = 0;
       for (const auto& balance : balances) {
-        long thisBalance = std::stol(balance);
+        int64_t thisBalance = std::stoll(balance);
 
         // If input has balance, add it to confirmedInputs
         if (thisBalance > 0) {
