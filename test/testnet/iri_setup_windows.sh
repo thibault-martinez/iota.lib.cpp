@@ -28,12 +28,12 @@
 git clone https://github.com/iotaledger/iri.git test/testnet/iri
 cd test/testnet/iri
 git checkout 8886df6e
-Copy-Item ../iri_config/Snapshot.txt -Destination src/main/resources
-Copy-Item ../iri_config/iri.ini -Destination .
-Copy-Item ../iri_patch/Snapshot.java -Destination src/main/java/com/iota/iri/Snapshot.java
-Copy-Item ../iri_patch/TransactionValidator.java -Destination src/main/java/com/iota/iri/TransactionValidator.java
-Copy-Item ../iri_patch/TransactionValidatorTest.java -Destination src/test/java/com/iota/iri/TransactionValidatorTest.java
-Copy-Item -Recurse ../testnetdb_windows -Destination ./testnetdb
+cp ../iri_config/Snapshot.txt src/main/resources
+cp ../iri_config/iri.ini .
+cp ../iri_patch/Snapshot.java src/main/java/com/iota/iri/Snapshot.java
+cp ../iri_patch/TransactionValidator.java src/main/java/com/iota/iri/TransactionValidator.java
+cp ../iri_patch/TransactionValidatorTest.java src/test/java/com/iota/iri/TransactionValidatorTest.java
+cp -r ../testnetdb_windows ./testnetdb
 mvn clean compile
 mvn package
-java -jar target/iri-1.4.2.1.jar -c iri.ini
+START /B java -jar target/iri-1.4.2.1.jar -c iri.ini
