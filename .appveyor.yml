@@ -81,6 +81,6 @@ build:
 
 test_script:
   - ps: |
-    	Start-Job -ScriptBlock {java -jar test/testnet/iri/target/iri-1.4.2.1.jar -c test/testnet/iri/iri.ini}
-	Start-Sleep -s 120
-  	ctest -C Release -VV
+    Start-Job -ScriptBlock {java -jar test/testnet/iri/target/iri-1.4.2.1.jar -c test/testnet/iri/iri.ini}
+    Start-Sleep -s 120
+    ctest -C Release -VV
