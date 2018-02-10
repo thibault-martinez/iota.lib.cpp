@@ -71,7 +71,7 @@ install:
   - set JAVA_TOOL_OPTIONS=-Xmx2000m
 
 before_build:
-  - START /B sh test/testnet/iri_setup_windows.sh
+  - Start-Job -ScriptBlock { sh test/testnet/iri_setup_windows.sh }
   - mkdir build
   - cd build
   - cmake .. -DBUILD_TESTS=1 -DBOOST_ROOT=c:\Libraries\boost_1_65_1 -G %generator%
