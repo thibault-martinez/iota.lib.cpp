@@ -84,7 +84,6 @@ include(compilation_settings)
 ########## EXTERNAL LIBRARIES SETTINGS ##########
 
 include(cpr_settings)
-include(boost_settings)
 
 ########## TEST SETTINGS ##########
 

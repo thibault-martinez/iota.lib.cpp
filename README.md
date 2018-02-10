@@ -79,7 +79,6 @@ This library currently uses C++11.
 
 ### Dependencies
 
--   [Boost Multiprecision](https://github.com/boostorg/multiprecision)
 -   [C++ Requests](https://github.com/whoshuu/cpr)
 -   [JSON For Modern C++](https://github.com/nlohmann/json)
 -   [Keccak Code Package](https://github.com/gvanas/KeccakCodePackage)
