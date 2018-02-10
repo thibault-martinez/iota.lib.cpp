@@ -69,10 +69,9 @@ init:
 install:
   - git submodule update --init --recursive
   - set JAVA_TOOL_OPTIONS=-Xmx2000m
+  - sh test/testnet/iri_setup_windows.sh
 
 before_build:
-  - sh test/testnet/iri_setup_windows.sh
-  - ps: Start-Job -ScriptBlock {java -jar test/testnet/iri/target/iri-1.4.2.1.jar -c test/testnet/iri/iri.ini}
   - mkdir build
   - cd build
   - cmake .. -DBUILD_TESTS=1 -DBOOST_ROOT=c:\Libraries\boost_1_65_1 -G %generator%
@@ -81,4 +80,7 @@ build:
   project: c:\projects\iota-lib-cpp\build\iota.sln
 
 test_script:
-  - ctest -C Release -VV
+  - ps: |
+    	Start-Job -ScriptBlock {java -jar test/testnet/iri/target/iri-1.4.2.1.jar -c test/testnet/iri/iri.ini}
+	Start-Sleep -s 120
+  	ctest -C Release -VV
