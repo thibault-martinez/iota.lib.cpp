@@ -202,7 +202,7 @@ matrix:
     - os: linux
       addons:
         apt:
-          sources: ['ubuntu-toolchain-r-test']
+          sources: ['ubuntu-toolchain-r-test', 'llvm-toolchain-trusty']
           packages: ['clang-format']
       env: MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9 && CMAKE_BUILD_TYPE=Debug && FORMAT=1"
       before_script: echo "override"
@@ -235,7 +235,7 @@ matrix:
     - os: linux
       addons:
         apt:
-          sources: ['ubuntu-toolchain-r-test']
+          sources: ['ubuntu-toolchain-r-test', 'llvm-toolchain-trusty']
           packages: ['clang-format']
       env: MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9 && CMAKE_BUILD_TYPE=Debug && FORMAT=1"
     - os: linux

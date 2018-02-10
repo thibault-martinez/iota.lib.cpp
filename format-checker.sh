@@ -6,7 +6,7 @@ do
     output=$(diff <(cat $file) <(clang-format $file))
     if [ $? -ne 0 ]
     then
-      echo -e "\nFile \""$file"\" not formatted"
+      echo -e "\nFile \""$file"\" is not compliant with the coding style"
       echo "$output"
       status=1
     fi
