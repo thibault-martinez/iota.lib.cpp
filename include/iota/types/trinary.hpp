@@ -38,7 +38,7 @@ using Trytes = std::string;
 
 /**
  * @return the index of the tryte character in the tryte alphabet
- * the range for valid tryte characters is [0, 26], for invalid 
+ * the range for valid tryte characters is [0, 26], for invalid
  * characters an index larger than 26 is returned
  */
 size_t tryteIndex(const char& tryte);
