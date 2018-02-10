@@ -46,7 +46,8 @@ TEST(StopWatch, NowShouldReturnCurrentTime) {
   auto res = std::chrono::duration_cast<std::chrono::seconds>(s.now());
 
   //! there might be a little delay in ms, but switching to seconds should give same
-  EXPECT_EQ(current, res);
+  EXPECT_TRUE(current == res || current + std::chrono::seconds(1) == res)
+    << "Where current: " << current.count() << " and res: " << res.count();
 }
 
 TEST(StopWatch, NowShouldIncreaseOverTime) {
