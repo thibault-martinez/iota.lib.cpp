@@ -198,6 +198,16 @@ matrix:
       before_script: echo "override"
       script: cppcheck --enable=all source/ test/ -I include/ --inconclusive --quiet --error-exitcode=1
 
+    # Linux x GCC4.9 x Clang-format
+    - os: linux
+      addons:
+        apt:
+          sources: ['ubuntu-toolchain-r-test']
+          packages: ['clang-format']
+      env: MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9 && CMAKE_BUILD_TYPE=Debug && FORMAT=1"
+      before_script: echo "override"
+      script: cd ${TRAVIS_BUILD_DIR}; ./format-checker.sh
+
     # Linux x GCC4.9 x Documentation
     - os: linux
       addons:
@@ -222,6 +232,12 @@ matrix:
     - os: osx
       osx_image: xcode9.2
       env: MATRIX_EVAL="brew install cppcheck && CC=clang && CXX=clang++ && CPPCHECK=1"
+    - os: linux
+      addons:
+        apt:
+          sources: ['ubuntu-toolchain-r-test']
+          packages: ['clang-format']
+      env: MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9 && CMAKE_BUILD_TYPE=Debug && FORMAT=1"
     - os: linux
       addons:
         apt:
