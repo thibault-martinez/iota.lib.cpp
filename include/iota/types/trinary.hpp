@@ -36,6 +36,13 @@ namespace Types {
 using Trits  = std::vector<int8_t>;
 using Trytes = std::string;
 
+/**
+ * @return the index of the tryte character in the tryte alphabet
+ * the range for valid tryte characters is [0, 26], for invalid 
+ * characters an index larger than 26 is returned
+ */
+size_t tryteIndex(const char& tryte);
+
 bool isValidTryte(const char& tryte);
 
 /**
@@ -72,7 +79,7 @@ Trits               bytesToTrits(const std::vector<int8_t>& bytes);
 
 Trits  trytesToTrits(const Trytes& trytes);
 Trytes tritsToTrytes(const Trits& trits);
-Trytes tritsToTrytes(const Trits& trits, unsigned int length);
+Trytes tritsToTrytes(const Trits& trits, size_t length);
 
 Types::Trits intToTrits(const int64_t& value);
 Types::Trits intToTrits(const int64_t& value, std::size_t length);
