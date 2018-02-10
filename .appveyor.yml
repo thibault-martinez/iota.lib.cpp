@@ -72,7 +72,7 @@ install:
 
 before_build:
   - sh test/testnet/iri_setup_windows.sh
-  - ps: java -jar target/iri-1.4.2.1.jar -c iri.ini
+  - ps: java -jar test/testnet/iri/target/iri-1.4.2.1.jar -c test/testnet/iri/iri.ini
   - mkdir build
   - cd build
   - cmake .. -DBUILD_TESTS=1 -DBOOST_ROOT=c:\Libraries\boost_1_65_1 -G %generator%
