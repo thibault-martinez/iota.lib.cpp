@@ -69,9 +69,9 @@ init:
 install:
   - git submodule update --init --recursive
   - set JAVA_TOOL_OPTIONS=-Xmx2000m
-  - start sh test/testnet/iri_setup_windows.sh -PassThru
 
 before_build:
+  - START sh test/testnet/iri_setup_windows.sh /B
   - mkdir build
   - cd build
   - cmake .. -DBUILD_TESTS=1 -DBOOST_ROOT=c:\Libraries\boost_1_65_1 -G %generator%
