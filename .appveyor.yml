@@ -81,8 +81,8 @@ build:
 
 test_script:
 - ps: |
-    Start-Job -ScriptBlock { java -jar ../test/testnet/iri/target/iri-1.4.2.1.jar -c ../test/testnet/iri/iri.ini 1> iri.1 2> iri.2 }
+    Start-Job -ScriptBlock { java -jar C:\projects\iota-lib-cpp\test\testnet\iri\target\iri-1.4.2.1.jar -c C:\projects\iota-lib-cpp\test\testnet\iri\iri.ini 1> C:\projects\iota-lib-cpp\iri.1 2> C:\projects\iota-lib-cpp\iri.2 }
     Start-Sleep -s 120
-    Get-Content iri.1
-    Get-Content iri.2
+    Get-Content C:\projects\iota-lib-cpp\iri.1
+    Get-Content C:\projects\iota-lib-cpp\iri.2
     ctest -C Release -VV
