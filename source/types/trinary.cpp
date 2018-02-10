@@ -23,8 +23,9 @@
 //
 //
 
+#include <algorithm>
+
 #include <iota/constants.hpp>
-#include <iota/types/big_int.hpp>
 #include <iota/types/trinary.hpp>
 
 namespace IOTA {
@@ -86,7 +87,7 @@ tritsToBytes(const Trits& trits) {
     return std::vector<int8_t>(ByteHashLength, 0);
   }
   std::vector<uint32_t> data(1, 0);
-  int8_t sign = trits[i - 1];
+  int8_t                sign = trits[i - 1];
   for (; i > 0; --i) {
     // multiply by 3
     uint64_t sum = 0;
@@ -98,36 +99,37 @@ tritsToBytes(const Trits& trits) {
     if (sum != 0) {
       data.push_back(static_cast<uint32_t>(sum & 0xffffffff));
     }
-    switch (sign*trits[i - 1]) {
-    case 1:
-      // increment by 1
-      for (size_t j = 0; j < data.size(); ++j) {
-        data[j] = data[j] + 1;
-        if (data[j]) {
-          break;
+    switch (sign * trits[i - 1]) {
+      case 1:
+        // increment by 1
+        for (size_t j = 0; j < data.size(); ++j) {
+          data[j] = data[j] + 1;
+          if (data[j]) {
+            break;
+          }
         }
-      }
-      if (!data.back()) {
-        data.push_back(1);
-      }
-      break;
-    case -1:
-      // decrement by 1
-      uint8_t carry = 0;
-      for (size_t j = 0; j < data.size(); ++j) {
-        data[j] = data[j] + 0xffffffff + carry;
-        carry = data[j] != 0xffffffff;
-      }
-      if (!data.back()) {
-        data.pop_back();
-      }
-      break;
+        if (!data.back()) {
+          data.push_back(1);
+        }
+        break;
+      case -1:
+        // decrement by 1
+        uint8_t carry = 0;
+        for (size_t j = 0; j < data.size(); ++j) {
+          data[j] = data[j] + 0xffffffff + carry;
+          carry   = data[j] != 0xffffffff;
+        }
+        if (!data.back()) {
+          data.pop_back();
+        }
+        break;
     }
   }
 
   uint32_t msdw = data.back();
-  size_t j = 32;
-  for (; j > 0 && !(msdw & (0x1 << (j - 1))); --j);
+  size_t   j    = 32;
+  for (; j > 0 && !(msdw & (0x1 << (j - 1))); --j)
+    ;
   size_t nr_bytes = ((data.size() - 1) << 2) + ((j + 7) >> 3);
 
   // negate two's complement if sign is negative
@@ -147,7 +149,7 @@ tritsToBytes(const Trits& trits) {
 
   // read out the bytes
   std::vector<int8_t> bytes(nr_bytes);
-  uint32_t dw = 0;
+  uint32_t            dw = 0;
   for (size_t i = 0; i < nr_bytes; ++i) {
     if (!(i & 0x3)) {
       dw = data[i >> 2];
@@ -167,16 +169,16 @@ bytesToTrits(const std::vector<int8_t>& bytes) {
   if (!bytes.size()) {
     return std::vector<int8_t>(TritHashLength, 0);
   }
-  int8_t sign = bytes[0] >= 0 ? 1 : -1;
-  size_t nr_bytes = bytes.size();
-  size_t size = (nr_bytes + 3) >> 2;
+  int8_t                sign     = bytes[0] >= 0 ? 1 : -1;
+  size_t                nr_bytes = bytes.size();
+  size_t                size     = (nr_bytes + 3) >> 2;
   std::vector<uint32_t> div(size, 0);
-  uint32_t dw = sign == 1 ? 0 : (0xffffffff << 8);
+  uint32_t              dw = sign == 1 ? 0 : (0xffffffff << 8);
   for (size_t i = 0; i < nr_bytes; ++i) {
     dw |= static_cast<uint8_t>(bytes[i]);
     if (!((nr_bytes - i - 1) & 0x3)) {
       div[(nr_bytes - i - 1) >> 2] = dw;
-      dw = 0;
+      dw                           = 0;
     }
     dw <<= 8;
   }
