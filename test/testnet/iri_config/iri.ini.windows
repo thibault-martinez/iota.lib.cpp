@@ -3,4 +3,4 @@ TESTNET_MWM = 9
 MAINNET_MWM = 9
 PORT        = 14265
 TESTNET     = true
-DB_PATH     = C:\projects\iota-lib-cpp\test\testnet\iri\testnetdb
+DB_PATH     = C:/projects/iota-lib-cpp/test/testnet/iri/testnetdb
