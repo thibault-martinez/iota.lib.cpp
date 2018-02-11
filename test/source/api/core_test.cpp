@@ -91,7 +91,7 @@ TEST(Core, GetTips) {
   auto            res = api.getTips();
 
   EXPECT_GE(res.getDuration(), 0);
-  EXPECT_TRUE(res.getHashes().size() >= 0);
+  EXPECT_GE(res.getHashes().size(), 0UL);
 }
 
 TEST(Core, GetTrytes) {
