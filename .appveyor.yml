@@ -60,6 +60,10 @@ environment:
     - arch: Win64
     - arch: Win32
 
+matrix:
+  allow_failures:
+    - arch: Win32
+
 init:
   - set generator_arch=
   - if "%arch%"=="Win64" (set generator_arch= Win64)
