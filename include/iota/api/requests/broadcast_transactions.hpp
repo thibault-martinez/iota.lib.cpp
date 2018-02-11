@@ -38,7 +38,7 @@ namespace API {
 
 namespace Requests {
 
-/*
+/**
  * BroadcastTransactions API call request.
  *
  * Broadcast a list of transactions to all neighbors. The input trytes for this call are provided
@@ -64,9 +64,9 @@ public:
   /**
    * Serialize object.
    *
-   * @param res where to store serialisation.
+   * @param data where to store serialisation.
    */
-  void serialize(json& res) const override;
+  void serialize(json& data) const override;
 
 public:
   /**
@@ -85,7 +85,7 @@ public:
   void setTrytes(const std::vector<Types::Trytes>& trytes);
 
 private:
-  /*
+  /**
    * List of raw data of transactions to be rebroadcast.
    */
   std::vector<Types::Trytes> trytes_;

@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['neighbor',['Neighbor',['../class_i_o_t_a_1_1_models_1_1_neighbor.html',1,'IOTA::Models::Neighbor'],['../class_i_o_t_a_1_1_models_1_1_neighbor.html#af807f729f104a1abafb9ebede722655b',1,'IOTA::Models::Neighbor::Neighbor()'],['../class_i_o_t_a_1_1_models_1_1_neighbor.html#a4bfd7dc6cfe9a37b10ba3562aebef80f',1,'IOTA::Models::Neighbor::Neighbor(const Types::Trytes &amp;address, const int64_t &amp;numberOfAllTransactions, const int64_t &amp;numberOfInvalidTransactions, const int64_t &amp;numberOfNewTransactions)']]],
-  ['network',['Network',['../class_i_o_t_a_1_1_errors_1_1_network.html',1,'IOTA::Errors']]],
-  ['normalizedbundle',['normalizedBundle',['../class_i_o_t_a_1_1_models_1_1_bundle.html#a4ea15e752d1f483881bbc8440e2c7ca4',1,'IOTA::Models::Bundle']]],
-  ['now',['now',['../class_i_o_t_a_1_1_utils_1_1_stop_watch.html#a4d445ab8d68c0744cabdfb666df625be',1,'IOTA::Utils::StopWatch']]]
+  ['keccak384',['Keccak384',['../class_i_o_t_a_1_1_crypto_1_1_keccak384.html',1,'IOTA::Crypto']]],
+  ['kerl',['Kerl',['../class_i_o_t_a_1_1_crypto_1_1_kerl.html',1,'IOTA::Crypto']]],
+  ['key',['key',['../namespace_i_o_t_a_1_1_crypto_1_1_signing.html#a0926c9079e11e4b2cfe1145272368452',1,'IOTA::Crypto::Signing']]]
 ];

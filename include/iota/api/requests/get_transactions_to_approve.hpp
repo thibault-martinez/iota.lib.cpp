@@ -37,7 +37,7 @@ namespace API {
 
 namespace Requests {
 
-/*
+/**
  * GetTransactionsToApprove API call request.
  *
  * Tip selection which returns trunkTransaction and branchTransaction. The input value is depth,
@@ -65,9 +65,9 @@ public:
   /**
    * Serialize object.
    *
-   * @param res where to store serialisation.
+   * @param data where to store serialisation.
    */
-  void serialize(json& res) const override;
+  void serialize(json& data) const override;
 
 public:
   /**
@@ -81,7 +81,7 @@ public:
   void setDepth(int depth);
 
 private:
-  /*
+  /**
    * Number of bundles to go back to determine the transactions for approval.
    */
   int depth_;

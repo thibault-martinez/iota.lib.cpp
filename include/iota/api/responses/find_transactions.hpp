@@ -38,7 +38,7 @@ namespace API {
 
 namespace Responses {
 
-/*
+/**
  * FindTransactions API call response.
  *
  * Find the transactions which match the specified input and return. All input values are lists,

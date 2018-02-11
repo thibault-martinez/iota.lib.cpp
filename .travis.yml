@@ -23,13 +23,16 @@
 #
 #
 
-language: cpp
+########################
+# Global configuration #
+########################
 
+language: cpp
 dist: trusty
 sudo: required
 
 ########################
-# Matrix Configuration #
+# Matrix configuration #
 ########################
 
 matrix:
@@ -37,68 +40,57 @@ matrix:
     # OSX x Gcc 4.9 x Release
     - os: osx
       osx_image: xcode8
-      env:
-        - MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9 && CMAKE_BUILD_TYPE=Release"
+      env: MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9 && CMAKE_BUILD_TYPE=Release"
 
     # OSX x Gcc 5 x Release
     - os: osx
       osx_image: xcode8
-      env:
-        - MATRIX_EVAL="brew install gcc5 && CC=gcc-5 && CXX=g++-5 && CMAKE_BUILD_TYPE=Release"
+      env: MATRIX_EVAL="brew install gcc5 && CC=gcc-5 && CXX=g++-5 && CMAKE_BUILD_TYPE=Release"
 
     # OSX x Gcc 6 x Release
     - os: osx
       osx_image: xcode8
-      env:
-        - MATRIX_EVAL="brew install gcc6 && CC=gcc-6 && CXX=g++-6 && CMAKE_BUILD_TYPE=Release"
+      env: MATRIX_EVAL="brew install gcc6 && CC=gcc-6 && CXX=g++-6 && CMAKE_BUILD_TYPE=Release"
 
     # OSX x Gcc 7 x Release
     - os: osx
       osx_image: xcode8
-      env:
-        - MATRIX_EVAL="brew install gcc && CC=gcc-7 && CXX=g++-7 && CMAKE_BUILD_TYPE=Release"
+      env: MATRIX_EVAL="brew install gcc && CC=gcc-7 && CXX=g++-7 && CMAKE_BUILD_TYPE=Release"
 
     # OSX x Clang xcode 6.4 x Release
     - os: osx
       osx_image: xcode6.4
-      env:
-        - MATRIX_EVAL="CC=clang && CXX=clang++ && CMAKE_BUILD_TYPE=Release"
+      env: MATRIX_EVAL="CC=clang && CXX=clang++ && CMAKE_BUILD_TYPE=Release"
 
     # OSX x Clang xcode 7.3 x Release
     - os: osx
       osx_image: xcode7.3
-      env:
-        - MATRIX_EVAL="CC=clang && CXX=clang++ && CMAKE_BUILD_TYPE=Release"
+      env: MATRIX_EVAL="CC=clang && CXX=clang++ && CMAKE_BUILD_TYPE=Release"
 
     # OSX x Clang xcode 8 x Release
     - os: osx
       osx_image: xcode8
-      env:
-        - MATRIX_EVAL="CC=clang && CXX=clang++ && CMAKE_BUILD_TYPE=Release"
+      env: MATRIX_EVAL="CC=clang && CXX=clang++ && CMAKE_BUILD_TYPE=Release"
 
     # OSX x Clang xcode 8.3 x Release
     - os: osx
       osx_image: xcode8.3
-      env:
-        - MATRIX_EVAL="CC=clang && CXX=clang++ && CMAKE_BUILD_TYPE=Release"
+      env: MATRIX_EVAL="CC=clang && CXX=clang++ && CMAKE_BUILD_TYPE=Release"
 
     # OSX x Clang xcode 9 x Release
     - os: osx
       osx_image: xcode9
-      env:
-        - MATRIX_EVAL="CC=clang && CXX=clang++ && CMAKE_BUILD_TYPE=Release"
+      env: MATRIX_EVAL="CC=clang && CXX=clang++ && CMAKE_BUILD_TYPE=Release"
 
     # OSX x Clang xcode 9.1 x Release
     - os: osx
       osx_image: xcode9.1
-      env:
-        - MATRIX_EVAL="CC=clang && CXX=clang++ && CMAKE_BUILD_TYPE=Release"
+      env: MATRIX_EVAL="CC=clang && CXX=clang++ && CMAKE_BUILD_TYPE=Release"
 
     # OSX x Clang xcode 9.2 x Release
     - os: osx
       osx_image: xcode9.2
-      env:
-        - MATRIX_EVAL="CC=clang && CXX=clang++ && CMAKE_BUILD_TYPE=Release"
+      env: MATRIX_EVAL="CC=clang && CXX=clang++ && CMAKE_BUILD_TYPE=Release"
 
     # Linux x Gcc 4.9 x Release
     - os: linux
@@ -107,8 +99,7 @@ matrix:
         apt:
           sources: ['ubuntu-toolchain-r-test']
           packages: ['g++-4.9']
-      env:
-         - MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9 && CMAKE_BUILD_TYPE=Release"
+      env: MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9 && CMAKE_BUILD_TYPE=Release"
 
     # Linux x Gcc 5 x Release
     - os: linux
@@ -117,8 +108,7 @@ matrix:
         apt:
           sources: ['ubuntu-toolchain-r-test']
           packages: ['g++-5']
-      env:
-         - MATRIX_EVAL="CC=gcc-5 && CXX=g++-5 && CMAKE_BUILD_TYPE=Release"
+      env: MATRIX_EVAL="CC=gcc-5 && CXX=g++-5 && CMAKE_BUILD_TYPE=Release"
 
     # Linux x Gcc 6 x Release
     - os: linux
@@ -127,8 +117,7 @@ matrix:
         apt:
           sources: ['ubuntu-toolchain-r-test']
           packages: ['g++-6']
-      env:
-         - MATRIX_EVAL="CC=gcc-6 && CXX=g++-6 && CMAKE_BUILD_TYPE=Release"
+      env: MATRIX_EVAL="CC=gcc-6 && CXX=g++-6 && CMAKE_BUILD_TYPE=Release"
 
     # Linux x Gcc 7 x Release
     - os: linux
@@ -137,8 +126,7 @@ matrix:
         apt:
           sources: ['ubuntu-toolchain-r-test']
           packages: ['g++-7']
-      env:
-         - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7 && CMAKE_BUILD_TYPE=Release"
+      env: MATRIX_EVAL="CC=gcc-7 && CXX=g++-7 && CMAKE_BUILD_TYPE=Release"
 
     # Linux x Clang 3.5 x Release
     - os: linux
@@ -147,8 +135,7 @@ matrix:
         apt:
           sources: ['ubuntu-toolchain-r-test', 'llvm-toolchain-precise-3.5']
           packages: ['g++-6', 'clang-3.5']
-      env:
-        - MATRIX_EVAL="CC=clang-3.5 && CXX=clang++-3.5 && CMAKE_BUILD_TYPE=Release"
+      env: MATRIX_EVAL="CC=clang-3.5 && CXX=clang++-3.5 && CMAKE_BUILD_TYPE=Release"
 
     # Linux x Clang 3.6 x Release
     - os: linux
@@ -157,8 +144,7 @@ matrix:
         apt:
           sources: ['ubuntu-toolchain-r-test', 'llvm-toolchain-precise-3.6']
           packages: ['g++-6', 'clang-3.6']
-      env:
-        - MATRIX_EVAL="CC=clang-3.6 && CXX=clang++-3.6 && CMAKE_BUILD_TYPE=Release"
+      env: MATRIX_EVAL="CC=clang-3.6 && CXX=clang++-3.6 && CMAKE_BUILD_TYPE=Release"
 
     # Linux x Clang 3.7 x Release
     - os: linux
@@ -167,8 +153,7 @@ matrix:
         apt:
           sources: ['ubuntu-toolchain-r-test', 'llvm-toolchain-precise-3.7']
           packages: ['g++-6', 'clang-3.7']
-      env:
-        - MATRIX_EVAL="CC=clang-3.7 && CXX=clang++-3.7 && CMAKE_BUILD_TYPE=Release"
+      env: MATRIX_EVAL="CC=clang-3.7 && CXX=clang++-3.7 && CMAKE_BUILD_TYPE=Release"
 
     # Linux x Clang 3.8 x Release
     - os: linux
@@ -177,8 +162,7 @@ matrix:
         apt:
           sources: ['ubuntu-toolchain-r-test']
           packages: ['g++-6', 'clang-3.8']
-      env:
-        - MATRIX_EVAL="CC=clang-3.8 && CXX=clang++-3.8 && CMAKE_BUILD_TYPE=Release"
+      env: MATRIX_EVAL="CC=clang-3.8 && CXX=clang++-3.8 && CMAKE_BUILD_TYPE=Release"
 
     # Linux x Clang 3.9 x Release
     - os: linux
@@ -187,8 +171,7 @@ matrix:
         apt:
           sources: ['ubuntu-toolchain-r-test']
           packages: ['g++-6', 'clang-3.9']
-      env:
-        - MATRIX_EVAL="CC=clang-3.9 && CXX=clang++-3.9 && CMAKE_BUILD_TYPE=Release"
+      env: MATRIX_EVAL="CC=clang-3.9 && CXX=clang++-3.9 && CMAKE_BUILD_TYPE=Release"
 
     # Linux x Clang 4.0 x Release
     - os: linux
@@ -197,8 +180,7 @@ matrix:
         apt:
           sources: ['ubuntu-toolchain-r-test', 'llvm-toolchain-trusty-4.0']
           packages: ['g++-6', 'clang-4.0']
-      env:
-        - MATRIX_EVAL="CC=clang-4.0 && CXX=clang++-4.0 && CMAKE_BUILD_TYPE=Release"
+      env: MATRIX_EVAL="CC=clang-4.0 && CXX=clang++-4.0 && CMAKE_BUILD_TYPE=Release"
 
     # Linux x Clang 5.0 x Release
     - os: linux
@@ -207,38 +189,57 @@ matrix:
         apt:
           sources: ['ubuntu-toolchain-r-test', 'llvm-toolchain-trusty-5.0']
           packages: ['g++-6', 'clang-5.0']
-      env:
-        - MATRIX_EVAL="CC=clang-5.0 && CXX=clang++-5.0 && CMAKE_BUILD_TYPE=Release"
+      env: MATRIX_EVAL="CC=clang-5.0 && CXX=clang++-5.0 && CMAKE_BUILD_TYPE=Release"
 
-    # Linux x GCC4.9 x Debug (for coverage)
+    # OSX x Clang xcode 9.2 x Cppcheck
+    - os: osx
+      osx_image: xcode9.2
+      env: MATRIX_EVAL="brew install cppcheck && CC=clang && CXX=clang++ && CPPCHECK=1"
+      before_script: echo "override"
+      script: cppcheck --enable=all source/ test/ -I include/ --inconclusive --quiet --error-exitcode=1
+
+    # Linux x GCC4.9 x Documentation
     - os: linux
       addons:
         apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - g++-4.9
-      env:
-         - MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9 && CMAKE_BUILD_TYPE=Debug && COVERAGE=1"
+          sources: ['ubuntu-toolchain-r-test']
+          packages: ['doxygen']
+      env: MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9 && CMAKE_BUILD_TYPE=Debug && DOCUMENTATION=1"
+      before_script: echo "override"
+      script: cd ${TRAVIS_BUILD_DIR}; doxygen .doxygen 2> err && cat err && [ ! -s err ]
 
-  # allow the coverage build to fail
-  # --coverage compiler options seems to generate unstable code that should not be trusted
+    # Linux x GCC4.9 x Debug x Coverage
+    - os: linux
+      addons:
+        apt:
+          sources: ['ubuntu-toolchain-r-test']
+          packages: ['g++-4.9']
+      env: MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9 && CMAKE_BUILD_TYPE=Debug && COVERAGE=1"
+      after_success: cd ${TRAVIS_BUILD_DIR}; ./coverage.sh
+
+  # Allow quality control jobs to fail
   allow_failures:
+    - os: osx
+      osx_image: xcode9.2
+      env: MATRIX_EVAL="brew install cppcheck && CC=clang && CXX=clang++ && CPPCHECK=1"
     - os: linux
       addons:
         apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - g++-4.9
-      env:
-         - MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9 && CMAKE_BUILD_TYPE=Debug && COVERAGE=1"
+          sources: ['ubuntu-toolchain-r-test']
+          packages: ['doxygen']
+      env: MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9 && CMAKE_BUILD_TYPE=Debug && DOCUMENTATION=1"
+    - os: linux
+      addons:
+        apt:
+          sources: ['ubuntu-toolchain-r-test']
+          packages: ['g++-4.9']
+      env: MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9 && CMAKE_BUILD_TYPE=Debug && COVERAGE=1"
 
-  # allow for fast finish, even if the optional coverage build is not done yet
+  # Allow fast finish, even if the optional quality control jobs are not done yet
   fast_finish: true
 
 ###################
-# Build Lifecycle #
+# Build lifecycle #
 ###################
 
 before_install:
@@ -248,18 +249,18 @@ before_install:
   - eval "${MATRIX_EVAL}"
 
 install:
-  ####
-  # OSX
-  ####
+  #######
+  # OSX #
+  #######
   # ccache
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew install ccache; fi
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then export PATH="/usr/local/opt/ccache/libexec:$PATH"; fi
   # java
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew cask install java; fi
 
-  ####
-  # Linux
-  ####
+  #########
+  # Linux #
+  #########
   # lcov & coveralls
   - if [ "$TRAVIS_OS_NAME" == "linux" ] && [ "$COVERAGE" == "1" ]; then sudo apt-get -qq install lcov; fi
   - if [ "$TRAVIS_OS_NAME" == "linux" ] && [ "$COVERAGE" == "1" ]; then pip -q install --user cpp-coveralls; fi
@@ -280,7 +281,3 @@ script:
   - cmake -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -DBUILD_TESTS=1 ..
   - make
   - GTEST_COLOR=1 ctest -VV
-
-after_success:
-  # test coverage
-  - if [ "$COVERAGE" == "1" ]; then cd ${TRAVIS_BUILD_DIR}; ./coverage.sh; fi

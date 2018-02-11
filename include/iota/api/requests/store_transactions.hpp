@@ -38,7 +38,7 @@ namespace API {
 
 namespace Requests {
 
-/*
+/**
  * StoreTransactions API call request.
  *
  * Store transactions into the local storage. The trytes to be used for this call are returned by
@@ -64,9 +64,9 @@ public:
   /**
    * Serialize object.
    *
-   * @param res where to store serialisation.
+   * @param data where to store serialisation.
    */
-  void serialize(json& res) const override;
+  void serialize(json& data) const override;
 
 public:
   /**
@@ -85,7 +85,7 @@ public:
   void setTrytes(const std::vector<Types::Trytes>& trytes);
 
 private:
-  /*
+  /**
    * List of raw data of transactions to be rebroadcast.
    */
   std::vector<Types::Trytes> trytes_;

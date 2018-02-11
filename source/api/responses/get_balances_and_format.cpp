@@ -37,17 +37,17 @@ GetBalancesAndFormat::GetBalancesAndFormat(const std::vector<Models::Input>& inp
 }
 
 const std::vector<Models::Input>&
-GetBalancesAndFormat::getInput() const {
+GetBalancesAndFormat::getInputs() const {
   return inputs_;
 }
 
 std::vector<Models::Input>&
-GetBalancesAndFormat::getInput() {
+GetBalancesAndFormat::getInputs() {
   return inputs_;
 }
 
 void
-GetBalancesAndFormat::setInput(const std::vector<Models::Input>& inputs) {
+GetBalancesAndFormat::setInputs(const std::vector<Models::Input>& inputs) {
   inputs_ = inputs;
 }
 

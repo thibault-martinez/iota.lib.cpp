@@ -36,7 +36,7 @@ namespace API {
 
 namespace Responses {
 
-/*
+/**
  * getTransfer API call response.
  */
 class GetTransfers : public Base {

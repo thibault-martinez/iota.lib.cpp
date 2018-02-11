@@ -37,7 +37,7 @@ namespace API {
 
 namespace Requests {
 
-/*
+/**
  * GetNodeInfo API call request.
  *
  * Returns information about your node.

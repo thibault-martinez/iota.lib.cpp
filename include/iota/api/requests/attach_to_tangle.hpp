@@ -38,7 +38,7 @@ namespace API {
 
 namespace Requests {
 
-/*
+/**
  * AttachToTangle API call request.
  *
  * Attaches the specified transactions (trytes) to the Tangle by doing Proof of Work. You need to
@@ -76,9 +76,9 @@ public:
   /**
    * Serialize object.
    *
-   * @param res where to store serialisation.
+   * @param data where to store serialisation.
    */
-  void serialize(json& res) const override;
+  void serialize(json& data) const override;
 
 public:
   /**
@@ -130,19 +130,19 @@ public:
   void setTrytes(const std::vector<Types::Trytes>& trytes);
 
 private:
-  /*
+  /**
    * Trunk transaction to approve.
    */
   Types::Trytes trunkTransaction_;
-  /*
+  /**
    * Branch transaction to approve.
    */
   Types::Trytes branchTransaction_;
-  /*
+  /**
    * Proof of Work intensity. Minimum value is 18.
    */
   int minWeightMagnitude_ = 0;
-  /*
+  /**
    * List of trytes (raw transaction data) to attach to the tangle.
    */
   std::vector<Types::Trytes> trytes_;

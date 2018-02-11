@@ -66,6 +66,7 @@ $(function() {
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-attribs">Static Public Attributes</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="class_i_o_t_a_1_1_crypto_1_1_keccak384-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">IOTA::Crypto::Keccak384 Class Reference</div>  </div>
@@ -76,10 +77,10 @@ $(function() {
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a814c233410a9b5941ed4ffea8440ed04"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_crypto_1_1_keccak384.html#a814c233410a9b5941ed4ffea8440ed04">reset</a> ()</td></tr>
 <tr class="separator:a814c233410a9b5941ed4ffea8440ed04"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0cd793f1e4871269e7b1f01c22655163"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_crypto_1_1_keccak384.html#a0cd793f1e4871269e7b1f01c22655163">absorb</a> (const std::vector&lt; int8_t &gt; &amp;values)</td></tr>
-<tr class="separator:a0cd793f1e4871269e7b1f01c22655163"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aefb5f6480efaf604b282d06cfba0ffc2"><td class="memItemLeft" align="right" valign="top">std::vector&lt; int8_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_crypto_1_1_keccak384.html#aefb5f6480efaf604b282d06cfba0ffc2">squeeze</a> ()</td></tr>
-<tr class="separator:aefb5f6480efaf604b282d06cfba0ffc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae023efe7d0f60695b8088d776ae2efb4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_crypto_1_1_keccak384.html#ae023efe7d0f60695b8088d776ae2efb4">absorb</a> (const std::vector&lt; int8_t &gt; &amp;bytes)</td></tr>
+<tr class="separator:ae023efe7d0f60695b8088d776ae2efb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a3f6b286006997a2a11a46e82b7feb5"><td class="memItemLeft" align="right" valign="top">std::vector&lt; int8_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_crypto_1_1_keccak384.html#a0a3f6b286006997a2a11a46e82b7feb5">squeeze</a> ()</td></tr>
+<tr class="separator:a0a3f6b286006997a2a11a46e82b7feb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:add1f11544a509a6c1d5af837d2986059"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_crypto_1_1_keccak384.html#add1f11544a509a6c1d5af837d2986059">digest</a> ()</td></tr>
 <tr class="separator:add1f11544a509a6c1d5af837d2986059"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -97,10 +98,19 @@ static const unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>
 <tr class="memitem:a80ae160cbd95d3f65c92c9c42634ef0c"><td class="memItemLeft" align="right" valign="top"><a id="a80ae160cbd95d3f65c92c9c42634ef0c"></a>
 static const unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>delimitedSuffix</b> = 0x01</td></tr>
 <tr class="separator:a80ae160cbd95d3f65c92c9c42634ef0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:a36bd7ec5ead1588efe8550eef120b975"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_crypto_1_1_keccak384.html#a36bd7ec5ead1588efe8550eef120b975">hashUpdate</a> (const std::vector&lt; int8_t &gt; &amp;bytes)</td></tr>
+<tr class="separator:a36bd7ec5ead1588efe8550eef120b975"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2489161eb85979dc28eb6abc758101be"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_crypto_1_1_keccak384.html#a2489161eb85979dc28eb6abc758101be">hashSqueeze</a> (std::vector&lt; int8_t &gt; &amp;bytes)</td></tr>
+<tr class="separator:a2489161eb85979dc28eb6abc758101be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6dfab2ca13101d0e0aa3b62bfb17d92"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_crypto_1_1_keccak384.html#af6dfab2ca13101d0e0aa3b62bfb17d92">hashInitialize</a> (void)</td></tr>
+<tr class="separator:af6dfab2ca13101d0e0aa3b62bfb17d92"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a0cd793f1e4871269e7b1f01c22655163"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0cd793f1e4871269e7b1f01c22655163">&#9670;&nbsp;</a></span>absorb()</h2>
+<a id="ae023efe7d0f60695b8088d776ae2efb4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae023efe7d0f60695b8088d776ae2efb4">&#9670;&nbsp;</a></span>absorb()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -109,7 +119,7 @@ static const unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>
           <td class="memname">void IOTA::Crypto::Keccak384::absorb </td>
           <td>(</td>
           <td class="paramtype">const std::vector&lt; int8_t &gt; &amp;&#160;</td>
-          <td class="paramname"><em>values</em></td><td>)</td>
+          <td class="paramname"><em>bytes</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -138,10 +148,89 @@ static const unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>To be called after all input blocks have been input and to get output.</p>
-<dl class="section return"><dt>Returns</dt><dd>The output data. Get an hexadecimal digest of the ouput.</dd>
-<dd>
-the hexadecimal digest. </dd></dl>
+<p>Get an hexadecimal digest of the ouput.</p>
+<dl class="section return"><dt>Returns</dt><dd>the hexadecimal digest. </dd></dl>
+
+</div>
+</div>
+<a id="af6dfab2ca13101d0e0aa3b62bfb17d92"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af6dfab2ca13101d0e0aa3b62bfb17d92">&#9670;&nbsp;</a></span>hashInitialize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool IOTA::Crypto::Keccak384::hashInitialize </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Keccak_HashInitialize wrapper to allow mock testing </p>
+
+</div>
+</div>
+<a id="a2489161eb85979dc28eb6abc758101be"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2489161eb85979dc28eb6abc758101be">&#9670;&nbsp;</a></span>hashSqueeze()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool IOTA::Crypto::Keccak384::hashSqueeze </td>
+          <td>(</td>
+          <td class="paramtype">std::vector&lt; int8_t &gt; &amp;&#160;</td>
+          <td class="paramname"><em>bytes</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Keccak_HashSqueeze wrapper to allow mock testing </p>
+
+</div>
+</div>
+<a id="a36bd7ec5ead1588efe8550eef120b975"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a36bd7ec5ead1588efe8550eef120b975">&#9670;&nbsp;</a></span>hashUpdate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool IOTA::Crypto::Keccak384::hashUpdate </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; int8_t &gt; &amp;&#160;</td>
+          <td class="paramname"><em>bytes</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Keccak_HashUpdate wrapper to allow mock testing </p>
 
 </div>
 </div>
@@ -163,14 +252,14 @@ the hexadecimal digest. </dd></dl>
 
 </div>
 </div>
-<a id="aefb5f6480efaf604b282d06cfba0ffc2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aefb5f6480efaf604b282d06cfba0ffc2">&#9670;&nbsp;</a></span>squeeze()</h2>
+<a id="a0a3f6b286006997a2a11a46e82b7feb5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a3f6b286006997a2a11a46e82b7feb5">&#9670;&nbsp;</a></span>squeeze()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::vector&lt; int8_t &gt; IOTA::Crypto::Keccak384::squeeze </td>
+          <td class="memname">std::vector&lt;int8_t&gt; IOTA::Crypto::Keccak384::squeeze </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -182,9 +271,8 @@ the hexadecimal digest. </dd></dl>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following files:<ul>
+<hr/>The documentation for this class was generated from the following file:<ul>
 <li>include/iota/crypto/<a class="el" href="keccak384_8hpp_source.html">keccak384.hpp</a></li>
-<li>source/crypto/keccak384.cpp</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

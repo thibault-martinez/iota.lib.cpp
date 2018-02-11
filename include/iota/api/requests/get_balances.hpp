@@ -38,7 +38,7 @@ namespace API {
 
 namespace Requests {
 
-/*
+/**
  * GetBalances API call request.
  *
  * Similar to getInclusionStates. It returns the confirmed balance which a list of addresses have
@@ -67,9 +67,9 @@ public:
   /**
    * Serialize object.
    *
-   * @param res where to store serialisation.
+   * @param data where to store serialisation.
    */
-  void serialize(json& res) const override;
+  void serialize(json& data) const override;
 
 public:
   /**
@@ -99,11 +99,11 @@ public:
   void setThreshold(int threshold);
 
 private:
-  /*
+  /**
    * List of addresses you want to get the confirmed balance from.
    */
   std::vector<Types::Trytes> addresses_;
-  /*
+  /**
    * Confirmation threshold, should be set to 100.
    */
   int threshold_;

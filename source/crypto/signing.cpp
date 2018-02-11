@@ -154,7 +154,7 @@ signatureFragment(const std::vector<int8_t>& normalizedBundleFragment,
 }
 
 bool
-validateSignatures(const Types::Trytes&              expectedAddr,
+validateSignatures(const Types::Trytes&              expectedAddress,
                    const std::vector<Types::Trytes>& signatureFragments,
                    const Types::Trytes&              bundleHash) {
   Models::Bundle                   bundle;
@@ -176,7 +176,7 @@ validateSignatures(const Types::Trytes&              expectedAddr,
 
   auto addr = Types::tritsToTrytes(address(digests));
 
-  return addr == expectedAddr;
+  return addr == expectedAddress;
 }
 
 }  // namespace Signing

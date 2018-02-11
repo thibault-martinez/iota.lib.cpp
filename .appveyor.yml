@@ -74,7 +74,7 @@ install:
 before_build:
   - mkdir build
   - cd build
-  - cmake .. -DBUILD_TESTS=1 -DBOOST_ROOT=c:\Libraries\boost_1_65_1 -G %generator%
+  - cmake .. -DBUILD_TESTS=1 -G %generator%
 
 build:
   project: c:\projects\iota-lib-cpp\build\iota.sln

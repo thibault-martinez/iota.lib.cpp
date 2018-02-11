@@ -82,16 +82,16 @@ Inheritance diagram for IOTA::Crypto::Kerl:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a0453bddf3b64306f197c6a6c04efc980"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_crypto_1_1_kerl.html#a0453bddf3b64306f197c6a6c04efc980">reset</a> ()</td></tr>
-<tr class="separator:a0453bddf3b64306f197c6a6c04efc980"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7aa5f5e106a902a5f237c0f807acea3a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_crypto_1_1_kerl.html#a7aa5f5e106a902a5f237c0f807acea3a">absorb</a> (const Types::Trits &amp;trits, unsigned int offset=0, unsigned int length=0)</td></tr>
-<tr class="separator:a7aa5f5e106a902a5f237c0f807acea3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a892cf99df194483115281d9093786f68"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_crypto_1_1_kerl.html#a892cf99df194483115281d9093786f68">squeeze</a> (Types::Trits &amp;trits, unsigned int offset=0, unsigned int length=0)</td></tr>
-<tr class="separator:a892cf99df194483115281d9093786f68"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a60c945f7891e61b33e792a476f1f98af"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_crypto_1_1_kerl.html#a60c945f7891e61b33e792a476f1f98af">reset</a> () override</td></tr>
+<tr class="separator:a60c945f7891e61b33e792a476f1f98af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2f53a5704bd44164298692497fbd1a87"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_crypto_1_1_kerl.html#a2f53a5704bd44164298692497fbd1a87">absorb</a> (const Types::Trits &amp;trits, unsigned int offset=0, unsigned int length=0) override</td></tr>
+<tr class="separator:a2f53a5704bd44164298692497fbd1a87"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a912768743de4d9a779fd33bcc848c217"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_crypto_1_1_kerl.html#a912768743de4d9a779fd33bcc848c217">squeeze</a> (Types::Trits &amp;trits, unsigned int offset=0, unsigned int length=0) override</td></tr>
+<tr class="separator:a912768743de4d9a779fd33bcc848c217"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a7aa5f5e106a902a5f237c0f807acea3a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7aa5f5e106a902a5f237c0f807acea3a">&#9670;&nbsp;</a></span>absorb()</h2>
+<a id="a2f53a5704bd44164298692497fbd1a87"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f53a5704bd44164298692497fbd1a87">&#9670;&nbsp;</a></span>absorb()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -125,7 +125,7 @@ Public Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -143,8 +143,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a0453bddf3b64306f197c6a6c04efc980"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0453bddf3b64306f197c6a6c04efc980">&#9670;&nbsp;</a></span>reset()</h2>
+<a id="a60c945f7891e61b33e792a476f1f98af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60c945f7891e61b33e792a476f1f98af">&#9670;&nbsp;</a></span>reset()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -161,7 +161,7 @@ Public Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -171,8 +171,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a892cf99df194483115281d9093786f68"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a892cf99df194483115281d9093786f68">&#9670;&nbsp;</a></span>squeeze()</h2>
+<a id="a912768743de4d9a779fd33bcc848c217"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a912768743de4d9a779fd33bcc848c217">&#9670;&nbsp;</a></span>squeeze()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -206,7 +206,7 @@ Public Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -224,9 +224,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following files:<ul>
+<hr/>The documentation for this class was generated from the following file:<ul>
 <li>include/iota/crypto/<a class="el" href="kerl_8hpp_source.html">kerl.hpp</a></li>
-<li>source/crypto/kerl.cpp</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

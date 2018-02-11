@@ -37,7 +37,7 @@ namespace API {
 
 namespace Requests {
 
-/*
+/**
  * AddNeighbors API call request.
  * Add a list of neighbors to your node. It should be noted that this is only temporary, and the
  * added neighbors will be removed from your set of neighbors after you relaunch IRI.
@@ -62,9 +62,9 @@ public:
   /**
    * Serialize object.
    *
-   * @param res where to store serialisation.
+   * @param data where to store serialisation.
    */
-  void serialize(json& res) const override;
+  void serialize(json& data) const override;
 
 public:
   /**
@@ -83,7 +83,7 @@ public:
   void setUris(const std::vector<std::string>& uris);
 
 private:
-  /*
+  /**
    * List of URI elements.
    */
   std::vector<std::string> uris_;

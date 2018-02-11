@@ -30,7 +30,7 @@
 TEST(GetBalancesAndFormatResponse, DefaultCtorShouldInitFields) {
   const IOTA::API::Responses::GetBalancesAndFormat res{};
 
-  EXPECT_EQ(res.getInput().size(), 0UL);
+  EXPECT_EQ(res.getInputs().size(), 0UL);
   EXPECT_EQ(res.getTotalBalance(), 0);
   EXPECT_EQ(res.getDuration(), 0);
 }
@@ -39,22 +39,22 @@ TEST(GetBalancesAndFormatResponse, CtorShouldInitFields) {
   const IOTA::API::Responses::GetBalancesAndFormat res(
       { { "addr1", 1, 2, 3 }, { "addr2", 4, 5, 6 }, { "addr3", 7, 8, 9 } }, 42, 21);
 
-  ASSERT_EQ(res.getInput().size(), 3UL);
+  ASSERT_EQ(res.getInputs().size(), 3UL);
 
-  EXPECT_EQ(res.getInput()[0].getAddress(), "addr1");
-  EXPECT_EQ(res.getInput()[0].getBalance(), 1);
-  EXPECT_EQ(res.getInput()[0].getKeyIndex(), 2);
-  EXPECT_EQ(res.getInput()[0].getSecurity(), 3);
+  EXPECT_EQ(res.getInputs()[0].getAddress(), "addr1");
+  EXPECT_EQ(res.getInputs()[0].getBalance(), 1);
+  EXPECT_EQ(res.getInputs()[0].getKeyIndex(), 2);
+  EXPECT_EQ(res.getInputs()[0].getSecurity(), 3);
 
-  EXPECT_EQ(res.getInput()[1].getAddress(), "addr2");
-  EXPECT_EQ(res.getInput()[1].getBalance(), 4);
-  EXPECT_EQ(res.getInput()[1].getKeyIndex(), 5);
-  EXPECT_EQ(res.getInput()[1].getSecurity(), 6);
+  EXPECT_EQ(res.getInputs()[1].getAddress(), "addr2");
+  EXPECT_EQ(res.getInputs()[1].getBalance(), 4);
+  EXPECT_EQ(res.getInputs()[1].getKeyIndex(), 5);
+  EXPECT_EQ(res.getInputs()[1].getSecurity(), 6);
 
-  EXPECT_EQ(res.getInput()[2].getAddress(), "addr3");
-  EXPECT_EQ(res.getInput()[2].getBalance(), 7);
-  EXPECT_EQ(res.getInput()[2].getKeyIndex(), 8);
-  EXPECT_EQ(res.getInput()[2].getSecurity(), 9);
+  EXPECT_EQ(res.getInputs()[2].getAddress(), "addr3");
+  EXPECT_EQ(res.getInputs()[2].getBalance(), 7);
+  EXPECT_EQ(res.getInputs()[2].getKeyIndex(), 8);
+  EXPECT_EQ(res.getInputs()[2].getSecurity(), 9);
 
   EXPECT_EQ(res.getTotalBalance(), 42);
   EXPECT_EQ(res.getDuration(), 21);
@@ -63,14 +63,14 @@ TEST(GetBalancesAndFormatResponse, CtorShouldInitFields) {
 TEST(GetBalancesAndFormatResponse, GetInputsNonConst) {
   IOTA::API::Responses::GetBalancesAndFormat res;
 
-  res.getInput().push_back({ "addr1", 1, 2, 3 });
+  res.getInputs().push_back({ "addr1", 1, 2, 3 });
 
-  ASSERT_EQ(res.getInput().size(), 1UL);
+  ASSERT_EQ(res.getInputs().size(), 1UL);
 
-  EXPECT_EQ(res.getInput()[0].getAddress(), "addr1");
-  EXPECT_EQ(res.getInput()[0].getBalance(), 1);
-  EXPECT_EQ(res.getInput()[0].getKeyIndex(), 2);
-  EXPECT_EQ(res.getInput()[0].getSecurity(), 3);
+  EXPECT_EQ(res.getInputs()[0].getAddress(), "addr1");
+  EXPECT_EQ(res.getInputs()[0].getBalance(), 1);
+  EXPECT_EQ(res.getInputs()[0].getKeyIndex(), 2);
+  EXPECT_EQ(res.getInputs()[0].getSecurity(), 3);
 
   EXPECT_EQ(res.getDuration(), 0);
   EXPECT_EQ(res.getTotalBalance(), 0);
@@ -79,14 +79,14 @@ TEST(GetBalancesAndFormatResponse, GetInputsNonConst) {
 TEST(GetBalancesAndFormatResponse, SetInputs) {
   IOTA::API::Responses::GetBalancesAndFormat res;
 
-  res.setInput({ { "addr1", 1, 2, 3 } });
+  res.setInputs({ { "addr1", 1, 2, 3 } });
 
-  ASSERT_EQ(res.getInput().size(), 1UL);
+  ASSERT_EQ(res.getInputs().size(), 1UL);
 
-  EXPECT_EQ(res.getInput()[0].getAddress(), "addr1");
-  EXPECT_EQ(res.getInput()[0].getBalance(), 1);
-  EXPECT_EQ(res.getInput()[0].getKeyIndex(), 2);
-  EXPECT_EQ(res.getInput()[0].getSecurity(), 3);
+  EXPECT_EQ(res.getInputs()[0].getAddress(), "addr1");
+  EXPECT_EQ(res.getInputs()[0].getBalance(), 1);
+  EXPECT_EQ(res.getInputs()[0].getKeyIndex(), 2);
+  EXPECT_EQ(res.getInputs()[0].getSecurity(), 3);
 
   EXPECT_EQ(res.getDuration(), 0);
   EXPECT_EQ(res.getTotalBalance(), 0);
@@ -97,7 +97,7 @@ TEST(GetBalancesAndFormatResponse, SetTotalBalance) {
 
   res.setTotalBalance(42);
 
-  EXPECT_EQ(res.getInput().size(), 0UL);
+  EXPECT_EQ(res.getInputs().size(), 0UL);
   EXPECT_EQ(res.getTotalBalance(), 42);
   EXPECT_EQ(res.getDuration(), 0);
 }

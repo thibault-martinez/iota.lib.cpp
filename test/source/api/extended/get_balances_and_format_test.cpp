@@ -38,15 +38,15 @@ TEST(Extended, GetBalancesAndFormat) {
   //! address 1 has 0 iota, should not be returned as input
 
   EXPECT_EQ(res.getTotalBalance(), ACCOUNT_2_ADDRESS_2_FUND + ACCOUNT_2_ADDRESS_3_FUND);
-  ASSERT_EQ(res.getInput().size(), 2UL);
+  ASSERT_EQ(res.getInputs().size(), 2UL);
 
-  const auto& input_1 = res.getInput()[0];
+  const auto& input_1 = res.getInputs()[0];
   EXPECT_EQ(input_1.getAddress(), ACCOUNT_2_ADDRESS_2_HASH);
   EXPECT_EQ(input_1.getBalance(), ACCOUNT_2_ADDRESS_2_FUND);
   EXPECT_EQ(input_1.getKeyIndex(), 1);  //! still note the offset is shifted by one
   EXPECT_EQ(input_1.getSecurity(), 2);
 
-  const auto& input_2 = res.getInput()[1];
+  const auto& input_2 = res.getInputs()[1];
   EXPECT_EQ(input_2.getAddress(), ACCOUNT_2_ADDRESS_3_HASH);
   EXPECT_EQ(input_2.getBalance(), ACCOUNT_2_ADDRESS_3_FUND);
   EXPECT_EQ(input_2.getKeyIndex(), 2);  //! still note the offset is shifted by one
@@ -79,15 +79,15 @@ TEST(Extended, GetBalancesAndFormatStart) {
   //! address 1 has 0 iota, should not be returned as input
 
   EXPECT_EQ(res.getTotalBalance(), ACCOUNT_2_ADDRESS_2_FUND + ACCOUNT_2_ADDRESS_3_FUND);
-  ASSERT_EQ(res.getInput().size(), 2UL);
+  ASSERT_EQ(res.getInputs().size(), 2UL);
 
-  const auto& input_1 = res.getInput()[0];
+  const auto& input_1 = res.getInputs()[0];
   EXPECT_EQ(input_1.getAddress(), ACCOUNT_2_ADDRESS_2_HASH);
   EXPECT_EQ(input_1.getBalance(), ACCOUNT_2_ADDRESS_2_FUND);
   EXPECT_EQ(input_1.getKeyIndex(), 11);  //! still note the offset is shifted by one
   EXPECT_EQ(input_1.getSecurity(), 2);
 
-  const auto& input_2 = res.getInput()[1];
+  const auto& input_2 = res.getInputs()[1];
   EXPECT_EQ(input_2.getAddress(), ACCOUNT_2_ADDRESS_3_HASH);
   EXPECT_EQ(input_2.getBalance(), ACCOUNT_2_ADDRESS_3_FUND);
   EXPECT_EQ(input_2.getKeyIndex(), 12);  //! still note the offset is shifted by one

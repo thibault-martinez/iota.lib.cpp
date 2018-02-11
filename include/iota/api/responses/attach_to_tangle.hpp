@@ -38,7 +38,7 @@ namespace API {
 
 namespace Responses {
 
-/*
+/**
  * AttachToTangle API call response.
  *
  * Attaches the specified transactions (trytes) to the Tangle by doing Proof of Work. You need to
@@ -59,7 +59,7 @@ public:
    *
    * @param trytes The returned trytes.
    */
-  AttachToTangle(const std::vector<Types::Trytes>& trytes = {});
+  explicit AttachToTangle(const std::vector<Types::Trytes>& trytes = {});
 
   /**
    * Json-based ctor.

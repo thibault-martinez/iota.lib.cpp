@@ -37,7 +37,7 @@ namespace API {
 
 namespace Responses {
 
-/*
+/**
  * Generic API call response.
  */
 class Base {

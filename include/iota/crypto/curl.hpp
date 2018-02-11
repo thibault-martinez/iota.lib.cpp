@@ -80,8 +80,8 @@ private:
    * @ length number of bytes to copy
    */
   template <typename T>
-  void arrayCopy(const typename std::vector<T>::const_iterator& input,
-                 const typename std::vector<T>::iterator& output, int length) {
+  static void arrayCopy(const typename std::vector<T>::const_iterator& input,
+                        const typename std::vector<T>::iterator& output, int length) {
     std::transform(input, input + length, output, [](T c) { return c; });
   }
 

@@ -38,7 +38,7 @@ namespace API {
 
 namespace Requests {
 
-/*
+/**
  * GetTrytes API call request.
  *
  * Returns the raw transaction data (trytes) of a specific transaction. These trytes can then be
@@ -64,9 +64,9 @@ public:
   /**
    * Serialize object.
    *
-   * @param res where to store serialisation.
+   * @param data where to store serialisation.
    */
-  void serialize(json& res) const override;
+  void serialize(json& data) const override;
 
 public:
   /**
@@ -85,7 +85,7 @@ public:
   void setHashes(const std::vector<Types::Trytes>& hashes);
 
 private:
-  /*
+  /**
    * List of transaction hashes of which you want to get trytes from.
    */
   std::vector<Types::Trytes> hashes_;

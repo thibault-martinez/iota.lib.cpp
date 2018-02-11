@@ -38,7 +38,7 @@ namespace API {
 
 namespace Requests {
 
-/*
+/**
  * GetInclusionStates API call request.
  *
  * Get the inclusion states of a set of transactions. This is for determining if a transaction was
@@ -70,9 +70,9 @@ public:
   /**
    * Serialize object.
    *
-   * @param res where to store serialisation.
+   * @param data where to store serialisation.
    */
-  void serialize(json& res) const override;
+  void serialize(json& data) const override;
 
 public:
   /**
@@ -107,11 +107,11 @@ public:
   void setTips(const std::vector<Types::Trytes>& tips);
 
 private:
-  /*
+  /**
    * List of transactions you want to get the inclusion state for.
    */
   std::vector<Types::Trytes> transactions_;
-  /*
+  /**
    * List of tips (including milestones) you want to search for the inclusion state.
    */
   std::vector<Types::Trytes> tips_;

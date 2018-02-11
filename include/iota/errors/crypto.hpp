@@ -33,7 +33,7 @@ namespace Errors {
 
 class Crypto : public Generic {
 public:
-  Crypto(const std::string& content) : Generic(content){};
+  explicit Crypto(const std::string& content) : Generic(content){};
 };
 
 }  // namespace Errors

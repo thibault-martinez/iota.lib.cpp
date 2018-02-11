@@ -70,6 +70,8 @@ $(function() {
 <div class="title">IOTA::API::Responses::GetNodeInfo Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p><code>#include &lt;<a class="el" href="responses_2get__node__info_8hpp_source.html">get_node_info.hpp</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for IOTA::API::Responses::GetNodeInfo:</div>
 <div class="dyncontent">
@@ -84,83 +86,91 @@ Inheritance diagram for IOTA::API::Responses::GetNodeInfo:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a91f7893464e67336f714be422d4e0b04"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_node_info.html#a91f7893464e67336f714be422d4e0b04">GetNodeInfo</a> (const std::string &amp;appName=&quot;&quot;, const std::string &amp;appVersion=&quot;&quot;, int64_t jreAvailableProcessors=0, int64_t jreFreeMemory=0, int64_t jreMaxMemory=0, int64_t jreTotalMemory=0, const Types::Trytes &amp;latestMilestone=&quot;&quot;, int64_t latestMilestoneIndex=0, const Types::Trytes &amp;latestSolidSubtangleMilestone=&quot;&quot;, int64_t latestSolidSubtangleMilestoneIndex=0, int64_t neighbors=0, int64_t packetsQueueSize=0, int64_t time=0, int64_t tips=0, int64_t transactionsToRequest=0)</td></tr>
 <tr class="separator:a91f7893464e67336f714be422d4e0b04"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7b7a9c219299f150c9130e0f7c8aa7e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_node_info.html#ad7b7a9c219299f150c9130e0f7c8aa7e">GetNodeInfo</a> (const json &amp;res)</td></tr>
+<tr class="separator:ad7b7a9c219299f150c9130e0f7c8aa7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa0fbd5db2f5efb34913f90decda3dcfc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_node_info.html#aa0fbd5db2f5efb34913f90decda3dcfc">~GetNodeInfo</a> ()=default</td></tr>
 <tr class="separator:aa0fbd5db2f5efb34913f90decda3dcfc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9b7309d6b788a396674158f26e92ddec"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_node_info.html#a9b7309d6b788a396674158f26e92ddec">deserialize</a> (const json &amp;res)</td></tr>
-<tr class="separator:a9b7309d6b788a396674158f26e92ddec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a96905ec9b8237a9aa32b59a9277b092f"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_node_info.html#a96905ec9b8237a9aa32b59a9277b092f">getAppName</a> () const</td></tr>
-<tr class="separator:a96905ec9b8237a9aa32b59a9277b092f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a900532f937a1cf749a0831b205783008"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_node_info.html#a900532f937a1cf749a0831b205783008">deserialize</a> (const json &amp;res) override</td></tr>
+<tr class="separator:a900532f937a1cf749a0831b205783008"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a91836a0065c06f42a5594deb67c48053"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_node_info.html#a91836a0065c06f42a5594deb67c48053">getAppName</a> () const</td></tr>
+<tr class="separator:a91836a0065c06f42a5594deb67c48053"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8611b95aa74edb3147e8cc820d2cd8a2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_node_info.html#a8611b95aa74edb3147e8cc820d2cd8a2">setAppName</a> (const std::string &amp;appName)</td></tr>
 <tr class="separator:a8611b95aa74edb3147e8cc820d2cd8a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8c222e9c443ee47ae5f0fb75ce7e2a26"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_node_info.html#a8c222e9c443ee47ae5f0fb75ce7e2a26">getAppVersion</a> () const</td></tr>
-<tr class="separator:a8c222e9c443ee47ae5f0fb75ce7e2a26"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa27fd51aaea647f1db10bf8f4fa3f5c6"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_node_info.html#aa27fd51aaea647f1db10bf8f4fa3f5c6">getAppVersion</a> () const</td></tr>
+<tr class="separator:aa27fd51aaea647f1db10bf8f4fa3f5c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5f5a03c822e0b23327bc6e5dcdf3076f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_node_info.html#a5f5a03c822e0b23327bc6e5dcdf3076f">setAppVersion</a> (const std::string &amp;appVersion)</td></tr>
 <tr class="separator:a5f5a03c822e0b23327bc6e5dcdf3076f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af1abc7ac2bfc48cd7fb5eb66d7567d16"><td class="memItemLeft" align="right" valign="top">const int64_t &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_node_info.html#af1abc7ac2bfc48cd7fb5eb66d7567d16">getJreAvailableProcessors</a> () const</td></tr>
-<tr class="separator:af1abc7ac2bfc48cd7fb5eb66d7567d16"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a742f20b0839b47f8f14a772b77cf203e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_node_info.html#a742f20b0839b47f8f14a772b77cf203e">setJreAvailableProcessors</a> (const int64_t &amp;jreProc)</td></tr>
-<tr class="separator:a742f20b0839b47f8f14a772b77cf203e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6fc942aa56b87a7a02fb2cb90a456fb7"><td class="memItemLeft" align="right" valign="top">const int64_t &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_node_info.html#a6fc942aa56b87a7a02fb2cb90a456fb7">getJreFreeMemory</a> () const</td></tr>
-<tr class="separator:a6fc942aa56b87a7a02fb2cb90a456fb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a66727b1f1499083ecf8122f56466eceb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_node_info.html#a66727b1f1499083ecf8122f56466eceb">setJreFreeMemory</a> (const int64_t &amp;jreFreeMem)</td></tr>
-<tr class="separator:a66727b1f1499083ecf8122f56466eceb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5aad7399eea0e7423685bfe2567f0df0"><td class="memItemLeft" align="right" valign="top">const int64_t &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_node_info.html#a5aad7399eea0e7423685bfe2567f0df0">getJreMaxMemory</a> () const</td></tr>
-<tr class="separator:a5aad7399eea0e7423685bfe2567f0df0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a527fd5e288655519558ca406b2a88cdf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_node_info.html#a527fd5e288655519558ca406b2a88cdf">setJreMaxMemory</a> (const int64_t &amp;jreMaxMem)</td></tr>
-<tr class="separator:a527fd5e288655519558ca406b2a88cdf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4e16434631ad5999c338025a5b8e8133"><td class="memItemLeft" align="right" valign="top">const int64_t &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_node_info.html#a4e16434631ad5999c338025a5b8e8133">getJreTotalMemory</a> () const</td></tr>
-<tr class="separator:a4e16434631ad5999c338025a5b8e8133"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab45d3a8bc3c192a6ee202d3f39b66fb8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_node_info.html#ab45d3a8bc3c192a6ee202d3f39b66fb8">setJreTotalMemory</a> (const int64_t &amp;jreTotalMem)</td></tr>
-<tr class="separator:ab45d3a8bc3c192a6ee202d3f39b66fb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a05fb667ac1cbc7ebc7da107b0136763d"><td class="memItemLeft" align="right" valign="top">const Types::Trytes &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_node_info.html#a05fb667ac1cbc7ebc7da107b0136763d">getLatestMilestone</a> () const</td></tr>
-<tr class="separator:a05fb667ac1cbc7ebc7da107b0136763d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3270287b516b7290d803f540a4a6fe91"><td class="memItemLeft" align="right" valign="top">const int64_t &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_node_info.html#a3270287b516b7290d803f540a4a6fe91">getJreAvailableProcessors</a> () const</td></tr>
+<tr class="separator:a3270287b516b7290d803f540a4a6fe91"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a09433bba5fbd676e8611a650a73a95ed"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_node_info.html#a09433bba5fbd676e8611a650a73a95ed">setJreAvailableProcessors</a> (const int64_t &amp;jreAvailableProcessors)</td></tr>
+<tr class="separator:a09433bba5fbd676e8611a650a73a95ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f25008e14430733b097192a7f97ea2f"><td class="memItemLeft" align="right" valign="top">const int64_t &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_node_info.html#a6f25008e14430733b097192a7f97ea2f">getJreFreeMemory</a> () const</td></tr>
+<tr class="separator:a6f25008e14430733b097192a7f97ea2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6da17949a104d50f33f24d4eddf68e99"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_node_info.html#a6da17949a104d50f33f24d4eddf68e99">setJreFreeMemory</a> (const int64_t &amp;jreFreeMemory)</td></tr>
+<tr class="separator:a6da17949a104d50f33f24d4eddf68e99"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af325c2474ca888e3f30517dfb6e809c9"><td class="memItemLeft" align="right" valign="top">const int64_t &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_node_info.html#af325c2474ca888e3f30517dfb6e809c9">getJreMaxMemory</a> () const</td></tr>
+<tr class="separator:af325c2474ca888e3f30517dfb6e809c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1dd70c6ba62069833800a4dffe89922b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_node_info.html#a1dd70c6ba62069833800a4dffe89922b">setJreMaxMemory</a> (const int64_t &amp;jreMaxMemory)</td></tr>
+<tr class="separator:a1dd70c6ba62069833800a4dffe89922b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa417ec4f6dba0ca700ca1ca55fce7678"><td class="memItemLeft" align="right" valign="top">const int64_t &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_node_info.html#aa417ec4f6dba0ca700ca1ca55fce7678">getJreTotalMemory</a> () const</td></tr>
+<tr class="separator:aa417ec4f6dba0ca700ca1ca55fce7678"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c2a7f3eaa9fc9b9312680b19223af0f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_node_info.html#a2c2a7f3eaa9fc9b9312680b19223af0f">setJreTotalMemory</a> (const int64_t &amp;jreTotalMemory)</td></tr>
+<tr class="separator:a2c2a7f3eaa9fc9b9312680b19223af0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a79475949287a6272e31424daf97e1129"><td class="memItemLeft" align="right" valign="top">const Types::Trytes &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_node_info.html#a79475949287a6272e31424daf97e1129">getLatestMilestone</a> () const</td></tr>
+<tr class="separator:a79475949287a6272e31424daf97e1129"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6a2834fc72754a6f94062e9b90a00105"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_node_info.html#a6a2834fc72754a6f94062e9b90a00105">setLatestMilestone</a> (const Types::Trytes &amp;latestMilestone)</td></tr>
 <tr class="separator:a6a2834fc72754a6f94062e9b90a00105"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4fa9c613a1a55120f546867f17951268"><td class="memItemLeft" align="right" valign="top">const int64_t &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_node_info.html#a4fa9c613a1a55120f546867f17951268">getLatestMilestoneIndex</a> () const</td></tr>
-<tr class="separator:a4fa9c613a1a55120f546867f17951268"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab2bb1812b6b2fbb3f14d094c153b0a50"><td class="memItemLeft" align="right" valign="top">const int64_t &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_node_info.html#ab2bb1812b6b2fbb3f14d094c153b0a50">getLatestMilestoneIndex</a> () const</td></tr>
+<tr class="separator:ab2bb1812b6b2fbb3f14d094c153b0a50"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a219af8b6583896064a80fd19e41303b7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_node_info.html#a219af8b6583896064a80fd19e41303b7">setLatestMilestoneIndex</a> (const int64_t &amp;latestMilestoneIndex)</td></tr>
 <tr class="separator:a219af8b6583896064a80fd19e41303b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a02090a131971bf443a86e65ae2359cda"><td class="memItemLeft" align="right" valign="top">const Types::Trytes &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_node_info.html#a02090a131971bf443a86e65ae2359cda">getLatestSolidSubtangleMilestone</a> () const</td></tr>
-<tr class="separator:a02090a131971bf443a86e65ae2359cda"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5e805a1a71528307759f7ca876e626d"><td class="memItemLeft" align="right" valign="top">const Types::Trytes &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_node_info.html#ab5e805a1a71528307759f7ca876e626d">getLatestSolidSubtangleMilestone</a> () const</td></tr>
+<tr class="separator:ab5e805a1a71528307759f7ca876e626d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:addb2e18a1a9a7eb179e6bb446d2469b7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_node_info.html#addb2e18a1a9a7eb179e6bb446d2469b7">setLatestSolidSubtangleMilestone</a> (const Types::Trytes &amp;latestSolidSubtangleMilestone)</td></tr>
 <tr class="separator:addb2e18a1a9a7eb179e6bb446d2469b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a73cd1f5abeabe99844b4f73f64a02d2d"><td class="memItemLeft" align="right" valign="top">const int64_t &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_node_info.html#a73cd1f5abeabe99844b4f73f64a02d2d">getLatestSolidSubtangleMilestoneIndex</a> () const</td></tr>
-<tr class="separator:a73cd1f5abeabe99844b4f73f64a02d2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a269c744a7770abfd07faa5d2f38865b0"><td class="memItemLeft" align="right" valign="top">const int64_t &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_node_info.html#a269c744a7770abfd07faa5d2f38865b0">getLatestSolidSubtangleMilestoneIndex</a> () const</td></tr>
+<tr class="separator:a269c744a7770abfd07faa5d2f38865b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a92e7e751e302a967e8e8cb2bc9fb6317"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_node_info.html#a92e7e751e302a967e8e8cb2bc9fb6317">setLatestSolidSubtangleMilestoneIndex</a> (const int64_t &amp;latestSolidSubtangleMilestoneIndex)</td></tr>
 <tr class="separator:a92e7e751e302a967e8e8cb2bc9fb6317"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a24fe1ee855fde534f2c556e0eb7f3faa"><td class="memItemLeft" align="right" valign="top">const int64_t &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_node_info.html#a24fe1ee855fde534f2c556e0eb7f3faa">getNeighbors</a> () const</td></tr>
-<tr class="separator:a24fe1ee855fde534f2c556e0eb7f3faa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6685fcaa28b5e34d4daada8dde7a268e"><td class="memItemLeft" align="right" valign="top">const int64_t &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_node_info.html#a6685fcaa28b5e34d4daada8dde7a268e">getNeighbors</a> () const</td></tr>
+<tr class="separator:a6685fcaa28b5e34d4daada8dde7a268e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4045842f0663f24203c68484b582c534"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_node_info.html#a4045842f0663f24203c68484b582c534">setNeighbors</a> (const int64_t &amp;neighbors)</td></tr>
 <tr class="separator:a4045842f0663f24203c68484b582c534"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a12485d1cf51a512a80fec1b5d1f8ada9"><td class="memItemLeft" align="right" valign="top">const int64_t &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_node_info.html#a12485d1cf51a512a80fec1b5d1f8ada9">getPacketsQueueSize</a> () const</td></tr>
-<tr class="separator:a12485d1cf51a512a80fec1b5d1f8ada9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7d875833b2dde8719d02131883b6cfaf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_node_info.html#a7d875833b2dde8719d02131883b6cfaf">setPacketsQueueSize</a> (const int64_t &amp;queueSize)</td></tr>
-<tr class="separator:a7d875833b2dde8719d02131883b6cfaf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a418e30f82d8cde035c470bad2d42b31a"><td class="memItemLeft" align="right" valign="top">const int64_t &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_node_info.html#a418e30f82d8cde035c470bad2d42b31a">getTime</a> () const</td></tr>
-<tr class="separator:a418e30f82d8cde035c470bad2d42b31a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25387002e42abcddd1b04ed9742f82c6"><td class="memItemLeft" align="right" valign="top">const int64_t &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_node_info.html#a25387002e42abcddd1b04ed9742f82c6">getPacketsQueueSize</a> () const</td></tr>
+<tr class="separator:a25387002e42abcddd1b04ed9742f82c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6c3893e85a24be4c85c68ea780c6760"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_node_info.html#ac6c3893e85a24be4c85c68ea780c6760">setPacketsQueueSize</a> (const int64_t &amp;packetsQueueSize)</td></tr>
+<tr class="separator:ac6c3893e85a24be4c85c68ea780c6760"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0fc88bd387f680af886f6078bfeab14e"><td class="memItemLeft" align="right" valign="top">const int64_t &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_node_info.html#a0fc88bd387f680af886f6078bfeab14e">getTime</a> () const</td></tr>
+<tr class="separator:a0fc88bd387f680af886f6078bfeab14e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad763bf83e64eef71ededc23dbf2a3b1e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_node_info.html#ad763bf83e64eef71ededc23dbf2a3b1e">setTime</a> (const int64_t &amp;time)</td></tr>
 <tr class="separator:ad763bf83e64eef71ededc23dbf2a3b1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3764af0b485a17f0288d08941ac33713"><td class="memItemLeft" align="right" valign="top">const int64_t &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_node_info.html#a3764af0b485a17f0288d08941ac33713">getTips</a> () const</td></tr>
-<tr class="separator:a3764af0b485a17f0288d08941ac33713"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa90b77d465752e0440ad616d40b3468c"><td class="memItemLeft" align="right" valign="top">const int64_t &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_node_info.html#aa90b77d465752e0440ad616d40b3468c">getTips</a> () const</td></tr>
+<tr class="separator:aa90b77d465752e0440ad616d40b3468c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa61b36460c6c4793a6630fbe06ac2be7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_node_info.html#aa61b36460c6c4793a6630fbe06ac2be7">setTips</a> (const int64_t &amp;tips)</td></tr>
 <tr class="separator:aa61b36460c6c4793a6630fbe06ac2be7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0349661f13d745151d40f76b31975f24"><td class="memItemLeft" align="right" valign="top">const int64_t &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_node_info.html#a0349661f13d745151d40f76b31975f24">getTransactionsToRequest</a> () const</td></tr>
-<tr class="separator:a0349661f13d745151d40f76b31975f24"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e844efe10bed0954f87813ff2265fa9"><td class="memItemLeft" align="right" valign="top">const int64_t &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_node_info.html#a4e844efe10bed0954f87813ff2265fa9">getTransactionsToRequest</a> () const</td></tr>
+<tr class="separator:a4e844efe10bed0954f87813ff2265fa9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad414a9ebb8f0b152b8b25d745181fe10"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_node_info.html#ad414a9ebb8f0b152b8b25d745181fe10">setTransactionsToRequest</a> (const int64_t &amp;transactionsToRequest)</td></tr>
 <tr class="separator:ad414a9ebb8f0b152b8b25d745181fe10"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_base"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_base')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_base.html">IOTA::API::Responses::Base</a></td></tr>
 <tr class="memitem:ac5f64bc6a926f8419985c71e5bf16716 inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_base"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_base.html#ac5f64bc6a926f8419985c71e5bf16716">Base</a> (const int64_t &amp;duration=0)</td></tr>
 <tr class="separator:ac5f64bc6a926f8419985c71e5bf16716 inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_base"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a37b5339e7c74153f0b1ceffac3af7f46 inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_base"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_base.html#a37b5339e7c74153f0b1ceffac3af7f46">Base</a> (const json &amp;res)</td></tr>
+<tr class="separator:a37b5339e7c74153f0b1ceffac3af7f46 inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_base"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a479eed3f0d928ab429a881572fce5800 inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_base"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_base.html#a479eed3f0d928ab429a881572fce5800">~Base</a> ()=default</td></tr>
 <tr class="separator:a479eed3f0d928ab429a881572fce5800 inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_base"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad4178a157c5cef87e151db7f973445a4 inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_base"><td class="memItemLeft" align="right" valign="top">const int64_t &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_base.html#ad4178a157c5cef87e151db7f973445a4">getDuration</a> () const</td></tr>
-<tr class="separator:ad4178a157c5cef87e151db7f973445a4 inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_base"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8bec1917a53b51c43f29f06ddac6000f inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_base"><td class="memItemLeft" align="right" valign="top">const int64_t &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_base.html#a8bec1917a53b51c43f29f06ddac6000f">getDuration</a> () const</td></tr>
+<tr class="separator:a8bec1917a53b51c43f29f06ddac6000f inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_base"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afe643e8cd59f5e453f71cc778673bfa8 inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_base"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_base.html#afe643e8cd59f5e453f71cc778673bfa8">setDuration</a> (const int64_t &amp;duration)</td></tr>
 <tr class="separator:afe643e8cd59f5e453f71cc778673bfa8 inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_base"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_node_info.html">GetNodeInfo</a> API call response.</p>
+<p>Returns information about your node.</p>
+<p><a href="https://iota.readme.io/reference#getnodeinfo">https://iota.readme.io/reference#getnodeinfo</a> </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a91f7893464e67336f714be422d4e0b04"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a91f7893464e67336f714be422d4e0b04">&#9670;&nbsp;</a></span>GetNodeInfo()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a91f7893464e67336f714be422d4e0b04">&#9670;&nbsp;</a></span>GetNodeInfo() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -270,7 +280,60 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>full init ctor </p>
+<p>Full init ctor.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">appName</td><td>Name of the IOTA software you're currently using (IRI stands for Initial Reference Implementation). </td></tr>
+    <tr><td class="paramname">appVersion</td><td>The version of the IOTA software you're currently running. </td></tr>
+    <tr><td class="paramname">jreAvailableProcessors</td><td>Available cores on your machine for JRE. </td></tr>
+    <tr><td class="paramname">jreFreeMemory</td><td>The amount of free memory in the Java Virtual Machine. </td></tr>
+    <tr><td class="paramname">jreMaxMemory</td><td>The maximum amount of memory the Java virtual machine will attempt to use. </td></tr>
+    <tr><td class="paramname">jreTotalMemory</td><td>The total amount of memory in the Java virtual machine. </td></tr>
+    <tr><td class="paramname">latestMilestone</td><td>Latest milestone that was signed off by the coordinator. </td></tr>
+    <tr><td class="paramname">latestMilestoneIndex</td><td>Index of the latest milestone. </td></tr>
+    <tr><td class="paramname">latestSolidSubtangleMilestone</td><td>The latest milestone which is solid and is used for sending transactions. For a milestone to become solid your local node must basically approve the subtangle of coordinator-approved transactions, and have a consistent view of all referenced transactions. </td></tr>
+    <tr><td class="paramname">latestSolidSubtangleMilestoneIndex</td><td>Index of the latest solid subtangle. </td></tr>
+    <tr><td class="paramname">neighbors</td><td>Number of neighbors you are directly connected with. </td></tr>
+    <tr><td class="paramname">packetsQueueSize</td><td>Packets which are currently queued up. </td></tr>
+    <tr><td class="paramname">time</td><td>Current UNIX timestamp. </td></tr>
+    <tr><td class="paramname">tips</td><td>Number of tips in the network. </td></tr>
+    <tr><td class="paramname">transactionsToRequest</td><td>Transactions to request during syncing process. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ad7b7a9c219299f150c9130e0f7c8aa7e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad7b7a9c219299f150c9130e0f7c8aa7e">&#9670;&nbsp;</a></span>GetNodeInfo() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">IOTA::API::Responses::GetNodeInfo::GetNodeInfo </td>
+          <td>(</td>
+          <td class="paramtype">const json &amp;&#160;</td>
+          <td class="paramname"><em>res</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Json-based ctor.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">res</td><td>json to be used for deserialization. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -296,13 +359,13 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>default dtor </p>
+<p>Default dtor. </p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a9b7309d6b788a396674158f26e92ddec"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9b7309d6b788a396674158f26e92ddec">&#9670;&nbsp;</a></span>deserialize()</h2>
+<a id="a900532f937a1cf749a0831b205783008"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a900532f937a1cf749a0831b205783008">&#9670;&nbsp;</a></span>deserialize()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -320,30 +383,30 @@ Public Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>init class based on json data</p>
+<p>Initialization based on json data.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">res</td><td>json data to be used for deserialization </td></tr>
+    <tr><td class="paramname">res</td><td>json data to be used for deserialization. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Reimplemented from <a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_base.html#a9ab9d3d9cd86a664bdd6b34e3797b876">IOTA::API::Responses::Base</a>.</p>
+<p>Reimplemented from <a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_base.html#a6fb3aef1ea5633de298bc1651c7910fe">IOTA::API::Responses::Base</a>.</p>
 
 </div>
 </div>
-<a id="a96905ec9b8237a9aa32b59a9277b092f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a96905ec9b8237a9aa32b59a9277b092f">&#9670;&nbsp;</a></span>getAppName()</h2>
+<a id="a91836a0065c06f42a5594deb67c48053"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a91836a0065c06f42a5594deb67c48053">&#9670;&nbsp;</a></span>getAppName()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const std::string &amp; IOTA::API::Responses::GetNodeInfo::getAppName </td>
+          <td class="memname">const std::string&amp; IOTA::API::Responses::GetNodeInfo::getAppName </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -354,14 +417,14 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a8c222e9c443ee47ae5f0fb75ce7e2a26"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8c222e9c443ee47ae5f0fb75ce7e2a26">&#9670;&nbsp;</a></span>getAppVersion()</h2>
+<a id="aa27fd51aaea647f1db10bf8f4fa3f5c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa27fd51aaea647f1db10bf8f4fa3f5c6">&#9670;&nbsp;</a></span>getAppVersion()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const std::string &amp; IOTA::API::Responses::GetNodeInfo::getAppVersion </td>
+          <td class="memname">const std::string&amp; IOTA::API::Responses::GetNodeInfo::getAppVersion </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -372,14 +435,14 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="af1abc7ac2bfc48cd7fb5eb66d7567d16"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af1abc7ac2bfc48cd7fb5eb66d7567d16">&#9670;&nbsp;</a></span>getJreAvailableProcessors()</h2>
+<a id="a3270287b516b7290d803f540a4a6fe91"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3270287b516b7290d803f540a4a6fe91">&#9670;&nbsp;</a></span>getJreAvailableProcessors()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const int64_t &amp; IOTA::API::Responses::GetNodeInfo::getJreAvailableProcessors </td>
+          <td class="memname">const int64_t&amp; IOTA::API::Responses::GetNodeInfo::getJreAvailableProcessors </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -390,68 +453,68 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a6fc942aa56b87a7a02fb2cb90a456fb7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6fc942aa56b87a7a02fb2cb90a456fb7">&#9670;&nbsp;</a></span>getJreFreeMemory()</h2>
+<a id="a6f25008e14430733b097192a7f97ea2f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f25008e14430733b097192a7f97ea2f">&#9670;&nbsp;</a></span>getJreFreeMemory()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const int64_t &amp; IOTA::API::Responses::GetNodeInfo::getJreFreeMemory </td>
+          <td class="memname">const int64_t&amp; IOTA::API::Responses::GetNodeInfo::getJreFreeMemory </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>the amount of free memory in the Java Virtual Machine. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The amount of free memory in the Java Virtual Machine. </dd></dl>
 
 </div>
 </div>
-<a id="a5aad7399eea0e7423685bfe2567f0df0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5aad7399eea0e7423685bfe2567f0df0">&#9670;&nbsp;</a></span>getJreMaxMemory()</h2>
+<a id="af325c2474ca888e3f30517dfb6e809c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af325c2474ca888e3f30517dfb6e809c9">&#9670;&nbsp;</a></span>getJreMaxMemory()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const int64_t &amp; IOTA::API::Responses::GetNodeInfo::getJreMaxMemory </td>
+          <td class="memname">const int64_t&amp; IOTA::API::Responses::GetNodeInfo::getJreMaxMemory </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>the maximum amount of memory that the Java virtual machine will attempt to use. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The maximum amount of memory that the Java virtual machine will attempt to use. </dd></dl>
 
 </div>
 </div>
-<a id="a4e16434631ad5999c338025a5b8e8133"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4e16434631ad5999c338025a5b8e8133">&#9670;&nbsp;</a></span>getJreTotalMemory()</h2>
+<a id="aa417ec4f6dba0ca700ca1ca55fce7678"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa417ec4f6dba0ca700ca1ca55fce7678">&#9670;&nbsp;</a></span>getJreTotalMemory()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const int64_t &amp; IOTA::API::Responses::GetNodeInfo::getJreTotalMemory </td>
+          <td class="memname">const int64_t&amp; IOTA::API::Responses::GetNodeInfo::getJreTotalMemory </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>the total amount of memory in the Java virtual machine. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The total amount of memory in the Java virtual machine. </dd></dl>
 
 </div>
 </div>
-<a id="a05fb667ac1cbc7ebc7da107b0136763d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a05fb667ac1cbc7ebc7da107b0136763d">&#9670;&nbsp;</a></span>getLatestMilestone()</h2>
+<a id="a79475949287a6272e31424daf97e1129"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a79475949287a6272e31424daf97e1129">&#9670;&nbsp;</a></span>getLatestMilestone()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const Types::Trytes &amp; IOTA::API::Responses::GetNodeInfo::getLatestMilestone </td>
+          <td class="memname">const Types::Trytes&amp; IOTA::API::Responses::GetNodeInfo::getLatestMilestone </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -462,14 +525,14 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a4fa9c613a1a55120f546867f17951268"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4fa9c613a1a55120f546867f17951268">&#9670;&nbsp;</a></span>getLatestMilestoneIndex()</h2>
+<a id="ab2bb1812b6b2fbb3f14d094c153b0a50"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab2bb1812b6b2fbb3f14d094c153b0a50">&#9670;&nbsp;</a></span>getLatestMilestoneIndex()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const int64_t &amp; IOTA::API::Responses::GetNodeInfo::getLatestMilestoneIndex </td>
+          <td class="memname">const int64_t&amp; IOTA::API::Responses::GetNodeInfo::getLatestMilestoneIndex </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -480,14 +543,14 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a02090a131971bf443a86e65ae2359cda"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a02090a131971bf443a86e65ae2359cda">&#9670;&nbsp;</a></span>getLatestSolidSubtangleMilestone()</h2>
+<a id="ab5e805a1a71528307759f7ca876e626d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5e805a1a71528307759f7ca876e626d">&#9670;&nbsp;</a></span>getLatestSolidSubtangleMilestone()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const Types::Trytes &amp; IOTA::API::Responses::GetNodeInfo::getLatestSolidSubtangleMilestone </td>
+          <td class="memname">const Types::Trytes&amp; IOTA::API::Responses::GetNodeInfo::getLatestSolidSubtangleMilestone </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -498,14 +561,14 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a73cd1f5abeabe99844b4f73f64a02d2d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a73cd1f5abeabe99844b4f73f64a02d2d">&#9670;&nbsp;</a></span>getLatestSolidSubtangleMilestoneIndex()</h2>
+<a id="a269c744a7770abfd07faa5d2f38865b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a269c744a7770abfd07faa5d2f38865b0">&#9670;&nbsp;</a></span>getLatestSolidSubtangleMilestoneIndex()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const int64_t &amp; IOTA::API::Responses::GetNodeInfo::getLatestSolidSubtangleMilestoneIndex </td>
+          <td class="memname">const int64_t&amp; IOTA::API::Responses::GetNodeInfo::getLatestSolidSubtangleMilestoneIndex </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -516,14 +579,14 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a24fe1ee855fde534f2c556e0eb7f3faa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a24fe1ee855fde534f2c556e0eb7f3faa">&#9670;&nbsp;</a></span>getNeighbors()</h2>
+<a id="a6685fcaa28b5e34d4daada8dde7a268e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6685fcaa28b5e34d4daada8dde7a268e">&#9670;&nbsp;</a></span>getNeighbors()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const int64_t &amp; IOTA::API::Responses::GetNodeInfo::getNeighbors </td>
+          <td class="memname">const int64_t&amp; IOTA::API::Responses::GetNodeInfo::getNeighbors </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -534,14 +597,14 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a12485d1cf51a512a80fec1b5d1f8ada9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a12485d1cf51a512a80fec1b5d1f8ada9">&#9670;&nbsp;</a></span>getPacketsQueueSize()</h2>
+<a id="a25387002e42abcddd1b04ed9742f82c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a25387002e42abcddd1b04ed9742f82c6">&#9670;&nbsp;</a></span>getPacketsQueueSize()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const int64_t &amp; IOTA::API::Responses::GetNodeInfo::getPacketsQueueSize </td>
+          <td class="memname">const int64_t&amp; IOTA::API::Responses::GetNodeInfo::getPacketsQueueSize </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -552,14 +615,14 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a418e30f82d8cde035c470bad2d42b31a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a418e30f82d8cde035c470bad2d42b31a">&#9670;&nbsp;</a></span>getTime()</h2>
+<a id="a0fc88bd387f680af886f6078bfeab14e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0fc88bd387f680af886f6078bfeab14e">&#9670;&nbsp;</a></span>getTime()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const int64_t &amp; IOTA::API::Responses::GetNodeInfo::getTime </td>
+          <td class="memname">const int64_t&amp; IOTA::API::Responses::GetNodeInfo::getTime </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -570,14 +633,14 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a3764af0b485a17f0288d08941ac33713"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3764af0b485a17f0288d08941ac33713">&#9670;&nbsp;</a></span>getTips()</h2>
+<a id="aa90b77d465752e0440ad616d40b3468c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa90b77d465752e0440ad616d40b3468c">&#9670;&nbsp;</a></span>getTips()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const int64_t &amp; IOTA::API::Responses::GetNodeInfo::getTips </td>
+          <td class="memname">const int64_t&amp; IOTA::API::Responses::GetNodeInfo::getTips </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -588,14 +651,14 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a0349661f13d745151d40f76b31975f24"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0349661f13d745151d40f76b31975f24">&#9670;&nbsp;</a></span>getTransactionsToRequest()</h2>
+<a id="a4e844efe10bed0954f87813ff2265fa9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e844efe10bed0954f87813ff2265fa9">&#9670;&nbsp;</a></span>getTransactionsToRequest()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const int64_t &amp; IOTA::API::Responses::GetNodeInfo::getTransactionsToRequest </td>
+          <td class="memname">const int64_t&amp; IOTA::API::Responses::GetNodeInfo::getTransactionsToRequest </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -623,7 +686,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">appName</td><td>new app name for api response </td></tr>
+    <tr><td class="paramname">appName</td><td>new app name for api response. </td></tr>
   </table>
   </dd>
 </dl>
@@ -647,15 +710,15 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">appVersion</td><td>new app version for api response </td></tr>
+    <tr><td class="paramname">appVersion</td><td>new app version for api response. </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="a742f20b0839b47f8f14a772b77cf203e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a742f20b0839b47f8f14a772b77cf203e">&#9670;&nbsp;</a></span>setJreAvailableProcessors()</h2>
+<a id="a09433bba5fbd676e8611a650a73a95ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a09433bba5fbd676e8611a650a73a95ed">&#9670;&nbsp;</a></span>setJreAvailableProcessors()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -664,22 +727,22 @@ Public Member Functions</h2></td></tr>
           <td class="memname">void IOTA::API::Responses::GetNodeInfo::setJreAvailableProcessors </td>
           <td>(</td>
           <td class="paramtype">const int64_t &amp;&#160;</td>
-          <td class="paramname"><em>jreProc</em></td><td>)</td>
+          <td class="paramname"><em>jreAvailableProcessors</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">jreProc</td><td>new procs for api response </td></tr>
+    <tr><td class="paramname">jreAvailableProcessors</td><td>new procs for api response. </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="a66727b1f1499083ecf8122f56466eceb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a66727b1f1499083ecf8122f56466eceb">&#9670;&nbsp;</a></span>setJreFreeMemory()</h2>
+<a id="a6da17949a104d50f33f24d4eddf68e99"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6da17949a104d50f33f24d4eddf68e99">&#9670;&nbsp;</a></span>setJreFreeMemory()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -688,22 +751,22 @@ Public Member Functions</h2></td></tr>
           <td class="memname">void IOTA::API::Responses::GetNodeInfo::setJreFreeMemory </td>
           <td>(</td>
           <td class="paramtype">const int64_t &amp;&#160;</td>
-          <td class="paramname"><em>jreFreeMem</em></td><td>)</td>
+          <td class="paramname"><em>jreFreeMemory</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">jreFreeMem</td><td>new free mem for api response </td></tr>
+    <tr><td class="paramname">jreFreeMemory</td><td>new free mem for api response. </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="a527fd5e288655519558ca406b2a88cdf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a527fd5e288655519558ca406b2a88cdf">&#9670;&nbsp;</a></span>setJreMaxMemory()</h2>
+<a id="a1dd70c6ba62069833800a4dffe89922b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1dd70c6ba62069833800a4dffe89922b">&#9670;&nbsp;</a></span>setJreMaxMemory()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -712,22 +775,22 @@ Public Member Functions</h2></td></tr>
           <td class="memname">void IOTA::API::Responses::GetNodeInfo::setJreMaxMemory </td>
           <td>(</td>
           <td class="paramtype">const int64_t &amp;&#160;</td>
-          <td class="paramname"><em>jreMaxMem</em></td><td>)</td>
+          <td class="paramname"><em>jreMaxMemory</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">jreMaxMem</td><td>new max mem for api response </td></tr>
+    <tr><td class="paramname">jreMaxMemory</td><td>new max mem for api response. </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="ab45d3a8bc3c192a6ee202d3f39b66fb8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab45d3a8bc3c192a6ee202d3f39b66fb8">&#9670;&nbsp;</a></span>setJreTotalMemory()</h2>
+<a id="a2c2a7f3eaa9fc9b9312680b19223af0f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c2a7f3eaa9fc9b9312680b19223af0f">&#9670;&nbsp;</a></span>setJreTotalMemory()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -736,14 +799,14 @@ Public Member Functions</h2></td></tr>
           <td class="memname">void IOTA::API::Responses::GetNodeInfo::setJreTotalMemory </td>
           <td>(</td>
           <td class="paramtype">const int64_t &amp;&#160;</td>
-          <td class="paramname"><em>jreTotalMem</em></td><td>)</td>
+          <td class="paramname"><em>jreTotalMemory</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">jreTotalMem</td><td>new total mem for api response </td></tr>
+    <tr><td class="paramname">jreTotalMemory</td><td>new total mem for api response. </td></tr>
   </table>
   </dd>
 </dl>
@@ -767,7 +830,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">latestMilestone</td><td>new latest milestone for api response </td></tr>
+    <tr><td class="paramname">latestMilestone</td><td>new latest milestone for api response. </td></tr>
   </table>
   </dd>
 </dl>
@@ -791,7 +854,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">latestMilestoneIndex</td><td>new latest milestone index for api response </td></tr>
+    <tr><td class="paramname">latestMilestoneIndex</td><td>new latest milestone index for api response. </td></tr>
   </table>
   </dd>
 </dl>
@@ -815,7 +878,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">latestSolidSubtangleMilestone</td><td>new latest solid subtangle milestone for api response </td></tr>
+    <tr><td class="paramname">latestSolidSubtangleMilestone</td><td>new latest solid subtangle milestone for api response. </td></tr>
   </table>
   </dd>
 </dl>
@@ -839,7 +902,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">latestSolidSubtangleMilestoneIndex</td><td>new latest solid subtangle milestone index for api response </td></tr>
+    <tr><td class="paramname">latestSolidSubtangleMilestoneIndex</td><td>new latest solid subtangle milestone index for api response. </td></tr>
   </table>
   </dd>
 </dl>
@@ -863,15 +926,15 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">neighbors</td><td>new nb of neighbors for api response </td></tr>
+    <tr><td class="paramname">neighbors</td><td>new nb of neighbors for api response. </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="a7d875833b2dde8719d02131883b6cfaf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7d875833b2dde8719d02131883b6cfaf">&#9670;&nbsp;</a></span>setPacketsQueueSize()</h2>
+<a id="ac6c3893e85a24be4c85c68ea780c6760"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac6c3893e85a24be4c85c68ea780c6760">&#9670;&nbsp;</a></span>setPacketsQueueSize()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -880,14 +943,14 @@ Public Member Functions</h2></td></tr>
           <td class="memname">void IOTA::API::Responses::GetNodeInfo::setPacketsQueueSize </td>
           <td>(</td>
           <td class="paramtype">const int64_t &amp;&#160;</td>
-          <td class="paramname"><em>queueSize</em></td><td>)</td>
+          <td class="paramname"><em>packetsQueueSize</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">queueSize</td><td>new queueSize for api response </td></tr>
+    <tr><td class="paramname">packetsQueueSize</td><td>new queueSize for api response. </td></tr>
   </table>
   </dd>
 </dl>
@@ -911,7 +974,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">time</td><td>new time for api response </td></tr>
+    <tr><td class="paramname">time</td><td>new time for api response. </td></tr>
   </table>
   </dd>
 </dl>
@@ -935,7 +998,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">tips</td><td>new tips for api response </td></tr>
+    <tr><td class="paramname">tips</td><td>new tips for api response. </td></tr>
   </table>
   </dd>
 </dl>
@@ -959,16 +1022,15 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">transactionsToRequest</td><td>new nb transactions to requests of api response </td></tr>
+    <tr><td class="paramname">transactionsToRequest</td><td>new nb transactions to requests of api response. </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following files:<ul>
+<hr/>The documentation for this class was generated from the following file:<ul>
 <li>include/iota/api/responses/<a class="el" href="responses_2get__node__info_8hpp_source.html">get_node_info.hpp</a></li>
-<li>source/api/responses/get_node_info.cpp</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

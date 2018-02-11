@@ -70,6 +70,8 @@ $(function() {
 <div class="title">IOTA::API::Requests::InterruptAttachingToTangle Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p><code>#include &lt;<a class="el" href="interrupt__attaching__to__tangle_8hpp_source.html">interrupt_attaching_to_tangle.hpp</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for IOTA::API::Requests::InterruptAttachingToTangle:</div>
 <div class="dyncontent">
@@ -91,15 +93,24 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aba5d298949aa7a6761e6cbefd0181676 inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_requests_1_1_base"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aee8f8815f16636c1643f313460c96324 inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_requests_1_1_base"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_requests_1_1_base.html#aee8f8815f16636c1643f313460c96324">~Base</a> ()=default</td></tr>
 <tr class="separator:aee8f8815f16636c1643f313460c96324 inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_requests_1_1_base"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acc225f988117dd82cf56170c1b9cd9f5 inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_requests_1_1_base"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_requests_1_1_base.html#acc225f988117dd82cf56170c1b9cd9f5">serialize</a> (json &amp;res)</td></tr>
-<tr class="separator:acc225f988117dd82cf56170c1b9cd9f5 inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_requests_1_1_base"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3849edbe6e3907fa93b76d4ba8860449 inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_requests_1_1_base"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_requests_1_1_base.html#a3849edbe6e3907fa93b76d4ba8860449">serialize</a> (json &amp;data) const</td></tr>
+<tr class="separator:a3849edbe6e3907fa93b76d4ba8860449 inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_requests_1_1_base"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1fad94b0e3ed1fcffcbf605070fb1b54 inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_requests_1_1_base"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_requests_1_1_base.html#a1fad94b0e3ed1fcffcbf605070fb1b54">getCommandName</a> () const</td></tr>
+<tr class="separator:a1fad94b0e3ed1fcffcbf605070fb1b54 inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_requests_1_1_base"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_requests_1_1_interrupt_attaching_to_tangle.html">InterruptAttachingToTangle</a> API call request.</p>
+<p>Interrupts and completely aborts the attachToTangle process.</p>
+<p><a href="https://iota.readme.io/reference#interruptattachingtotangle">https://iota.readme.io/reference#interruptattachingtotangle</a> </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a7ed9ecb45d26dbe1ad3f51bdceb58e30"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7ed9ecb45d26dbe1ad3f51bdceb58e30">&#9670;&nbsp;</a></span>InterruptAttachingToTangle()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">IOTA::API::Requests::InterruptAttachingToTangle::InterruptAttachingToTangle </td>
@@ -108,8 +119,13 @@ Public Member Functions</h2></td></tr>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
-<p>full init ctor </p>
+<p>Default ctor. </p>
 
 </div>
 </div>
@@ -135,13 +151,12 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>default dtor </p>
+<p>Default dtor. </p>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following files:<ul>
+<hr/>The documentation for this class was generated from the following file:<ul>
 <li>include/iota/api/requests/<a class="el" href="interrupt__attaching__to__tangle_8hpp_source.html">interrupt_attaching_to_tangle.hpp</a></li>
-<li>source/api/requests/interrupt_attaching_to_tangle.cpp</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

@@ -82,19 +82,16 @@ Inheritance diagram for IOTA::Crypto::Curl:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ad32128c8312f0993ee7dfe83cb016177"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_crypto_1_1_curl.html#ad32128c8312f0993ee7dfe83cb016177">reset</a> ()</td></tr>
-<tr class="separator:ad32128c8312f0993ee7dfe83cb016177"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a63027bc42bcd0ca1d1416ce21cb607ef"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_crypto_1_1_curl.html#a63027bc42bcd0ca1d1416ce21cb607ef">absorb</a> (const Types::Trits &amp;trits, unsigned int offset=0, unsigned int length=0)</td></tr>
-<tr class="separator:a63027bc42bcd0ca1d1416ce21cb607ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6cabd65addb99d890fa50afcb29d73c5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_crypto_1_1_curl.html#a6cabd65addb99d890fa50afcb29d73c5">squeeze</a> (Types::Trits &amp;trits, unsigned int offset=0, unsigned int length=0)</td></tr>
-<tr class="separator:a6cabd65addb99d890fa50afcb29d73c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9fc432733d0605699eebb6736b08bdbb"><td class="memItemLeft" align="right" valign="top"><a id="a9fc432733d0605699eebb6736b08bdbb"></a>
-const std::vector&lt; int8_t &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getState</b> () const</td></tr>
-<tr class="separator:a9fc432733d0605699eebb6736b08bdbb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae3962a263d668c4e71bbc60a69aa19b1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_crypto_1_1_curl.html#ae3962a263d668c4e71bbc60a69aa19b1">reset</a> () override</td></tr>
+<tr class="separator:ae3962a263d668c4e71bbc60a69aa19b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9605c0d7d95b180b8da186dc33e7fba2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_crypto_1_1_curl.html#a9605c0d7d95b180b8da186dc33e7fba2">absorb</a> (const Types::Trits &amp;trits, unsigned int offset=0, unsigned int length=0) override</td></tr>
+<tr class="separator:a9605c0d7d95b180b8da186dc33e7fba2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeec76a6fdf03342e3aa658fe43f02e7a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_crypto_1_1_curl.html#aeec76a6fdf03342e3aa658fe43f02e7a">squeeze</a> (Types::Trits &amp;trits, unsigned int offset=0, unsigned int length=0) override</td></tr>
+<tr class="separator:aeec76a6fdf03342e3aa658fe43f02e7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a63027bc42bcd0ca1d1416ce21cb607ef"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a63027bc42bcd0ca1d1416ce21cb607ef">&#9670;&nbsp;</a></span>absorb()</h2>
+<a id="a9605c0d7d95b180b8da186dc33e7fba2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9605c0d7d95b180b8da186dc33e7fba2">&#9670;&nbsp;</a></span>absorb()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -128,7 +125,7 @@ const std::vector&lt; int8_t &gt; &amp;&#160;</td><td class="memItemRight" valig
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -146,8 +143,8 @@ const std::vector&lt; int8_t &gt; &amp;&#160;</td><td class="memItemRight" valig
 
 </div>
 </div>
-<a id="ad32128c8312f0993ee7dfe83cb016177"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad32128c8312f0993ee7dfe83cb016177">&#9670;&nbsp;</a></span>reset()</h2>
+<a id="ae3962a263d668c4e71bbc60a69aa19b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae3962a263d668c4e71bbc60a69aa19b1">&#9670;&nbsp;</a></span>reset()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -164,7 +161,7 @@ const std::vector&lt; int8_t &gt; &amp;&#160;</td><td class="memItemRight" valig
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -174,8 +171,8 @@ const std::vector&lt; int8_t &gt; &amp;&#160;</td><td class="memItemRight" valig
 
 </div>
 </div>
-<a id="a6cabd65addb99d890fa50afcb29d73c5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6cabd65addb99d890fa50afcb29d73c5">&#9670;&nbsp;</a></span>squeeze()</h2>
+<a id="aeec76a6fdf03342e3aa658fe43f02e7a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeec76a6fdf03342e3aa658fe43f02e7a">&#9670;&nbsp;</a></span>squeeze()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -209,7 +206,7 @@ const std::vector&lt; int8_t &gt; &amp;&#160;</td><td class="memItemRight" valig
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -227,9 +224,8 @@ const std::vector&lt; int8_t &gt; &amp;&#160;</td><td class="memItemRight" valig
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following files:<ul>
+<hr/>The documentation for this class was generated from the following file:<ul>
 <li>include/iota/crypto/<a class="el" href="curl_8hpp_source.html">curl.hpp</a></li>
-<li>source/crypto/curl.cpp</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

@@ -33,7 +33,7 @@ namespace Errors {
 
 class Unauthorized : public Generic {
 public:
-  Unauthorized(const std::string& content) : Generic(content){};
+  explicit Unauthorized(const std::string& content) : Generic(content){};
 };
 
 }  // namespace Errors

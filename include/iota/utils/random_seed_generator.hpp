@@ -38,7 +38,7 @@ public:
   virtual ~RandomSeedGenerator() = default;
 
 public:
-  Types::Trytes operator()();
+  Types::Trytes operator()() const;
 };
 
 }  // namespace Utils

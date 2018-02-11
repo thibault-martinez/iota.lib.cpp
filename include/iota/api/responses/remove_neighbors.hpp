@@ -37,7 +37,7 @@ namespace API {
 
 namespace Responses {
 
-/*
+/**
  * RemoveNeighbors API call response.
  *
  * Removes a list of neighbors to your node. This is only temporary, and if you have your
