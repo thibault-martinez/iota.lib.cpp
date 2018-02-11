@@ -33,6 +33,6 @@ cp ../iri_config/iri.ini .
 cp ../iri_patch/Snapshot.java src/main/java/com/iota/iri/Snapshot.java
 cp ../iri_patch/TransactionValidator.java src/main/java/com/iota/iri/TransactionValidator.java
 cp ../iri_patch/TransactionValidatorTest.java src/test/java/com/iota/iri/TransactionValidatorTest.java
-cp -r ../testnetdb_windows ./testnetdb
+cp -r ../testnetdb ./testnetdb
 mvn clean compile
 mvn package
