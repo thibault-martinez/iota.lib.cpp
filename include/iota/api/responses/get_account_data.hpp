@@ -119,7 +119,7 @@ private:
   /**
    * The account transfers.
    */
-  std::vector<Models::Bundle> transferBundle_;
+  std::vector<Models::Bundle> transfers_;
   /**
    * The account balance.
    */
