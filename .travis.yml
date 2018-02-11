@@ -272,7 +272,7 @@ before_script:
   # Increase resources limitation
   - ulimit -c unlimited -S
   # IRI setup
-  - ./test/testnet/iri_setup.sh
+  - ./test/testnet/scripts/iri_setup.sh
 
 script:
   - mkdir -p build

@@ -35,4 +35,4 @@ cp ../iri_patch/TransactionValidator.java src/main/java/com/iota/iri/Transaction
 cp ../iri_patch/TransactionValidatorTest.java src/test/java/com/iota/iri/TransactionValidatorTest.java
 mvn clean compile
 mvn package
-cp -r ../testnetdb_windows ./testnetdb
+cp -r ../testnetdb ./testnetdb
