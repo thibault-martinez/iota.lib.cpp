@@ -32,9 +32,9 @@ namespace API {
 namespace Responses {
 
 GetAccountData::GetAccountData(const std::vector<Types::Trytes>&  addresses,
-                               const std::vector<Models::Bundle>& transferBundle,
-                               const int64_t& balance, const int64_t& duration)
-    : Base(duration), addresses_(addresses), transferBundle_(transferBundle), balance_(balance) {
+                               const std::vector<Models::Bundle>& transfers, const int64_t& balance,
+                               const int64_t& duration)
+    : Base(duration), addresses_(addresses), transfers_(transfers), balance_(balance) {
 }
 
 const std::vector<Types::Trytes>&
@@ -54,17 +54,17 @@ GetAccountData::setAddresses(const std::vector<Types::Trytes>& addresses) {
 
 const std::vector<Models::Bundle>&
 GetAccountData::getTransfers() const {
-  return transferBundle_;
+  return transfers_;
 }
 
 std::vector<Models::Bundle>&
 GetAccountData::getTransfers() {
-  return transferBundle_;
+  return transfers_;
 }
 
 void
 GetAccountData::setTransfers(const std::vector<Models::Bundle>& transfers) {
-  transferBundle_ = transfers;
+  transfers_ = transfers;
 }
 
 const int64_t&
