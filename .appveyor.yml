@@ -60,6 +60,7 @@ environment:
     - arch: Win64
     - arch: Win32
 
+matrix:
   allow_failures:
     - arch: Win32
 
