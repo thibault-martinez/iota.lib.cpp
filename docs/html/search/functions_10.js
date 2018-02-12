@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['validatesignatures',['validateSignatures',['../namespace_i_o_t_a_1_1_crypto_1_1_signing.html#adc241468316da6d95c8d610c3d7a43d9',1,'IOTA::Crypto::Signing']]]
+  ['unauthorized',['Unauthorized',['../class_i_o_t_a_1_1_errors_1_1_unauthorized.html#add786d2e2830e6b266d83f81b9d57690',1,'IOTA::Errors::Unauthorized']]],
+  ['unrecognized',['Unrecognized',['../class_i_o_t_a_1_1_errors_1_1_unrecognized.html#abf24dd4a59ac84c0504213f98d7289a5',1,'IOTA::Errors::Unrecognized']]]
 ];

@@ -332,7 +332,7 @@ public:
    * @param security           The security level of private key / seed.
    * @param inputs             List of inputs used for funding the transfer.
    * @param bundle             To be populated.
-   * @param tag                The tag.
+   * @param unpadTag           The tag.
    * @param totalValue         The total value.
    * @param remainderAddress   If defined, this address will be used for sending the remainder value
    * (of the inputs) to.

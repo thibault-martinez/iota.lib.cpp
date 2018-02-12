@@ -31,8 +31,14 @@ namespace IOTA {
 
 namespace Errors {
 
+/**
+ * Network related exception.
+ */
 class Network : public Generic {
 public:
+  /**
+   * @param content The exception content.
+   */
   explicit Network(const std::string& content) : Generic(content){};
 };
 

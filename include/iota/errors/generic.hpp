@@ -32,6 +32,9 @@ namespace IOTA {
 
 namespace Errors {
 
+/**
+ * Generic exception for IOTA.
+ */
 class Generic : public std::runtime_error {
 public:
   using std::runtime_error::runtime_error;

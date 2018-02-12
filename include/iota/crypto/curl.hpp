@@ -50,7 +50,7 @@ public:
   /**
    * absorb the input into the current state
    *
-   * @param trists input trists to be applied (absorbed) on current state
+   * @param trits input trits to be applied (absorbed) on current state
    * @param offset offset at which the current state should be modified
    * @param length length of the given input that should be used for absorption
    */
@@ -59,7 +59,7 @@ public:
   /**
    * squeeze the current state to the given input/output
    *
-   * @param trists input trists to be updated (squeezed) based on current state
+   * @param trits input trits to be updated (squeezed) based on current state
    * @param offset offset at which the input trists should be modified
    * @param length length of the current state that should be used for squeezing
    */

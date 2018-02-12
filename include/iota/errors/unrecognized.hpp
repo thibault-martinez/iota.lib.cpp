@@ -31,8 +31,14 @@ namespace IOTA {
 
 namespace Errors {
 
+/**
+ * Unrecognized error from the API.
+ */
 class Unrecognized : public Generic {
 public:
+  /**
+   * @param content The exception content.
+   */
   explicit Unrecognized(const std::string& content) : Generic(content){};
 };
 

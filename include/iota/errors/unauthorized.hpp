@@ -31,8 +31,14 @@ namespace IOTA {
 
 namespace Errors {
 
+/**
+ * Exception for unauthorized access to the API.
+ */
 class Unauthorized : public Generic {
 public:
+  /**
+   * @param content The exception content.
+   */
   explicit Unauthorized(const std::string& content) : Generic(content){};
 };
 

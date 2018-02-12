@@ -31,8 +31,14 @@ namespace IOTA {
 
 namespace Errors {
 
+/**
+ * Exception for node internal server error.
+ */
 class InternalServerError : public Generic {
 public:
+  /**
+   * @param content The exception content.
+   */
   explicit InternalServerError(const std::string& content) : Generic(content){};
 };
 

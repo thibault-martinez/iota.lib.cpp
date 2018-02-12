@@ -31,8 +31,14 @@ namespace IOTA {
 
 namespace Errors {
 
+/**
+ * Exception raised in cryptographic context.
+ */
 class Crypto : public Generic {
 public:
+  /**
+   * @param content The exception content.
+   */
   explicit Crypto(const std::string& content) : Generic(content){};
 };
 

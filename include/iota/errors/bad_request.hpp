@@ -31,8 +31,14 @@ namespace IOTA {
 
 namespace Errors {
 
+/**
+ * Exception for bad request made to the API.
+ */
 class BadRequest : public Generic {
 public:
+  /**
+   * @param content The exception content.
+   */
   explicit BadRequest(const std::string& content) : Generic(content){};
 };
 

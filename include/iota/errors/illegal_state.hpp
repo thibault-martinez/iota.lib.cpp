@@ -31,8 +31,14 @@ namespace IOTA {
 
 namespace Errors {
 
+/**
+ * Exception for illegal states provided to API functions.
+ */
 class IllegalState : public Generic {
 public:
+  /**
+   * @param content The exception content.
+   */
   explicit IllegalState(const std::string& content) : Generic(content){};
 };
 
