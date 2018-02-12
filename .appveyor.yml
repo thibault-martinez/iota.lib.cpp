@@ -51,29 +51,39 @@ image:
 
 configuration:
   - Release
-  - Debug
+  # AppVeyor only processes one build at a time, leading to a large queue of builds
+  # To avoid that, it is more convenient to skip Debug build, especially when the main target is Release environment
+  #- Debug
 
 environment:
   matrix:
     - arch: Win64
     - arch: Win32
 
-matrix:
-  fast_finish: true
-
 init:
   - set generator_arch=
   - if "%arch%"=="Win64" (set generator_arch= Win64)
   - if "%APPVEYOR_BUILD_WORKER_IMAGE%"=="Visual Studio 2017" (set generator="Visual Studio 15 2017%generator_arch%")
   - if "%APPVEYOR_BUILD_WORKER_IMAGE%"=="Visual Studio 2015" (set generator="Visual Studio 14 2015%generator_arch%")
+  - set PATH=%PATH%;C:\projects\iota-lib-cpp\deps\bin
 
 install:
   - git submodule update --init --recursive
+  - set JAVA_TOOL_OPTIONS=-Xmx2000m
+  - sh test/testnet/scripts/iri_setup_windows.sh
 
 before_build:
   - mkdir build
   - cd build
-  - cmake .. -G %generator%
+  - cmake .. -DBUILD_TESTS=1 -G %generator%
 
 build:
   project: c:\projects\iota-lib-cpp\build\iota.sln
+
+test_script:
+- ps: |
+    Start-Job -ScriptBlock { java -jar C:\projects\iota-lib-cpp\test\testnet\iri\target\iri-1.4.2.1.jar -c C:\projects\iota-lib-cpp\test\testnet\iri\iri.ini 1> C:\projects\iota-lib-cpp\test\testnet\iri\iri.1 2> C:\projects\iota-lib-cpp\test\testnet\iri\iri.2 }
+    Start-Sleep -s 120
+    Get-Content C:\projects\iota-lib-cpp\test\testnet\iri\iri.1
+    Get-Content C:\projects\iota-lib-cpp\test\testnet\iri\iri.2
+    ctest -C Release -VV

@@ -36,7 +36,10 @@ TEST(Extended, FindTransactionObjectsByBundle) {
 
   ASSERT_EQ(res.size(), 4UL);
 
-  //! note that transactions are NOT ordered
+  std::sort(res.begin(), res.end(),
+            [](const IOTA::Models::Transaction& lhs, const IOTA::Models::Transaction& rhs) {
+              return lhs.getCurrentIndex() < rhs.getCurrentIndex();
+            });
 
   const auto& trx1 = res[0];
   EXPECT_EQ(trx1.getSignatureFragments(), BUNDLE_1_TRX_1_SIGNATURE_FRAGMENT);
@@ -54,47 +57,47 @@ TEST(Extended, FindTransactionObjectsByBundle) {
   EXPECT_EQ(trx1.getPersistence(), false);
 
   const auto& trx2 = res[1];
-  EXPECT_EQ(trx2.getSignatureFragments(), BUNDLE_1_TRX_3_SIGNATURE_FRAGMENT);
-  EXPECT_EQ(trx2.getCurrentIndex(), BUNDLE_1_TRX_3_CURRENT_INDEX);
-  EXPECT_EQ(trx2.getLastIndex(), BUNDLE_1_TRX_3_LAST_INDEX);
-  EXPECT_EQ(trx2.getNonce(), BUNDLE_1_TRX_3_NONCE);
-  EXPECT_EQ(trx2.getHash(), BUNDLE_1_TRX_3_HASH);
-  EXPECT_EQ(trx2.getTag(), BUNDLE_1_TRX_3_TAG);
-  EXPECT_EQ(trx2.getTimestamp(), BUNDLE_1_TRX_3_TS);
-  EXPECT_EQ(trx2.getTrunkTransaction(), BUNDLE_1_TRX_3_TRUNK);
-  EXPECT_EQ(trx2.getBranchTransaction(), BUNDLE_1_TRX_3_BRANCH);
-  EXPECT_EQ(trx2.getAddress(), BUNDLE_1_TRX_3_ADDRESS_WITHOUT_CHECKSUM);
-  EXPECT_EQ(trx2.getValue(), BUNDLE_1_TRX_3_VALUE);
+  EXPECT_EQ(trx2.getSignatureFragments(), BUNDLE_1_TRX_2_SIGNATURE_FRAGMENT);
+  EXPECT_EQ(trx2.getCurrentIndex(), BUNDLE_1_TRX_2_CURRENT_INDEX);
+  EXPECT_EQ(trx2.getLastIndex(), BUNDLE_1_TRX_2_LAST_INDEX);
+  EXPECT_EQ(trx2.getNonce(), BUNDLE_1_TRX_2_NONCE);
+  EXPECT_EQ(trx2.getHash(), BUNDLE_1_TRX_2_HASH);
+  EXPECT_EQ(trx2.getTag(), BUNDLE_1_TRX_2_TAG);
+  EXPECT_EQ(trx2.getTimestamp(), BUNDLE_1_TRX_2_TS);
+  EXPECT_EQ(trx2.getTrunkTransaction(), BUNDLE_1_TRX_2_TRUNK);
+  EXPECT_EQ(trx2.getBranchTransaction(), BUNDLE_1_TRX_2_BRANCH);
+  EXPECT_EQ(trx2.getAddress(), BUNDLE_1_TRX_2_ADDRESS_WITHOUT_CHECKSUM);
+  EXPECT_EQ(trx2.getValue(), BUNDLE_1_TRX_2_VALUE);
   EXPECT_EQ(trx2.getBundle(), BUNDLE_1_HASH);
   EXPECT_EQ(trx2.getPersistence(), false);
 
   const auto& trx3 = res[2];
-  EXPECT_EQ(trx3.getSignatureFragments(), BUNDLE_1_TRX_4_SIGNATURE_FRAGMENT);
-  EXPECT_EQ(trx3.getCurrentIndex(), BUNDLE_1_TRX_4_CURRENT_INDEX);
-  EXPECT_EQ(trx3.getLastIndex(), BUNDLE_1_TRX_4_LAST_INDEX);
-  EXPECT_EQ(trx3.getNonce(), BUNDLE_1_TRX_4_NONCE);
-  EXPECT_EQ(trx3.getHash(), BUNDLE_1_TRX_4_HASH);
-  EXPECT_EQ(trx3.getTag(), BUNDLE_1_TRX_4_TAG);
-  EXPECT_EQ(trx3.getTimestamp(), BUNDLE_1_TRX_4_TS);
-  EXPECT_EQ(trx3.getTrunkTransaction(), BUNDLE_1_TRX_4_TRUNK);
-  EXPECT_EQ(trx3.getBranchTransaction(), BUNDLE_1_TRX_4_BRANCH);
-  EXPECT_EQ(trx3.getAddress(), BUNDLE_1_TRX_4_ADDRESS_WITHOUT_CHECKSUM);
-  EXPECT_EQ(trx3.getValue(), BUNDLE_1_TRX_4_VALUE);
+  EXPECT_EQ(trx3.getSignatureFragments(), BUNDLE_1_TRX_3_SIGNATURE_FRAGMENT);
+  EXPECT_EQ(trx3.getCurrentIndex(), BUNDLE_1_TRX_3_CURRENT_INDEX);
+  EXPECT_EQ(trx3.getLastIndex(), BUNDLE_1_TRX_3_LAST_INDEX);
+  EXPECT_EQ(trx3.getNonce(), BUNDLE_1_TRX_3_NONCE);
+  EXPECT_EQ(trx3.getHash(), BUNDLE_1_TRX_3_HASH);
+  EXPECT_EQ(trx3.getTag(), BUNDLE_1_TRX_3_TAG);
+  EXPECT_EQ(trx3.getTimestamp(), BUNDLE_1_TRX_3_TS);
+  EXPECT_EQ(trx3.getTrunkTransaction(), BUNDLE_1_TRX_3_TRUNK);
+  EXPECT_EQ(trx3.getBranchTransaction(), BUNDLE_1_TRX_3_BRANCH);
+  EXPECT_EQ(trx3.getAddress(), BUNDLE_1_TRX_3_ADDRESS_WITHOUT_CHECKSUM);
+  EXPECT_EQ(trx3.getValue(), BUNDLE_1_TRX_3_VALUE);
   EXPECT_EQ(trx3.getBundle(), BUNDLE_1_HASH);
   EXPECT_EQ(trx3.getPersistence(), false);
 
   const auto& trx4 = res[3];
-  EXPECT_EQ(trx4.getSignatureFragments(), BUNDLE_1_TRX_2_SIGNATURE_FRAGMENT);
-  EXPECT_EQ(trx4.getCurrentIndex(), BUNDLE_1_TRX_2_CURRENT_INDEX);
-  EXPECT_EQ(trx4.getLastIndex(), BUNDLE_1_TRX_2_LAST_INDEX);
-  EXPECT_EQ(trx4.getNonce(), BUNDLE_1_TRX_2_NONCE);
-  EXPECT_EQ(trx4.getHash(), BUNDLE_1_TRX_2_HASH);
-  EXPECT_EQ(trx4.getTag(), BUNDLE_1_TRX_2_TAG);
-  EXPECT_EQ(trx4.getTimestamp(), BUNDLE_1_TRX_2_TS);
-  EXPECT_EQ(trx4.getTrunkTransaction(), BUNDLE_1_TRX_2_TRUNK);
-  EXPECT_EQ(trx4.getBranchTransaction(), BUNDLE_1_TRX_2_BRANCH);
-  EXPECT_EQ(trx4.getAddress(), BUNDLE_1_TRX_2_ADDRESS_WITHOUT_CHECKSUM);
-  EXPECT_EQ(trx4.getValue(), BUNDLE_1_TRX_2_VALUE);
+  EXPECT_EQ(trx4.getSignatureFragments(), BUNDLE_1_TRX_4_SIGNATURE_FRAGMENT);
+  EXPECT_EQ(trx4.getCurrentIndex(), BUNDLE_1_TRX_4_CURRENT_INDEX);
+  EXPECT_EQ(trx4.getLastIndex(), BUNDLE_1_TRX_4_LAST_INDEX);
+  EXPECT_EQ(trx4.getNonce(), BUNDLE_1_TRX_4_NONCE);
+  EXPECT_EQ(trx4.getHash(), BUNDLE_1_TRX_4_HASH);
+  EXPECT_EQ(trx4.getTag(), BUNDLE_1_TRX_4_TAG);
+  EXPECT_EQ(trx4.getTimestamp(), BUNDLE_1_TRX_4_TS);
+  EXPECT_EQ(trx4.getTrunkTransaction(), BUNDLE_1_TRX_4_TRUNK);
+  EXPECT_EQ(trx4.getBranchTransaction(), BUNDLE_1_TRX_4_BRANCH);
+  EXPECT_EQ(trx4.getAddress(), BUNDLE_1_TRX_4_ADDRESS_WITHOUT_CHECKSUM);
+  EXPECT_EQ(trx4.getValue(), BUNDLE_1_TRX_4_VALUE);
   EXPECT_EQ(trx4.getBundle(), BUNDLE_1_HASH);
   EXPECT_EQ(trx4.getPersistence(), false);
 }

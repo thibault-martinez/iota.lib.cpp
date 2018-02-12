@@ -94,6 +94,10 @@ ENDIF()
 
 if (BUILD_TESTS)
   enable_testing()
+
+  # silence gtest compilation warnings..
+  add_definitions(-D_SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING)
+
   include(gtest_settings)
   add_subdirectory(test)
 ENDIF()
