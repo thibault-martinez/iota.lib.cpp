@@ -1,3 +1,5 @@
+#!/bin/bash
+
 #
 # MIT License
 #
@@ -23,23 +25,14 @@
 #
 #
 
-ExternalProject_Add("cpr_dep"
-                    GIT_SUBMODULES ""
-                    CMAKE_ARGS "-DBUILD_CPR_TESTS=OFF"
-                    CMAKE_ARGS "-DBUILD_TESTING=0"
-                    CMAKE_ARGS "-DCMAKE_INSTALL_PREFIX=${CMAKE_SOURCE_DIR}/deps"
-                    CMAKE_ARGS "-DCMAKE_ARCHIVE_OUTPUT_DIRECTORY=${CMAKE_SOURCE_DIR}/deps/lib"
-                    CMAKE_ARGS "-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=${CMAKE_SOURCE_DIR}/deps/lib"
-                    CMAKE_ARGS "-Wno-dev"
-                    CMAKE_ARGS "-DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}"
-                    SOURCE_DIR "${CMAKE_SOURCE_DIR}/external/cpr")
-
-include_directories(${CMAKE_SOURCE_DIR}/external/cpr/include)
-
-if (WIN32)
-  target_link_libraries(${CMAKE_PROJECT_NAME} cpr libcurl_imp)
-else ()
-  target_link_libraries(${CMAKE_PROJECT_NAME} cpr curl)
-ENDIF (WIN32)
-
-add_dependencies(${CMAKE_PROJECT_NAME} cpr_dep)
+git clone https://github.com/iotaledger/iri.git test/testnet/iri
+cd test/testnet/iri
+git checkout 8886df6e
+cp ../iri_config/Snapshot.txt src/main/resources
+cp ../iri_config/iri.ini.windows iri.ini
+cp ../iri_patch/Snapshot.java src/main/java/com/iota/iri/Snapshot.java
+cp ../iri_patch/TransactionValidator.java src/main/java/com/iota/iri/TransactionValidator.java
+cp ../iri_patch/TransactionValidatorTest.java src/test/java/com/iota/iri/TransactionValidatorTest.java
+mvn clean compile
+mvn package
+cp -r ../testnetdb ./testnetdb

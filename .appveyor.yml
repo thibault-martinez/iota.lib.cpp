@@ -51,7 +51,9 @@ image:
 
 configuration:
   - Release
-  - Debug
+  # AppVeyor only processes one build at a time, leading to a large queue of builds
+  # To avoid that, it is more convenient to skip Debug build, especially when the main target is Release environment
+  #- Debug
 
 environment:
   matrix:
@@ -59,7 +61,8 @@ environment:
     - arch: Win32
 
 matrix:
-  fast_finish: true
+  allow_failures:
+    - arch: Win32
 
 init:
   - set generator_arch=
@@ -69,11 +72,21 @@ init:
 
 install:
   - git submodule update --init --recursive
+  - set JAVA_TOOL_OPTIONS=-Xmx2000m
+  - sh test/testnet/scripts/iri_setup_windows.sh
 
 before_build:
   - mkdir build
   - cd build
-  - cmake .. -G %generator%
+  - cmake .. -DBUILD_TESTS=1 -G %generator%
 
 build:
   project: c:\projects\iota-lib-cpp\build\iota.sln
+
+test_script:
+- ps: |
+    Start-Job -ScriptBlock { java -jar C:\projects\iota-lib-cpp\test\testnet\iri\target\iri-1.4.2.1.jar -c C:\projects\iota-lib-cpp\test\testnet\iri\iri.ini 1> C:\projects\iota-lib-cpp\test\testnet\iri\iri.1 2> C:\projects\iota-lib-cpp\test\testnet\iri\iri.2 }
+    Start-Sleep -s 120
+    Get-Content C:\projects\iota-lib-cpp\test\testnet\iri\iri.1
+    Get-Content C:\projects\iota-lib-cpp\test\testnet\iri\iri.2
+    ctest -C Release -VV

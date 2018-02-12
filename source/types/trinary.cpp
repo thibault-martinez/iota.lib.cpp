@@ -24,6 +24,7 @@
 //
 
 #include <algorithm>
+#include <functional>
 
 #include <iota/constants.hpp>
 #include <iota/types/trinary.hpp>
