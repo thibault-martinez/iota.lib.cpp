@@ -42,6 +42,16 @@ TEST(GetTrytesResponse, CtorShouldInitFields) {
   EXPECT_EQ(res.getDuration(), 0);
 }
 
+TEST(GetTrytesResponse, AssignementOperator) {
+  const IOTA::API::Responses::GetTrytes res1{ std::vector<IOTA::Types::Trytes>(
+      { "TESTA", "TESTB" }) };
+  IOTA::API::Responses::GetTrytes       res2;
+
+  res2 = res1;
+  EXPECT_EQ(res1.getTrytes(), res2.getTrytes());
+  EXPECT_EQ(res1.getDuration(), res2.getDuration());
+}
+
 TEST(GetTrytesResponse, GetTrytesNonConst) {
   IOTA::API::Responses::GetTrytes res;
 

@@ -42,6 +42,16 @@ TEST(FindTransactionsResponse, CtorShouldInitFields) {
   EXPECT_EQ(res.getDuration(), 0);
 }
 
+TEST(FindTransactionsResponse, AssignementOperator) {
+  const IOTA::API::Responses::FindTransactions res1{ std::vector<IOTA::Types::Trytes>(
+      { "TESTA", "TESTB" }) };
+  IOTA::API::Responses::FindTransactions       res2;
+
+  res2 = res1;
+  EXPECT_EQ(res1.getHashes(), res2.getHashes());
+  EXPECT_EQ(res1.getDuration(), res2.getDuration());
+}
+
 TEST(FindTransactionsResponse, GetHashesNonConst) {
   IOTA::API::Responses::FindTransactions res;
 

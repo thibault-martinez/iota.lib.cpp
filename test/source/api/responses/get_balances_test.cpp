@@ -45,6 +45,17 @@ TEST(GetBalancesReponse, CtorShouldInitFields) {
   EXPECT_EQ(res.getDuration(), 0);
 }
 
+TEST(GetBalancesReponse, AssignementOperator) {
+  const IOTA::API::Responses::GetBalances res1{ { "bal1", "bal2", "bal3" }, "milestone", 1 };
+  IOTA::API::Responses::GetBalances       res2;
+
+  res2 = res1;
+  EXPECT_EQ(res1.getBalances(), res2.getBalances());
+  EXPECT_EQ(res1.getMilestone(), res2.getMilestone());
+  EXPECT_EQ(res1.getMilestoneIndex(), res2.getMilestoneIndex());
+  EXPECT_EQ(res1.getDuration(), res2.getDuration());
+}
+
 TEST(GetBalancesReponse, GetBalancesNonConst) {
   IOTA::API::Responses::GetBalances res{ { "bal1", "bal2", "bal3" }, "milestone", 1 };
 
