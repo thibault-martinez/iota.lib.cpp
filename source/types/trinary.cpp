@@ -41,9 +41,20 @@ static std::vector<std::vector<int8_t>> trytesTrits = {
   { 0, -1, 0 }, { 1, -1, 0 }, { -1, 0, 0 }
 };
 
+int8_t
+tryteIndex(const char& tryte) {
+  if (tryte == '9') {
+    return 0;
+  }
+  if ('A' <= tryte && tryte <= 'Z') {
+    return tryte - 'A' + 1;
+  }
+  return -1;
+}
+
 bool
 isValidTryte(const char& tryte) {
-  return TryteAlphabet.find(tryte) != Types::Trytes::npos;
+  return tryteIndex(tryte) >= 0;
 }
 
 bool
@@ -248,7 +259,7 @@ Trits
 trytesToTrits(const Trytes& trytes) {
   Trits trits;
   for (unsigned i = 0; i < trytes.size(); i++) {
-    unsigned int index = TryteAlphabet.find(trytes[i]);
+    size_t index = tryteIndex(trytes[i]);
     trits.push_back(trytesTrits[index][0]);
     trits.push_back(trytesTrits[index][1]);
     trits.push_back(trytesTrits[index][2]);
@@ -262,16 +273,14 @@ tritsToTrytes(const Trits& trits) {
 }
 
 Trytes
-tritsToTrytes(const Trits& trits, unsigned int length) {
+tritsToTrytes(const Trits& trits, size_t length) {
   Trytes trytes;
-  for (unsigned int i = 0; i < length; i += 3) {
-    for (unsigned int j = 0; j < TryteAlphabet.size(); j++) {
-      if (trytesTrits[j][0] == trits[i] && trytesTrits[j][1] == trits[i + 1] &&
-          trytesTrits[j][2] == trits[i + 2]) {
-        trytes += TryteAlphabet[j];
-        break;
-      }
+  for (size_t i = 0; i < length; i += 3) {
+    int8_t idx = trits[i] + trits[i + 1] * 3 + trits[i + 2] * 9;
+    if (idx < 0) {
+      idx += TryteAlphabetLength;
     }
+    trytes += TryteAlphabet[idx];
   }
   return trytes;
 }
