@@ -39,22 +39,20 @@ static std::vector<std::vector<int8_t>> trytesTrits = {
   { 0, -1, 0 }, { 1, -1, 0 }, { -1, 0, 0 }
 };
 
-size_t
+int8_t
 tryteIndex(const char& tryte) {
   if (tryte == '9') {
     return 0;
   }
-  // explicitly excluding '@' here, since by the calculation
-  // below this would map to 0, but 0 is the index for '9'
-  if (tryte == '@') {
-    return -1;
+  if ('A' <= tryte && tryte <= 'Z') {
+    return tryte - 'A' + 1;
   }
-  return tryte - 'A' + 1;
+  return -1;
 }
 
 bool
 isValidTryte(const char& tryte) {
-  return tryteIndex(tryte) < 27;
+  return tryteIndex(tryte) >= 0;
 }
 
 bool
