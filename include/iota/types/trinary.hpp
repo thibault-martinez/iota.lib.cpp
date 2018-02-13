@@ -79,7 +79,7 @@ Trits               bytesToTrits(const std::vector<int8_t>& bytes);
 
 Trits  trytesToTrits(const Trytes& trytes);
 Trytes tritsToTrytes(const Trits& trits);
-Trytes tritsToTrytes(const Trits& trits, size_t length);
+Trytes tritsToTrytes(const Trits& trits, std::size_t length);
 
 Types::Trits intToTrits(const int64_t& value);
 Types::Trits intToTrits(const int64_t& value, std::size_t length);
@@ -89,8 +89,8 @@ T
 tritsToInt(const Trits& trits) {
   T res = 0;
 
-  for (int i = trits.size() - 1; i >= 0; --i) {
-    res = res * 3 + trits[i];
+  for (std::size_t i = trits.size(); i > 0; --i) {
+    res = res * 3 + trits[i - 1];
   }
 
   return res;

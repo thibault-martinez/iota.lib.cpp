@@ -258,8 +258,8 @@ bytesToTrits(const std::vector<int8_t>& bytes) {
 Trits
 trytesToTrits(const Trytes& trytes) {
   Trits trits;
-  for (unsigned i = 0; i < trytes.size(); i++) {
-    size_t index = tryteIndex(trytes[i]);
+  for (std::size_t i = 0; i < trytes.size(); i++) {
+    std::size_t index = tryteIndex(trytes[i]);
     trits.push_back(trytesTrits[index][0]);
     trits.push_back(trytesTrits[index][1]);
     trits.push_back(trytesTrits[index][2]);
@@ -273,9 +273,9 @@ tritsToTrytes(const Trits& trits) {
 }
 
 Trytes
-tritsToTrytes(const Trits& trits, size_t length) {
+tritsToTrytes(const Trits& trits, std::size_t length) {
   Trytes trytes;
-  for (size_t i = 0; i < length; i += 3) {
+  for (std::size_t i = 0; i < length; i += 3) {
     int8_t idx = trits[i] + trits[i + 1] * 3 + trits[i + 2] * 9;
     if (idx < 0) {
       idx += TryteAlphabetLength;

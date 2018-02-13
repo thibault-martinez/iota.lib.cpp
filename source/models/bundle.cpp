@@ -49,7 +49,7 @@ Bundle::getTransactions() {
   return transactions_;
 }
 
-uint32_t
+std::size_t
 Bundle::getLength() const {
   return transactions_.size();
 }

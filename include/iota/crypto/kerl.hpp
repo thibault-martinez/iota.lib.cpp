@@ -50,7 +50,7 @@ public:
    * @param offset Offset at which the current state of the sponge should be modified.
    * @param length Length of the given input that should be used for absorption.
    */
-  void absorb(const Types::Trits& trits, unsigned int offset = 0, unsigned int length = 0) override;
+  void absorb(const Types::Trits& trits, std::size_t offset = 0, std::size_t length = 0) override;
 
   /**
    * Squeeze the current state of the sponge to the given trits.
@@ -59,7 +59,7 @@ public:
    * @param offset Offset at which the trits should be modified.
    * @param length Length of the current state of the sponge that should be used for squeezing.
    */
-  void squeeze(Types::Trits& trits, unsigned int offset = 0, unsigned int length = 0) override;
+  void squeeze(Types::Trits& trits, std::size_t offset = 0, std::size_t length = 0) override;
 
 private:
   Keccak384 keccak_;

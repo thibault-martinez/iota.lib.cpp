@@ -41,7 +41,7 @@ Curl::reset() {
 }
 
 void
-Curl::absorb(const Types::Trits& trits, unsigned int offset, unsigned int length) {
+Curl::absorb(const Types::Trits& trits, std::size_t offset, std::size_t length) {
   if (length == 0) {
     length = trits.size();
   }
@@ -61,7 +61,7 @@ Curl::absorb(const Types::Trits& trits, unsigned int offset, unsigned int length
 }
 
 void
-Curl::squeeze(Types::Trits& trits, unsigned int offset, unsigned int length) {
+Curl::squeeze(Types::Trits& trits, std::size_t offset, std::size_t length) {
   if (length == 0) {
     length = trits.size();
   }
@@ -82,13 +82,13 @@ Curl::squeeze(Types::Trits& trits, unsigned int offset, unsigned int length) {
 
 void
 Curl::transform() {
-  int scratchpadIndex      = 0;
-  int prev_scratchpadIndex = 0;
+  std::size_t scratchpadIndex      = 0;
+  std::size_t prev_scratchpadIndex = 0;
 
-  for (int round = 0; round < NumberOfRounds; round++) {
+  for (std::size_t round = 0; round < NumberOfRounds; round++) {
     arrayCopy<int8_t>(state_.cbegin(), scratchpad_.begin(), StateLength);
 
-    for (int stateIndex = 0; stateIndex < StateLength; stateIndex++) {
+    for (std::size_t stateIndex = 0; stateIndex < StateLength; stateIndex++) {
       prev_scratchpadIndex = scratchpadIndex;
       scratchpadIndex += (scratchpadIndex < 365 ? 364 : -365);
 

@@ -326,7 +326,7 @@ Extended::bundlesFromAddresses(const std::vector<Types::Trytes>& addresses,
   std::vector<Models::Bundle> bundles;
   std::mutex                  bundlesMtx;
 
-  Utils::parallel_for(0, tailTransactions.size(), [&](int i) {
+  Utils::parallel_for(0, tailTransactions.size(), [&](std::size_t i) {
     try {
       const auto& transaction    = tailTransactions[i];
       const auto  bundleResponse = getBundle(transaction);

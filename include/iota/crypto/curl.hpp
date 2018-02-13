@@ -54,7 +54,7 @@ public:
    * @param offset offset at which the current state should be modified
    * @param length length of the given input that should be used for absorption
    */
-  void absorb(const Types::Trits& trits, unsigned int offset = 0, unsigned int length = 0) override;
+  void absorb(const Types::Trits& trits, std::size_t offset = 0, std::size_t length = 0) override;
 
   /**
    * squeeze the current state to the given input/output
@@ -63,7 +63,7 @@ public:
    * @param offset offset at which the input trists should be modified
    * @param length length of the current state that should be used for squeezing
    */
-  void squeeze(Types::Trits& trits, unsigned int offset = 0, unsigned int length = 0) override;
+  void squeeze(Types::Trits& trits, std::size_t offset = 0, std::size_t length = 0) override;
 
 private:
   /**
@@ -81,7 +81,7 @@ private:
    */
   template <typename T>
   static void arrayCopy(const typename std::vector<T>::const_iterator& input,
-                        const typename std::vector<T>::iterator& output, int length) {
+                        const typename std::vector<T>::iterator& output, std::size_t length) {
     std::transform(input, input + length, output, [](T c) { return c; });
   }
 
@@ -89,12 +89,12 @@ private:
   /**
    * Constant: state length (used to init state attr)
    */
-  static const int32_t StateLength = 3 * TritHashLength;
+  static const std::size_t StateLength = 3 * TritHashLength;
 
   /**
    * Constant: number of round for transform algorithm
    */
-  static const int32_t NumberOfRounds = 81;
+  static const std::size_t NumberOfRounds = 81;
 
   /**
    * Constant: truth table for conversions in transform

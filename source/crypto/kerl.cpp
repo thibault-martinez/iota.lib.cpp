@@ -39,7 +39,7 @@ Kerl::reset() {
 }
 
 void
-Kerl::absorb(const Types::Trits& trits, unsigned int offset, unsigned int length) {
+Kerl::absorb(const Types::Trits& trits, std::size_t offset, std::size_t length) {
   if (length == 0)
     length = trits.size();
   if (length % TritHashLength != 0)
@@ -57,7 +57,7 @@ Kerl::absorb(const Types::Trits& trits, unsigned int offset, unsigned int length
 }
 
 void
-Kerl::squeeze(Types::Trits& trits, unsigned int offset, unsigned int length) {
+Kerl::squeeze(Types::Trits& trits, std::size_t offset, std::size_t length) {
   if (length == 0)
     length = TritHashLength;
   if (length % TritHashLength != 0)

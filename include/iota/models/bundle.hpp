@@ -63,7 +63,7 @@ public:
   /**
    * @return The length of the bundle.
    */
-  uint32_t getLength() const;
+  std::size_t getLength() const;
 
   /**
    * @param returns whether the bundle is empty or not
