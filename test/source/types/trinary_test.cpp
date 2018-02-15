@@ -91,6 +91,71 @@ TEST(Trinary, IsValidHash) {
   EXPECT_FALSE(IOTA::Types::isValidHash("9"));
 }
 
+TEST(Trinary, tritsToBytes) {
+  std::vector<int8_t> b0(IOTA::ByteHashLength, 0);
+  std::vector<int8_t> b1({ (int8_t)0x00, (int8_t)0x00, (int8_t)0x00, (int8_t)0x00 });
+  b1.insert(std::begin(b1), IOTA::ByteHashLength - b1.size(), 0x00);
+  std::vector<int8_t> b2({ (int8_t)0x00, (int8_t)0x00, (int8_t)0x00, (int8_t)0x01 });
+  b2.insert(std::begin(b2), IOTA::ByteHashLength - b2.size(), 0x00);
+  std::vector<int8_t> b3({ (int8_t)0xff, (int8_t)0xff, (int8_t)0xff, (int8_t)0xff });
+  b3.insert(std::begin(b3), IOTA::ByteHashLength - b3.size(), 0xff);
+  std::vector<int8_t> b4({ (int8_t)0x00, (int8_t)0x00, (int8_t)0x00, (int8_t)0x2a });
+  b4.insert(std::begin(b4), IOTA::ByteHashLength - b4.size(), 0x00);
+  std::vector<int8_t> b5({ (int8_t)0xff, (int8_t)0xff, (int8_t)0xff, (int8_t)0xd6 });
+  b5.insert(std::begin(b5), IOTA::ByteHashLength - b5.size(), 0xff);
+  std::vector<int8_t> b6({ (int8_t)0x49, (int8_t)0x96, (int8_t)0x02, (int8_t)0xd2 });
+  b6.insert(std::begin(b6), IOTA::ByteHashLength - b6.size(), 0x00);
+  std::vector<int8_t> b7({ (int8_t)0xb6, (int8_t)0x69, (int8_t)0xfd, (int8_t)0x2e });
+  b7.insert(std::begin(b7), IOTA::ByteHashLength - b7.size(), 0xff);
+
+  EXPECT_EQ(IOTA::Types::tritsToBytes({}), b0);
+  EXPECT_EQ(IOTA::Types::tritsToBytes({ 0 }), b1);
+  EXPECT_EQ(IOTA::Types::tritsToBytes({ 1 }), b2);
+  EXPECT_EQ(IOTA::Types::tritsToBytes({ -1 }), b3);
+  EXPECT_EQ(IOTA::Types::tritsToBytes({ 0, -1, -1, -1, 1 }), b4);
+  EXPECT_EQ(IOTA::Types::tritsToBytes({ 0, 1, 1, 1, -1 }), b5);
+  EXPECT_EQ(IOTA::Types::tritsToBytes(
+                { 0, 0, -1, 0, 1, -1, 0, -1, -1, -1, 1, 0, 1, 0, 0, -1, -1, 1, 0, 1 }),
+            b6);
+  EXPECT_EQ(IOTA::Types::tritsToBytes(
+                { 0, 0, 1, 0, -1, 1, 0, 1, 1, 1, -1, 0, -1, 0, 0, 1, 1, -1, 0, -1 }),
+            b7);
+}
+
+TEST(Trinary, bytesToTrits) {
+  IOTA::Types::Trits t0(IOTA::TritHashLength, 0);
+  IOTA::Types::Trits t1({ 0 });
+  t1.insert(std::end(t1), IOTA::TritHashLength - t1.size(), 0x00);
+  IOTA::Types::Trits t2({ 1 });
+  t2.insert(std::end(t2), IOTA::TritHashLength - t2.size(), 0x00);
+  IOTA::Types::Trits t3({ -1 });
+  t3.insert(std::end(t3), IOTA::TritHashLength - t3.size(), 0x00);
+  IOTA::Types::Trits t4({ 0, -1, -1, -1, 1 });
+  t4.insert(std::end(t4), IOTA::TritHashLength - t4.size(), 0x00);
+  IOTA::Types::Trits t5({ 0, 1, 1, 1, -1 });
+  t5.insert(std::end(t5), IOTA::TritHashLength - t5.size(), 0x00);
+  IOTA::Types::Trits t6({ 0, 0, -1, 0, 1, -1, 0, -1, -1, -1, 1, 0, 1, 0, 0, -1, -1, 1, 0, 1 });
+  t6.insert(std::end(t6), IOTA::TritHashLength - t6.size(), 0x00);
+  IOTA::Types::Trits t7({ 0, 0, 1, 0, -1, 1, 0, 1, 1, 1, -1, 0, -1, 0, 0, 1, 1, -1, 0, -1 });
+  t7.insert(std::end(t7), IOTA::TritHashLength - t7.size(), 0x00);
+
+  EXPECT_EQ(IOTA::Types::bytesToTrits({}), t0);
+  EXPECT_EQ(IOTA::Types::bytesToTrits({ (int8_t)0x00, (int8_t)0x00, (int8_t)0x00, (int8_t)0x00 }),
+            t1);
+  EXPECT_EQ(IOTA::Types::bytesToTrits({ (int8_t)0x00, (int8_t)0x00, (int8_t)0x00, (int8_t)0x01 }),
+            t2);
+  EXPECT_EQ(IOTA::Types::bytesToTrits({ (int8_t)0xff, (int8_t)0xff, (int8_t)0xff, (int8_t)0xff }),
+            t3);
+  EXPECT_EQ(IOTA::Types::bytesToTrits({ (int8_t)0x00, (int8_t)0x00, (int8_t)0x00, (int8_t)0x2a }),
+            t4);
+  EXPECT_EQ(IOTA::Types::bytesToTrits({ (int8_t)0xff, (int8_t)0xff, (int8_t)0xff, (int8_t)0xd6 }),
+            t5);
+  EXPECT_EQ(IOTA::Types::bytesToTrits({ (int8_t)0x49, (int8_t)0x96, (int8_t)0x02, (int8_t)0xd2 }),
+            t6);
+  EXPECT_EQ(IOTA::Types::bytesToTrits({ (int8_t)0xb6, (int8_t)0x69, (int8_t)0xfd, (int8_t)0x2e }),
+            t7);
+}
+
 TEST(Trinary, TrytesToTrits) {
   EXPECT_EQ(IOTA::Types::trytesToTrits("9ABCDEFGHIJKLMNOPQRSTUVWXYZ"),
             std::vector<int8_t>({ 0,  0,  0,  1, 0, 0,  -1, 1,  0,  0,  1,  0,  1,  1,  0,  -1, -1,
