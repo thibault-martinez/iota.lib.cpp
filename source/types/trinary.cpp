@@ -178,13 +178,10 @@ tritsToBytes(const Trits& trits) {
 
 Trits
 bytesToTrits(const std::vector<int8_t>& bytes) {
-  if (!bytes.size()) {
-    return std::vector<int8_t>(TritHashLength, 0);
-  }
-  int8_t                sign     = bytes[0] >= 0 ? 1 : -1;
+  int8_t                sign     = bytes.empty() || bytes[0] >= 0 ? 1 : -1;
   size_t                nr_bytes = bytes.size();
-  size_t                size     = (nr_bytes + 3) >> 2;
-  std::vector<uint32_t> div(size, 0);
+  size_t                j        = (nr_bytes + 3) >> 2;
+  std::vector<uint32_t> div(j, 0);
   uint32_t              dw = sign == 1 ? 0 : (0xffffffff << 8);
   for (size_t i = 0; i < nr_bytes; ++i) {
     dw |= static_cast<uint8_t>(bytes[i]);
@@ -212,12 +209,11 @@ bytesToTrits(const std::vector<int8_t>& bytes) {
 
   std::vector<int8_t> trits;
 
-  // strip leading zeroes
-  while (!div.back()) {
-    div.pop_back();
+  // strip leading zeros
+  while (j && !div[j - 1]) {
+    --j;
   }
 
-  size_t j = div.size();
   while (j) {
     // divide by 3
     uint64_t rem = 0;
@@ -228,21 +224,20 @@ bytesToTrits(const std::vector<int8_t>& bytes) {
       rem %= 3;
     }
 
-    if (!div.back()) {
-      div.pop_back();
+    if (!div[j - 1]) {
       j--;
     }
 
     if (rem > 1) {
       // increment by 1
-      for (size_t k = 0; k < div.size(); ++k) {
+      for (size_t k = 0; k < j; ++k) {
         div[k] = div[k] + 1;
         if (div[k]) {
           break;
         }
       }
-      if (!j || !div.back()) {
-        div.push_back(1);
+      if (!j || !div[j - 1]) {
+        div[j] = 1;
         j++;
       }
       rem -= 3;
