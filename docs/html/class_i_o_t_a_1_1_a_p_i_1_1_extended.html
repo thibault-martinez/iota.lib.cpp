@@ -84,9 +84,10 @@ Inheritance diagram for IOTA::API::Extended:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a24292e0b13d2bfe35584f733c322b8c9"><td class="memItemLeft" align="right" valign="top"><a id="a24292e0b13d2bfe35584f733c322b8c9"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Extended</b> (const std::string &amp;host, const uint16_t &amp;port, bool localPow=true, int timeout=60, Crypto::SpongeType cryptoType=Crypto::SpongeType::KERL)</td></tr>
+<tr class="memitem:a24292e0b13d2bfe35584f733c322b8c9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_extended.html#a24292e0b13d2bfe35584f733c322b8c9">Extended</a> (const std::string &amp;host, const uint16_t &amp;port, bool localPow=true, int timeout=60, Crypto::SpongeType cryptoType=Crypto::SpongeType::KERL)</td></tr>
 <tr class="separator:a24292e0b13d2bfe35584f733c322b8c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae292873ec0cd8936d28e7ffe95cb6c83"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_extended.html#ae292873ec0cd8936d28e7ffe95cb6c83">~Extended</a> ()=default</td></tr>
+<tr class="separator:ae292873ec0cd8936d28e7ffe95cb6c83"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9eae27d3d28afb3a33ae299a0d000311"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_balances_and_format.html">Responses::GetBalancesAndFormat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_extended.html#a9eae27d3d28afb3a33ae299a0d000311">getInputs</a> (const Types::Trytes &amp;seed, const int32_t &amp;start, const int32_t &amp;end, const int32_t &amp;security, const int64_t &amp;threshold) const</td></tr>
 <tr class="separator:a9eae27d3d28afb3a33ae299a0d000311"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a772142ff323308ac482d6e9e477ff188"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_balances_and_format.html">Responses::GetBalancesAndFormat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_extended.html#a772142ff323308ac482d6e9e477ff188">getBalancesAndFormat</a> (const std::vector&lt; Types::Trytes &gt; &amp;addresses, const int64_t &amp;threshold, const int32_t &amp;start, const int32_t &amp;security, const <a class="el" href="class_i_o_t_a_1_1_utils_1_1_stop_watch.html">Utils::StopWatch</a> &amp;stopWatch={}) const</td></tr>
@@ -173,7 +174,91 @@ std::vector&lt; Types::Trytes &gt;&#160;</td><td class="memItemRight" valign="bo
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_extended.html">Extended</a> API calls which will help do just about anything possible with IOTA. These are mostly wrapper functions of <a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_core.html">Core</a> API calls. <a href="https://github.com/iotaledger/wiki/blob/master/api-proposal.md#proposed-api-calls">https://github.com/iotaledger/wiki/blob/master/api-proposal.md#proposed-api-calls</a> </p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a24292e0b13d2bfe35584f733c322b8c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a24292e0b13d2bfe35584f733c322b8c9">&#9670;&nbsp;</a></span>Extended()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">IOTA::API::Extended::Extended </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>host</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const uint16_t &amp;&#160;</td>
+          <td class="paramname"><em>port</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>localPow</em> = <code>true</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>timeout</em> = <code>60</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Crypto::SpongeType&#160;</td>
+          <td class="paramname"><em>cryptoType</em> = <code>Crypto::SpongeType::KERL</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Full init ctor.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">host</td><td>The host of the node to connect to. </td></tr>
+    <tr><td class="paramname">port</td><td>The port of the node to connect to. </td></tr>
+    <tr><td class="paramname">localPow</td><td>Whether to do local or remote proof of work. </td></tr>
+    <tr><td class="paramname">timeout</td><td>Timeout for the requests. </td></tr>
+    <tr><td class="paramname">cryptoType</td><td>Type of cryptographic algorithm to use. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ae292873ec0cd8936d28e7ffe95cb6c83"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae292873ec0cd8936d28e7ffe95cb6c83">&#9670;&nbsp;</a></span>~Extended()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual IOTA::API::Extended::~Extended </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Default dtor. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
 <a id="a9b55e47afe7bbceabba3afc96da9f9d6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9b55e47afe7bbceabba3afc96da9f9d6">&#9670;&nbsp;</a></span>addRemainder()</h2>
 
@@ -266,7 +351,8 @@ std::vector&lt; Types::Trytes &gt;&#160;</td><td class="memItemRight" valign="bo
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Wrapper function that does broadcastTransactions and storeTransactions. </p>
+<p>Wrapper function that does broadcastTransactions and storeTransactions.</p>
+<dl class="section return"><dt>Returns</dt><dd>The response. </dd></dl>
 
 </div>
 </div>
@@ -299,7 +385,7 @@ std::vector&lt; Types::Trytes &gt;&#160;</td><td class="memItemRight" valign="bo
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">addresses</td><td>List of addresses. </td></tr>
-    <tr><td class="paramname">inclusionStates</td><td>If <code>true</code>, it gets the inclusion states of the transfers. </td></tr>
+    <tr><td class="paramname">inclusionStates</td><td>If <code>true</code>, it gets the inclusion states of the transfers.</td></tr>
   </table>
   </dd>
 </dl>
@@ -350,7 +436,7 @@ std::vector&lt; Types::Trytes &gt;&#160;</td><td class="memItemRight" valign="bo
 <p>Lookup transactions for given addresses and return a list of transaction objects</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">addresses</td><td>Addresses for which transactions objects should be found </td></tr>
+    <tr><td class="paramname">addresses</td><td>Addresses for which transactions objects should be found.</td></tr>
   </table>
   </dd>
 </dl>
@@ -376,7 +462,7 @@ std::vector&lt; Types::Trytes &gt;&#160;</td><td class="memItemRight" valign="bo
 <p>Same as findTransactionObjects, but based on bundle hash</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">input</td><td>Bundle hashes </td></tr>
+    <tr><td class="paramname">input</td><td>Bundle hashes</td></tr>
   </table>
   </dd>
 </dl>
@@ -630,7 +716,7 @@ std::vector&lt; Types::Trytes &gt;&#160;</td><td class="memItemRight" valign="bo
     <tr><td class="paramname">threshold</td><td>If set to 0, fetch balance for all input addresses. Otherwise, keep fetching until the threshold is reached. If threshold is &gt; 0 and is not reached, Not Enough Balance exception is raised. </td></tr>
     <tr><td class="paramname">start</td><td>Starting key index. </td></tr>
     <tr><td class="paramname">stopWatch</td><td>the stopwatch. </td></tr>
-    <tr><td class="paramname">security</td><td>The security level of private key / seed. </td></tr>
+    <tr><td class="paramname">security</td><td>The security level of private key / seed.</td></tr>
   </table>
   </dd>
 </dl>
@@ -656,7 +742,7 @@ std::vector&lt; Types::Trytes &gt;&#160;</td><td class="memItemRight" valign="bo
 <p>Gets the associated bundle transactions of a single transaction. Does validation of signatures, total sum as well as bundle order. Basically the same as traverseBundle, but with bundle validity check (signature, order, value and hash check).</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">transaction</td><td>Hash of a tail transaction </td></tr>
+    <tr><td class="paramname">transaction</td><td>Hash of a tail transaction.</td></tr>
   </table>
   </dd>
 </dl>
@@ -714,10 +800,11 @@ std::vector&lt; Types::Trytes &gt;&#160;</td><td class="memItemRight" valign="bo
     <tr><td class="paramname">security</td><td>The Security level of private key / seed. </td></tr>
     <tr><td class="paramname">start</td><td>Starting key index. </td></tr>
     <tr><td class="paramname">end</td><td>Ending key index. </td></tr>
-    <tr><td class="paramname">threshold</td><td>Min balance required. </td></tr>
+    <tr><td class="paramname">threshold</td><td>Min balance required.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>The inputs. </dd></dl>
 
 </div>
 </div>
@@ -739,7 +826,7 @@ std::vector&lt; Types::Trytes &gt;&#160;</td><td class="memItemRight" valign="bo
 <p>Wrapper function for getNodeInfo and getInclusionStates</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">hashes</td><td>The hashes. </td></tr>
+    <tr><td class="paramname">hashes</td><td>The hashes.</td></tr>
   </table>
   </dd>
 </dl>
@@ -804,7 +891,7 @@ std::vector&lt; Types::Trytes &gt;&#160;</td><td class="memItemRight" valign="bo
     <tr><td class="paramname">index</td><td>Key index to start search from. If the index is provided, the generation of the address is not deterministic. </td></tr>
     <tr><td class="paramname">checksum</td><td>Adds 9-tryte address checksum. </td></tr>
     <tr><td class="paramname">total</td><td>Total number of addresses to generate. </td></tr>
-    <tr><td class="paramname">returnAll</td><td>If <code>true</code>, it returns all addresses which were deterministically generated (until findTransactions returns null). </td></tr>
+    <tr><td class="paramname">returnAll</td><td>If <code>true</code>, it returns all addresses which were deterministically generated (until findTransactions returns null).</td></tr>
   </table>
   </dd>
 </dl>
@@ -830,7 +917,7 @@ std::vector&lt; Types::Trytes &gt;&#160;</td><td class="memItemRight" valign="bo
 <p>Lookup transactions for given transaction hashes and return a list of transaction objects If a specific transaction does not exist, return valid transaction tryte 9-filled</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">trx_hashes</td><td>Hashes of the transactions to find </td></tr>
+    <tr><td class="paramname">trx_hashes</td><td>Hashes of the transactions to find</td></tr>
   </table>
   </dd>
 </dl>
@@ -888,7 +975,7 @@ std::vector&lt; Types::Trytes &gt;&#160;</td><td class="memItemRight" valign="bo
     <tr><td class="paramname">security</td><td>The security level of private key / seed. </td></tr>
     <tr><td class="paramname">start</td><td>Starting key index. </td></tr>
     <tr><td class="paramname">end</td><td>Ending key index. </td></tr>
-    <tr><td class="paramname">inclusionStates</td><td>If <code>true</code>, it gets the inclusion states of the transfers. </td></tr>
+    <tr><td class="paramname">inclusionStates</td><td>If <code>true</code>, it gets the inclusion states of the transfers.</td></tr>
   </table>
   </dd>
 </dl>
@@ -938,7 +1025,7 @@ std::vector&lt; Types::Trytes &gt;&#160;</td><td class="memItemRight" valign="bo
   <table class="params">
     <tr><td class="paramname">securitySum</td><td>The sum of security levels used by all co-signers. </td></tr>
     <tr><td class="paramname">inputAddress</td><td>Array of input addresses as well as the securitySum. </td></tr>
-    <tr><td class="paramname">remainderAddress</td><td>Has to be generated by the cosigners before initiating the transfer, can be null if fully spent. </td></tr>
+    <tr><td class="paramname">remainderAddress</td><td>Has to be generated by the cosigners before initiating the transfer, can be null if fully spent.</td></tr>
   </table>
   </dd>
 </dl>
@@ -982,7 +1069,7 @@ std::vector&lt; Types::Trytes &gt;&#160;</td><td class="memItemRight" valign="bo
   <table class="params">
     <tr><td class="paramname">transaction</td><td>The transaction. </td></tr>
     <tr><td class="paramname">depth</td><td>The depth. </td></tr>
-    <tr><td class="paramname">minWeightMagnitude</td><td>The minimum weight magnitude. </td></tr>
+    <tr><td class="paramname">minWeightMagnitude</td><td>The minimum weight magnitude.</td></tr>
   </table>
   </dd>
 </dl>
@@ -1054,7 +1141,7 @@ std::vector&lt; Types::Trytes &gt;&#160;</td><td class="memItemRight" valign="bo
     <tr><td class="paramname">minWeightMagnitude</td><td>The minimum weight magnitude. </td></tr>
     <tr><td class="paramname">transfers</td><td>Array of transfer objects. </td></tr>
     <tr><td class="paramname">inputs</td><td>List of inputs used for funding the transfer. </td></tr>
-    <tr><td class="paramname">address</td><td>If defined, this address will be used for sending the remainder value (of the inputs) to. </td></tr>
+    <tr><td class="paramname">address</td><td>If defined, this address will be used for sending the remainder value (of the inputs) to.</td></tr>
   </table>
   </dd>
 </dl>
@@ -1098,7 +1185,7 @@ std::vector&lt; Types::Trytes &gt;&#160;</td><td class="memItemRight" valign="bo
   <table class="params">
     <tr><td class="paramname">trytes</td><td>The trytes. </td></tr>
     <tr><td class="paramname">depth</td><td>The depth. </td></tr>
-    <tr><td class="paramname">minWeightMagnitude</td><td>The minimum weight magnitude. </td></tr>
+    <tr><td class="paramname">minWeightMagnitude</td><td>The minimum weight magnitude.</td></tr>
   </table>
   </dd>
 </dl>
@@ -1124,7 +1211,7 @@ std::vector&lt; Types::Trytes &gt;&#160;</td><td class="memItemRight" valign="bo
 <p>Basically traverse the Bundle by going down the trunkTransactions until the bundle hash of the transaction is no longer the same. In case the input transaction hash is not a tail, we return an error.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">trunkTx</td><td>Hash of a trunk or a tail transaction of a bundle. </td></tr>
+    <tr><td class="paramname">trunkTx</td><td>Hash of a trunk or a tail transaction of a bundle.</td></tr>
   </table>
   </dd>
 </dl>
@@ -1168,7 +1255,7 @@ std::vector&lt; Types::Trytes &gt;&#160;</td><td class="memItemRight" valign="bo
   <table class="params">
     <tr><td class="paramname">trunkTx</td><td>Hash of a trunk or a tail transaction of a bundle. </td></tr>
     <tr><td class="paramname">bundleHash</td><td>The bundle hash. </td></tr>
-    <tr><td class="paramname">bundle</td><td>Bundle to be populated. </td></tr>
+    <tr><td class="paramname">bundle</td><td>Bundle to be populated.</td></tr>
   </table>
   </dd>
 </dl>

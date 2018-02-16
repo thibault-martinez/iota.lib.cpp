@@ -32,6 +32,11 @@ namespace IOTA {
 
 namespace Crypto {
 
+/**
+ * Hashing algorithm, based on keccak.
+ * Trits are absorbed by the sponge function and later squeezed to provide message digest, derive
+ * keys etc.
+ */
 class Kerl : public ISponge {
 public:
   Kerl()          = default;
@@ -62,6 +67,9 @@ public:
   void squeeze(Types::Trits& trits, std::size_t offset = 0, std::size_t length = 0) override;
 
 private:
+  /**
+   * Internal keccak algorithm.
+   */
   Keccak384 keccak_;
 };
 

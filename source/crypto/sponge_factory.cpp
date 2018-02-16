@@ -32,8 +32,8 @@ namespace IOTA {
 namespace Crypto {
 
 std::shared_ptr<ISponge>
-create(SpongeType t) {
-  switch (t) {
+create(SpongeType type) {
+  switch (type) {
     case SpongeType::CURL:
     case SpongeType::BCURLT:
       return std::make_shared<Curl>();

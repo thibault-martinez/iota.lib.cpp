@@ -70,6 +70,8 @@ $(function() {
 <div class="title">IOTA::Crypto::IPow Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p><code>#include &lt;<a class="el" href="i__pow_8hpp_source.html">i_pow.hpp</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for IOTA::Crypto::IPow:</div>
 <div class="dyncontent">
@@ -82,10 +84,123 @@ Inheritance diagram for IOTA::Crypto::IPow:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aca012ce4a03c4de09257305bb7892eaa"><td class="memItemLeft" align="right" valign="top"><a id="aca012ce4a03c4de09257305bb7892eaa"></a>
-virtual Types::Trytes&#160;</td><td class="memItemRight" valign="bottom"><b>operator()</b> (const Types::Trytes &amp;trytes, int minWeightMagnitude, int threads=0)=0</td></tr>
+<tr class="memitem:a7b175e54fad8b8b89fa2699642e4ce5d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_crypto_1_1_i_pow.html#a7b175e54fad8b8b89fa2699642e4ce5d">IPow</a> ()=default</td></tr>
+<tr class="separator:a7b175e54fad8b8b89fa2699642e4ce5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a452b1a00e4090a7defa2c3f4c1b1d094"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_crypto_1_1_i_pow.html#a452b1a00e4090a7defa2c3f4c1b1d094">~IPow</a> ()=default</td></tr>
+<tr class="separator:a452b1a00e4090a7defa2c3f4c1b1d094"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca012ce4a03c4de09257305bb7892eaa"><td class="memItemLeft" align="right" valign="top">virtual Types::Trytes&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_crypto_1_1_i_pow.html#aca012ce4a03c4de09257305bb7892eaa">operator()</a> (const Types::Trytes &amp;trytes, int minWeightMagnitude, int threads=0)=0</td></tr>
 <tr class="separator:aca012ce4a03c4de09257305bb7892eaa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Interface for proof of work algorithms. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a7b175e54fad8b8b89fa2699642e4ce5d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7b175e54fad8b8b89fa2699642e4ce5d">&#9670;&nbsp;</a></span>IPow()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">IOTA::Crypto::IPow::IPow </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Default ctor. </p>
+
+</div>
+</div>
+<a id="a452b1a00e4090a7defa2c3f4c1b1d094"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a452b1a00e4090a7defa2c3f4c1b1d094">&#9670;&nbsp;</a></span>~IPow()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual IOTA::Crypto::IPow::~IPow </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Default dtor. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="aca012ce4a03c4de09257305bb7892eaa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aca012ce4a03c4de09257305bb7892eaa">&#9670;&nbsp;</a></span>operator()()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual Types::Trytes IOTA::Crypto::IPow::operator() </td>
+          <td>(</td>
+          <td class="paramtype">const Types::Trytes &amp;&#160;</td>
+          <td class="paramname"><em>trytes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>minWeightMagnitude</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>threads</em> = <code>0</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Compute nonce from the given trytes.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">trytes</td><td>The trytes to compute nonce from. </td></tr>
+    <tr><td class="paramname">minWeightMagnitude</td><td>The minimum number of zeroes the hash has to end with. </td></tr>
+    <tr><td class="paramname">threads</td><td>The number of thread to run the algorithm to.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The nonce. </dd></dl>
+
+<p>Implemented in <a class="el" href="class_i_o_t_a_1_1_crypto_1_1_pow.html#a33bcb6d63b82ea79cd252282b07f0828">IOTA::Crypto::Pow</a>.</p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>include/iota/crypto/<a class="el" href="i__pow_8hpp_source.html">i_pow.hpp</a></li>
 </ul>

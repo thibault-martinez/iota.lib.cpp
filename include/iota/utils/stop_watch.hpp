@@ -31,26 +31,29 @@ namespace IOTA {
 
 namespace Utils {
 
+/**
+ * Measures elapsed time.
+ */
 class StopWatch {
 public:
   /**
-   * StopWatch constructor: automatically starts the timer
+   * StopWatch constructor: automatically starts the timer.
    */
   StopWatch();
 
 public:
   /**
-   * restart timer
+   * Restart timer.
    */
   void restart();
 
   /**
-   * pause the timer
+   * Pause the timer.
    */
   void pause();
 
   /**
-   * resume the timer after pausing it
+   * Resume the timer after pausing it.
    */
   void resume();
 
@@ -66,23 +69,23 @@ public:
 
 public:
   /**
-   * @return Current ts
+   * @return Current ts.
    */
   static std::chrono::milliseconds now();
 
 private:
   /**
-   * time at which the timer started
+   * Time at which the timer started.
    */
   std::chrono::milliseconds startTime_;
 
   /**
-   * whether the timer is running or not
+   * Whether the timer is running or not.
    */
   bool running_;
 
   /**
-   * current tick when pausing timer
+   * Current tick when pausing timer.
    */
   std::chrono::milliseconds currentTime_;
 };

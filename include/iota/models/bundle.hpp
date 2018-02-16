@@ -37,13 +37,19 @@ namespace Models {
 
 class Bundle {
 public:
-  Bundle()  = default;
+  /**
+   * Default ctor.
+   */
+  Bundle() = default;
+  /**
+   * Default dtor.
+   */
   ~Bundle() = default;
 
   /**
-   * Initializes a new instance of the Bundle class with a list of transactions
+   * Initializes a new instance of the Bundle class with a list of transactions.
    *
-   # @param transactions transactions belonging to the same bundle
+   # @param transactions transactions belonging to the same bundle.
    */
   explicit Bundle(const std::vector<Models::Transaction>& transactions);
 
@@ -54,7 +60,7 @@ public:
   const std::vector<Models::Transaction>& getTransactions() const;
 
   /**
-   * non-const getTransactions
+   * Non-const getTransactions.
    *
    * @return Bundle transactions.
    */
@@ -66,7 +72,7 @@ public:
   std::size_t getLength() const;
 
   /**
-   * @param returns whether the bundle is empty or not
+   * @param returns whether the bundle is empty or not.
    */
   bool empty() const;
 
@@ -91,7 +97,7 @@ public:
   void addTransaction(const Transaction& transaction);
 
   /**
-   * Finalizes the bundle using the specified curl implementation,
+   * Finalizes the bundle using the specified curl implementation.
    *
    * @param customSponge The custom sponge.
    */
@@ -115,31 +121,31 @@ public:
 public:
   /**
    * @param rhs An object to compare with this object.
-   * @return whether the current bundle occured before the given one
+   * @return whether the current bundle occured before the given one.
    */
   bool operator<(const Bundle& rhs) const;
 
   /**
    * @param rhs An object to compare with this object.
-   * @return whether the current bundle occured after the given one
+   * @return whether the current bundle occured after the given one.
    */
   bool operator>(const Bundle& rhs) const;
 
   /**
    * @param rhs An object to compare with this object.
-   * @return whether the current bundle is the same as the given one
+   * @return whether the current bundle is the same as the given one.
    */
   bool operator==(const Bundle& rhs) const;
 
   /**
    * @param rhs An object to compare with this object.
-   * @return whether the current bundle is different from the given one
+   * @return whether the current bundle is different from the given one.
    */
   bool operator!=(const Bundle& rhs) const;
 
 private:
   /**
-   * Bundle's transactions
+   * Bundle's transactions.
    */
   std::vector<Models::Transaction> transactions_;
 };

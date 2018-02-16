@@ -31,15 +31,43 @@ namespace IOTA {
 
 namespace Crypto {
 
+/**
+ * Sponge construction interface for hashing algorithms.
+ * Trits are absorbed by the sponge function and later squeezed to provide message digest, derive
+ * keys etc.
+ */
 class ISponge {
 public:
-  ISponge()          = default;
+  /**
+   * Default ctor.
+   */
+  ISponge() = default;
+  /**
+   * Default dtor.
+   */
   virtual ~ISponge() = default;
 
 public:
-  virtual void reset()                                                                      = 0;
+  /**
+   * Reset current state of the crypto algorithm.
+   */
+  virtual void reset() = 0;
+  /**
+   * Absorb the input into the current state.
+   *
+   * @param trits input trits to be applied (absorbed) on current state.
+   * @param offset offset at which the current state should be modified.
+   * @param length length of the given input that should be used for absorption.
+   */
   virtual void absorb(const Types::Trits& trits, std::size_t offset = 0,
-                      std::size_t length = 0)                                               = 0;
+                      std::size_t length = 0) = 0;
+  /**
+   * Squeeze the current state to the given input/output.
+   *
+   * @param trits input trits to be updated (squeezed) based on current state.
+   * @param offset offset at which the input trists should be modified.
+   * @param length length of the current state that should be used for squeezing.
+   */
   virtual void squeeze(Types::Trits& trits, std::size_t offset = 0, std::size_t length = 0) = 0;
 };
 

@@ -31,12 +31,30 @@ namespace IOTA {
 
 namespace Crypto {
 
+/**
+ * Interface for proof of work algorithms.
+ */
 class IPow {
 public:
-  IPow()          = default;
+  /**
+   * Default ctor.
+   */
+  IPow() = default;
+  /**
+   * Default dtor.
+   */
   virtual ~IPow() = default;
 
 public:
+  /**
+   * Compute nonce from the given trytes.
+   *
+   * @param trytes The trytes to compute nonce from.
+   * @param minWeightMagnitude The minimum number of zeroes the hash has to end with.
+   * @param threads The number of thread to run the algorithm to.
+   *
+   * @return The nonce.
+   */
   virtual Types::Trytes operator()(const Types::Trytes& trytes, int minWeightMagnitude,
                                    int threads = 0) = 0;
 };

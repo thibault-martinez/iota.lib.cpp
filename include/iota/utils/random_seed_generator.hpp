@@ -32,12 +32,26 @@ namespace IOTA {
 
 namespace Utils {
 
+/**
+ * Random seed generator.
+ */
 class RandomSeedGenerator {
 public:
-  RandomSeedGenerator()          = default;
+  /**
+   * Default ctor.
+   */
+  RandomSeedGenerator() = default;
+  /**
+   * Default dtor.
+   */
   virtual ~RandomSeedGenerator() = default;
 
 public:
+  /**
+   * Generate a new random seed.
+   *
+   * @return The new seed.
+   */
   Types::Trytes operator()() const;
 };
 

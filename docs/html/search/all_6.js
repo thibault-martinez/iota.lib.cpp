@@ -38,7 +38,7 @@ var searchData=
   ['getlatestmilestoneindex',['getLatestMilestoneIndex',['../class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_node_info.html#ab2bb1812b6b2fbb3f14d094c153b0a50',1,'IOTA::API::Responses::GetNodeInfo']]],
   ['getlatestsolidsubtanglemilestone',['getLatestSolidSubtangleMilestone',['../class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_node_info.html#ab5e805a1a71528307759f7ca876e626d',1,'IOTA::API::Responses::GetNodeInfo']]],
   ['getlatestsolidsubtanglemilestoneindex',['getLatestSolidSubtangleMilestoneIndex',['../class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_node_info.html#a269c744a7770abfd07faa5d2f38865b0',1,'IOTA::API::Responses::GetNodeInfo']]],
-  ['getlength',['getLength',['../class_i_o_t_a_1_1_models_1_1_bundle.html#aa7cf1e0738c01b49c20a635fb9b04e19',1,'IOTA::Models::Bundle']]],
+  ['getlength',['getLength',['../class_i_o_t_a_1_1_models_1_1_bundle.html#afb80de928ab513610ad6b5126cd6734b',1,'IOTA::Models::Bundle']]],
   ['getmessage',['getMessage',['../class_i_o_t_a_1_1_models_1_1_transfer.html#af560a9abcf2b70b2e1b9fd7fe4c10458',1,'IOTA::Models::Transfer']]],
   ['getmilestone',['getMilestone',['../class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_balances.html#a66b5edf95b425a9565546e62601e339f',1,'IOTA::API::Responses::GetBalances']]],
   ['getmilestoneindex',['getMilestoneIndex',['../class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_balances.html#a98c32dbbe1b27acf7280f547e167cf71',1,'IOTA::API::Responses::GetBalances']]],

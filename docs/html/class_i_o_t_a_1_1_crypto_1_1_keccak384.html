@@ -72,6 +72,8 @@ $(function() {
 <div class="title">IOTA::Crypto::Keccak384 Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p><code>#include &lt;<a class="el" href="keccak384_8hpp_source.html">keccak384.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -86,17 +88,13 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
-<tr class="memitem:a48e578191dcf2848516c1fa660b08141"><td class="memItemLeft" align="right" valign="top"><a id="a48e578191dcf2848516c1fa660b08141"></a>
-static const unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>rate</b> = 832</td></tr>
+<tr class="memitem:a48e578191dcf2848516c1fa660b08141"><td class="memItemLeft" align="right" valign="top">static const unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_crypto_1_1_keccak384.html#a48e578191dcf2848516c1fa660b08141">rate</a> = 832</td></tr>
 <tr class="separator:a48e578191dcf2848516c1fa660b08141"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad1a0202a790772488b9bdb84f6ea69d1"><td class="memItemLeft" align="right" valign="top"><a id="ad1a0202a790772488b9bdb84f6ea69d1"></a>
-static const unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>capacity</b> = 768</td></tr>
+<tr class="memitem:ad1a0202a790772488b9bdb84f6ea69d1"><td class="memItemLeft" align="right" valign="top">static const unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_crypto_1_1_keccak384.html#ad1a0202a790772488b9bdb84f6ea69d1">capacity</a> = 768</td></tr>
 <tr class="separator:ad1a0202a790772488b9bdb84f6ea69d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5a6ca300396b7e41803d112499daa2a0"><td class="memItemLeft" align="right" valign="top"><a id="a5a6ca300396b7e41803d112499daa2a0"></a>
-static const unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>hashBitLength</b> = 384</td></tr>
+<tr class="memitem:a5a6ca300396b7e41803d112499daa2a0"><td class="memItemLeft" align="right" valign="top">static const unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_crypto_1_1_keccak384.html#a5a6ca300396b7e41803d112499daa2a0">hashBitLength</a> = 384</td></tr>
 <tr class="separator:a5a6ca300396b7e41803d112499daa2a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a80ae160cbd95d3f65c92c9c42634ef0c"><td class="memItemLeft" align="right" valign="top"><a id="a80ae160cbd95d3f65c92c9c42634ef0c"></a>
-static const unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>delimitedSuffix</b> = 0x01</td></tr>
+<tr class="memitem:a80ae160cbd95d3f65c92c9c42634ef0c"><td class="memItemLeft" align="right" valign="top">static const unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_crypto_1_1_keccak384.html#a80ae160cbd95d3f65c92c9c42634ef0c">delimitedSuffix</a> = 0x01</td></tr>
 <tr class="separator:a80ae160cbd95d3f65c92c9c42634ef0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
@@ -108,7 +106,9 @@ Protected Member Functions</h2></td></tr>
 <tr class="memitem:af6dfab2ca13101d0e0aa3b62bfb17d92"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_crypto_1_1_keccak384.html#af6dfab2ca13101d0e0aa3b62bfb17d92">hashInitialize</a> (void)</td></tr>
 <tr class="separator:af6dfab2ca13101d0e0aa3b62bfb17d92"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Keccak sponge construction with a 384 bits output. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="ae023efe7d0f60695b8088d776ae2efb4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae023efe7d0f60695b8088d776ae2efb4">&#9670;&nbsp;</a></span>absorb()</h2>
 
@@ -124,10 +124,10 @@ Protected Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Absorb the given values into the internal state of the sponge.</p>
+<p>Absorb the given bytes into the internal state of the sponge.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">values</td><td>The values. </td></tr>
+    <tr><td class="paramname">bytes</td><td>The bytes. </td></tr>
   </table>
   </dd>
 </dl>
@@ -149,7 +149,7 @@ Protected Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Get an hexadecimal digest of the ouput.</p>
-<dl class="section return"><dt>Returns</dt><dd>the hexadecimal digest. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>An hexadecimal digest. </dd></dl>
 
 </div>
 </div>
@@ -176,7 +176,8 @@ Protected Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Keccak_HashInitialize wrapper to allow mock testing </p>
+<p>Keccak_HashInitialize wrapper to allow mock testing.</p>
+<dl class="section return"><dt>Returns</dt><dd>The initialization status. </dd></dl>
 
 </div>
 </div>
@@ -203,7 +204,14 @@ Protected Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Keccak_HashSqueeze wrapper to allow mock testing </p>
+<p>Keccak_HashSqueeze wrapper to allow mock testing.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">bytes</td><td>Bytes where to squeeze out the internal state of the sponge.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The squeeze status. </dd></dl>
 
 </div>
 </div>
@@ -230,7 +238,14 @@ Protected Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Keccak_HashUpdate wrapper to allow mock testing </p>
+<p>Keccak_HashUpdate wrapper to allow mock testing.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">bytes</td><td>Bytes to be absorbed into the internal state of the sponge.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The update status. </dd></dl>
 
 </div>
 </div>
@@ -266,8 +281,101 @@ Protected Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Squeeze out the internal state of the sponge.</p>
-<dl class="section return"><dt>Returns</dt><dd>The values. </dd></dl>
+<p>Squeeze out bytes from the internal state of the sponge.</p>
+<dl class="section return"><dt>Returns</dt><dd>The bytes. </dd></dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="ad1a0202a790772488b9bdb84f6ea69d1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad1a0202a790772488b9bdb84f6ea69d1">&#9670;&nbsp;</a></span>capacity</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const unsigned int IOTA::Crypto::Keccak384::capacity = 768</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>The value of the capacity c (size of the part that is untouched by input/output). </p>
+
+</div>
+</div>
+<a id="a80ae160cbd95d3f65c92c9c42634ef0c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a80ae160cbd95d3f65c92c9c42634ef0c">&#9670;&nbsp;</a></span>delimitedSuffix</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const unsigned int IOTA::Crypto::Keccak384::delimitedSuffix = 0x01</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Bits that will be automatically appended to the end of the input message, as in domain separation. </p>
+
+</div>
+</div>
+<a id="a5a6ca300396b7e41803d112499daa2a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a6ca300396b7e41803d112499daa2a0">&#9670;&nbsp;</a></span>hashBitLength</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const unsigned int IOTA::Crypto::Keccak384::hashBitLength = 384</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>The desired number of output bits. </p>
+
+</div>
+</div>
+<a id="a48e578191dcf2848516c1fa660b08141"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a48e578191dcf2848516c1fa660b08141">&#9670;&nbsp;</a></span>rate</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const unsigned int IOTA::Crypto::Keccak384::rate = 832</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>The value of the rate r (size of the part of the state that is written and read). </p>
 
 </div>
 </div>

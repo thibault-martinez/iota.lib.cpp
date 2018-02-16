@@ -70,6 +70,8 @@ $(function() {
 <div class="title">IOTA::Crypto::ISponge Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p><code>#include &lt;<a class="el" href="i__sponge_8hpp_source.html">i_sponge.hpp</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for IOTA::Crypto::ISponge:</div>
 <div class="dyncontent">
@@ -83,16 +85,207 @@ Inheritance diagram for IOTA::Crypto::ISponge:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a24fbbc5b2db116b444cb1efdcfd36c85"><td class="memItemLeft" align="right" valign="top"><a id="a24fbbc5b2db116b444cb1efdcfd36c85"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>reset</b> ()=0</td></tr>
+<tr class="memitem:a97dfe70e3c72b6304ac8ef51c99eaec5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_crypto_1_1_i_sponge.html#a97dfe70e3c72b6304ac8ef51c99eaec5">ISponge</a> ()=default</td></tr>
+<tr class="separator:a97dfe70e3c72b6304ac8ef51c99eaec5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9673b9b7c6a07d26d817d3cc4c64c0b5"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_crypto_1_1_i_sponge.html#a9673b9b7c6a07d26d817d3cc4c64c0b5">~ISponge</a> ()=default</td></tr>
+<tr class="separator:a9673b9b7c6a07d26d817d3cc4c64c0b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24fbbc5b2db116b444cb1efdcfd36c85"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_crypto_1_1_i_sponge.html#a24fbbc5b2db116b444cb1efdcfd36c85">reset</a> ()=0</td></tr>
 <tr class="separator:a24fbbc5b2db116b444cb1efdcfd36c85"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a175e3783210dfc6d90e1fed1ce9f866a"><td class="memItemLeft" align="right" valign="top"><a id="a175e3783210dfc6d90e1fed1ce9f866a"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>absorb</b> (const Types::Trits &amp;trits, unsigned int offset=0, unsigned int length=0)=0</td></tr>
-<tr class="separator:a175e3783210dfc6d90e1fed1ce9f866a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab0783fcb2d0b70ec0fb18e6f186d0b17"><td class="memItemLeft" align="right" valign="top"><a id="ab0783fcb2d0b70ec0fb18e6f186d0b17"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>squeeze</b> (Types::Trits &amp;trits, unsigned int offset=0, unsigned int length=0)=0</td></tr>
-<tr class="separator:ab0783fcb2d0b70ec0fb18e6f186d0b17"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ee6b034ad61266d1c754ff132e1ee33"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_crypto_1_1_i_sponge.html#a4ee6b034ad61266d1c754ff132e1ee33">absorb</a> (const Types::Trits &amp;trits, std::size_t offset=0, std::size_t length=0)=0</td></tr>
+<tr class="separator:a4ee6b034ad61266d1c754ff132e1ee33"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a20168da72f3b5a4ef4e923857b135658"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_crypto_1_1_i_sponge.html#a20168da72f3b5a4ef4e923857b135658">squeeze</a> (Types::Trits &amp;trits, std::size_t offset=0, std::size_t length=0)=0</td></tr>
+<tr class="separator:a20168da72f3b5a4ef4e923857b135658"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Sponge construction interface for hashing algorithms. Trits are absorbed by the sponge function and later squeezed to provide message digest, derive keys etc. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a97dfe70e3c72b6304ac8ef51c99eaec5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a97dfe70e3c72b6304ac8ef51c99eaec5">&#9670;&nbsp;</a></span>ISponge()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">IOTA::Crypto::ISponge::ISponge </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Default ctor. </p>
+
+</div>
+</div>
+<a id="a9673b9b7c6a07d26d817d3cc4c64c0b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9673b9b7c6a07d26d817d3cc4c64c0b5">&#9670;&nbsp;</a></span>~ISponge()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual IOTA::Crypto::ISponge::~ISponge </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Default dtor. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a4ee6b034ad61266d1c754ff132e1ee33"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ee6b034ad61266d1c754ff132e1ee33">&#9670;&nbsp;</a></span>absorb()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void IOTA::Crypto::ISponge::absorb </td>
+          <td>(</td>
+          <td class="paramtype">const Types::Trits &amp;&#160;</td>
+          <td class="paramname"><em>trits</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>offset</em> = <code>0</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>length</em> = <code>0</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Absorb the input into the current state.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">trits</td><td>input trits to be applied (absorbed) on current state. </td></tr>
+    <tr><td class="paramname">offset</td><td>offset at which the current state should be modified. </td></tr>
+    <tr><td class="paramname">length</td><td>length of the given input that should be used for absorption. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="class_i_o_t_a_1_1_crypto_1_1_curl.html#a3b075908d0fe4e53629fa7e231f67f83">IOTA::Crypto::Curl</a>, and <a class="el" href="class_i_o_t_a_1_1_crypto_1_1_kerl.html#a8d26667267f0d4f27882775d370e9cb5">IOTA::Crypto::Kerl</a>.</p>
+
+</div>
+</div>
+<a id="a24fbbc5b2db116b444cb1efdcfd36c85"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a24fbbc5b2db116b444cb1efdcfd36c85">&#9670;&nbsp;</a></span>reset()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void IOTA::Crypto::ISponge::reset </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Reset current state of the crypto algorithm. </p>
+
+<p>Implemented in <a class="el" href="class_i_o_t_a_1_1_crypto_1_1_curl.html#ae3962a263d668c4e71bbc60a69aa19b1">IOTA::Crypto::Curl</a>, and <a class="el" href="class_i_o_t_a_1_1_crypto_1_1_kerl.html#a60c945f7891e61b33e792a476f1f98af">IOTA::Crypto::Kerl</a>.</p>
+
+</div>
+</div>
+<a id="a20168da72f3b5a4ef4e923857b135658"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a20168da72f3b5a4ef4e923857b135658">&#9670;&nbsp;</a></span>squeeze()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void IOTA::Crypto::ISponge::squeeze </td>
+          <td>(</td>
+          <td class="paramtype">Types::Trits &amp;&#160;</td>
+          <td class="paramname"><em>trits</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>offset</em> = <code>0</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>length</em> = <code>0</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Squeeze the current state to the given input/output.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">trits</td><td>input trits to be updated (squeezed) based on current state. </td></tr>
+    <tr><td class="paramname">offset</td><td>offset at which the input trists should be modified. </td></tr>
+    <tr><td class="paramname">length</td><td>length of the current state that should be used for squeezing. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="class_i_o_t_a_1_1_crypto_1_1_curl.html#a41ca01ff7210eee70d3f25c2fa1f36b1">IOTA::Crypto::Curl</a>, and <a class="el" href="class_i_o_t_a_1_1_crypto_1_1_kerl.html#a48ae8e8d63234d6245da6016393df0fb">IOTA::Crypto::Kerl</a>.</p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>include/iota/crypto/<a class="el" href="i__sponge_8hpp_source.html">i_sponge.hpp</a></li>
 </ul>

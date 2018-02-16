@@ -43,9 +43,6 @@ Extended::Extended(const std::string& host, const uint16_t& port, bool localPow,
     : Core(host, port, localPow, timeout), cryptoType_(cryptoType) {
 }
 
-Extended::~Extended() {
-}
-
 /*
  * Public methods.
  */

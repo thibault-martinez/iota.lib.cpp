@@ -35,6 +35,9 @@ namespace IOTA {
 
 namespace Crypto {
 
+/**
+ * Proof of work algorithm base on PearlDiver.
+ */
 class Pow : public IPow {
 private:
   static constexpr uint64_t hBits = 0xFFFFFFFFFFFFFFFF;
@@ -57,10 +60,25 @@ private:
   static constexpr int numberOfRounds = PowNumberOfRounds;
 
 public:
-  Pow()          = default;
+  /**
+   * Default ctor.
+   */
+  Pow() = default;
+  /**
+   * Default dtor.
+   */
   virtual ~Pow() = default;
 
 public:
+  /**
+   * Compute nonce from the given trytes.
+   *
+   * @param trytes The trytes to compute nonce from.
+   * @param minWeightMagnitude The minimum number of zeroes the hash has to end with.
+   * @param threads The number of thread to run the algorithm to.
+   *
+   * @return The nonce.
+   */
   Types::Trytes operator()(const Types::Trytes& trytes, int minWeightMagnitude,
                            int threads = 0) override;
 

@@ -34,18 +34,18 @@ namespace Models {
 class Input {
 public:
   /**
-   * default ctor
+   * Default ctor.
    */
   Input() = default;
 
   /**
-   * full init ctor
+   * Full init ctor.
    */
   Input(const Types::Trytes& address, const int64_t& balance, const int32_t& keyIndex,
         const int32_t& security);
 
   /**
-   * default dtor
+   * Default dtor.
    */
   ~Input() = default;
 
@@ -56,53 +56,53 @@ public:
   const Types::Trytes& getAddress() const;
 
   /**
-   * @param addr set address of your peer
+   * @param addr set address of your peer.
    */
   void setAddress(const Types::Trytes& addr);
 
 public:
   /**
-   * @return Balance
+   * @return Balance.
    */
   const int64_t& getBalance() const;
 
   /**
-   * @param balance set new balance for input
+   * @param balance set new balance for input.
    */
   void setBalance(const int64_t& balance);
 
 public:
   /**
-   * @return Key Index
+   * @return Key Index.
    */
   const int32_t& getKeyIndex() const;
 
   /**
-   * @param keyIndex set new keyIndex for input in transaction
+   * @param keyIndex set new keyIndex for input in transaction.
    */
   void setKeyIndex(const int32_t& keyIndex);
 
 public:
   /**
-   * @return Security
+   * @return Security.
    */
   const int32_t& getSecurity() const;
 
   /**
-   * @param security set new security level for input
+   * @param security set new security level for input.
    */
   void setSecurity(const int32_t& security);
 
 public:
   /**
    * @param rhs An object to compare with this object.
-   * @return whether the current input is the same as the given one
+   * @return whether the current input is the same as the given one.
    */
   bool operator==(const Input& rhs) const;
 
   /**
    * @param rhs An object to compare with this object.
-   * @return whether the current input is different from the given one
+   * @return whether the current input is different from the given one.
    */
   bool operator!=(const Input& rhs) const;
 

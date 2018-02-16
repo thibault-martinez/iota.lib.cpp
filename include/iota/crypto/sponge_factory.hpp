@@ -36,9 +36,13 @@ namespace Crypto {
 enum class SpongeType { CURL, KERL, BCURLT };
 
 /**
- * @return share_ptr to an instance matching the passed crypto algorithm type
+ * Sponge factory.
+ *
+ * @param type The cryptographic algorithm type of the sponge to create.
+ *
+ * @return shared_ptr to a new instance of a sponge.
  */
-std::shared_ptr<ISponge> create(SpongeType t);
+std::shared_ptr<ISponge> create(SpongeType type);
 
 }  // namespace Crypto
 

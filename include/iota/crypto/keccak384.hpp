@@ -36,11 +36,27 @@ namespace IOTA {
 
 namespace Crypto {
 
+/**
+ * Keccak sponge construction with a 384 bits output.
+ */
 class Keccak384 {
 public:
-  static const unsigned int rate            = 832;
-  static const unsigned int capacity        = 768;
-  static const unsigned int hashBitLength   = 384;
+  /**
+   * The value of the rate r (size of the part of the state that is written and read).
+   */
+  static const unsigned int rate = 832;
+  /**
+   * The value of the capacity c (size of the part that is untouched by input/output).
+   */
+  static const unsigned int capacity = 768;
+  /**
+   * The desired number of output bits.
+   */
+  static const unsigned int hashBitLength = 384;
+  /**
+   * Bits that will be automatically appended to the end of the input message, as in domain
+   * separation.
+   */
   static const unsigned int delimitedSuffix = 0x01;
 
 public:
@@ -53,37 +69,47 @@ public:
    */
   void reset();
   /**
-   * Absorb the given values into the internal state of the sponge.
+   * Absorb the given bytes into the internal state of the sponge.
    *
-   * @param values The values.
+   * @param bytes The bytes.
    */
   void absorb(const std::vector<int8_t>& bytes);
   /**
-   * Squeeze out the internal state of the sponge.
+   * Squeeze out bytes from the internal state of the sponge.
    *
-   * @return The values.
+   * @return The bytes.
    */
   std::vector<int8_t> squeeze();
   /**
    * Get an hexadecimal digest of the ouput.
    *
-   * @return the hexadecimal digest.
+   * @return An hexadecimal digest.
    */
   std::string digest();
 
 protected:
   /**
-  ** Keccak_HashUpdate wrapper to allow mock testing
+  ** Keccak_HashUpdate wrapper to allow mock testing.
+  *
+  * @param bytes Bytes to be absorbed into the internal state of the sponge.
+  *
+  * @return The update status.
   */
   virtual bool hashUpdate(const std::vector<int8_t>& bytes);
 
   /**
-  ** Keccak_HashSqueeze wrapper to allow mock testing
+  ** Keccak_HashSqueeze wrapper to allow mock testing.
+  *
+  * @param bytes Bytes where to squeeze out the internal state of the sponge.
+  *
+  * @return The squeeze status.
   */
   virtual bool hashSqueeze(std::vector<int8_t>& bytes);
 
   /**
-  ** Keccak_HashInitialize wrapper to allow mock testing
+  ** Keccak_HashInitialize wrapper to allow mock testing.
+  *
+  * @return The initialization status.
   */
   virtual bool hashInitialize(void);
 
@@ -94,6 +120,9 @@ private:
   void initialize();
 
 private:
+  /**
+   * Internal keccak state instance.
+   */
   Keccak_HashInstance khi_;
 };
 

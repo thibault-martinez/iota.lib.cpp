@@ -37,9 +37,8 @@ using Trits  = std::vector<int8_t>;
 using Trytes = std::string;
 
 /**
- * @return the index of the tryte character in the tryte alphabet
- * the range for valid tryte characters is [0, 26],
- * for invalid characters -1 is returned
+ * @return the index of the tryte character in the tryte alphabet the range for valid tryte
+ * characters is [0, 26], for invalid characters -1 is returned
  */
 int8_t tryteIndex(const char& tryte);
 

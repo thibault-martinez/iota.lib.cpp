@@ -36,38 +36,49 @@ namespace IOTA {
 
 namespace Crypto {
 
+/**
+ * Hashing algorithm.
+ * Trits are absorbed by the sponge function and later squeezed to provide message digest, derive
+ * keys etc.
+ */
 class Curl : public ISponge {
 public:
+  /**
+   * Default ctor.
+   */
   Curl();
+  /**
+   * Default dtor.
+   */
   ~Curl() = default;
 
 public:
   /**
-   * Reset current state of the crypto algorithm
+   * Reset current state of the crypto algorithm.
    */
   void reset() override;
 
   /**
-   * absorb the input into the current state
+   * Absorb the input into the current state.
    *
-   * @param trits input trits to be applied (absorbed) on current state
-   * @param offset offset at which the current state should be modified
-   * @param length length of the given input that should be used for absorption
+   * @param trits input trits to be applied (absorbed) on current state.
+   * @param offset offset at which the current state should be modified.
+   * @param length length of the given input that should be used for absorption.
    */
   void absorb(const Types::Trits& trits, std::size_t offset = 0, std::size_t length = 0) override;
 
   /**
-   * squeeze the current state to the given input/output
+   * Squeeze the current state to the given input/output.
    *
-   * @param trits input trits to be updated (squeezed) based on current state
-   * @param offset offset at which the input trists should be modified
-   * @param length length of the current state that should be used for squeezing
+   * @param trits input trits to be updated (squeezed) based on current state.
+   * @param offset offset at which the input trists should be modified.
+   * @param length length of the current state that should be used for squeezing.
    */
   void squeeze(Types::Trits& trits, std::size_t offset = 0, std::size_t length = 0) override;
 
 private:
   /**
-   * Apply sponge fonction transformation algorithm during absorption/squeezing
+   * Apply sponge fonction transformation algorithm during absorption/squeezing.
    */
   void transform();
 
@@ -87,28 +98,28 @@ private:
 
 private:
   /**
-   * Constant: state length (used to init state attr)
+   * Constant: state length (used to init state attr).
    */
   static const std::size_t StateLength = 3 * TritHashLength;
 
   /**
-   * Constant: number of round for transform algorithm
+   * Constant: number of round for transform algorithm.
    */
   static const std::size_t NumberOfRounds = 81;
 
   /**
-   * Constant: truth table for conversions in transform
+   * Constant: truth table for conversions in transform.
    */
   static int TruthTable[];
 
 private:
   /**
-   * current state
+   * Current state.
    */
   std::vector<int8_t> state_;
 
   /**
-   * stratch pad for transformation
+   * Stratch pad for transformation.
    */
   std::vector<int8_t> scratchpad_;
 };

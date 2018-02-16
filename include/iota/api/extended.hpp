@@ -52,9 +52,21 @@ namespace API {
  */
 class Extended : public Core {
 public:
+  /**
+   * Full init ctor.
+   *
+   * @param host The host of the node to connect to.
+   * @param port The port of the node to connect to.
+   * @param localPow Whether to do local or remote proof of work.
+   * @param timeout Timeout for the requests.
+   * @param cryptoType Type of cryptographic algorithm to use.
+   */
   Extended(const std::string& host, const uint16_t& port, bool localPow = true, int timeout = 60,
            Crypto::SpongeType cryptoType = Crypto::SpongeType::KERL);
-  virtual ~Extended();
+  /**
+   * Default dtor.
+   */
+  virtual ~Extended() = default;
 
 public:
   /**
@@ -67,6 +79,8 @@ public:
    * @param start     Starting key index.
    * @param end       Ending key index.
    * @param threshold Min balance required.
+   *
+   * @return The inputs.
    */
   Responses::GetBalancesAndFormat getInputs(const Types::Trytes& seed, const int32_t& start,
                                             const int32_t& end, const int32_t& security,
@@ -82,6 +96,7 @@ public:
    * @param start     Starting key index.
    * @param stopWatch the stopwatch.
    * @param security  The security level of private key / seed.
+   *
    * @return Inputs object.
    **/
   Responses::GetBalancesAndFormat getBalancesAndFormat(
@@ -100,6 +115,7 @@ public:
    * @param total     Total number of addresses to generate.
    * @param returnAll If <code>true</code>, it returns all addresses which were deterministically
    * generated (until findTransactions returns null).
+   *
    * @return An array of strings with the specifed number of addresses.
    */
   Responses::GetNewAddresses getNewAddresses(const Types::Trytes& seed, const uint32_t& index = 0,
@@ -113,6 +129,7 @@ public:
    * transaction hash is not a tail, we return an error.
    *
    * @param trunkTx    Hash of a trunk or a tail transaction of a bundle.
+   *
    * @return Filled bundle corresponding to tail transaction.
    */
   Models::Bundle traverseBundle(const Types::Trytes& trunkTx) const;
@@ -125,6 +142,7 @@ public:
    * @param trunkTx    Hash of a trunk or a tail transaction of a bundle.
    * @param bundleHash The bundle hash.
    * @param bundle     Bundle to be populated.
+   *
    * @return Filled bundle corresponding to tail transaction.
    */
   Models::Bundle traverseBundle(const Types::Trytes& trunkTx, Types::Trytes bundleHash,
@@ -135,6 +153,7 @@ public:
    *
    * @param addresses       List of addresses.
    * @param inclusionStates If <code>true</code>, it gets the inclusion states of the transfers.
+   *
    * @return List of bundles
    */
   std::vector<Models::Bundle> bundlesFromAddresses(
@@ -143,7 +162,8 @@ public:
   /**
    * Lookup transactions for given addresses and return a list of transaction objects
    *
-   * @param addresses Addresses for which transactions objects should be found
+   * @param addresses Addresses for which transactions objects should be found.
+   *
    * @return Transactions.
    */
   std::vector<Models::Transaction> findTransactionObjects(
@@ -154,6 +174,7 @@ public:
    * If a specific transaction does not exist, return valid transaction tryte 9-filled
    *
    * @param trx_hashes Hashes of the transactions to find
+   *
    * @return Transaction objects.
    **/
   std::vector<Models::Transaction> getTransactionsObjects(
@@ -163,6 +184,7 @@ public:
    * Same as findTransactionObjects, but based on bundle hash
    *
    * @param input Bundle hashes
+   *
    * @return Transactions.
    **/
   std::vector<Models::Transaction> findTransactionObjectsByBundle(
@@ -172,6 +194,7 @@ public:
    * Wrapper function for getNodeInfo and getInclusionStates
    *
    * @param hashes The hashes.
+   *
    * @return Inclusion state.
    */
   Responses::GetInclusionStates getLatestInclusion(const std::vector<Types::Trytes>& hashes) const;
@@ -188,6 +211,7 @@ public:
    * @param remainder If defined, this address will be used for sending the remainder value (of the
    * inputs) to.
    * @param inputs    The inputs.
+   *
    * @return Returns bundle trytes.
    */
   std::vector<Types::Trytes> prepareTransfers(const Types::Trytes& seed, int security,
@@ -202,7 +226,8 @@ public:
    * Basically the same as traverseBundle, but with bundle validity check (signature, order, value
    * and hash check).
    *
-   * @param transaction Hash of a tail transaction
+   * @param transaction Hash of a tail transaction.
+   *
    * @return array of transactions belonging to bundle corresponding to the input trx
    */
   Responses::GetBundle getBundle(const Types::Trytes& transaction) const;
@@ -218,6 +243,7 @@ public:
    * @param start           Starting key index.
    * @param end             Ending key index.
    * @param inclusionStates If <code>true</code>, it gets the inclusion states of the transfers.
+   *
    * @return Bundle of transfers.
    */
   Responses::GetTransfers getTransfers(const Types::Trytes& seed, int start, int end, int security,
@@ -235,6 +261,7 @@ public:
    * @param inputs             List of inputs used for funding the transfer.
    * @param address            If defined, this address will be used for sending the remainder value
    * (of the inputs) to.
+   *
    * @return Array of Transaction objects.
    */
   Responses::SendTransfer sendTransfer(const Types::Trytes& seed, int security, int depth,
@@ -249,6 +276,7 @@ public:
    * @param trytes             The trytes.
    * @param depth              The depth.
    * @param minWeightMagnitude The minimum weight magnitude.
+   *
    * @return Transactions objects.
    */
   std::vector<Models::Transaction> sendTrytes(const std::vector<Types::Trytes>& trytes,
@@ -257,6 +285,8 @@ public:
 
   /**
    * Wrapper function that does broadcastTransactions and storeTransactions.
+   *
+   * @return The response.
    */
   Responses::Base broadcastAndStore(const std::vector<Types::Trytes>& trytes) const;
 
@@ -316,6 +346,7 @@ public:
    * @param end             Ending key index. 0 to skip.
    * @param inclusionStates If <code>true</code>, it gets the inclusion states of the transfers.
    * @param threshold       Min balance required. 0 to skip.
+   *
    */
   Responses::GetAccountData getAccountData(const Types::Trytes& seed, int index, int security,
                                            bool checksum, int total, bool returnAll, int start,
@@ -351,6 +382,7 @@ public:
    * @param transaction        The transaction.
    * @param depth              The depth.
    * @param minWeightMagnitude The minimum weight magnitude.
+   *
    * @return Analyzed Transaction objects.
    */
   Responses::ReplayBundle replayBundle(const Types::Trytes& transaction, int depth,
@@ -364,6 +396,7 @@ public:
    * @param inputAddress     Array of input addresses as well as the securitySum.
    * @param remainderAddress Has to be generated by the cosigners before initiating the transfer,
    * can be null if fully spent.
+   *
    * @return Bundle of transaction objects.
    */
   std::vector<Models::Transaction> initiateTransfer(int                            securitySum,
@@ -397,7 +430,7 @@ private:
 
 private:
   /**
-   * crypto algorithm to be used internally
+   * crypto algorithm to be used internally.
    */
   Crypto::SpongeType cryptoType_;
 };
