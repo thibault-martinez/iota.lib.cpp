@@ -28,7 +28,9 @@
 #include <iostream>
 #include <vector>
 
-#include <KeccakHash.hpp>
+extern "C" {
+#include <KeccakHash.h>
+}
 
 namespace IOTA {
 

@@ -38,6 +38,9 @@ set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 set(CMAKE_VERBOSE_MAKEFILE OFF)
 set(CMAKE_MACOSX_RPATH 1)
 
+########## MISC CONFIG ##########
+include(misc)
+
 ########## DEFAULT FOLDERS ##########
 
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
@@ -62,19 +65,15 @@ configure_file(cmake/version.hpp.in
 file(GLOB_RECURSE PROJECT_SOURCE_FILES ${PROJECT_SOURCE_DIR}/*.cpp)
 
 include_directories("${PROJECT_INCLUDE_DIR}")
-include_directories("external/keccak/include")
 include_directories("external/json/src")
-
-file(GLOB_RECURSE KECCAK_SOURCE_FILES external/keccak/source/*.cpp)
-set(PROJECT_SOURCE_FILES ${PROJECT_SOURCE_FILES} ${KECCAK_SOURCE_FILES})
 
 ########## DEPENDENCIES ##########
 
 include_directories(${CMAKE_SOURCE_DIR}/deps/include)
 link_directories(${CMAKE_SOURCE_DIR}/deps/lib)
+include(keccak_settings.as_source)
 
 ########## LIBRARY ##########
-
 add_library(${CMAKE_PROJECT_NAME} STATIC ${PROJECT_SOURCE_FILES})
 
 ########## COMPILATION SETTINGS ##########
@@ -84,6 +83,7 @@ include(compilation_settings)
 ########## EXTERNAL LIBRARIES SETTINGS ##########
 
 include(cpr_settings)
+include(keccak_settings.as_dep)
 
 ########## TEST SETTINGS ##########
 

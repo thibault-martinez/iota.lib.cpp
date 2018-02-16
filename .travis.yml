@@ -284,6 +284,8 @@ install:
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get -qq install default-jre; fi
   # maven
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get -qq install maven; fi
+  # keccak
+  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get -qq install xsltproc; fi
 
 before_script:
   # Increase resources limitation
