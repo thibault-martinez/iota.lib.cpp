@@ -39,6 +39,7 @@ namespace Responses {
 
 /**
  * AddNeighbors API call response.
+ *
  * Add a list of neighbors to your node. It should be noted that this is only temporary, and the
  * added neighbors will be removed from your set of neighbors after you relaunch IRI.
  *

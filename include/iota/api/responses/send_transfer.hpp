@@ -35,6 +35,12 @@ namespace API {
 
 namespace Responses {
 
+/**
+ * SendTransfer API call response.
+ *
+ * Wrapper function that basically does prepareTransfers, as well as attachToTangle and finally, it
+ * broadcasts and stores the transactions locally.
+ */
 class SendTransfer : public Base {
 public:
   /**
@@ -44,6 +50,9 @@ public:
 
   /**
    * Full init ctor.
+   *
+   * @param successful Array of successful operations.
+   * @param duration Request duration.
    */
   SendTransfer(const std::vector<bool>& successful, const int64_t& duration);
 

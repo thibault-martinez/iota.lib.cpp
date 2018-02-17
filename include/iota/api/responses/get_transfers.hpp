@@ -37,7 +37,10 @@ namespace API {
 namespace Responses {
 
 /**
- * getTransfer API call response.
+ * GetTransfer API call response.
+ * Returns the transfers which are associated with a seed. The transfers are determined by either
+ * calculating deterministically which addresses were already used, or by providing a list of
+ * indexes to get the transfers from.
  */
 class GetTransfers : public Base {
 public:
@@ -48,6 +51,9 @@ public:
 
   /**
    * Full init ctor.
+   *
+   * @param transferBundle The transfer bundle.
+   * @param duration Request duration.
    */
   GetTransfers(const std::vector<Models::Bundle>& transferBundle, const int64_t& duration);
 
@@ -68,7 +74,7 @@ public:
   std::vector<Models::Bundle>& getTransfers();
 
   /**
-   * @param transfers new vector of transfers for GetTransfers
+   * @param transfers New vector of transfers for GetTransfers.
    */
   void setTransfers(const std::vector<Models::Bundle>& transfers);
 

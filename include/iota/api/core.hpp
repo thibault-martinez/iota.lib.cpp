@@ -50,9 +50,20 @@ namespace API {
  */
 class Core {
 public:
+  /**
+   * Full init ctor.
+   *
+   * @param host The host of the node to connect to.
+   * @param port The port of the node to connect to.
+   * @param localPow Whether to do local or remote proof of work.
+   * @param timeout Timeout for the requests.
+   */
   explicit Core(const std::string& host, const uint16_t& port, bool localPow = true,
                 int timeout = 60);
-  virtual ~Core();
+  /**
+   * Default dtor.
+   */
+  virtual ~Core() = default;
 
 public:
   /**

@@ -43,12 +43,32 @@ namespace IOTA {
 
 namespace API {
 
+/**
+ * Service to contact a IOTA node.
+ */
 class Service {
 public:
+  /**
+   * Full init ctor.
+   *
+   * @param host Host of the node.
+   * @param port Port of the node.
+   * @param timeout Request timeout.
+   */
   Service(const std::string& host, const uint16_t& port, int timeout = 60);
-  virtual ~Service();
+  /**
+   * Default dtor;
+   */
+  virtual ~Service() = default;
 
 public:
+  /**
+   * Request to the node.
+   *
+   * @param args The request parameters.
+   *
+   * @return The request response.
+   */
   template <typename Request, typename Response, typename... Args>
   Response request(Args&&... args) const {
     auto request = Request{ args... };
@@ -105,9 +125,18 @@ public:
   }
 
 private:
-  std::string  host_;
+  /**
+   * Host of the node.
+   */
+  std::string host_;
+  /**
+   * Port of the node.
+   */
   unsigned int port_;
-  const int    timeout_;
+  /**
+   * Timeout for requests.
+   */
+  const int timeout_;
 };
 
 }  // namespace API

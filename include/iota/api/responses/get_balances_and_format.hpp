@@ -39,11 +39,11 @@ namespace API {
 namespace Responses {
 
 /**
- * Response of extended API getInputs
+ * GetBalancesAndFormat API call response.
+ *
  * Gets all possible inputs of a seed and returns them with the total balance. This is either done
  * deterministically (by genearating all addresses until findTransactions returns null for a
  * corresponding address), or by providing a key range to use for searching through.
- *
  * You can also define the minimum threshold that is required. This means that if you provide the
  * threshold value, you can specify that the inputs should only be returned if their collective
  * balance is above the threshold value.
@@ -57,6 +57,10 @@ public:
 
   /**
    * Full init ctor.
+   *
+   * @param inputs All input associated.
+   * @param totalBalance The total balance.
+   * @param duration Request duration.
    */
   GetBalancesAndFormat(const std::vector<Models::Input>& inputs, const int64_t& totalBalance,
                        const int64_t& duration);
@@ -68,28 +72,28 @@ public:
 
 public:
   /**
-   * @return inputs.
+   * @return Inputs.
    */
   const std::vector<Models::Input>& getInputs() const;
 
   /**
-   * @return inputs. (non const version)
+   * @return Inputs. (non const version)
    */
   std::vector<Models::Input>& getInputs();
 
   /**
-   * @param inputs new inputs for api response
+   * @param inputs New inputs for api response
    */
   void setInputs(const std::vector<Models::Input>& inputs);
 
 public:
   /**
-   * @return total balance.
+   * @return Total balance.
    */
   const int64_t& getTotalBalance() const;
 
   /**
-   * @param totalBalance new total balance for api response
+   * @param totalBalance New total balance for api response.
    */
   void setTotalBalance(const int64_t& totalBalance);
 

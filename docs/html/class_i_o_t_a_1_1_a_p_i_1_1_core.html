@@ -84,9 +84,10 @@ Inheritance diagram for IOTA::API::Core:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:adf36a2dd109c5ccc0d31c58bde7743ca"><td class="memItemLeft" align="right" valign="top"><a id="adf36a2dd109c5ccc0d31c58bde7743ca"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Core</b> (const std::string &amp;host, const uint16_t &amp;port, bool localPow=true, int timeout=60)</td></tr>
+<tr class="memitem:adf36a2dd109c5ccc0d31c58bde7743ca"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_core.html#adf36a2dd109c5ccc0d31c58bde7743ca">Core</a> (const std::string &amp;host, const uint16_t &amp;port, bool localPow=true, int timeout=60)</td></tr>
 <tr class="separator:adf36a2dd109c5ccc0d31c58bde7743ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a77c19113fb5e0f7a0a74b992e955ffce"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_core.html#a77c19113fb5e0f7a0a74b992e955ffce">~Core</a> ()=default</td></tr>
+<tr class="separator:a77c19113fb5e0f7a0a74b992e955ffce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa9d616c9db7893159f16ec1b0356927f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_node_info.html">Responses::GetNodeInfo</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_core.html#aa9d616c9db7893159f16ec1b0356927f">getNodeInfo</a> () const</td></tr>
 <tr class="separator:aa9d616c9db7893159f16ec1b0356927f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab23af5efc04e5a04daf7c19014eb0d0b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_neighbors.html">Responses::GetNeighbors</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_core.html#ab23af5efc04e5a04daf7c19014eb0d0b">getNeighbors</a> () const</td></tr>
@@ -119,7 +120,92 @@ Public Member Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Strict implementation of IOTA core API commands.</p>
 <p><a href="https://iota.readme.io/reference">https://iota.readme.io/reference</a> </p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="adf36a2dd109c5ccc0d31c58bde7743ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf36a2dd109c5ccc0d31c58bde7743ca">&#9670;&nbsp;</a></span>Core()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">IOTA::API::Core::Core </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>host</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const uint16_t &amp;&#160;</td>
+          <td class="paramname"><em>port</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>localPow</em> = <code>true</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>timeout</em> = <code>60</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Full init ctor.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">host</td><td>The host of the node to connect to. </td></tr>
+    <tr><td class="paramname">port</td><td>The port of the node to connect to. </td></tr>
+    <tr><td class="paramname">localPow</td><td>Whether to do local or remote proof of work. </td></tr>
+    <tr><td class="paramname">timeout</td><td>Timeout for the requests. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a77c19113fb5e0f7a0a74b992e955ffce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a77c19113fb5e0f7a0a74b992e955ffce">&#9670;&nbsp;</a></span>~Core()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual IOTA::API::Core::~Core </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Default dtor. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
 <a id="a367bd6329e56491bdb624c083a1b0902"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a367bd6329e56491bdb624c083a1b0902">&#9670;&nbsp;</a></span>addNeighbors()</h2>
 

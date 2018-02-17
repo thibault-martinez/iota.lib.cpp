@@ -38,6 +38,12 @@ namespace API {
 
 namespace Responses {
 
+/**
+ * GetNewAddresses API call response.
+ *
+ * Generates a new address from a seed and returns the remainderAddress. This is either done
+ * deterministically, or by providing the index of the new remainderAddress.
+ */
 class GetNewAddresses : public Base {
 public:
   /**
@@ -47,6 +53,9 @@ public:
 
   /**
    * Full init ctor.
+   *
+   * @param addresses New addresses.
+   * @param duration Request duration.
    */
   GetNewAddresses(const std::vector<Types::Trytes>& addresses, const int64_t& duration);
 

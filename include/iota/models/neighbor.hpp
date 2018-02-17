@@ -31,21 +31,29 @@ namespace IOTA {
 
 namespace Models {
 
+/**
+ * Neighbor model.
+ */
 class Neighbor {
 public:
   /**
-   * default ctor
+   * Default ctor.
    */
   Neighbor() = default;
 
   /**
-   * full init ctor
+   * Full init ctor.
+   *
+   * @param address Address of your peer.
+   * @param numberOfAllTransactions Number of all transactions sent (invalid, valid, already-seen).
+   * @param numberOfInvalidTransactions Number of invalid transactions your peer has sent you.
+   * @param numberOfNewTransactions Number of newly transmitted transactions.
    */
   Neighbor(const Types::Trytes& address, const int64_t& numberOfAllTransactions,
            const int64_t& numberOfInvalidTransactions, const int64_t& numberOfNewTransactions);
 
   /**
-   * default dtor
+   * Default dtor.
    */
   ~Neighbor() = default;
 
@@ -56,7 +64,7 @@ public:
   const Types::Trytes& getAddress() const;
 
   /**
-   * @param addr set address of your peer
+   * @param addr Set address of your peer.
    */
   void setAddress(const Types::Trytes& addr);
 
@@ -67,7 +75,7 @@ public:
   const int64_t& getNumberOfAllTransactions() const;
 
   /**
-   * @param nbTrx set number of all transactions sent (invalid, valid, already seen)
+   * @param nbTrx Set number of all transactions sent (invalid, valid, already seen).
    */
   void setNumberOfAllTransactions(const int64_t& nbTrx);
 
@@ -79,7 +87,7 @@ public:
   const int64_t& getNumberOfInvalidTransactions() const;
 
   /**
-   * @param nbTrx set number of invalid transactions sent your peer
+   * @param nbTrx Set number of invalid transactions sent your peer.
    */
   void setNumberOfInvalidTransactions(const int64_t& nbTrx);
 
@@ -90,28 +98,41 @@ public:
   const int64_t& getNumberOfNewTransactions() const;
 
   /**
-   * @param nbTrx set number of newly transmitted transactions
+   * @param nbTrx Set number of newly transmitted transactions.
    */
   void setNumberOfNewTransactions(const int64_t& nbTrx);
 
 public:
   /**
    * @param rhs An object to compare with this object.
-   * @return whether the current neighbor is the same as the given one
+   * @return Whether the current neighbor is the same as the given one.
    */
   bool operator==(const Neighbor& rhs) const;
 
   /**
    * @param rhs An object to compare with this object.
-   * @return whether the current neighbor is different from the given one
+   * @return Whether the current neighbor is different from the given one.
    */
   bool operator!=(const Neighbor& rhs) const;
 
 private:
+  /**
+   * Address of your peer.
+   */
   Types::Trytes address_;
-  int64_t       numberOfAllTransactions_     = 0;
-  int64_t       numberOfInvalidTransactions_ = 0;
-  int64_t       numberOfNewTransactions_     = 0;
+  /**
+   * Number of all transactions sent (invalid, valid, already-seen).
+   */
+  int64_t numberOfAllTransactions_ = 0;
+  /**
+   * Invalid transactions your peer has sent you. These are transactions with invalid signatures or
+   * overall schema.
+   */
+  int64_t numberOfInvalidTransactions_ = 0;
+  /**
+   * Number of newly transmitted transactions.
+   */
+  int64_t numberOfNewTransactions_ = 0;
 };
 
 }  // namespace Models

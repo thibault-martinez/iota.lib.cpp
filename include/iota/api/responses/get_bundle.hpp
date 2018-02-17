@@ -34,6 +34,13 @@ namespace API {
 
 namespace Responses {
 
+/**
+ * GetBundle API call response.
+ *
+ * Gets the associated bundle transactions of a single transaction. Does validation of signatures,
+ * total sum as well as bundle order. Basically the same as traverseBundle, but with bundle validity
+ * check (signature, order, value and hash check).
+ */
 class GetBundle : public Base {
 public:
   /**

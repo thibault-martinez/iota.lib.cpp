@@ -34,20 +34,26 @@ namespace IOTA {
 
 namespace Models {
 
+/**
+ * Signature model.
+ */
 class Signature {
 public:
   /**
-   * default ctor
+   * Default ctor.
    */
   Signature() = default;
 
   /**
-   * full init ctor
+   * Full init ctor.
+   *
+   * @param addr The address.
+   * @param signatureFragments The signature fragments.
    */
   Signature(const Types::Trytes& addr, const std::vector<Types::Trytes>& signatureFragments);
 
   /**
-   * default dtor
+   * Default dtor.
    */
   ~Signature() = default;
 
@@ -64,35 +70,43 @@ public:
 
 public:
   /**
-   * @return The signatureFragments.
+   * @return The signature fragments.
    */
   const std::vector<Types::Trytes>& getSignatureFragments() const;
 
   /**
-   * @return The signatureFragments.
+   * @return The signature fragments.
    */
   std::vector<Types::Trytes>& getSignatureFragments();
 
   /**
-   * @param signatureFragments The signatureFragments.
+   * @param signatureFragments The signature fragments.
    */
   void setSignatureFragments(const std::vector<Types::Trytes>& signatureFragments);
 
 public:
   /**
    * @param rhs An object to compare with this object.
-   * @return whether the current signature is the same as the given one
+   *
+   * @return whether the current signature is the same as the given one.
    */
   bool operator==(const Signature& rhs) const;
 
   /**
    * @param rhs An object to compare with this object.
-   * @return whether the current signature is different from the given one
+   *
+   * @return whether the current signature is different from the given one.
    */
   bool operator!=(const Signature& rhs) const;
 
 private:
-  Types::Trytes              address_;
+  /**
+   * The adress.
+   */
+  Types::Trytes address_;
+  /**
+   * The signature fragments.
+   */
   std::vector<Types::Trytes> signatureFragments_;
 };
 

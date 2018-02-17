@@ -33,21 +33,29 @@ namespace IOTA {
 
 namespace Models {
 
+/**
+ * Transfer model.
+ */
 class Transfer {
 public:
   /**
-   * Default constructor
+   * Default ctor.
    */
   Transfer() = default;
 
   /**
-   * full constructor
+   * Full init ctor.
+   *
+   * @param address The address.
+   * @param value The value.
+   * @param message The message/
+   * @param tag The tag.
    */
   Transfer(const Types::Trytes& address, int64_t value, const Types::Trytes& message,
            const Types::Trytes& tag);
 
   /**
-   * Destructor
+   * Default dtor.
    */
   ~Transfer() = default;
 
@@ -109,27 +117,40 @@ public:
   void setTag(const Types::Trytes& tag);
 
   /**
-   * @return <code>true</code> if the transfer is valid; otherwise, <code>false</code>>.
+   * @return Whether the transfer is valid or not.
    **/
   bool isValid() const;
 
 public:
   /**
    * @param rhs An object to compare with this object.
-   * @return whether the current transfer is the same as the given one
+   *
+   * @return Whether the current transfer is the same as the given one.
    */
   bool operator==(const Transfer& rhs) const;
 
   /**
    * @param rhs An object to compare with this object.
-   * @return whether the current transfer is different from the given one
+   * @return Whether the current transfer is different from the given one.
    */
   bool operator!=(const Transfer& rhs) const;
 
 private:
+  /**
+   * The adress.
+   */
   Types::Trytes address_;
-  int64_t       value_ = 0;
+  /**
+   * The value.
+   */
+  int64_t value_ = 0;
+  /**
+   * The message.
+   */
   Types::Trytes message_;
+  /**
+   * The tag.
+   */
   Types::Trytes tag_;
 };
 

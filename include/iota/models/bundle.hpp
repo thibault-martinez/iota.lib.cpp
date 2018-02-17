@@ -35,6 +35,9 @@ namespace IOTA {
 
 namespace Models {
 
+/**
+ * Bundle model.
+ */
 class Bundle {
 public:
   /**
@@ -49,7 +52,7 @@ public:
   /**
    * Initializes a new instance of the Bundle class with a list of transactions.
    *
-   # @param transactions transactions belonging to the same bundle.
+   * @param transactions transactions belonging to the same bundle.
    */
   explicit Bundle(const std::vector<Models::Transaction>& transactions);
 
@@ -72,7 +75,7 @@ public:
   std::size_t getLength() const;
 
   /**
-   * @param returns whether the bundle is empty or not.
+   * @return whether the bundle is empty or not.
    */
   bool empty() const;
 

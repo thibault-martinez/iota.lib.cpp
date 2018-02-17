@@ -111,7 +111,7 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:afe643e8cd59f5e453f71cc778673bfa8 inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_base"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>getTransfer API call response. </p>
+<div class="textblock"><p>GetTransfer API call response. Returns the transfers which are associated with a seed. The transfers are determined by either calculating deterministically which addresses were already used, or by providing a list of indexes to get the transfers from. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a13ebf56d5310a2f7d46107eb2d99df07"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a13ebf56d5310a2f7d46107eb2d99df07">&#9670;&nbsp;</a></span>GetTransfers() <span class="overload">[1/2]</span></h2>
@@ -164,7 +164,14 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Full init ctor. </p>
+<p>Full init ctor.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">transferBundle</td><td>The transfer bundle. </td></tr>
+    <tr><td class="paramname">duration</td><td>Request duration. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -248,7 +255,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">transfers</td><td>new vector of transfers for <a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_transfers.html">GetTransfers</a> </td></tr>
+    <tr><td class="paramname">transfers</td><td>New vector of transfers for <a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_transfers.html">GetTransfers</a>. </td></tr>
   </table>
   </dd>
 </dl>

@@ -35,6 +35,11 @@ namespace API {
 
 namespace Responses {
 
+/**
+ * RemoveNeighbors API call response.
+ *
+ * Replays a transfer by doing Proof of Work again.
+ */
 class ReplayBundle : public Base {
 public:
   /**
@@ -44,6 +49,8 @@ public:
 
   /**
    * Full init ctor.
+   * @param successful Array of successful operations.
+   * @param duration Request duration.
    */
   ReplayBundle(const std::vector<bool>& successful, const int64_t& duration);
 

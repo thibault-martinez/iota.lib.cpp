@@ -51,9 +51,6 @@ Core::Core(const std::string& host, const uint16_t& port, bool localPow, int tim
     : service_(host, port, timeout), localPow_(localPow) {
 }
 
-Core::~Core() {
-}
-
 Responses::GetNodeInfo
 Core::getNodeInfo() const {
   return service_.request<Requests::GetNodeInfo, Responses::GetNodeInfo>();

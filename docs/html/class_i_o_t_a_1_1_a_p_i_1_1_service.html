@@ -70,17 +70,128 @@ $(function() {
 <div class="title">IOTA::API::Service Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p><code>#include &lt;<a class="el" href="service_8hpp_source.html">service.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a4489c9a15d2eb7881a79ba83b897a659"><td class="memItemLeft" align="right" valign="top"><a id="a4489c9a15d2eb7881a79ba83b897a659"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Service</b> (const std::string &amp;host, const uint16_t &amp;port, int timeout=60)</td></tr>
+<tr class="memitem:a4489c9a15d2eb7881a79ba83b897a659"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_service.html#a4489c9a15d2eb7881a79ba83b897a659">Service</a> (const std::string &amp;host, const uint16_t &amp;port, int timeout=60)</td></tr>
 <tr class="separator:a4489c9a15d2eb7881a79ba83b897a659"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a533b2ac1e4aaea65afdbb60faa40e8a7"><td class="memTemplParams" colspan="2"><a id="a533b2ac1e4aaea65afdbb60faa40e8a7"></a>
-template&lt;typename Request , typename Response , typename... Args&gt; </td></tr>
-<tr class="memitem:a533b2ac1e4aaea65afdbb60faa40e8a7"><td class="memTemplItemLeft" align="right" valign="top">Response&#160;</td><td class="memTemplItemRight" valign="bottom"><b>request</b> (Args &amp;&amp;... args) const</td></tr>
+<tr class="memitem:a844a11df43c2125d2730c2cf7f81a8ce"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_service.html#a844a11df43c2125d2730c2cf7f81a8ce">~Service</a> ()=default</td></tr>
+<tr class="separator:a844a11df43c2125d2730c2cf7f81a8ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a533b2ac1e4aaea65afdbb60faa40e8a7"><td class="memTemplParams" colspan="2">template&lt;typename Request , typename Response , typename... Args&gt; </td></tr>
+<tr class="memitem:a533b2ac1e4aaea65afdbb60faa40e8a7"><td class="memTemplItemLeft" align="right" valign="top">Response&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_service.html#a533b2ac1e4aaea65afdbb60faa40e8a7">request</a> (Args &amp;&amp;... args) const</td></tr>
 <tr class="separator:a533b2ac1e4aaea65afdbb60faa40e8a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_service.html">Service</a> to contact a IOTA node. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a4489c9a15d2eb7881a79ba83b897a659"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4489c9a15d2eb7881a79ba83b897a659">&#9670;&nbsp;</a></span>Service()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">IOTA::API::Service::Service </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>host</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const uint16_t &amp;&#160;</td>
+          <td class="paramname"><em>port</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>timeout</em> = <code>60</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Full init ctor.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">host</td><td>Host of the node. </td></tr>
+    <tr><td class="paramname">port</td><td>Port of the node. </td></tr>
+    <tr><td class="paramname">timeout</td><td>Request timeout. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a844a11df43c2125d2730c2cf7f81a8ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a844a11df43c2125d2730c2cf7f81a8ce">&#9670;&nbsp;</a></span>~Service()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual IOTA::API::Service::~Service </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Default dtor; </p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a533b2ac1e4aaea65afdbb60faa40e8a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a533b2ac1e4aaea65afdbb60faa40e8a7">&#9670;&nbsp;</a></span>request()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Request , typename Response , typename... Args&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Response IOTA::API::Service::request </td>
+          <td>(</td>
+          <td class="paramtype">Args &amp;&amp;...&#160;</td>
+          <td class="paramname"><em>args</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Request to the node.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">args</td><td>The request parameters.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The request response. </dd></dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>include/iota/api/<a class="el" href="service_8hpp_source.html">service.hpp</a></li>
 </ul>

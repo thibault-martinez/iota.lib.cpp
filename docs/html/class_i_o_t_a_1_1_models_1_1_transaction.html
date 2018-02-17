@@ -70,6 +70,8 @@ $(function() {
 <div class="title">IOTA::Models::Transaction Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p><code>#include &lt;<a class="el" href="transaction_8hpp_source.html">transaction.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -162,7 +164,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a176f6bdea02f868d24678cd1afa1bc56"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_models_1_1_transaction.html#a176f6bdea02f868d24678cd1afa1bc56">initFromTrytes</a> (const Types::Trytes &amp;trytes)</td></tr>
 <tr class="separator:a176f6bdea02f868d24678cd1afa1bc56"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p><a class="el" href="class_i_o_t_a_1_1_models_1_1_transaction.html">Transaction</a> model. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="af5738224031c729af97c559d669220ae"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af5738224031c729af97c559d669220ae">&#9670;&nbsp;</a></span>Transaction() <span class="overload">[1/4]</span></h2>
 
@@ -185,7 +189,7 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>default ctor </p>
+<p>Default ctor. </p>
 
 </div>
 </div>
@@ -211,7 +215,7 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>default dtor </p>
+<p>Default dtor. </p>
 
 </div>
 </div>
@@ -238,7 +242,13 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Initializes a new instance of the <a class="el" href="class_i_o_t_a_1_1_models_1_1_transaction.html">Transaction</a> class. </p>
+<p>Initializes a new instance of the <a class="el" href="class_i_o_t_a_1_1_models_1_1_transaction.html">Transaction</a> class from trytes.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">trytes</td><td>The trytes. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -345,7 +355,27 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Initializes a new instance of the <a class="el" href="class_i_o_t_a_1_1_models_1_1_transaction.html">Transaction</a> class. </p>
+<p>Initializes a new instance of the <a class="el" href="class_i_o_t_a_1_1_models_1_1_transaction.html">Transaction</a> class.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">signatureFragments</td><td><a class="el" href="class_i_o_t_a_1_1_models_1_1_signature.html">Signature</a> fragments of the transaction. </td></tr>
+    <tr><td class="paramname">currentIndex</td><td>Index of the transaction in the bundle. </td></tr>
+    <tr><td class="paramname">lastIndex</td><td>Last transaction index of the bundle. </td></tr>
+    <tr><td class="paramname">nonce</td><td>Nonce. </td></tr>
+    <tr><td class="paramname">hash</td><td>Hash of the transaction. </td></tr>
+    <tr><td class="paramname">timestamp</td><td>Timestamp at which transaction was issued. </td></tr>
+    <tr><td class="paramname">trunkTransaction</td><td>Trunk transaction hash. </td></tr>
+    <tr><td class="paramname">branchTransaction</td><td>Branch transaction hash. </td></tr>
+    <tr><td class="paramname">address</td><td>Address of the transaction. </td></tr>
+    <tr><td class="paramname">value</td><td>Value sent. </td></tr>
+    <tr><td class="paramname">bundle</td><td><a class="el" href="class_i_o_t_a_1_1_models_1_1_bundle.html">Bundle</a> hash. </td></tr>
+    <tr><td class="paramname">tag</td><td>Tag of the transaction. </td></tr>
+    <tr><td class="paramname">attachmentTimestamp</td><td>Attachment timestamp. </td></tr>
+    <tr><td class="paramname">attachmentTimestampLowerBound</td><td>Lower bound of the attachment timestamp. </td></tr>
+    <tr><td class="paramname">attachmentTimestampUpperBound</td><td>Index of the transaction in the bundle. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -404,7 +434,19 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Initializes a new instance of the <a class="el" href="class_i_o_t_a_1_1_models_1_1_transaction.html">Transaction</a> class. </p>
+<p>Initializes a new instance of the <a class="el" href="class_i_o_t_a_1_1_models_1_1_transaction.html">Transaction</a> class.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">address</td><td>Address of the transaction. </td></tr>
+    <tr><td class="paramname">value</td><td>Value sent. </td></tr>
+    <tr><td class="paramname">tag</td><td>Tag of the transaction. </td></tr>
+    <tr><td class="paramname">timestamp</td><td>Timestamp at which transaction was issued. </td></tr>
+    <tr><td class="paramname">attachmentTimestamp</td><td>Attachment timestamp. </td></tr>
+    <tr><td class="paramname">attachmentTimestampLowerBound</td><td>Lower bound of the attachment timestamp. </td></tr>
+    <tr><td class="paramname">attachmentTimestampUpperBound</td><td>Index of the transaction in the bundle. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -747,7 +789,13 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Initializes a new instance of the <a class="el" href="class_i_o_t_a_1_1_models_1_1_transaction.html">Transaction</a> class based on tryte string. </p>
+<p>Initializes a new instance of the <a class="el" href="class_i_o_t_a_1_1_models_1_1_transaction.html">Transaction</a> class based on tryte string.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">trytes</td><td>The trytes from which to initialize the transaction. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -765,7 +813,7 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>whether the transaction is a tail transaction or not (getIndex == 0) </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Whether the transaction is a tail transaction or not (getIndex == 0). </dd></dl>
 
 </div>
 </div>
@@ -784,13 +832,14 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>comparison operator</p>
+<p>Comparison operator.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">rhs</td><td>other object to compare with </td></tr>
+    <tr><td class="paramname">rhs</td><td>other object to compare with.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>Whether the two transactions are equal or not. </dd></dl>
 
 </div>
 </div>
@@ -809,13 +858,14 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>comparison operator</p>
+<p>Comparison operator.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">rhs</td><td>other object to compare with </td></tr>
+    <tr><td class="paramname">rhs</td><td>other object to compare with.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>Whether the two transactions are equal or not. </dd></dl>
 
 </div>
 </div>
@@ -1258,7 +1308,8 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Converts the transaction to the corresponding trytes representation </p>
+<p>Converts the transaction to the corresponding trytes representation.</p>
+<dl class="section return"><dt>Returns</dt><dd>The trytes. </dd></dl>
 
 </div>
 </div>

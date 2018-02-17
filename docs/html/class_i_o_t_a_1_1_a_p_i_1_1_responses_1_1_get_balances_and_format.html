@@ -115,8 +115,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:afe643e8cd59f5e453f71cc778673bfa8 inherit pub_methods_class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_base"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Response of extended API getInputs Gets all possible inputs of a seed and returns them with the total balance. This is either done deterministically (by genearating all addresses until findTransactions returns null for a corresponding address), or by providing a key range to use for searching through.</p>
-<p>You can also define the minimum threshold that is required. This means that if you provide the threshold value, you can specify that the inputs should only be returned if their collective balance is above the threshold value. </p>
+<div class="textblock"><p><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_balances_and_format.html">GetBalancesAndFormat</a> API call response.</p>
+<p>Gets all possible inputs of a seed and returns them with the total balance. This is either done deterministically (by genearating all addresses until findTransactions returns null for a corresponding address), or by providing a key range to use for searching through. You can also define the minimum threshold that is required. This means that if you provide the threshold value, you can specify that the inputs should only be returned if their collective balance is above the threshold value. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a771d438c07a2b49600434cd00d32e068"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a771d438c07a2b49600434cd00d32e068">&#9670;&nbsp;</a></span>GetBalancesAndFormat() <span class="overload">[1/2]</span></h2>
@@ -175,7 +175,15 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Full init ctor. </p>
+<p>Full init ctor.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">inputs</td><td>All input associated. </td></tr>
+    <tr><td class="paramname">totalBalance</td><td>The total balance. </td></tr>
+    <tr><td class="paramname">duration</td><td>Request duration. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -220,7 +228,7 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>inputs. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Inputs. </dd></dl>
 
 </div>
 </div>
@@ -238,7 +246,7 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>inputs. (non const version) </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Inputs. (non const version) </dd></dl>
 
 </div>
 </div>
@@ -256,7 +264,7 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>total balance. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Total balance. </dd></dl>
 
 </div>
 </div>
@@ -277,7 +285,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">inputs</td><td>new inputs for api response </td></tr>
+    <tr><td class="paramname">inputs</td><td>New inputs for api response </td></tr>
   </table>
   </dd>
 </dl>
@@ -301,7 +309,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">totalBalance</td><td>new total balance for api response </td></tr>
+    <tr><td class="paramname">totalBalance</td><td>New total balance for api response. </td></tr>
   </table>
   </dd>
 </dl>

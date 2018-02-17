@@ -34,25 +34,46 @@ namespace IOTA {
 
 namespace Models {
 
+/**
+ * Transaction model.
+ */
 class Transaction {
 public:
   /**
-   * default ctor
+   * Default ctor.
    */
   Transaction() = default;
 
   /**
-   * default dtor
+   * Default dtor.
    */
   ~Transaction() = default;
 
   /**
-   * Initializes a new instance of the Transaction class.
+   * Initializes a new instance of the Transaction class from trytes.
+   *
+   * @param trytes The trytes.
    */
   explicit Transaction(const Types::Trytes& trytes);
 
   /**
    * Initializes a new instance of the Transaction class.
+   *
+   * @param signatureFragments Signature fragments of the transaction.
+   * @param currentIndex Index of the transaction in the bundle.
+   * @param lastIndex Last transaction index of the bundle.
+   * @param nonce Nonce.
+   * @param hash Hash of the transaction.
+   * @param timestamp Timestamp at which transaction was issued.
+   * @param trunkTransaction Trunk transaction hash.
+   * @param branchTransaction Branch transaction hash.
+   * @param address Address of the transaction.
+   * @param value Value sent.
+   * @param bundle Bundle hash.
+   * @param tag Tag of the transaction.
+   * @param attachmentTimestamp Attachment timestamp.
+   * @param attachmentTimestampLowerBound Lower bound of the attachment timestamp.
+   * @param attachmentTimestampUpperBound Index of the transaction in the bundle.
    */
   Transaction(const Types::Trytes& signatureFragments, int64_t currentIndex, int64_t lastIndex,
               const Types::Trytes& nonce, const Types::Trytes& hash, int64_t timestamp,
@@ -63,6 +84,14 @@ public:
 
   /**
    * Initializes a new instance of the Transaction class.
+   *
+   * @param address Address of the transaction.
+   * @param value Value sent.
+   * @param tag Tag of the transaction.
+   * @param timestamp Timestamp at which transaction was issued.
+   * @param attachmentTimestamp Attachment timestamp.
+   * @param attachmentTimestampLowerBound Lower bound of the attachment timestamp.
+   * @param attachmentTimestampUpperBound Index of the transaction in the bundle.
    */
   Transaction(const Types::Trytes& address, int64_t value, const Types::Trytes& tag,
               int64_t timestamp, int64_t attachmentTimestamp = 0,
@@ -70,7 +99,7 @@ public:
 
 public:
   /**
-   * @return whether the transaction is a tail transaction or not (getIndex == 0)
+   * @return Whether the transaction is a tail transaction or not (getIndex == 0).
    */
   bool isTailTransaction() const;
 
@@ -312,130 +341,170 @@ public:
   void setPersistence(bool persistence);
 
   /**
-   * comparison operator
+   * Comparison operator.
    *
-   * @param rhs other object to compare with
+   * @param rhs other object to compare with.
+   *
+   * @return Whether the two transactions are equal or not.
    */
   bool operator==(const Transaction& rhs) const;
 
   /**
-   * comparison operator
+   * Comparison operator.
    *
-   * @param rhs other object to compare with
+   * @param rhs other object to compare with.
+   *
+   * @return Whether the two transactions are equal or not.
    */
   bool operator!=(const Transaction& rhs) const;
 
   /**
-   * Converts the transaction to the corresponding trytes representation
+   * Converts the transaction to the corresponding trytes representation.
+   *
+   * @return The trytes.
    */
   Types::Trytes toTrytes() const;
 
   /**
    * Initializes a new instance of the Transaction class based on tryte string.
+   *
+   * @param trytes The trytes from which to initialize the transaction.
    */
   void initFromTrytes(const Types::Trytes& trytes);
 
 private:
+  /**
+   * Offset of signature fragments in the transaction trytes.
+   */
   static const std::pair<int, int> SignatureFragmentsOffset;
+  /**
+   * Offset of address in the transaction trytes.
+   */
   static const std::pair<int, int> AddressOffset;
+  /**
+   * Offset of value in the transaction trytes.
+   */
   static const std::pair<int, int> ValueOffset;
+  /**
+   * Offset of tag in the transaction trytes.
+   */
   static const std::pair<int, int> TagOffset;
+  /**
+   * Offset of timestamp in the transaction trytes.
+   */
   static const std::pair<int, int> TimestampOffset;
+  /**
+   * Offset of current index in the transaction trytes.
+   */
   static const std::pair<int, int> CurrentIndexOffset;
+  /**
+   * Offset of last index in the transaction trytes.
+   */
   static const std::pair<int, int> LastIndexOffset;
+  /**
+   * Offset of bundle in the transaction trytes.
+   */
   static const std::pair<int, int> BundleOffset;
+  /**
+   * Offset of trunk in the transaction trytes.
+   */
   static const std::pair<int, int> TrunkOffset;
+  /**
+   * Offset of branch in the transaction trytes.
+   */
   static const std::pair<int, int> BranchOffset;
+  /**
+   * Offset of nonce in the transaction trytes.
+   */
   static const std::pair<int, int> NonceOffset;
+  /**
+   * Offset of obsolete tag in the transaction trytes.
+   */
   static const std::pair<int, int> ObsoleteTagOffset;
+  /**
+   * Offset of attachment timestamp in the transaction trytes.
+   */
   static const std::pair<int, int> AttachmentTimestampOffset;
+  /**
+   * Offset of attachment timestamp lower bound in the transaction trytes.
+   */
   static const std::pair<int, int> AttachmentTimestampLowerBoundOffset;
+  /**
+   * Offset of attachment timestamp upper bound in the transaction trytes.
+   */
   static const std::pair<int, int> AttachmentTimestampUpperBoundOffset;
+  /**
+   * Offset of validity chunk in the transaction trytes.
+   */
   static const std::pair<int, int> ValidityChunkOffset;
 
 private:
   /**
-   * hash of the transaction
+   * Hash of the transaction.
    */
   Types::Trytes hash_;
-
   /**
-   * signature of the transaction
+   * Signature of the transaction.
    */
   Types::Trytes signatureFragments_;
-
   /**
-   * address of the transaction
+   * Address of the transaction.
    */
   Types::Trytes address_;
-
   /**
-   * value sent
+   * Value sent.
    */
   int64_t value_ = 0;
-
   /**
-   * tag of the transaction
+   * Tag of the transaction.
    */
   Types::Trytes tag_;
-
   /**
-   * obsolete tag of the transaction
+   * Obsolete tag of the transaction.
    */
   Types::Trytes obsoleteTag_;
-
   /**
-   * ts at which transaction was issued
+   * Timestamp at which transaction was issued.
    */
   int64_t timestamp_ = 0;
-
   /**
-   * attachment timestamp
+   * Attachment timestamp.
    */
   int64_t attachmentTimestamp_ = 0;
-
   /**
-   * lower bound of the attachment timestamp
+   * Lower bound of the attachment timestamp.
    */
   int64_t attachmentTimestampLowerBound_ = 0;
-
   /**
-   * upper bound of the attachment timestamp
+   * Upper bound of the attachment timestamp.
    */
   int64_t attachmentTimestampUpperBound_ = 0;
-
   /**
-   * index of the transaction in the bundle
+   * Index of the transaction in the bundle.
    */
   int64_t currentIndex_ = 0;
-
   /**
-   * last transaction index of the bundle
+   * Last transaction index of the bundle.
    */
   int64_t lastIndex_ = 0;
-
   /**
-   * bundle hash
+   * Bundle hash.
    */
   Types::Trytes bundle_;
-
   /**
-   * trunk transaction hash
+   * Trunk transaction hash.
    */
   Types::Trytes trunkTransaction_;
-
   /**
-   * branch transaction hash
+   * Branch transaction hash.
    */
   Types::Trytes branchTransaction_;
-
   /**
-   * nounce
+   * Nonce.
    */
   Types::Trytes nonce_;
-
   /**
-   * whether transaction is persisted or not
+   * Whether transaction is persisted or not.
    */
   bool persistence_ = false;
 };

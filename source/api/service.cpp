@@ -33,9 +33,6 @@ Service::Service(const std::string& host, const uint16_t& port, int timeout)
     : host_(host), port_(port), timeout_(timeout) {
 }
 
-Service::~Service() {
-}
-
 }  // namespace API
 
 }  // namespace IOTA

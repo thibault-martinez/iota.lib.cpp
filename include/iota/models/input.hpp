@@ -31,6 +31,9 @@ namespace IOTA {
 
 namespace Models {
 
+/**
+ * Input model.
+ */
 class Input {
 public:
   /**
@@ -40,6 +43,11 @@ public:
 
   /**
    * Full init ctor.
+   *
+   * @param address The address of your peer.
+   * @param balance The balance.
+   * @param keyIndex The key index for input in transaction.
+   * @param security The security level for input.
    */
   Input(const Types::Trytes& address, const int64_t& balance, const int32_t& keyIndex,
         const int32_t& security);
@@ -96,21 +104,35 @@ public:
 public:
   /**
    * @param rhs An object to compare with this object.
+   *
    * @return whether the current input is the same as the given one.
    */
   bool operator==(const Input& rhs) const;
 
   /**
    * @param rhs An object to compare with this object.
+   *
    * @return whether the current input is different from the given one.
    */
   bool operator!=(const Input& rhs) const;
 
 private:
+  /**
+   * The address.
+   */
   Types::Trytes address_;
-  int64_t       balance_  = 0;
-  int32_t       keyIndex_ = 0;
-  int32_t       security_ = 0;
+  /**
+   * The balance.
+   */
+  int64_t balance_ = 0;
+  /**
+   * The key index.
+   */
+  int32_t keyIndex_ = 0;
+  /**
+   * The security.
+   */
+  int32_t security_ = 0;
 };
 
 }  // namespace Models
