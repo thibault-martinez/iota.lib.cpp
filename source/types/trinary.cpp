@@ -24,6 +24,7 @@
 //
 
 #include <algorithm>
+#include <cmath>
 #include <functional>
 
 #include <iota/constants.hpp>
