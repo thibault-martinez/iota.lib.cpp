@@ -23,10 +23,9 @@
 //
 //
 
-#include <gtest/gtest.h>
-
-#include <chrono>
 #include <thread>
+
+#include <gtest/gtest.h>
 
 #include <iota/constants.hpp>
 #include <iota/types/trinary.hpp>

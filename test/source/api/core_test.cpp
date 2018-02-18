@@ -25,9 +25,6 @@
 
 #include <gtest/gtest.h>
 
-#include <chrono>
-#include <thread>
-
 #include <iota/api/core.hpp>
 #include <iota/api/responses/add_neighbors.hpp>
 #include <iota/api/responses/attach_to_tangle.hpp>
