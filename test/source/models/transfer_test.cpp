@@ -97,6 +97,13 @@ TEST(Transfer, TagGetterAndSetter) {
   EXPECT_EQ(t.getValue(), 1);
   EXPECT_EQ(t.getMessage(), "msg");
   EXPECT_EQ(t.getTag(), "EDITED");
+
+  t.setTag(IOTA::Models::Tag{ "EDITEDOBJ" });
+
+  EXPECT_EQ(t.getAddress(), "addr");
+  EXPECT_EQ(t.getValue(), 1);
+  EXPECT_EQ(t.getMessage(), "msg");
+  EXPECT_EQ(t.getTag(), "EDITEDOBJ");
 }
 
 TEST(Transfer, IsValid) {

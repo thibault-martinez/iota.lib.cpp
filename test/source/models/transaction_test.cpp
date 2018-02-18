@@ -387,6 +387,9 @@ TEST(Transaction, TagGetterAndSetter) {
 
   t.setTag("TAG");
   EXPECT_EQ(t.getTag(), "TAG");
+
+  t.setTag(IOTA::Models::Tag{ "TAGOBJ" });
+  EXPECT_EQ(t.getTag(), "TAGOBJ");
 }
 
 TEST(Transaction, ObsoleteTagGetterAndSetter) {
@@ -395,6 +398,9 @@ TEST(Transaction, ObsoleteTagGetterAndSetter) {
 
   t.setObsoleteTag("TAG");
   EXPECT_EQ(t.getObsoleteTag(), "TAG");
+
+  t.setObsoleteTag(IOTA::Models::Tag{ "TAGOBJ" });
+  EXPECT_EQ(t.getObsoleteTag(), "TAGOBJ");
 }
 
 TEST(Transaction, AddressGetterAndSetter) {

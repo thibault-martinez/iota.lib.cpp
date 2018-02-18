@@ -58,7 +58,12 @@ Tag::setTag(const Types::Trytes& tag) {
     throw Errors::IllegalState("tag is not a valid trytes string");
   }
 
-  tag_       = tag.substr(0, tag.rfind('9'));
+  int trailing9sPos = tag.length();
+  while (trailing9sPos > 0 && tag[trailing9sPos - 1] == '9') {
+    --trailing9sPos;
+  }
+
+  tag_       = tag.substr(0, trailing9sPos);
   paddedTag_ = Types::Utils::rightPad(tag_, TagLength, '9');
 }
 
