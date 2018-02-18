@@ -38,65 +38,65 @@ TEST(Transfer, CtorDefault) {
 }
 
 TEST(Transfer, CtorShort) {
-  IOTA::Models::Transfer t = { "addr", 1, "msg", "tag" };
+  IOTA::Models::Transfer t = { "addr", 1, "msg", "TAG" };
 
   EXPECT_EQ(t.getAddress(), "addr");
   EXPECT_EQ(t.getValue(), 1);
   EXPECT_EQ(t.getMessage(), "msg");
-  EXPECT_EQ(t.getTag(), "tag");
+  EXPECT_EQ(t.getTag(), "TAG");
 }
 
 TEST(Transfer, ConstGetters) {
-  const IOTA::Models::Transfer t = { "addr", 1, "msg", "tag" };
+  const IOTA::Models::Transfer t = { "addr", 1, "msg", "TAG" };
 
   EXPECT_EQ(t.getAddress(), "addr");
   EXPECT_EQ(t.getValue(), 1);
   EXPECT_EQ(t.getMessage(), "msg");
-  EXPECT_EQ(t.getTag(), "tag");
+  EXPECT_EQ(t.getTag(), "TAG");
 }
 
 TEST(Transfer, AddressGetterAndSetter) {
-  IOTA::Models::Transfer t = { "addr", 1, "msg", "tag" };
+  IOTA::Models::Transfer t = { "addr", 1, "msg", "TAG" };
 
   t.setAddress("edited");
 
   EXPECT_EQ(t.getAddress(), "edited");
   EXPECT_EQ(t.getValue(), 1);
   EXPECT_EQ(t.getMessage(), "msg");
-  EXPECT_EQ(t.getTag(), "tag");
+  EXPECT_EQ(t.getTag(), "TAG");
 }
 
 TEST(Transfer, ValueGetterAndSetter) {
-  IOTA::Models::Transfer t = { "addr", 1, "msg", "tag" };
+  IOTA::Models::Transfer t = { "addr", 1, "msg", "TAG" };
 
   t.setValue(42);
 
   EXPECT_EQ(t.getAddress(), "addr");
   EXPECT_EQ(t.getValue(), 42);
   EXPECT_EQ(t.getMessage(), "msg");
-  EXPECT_EQ(t.getTag(), "tag");
+  EXPECT_EQ(t.getTag(), "TAG");
 }
 
 TEST(Transfer, MessageGetterAndSetter) {
-  IOTA::Models::Transfer t = { "addr", 1, "msg", "tag" };
+  IOTA::Models::Transfer t = { "addr", 1, "msg", "TAG" };
 
   t.setMessage("edited");
 
   EXPECT_EQ(t.getAddress(), "addr");
   EXPECT_EQ(t.getValue(), 1);
   EXPECT_EQ(t.getMessage(), "edited");
-  EXPECT_EQ(t.getTag(), "tag");
+  EXPECT_EQ(t.getTag(), "TAG");
 }
 
 TEST(Transfer, TagGetterAndSetter) {
-  IOTA::Models::Transfer t = { "addr", 1, "msg", "tag" };
+  IOTA::Models::Transfer t = { "addr", 1, "msg", "TAG" };
 
-  t.setTag("edited");
+  t.setTag("EDITED");
 
   EXPECT_EQ(t.getAddress(), "addr");
   EXPECT_EQ(t.getValue(), 1);
   EXPECT_EQ(t.getMessage(), "msg");
-  EXPECT_EQ(t.getTag(), "edited");
+  EXPECT_EQ(t.getTag(), "EDITED");
 }
 
 TEST(Transfer, IsValid) {
@@ -120,23 +120,9 @@ TEST(Transfer, IsValidInvalidMessage) {
   EXPECT_FALSE(t.isValid());
 }
 
-TEST(Transfer, IsValidInvalidTag) {
-  IOTA::Models::Transfer t = { BUNDLE_1_TRX_1_ADDRESS, BUNDLE_1_TRX_1_VALUE, BUNDLE_1_TRX_1_TAG,
-                               "*&7" };
-
-  EXPECT_FALSE(t.isValid());
-}
-
-TEST(Transfer, IsValidInvalidTagLength) {
-  IOTA::Models::Transfer t = { BUNDLE_1_TRX_1_ADDRESS, BUNDLE_1_TRX_1_VALUE, BUNDLE_1_TRX_1_TAG,
-                               "9" };
-
-  EXPECT_FALSE(t.isValid());
-}
-
 TEST(Transfer, EqAndDiffOperators) {
-  IOTA::Models::Transfer t1 = { "addr1", 1, "msg1", "tag1" };
-  IOTA::Models::Transfer t2 = { "addr2", 2, "msg2", "tag2" };
+  IOTA::Models::Transfer t1 = { "addr1", 1, "msg1", "TAGONE" };
+  IOTA::Models::Transfer t2 = { "addr2", 2, "msg2", "TAGTWO" };
 
   EXPECT_EQ(t1 == t2, false);
   EXPECT_EQ(t1 != t2, true);
@@ -156,7 +142,7 @@ TEST(Transfer, EqAndDiffOperators) {
   EXPECT_EQ(t1 == t2, false);
   EXPECT_EQ(t1 != t2, true);
 
-  t2.setTag("tag1");
+  t2.setTag("TAGONE");
 
   EXPECT_EQ(t1 == t2, true);
   EXPECT_EQ(t1 != t2, false);

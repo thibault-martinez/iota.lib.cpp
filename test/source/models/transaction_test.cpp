@@ -222,20 +222,21 @@ TEST(Transaction, CtorFromTrxTrytesInvalidTrytes) {
   EXPECT_EQ(t.getBundle(), "");
   EXPECT_EQ(t.getPersistence(), false);
   EXPECT_EQ(t.toTrytes(),
-            "999999999999999999999999999999999999999999999999999999999999999999999999999999999");
+            "99999999999999999999999999999999999999999999999999999999999999999999999999999999999999"
+            "9999999999999999999999999999999999999999999999999");
 }
 
 TEST(Transaction, CtorFull) {
   IOTA::Models::Transaction t("signatureFragments", 1, 2, "nonce", "hash", 3, "trunkTransaction",
-                              "branchTransaction", "address", 4, "bundle", "tag", 5, 6, 7);
+                              "branchTransaction", "address", 4, "bundle", "TAG", 5, 6, 7);
 
   EXPECT_EQ(t.getSignatureFragments(), "signatureFragments");
   EXPECT_EQ(t.getCurrentIndex(), 1);
   EXPECT_EQ(t.getLastIndex(), 2);
   EXPECT_EQ(t.getNonce(), "nonce");
   EXPECT_EQ(t.getHash(), "hash");
-  EXPECT_EQ(t.getTag(), "tag");
-  EXPECT_EQ(t.getObsoleteTag(), "tag");
+  EXPECT_EQ(t.getTag(), "TAG");
+  EXPECT_EQ(t.getObsoleteTag(), "TAG");
   EXPECT_EQ(t.getTimestamp(), 3);
   EXPECT_EQ(t.getAttachmentTimestamp(), 5);
   EXPECT_EQ(t.getAttachmentTimestampLowerBound(), 6);
@@ -249,15 +250,15 @@ TEST(Transaction, CtorFull) {
 }
 
 TEST(Transaction, CtorShort) {
-  IOTA::Models::Transaction t = { "address", 1, "tag", 2 };
+  IOTA::Models::Transaction t = { "address", 1, "TAG", 2 };
 
   EXPECT_EQ(t.getSignatureFragments(), "");
   EXPECT_EQ(t.getCurrentIndex(), 0);
   EXPECT_EQ(t.getLastIndex(), 0);
   EXPECT_EQ(t.getNonce(), "");
   EXPECT_EQ(t.getHash(), "");
-  EXPECT_EQ(t.getObsoleteTag(), "tag");
-  EXPECT_EQ(t.getTag(), "tag");
+  EXPECT_EQ(t.getObsoleteTag(), "TAG");
+  EXPECT_EQ(t.getTag(), "TAG");
   EXPECT_EQ(t.getTimestamp(), 2);
   EXPECT_EQ(t.getAttachmentTimestamp(), 0);
   EXPECT_EQ(t.getAttachmentTimestampLowerBound(), 0);
@@ -271,15 +272,15 @@ TEST(Transaction, CtorShort) {
 }
 
 TEST(Transaction, CtorShortFull) {
-  IOTA::Models::Transaction t = { "address", 1, "tag", 2, 3, 4, 5 };
+  IOTA::Models::Transaction t = { "address", 1, "TAG", 2, 3, 4, 5 };
 
   EXPECT_EQ(t.getSignatureFragments(), "");
   EXPECT_EQ(t.getCurrentIndex(), 0);
   EXPECT_EQ(t.getLastIndex(), 0);
   EXPECT_EQ(t.getNonce(), "");
   EXPECT_EQ(t.getHash(), "");
-  EXPECT_EQ(t.getObsoleteTag(), "tag");
-  EXPECT_EQ(t.getTag(), "tag");
+  EXPECT_EQ(t.getObsoleteTag(), "TAG");
+  EXPECT_EQ(t.getTag(), "TAG");
   EXPECT_EQ(t.getTimestamp(), 2);
   EXPECT_EQ(t.getAttachmentTimestamp(), 3);
   EXPECT_EQ(t.getAttachmentTimestampLowerBound(), 4);
@@ -295,15 +296,15 @@ TEST(Transaction, CtorShortFull) {
 TEST(Transaction, ConstGetters) {
   const IOTA::Models::Transaction t("signatureFragments", 1, 2, "nonce", "hash", 3,
                                     "trunkTransaction", "branchTransaction", "address", 4, "bundle",
-                                    "tag", 5, 6, 7);
+                                    "TAG", 5, 6, 7);
 
   EXPECT_EQ(t.getSignatureFragments(), "signatureFragments");
   EXPECT_EQ(t.getCurrentIndex(), 1);
   EXPECT_EQ(t.getLastIndex(), 2);
   EXPECT_EQ(t.getNonce(), "nonce");
   EXPECT_EQ(t.getHash(), "hash");
-  EXPECT_EQ(t.getTag(), "tag");
-  EXPECT_EQ(t.getObsoleteTag(), "tag");
+  EXPECT_EQ(t.getTag(), "TAG");
+  EXPECT_EQ(t.getObsoleteTag(), "TAG");
   EXPECT_EQ(t.getTimestamp(), 3);
   EXPECT_EQ(t.getAttachmentTimestamp(), 5);
   EXPECT_EQ(t.getAttachmentTimestampLowerBound(), 6);
@@ -384,16 +385,16 @@ TEST(Transaction, TagGetterAndSetter) {
   IOTA::Models::Transaction t;
   EXPECT_EQ(t.getTag(), "");
 
-  t.setTag("tag");
-  EXPECT_EQ(t.getTag(), "tag");
+  t.setTag("TAG");
+  EXPECT_EQ(t.getTag(), "TAG");
 }
 
 TEST(Transaction, ObsoleteTagGetterAndSetter) {
   IOTA::Models::Transaction t;
   EXPECT_EQ(t.getObsoleteTag(), "");
 
-  t.setObsoleteTag("tag");
-  EXPECT_EQ(t.getObsoleteTag(), "tag");
+  t.setObsoleteTag("TAG");
+  EXPECT_EQ(t.getObsoleteTag(), "TAG");
 }
 
 TEST(Transaction, AddressGetterAndSetter) {
@@ -455,11 +456,11 @@ TEST(Transaction, PersistenceGetterAndSetter) {
 TEST(Transaction, OperatorEq) {
   IOTA::Models::Transaction t1("signatureFragments1", 11, 21, "nonce1", "hash1", 31,
                                "trunkTransaction1", "branchTransaction1", "address1", 41, "bundle1",
-                               "tag1", 51, 61, 71);
+                               "TAGONE", 51, 61, 71);
 
   IOTA::Models::Transaction t2("signatureFragments2", 22, 22, "nonce2", "hash2", 32,
                                "trunkTransaction2", "branchTransaction2", "address2", 42, "bundle2",
-                               "tag2", 52, 62, 72);
+                               "TAGTWO", 52, 62, 72);
 
   EXPECT_EQ(t1 == t2, false);
 
@@ -472,11 +473,11 @@ TEST(Transaction, OperatorEq) {
 TEST(Transaction, OperatorNEq) {
   IOTA::Models::Transaction t1("signatureFragments1", 11, 21, "nonce1", "hash1", 31,
                                "trunkTransaction1", "branchTransaction1", "address1", 41, "bundle1",
-                               "tag1", 51, 61, 71);
+                               "TAGONE", 51, 61, 71);
 
   IOTA::Models::Transaction t2("signatureFragments2", 22, 22, "nonce2", "hash2", 32,
                                "trunkTransaction2", "branchTransaction2", "address2", 42, "bundle2",
-                               "tag2", 52, 62, 72);
+                               "TAGTWO", 52, 62, 72);
 
   EXPECT_EQ(t1 != t2, true);
 
@@ -489,7 +490,7 @@ TEST(Transaction, OperatorNEq) {
 TEST(Transaction, IsTailTransaction) {
   IOTA::Models::Transaction t("signatureFragments1", 11, 21, "nonce1", "hash1", 31,
                               "trunkTransaction1", "branchTransaction1", "address1", 41, "bundle1",
-                              "tag1", 51, 61, 71);
+                              "TAGONE", 51, 61, 71);
 
   EXPECT_EQ(t.isTailTransaction(), false);
 

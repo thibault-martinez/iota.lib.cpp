@@ -382,7 +382,6 @@ Extended::prepareTransfers(const Types::Trytes& seed, int security,
   Models::Bundle             bundle;
   std::vector<Types::Trytes> signatureFragments;
   int64_t                    totalValue = 0;
-  Types::Trytes              tag;
 
   //  Iterate over all transfers, get totalValue
   //  and prepare the signatureFragments, message and tag
@@ -424,15 +423,10 @@ Extended::prepareTransfers(const Types::Trytes& seed, int security,
     // get current timestamp in seconds
     int64_t timestamp = Utils::StopWatch::now().count();
 
-    // If no tag defined, get 27 tryte tag.
-    tag = transfer.getTag().empty() ? "999999999999999999999999999" : transfer.getTag();
-
-    // Pad for required 27 tryte length
-    tag = Types::Utils::rightPad(tag, TryteAlphabetLength, '9');
-
     // Add first entry to the bundle
-    bundle.addTransaction(signatureMessageLength, transfer.getAddress(), transfer.getValue(), tag,
-                          timestamp);
+    bundle.addTransaction(
+        { transfer.getAddress(), transfer.getValue(), transfer.getTag(), timestamp },
+        signatureMessageLength);
     // Sum up total value
     totalValue += transfer.getValue();
   }
@@ -442,8 +436,8 @@ Extended::prepareTransfers(const Types::Trytes& seed, int security,
     //  Case 1: user provided inputs
     //  Validate the inputs by calling getBalances
     if (!validateInputs)
-      return addRemainder(seed, security, inputs, bundle, tag, totalValue, remainder,
-                          signatureFragments);
+      return addRemainder(seed, security, inputs, bundle, transfers.back().getTag(), totalValue,
+                          remainder, signatureFragments);
     if (!inputs.empty()) {
       // Get list if addresses of the provided inputs
       std::vector<Types::Trytes> inputsAddresses;
@@ -480,8 +474,8 @@ Extended::prepareTransfers(const Types::Trytes& seed, int security,
         throw Errors::IllegalState("Not enough balance");
       }
 
-      return addRemainder(seed, security, confirmedInputs, bundle, tag, totalValue, remainder,
-                          signatureFragments);
+      return addRemainder(seed, security, confirmedInputs, bundle, transfers.back().getTag(),
+                          totalValue, remainder, signatureFragments);
     }
 
     //  Case 2: Get inputs deterministically
@@ -491,8 +485,8 @@ Extended::prepareTransfers(const Types::Trytes& seed, int security,
     else {
       const auto newinputs = getInputs(seed, 0, 0, security, totalValue);
       // If inputs with enough balance
-      return addRemainder(seed, security, newinputs.getInputs(), bundle, tag, totalValue, remainder,
-                          signatureFragments);
+      return addRemainder(seed, security, newinputs.getInputs(), bundle, transfers.back().getTag(),
+                          totalValue, remainder, signatureFragments);
     }
   } else {
     // If no input required, don't sign and simply finalize the bundle
@@ -679,7 +673,7 @@ Extended::findTransactionsByAddresses(const std::vector<Types::Trytes>& addresse
 }
 
 Responses::FindTransactions
-Extended::findTransactionsByTags(const std::vector<Types::Trytes>& tags) const {
+Extended::findTransactionsByTags(const std::vector<Models::Tag>& tags) const {
   return findTransactions({}, tags, {}, {});
 }
 
@@ -737,20 +731,14 @@ Extended::findTailTransactionHash(const Types::Trytes& hash) const {
 }
 
 std::vector<Types::Trytes>
-Extended::addRemainder(const Types::Trytes& seed, const unsigned int& security,
-                       const std::vector<Models::Input>& inputs, Models::Bundle& bundle,
-                       const Types::Trytes& unpadTag, const int64_t& totalValue,
-                       const Types::Trytes&              remainderAddress,
-                       const std::vector<Types::Trytes>& signatureFragments) const {
+Extended::addRemainderInternal(const Types::Trytes& seed, const unsigned int& security,
+                               const std::vector<Models::Input>& inputs, Models::Bundle& bundle,
+                               const Models::Tag& tag, const int64_t& totalValue,
+                               const Types::Trytes&              remainderAddress,
+                               const std::vector<Types::Trytes>& signatureFragments) const {
   //! Validate the seed
   if (!Types::isValidTrytes(seed)) {
     throw Errors::IllegalState("Invalid Seed");
-  }
-
-  //! Validate the tag
-  auto tag = Types::Utils::rightPad(unpadTag, TagLength, '9');
-  if (!Types::isValidTrytes(tag)) {
-    throw Errors::IllegalState("Invalid Tag");
   }
 
   auto totalTransferValue = totalValue;
@@ -760,7 +748,7 @@ Extended::addRemainder(const Types::Trytes& seed, const unsigned int& security,
     auto    toSubtract  = -thisBalance;
     int64_t timestamp   = Utils::StopWatch::now().count();
     // Add input as bundle entry
-    bundle.addTransaction(input.getSecurity(), input.getAddress(), toSubtract, tag, timestamp);
+    bundle.addTransaction({ input.getAddress(), toSubtract, tag, timestamp }, input.getSecurity());
     // If there is a remainder value
     // Add extra output to send remaining funds to
     if (thisBalance >= totalTransferValue) {
@@ -769,14 +757,14 @@ Extended::addRemainder(const Types::Trytes& seed, const unsigned int& security,
       // Use it to send remaining funds to
       if (remainder > 0 && !remainderAddress.empty()) {
         // Remainder bundle entry
-        bundle.addTransaction(1, remainderAddress, remainder, tag, timestamp);
+        bundle.addTransaction({ remainderAddress, remainder, tag, timestamp });
         // Final function for signing inputs
         return signInputsAndReturn(seed, inputs, bundle, signatureFragments);
       } else if (remainder > 0) {
         // Generate a new Address by calling getNewAddress
         auto res = getNewAddresses(seed, 0, security, false, 0, false);
         // Remainder bundle entry
-        bundle.addTransaction(1, res.getAddresses()[0], remainder, tag, timestamp);
+        bundle.addTransaction({ res.getAddresses()[0], remainder, tag, timestamp });
         // Final function for signing inputs
         return signInputsAndReturn(seed, inputs, bundle, signatureFragments);
       } else {
@@ -819,16 +807,11 @@ std::vector<Models::Transaction>
 Extended::initiateTransfer(int securitySum, const Types::Trytes& inputAddress,
                            const Types::Trytes&           remainderAddress,
                            std::vector<Models::Transfer>& transfers) const {
-  //! If message or tag is not supplied, provide it
+  //! If message is not supplied, provide it
   //! Also remove the checksum of the address if it's there
-
   for (auto& transfer : transfers) {
     if (transfer.getMessage().empty()) {
       transfer.setMessage(Types::Utils::rightPad(transfer.getMessage(), 2187, '9'));
-    }
-
-    if (transfer.getTag().empty()) {
-      transfer.setTag(Types::Utils::rightPad(transfer.getTag(), 27, '9'));
     }
 
     if (!Types::isValidAddress(transfer.getAddress())) {
@@ -859,7 +842,6 @@ Extended::initiateTransfer(int securitySum, const Types::Trytes& inputAddress,
   Models::Bundle             bundle;
   int64_t                    totalValue = 0;
   std::vector<Types::Trytes> signatureFragments;
-  Types::Trytes              tag;
 
   //! Iterate over all transfers, get totalValue
   //! and prepare the signatureFragments, message and tag
@@ -896,12 +878,10 @@ Extended::initiateTransfer(int securitySum, const Types::Trytes& inputAddress,
     //! get current timestamp in seconds
     int64_t timestamp = Utils::StopWatch::now().count();
 
-    //! Pad for required TagLength tryte length
-    tag = Types::Utils::rightPad(transfer.getTag(), TagLength, '9');
-
     //! Add first entry to the bundle
-    bundle.addTransaction(signatureMessageLength, transfer.getAddress(), transfer.getValue(), tag,
-                          timestamp);
+    bundle.addTransaction(
+        { transfer.getAddress(), transfer.getValue(), transfer.getTag(), timestamp },
+        signatureMessageLength);
 
     //! Sum up total value
     totalValue += transfer.getValue();
@@ -928,7 +908,8 @@ Extended::initiateTransfer(int securitySum, const Types::Trytes& inputAddress,
 
     //! Add input as bundle entry
     //! Only a single entry, signatures will be added later
-    bundle.addTransaction(securitySum, inputAddress, toSubtract, tag, timestamp);
+    bundle.addTransaction({ inputAddress, toSubtract, transfers.back().getTag(), timestamp },
+                          securitySum);
   }
 
   //! Return not enough balance error
@@ -946,7 +927,7 @@ Extended::initiateTransfer(int securitySum, const Types::Trytes& inputAddress,
       throw Errors::IllegalState("No remainder address defined");
     }
 
-    bundle.addTransaction(1, remainderAddress, remainder, tag, timestamp);
+    bundle.addTransaction({ remainderAddress, remainder, transfers.back().getTag(), timestamp });
   }
 
   bundle.finalize(Crypto::create(cryptoType_));
