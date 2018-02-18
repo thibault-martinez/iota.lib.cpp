@@ -23,13 +23,9 @@
 //
 //
 
-#include <cstring>
-
-#include <iota/crypto/curl.hpp>
 #include <iota/crypto/pow.hpp>
 #include <iota/types/trinary.hpp>
 #include <iota/utils/parallel_for.hpp>
-#include <iota/utils/stop_watch.hpp>
 
 namespace IOTA {
 
