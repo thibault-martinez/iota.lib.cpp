@@ -45,8 +45,9 @@ Kerl::absorb(const Types::Trits& trits, std::size_t offset, std::size_t length) 
   if (length % TritHashLength != 0)
     throw Errors::Crypto("Kerl::absorb failed : illegal length");
   while (offset < length) {
-    auto                end = std::min(offset + TritHashLength, length);
-    std::vector<int8_t> tritsChunk(&trits[offset], &trits[end]);
+    auto                begin = trits.cbegin() + offset;
+    auto                end = trits.cbegin() + std::min(offset + TritHashLength, length);
+    std::vector<int8_t> tritsChunk(begin, end);
 
     tritsChunk.back() = 0;
     auto bytesChunk   = Types::tritsToBytes(tritsChunk);
