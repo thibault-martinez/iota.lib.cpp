@@ -25,10 +25,9 @@
 
 #pragma once
 
-#include <string>
 #include <vector>
 
-#include <iota/types/trinary.hpp>
+#include <iota/types/trytes.hpp>
 
 namespace IOTA {
 

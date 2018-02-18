@@ -26,6 +26,7 @@
 #include <gtest/gtest.h>
 
 #include <iota/api/responses/get_account_data.hpp>
+#include <iota/models/bundle.hpp>
 
 TEST(GetAccountDataResponse, DefaultCtorShouldInitFields) {
   const IOTA::API::Responses::GetAccountData res{};

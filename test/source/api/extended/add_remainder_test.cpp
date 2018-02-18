@@ -28,6 +28,8 @@
 #include <iota/api/extended.hpp>
 #include <iota/errors/bad_request.hpp>
 #include <iota/errors/illegal_state.hpp>
+#include <iota/models/bundle.hpp>
+#include <iota/models/input.hpp>
 #include <test/utils/configuration.hpp>
 #include <test/utils/constants.hpp>
 #include <test/utils/expect_exception.hpp>

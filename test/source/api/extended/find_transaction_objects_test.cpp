@@ -26,6 +26,7 @@
 #include <gtest/gtest.h>
 
 #include <iota/api/extended.hpp>
+#include <iota/models/transaction.hpp>
 #include <test/utils/configuration.hpp>
 #include <test/utils/constants.hpp>
 

@@ -24,6 +24,7 @@
 //
 
 #include <iota/api/responses/get_account_data.hpp>
+#include <iota/models/bundle.hpp>
 
 namespace IOTA {
 

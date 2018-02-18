@@ -26,6 +26,7 @@
 #include <gtest/gtest.h>
 
 #include <iota/api/responses/get_bundle.hpp>
+#include <iota/models/transaction.hpp>
 
 TEST(GetBundleResponse, DefaultCtorShouldInitFields) {
   const IOTA::API::Responses::GetBundle res{};

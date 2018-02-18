@@ -26,6 +26,7 @@
 #include <gtest/gtest.h>
 
 #include <iota/constants.hpp>
+#include <iota/types/trinary.hpp>
 #include <iota/utils/random_seed_generator.hpp>
 
 TEST(RandomSeedGenerator, GenerateOne) {

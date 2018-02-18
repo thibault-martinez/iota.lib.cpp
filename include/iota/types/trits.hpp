@@ -10,8 +10,8 @@
 // copies of the Software, and to permit persons to whom the Software is
 // furnished to do so, subject to the following conditions:
 //
-// The above copyright notice and this permission notice shall be included in all
-// copies or substantial portions of the Software.
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
 //
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -23,36 +23,16 @@
 //
 //
 
-#include <iota/api/responses/get_bundle.hpp>
-#include <iota/models/transaction.hpp>
+#pragma once
+
+#include <vector>
 
 namespace IOTA {
 
-namespace API {
+namespace Types {
 
-namespace Responses {
+using Trits = std::vector<int8_t>;
 
-GetBundle::GetBundle(const std::vector<Models::Transaction>& transactions, const int64_t& duration)
-    : Base(duration), transactions_(transactions) {
-}
-
-const std::vector<Models::Transaction>&
-GetBundle::getTransactions() const {
-  return transactions_;
-}
-
-std::vector<Models::Transaction>&
-GetBundle::getTransactions() {
-  return transactions_;
-}
-
-void
-GetBundle::setTransactions(const std::vector<Models::Transaction>& transactions) {
-  transactions_ = transactions;
-}
-
-}  // namespace Responses
-
-}  // namespace API
+}  // namespace Types
 
 }  // namespace IOTA

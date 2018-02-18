@@ -26,7 +26,7 @@
 #pragma once
 
 #include <iota/api/responses/base.hpp>
-#include <iota/models/transaction.hpp>
+#include <iota/models/fwd.hpp>
 
 namespace IOTA {
 

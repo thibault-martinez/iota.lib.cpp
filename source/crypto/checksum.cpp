@@ -26,6 +26,7 @@
 #include <iota/constants.hpp>
 #include <iota/crypto/checksum.hpp>
 #include <iota/errors/illegal_state.hpp>
+#include <iota/types/trinary.hpp>
 
 namespace IOTA {
 

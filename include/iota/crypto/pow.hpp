@@ -29,7 +29,7 @@
 
 #include <iota/constants.hpp>
 #include <iota/crypto/i_pow.hpp>
-#include <iota/types/trinary.hpp>
+#include <iota/types/trits.hpp>
 
 namespace IOTA {
 

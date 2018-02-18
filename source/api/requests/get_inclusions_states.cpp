@@ -24,6 +24,7 @@
 //
 
 #include <iota/api/requests/get_inclusion_states.hpp>
+#include <iota/types/trinary.hpp>
 
 namespace IOTA {
 

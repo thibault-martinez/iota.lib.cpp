@@ -24,6 +24,7 @@
 //
 
 #include <iota/api/responses/get_neighbors.hpp>
+#include <iota/models/neighbor.hpp>
 
 namespace IOTA {
 

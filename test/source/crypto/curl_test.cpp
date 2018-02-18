@@ -27,6 +27,7 @@
 
 #include <iota/crypto/curl.hpp>
 #include <iota/errors/crypto.hpp>
+#include <iota/types/trinary.hpp>
 #include <test/utils/expect_exception.hpp>
 
 //!

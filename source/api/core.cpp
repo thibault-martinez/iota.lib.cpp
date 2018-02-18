@@ -38,8 +38,20 @@
 #include <iota/api/requests/interrupt_attaching_to_tangle.hpp>
 #include <iota/api/requests/remove_neighbors.hpp>
 #include <iota/api/requests/store_transactions.hpp>
+#include <iota/api/responses/add_neighbors.hpp>
+#include <iota/api/responses/attach_to_tangle.hpp>
+#include <iota/api/responses/find_transactions.hpp>
+#include <iota/api/responses/get_balances.hpp>
+#include <iota/api/responses/get_inclusion_states.hpp>
+#include <iota/api/responses/get_neighbors.hpp>
+#include <iota/api/responses/get_node_info.hpp>
+#include <iota/api/responses/get_tips.hpp>
+#include <iota/api/responses/get_transactions_to_approve.hpp>
+#include <iota/api/responses/get_trytes.hpp>
+#include <iota/api/responses/remove_neighbors.hpp>
 #include <iota/crypto/pow.hpp>
 #include <iota/errors/illegal_state.hpp>
+#include <iota/models/neighbor.hpp>
 #include <iota/models/transaction.hpp>
 #include <iota/utils/stop_watch.hpp>
 

@@ -25,11 +25,7 @@
 
 #pragma once
 
-#include <json.hpp>
-
 #include <iota/api/responses/base.hpp>
-
-using json = nlohmann::json;
 
 namespace IOTA {
 

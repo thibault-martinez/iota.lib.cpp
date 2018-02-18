@@ -25,7 +25,8 @@
 
 #pragma once
 
-#include <iostream>
+#include <cpr/cpr.h>
+#include <json.hpp>
 
 #include <iota/constants.hpp>
 #include <iota/errors/bad_request.hpp>
@@ -33,9 +34,6 @@
 #include <iota/errors/network.hpp>
 #include <iota/errors/unauthorized.hpp>
 #include <iota/errors/unrecognized.hpp>
-
-#include <cpr/cpr.h>
-#include <json.hpp>
 
 using json = nlohmann::json;
 

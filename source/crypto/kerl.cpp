@@ -28,6 +28,7 @@
 #include <iota/constants.hpp>
 #include <iota/crypto/kerl.hpp>
 #include <iota/errors/crypto.hpp>
+#include <iota/types/trinary.hpp>
 
 namespace IOTA {
 

@@ -23,9 +23,6 @@
 //
 //
 
-#include <iomanip>
-#include <sstream>
-
 #include <iota/constants.hpp>
 #include <iota/crypto/sponge_factory.hpp>
 #include <iota/models/bundle.hpp>

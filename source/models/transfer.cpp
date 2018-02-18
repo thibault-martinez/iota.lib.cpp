@@ -25,6 +25,7 @@
 
 #include <iota/constants.hpp>
 #include <iota/models/transfer.hpp>
+#include <iota/types/trinary.hpp>
 
 namespace IOTA {
 

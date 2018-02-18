@@ -25,12 +25,8 @@
 
 #pragma once
 
-#include <json.hpp>
-
 #include <iota/api/responses/base.hpp>
-#include <iota/models/neighbor.hpp>
-
-using json = nlohmann::json;
+#include <iota/models/fwd.hpp>
 
 namespace IOTA {
 

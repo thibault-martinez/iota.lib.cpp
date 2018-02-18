@@ -24,13 +24,30 @@
 //
 
 #include <iota/api/extended.hpp>
+#include <iota/api/responses/attach_to_tangle.hpp>
+#include <iota/api/responses/find_transactions.hpp>
+#include <iota/api/responses/get_account_data.hpp>
+#include <iota/api/responses/get_balances.hpp>
+#include <iota/api/responses/get_balances_and_format.hpp>
+#include <iota/api/responses/get_bundle.hpp>
+#include <iota/api/responses/get_inclusion_states.hpp>
+#include <iota/api/responses/get_new_addresses.hpp>
+#include <iota/api/responses/get_node_info.hpp>
+#include <iota/api/responses/get_transactions_to_approve.hpp>
+#include <iota/api/responses/get_transfers.hpp>
+#include <iota/api/responses/get_trytes.hpp>
+#include <iota/api/responses/replay_bundle.hpp>
+#include <iota/api/responses/send_transfer.hpp>
 #include <iota/crypto/checksum.hpp>
 #include <iota/crypto/curl.hpp>
 #include <iota/crypto/signing.hpp>
 #include <iota/errors/illegal_state.hpp>
 #include <iota/models/bundle.hpp>
+#include <iota/models/input.hpp>
 #include <iota/models/signature.hpp>
 #include <iota/models/transaction.hpp>
+#include <iota/models/transfer.hpp>
+#include <iota/types/trinary.hpp>
 #include <iota/types/utils.hpp>
 #include <iota/utils/parallel_for.hpp>
 

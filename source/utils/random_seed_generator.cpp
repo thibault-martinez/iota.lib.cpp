@@ -28,6 +28,7 @@
 #include <random>
 
 #include <iota/constants.hpp>
+#include <iota/types/trinary.hpp>
 #include <iota/utils/random_seed_generator.hpp>
 
 namespace IOTA {
