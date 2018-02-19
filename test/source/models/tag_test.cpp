@@ -123,3 +123,23 @@ TEST(Tag, OperatorNEq) {
   IOTA::Models::Tag rhs_neq("TAGTWO999");
   EXPECT_TRUE(lhs_neq != rhs_neq);
 }
+
+TEST(Tag, OperatorEqTrytes) {
+  IOTA::Models::Tag   lhs_eq("TAG");
+  IOTA::Types::Trytes rhs_eq("TAG999");
+  EXPECT_TRUE(lhs_eq == rhs_eq);
+
+  IOTA::Models::Tag   lhs_neq("TAGONE");
+  IOTA::Types::Trytes rhs_neq("TAGTWO999");
+  EXPECT_FALSE(lhs_neq == rhs_neq);
+}
+
+TEST(Tag, OperatorNEqTrytes) {
+  IOTA::Models::Tag   lhs_eq("TAG");
+  IOTA::Types::Trytes rhs_eq("TAG999");
+  EXPECT_FALSE(lhs_eq != rhs_eq);
+
+  IOTA::Models::Tag   lhs_neq("TAGONE");
+  IOTA::Types::Trytes rhs_neq("TAGTWO999");
+  EXPECT_TRUE(lhs_neq != rhs_neq);
+}

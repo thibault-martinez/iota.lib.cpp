@@ -31,6 +31,12 @@ namespace IOTA {
 
 namespace Models {
 
+/**
+ * Used to store transaction tags.
+ * Provides validity checks at construction / value set.
+ * Provides unpad and padded tag conversion.
+ * Any tags stored represented with this class are ensured to be valid.
+ */
 class Tag {
 public:
   /**
