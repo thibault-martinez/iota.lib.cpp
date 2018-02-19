@@ -78,7 +78,7 @@ Core::getTips() const {
 
 Responses::FindTransactions
 Core::findTransactions(const std::vector<Types::Trytes>& addresses,
-                       const std::vector<Types::Trytes>& tags,
+                       const std::vector<Models::Tag>&   tags,
                        const std::vector<Types::Trytes>& approvees,
                        const std::vector<Types::Trytes>& bundles) const {
   //! skip request if no input, simply return empty
@@ -131,14 +131,17 @@ Core::attachToTangle(const Types::Trytes& trunkTransaction, const Types::Trytes&
     Types::Trytes              prevTx;
     for (auto& txTrytes : trytes) {
       auto tx = IOTA::Models::Transaction(txTrytes);
+
       tx.setTrunkTransaction(prevTx.empty() ? trunkTransaction : prevTx);
       tx.setBranchTransaction(prevTx.empty() ? branchTransaction : trunkTransaction);
-      if (tx.getTag().empty() || tx.getTag() == EmptyTag)
-        tx.setTag(tx.getObsoleteTag());
       tx.setAttachmentTimestamp(Utils::StopWatch::now().count());
       tx.setAttachmentTimestampLowerBound(0);
       tx.setAttachmentTimestampUpperBound(3812798742493L);
       tx.setNonce(pow(tx.toTrytes(), minWeightMagnitude));
+
+      if (tx.getTag().empty()) {
+        tx.setTag(tx.getObsoleteTag());
+      }
 
       resultTrytes.emplace_back(tx.toTrytes());
       prevTx = tx.getHash();

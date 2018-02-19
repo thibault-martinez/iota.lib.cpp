@@ -33,7 +33,7 @@ namespace API {
 namespace Requests {
 
 FindTransactions::FindTransactions(const std::vector<Types::Trytes>& addresses,
-                                   const std::vector<Types::Trytes>& tags,
+                                   const std::vector<Models::Tag>&   tags,
                                    const std::vector<Types::Trytes>& approvees,
                                    const std::vector<Types::Trytes>& bundles)
     : Base("findTransactions"),
@@ -54,7 +54,13 @@ FindTransactions::serialize(json& data) const {
   }
 
   if (!tags_.empty()) {
-    data["tags"] = tags_;
+    std::vector<Types::Trytes> tags;
+
+    for (const auto& tag : tags_) {
+      tags.push_back(tag.toTrytesWithPadding());
+    }
+
+    data["tags"] = tags;
   }
 
   if (!approvees_.empty()) {
@@ -81,18 +87,18 @@ FindTransactions::setAddresses(const std::vector<Types::Trytes>& addrs) {
   addresses_ = addrs;
 }
 
-const std::vector<Types::Trytes>&
+const std::vector<Models::Tag>&
 FindTransactions::getTags() const {
   return tags_;
 }
 
-std::vector<Types::Trytes>&
+std::vector<Models::Tag>&
 FindTransactions::getTags() {
   return tags_;
 }
 
 void
-FindTransactions::setTags(const std::vector<Types::Trytes>& tags) {
+FindTransactions::setTags(const std::vector<Models::Tag>& tags) {
   tags_ = tags;
 }
 

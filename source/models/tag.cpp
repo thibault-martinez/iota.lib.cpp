@@ -23,81 +23,73 @@
 //
 //
 
+#include <string>
+
 #include <iota/constants.hpp>
-#include <iota/models/transfer.hpp>
+#include <iota/errors/illegal_state.hpp>
+#include <iota/models/tag.hpp>
+#include <iota/types/utils.hpp>
 
 namespace IOTA {
 
 namespace Models {
 
-const Types::Trytes&
-Transfer::getAddress() const {
-  return address_;
-}
-
-void
-Transfer::setAddress(const Types::Trytes& address) {
-  address_ = address;
-}
-
-int64_t
-Transfer::getValue() const {
-  return value_;
-}
-
-void
-Transfer::setValue(int64_t value) {
-  value_ = value;
+Tag::Tag(const Types::Trytes& tag) {
+  setTag(tag);
 }
 
 const Types::Trytes&
-Transfer::getMessage() const {
-  return message_;
-}
-
-void
-Transfer::setMessage(const Types::Trytes& message) {
-  message_ = message;
-}
-
-const Models::Tag&
-Transfer::getTag() const {
+Tag::toTrytes() const {
   return tag_;
 }
 
-void
-Transfer::setTag(const Models::Tag& tag) {
-  tag_ = tag;
+const Types::Trytes&
+Tag::toTrytesWithPadding() const {
+  return paddedTag_;
 }
 
 void
-Transfer::setTag(const Types::Trytes& tag) {
-  setTag(Models::Tag{ tag });
-}
-
-bool
-Transfer::isValid() const {
-  if (!Types::isValidAddress(getAddress())) {
-    return false;
+Tag::setTag(const Types::Trytes& tag) {
+  if (tag.length() > TagLength) {
+    throw Errors::IllegalState("tag is too long");
   }
 
-  // Check if message is correct trytes of any length
-  if (!Types::isValidTrytes(getMessage())) {
-    return false;
+  if (!Types::isValidTrytes(tag)) {
+    throw Errors::IllegalState("tag is not a valid trytes string");
   }
 
-  return true;
+  int trailing9sPos = tag.length();
+  while (trailing9sPos > 0 && tag[trailing9sPos - 1] == '9') {
+    --trailing9sPos;
+  }
+
+  tag_       = tag.substr(0, trailing9sPos);
+  paddedTag_ = Types::Utils::rightPad(tag_, TagLength, '9');
 }
 
 bool
-Transfer::operator==(const Transfer& rhs) const {
-  return address_ == rhs.address_ && value_ == rhs.value_ && tag_ == rhs.tag_ &&
-         message_ == rhs.message_;
+Tag::empty() const {
+  return tag_.empty();
 }
 
 bool
-Transfer::operator!=(const Transfer& rhs) const {
+Tag::operator==(const Tag& rhs) const {
+  return tag_ == rhs.tag_;
+}
+
+bool
+Tag::operator!=(const Tag& rhs) const {
   return !operator==(rhs);
+}
+
+bool
+Tag::operator==(const Types::Trytes& rhs) const {
+  return operator==(Tag{ rhs });
+}
+
+bool
+Tag::operator!=(const Types::Trytes& rhs) const {
+  return operator!=(Tag{ rhs });
 }
 
 }  // namespace Models

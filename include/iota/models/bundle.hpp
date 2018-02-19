@@ -29,6 +29,7 @@
 #include <vector>
 
 #include <iota/crypto/i_sponge.hpp>
+#include <iota/models/tag.hpp>
 #include <iota/models/transaction.hpp>
 
 namespace IOTA {
@@ -82,22 +83,12 @@ public:
 public:
   /**
    * Adds a bundle entry.
-   *
-   * @param signatureMessageLength Length of the signature message.
-   * @param address                The address.
-   * @param value                  The value.
-   * @param tag                    The tag.
-   * @param timestamp              The timestamp.
-   */
-  void addTransaction(int32_t signatureMessageLength, const Types::Trytes& address, int64_t value,
-                      const Types::Trytes& tag, int64_t timestamp);
-
-  /**
-   * Adds a bundle entry.
+   * If multiple signature fragments are required, generates as many transactions as necessary
    *
    * @param transaction Transaction to be added to the bundle.
+   * @param signatureMessageLength Length of the signature message.
    */
-  void addTransaction(const Transaction& transaction);
+  void addTransaction(const Transaction& transaction, int32_t signatureMessageLength = 1);
 
   /**
    * Finalizes the bundle using the specified curl implementation.
