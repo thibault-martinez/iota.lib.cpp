@@ -25,12 +25,8 @@
 
 #pragma once
 
-#include <json.hpp>
-
 #include <iota/api/requests/base.hpp>
-#include <iota/types/trinary.hpp>
-
-using json = nlohmann::json;
+#include <iota/types/trytes.hpp>
 
 namespace IOTA {
 

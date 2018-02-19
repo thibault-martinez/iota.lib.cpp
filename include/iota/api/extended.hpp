@@ -25,20 +25,10 @@
 
 #pragma once
 
-#include <list>
-
 #include <iota/api/core.hpp>
-#include <iota/api/responses/get_account_data.hpp>
-#include <iota/api/responses/get_balances.hpp>
-#include <iota/api/responses/get_balances_and_format.hpp>
-#include <iota/api/responses/get_bundle.hpp>
-#include <iota/api/responses/get_new_addresses.hpp>
-#include <iota/api/responses/get_transfers.hpp>
-#include <iota/api/responses/replay_bundle.hpp>
-#include <iota/api/responses/send_transfer.hpp>
 #include <iota/crypto/sponge_factory.hpp>
-#include <iota/models/bundle.hpp>
-#include <iota/models/transfer.hpp>
+#include <iota/models/fwd.hpp>
+#include <iota/models/tag.hpp>
 #include <iota/utils/stop_watch.hpp>
 
 namespace IOTA {
@@ -310,7 +300,7 @@ public:
    *
    * @return the list of transactions which contain the specified tag value.
    */
-  Responses::FindTransactions findTransactionsByTags(const std::vector<Types::Trytes>& tags) const;
+  Responses::FindTransactions findTransactionsByTags(const std::vector<Models::Tag>& tags) const;
 
   /**
    * Find the transactions which match the specified approvees.
@@ -367,7 +357,7 @@ public:
    * @param security           The security level of private key / seed.
    * @param inputs             List of inputs used for funding the transfer.
    * @param bundle             To be populated.
-   * @param unpadTag           The tag.
+   * @param tag                The tag. Must be of type Models::Tag or implicitly convertible to it.
    * @param totalValue         The total value.
    * @param remainderAddress   If defined, this address will be used for sending the remainder value
    * (of the inputs) to.
@@ -375,12 +365,15 @@ public:
    *
    * @return Vector of trytes.
    */
+  template <typename TagType>
   std::vector<Types::Trytes> addRemainder(
       const Types::Trytes& seed, const unsigned int& security,
-      const std::vector<Models::Input>& inputs, Models::Bundle& bundle,
-      const Types::Trytes& unpadTag, const int64_t& totalValue,
-      const Types::Trytes&              remainderAddress,
-      const std::vector<Types::Trytes>& signatureFragments) const;
+      const std::vector<Models::Input>& inputs, Models::Bundle& bundle, const TagType& tag,
+      const int64_t& totalValue, const Types::Trytes& remainderAddress,
+      const std::vector<Types::Trytes>& signatureFragments) const {
+    return addRemainderInternal(seed, security, inputs, bundle, Models::Tag{ tag }, totalValue,
+                                remainderAddress, signatureFragments);
+  }
 
   /**
    * Replays a transfer by doing Proof of Work again.
@@ -428,6 +421,25 @@ private:
 
   std::vector<Types::Trytes> signInputsAndReturn(
       const Types::Trytes& seed, const std::vector<Models::Input>& inputs, Models::Bundle& bundle,
+      const std::vector<Types::Trytes>& signatureFragments) const;
+
+  /**
+   * @param seed               Tryte-encoded seed.
+   * @param security           The security level of private key / seed.
+   * @param inputs             List of inputs used for funding the transfer.
+   * @param bundle             To be populated.
+   * @param tag                The tag.
+   * @param totalValue         The total value.
+   * @param remainderAddress   If defined, this address will be used for sending the remainder value
+   * (of the inputs) to.
+   * @param signatureFragments The signature fragments.
+   *
+   * @return Vector of trytes.
+   */
+  std::vector<Types::Trytes> addRemainderInternal(
+      const Types::Trytes& seed, const unsigned int& security,
+      const std::vector<Models::Input>& inputs, Models::Bundle& bundle, const Models::Tag& tag,
+      const int64_t& totalValue, const Types::Trytes& remainderAddress,
       const std::vector<Types::Trytes>& signatureFragments) const;
 
   /**

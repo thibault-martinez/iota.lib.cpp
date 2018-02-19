@@ -38,8 +38,20 @@
 #include <iota/api/requests/interrupt_attaching_to_tangle.hpp>
 #include <iota/api/requests/remove_neighbors.hpp>
 #include <iota/api/requests/store_transactions.hpp>
+#include <iota/api/responses/add_neighbors.hpp>
+#include <iota/api/responses/attach_to_tangle.hpp>
+#include <iota/api/responses/find_transactions.hpp>
+#include <iota/api/responses/get_balances.hpp>
+#include <iota/api/responses/get_inclusion_states.hpp>
+#include <iota/api/responses/get_neighbors.hpp>
+#include <iota/api/responses/get_node_info.hpp>
+#include <iota/api/responses/get_tips.hpp>
+#include <iota/api/responses/get_transactions_to_approve.hpp>
+#include <iota/api/responses/get_trytes.hpp>
+#include <iota/api/responses/remove_neighbors.hpp>
 #include <iota/crypto/pow.hpp>
 #include <iota/errors/illegal_state.hpp>
+#include <iota/models/neighbor.hpp>
 #include <iota/models/transaction.hpp>
 #include <iota/utils/stop_watch.hpp>
 
@@ -78,7 +90,7 @@ Core::getTips() const {
 
 Responses::FindTransactions
 Core::findTransactions(const std::vector<Types::Trytes>& addresses,
-                       const std::vector<Types::Trytes>& tags,
+                       const std::vector<Models::Tag>&   tags,
                        const std::vector<Types::Trytes>& approvees,
                        const std::vector<Types::Trytes>& bundles) const {
   //! skip request if no input, simply return empty
@@ -131,14 +143,17 @@ Core::attachToTangle(const Types::Trytes& trunkTransaction, const Types::Trytes&
     Types::Trytes              prevTx;
     for (auto& txTrytes : trytes) {
       auto tx = IOTA::Models::Transaction(txTrytes);
+
       tx.setTrunkTransaction(prevTx.empty() ? trunkTransaction : prevTx);
       tx.setBranchTransaction(prevTx.empty() ? branchTransaction : trunkTransaction);
-      if (tx.getTag().empty() || tx.getTag() == EmptyTag)
-        tx.setTag(tx.getObsoleteTag());
       tx.setAttachmentTimestamp(Utils::StopWatch::now().count());
       tx.setAttachmentTimestampLowerBound(0);
       tx.setAttachmentTimestampUpperBound(3812798742493L);
       tx.setNonce(pow(tx.toTrytes(), minWeightMagnitude));
+
+      if (tx.getTag().empty()) {
+        tx.setTag(tx.getObsoleteTag());
+      }
 
       resultTrytes.emplace_back(tx.toTrytes());
       prevTx = tx.getHash();

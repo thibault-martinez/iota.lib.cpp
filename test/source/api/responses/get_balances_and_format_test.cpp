@@ -26,6 +26,7 @@
 #include <gtest/gtest.h>
 
 #include <iota/api/responses/get_balances_and_format.hpp>
+#include <iota/models/input.hpp>
 
 TEST(GetBalancesAndFormatResponse, DefaultCtorShouldInitFields) {
   const IOTA::API::Responses::GetBalancesAndFormat res{};

@@ -27,7 +27,6 @@
 
 #include <atomic>
 #include <future>
-#include <iostream>
 #include <vector>
 
 namespace IOTA {

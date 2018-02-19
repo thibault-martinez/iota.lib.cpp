@@ -26,7 +26,9 @@
 #include <gtest/gtest.h>
 
 #include <iota/api/extended.hpp>
+#include <iota/api/responses/get_account_data.hpp>
 #include <iota/errors/illegal_state.hpp>
+#include <iota/models/bundle.hpp>
 #include <test/utils/configuration.hpp>
 #include <test/utils/constants.hpp>
 

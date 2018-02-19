@@ -24,6 +24,7 @@
 //
 
 #include <gtest/gtest.h>
+
 #include <test/utils/configuration.hpp>
 
 int

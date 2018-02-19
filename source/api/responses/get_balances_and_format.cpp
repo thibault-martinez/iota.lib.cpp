@@ -24,6 +24,7 @@
 //
 
 #include <iota/api/responses/get_balances_and_format.hpp>
+#include <iota/models/input.hpp>
 
 namespace IOTA {
 

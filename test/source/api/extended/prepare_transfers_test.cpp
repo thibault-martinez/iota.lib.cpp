@@ -27,6 +27,9 @@
 
 #include <iota/api/extended.hpp>
 #include <iota/errors/illegal_state.hpp>
+#include <iota/models/input.hpp>
+#include <iota/models/transaction.hpp>
+#include <iota/models/transfer.hpp>
 #include <test/utils/configuration.hpp>
 #include <test/utils/constants.hpp>
 #include <test/utils/expect_exception.hpp>
@@ -393,22 +396,6 @@ TEST(Extended, PrepareTransfersInvalidTransferAddress) {
   auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
 
   auto transfer  = IOTA::Models::Transfer{ "HELLO", 100, "TESTMSG", "TESTTAG99999999999999999999" };
-  auto transfers = std::vector<IOTA::Models::Transfer>{ transfer };
-
-  auto input  = IOTA::Models::Input{ ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
-                                    ACCOUNT_1_ADDRESS_1_FUND, 0, 2 };
-  auto inputs = std::vector<IOTA::Models::Input>{ input };
-
-  EXPECT_EXCEPTION(api.prepareTransfers(ACCOUNT_1_SEED, 2, transfers,
-                                        ACCOUNT_1_ADDRESS_2_HASH_WITHOUT_CHECKSUM, inputs, true),
-                   IOTA::Errors::IllegalState, "Invalid Transfer");
-}
-
-TEST(Extended, PrepareTransfersInvalidTransferTag) {
-  auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
-
-  auto transfer = IOTA::Models::Transfer{ ACCOUNT_2_ADDRESS_1_HASH_WITHOUT_CHECKSUM, 100, "TESTMSG",
-                                          "invalid__" };
   auto transfers = std::vector<IOTA::Models::Transfer>{ transfer };
 
   auto input  = IOTA::Models::Input{ ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,

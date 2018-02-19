@@ -26,8 +26,9 @@
 #include <gtest/gtest.h>
 
 #include <iota/api/extended.hpp>
-#include <iota/errors/bad_request.hpp>
 #include <iota/errors/illegal_state.hpp>
+#include <iota/models/bundle.hpp>
+#include <iota/models/input.hpp>
 #include <test/utils/configuration.hpp>
 #include <test/utils/constants.hpp>
 #include <test/utils/expect_exception.hpp>
@@ -122,7 +123,7 @@ TEST(Extended, AddRemainderInvalidTag) {
   EXPECT_EXCEPTION(
       api.addRemainder(ACCOUNT_1_SEED, 2, inputs, bundle, "hello", 100,
                        ACCOUNT_1_ADDRESS_2_HASH_WITHOUT_CHECKSUM, { EMPTY_SIGNATURE_FRAGMENT }),
-      IOTA::Errors::IllegalState, "Invalid Tag");
+      IOTA::Errors::IllegalState, "tag is not a valid trytes string");
 }
 
 TEST(Extended, AddRemainderTooShortTag) {

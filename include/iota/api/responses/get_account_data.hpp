@@ -25,11 +25,9 @@
 
 #pragma once
 
-#include <vector>
-
 #include <iota/api/responses/base.hpp>
-#include <iota/models/bundle.hpp>
-#include <iota/types/trinary.hpp>
+#include <iota/models/fwd.hpp>
+#include <iota/types/trytes.hpp>
 
 namespace IOTA {
 

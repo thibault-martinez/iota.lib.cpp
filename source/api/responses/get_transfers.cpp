@@ -24,6 +24,7 @@
 //
 
 #include <iota/api/responses/get_transfers.hpp>
+#include <iota/models/bundle.hpp>
 
 namespace IOTA {
 

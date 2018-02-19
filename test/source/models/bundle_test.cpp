@@ -34,37 +34,37 @@ TEST(Bundle, CtorDefault) {
 }
 
 TEST(Bundle, CtorFull) {
-  IOTA::Models::Bundle b({ { "addr", 0, "tag", 0 } });
+  IOTA::Models::Bundle b({ { "addr", 0, "TAG", 0 } });
 
   EXPECT_EQ(b.getTransactions(), std::vector<IOTA::Models::Transaction>{
-                                     IOTA::Models::Transaction("addr", 0, "tag", 0) });
+                                     IOTA::Models::Transaction("addr", 0, "TAG", 0) });
 }
 
 TEST(Bundle, ConstGetters) {
-  const IOTA::Models::Bundle b({ { "addr", 0, "tag", 0 } });
+  const IOTA::Models::Bundle b({ { "addr", 0, "TAG", 0 } });
 
   EXPECT_EQ(b.getTransactions(), std::vector<IOTA::Models::Transaction>{
-                                     IOTA::Models::Transaction("addr", 0, "tag", 0) });
+                                     IOTA::Models::Transaction("addr", 0, "TAG", 0) });
 }
 
 TEST(Bundle, TransactionsGetterAndSetter) {
   IOTA::Models::Bundle b;
   EXPECT_EQ(b.getTransactions(), std::vector<IOTA::Models::Transaction>{});
 
-  b.addTransaction({ "addr", 0, "tag", 0 });
+  b.addTransaction({ "addr", 0, "TAG", 0 });
   EXPECT_EQ(b.getTransactions(), std::vector<IOTA::Models::Transaction>{
-                                     IOTA::Models::Transaction("addr", 0, "tag", 0) });
+                                     IOTA::Models::Transaction("addr", 0, "TAG", 0) });
 }
 
 TEST(Bundle, TransactionsGetterAndSetterEmplace) {
   IOTA::Models::Bundle b;
   EXPECT_EQ(b.getTransactions(), std::vector<IOTA::Models::Transaction>{});
 
-  b.addTransaction(3, "addr", 42, "tag", 21);
+  b.addTransaction({ "addr", 42, "TAG", 21 }, 3);
   EXPECT_EQ(b.getTransactions(), std::vector<IOTA::Models::Transaction>(
-                                     { IOTA::Models::Transaction("addr", 42, "tag", 21),
-                                       IOTA::Models::Transaction("addr", 0, "tag", 0),
-                                       IOTA::Models::Transaction("addr", 0, "tag", 0) }));
+                                     { IOTA::Models::Transaction("addr", 42, "TAG", 21),
+                                       IOTA::Models::Transaction("addr", 0, "TAG", 0),
+                                       IOTA::Models::Transaction("addr", 0, "TAG", 0) }));
 }
 
 TEST(Bundle, TransactionsNonConstGetter) {
@@ -72,14 +72,14 @@ TEST(Bundle, TransactionsNonConstGetter) {
   EXPECT_EQ(b.getTransactions(), std::vector<IOTA::Models::Transaction>{});
 
   auto& trx = b.getTransactions();
-  trx.push_back({ "addr", 0, "tag", 0 });
+  trx.push_back({ "addr", 0, "TAG", 0 });
 
   EXPECT_EQ(b.getTransactions(), std::vector<IOTA::Models::Transaction>{
-                                     IOTA::Models::Transaction("addr", 0, "tag", 0) });
+                                     IOTA::Models::Transaction("addr", 0, "TAG", 0) });
 }
 
 TEST(Bundle, IsEmptyWithCtor) {
-  IOTA::Models::Bundle b({ { "addr", 0, "tag", 0 } });
+  IOTA::Models::Bundle b({ { "addr", 0, "TAG", 0 } });
   EXPECT_EQ(b.empty(), false);
 }
 
@@ -92,7 +92,7 @@ TEST(Bundle, IsEmptyWithAdd) {
   IOTA::Models::Bundle b;
   EXPECT_EQ(b.empty(), true);
 
-  b.addTransaction({ "addr", 0, "tag", 0 });
+  b.addTransaction({ "addr", 0, "TAG", 0 });
   EXPECT_EQ(b.empty(), false);
 }
 
@@ -101,12 +101,12 @@ TEST(Bundle, IsEmptyWithPush) {
   EXPECT_EQ(b.empty(), true);
 
   auto& trx = b.getTransactions();
-  trx.push_back({ "addr", 0, "tag", 0 });
+  trx.push_back({ "addr", 0, "TAG", 0 });
   EXPECT_EQ(b.empty(), false);
 }
 
 TEST(Bundle, GetLengthWithCtor) {
-  IOTA::Models::Bundle b({ { "addr", 0, "tag", 0 } });
+  IOTA::Models::Bundle b({ { "addr", 0, "TAG", 0 } });
   EXPECT_EQ(b.getLength(), 1UL);
 }
 
@@ -119,7 +119,7 @@ TEST(Bundle, GetLengthWithAdd) {
   IOTA::Models::Bundle b;
   EXPECT_EQ(b.getLength(), 0UL);
 
-  b.addTransaction({ "addr", 0, "tag", 0 });
+  b.addTransaction({ "addr", 0, "TAG", 0 });
   EXPECT_EQ(b.getLength(), 1UL);
 }
 
@@ -128,15 +128,15 @@ TEST(Bundle, GetLengthWithPush) {
   EXPECT_EQ(b.getLength(), 0UL);
 
   auto& trx = b.getTransactions();
-  trx.push_back({ "addr", 0, "tag", 0 });
+  trx.push_back({ "addr", 0, "TAG", 0 });
   EXPECT_EQ(b.getLength(), 1UL);
 }
 
 TEST(Bundle, EqOperator) {
   IOTA::Models::Bundle eq_lhs(
-      { { "addr", 0, "tag", 1, 2, 3, 4 }, { "addr", 0, "tag", 5, 6, 7, 8 } });
+      { { "addr", 0, "TAG", 1, 2, 3, 4 }, { "addr", 0, "TAG", 5, 6, 7, 8 } });
   IOTA::Models::Bundle eq_rhs(
-      { { "addr", 0, "tag", 9, 2, 10, 11 }, { "addr", 0, "tag", 12, 13, 14, 16 } });
+      { { "addr", 0, "TAG", 9, 2, 10, 11 }, { "addr", 0, "TAG", 12, 13, 14, 16 } });
 
   eq_lhs.getTransactions()[0].setBundle("eq");
   eq_rhs.getTransactions()[0].setBundle("eq");
@@ -144,9 +144,9 @@ TEST(Bundle, EqOperator) {
   EXPECT_EQ(eq_lhs == eq_rhs, true);
 
   IOTA::Models::Bundle neq_lhs(
-      { { "addr", 0, "tag", 1, 2, 3, 4 }, { "addr", 0, "tag", 5, 6, 7, 8 } });
+      { { "addr", 0, "TAG", 1, 2, 3, 4 }, { "addr", 0, "TAG", 5, 6, 7, 8 } });
   IOTA::Models::Bundle neq_rhs(
-      { { "addr", 0, "tag", 9, 0, 10, 11 }, { "addr", 0, "tag", 12, 13, 14, 16 } });
+      { { "addr", 0, "TAG", 9, 0, 10, 11 }, { "addr", 0, "TAG", 12, 13, 14, 16 } });
 
   neq_lhs.getTransactions()[0].setBundle("eq");
   neq_rhs.getTransactions()[0].setBundle("neq");
@@ -156,9 +156,9 @@ TEST(Bundle, EqOperator) {
 
 TEST(Bundle, NeqOperator) {
   IOTA::Models::Bundle eq_lhs(
-      { { "addr", 0, "tag", 1, 2, 3, 4 }, { "addr", 0, "tag", 5, 6, 7, 8 } });
+      { { "addr", 0, "TAG", 1, 2, 3, 4 }, { "addr", 0, "TAG", 5, 6, 7, 8 } });
   IOTA::Models::Bundle eq_rhs(
-      { { "addr", 0, "tag", 9, 2, 10, 11 }, { "addr", 0, "tag", 12, 13, 14, 16 } });
+      { { "addr", 0, "TAG", 9, 2, 10, 11 }, { "addr", 0, "TAG", 12, 13, 14, 16 } });
 
   eq_lhs.getTransactions()[0].setBundle("eq");
   eq_rhs.getTransactions()[0].setBundle("eq");
@@ -166,9 +166,9 @@ TEST(Bundle, NeqOperator) {
   EXPECT_EQ(eq_lhs != eq_rhs, false);
 
   IOTA::Models::Bundle neq_lhs(
-      { { "addr", 0, "tag", 1, 2, 3, 4 }, { "addr", 0, "tag", 5, 6, 7, 8 } });
+      { { "addr", 0, "TAG", 1, 2, 3, 4 }, { "addr", 0, "TAG", 5, 6, 7, 8 } });
   IOTA::Models::Bundle neq_rhs(
-      { { "addr", 0, "tag", 9, 0, 10, 11 }, { "addr", 0, "tag", 12, 13, 14, 16 } });
+      { { "addr", 0, "TAG", 9, 0, 10, 11 }, { "addr", 0, "TAG", 12, 13, 14, 16 } });
 
   neq_lhs.getTransactions()[0].setBundle("eq");
   neq_rhs.getTransactions()[0].setBundle("neq");
@@ -178,41 +178,41 @@ TEST(Bundle, NeqOperator) {
 
 TEST(Bundle, LtOperator) {
   IOTA::Models::Bundle eq_lhs(
-      { { "addr", 0, "tag", 1, 2, 3, 4 }, { "addr", 0, "tag", 5, 6, 7, 8 } });
+      { { "addr", 0, "TAG", 1, 2, 3, 4 }, { "addr", 0, "TAG", 5, 6, 7, 8 } });
   IOTA::Models::Bundle eq_rhs(
-      { { "addr", 0, "tag", 9, 2, 10, 11 }, { "addr", 0, "tag", 12, 13, 14, 16 } });
+      { { "addr", 0, "TAG", 9, 2, 10, 11 }, { "addr", 0, "TAG", 12, 13, 14, 16 } });
   EXPECT_EQ(eq_lhs < eq_rhs, false);
 
   IOTA::Models::Bundle lt_lhs(
-      { { "addr", 0, "tag", 1, 0, 3, 4 }, { "addr", 0, "tag", 5, 6, 7, 8 } });
+      { { "addr", 0, "TAG", 1, 0, 3, 4 }, { "addr", 0, "TAG", 5, 6, 7, 8 } });
   IOTA::Models::Bundle lt_rhs(
-      { { "addr", 0, "tag", 9, 2, 10, 11 }, { "addr", 0, "tag", 12, 13, 14, 16 } });
+      { { "addr", 0, "TAG", 9, 2, 10, 11 }, { "addr", 0, "TAG", 12, 13, 14, 16 } });
   EXPECT_EQ(lt_lhs < lt_rhs, true);
 
   IOTA::Models::Bundle gt_lhs(
-      { { "addr", 0, "tag", 1, 2, 3, 4 }, { "addr", 0, "tag", 5, 6, 7, 8 } });
+      { { "addr", 0, "TAG", 1, 2, 3, 4 }, { "addr", 0, "TAG", 5, 6, 7, 8 } });
   IOTA::Models::Bundle gt_rhs(
-      { { "addr", 0, "tag", 9, 0, 10, 11 }, { "addr", 0, "tag", 12, 13, 14, 16 } });
+      { { "addr", 0, "TAG", 9, 0, 10, 11 }, { "addr", 0, "TAG", 12, 13, 14, 16 } });
   EXPECT_EQ(gt_lhs < gt_rhs, false);
 }
 
 TEST(Bundle, GtOperator) {
   IOTA::Models::Bundle eq_lhs(
-      { { "addr", 0, "tag", 1, 2, 3, 4 }, { "addr", 0, "tag", 5, 6, 7, 8 } });
+      { { "addr", 0, "TAG", 1, 2, 3, 4 }, { "addr", 0, "TAG", 5, 6, 7, 8 } });
   IOTA::Models::Bundle eq_rhs(
-      { { "addr", 0, "tag", 9, 2, 10, 11 }, { "addr", 0, "tag", 12, 13, 14, 16 } });
+      { { "addr", 0, "TAG", 9, 2, 10, 11 }, { "addr", 0, "TAG", 12, 13, 14, 16 } });
   EXPECT_EQ(eq_lhs > eq_rhs, false);
 
   IOTA::Models::Bundle lt_lhs(
-      { { "addr", 0, "tag", 1, 0, 3, 4 }, { "addr", 0, "tag", 5, 6, 7, 8 } });
+      { { "addr", 0, "TAG", 1, 0, 3, 4 }, { "addr", 0, "TAG", 5, 6, 7, 8 } });
   IOTA::Models::Bundle lt_rhs(
-      { { "addr", 0, "tag", 9, 2, 10, 11 }, { "addr", 0, "tag", 12, 13, 14, 16 } });
+      { { "addr", 0, "TAG", 9, 2, 10, 11 }, { "addr", 0, "TAG", 12, 13, 14, 16 } });
   EXPECT_EQ(lt_lhs > lt_rhs, false);
 
   IOTA::Models::Bundle gt_lhs(
-      { { "addr", 0, "tag", 1, 2, 3, 4 }, { "addr", 0, "tag", 5, 6, 7, 8 } });
+      { { "addr", 0, "TAG", 1, 2, 3, 4 }, { "addr", 0, "TAG", 5, 6, 7, 8 } });
   IOTA::Models::Bundle gt_rhs(
-      { { "addr", 0, "tag", 9, 0, 10, 11 }, { "addr", 0, "tag", 12, 13, 14, 16 } });
+      { { "addr", 0, "TAG", 9, 0, 10, 11 }, { "addr", 0, "TAG", 12, 13, 14, 16 } });
   EXPECT_EQ(gt_lhs > gt_rhs, true);
 }
 
@@ -307,9 +307,9 @@ TEST(Bundle, AddTrytes) {
   IOTA::Models::Bundle b;
 
   //! add 3 transactions
-  b.addTransaction({ "address", 1, "tag", 2 });
-  b.addTransaction({ "address", 1, "tag", 2 });
-  b.addTransaction({ "address", 1, "tag", 2 });
+  b.addTransaction({ "address", 1, "TAG", 2 });
+  b.addTransaction({ "address", 1, "TAG", 2 });
+  b.addTransaction({ "address", 1, "TAG", 2 });
 
   //! addTrytes testing different cases:
   //!  * padding

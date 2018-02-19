@@ -27,6 +27,7 @@
 
 #include <iota/crypto/checksum.hpp>
 #include <iota/errors/illegal_state.hpp>
+#include <iota/types/trytes.hpp>
 #include <test/utils/expect_exception.hpp>
 
 TEST(Checksum, Add) {

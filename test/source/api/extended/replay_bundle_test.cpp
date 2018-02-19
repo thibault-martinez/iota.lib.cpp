@@ -26,8 +26,7 @@
 #include <gtest/gtest.h>
 
 #include <iota/api/extended.hpp>
-#include <iota/crypto/checksum.hpp>
-#include <iota/errors/bad_request.hpp>
+#include <iota/api/responses/replay_bundle.hpp>
 #include <iota/errors/illegal_state.hpp>
 #include <test/utils/configuration.hpp>
 #include <test/utils/constants.hpp>

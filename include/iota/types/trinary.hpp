@@ -25,16 +25,12 @@
 
 #pragma once
 
-#include <cstdint>
-#include <iostream>
-#include <vector>
+#include <iota/types/trits.hpp>
+#include <iota/types/trytes.hpp>
 
 namespace IOTA {
 
 namespace Types {
-
-using Trits  = std::vector<int8_t>;
-using Trytes = std::string;
 
 /**
  * @return the index of the tryte character in the tryte alphabet the range for valid tryte

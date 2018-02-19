@@ -25,14 +25,24 @@
 
 #include <gtest/gtest.h>
 
-#include <chrono>
-#include <thread>
-
 #include <iota/api/core.hpp>
+#include <iota/api/responses/add_neighbors.hpp>
+#include <iota/api/responses/attach_to_tangle.hpp>
+#include <iota/api/responses/find_transactions.hpp>
+#include <iota/api/responses/get_balances.hpp>
+#include <iota/api/responses/get_inclusion_states.hpp>
+#include <iota/api/responses/get_neighbors.hpp>
+#include <iota/api/responses/get_node_info.hpp>
+#include <iota/api/responses/get_tips.hpp>
+#include <iota/api/responses/get_transactions_to_approve.hpp>
+#include <iota/api/responses/get_trytes.hpp>
+#include <iota/api/responses/remove_neighbors.hpp>
 #include <iota/constants.hpp>
 #include <iota/crypto/checksum.hpp>
 #include <iota/errors/illegal_state.hpp>
 #include <iota/models/bundle.hpp>
+#include <iota/models/neighbor.hpp>
+#include <iota/types/trinary.hpp>
 #include <iota/utils/stop_watch.hpp>
 #include <test/utils/configuration.hpp>
 #include <test/utils/constants.hpp>
@@ -405,8 +415,8 @@ TEST(Core, AttachToTangleRemotePowOneTx) {
   IOTA::API::Core api(get_proxy_host(), get_proxy_port(), false);
 
   IOTA::Models::Bundle b;
-  b.addTransaction(1, IOTA::Crypto::Checksum::remove(ACCOUNT_4_ADDRESS_1_HASH), 0, IOTA::EmptyTag,
-                   IOTA::Utils::StopWatch::now().count());
+  b.addTransaction({ IOTA::Crypto::Checksum::remove(ACCOUNT_4_ADDRESS_1_HASH), 0, IOTA::EmptyTag,
+                     IOTA::Utils::StopWatch::now().count() });
   b.finalize();
   b.addTrytes({ EMPTY_SIGNATURE_FRAGMENT });
   auto tx  = b.getTransactions()[0].toTrytes();
@@ -421,8 +431,8 @@ TEST(Core, AttachToTangleLocalPowOneTx) {
   IOTA::API::Core api(get_proxy_host(), get_proxy_port());
 
   IOTA::Models::Bundle b;
-  b.addTransaction(1, IOTA::Crypto::Checksum::remove(ACCOUNT_4_ADDRESS_1_HASH), 0, IOTA::EmptyTag,
-                   IOTA::Utils::StopWatch::now().count());
+  b.addTransaction({ IOTA::Crypto::Checksum::remove(ACCOUNT_4_ADDRESS_1_HASH), 0, IOTA::EmptyTag,
+                     IOTA::Utils::StopWatch::now().count() });
   b.finalize();
   b.addTrytes({ EMPTY_SIGNATURE_FRAGMENT });
   auto tx  = b.getTransactions()[0].toTrytes();
@@ -437,14 +447,14 @@ TEST(Core, AttachToTangleRemotePowManyTx) {
   IOTA::API::Core api(get_proxy_host(), get_proxy_port(), false);
 
   IOTA::Models::Bundle b;
-  b.addTransaction(1, IOTA::Crypto::Checksum::remove(ACCOUNT_4_ADDRESS_1_HASH), 0, IOTA::EmptyTag,
-                   IOTA::Utils::StopWatch::now().count());
-  b.addTransaction(1, IOTA::Crypto::Checksum::remove(ACCOUNT_4_ADDRESS_1_HASH), 0, IOTA::EmptyTag,
-                   IOTA::Utils::StopWatch::now().count());
-  b.addTransaction(1, IOTA::Crypto::Checksum::remove(ACCOUNT_4_ADDRESS_1_HASH), 0, IOTA::EmptyTag,
-                   IOTA::Utils::StopWatch::now().count());
-  b.addTransaction(1, IOTA::Crypto::Checksum::remove(ACCOUNT_4_ADDRESS_1_HASH), 0, IOTA::EmptyTag,
-                   IOTA::Utils::StopWatch::now().count());
+  b.addTransaction({ IOTA::Crypto::Checksum::remove(ACCOUNT_4_ADDRESS_1_HASH), 0, IOTA::EmptyTag,
+                     IOTA::Utils::StopWatch::now().count() });
+  b.addTransaction({ IOTA::Crypto::Checksum::remove(ACCOUNT_4_ADDRESS_1_HASH), 0, IOTA::EmptyTag,
+                     IOTA::Utils::StopWatch::now().count() });
+  b.addTransaction({ IOTA::Crypto::Checksum::remove(ACCOUNT_4_ADDRESS_1_HASH), 0, IOTA::EmptyTag,
+                     IOTA::Utils::StopWatch::now().count() });
+  b.addTransaction({ IOTA::Crypto::Checksum::remove(ACCOUNT_4_ADDRESS_1_HASH), 0, IOTA::EmptyTag,
+                     IOTA::Utils::StopWatch::now().count() });
   b.finalize();
   b.addTrytes({ EMPTY_SIGNATURE_FRAGMENT });
   auto tx  = b.getTransactions()[0].toTrytes();
@@ -459,14 +469,14 @@ TEST(Core, AttachToTangleLocalPowManyTx) {
   IOTA::API::Core api(get_proxy_host(), get_proxy_port());
 
   IOTA::Models::Bundle b;
-  b.addTransaction(1, IOTA::Crypto::Checksum::remove(ACCOUNT_4_ADDRESS_1_HASH), 0, IOTA::EmptyTag,
-                   IOTA::Utils::StopWatch::now().count());
-  b.addTransaction(1, IOTA::Crypto::Checksum::remove(ACCOUNT_4_ADDRESS_1_HASH), 0, IOTA::EmptyTag,
-                   IOTA::Utils::StopWatch::now().count());
-  b.addTransaction(1, IOTA::Crypto::Checksum::remove(ACCOUNT_4_ADDRESS_1_HASH), 0, IOTA::EmptyTag,
-                   IOTA::Utils::StopWatch::now().count());
-  b.addTransaction(1, IOTA::Crypto::Checksum::remove(ACCOUNT_4_ADDRESS_1_HASH), 0, IOTA::EmptyTag,
-                   IOTA::Utils::StopWatch::now().count());
+  b.addTransaction({ IOTA::Crypto::Checksum::remove(ACCOUNT_4_ADDRESS_1_HASH), 0, IOTA::EmptyTag,
+                     IOTA::Utils::StopWatch::now().count() });
+  b.addTransaction({ IOTA::Crypto::Checksum::remove(ACCOUNT_4_ADDRESS_1_HASH), 0, IOTA::EmptyTag,
+                     IOTA::Utils::StopWatch::now().count() });
+  b.addTransaction({ IOTA::Crypto::Checksum::remove(ACCOUNT_4_ADDRESS_1_HASH), 0, IOTA::EmptyTag,
+                     IOTA::Utils::StopWatch::now().count() });
+  b.addTransaction({ IOTA::Crypto::Checksum::remove(ACCOUNT_4_ADDRESS_1_HASH), 0, IOTA::EmptyTag,
+                     IOTA::Utils::StopWatch::now().count() });
   b.finalize();
   b.addTrytes({ EMPTY_SIGNATURE_FRAGMENT });
   auto tx  = b.getTransactions()[0].toTrytes();
