@@ -57,8 +57,8 @@ TEST(Extended, SendTrytesOne) {
   IOTA::API::Extended api(get_proxy_host(), get_proxy_port());
 
   IOTA::Models::Bundle b;
-  b.addTransaction(1, IOTA::Crypto::Checksum::remove(ACCOUNT_4_ADDRESS_1_HASH), 0, IOTA::EmptyTag,
-                   IOTA::Utils::StopWatch::now().count());
+  b.addTransaction({ IOTA::Crypto::Checksum::remove(ACCOUNT_4_ADDRESS_1_HASH), 0, IOTA::EmptyTag,
+                     IOTA::Utils::StopWatch::now().count() });
   b.finalize();
   b.addTrytes({ EMPTY_SIGNATURE_FRAGMENT });
   auto tx = b.getTransactions()[0].toTrytes();
@@ -69,14 +69,14 @@ TEST(Extended, SendTrytesMulti) {
   IOTA::API::Extended api(get_proxy_host(), get_proxy_port());
 
   IOTA::Models::Bundle b;
-  b.addTransaction(1, IOTA::Crypto::Checksum::remove(ACCOUNT_4_ADDRESS_1_HASH), 0, IOTA::EmptyTag,
-                   IOTA::Utils::StopWatch::now().count());
-  b.addTransaction(1, IOTA::Crypto::Checksum::remove(ACCOUNT_4_ADDRESS_1_HASH), 0, IOTA::EmptyTag,
-                   IOTA::Utils::StopWatch::now().count());
-  b.addTransaction(1, IOTA::Crypto::Checksum::remove(ACCOUNT_4_ADDRESS_1_HASH), 0, IOTA::EmptyTag,
-                   IOTA::Utils::StopWatch::now().count());
-  b.addTransaction(1, IOTA::Crypto::Checksum::remove(ACCOUNT_4_ADDRESS_1_HASH), 0, IOTA::EmptyTag,
-                   IOTA::Utils::StopWatch::now().count());
+  b.addTransaction({ IOTA::Crypto::Checksum::remove(ACCOUNT_4_ADDRESS_1_HASH), 0, IOTA::EmptyTag,
+                     IOTA::Utils::StopWatch::now().count() });
+  b.addTransaction({ IOTA::Crypto::Checksum::remove(ACCOUNT_4_ADDRESS_1_HASH), 0, IOTA::EmptyTag,
+                     IOTA::Utils::StopWatch::now().count() });
+  b.addTransaction({ IOTA::Crypto::Checksum::remove(ACCOUNT_4_ADDRESS_1_HASH), 0, IOTA::EmptyTag,
+                     IOTA::Utils::StopWatch::now().count() });
+  b.addTransaction({ IOTA::Crypto::Checksum::remove(ACCOUNT_4_ADDRESS_1_HASH), 0, IOTA::EmptyTag,
+                     IOTA::Utils::StopWatch::now().count() });
   b.finalize();
   b.addTrytes({ EMPTY_SIGNATURE_FRAGMENT });
   auto tx0 = b.getTransactions()[0].toTrytes();

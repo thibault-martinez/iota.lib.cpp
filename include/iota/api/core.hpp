@@ -27,6 +27,7 @@
 
 #include <iota/api/responses/fwd.hpp>
 #include <iota/api/service.hpp>
+#include <iota/models/tag.hpp>
 
 namespace IOTA {
 
@@ -125,7 +126,7 @@ public:
    * @return The response.
    */
   Responses::FindTransactions findTransactions(const std::vector<Types::Trytes>& addresses,
-                                               const std::vector<Types::Trytes>& tags,
+                                               const std::vector<Models::Tag>&   tags,
                                                const std::vector<Types::Trytes>& approvees,
                                                const std::vector<Types::Trytes>& bundles) const;
 

@@ -425,7 +425,7 @@ TEST(Extended, InitiateTransferNoTransfer) {
                    IOTA::Errors::IllegalState, "Invalid value transfer");
 }
 
-TEST(Extended, PrepareTransfersInvalidTransferAddress) {
+TEST(Extended, InitiateTransfersInvalidTransferAddress) {
   auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
 
   auto transfer =
@@ -437,19 +437,7 @@ TEST(Extended, PrepareTransfersInvalidTransferAddress) {
                    IOTA::Errors::IllegalState, "Invalid transfer");
 }
 
-TEST(Extended, PrepareTransfersInvalidTransferTag) {
-  auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
-
-  auto transfer = IOTA::Models::Transfer{ ACCOUNT_2_ADDRESS_1_HASH_WITHOUT_CHECKSUM, 100, "TESTMSG",
-                                          "invalid__" };
-  auto transfers = std::vector<IOTA::Models::Transfer>{ transfer };
-
-  EXPECT_EXCEPTION(api.initiateTransfer(2, ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
-                                        ACCOUNT_1_ADDRESS_2_HASH_WITHOUT_CHECKSUM, transfers),
-                   IOTA::Errors::IllegalState, "Invalid transfer");
-}
-
-TEST(Extended, PrepareTransfersInvalidTransferMsg) {
+TEST(Extended, InitiateTransfersInvalidTransferMsg) {
   auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
 
   auto transfer  = IOTA::Models::Transfer{ ACCOUNT_2_ADDRESS_1_HASH_WITHOUT_CHECKSUM, 100,
@@ -461,7 +449,7 @@ TEST(Extended, PrepareTransfersInvalidTransferMsg) {
                    IOTA::Errors::IllegalState, "Invalid transfer");
 }
 
-TEST(Extended, PrepareTransfersNotEnoughFund) {
+TEST(Extended, InitiateTransfersNotEnoughFund) {
   auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
 
   auto transfer  = IOTA::Models::Transfer{ ACCOUNT_2_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
@@ -474,7 +462,7 @@ TEST(Extended, PrepareTransfersNotEnoughFund) {
                    IOTA::Errors::IllegalState, "Not enough balance");
 }
 
-TEST(Extended, PrepareTransfersZeroTransfer) {
+TEST(Extended, InitiateTransfersZeroTransfer) {
   auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
 
   auto transfer  = IOTA::Models::Transfer{ ACCOUNT_2_ADDRESS_1_HASH_WITHOUT_CHECKSUM, 0, "TESTMSG",
@@ -501,7 +489,7 @@ TEST(Extended, InitiateTransferNoTag) {
   auto trx1 = res[0];
   EXPECT_EQ(trx1.getCurrentIndex(), 0);
   EXPECT_EQ(trx1.getLastIndex(), 3);
-  EXPECT_EQ(trx1.getTag(), "999999999999999999999999999");
+  EXPECT_EQ(trx1.getTag().toTrytesWithPadding(), "999999999999999999999999999");
   EXPECT_EQ(trx1.getNonce(), IOTA::EmptyNonce);
   EXPECT_EQ(trx1.getTrunkTransaction(), IOTA::EmptyHash);
   EXPECT_EQ(trx1.getBranchTransaction(), IOTA::EmptyHash);
@@ -541,7 +529,7 @@ TEST(Extended, InitiateTransferNoTag) {
   auto trx2 = res[1];
   EXPECT_EQ(trx2.getCurrentIndex(), 1);
   EXPECT_EQ(trx2.getLastIndex(), 3);
-  EXPECT_EQ(trx2.getTag(), "999999999999999999999999999");
+  EXPECT_EQ(trx2.getTag().toTrytesWithPadding(), "999999999999999999999999999");
   EXPECT_EQ(trx2.getNonce(), IOTA::EmptyNonce);
   EXPECT_EQ(trx2.getTrunkTransaction(), IOTA::EmptyHash);
   EXPECT_EQ(trx2.getBranchTransaction(), IOTA::EmptyHash);
@@ -556,7 +544,7 @@ TEST(Extended, InitiateTransferNoTag) {
   auto trx3 = res[2];
   EXPECT_EQ(trx3.getCurrentIndex(), 2);
   EXPECT_EQ(trx3.getLastIndex(), 3);
-  EXPECT_EQ(trx3.getTag(), "999999999999999999999999999");
+  EXPECT_EQ(trx3.getTag().toTrytesWithPadding(), "999999999999999999999999999");
   EXPECT_EQ(trx3.getNonce(), IOTA::EmptyNonce);
   EXPECT_EQ(trx3.getTrunkTransaction(), IOTA::EmptyHash);
   EXPECT_EQ(trx3.getBranchTransaction(), IOTA::EmptyHash);
@@ -571,7 +559,7 @@ TEST(Extended, InitiateTransferNoTag) {
   auto trx4 = res[3];
   EXPECT_EQ(trx4.getCurrentIndex(), 3);
   EXPECT_EQ(trx4.getLastIndex(), 3);
-  EXPECT_EQ(trx4.getTag(), "999999999999999999999999999");
+  EXPECT_EQ(trx4.getTag().toTrytesWithPadding(), "999999999999999999999999999");
   EXPECT_EQ(trx4.getNonce(), IOTA::EmptyNonce);
   EXPECT_EQ(trx4.getTrunkTransaction(), IOTA::EmptyHash);
   EXPECT_EQ(trx4.getBranchTransaction(), IOTA::EmptyHash);

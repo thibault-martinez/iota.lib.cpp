@@ -57,16 +57,17 @@ Bundle::empty() const {
 }
 
 void
-Bundle::addTransaction(int32_t signatureMessageLength, const Types::Trytes& address, int64_t value,
-                       const Types::Trytes& tag, int64_t timestamp) {
-  for (int i = 0; i < signatureMessageLength; i++) {
-    transactions_.push_back({ address, i == 0 ? value : 0, tag, timestamp });
-  }
-}
-
-void
-Bundle::addTransaction(const Transaction& transaction) {
+Bundle::addTransaction(const Transaction& transaction, int32_t signatureMessageLength) {
   transactions_.push_back(transaction);
+
+  if (signatureMessageLength > 1) {
+    Transaction signatureTransaction = { transaction.getAddress(), 0, transaction.getTag(),
+                                         transaction.getTimestamp() };
+
+    for (int i = 1; i < signatureMessageLength; i++) {
+      transactions_.push_back(signatureTransaction);
+    }
+  }
 }
 
 void
@@ -91,8 +92,8 @@ Bundle::finalize(const std::shared_ptr<Crypto::ISponge>& customSponge) {
     auto lastIndexTrits =
         Types::tritsToTrytes(Types::intToTrits(trx.getLastIndex(), TryteAlphabetLength));
 
-    auto t = Types::trytesToTrits(trx.getAddress() + value + trx.getTag() + timestamp +
-                                  currentIndex + lastIndexTrits);
+    auto t = Types::trytesToTrits(trx.getAddress() + value + trx.getTag().toTrytesWithPadding() +
+                                  timestamp + currentIndex + lastIndexTrits);
 
     sponge->absorb(t);
   }

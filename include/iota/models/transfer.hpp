@@ -25,6 +25,7 @@
 
 #pragma once
 
+#include <iota/models/tag.hpp>
 #include <iota/types/trytes.hpp>
 
 namespace IOTA {
@@ -47,10 +48,13 @@ public:
    * @param address The address.
    * @param value The value.
    * @param message The message/
-   * @param tag The tag.
+   * @param tag The tag. Must be a Models::Tag object, or implicitly convertible to it.
    */
+  template <typename TagType>
   Transfer(const Types::Trytes& address, int64_t value, const Types::Trytes& message,
-           const Types::Trytes& tag);
+           const TagType& tag)
+      : address_(address), value_(value), message_(message), tag_(tag) {
+  }
 
   /**
    * Default dtor.
@@ -105,10 +109,17 @@ public:
    *
    * @return The tag.
    */
-  const Types::Trytes& getTag() const;
+  const Models::Tag& getTag() const;
 
   /**
    * Set the tag.
+   *
+   * @param tag The tag.
+   */
+  void setTag(const Models::Tag& tag);
+
+  /**
+   * Set the tag, tryte-based
    *
    * @param tag The tag.
    */
@@ -149,7 +160,7 @@ private:
   /**
    * The tag.
    */
-  Types::Trytes tag_;
+  Models::Tag tag_;
 };
 
 }  // namespace Models

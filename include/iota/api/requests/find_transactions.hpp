@@ -26,6 +26,7 @@
 #pragma once
 
 #include <iota/api/requests/base.hpp>
+#include <iota/models/tag.hpp>
 #include <iota/types/trytes.hpp>
 
 namespace IOTA {
@@ -52,11 +53,11 @@ public:
    * @param addresses List of addresses.
    * @param tags List of transaction tags.
    * @param approvees List of approvees of a transaction.
-   * @param bundles List of bundle hashes. The hashes need to be extended to 81chars by padding the
-   * hash with 9's.
+   * @param bundles List of bundle hashes. The hashes need to be extended to 81chars by padding
+   * the hash with 9's.
    */
   explicit FindTransactions(const std::vector<Types::Trytes>& addresses = {},
-                            const std::vector<Types::Trytes>& tags      = {},
+                            const std::vector<Models::Tag>&   tags      = {},
                             const std::vector<Types::Trytes>& approvees = {},
                             const std::vector<Types::Trytes>& bundles   = {});
 
@@ -93,17 +94,17 @@ public:
   /**
    * @return tags.
    */
-  const std::vector<Types::Trytes>& getTags() const;
+  const std::vector<Models::Tag>& getTags() const;
 
   /**
    * @return tags (non const version).
    */
-  std::vector<Types::Trytes>& getTags();
+  std::vector<Models::Tag>& getTags();
 
   /**
    * @param tags new tags for api call.
    */
-  void setTags(const std::vector<Types::Trytes>& tags);
+  void setTags(const std::vector<Models::Tag>& tags);
 
 public:
   /**
@@ -145,13 +146,14 @@ private:
   /**
    * List of transaction tags.
    */
-  std::vector<Types::Trytes> tags_;
+  std::vector<Models::Tag> tags_;
   /**
    * List of approvees of a transaction.
    */
   std::vector<Types::Trytes> approvees_;
   /**
-   * List of bundle hashes. The hashes need to be extended to 81chars by padding the hash with 9's.
+   * List of bundle hashes. The hashes need to be extended to 81chars by padding the hash with
+   * 9's.
    */
   std::vector<Types::Trytes> bundles_;
 };

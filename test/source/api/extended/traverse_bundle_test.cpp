@@ -236,7 +236,7 @@ TEST(Extended, TraverseBundleFullInvalidBundleHash) {
 
 TEST(Extended, TraverseBundleFullIntermediateTrxWithAppending) {
   auto api    = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
-  auto bundle = IOTA::Models::Bundle{ { IOTA::Models::Transaction{ "address", 42, "tag", 21 } } };
+  auto bundle = IOTA::Models::Bundle{ { IOTA::Models::Transaction{ "address", 42, "TAG", 21 } } };
   auto res    = api.traverseBundle(BUNDLE_1_TRX_4_HASH, BUNDLE_1_HASH, bundle);
 
   EXPECT_EQ(res.getTransactions().size(), 2UL);
@@ -244,7 +244,7 @@ TEST(Extended, TraverseBundleFullIntermediateTrxWithAppending) {
   const auto& trx1 = res.getTransactions()[0];
   EXPECT_EQ(trx1.getAddress(), "address");
   EXPECT_EQ(trx1.getValue(), 42);
-  EXPECT_EQ(trx1.getTag(), "tag");
+  EXPECT_EQ(trx1.getTag(), "TAG");
   EXPECT_EQ(trx1.getTimestamp(), 21);
 
   const auto& trx2 = res.getTransactions()[1];
