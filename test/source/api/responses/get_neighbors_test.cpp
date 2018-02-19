@@ -26,6 +26,7 @@
 #include <gtest/gtest.h>
 
 #include <iota/api/responses/get_neighbors.hpp>
+#include <iota/models/neighbor.hpp>
 
 TEST(GetNeighborsResponse, CtorShouldInitFields) {
   const IOTA::API::Responses::GetNeighbors res{ std::vector<IOTA::Models::Neighbor>(

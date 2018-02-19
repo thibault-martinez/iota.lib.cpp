@@ -29,6 +29,7 @@
 
 #include <iota/crypto/kerl.hpp>
 #include <iota/errors/crypto.hpp>
+#include <iota/types/trinary.hpp>
 #include <test/utils/configuration.hpp>
 
 TEST(Kerl, Exceptions) {

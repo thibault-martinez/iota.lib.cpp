@@ -25,7 +25,8 @@
 
 #pragma once
 
-#include <string>
+#include <cstdint>
+#include <iosfwd>
 
 const std::string& get_deps_folder(void);
 void               set_deps_folder(const std::string& folder);

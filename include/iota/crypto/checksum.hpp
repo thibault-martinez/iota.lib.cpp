@@ -26,6 +26,7 @@
 #pragma once
 
 #include <iota/crypto/sponge_factory.hpp>
+#include <iota/types/trytes.hpp>
 
 namespace IOTA {
 

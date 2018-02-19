@@ -31,6 +31,7 @@
 #include <iota/crypto/i_sponge.hpp>
 #include <iota/models/tag.hpp>
 #include <iota/models/transaction.hpp>
+#include <iota/types/trytes.hpp>
 
 namespace IOTA {
 

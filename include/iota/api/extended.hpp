@@ -25,21 +25,10 @@
 
 #pragma once
 
-#include <list>
-
 #include <iota/api/core.hpp>
-#include <iota/api/responses/get_account_data.hpp>
-#include <iota/api/responses/get_balances.hpp>
-#include <iota/api/responses/get_balances_and_format.hpp>
-#include <iota/api/responses/get_bundle.hpp>
-#include <iota/api/responses/get_new_addresses.hpp>
-#include <iota/api/responses/get_transfers.hpp>
-#include <iota/api/responses/replay_bundle.hpp>
-#include <iota/api/responses/send_transfer.hpp>
 #include <iota/crypto/sponge_factory.hpp>
-#include <iota/models/bundle.hpp>
+#include <iota/models/fwd.hpp>
 #include <iota/models/tag.hpp>
-#include <iota/models/transfer.hpp>
 #include <iota/utils/stop_watch.hpp>
 
 namespace IOTA {

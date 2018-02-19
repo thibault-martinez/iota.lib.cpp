@@ -26,6 +26,7 @@
 #include <gtest/gtest.h>
 
 #include <iota/api/responses/get_transfers.hpp>
+#include <iota/models/bundle.hpp>
 
 TEST(GetTransfersResponse, DefaultCtorShouldInitFields) {
   const IOTA::API::Responses::GetTransfers res{};

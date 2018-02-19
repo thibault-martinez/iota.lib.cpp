@@ -26,8 +26,6 @@
 #include <iomanip>
 #include <sstream>
 
-#include <iota/types/utils.hpp>
-
 namespace IOTA {
 
 namespace Types {

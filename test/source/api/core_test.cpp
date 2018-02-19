@@ -25,14 +25,24 @@
 
 #include <gtest/gtest.h>
 
-#include <chrono>
-#include <thread>
-
 #include <iota/api/core.hpp>
+#include <iota/api/responses/add_neighbors.hpp>
+#include <iota/api/responses/attach_to_tangle.hpp>
+#include <iota/api/responses/find_transactions.hpp>
+#include <iota/api/responses/get_balances.hpp>
+#include <iota/api/responses/get_inclusion_states.hpp>
+#include <iota/api/responses/get_neighbors.hpp>
+#include <iota/api/responses/get_node_info.hpp>
+#include <iota/api/responses/get_tips.hpp>
+#include <iota/api/responses/get_transactions_to_approve.hpp>
+#include <iota/api/responses/get_trytes.hpp>
+#include <iota/api/responses/remove_neighbors.hpp>
 #include <iota/constants.hpp>
 #include <iota/crypto/checksum.hpp>
 #include <iota/errors/illegal_state.hpp>
 #include <iota/models/bundle.hpp>
+#include <iota/models/neighbor.hpp>
+#include <iota/types/trinary.hpp>
 #include <iota/utils/stop_watch.hpp>
 #include <test/utils/configuration.hpp>
 #include <test/utils/constants.hpp>

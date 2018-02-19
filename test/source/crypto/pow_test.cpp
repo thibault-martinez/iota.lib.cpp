@@ -26,6 +26,7 @@
 #include <gtest/gtest.h>
 
 #include <iota/api/core.hpp>
+#include <iota/api/responses/base.hpp>
 #include <iota/crypto/pow.hpp>
 #include <test/utils/configuration.hpp>
 #include <test/utils/constants.hpp>

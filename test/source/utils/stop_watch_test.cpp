@@ -23,10 +23,9 @@
 //
 //
 
-#include <gtest/gtest.h>
-
-#include <chrono>
 #include <thread>
+
+#include <gtest/gtest.h>
 
 #include <iota/utils/stop_watch.hpp>
 

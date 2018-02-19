@@ -25,13 +25,9 @@
 
 #pragma once
 
-#include <json.hpp>
-
 #include <iota/api/requests/base.hpp>
 #include <iota/models/tag.hpp>
-#include <iota/types/trinary.hpp>
-
-using json = nlohmann::json;
+#include <iota/types/trytes.hpp>
 
 namespace IOTA {
 
@@ -57,8 +53,8 @@ public:
    * @param addresses List of addresses.
    * @param tags List of transaction tags.
    * @param approvees List of approvees of a transaction.
-   * @param bundles List of bundle hashes. The hashes need to be extended to 81chars by padding the
-   * hash with 9's.
+   * @param bundles List of bundle hashes. The hashes need to be extended to 81chars by padding
+   * the hash with 9's.
    */
   explicit FindTransactions(const std::vector<Types::Trytes>& addresses = {},
                             const std::vector<Models::Tag>&   tags      = {},
@@ -156,7 +152,8 @@ private:
    */
   std::vector<Types::Trytes> approvees_;
   /**
-   * List of bundle hashes. The hashes need to be extended to 81chars by padding the hash with 9's.
+   * List of bundle hashes. The hashes need to be extended to 81chars by padding the hash with
+   * 9's.
    */
   std::vector<Types::Trytes> bundles_;
 };

@@ -27,6 +27,9 @@
 
 #include <iota/api/extended.hpp>
 #include <iota/errors/illegal_state.hpp>
+#include <iota/models/input.hpp>
+#include <iota/models/transaction.hpp>
+#include <iota/models/transfer.hpp>
 #include <test/utils/configuration.hpp>
 #include <test/utils/constants.hpp>
 #include <test/utils/expect_exception.hpp>
