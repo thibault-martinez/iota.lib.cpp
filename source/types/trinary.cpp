@@ -24,6 +24,7 @@
 //
 
 #include <algorithm>
+#include <array>
 #include <cstdlib>
 #include <functional>
 
@@ -34,12 +35,13 @@ namespace IOTA {
 
 namespace Types {
 
-static std::vector<std::vector<int8_t>> trytesTrits = {
-  { 0, 0, 0 },  { 1, 0, 0 },  { -1, 1, 0 },   { 0, 1, 0 },   { 1, 1, 0 },   { -1, -1, 1 },
-  { 0, -1, 1 }, { 1, -1, 1 }, { -1, 0, 1 },   { 0, 0, 1 },   { 1, 0, 1 },   { -1, 1, 1 },
-  { 0, 1, 1 },  { 1, 1, 1 },  { -1, -1, -1 }, { 0, -1, -1 }, { 1, -1, -1 }, { -1, 0, -1 },
-  { 0, 0, -1 }, { 1, 0, -1 }, { -1, 1, -1 },  { 0, 1, -1 },  { 1, 1, -1 },  { -1, -1, 0 },
-  { 0, -1, 0 }, { 1, -1, 0 }, { -1, 0, 0 }
+static constexpr std::array<std::array<int8_t, 3>, TryteAlphabetLength> trytesTrits{
+  { { { 0, 0, 0 } },   { { 1, 0, 0 } },   { { -1, 1, 0 } },  { { 0, 1, 0 } },   { { 1, 1, 0 } },
+    { { -1, -1, 1 } }, { { 0, -1, 1 } },  { { 1, -1, 1 } },  { { -1, 0, 1 } },  { { 0, 0, 1 } },
+    { { 1, 0, 1 } },   { { -1, 1, 1 } },  { { 0, 1, 1 } },   { { 1, 1, 1 } },   { { -1, -1, -1 } },
+    { { 0, -1, -1 } }, { { 1, -1, -1 } }, { { -1, 0, -1 } }, { { 0, 0, -1 } },  { { 1, 0, -1 } },
+    { { -1, 1, -1 } }, { { 0, 1, -1 } },  { { 1, 1, -1 } },  { { -1, -1, 0 } }, { { 0, -1, 0 } },
+    { { 1, -1, 0 } },  { { -1, 0, 0 } } }
 };
 
 int8_t
@@ -254,11 +256,10 @@ bytesToTrits(const std::vector<int8_t>& bytes) {
 Trits
 trytesToTrits(const Trytes& trytes) {
   Trits trits;
+  trits.reserve(trytes.size() * 3);
   for (std::size_t i = 0; i < trytes.size(); i++) {
     std::size_t index = tryteIndex(trytes[i]);
-    trits.push_back(trytesTrits[index][0]);
-    trits.push_back(trytesTrits[index][1]);
-    trits.push_back(trytesTrits[index][2]);
+    trits.insert(std::end(trits), std::begin(trytesTrits[index]), std::end(trytesTrits[index]));
   }
   return trits;
 }
