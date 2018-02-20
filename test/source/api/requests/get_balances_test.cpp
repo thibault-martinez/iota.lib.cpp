@@ -26,55 +26,70 @@
 #include <gtest/gtest.h>
 
 #include <iota/api/requests/get_balances.hpp>
+#include <test/utils/constants.hpp>
 
 TEST(GetBalancesRequest, DefaultCtorShouldInitFields) {
   const IOTA::API::Requests::GetBalances req{};
 
-  EXPECT_EQ(req.getAddresses(), std::vector<IOTA::Types::Trytes>({}));
+  EXPECT_EQ(req.getAddresses(), std::vector<IOTA::Models::Address>({}));
   EXPECT_EQ(req.getThreshold(), 0);
 }
 
 TEST(GetBalancesRequest, CtorShouldInitFields) {
-  const IOTA::API::Requests::GetBalances req{ { "addr1", "addr2" }, 42 };
+  const IOTA::API::Requests::GetBalances req{
+    { ACCOUNT_1_ADDRESS_1_HASH, ACCOUNT_1_ADDRESS_2_HASH }, 42
+  };
 
-  EXPECT_EQ(req.getAddresses(), std::vector<IOTA::Types::Trytes>({ "addr1", "addr2" }));
+  EXPECT_EQ(req.getAddresses(), std::vector<IOTA::Models::Address>(
+                                    { ACCOUNT_1_ADDRESS_1_HASH, ACCOUNT_1_ADDRESS_2_HASH }));
   EXPECT_EQ(req.getThreshold(), 42);
 }
 
 TEST(GetBalancesRequest, GetAddressesNonConst) {
-  IOTA::API::Requests::GetBalances req{ { "addr1", "addr2" }, 42 };
+  IOTA::API::Requests::GetBalances req{ { ACCOUNT_1_ADDRESS_1_HASH, ACCOUNT_1_ADDRESS_2_HASH },
+                                        42 };
 
-  req.getAddresses().push_back("addr3");
+  req.getAddresses().push_back(ACCOUNT_1_ADDRESS_3_HASH);
 
-  EXPECT_EQ(req.getAddresses(), std::vector<IOTA::Types::Trytes>({ "addr1", "addr2", "addr3" }));
+  EXPECT_EQ(req.getAddresses(),
+            std::vector<IOTA::Models::Address>(
+                { ACCOUNT_1_ADDRESS_1_HASH, ACCOUNT_1_ADDRESS_2_HASH, ACCOUNT_1_ADDRESS_3_HASH }));
   EXPECT_EQ(req.getThreshold(), 42);
 }
 
 TEST(GetBalancesRequest, SetAddresses) {
-  IOTA::API::Requests::GetBalances req{ { "addr1", "addr2" }, 42 };
+  IOTA::API::Requests::GetBalances req{ { ACCOUNT_1_ADDRESS_1_HASH, ACCOUNT_1_ADDRESS_2_HASH },
+                                        42 };
 
-  req.setAddresses({ "null1", "null2" });
+  req.setAddresses({ ACCOUNT_1_ADDRESS_3_HASH, ACCOUNT_1_ADDRESS_4_HASH });
 
-  EXPECT_EQ(req.getAddresses(), std::vector<IOTA::Types::Trytes>({ "null1", "null2" }));
+  EXPECT_EQ(req.getAddresses(), std::vector<IOTA::Models::Address>(
+                                    { ACCOUNT_1_ADDRESS_3_HASH, ACCOUNT_1_ADDRESS_4_HASH }));
   EXPECT_EQ(req.getThreshold(), 42);
 }
 
 TEST(GetBalancesRequest, SetThreshold) {
-  IOTA::API::Requests::GetBalances req{ { "addr1", "addr2" }, 42 };
+  IOTA::API::Requests::GetBalances req{ { ACCOUNT_1_ADDRESS_1_HASH, ACCOUNT_1_ADDRESS_2_HASH },
+                                        42 };
 
   req.setThreshold(84);
 
-  EXPECT_EQ(req.getAddresses(), std::vector<IOTA::Types::Trytes>({ "addr1", "addr2" }));
+  EXPECT_EQ(req.getAddresses(), std::vector<IOTA::Models::Address>(
+                                    { ACCOUNT_1_ADDRESS_1_HASH, ACCOUNT_1_ADDRESS_2_HASH }));
   EXPECT_EQ(req.getThreshold(), 84);
 }
 
 TEST(GetBalancesRequest, SerializeShouldInitJson) {
-  const IOTA::API::Requests::GetBalances req{ { "addr1", "addr2" }, 42 };
-  json                                   data;
+  const IOTA::API::Requests::GetBalances req{
+    { ACCOUNT_1_ADDRESS_1_HASH, ACCOUNT_1_ADDRESS_2_HASH }, 42
+  };
+  json data;
 
   req.serialize(data);
 
   EXPECT_EQ(data["command"].get<std::string>(), "getBalances");
-  EXPECT_EQ(data["addresses"], std::vector<IOTA::Types::Trytes>({ "addr1", "addr2" }));
+  EXPECT_EQ(data["addresses"],
+            std::vector<IOTA::Types::Trytes>({ ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
+                                               ACCOUNT_1_ADDRESS_2_HASH_WITHOUT_CHECKSUM }));
   EXPECT_EQ(data["threshold"], 42);
 }

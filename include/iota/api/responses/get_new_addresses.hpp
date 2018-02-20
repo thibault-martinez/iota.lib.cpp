@@ -26,6 +26,7 @@
 #pragma once
 
 #include <iota/api/responses/base.hpp>
+#include <iota/models/address.hpp>
 #include <iota/types/trytes.hpp>
 
 namespace IOTA {
@@ -53,7 +54,7 @@ public:
    * @param addresses New addresses.
    * @param duration Request duration.
    */
-  GetNewAddresses(const std::vector<Types::Trytes>& addresses, const int64_t& duration);
+  GetNewAddresses(const std::vector<Models::Address>& addresses, const int64_t& duration);
 
   /**
    * Default dtor.
@@ -64,20 +65,20 @@ public:
   /**
    * @return The addresses.
    */
-  const std::vector<Types::Trytes>& getAddresses() const;
+  const std::vector<Models::Address>& getAddresses() const;
 
   /**
    * @return The addresses. (non const version)
    */
-  std::vector<Types::Trytes>& getAddresses();
+  std::vector<Models::Address>& getAddresses();
 
   /**
    * @param addresses new addresses for api response
    */
-  void setAddresses(const std::vector<Types::Trytes>& addresses);
+  void setAddresses(const std::vector<Models::Address>& addresses);
 
 private:
-  std::vector<Types::Trytes> addresses_;
+  std::vector<Models::Address> addresses_;
 };
 
 }  // namespace Responses

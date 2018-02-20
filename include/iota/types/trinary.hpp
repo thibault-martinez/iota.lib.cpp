@@ -51,11 +51,6 @@ bool isValidTrytes(const Trytes& trytes);
 bool isValidTrit(const int8_t& trit);
 
 /**
- * @return whether the given address is valid or not
- */
-bool isValidAddress(const Trytes& s);
-
-/**
  * @return whether the given hash is valid or not
  */
 bool isValidHash(const Trytes& s);

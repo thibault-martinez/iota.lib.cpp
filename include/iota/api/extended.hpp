@@ -28,7 +28,6 @@
 #include <iota/api/core.hpp>
 #include <iota/crypto/sponge_factory.hpp>
 #include <iota/models/fwd.hpp>
-#include <iota/models/tag.hpp>
 #include <iota/utils/stop_watch.hpp>
 
 namespace IOTA {
@@ -90,7 +89,7 @@ public:
    * @return Inputs object.
    **/
   Responses::GetBalancesAndFormat getBalancesAndFormat(
-      const std::vector<Types::Trytes>& addresses, const int64_t& threshold, const int32_t& start,
+      const std::vector<Models::Address>& addresses, const int64_t& threshold, const int32_t& start,
       const int32_t& security, const Utils::StopWatch& stopWatch = {}) const;
 
   /**
@@ -101,7 +100,6 @@ public:
    * @param security  Security level to be used for the private key / address. Can be 1, 2 or 3.
    * @param index     Key index to start search from. If the index is provided, the generation of
    * the address is not deterministic.
-   * @param checksum  Adds 9-tryte address checksum.
    * @param total     Total number of addresses to generate.
    * @param returnAll If <code>true</code>, it returns all addresses which were deterministically
    * generated (until findTransactions returns null).
@@ -109,9 +107,8 @@ public:
    * @return An array of strings with the specifed number of addresses.
    */
   Responses::GetNewAddresses getNewAddresses(const Types::Trytes& seed, const uint32_t& index = 0,
-                                             const int32_t& security = 2, bool checksum = false,
-                                             const int32_t& total     = 0,
-                                             bool           returnAll = false) const;
+                                             const int32_t& security = 2, const int32_t& total = 0,
+                                             bool returnAll = false) const;
 
   /**
    * Basically traverse the Bundle by going down the trunkTransactions until
@@ -146,8 +143,8 @@ public:
    *
    * @return List of bundles
    */
-  std::vector<Models::Bundle> bundlesFromAddresses(
-      const std::vector<IOTA::Types::Trytes>& addresses, bool inclusionStates) const;
+  std::vector<Models::Bundle> bundlesFromAddresses(const std::vector<Models::Address>& addresses,
+                                                   bool inclusionStates) const;
 
   /**
    * Lookup transactions for given addresses and return a list of transaction objects
@@ -157,7 +154,7 @@ public:
    * @return Transactions.
    */
   std::vector<Models::Transaction> findTransactionObjects(
-      const std::vector<IOTA::Types::Trytes>& addresses) const;
+      const std::vector<Models::Address>& addresses) const;
 
   /**
    * Lookup transactions for given transaction hashes and return a list of transaction objects
@@ -206,9 +203,9 @@ public:
    * @return Returns bundle trytes.
    */
   std::vector<Types::Trytes> prepareTransfers(const Types::Trytes& seed, int security,
-                                              std::vector<Models::Transfer>&    transfers,
-                                              const std::string&                remainder,
-                                              const std::vector<Models::Input>& inputs,
+                                              const std::vector<Models::Transfer>& transfers,
+                                              const Models::Address&               remainder,
+                                              const std::vector<Models::Input>&    inputs,
                                               bool validateInputs = true) const;
 
   /**
@@ -259,7 +256,7 @@ public:
                                        int                               minWeightMagnitude,
                                        std::vector<Models::Transfer>&    transfers,
                                        const std::vector<Models::Input>& inputs,
-                                       const Types::Trytes&              address) const;
+                                       const Models::Address&            address) const;
 
   /**
    * Wrapper function that gets transactions to approve, attaches to Tangle, broadcasts and stores.
@@ -291,7 +288,7 @@ public:
    * @return the list of transactions which have the specified address as an input/output field.
    */
   Responses::FindTransactions findTransactionsByAddresses(
-      const std::vector<Types::Trytes>& addresses) const;
+      const std::vector<Models::Address>& addresses) const;
 
   /**
    * Find the transactions which match the specified tags.
@@ -331,7 +328,6 @@ public:
    * @param index           Key index to start search from. If the index is provided, the generation
    * of the address is not deterministic. Default is 0.
    * @param security        The Security level of private key / seed.
-   * @param checksum        Adds 9-tryte address checksum.
    * @param total           Total number of addresses to generate. 0 for unlimited
    * @param returnAll       If <code>true</code>, it returns all addresses which were
    * deterministically generated (until findTransactions returns null).
@@ -343,8 +339,8 @@ public:
    * @return Account data.
    */
   Responses::GetAccountData getAccountData(const Types::Trytes& seed, int index, int security,
-                                           bool checksum, int total, bool returnAll, int start,
-                                           int end, bool inclusionStates, long threshold) const;
+                                           int total, bool returnAll, int start, int end,
+                                           bool inclusionStates, long threshold) const;
 
   /**
    * @param hash The hash of a transaction
@@ -357,7 +353,7 @@ public:
    * @param security           The security level of private key / seed.
    * @param inputs             List of inputs used for funding the transfer.
    * @param bundle             To be populated.
-   * @param tag                The tag. Must be of type Models::Tag or implicitly convertible to it.
+   * @param tag                The tag
    * @param totalValue         The total value.
    * @param remainderAddress   If defined, this address will be used for sending the remainder value
    * (of the inputs) to.
@@ -365,15 +361,11 @@ public:
    *
    * @return Vector of trytes.
    */
-  template <typename TagType>
   std::vector<Types::Trytes> addRemainder(
       const Types::Trytes& seed, const unsigned int& security,
-      const std::vector<Models::Input>& inputs, Models::Bundle& bundle, const TagType& tag,
-      const int64_t& totalValue, const Types::Trytes& remainderAddress,
-      const std::vector<Types::Trytes>& signatureFragments) const {
-    return addRemainderInternal(seed, security, inputs, bundle, Models::Tag{ tag }, totalValue,
-                                remainderAddress, signatureFragments);
-  }
+      const std::vector<Models::Input>& inputs, Models::Bundle& bundle, const Models::Tag& tag,
+      const int64_t& totalValue, const Models::Address& remainderAddress,
+      const std::vector<Types::Trytes>& signatureFragments) const;
 
   /**
    * Replays a transfer by doing Proof of Work again.
@@ -400,8 +392,8 @@ public:
    * @return Bundle of transaction objects.
    */
   std::vector<Models::Transaction> initiateTransfer(int                            securitySum,
-                                                    const Types::Trytes&           inputAddress,
-                                                    const Types::Trytes&           remainderAddress,
+                                                    const Models::Address&         inputAddress,
+                                                    const Models::Address&         remainderAddress,
                                                     std::vector<Models::Transfer>& transfers) const;
 
 private:
@@ -412,34 +404,14 @@ private:
    * @param seed      The tryte-encoded seed.
    * @param index     The index to start search from.
    * @param security  The security level of private key.
-   * @param checksum  Adds a 9-tryte address checksum.
    *
    * @return A new address.
    */
-  static Types::Trytes newAddress(const Types::Trytes& seed, const int32_t& index,
-                                  const int32_t& security, bool checksum);
+  static Models::Address newAddress(const Types::Trytes& seed, const int32_t& index,
+                                    const int32_t& security);
 
   std::vector<Types::Trytes> signInputsAndReturn(
       const Types::Trytes& seed, const std::vector<Models::Input>& inputs, Models::Bundle& bundle,
-      const std::vector<Types::Trytes>& signatureFragments) const;
-
-  /**
-   * @param seed               Tryte-encoded seed.
-   * @param security           The security level of private key / seed.
-   * @param inputs             List of inputs used for funding the transfer.
-   * @param bundle             To be populated.
-   * @param tag                The tag.
-   * @param totalValue         The total value.
-   * @param remainderAddress   If defined, this address will be used for sending the remainder value
-   * (of the inputs) to.
-   * @param signatureFragments The signature fragments.
-   *
-   * @return Vector of trytes.
-   */
-  std::vector<Types::Trytes> addRemainderInternal(
-      const Types::Trytes& seed, const unsigned int& security,
-      const std::vector<Models::Input>& inputs, Models::Bundle& bundle, const Models::Tag& tag,
-      const int64_t& totalValue, const Types::Trytes& remainderAddress,
       const std::vector<Types::Trytes>& signatureFragments) const;
 
   /**

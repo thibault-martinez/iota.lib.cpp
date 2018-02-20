@@ -31,23 +31,23 @@ namespace API {
 
 namespace Responses {
 
-GetNewAddresses::GetNewAddresses(const std::vector<Types::Trytes>& addresses,
-                                 const int64_t&                    duration)
+GetNewAddresses::GetNewAddresses(const std::vector<Models::Address>& addresses,
+                                 const int64_t&                      duration)
     : Base(duration), addresses_(addresses) {
 }
 
-const std::vector<Types::Trytes>&
+const std::vector<Models::Address>&
 GetNewAddresses::getAddresses() const {
   return addresses_;
 }
 
-std::vector<Types::Trytes>&
+std::vector<Models::Address>&
 GetNewAddresses::getAddresses() {
   return addresses_;
 }
 
 void
-GetNewAddresses::setAddresses(const std::vector<Types::Trytes>& addresses) {
+GetNewAddresses::setAddresses(const std::vector<Models::Address>& addresses) {
   addresses_ = addresses;
 }
 

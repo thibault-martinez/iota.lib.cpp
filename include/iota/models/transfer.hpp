@@ -25,6 +25,7 @@
 
 #pragma once
 
+#include <iota/models/address.hpp>
 #include <iota/models/tag.hpp>
 #include <iota/types/trytes.hpp>
 
@@ -47,14 +48,11 @@ public:
    *
    * @param address The address.
    * @param value The value.
-   * @param message The message/
-   * @param tag The tag. Must be a Models::Tag object, or implicitly convertible to it.
+   * @param message The message.
+   * @param tag The tag.
    */
-  template <typename TagType>
-  Transfer(const Types::Trytes& address, int64_t value, const Types::Trytes& message,
-           const TagType& tag)
-      : address_(address), value_(value), message_(message), tag_(tag) {
-  }
+  Transfer(const Models::Address& address, int64_t value, const Types::Trytes& message,
+           const Models::Tag& tag);
 
   /**
    * Default dtor.
@@ -67,14 +65,14 @@ public:
    *
    * @return The address.
    */
-  const Types::Trytes& getAddress() const;
+  const Models::Address& getAddress() const;
 
   /**
    * Set the address.
    *
    * @param address The address.
    */
-  void setAddress(const Types::Trytes& address);
+  void setAddress(const Models::Address& address);
 
   /**
    * Get the value.
@@ -119,13 +117,6 @@ public:
   void setTag(const Models::Tag& tag);
 
   /**
-   * Set the tag, tryte-based
-   *
-   * @param tag The tag.
-   */
-  void setTag(const Types::Trytes& tag);
-
-  /**
    * @return Whether the transfer is valid or not.
    **/
   bool isValid() const;
@@ -148,7 +139,7 @@ private:
   /**
    * The adress.
    */
-  Types::Trytes address_;
+  Models::Address address_;
   /**
    * The value.
    */

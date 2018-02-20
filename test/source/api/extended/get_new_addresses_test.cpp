@@ -35,26 +35,26 @@
 TEST(Extended, GetNewAddressesInvalidSeed) {
   auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
 
-  EXPECT_EXCEPTION(api.getNewAddresses("false", 0, 1, false, 0, false), IOTA::Errors::IllegalState,
+  EXPECT_EXCEPTION(api.getNewAddresses("false", 0, 1, 0, false), IOTA::Errors::IllegalState,
                    "Invalid Seed");
 }
 
 TEST(Extended, GetNewAddressesInvalidSecurityLevel) {
   auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
 
-  EXPECT_EXCEPTION(api.getNewAddresses(ACCOUNT_1_SEED, 0, -1, false, 0, false),
-                   IOTA::Errors::IllegalState, "Invalid Security Level");
+  EXPECT_EXCEPTION(api.getNewAddresses(ACCOUNT_1_SEED, 0, -1, 0, false), IOTA::Errors::IllegalState,
+                   "Invalid Security Level");
 
-  EXPECT_EXCEPTION(api.getNewAddresses(ACCOUNT_1_SEED, 0, 4, false, 0, false),
-                   IOTA::Errors::IllegalState, "Invalid Security Level");
+  EXPECT_EXCEPTION(api.getNewAddresses(ACCOUNT_1_SEED, 0, 4, 0, false), IOTA::Errors::IllegalState,
+                   "Invalid Security Level");
 }
 
-TEST(Extended, GetNewAddressesTotalChecksumReturnAll) {
+TEST(Extended, GetNewAddressesTotalReturnAll) {
   auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
 
-  auto res = api.getNewAddresses(ACCOUNT_1_SEED, 0, 2, true, 7, true);
+  auto res = api.getNewAddresses(ACCOUNT_1_SEED, 0, 2, 7, true);
 
-  EXPECT_EQ(res.getAddresses().size(), static_cast<unsigned long>(7));
+  EXPECT_EQ(res.getAddresses().size(), 7UL);
   EXPECT_EQ(res.getAddresses()[0], ACCOUNT_1_ADDRESS_1_HASH);
   EXPECT_EQ(res.getAddresses()[1], ACCOUNT_1_ADDRESS_2_HASH);
   EXPECT_EQ(res.getAddresses()[2], ACCOUNT_1_ADDRESS_3_HASH);
@@ -64,36 +64,21 @@ TEST(Extended, GetNewAddressesTotalChecksumReturnAll) {
   EXPECT_EQ(res.getAddresses()[6], ACCOUNT_1_ADDRESS_7_HASH);
 }
 
-TEST(Extended, GetNewAddressesTotalNoChecksumReturnAll) {
+TEST(Extended, GetNewAddressesTotalReturnOne) {
   auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
 
-  auto res = api.getNewAddresses(ACCOUNT_1_SEED, 0, 2, false, 7, true);
+  auto res = api.getNewAddresses(ACCOUNT_1_SEED, 0, 2, 7, false);
 
-  EXPECT_EQ(res.getAddresses().size(), static_cast<unsigned long>(7));
-  EXPECT_EQ(res.getAddresses()[0], ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM);
-  EXPECT_EQ(res.getAddresses()[1], ACCOUNT_1_ADDRESS_2_HASH_WITHOUT_CHECKSUM);
-  EXPECT_EQ(res.getAddresses()[2], ACCOUNT_1_ADDRESS_3_HASH_WITHOUT_CHECKSUM);
-  EXPECT_EQ(res.getAddresses()[3], ACCOUNT_1_ADDRESS_4_HASH_WITHOUT_CHECKSUM);
-  EXPECT_EQ(res.getAddresses()[4], ACCOUNT_1_ADDRESS_5_HASH_WITHOUT_CHECKSUM);
-  EXPECT_EQ(res.getAddresses()[5], ACCOUNT_1_ADDRESS_6_HASH_WITHOUT_CHECKSUM);
-  EXPECT_EQ(res.getAddresses()[6], ACCOUNT_1_ADDRESS_7_HASH_WITHOUT_CHECKSUM);
-}
-
-TEST(Extended, GetNewAddressesTotalChecksumReturnOne) {
-  auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
-
-  auto res = api.getNewAddresses(ACCOUNT_1_SEED, 0, 2, false, 7, false);
-
-  EXPECT_EQ(res.getAddresses().size(), static_cast<unsigned long>(1));
+  EXPECT_EQ(res.getAddresses().size(), 1UL);
   EXPECT_EQ(res.getAddresses()[0], ACCOUNT_1_ADDRESS_7_HASH_WITHOUT_CHECKSUM);
 }
 
-TEST(Extended, GetNewAddressesNoTotalChecksumReturnAll) {
+TEST(Extended, GetNewAddressesNoTotalReturnAll) {
   auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
 
-  auto res = api.getNewAddresses(ACCOUNT_1_SEED, 0, 2, true, 0, true);
+  auto res = api.getNewAddresses(ACCOUNT_1_SEED, 0, 2, 0, true);
 
-  EXPECT_EQ(res.getAddresses().size(), static_cast<unsigned long>(7));
+  EXPECT_EQ(res.getAddresses().size(), 7UL);
   EXPECT_EQ(res.getAddresses()[0], ACCOUNT_1_ADDRESS_1_HASH);
   EXPECT_EQ(res.getAddresses()[1], ACCOUNT_1_ADDRESS_2_HASH);
   EXPECT_EQ(res.getAddresses()[2], ACCOUNT_1_ADDRESS_3_HASH);
@@ -103,26 +88,11 @@ TEST(Extended, GetNewAddressesNoTotalChecksumReturnAll) {
   EXPECT_EQ(res.getAddresses()[6], ACCOUNT_1_ADDRESS_7_HASH);
 }
 
-TEST(Extended, GetNewAddressesNoTotalNoChecksumReturnAll) {
+TEST(Extended, GetNewAddressesNoTotalReturnOne) {
   auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
 
-  auto res = api.getNewAddresses(ACCOUNT_1_SEED, 0, 2, false, 0, true);
+  auto res = api.getNewAddresses(ACCOUNT_1_SEED, 0, 2, 0, false);
 
-  EXPECT_EQ(res.getAddresses().size(), static_cast<unsigned long>(7));
-  EXPECT_EQ(res.getAddresses()[0], ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM);
-  EXPECT_EQ(res.getAddresses()[1], ACCOUNT_1_ADDRESS_2_HASH_WITHOUT_CHECKSUM);
-  EXPECT_EQ(res.getAddresses()[2], ACCOUNT_1_ADDRESS_3_HASH_WITHOUT_CHECKSUM);
-  EXPECT_EQ(res.getAddresses()[3], ACCOUNT_1_ADDRESS_4_HASH_WITHOUT_CHECKSUM);
-  EXPECT_EQ(res.getAddresses()[4], ACCOUNT_1_ADDRESS_5_HASH_WITHOUT_CHECKSUM);
-  EXPECT_EQ(res.getAddresses()[5], ACCOUNT_1_ADDRESS_6_HASH_WITHOUT_CHECKSUM);
-  EXPECT_EQ(res.getAddresses()[6], ACCOUNT_1_ADDRESS_7_HASH_WITHOUT_CHECKSUM);
-}
-
-TEST(Extended, GetNewAddressesNoTotalNoChecksumReturnOne) {
-  auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
-
-  auto res = api.getNewAddresses(ACCOUNT_1_SEED, 0, 2, false, 0, false);
-
-  EXPECT_EQ(res.getAddresses().size(), static_cast<unsigned long>(1));
+  EXPECT_EQ(res.getAddresses().size(), 1UL);
   EXPECT_EQ(res.getAddresses()[0], ACCOUNT_1_ADDRESS_7_HASH_WITHOUT_CHECKSUM);
 }

@@ -31,13 +31,18 @@ namespace IOTA {
 
 namespace Models {
 
-const Types::Trytes&
+Transfer::Transfer(const Models::Address& address, int64_t value, const Types::Trytes& message,
+                   const Models::Tag& tag)
+    : address_(address), value_(value), message_(message), tag_(tag) {
+}
+
+const Models::Address&
 Transfer::getAddress() const {
   return address_;
 }
 
 void
-Transfer::setAddress(const Types::Trytes& address) {
+Transfer::setAddress(const Models::Address& address) {
   address_ = address;
 }
 
@@ -71,19 +76,14 @@ Transfer::setTag(const Models::Tag& tag) {
   tag_ = tag;
 }
 
-void
-Transfer::setTag(const Types::Trytes& tag) {
-  setTag(Models::Tag{ tag });
-}
-
 bool
 Transfer::isValid() const {
-  if (!Types::isValidAddress(getAddress())) {
+  // Check if message is correct trytes of any length
+  if (!Types::isValidTrytes(getMessage())) {
     return false;
   }
 
-  // Check if message is correct trytes of any length
-  if (!Types::isValidTrytes(getMessage())) {
+  if (getAddress().empty()) {
     return false;
   }
 

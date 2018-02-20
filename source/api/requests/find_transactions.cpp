@@ -24,7 +24,6 @@
 //
 
 #include <iota/api/requests/find_transactions.hpp>
-#include <iota/crypto/checksum.hpp>
 
 namespace IOTA {
 
@@ -32,10 +31,10 @@ namespace API {
 
 namespace Requests {
 
-FindTransactions::FindTransactions(const std::vector<Types::Trytes>& addresses,
-                                   const std::vector<Models::Tag>&   tags,
-                                   const std::vector<Types::Trytes>& approvees,
-                                   const std::vector<Types::Trytes>& bundles)
+FindTransactions::FindTransactions(const std::vector<Models::Address>& addresses,
+                                   const std::vector<Models::Tag>&     tags,
+                                   const std::vector<Types::Trytes>&   approvees,
+                                   const std::vector<Types::Trytes>&   bundles)
     : Base("findTransactions"),
       addresses_(addresses),
       tags_(tags),
@@ -49,18 +48,14 @@ FindTransactions::serialize(json& data) const {
 
   if (!addresses_.empty()) {
     for (auto& address : addresses_) {
-      data["addresses"].emplace_back(IOTA::Crypto::Checksum::remove(address));
+      data["addresses"].emplace_back(address.toTrytes());
     }
   }
 
   if (!tags_.empty()) {
-    std::vector<Types::Trytes> tags;
-
     for (const auto& tag : tags_) {
-      tags.push_back(tag.toTrytesWithPadding());
+      data["tags"].emplace_back(tag.toTrytesWithPadding());
     }
-
-    data["tags"] = tags;
   }
 
   if (!approvees_.empty()) {
@@ -72,18 +67,18 @@ FindTransactions::serialize(json& data) const {
   }
 }
 
-const std::vector<Types::Trytes>&
+const std::vector<Models::Address>&
 FindTransactions::getAddresses() const {
   return addresses_;
 }
 
-std::vector<Types::Trytes>&
+std::vector<Models::Address>&
 FindTransactions::getAddresses() {
   return addresses_;
 }
 
 void
-FindTransactions::setAddresses(const std::vector<Types::Trytes>& addrs) {
+FindTransactions::setAddresses(const std::vector<Models::Address>& addrs) {
   addresses_ = addrs;
 }
 

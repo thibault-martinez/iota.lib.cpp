@@ -29,18 +29,18 @@ namespace IOTA {
 
 namespace Models {
 
-Input::Input(const Types::Trytes& address, const int64_t& balance, const int32_t& keyIndex,
+Input::Input(const Models::Address& address, const int64_t& balance, const int32_t& keyIndex,
              const int32_t& security)
     : address_(address), balance_(balance), keyIndex_(keyIndex), security_(security) {
 }
 
-const Types::Trytes&
+const Models::Address&
 Input::getAddress() const {
   return address_;
 }
 
 void
-Input::setAddress(const Types::Trytes& addr) {
+Input::setAddress(const Models::Address& addr) {
   address_ = addr;
 }
 

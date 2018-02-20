@@ -32,55 +32,72 @@ namespace IOTA {
 namespace Models {
 
 /**
- * Used to store transaction tags.
+ * Used to store addresses.
  * Provides validity checks at construction / value set.
- * Provides unpad and padded tag conversion.
- * Any tags stored represented with this class are ensured to be valid.
+ * Provides checksum generation.
+ * Any addresses stored represented with this class are ensured to be valid.
  */
-class Tag {
+class Address {
 public:
   /**
    * Ctor.
    *
-   * @param tag the tag value. Tag can be any valid tryte string not exceeding TagLength
+   * @param address the address value. It must be a valid address. Checksum can be included.
    */
-  Tag(const Types::Trytes& tag = "");
+  Address(const Types::Trytes& address = "");
 
   /**
-   * Ctor, char* based to make implicitly convertion to Tag more flexible.
+   * Ctor, char* based to make implicitly convertion to Address more flexible.
    *
-   * @param tag the tag value. Tag can be any valid tryte string not exceeding TagLength
+   * @param address the address value. It must be a valid address. Checksum can be included.
    */
-  Tag(const char* tag);
+  Address(const char* address);
 
   /**
    * Default dtor.
    */
-  ~Tag() = default;
+  ~Address() = default;
 
 public:
   /**
-   * @return tag as a trytes string, without any 9's padded. For example, tag 'ABC9999...' will
-   * return 'ABC'
+   * @return address as a trytes string, without the checksum
    */
   const Types::Trytes& toTrytes() const;
 
   /**
-   * @return tag as a trytes string, 9's right-padded to match the valid tag length. For example,
-   * tag 'ABC' will return 'ABC9999...'
-   */
-  const Types::Trytes& toTrytesWithPadding() const;
-
-  /**
-   * Set the tag value
+   * This function returns the address as a trytes string, including a checksum.
+   * The returned checksum is generated the first time this function, or getChecksum, is called.
+   * If the object was built with an address containing a checksum, this checksum will be used even
+   * though it may be invalid, unless validChecksum is set to true.
    *
-   * @param tag new value of the tag
+   * @param validChecksum if true, ensure the returned checksum is valid by regenerating it (see
+   * explanations above)
+   * @return address as a trytes string including a checksum.
    */
-  void setTag(const Types::Trytes& tag);
+  Types::Trytes toTrytesWithChecksum(bool validChecksum = false);
 
   /**
-   * @return whether the tag is empty or not. Please note that if your tag consists only of 9's, it
-   * will be considered empty as 9 is the padding character
+   * Set the address value
+   *
+   * @param address the address value. It must be a valid address. Checksum can be included.
+   */
+  void setAddress(const Types::Trytes& address);
+
+  /**
+   * This function returns the address checksum.
+   * The returned checksum is generated the first time this function, or toTrytesWithChecksum, is
+   * called.
+   * If the object was built with an address containing a checksum, this checksum will be
+   * used even though it may be invalid, unless validChecksum is set to true.
+   *
+   * @param validChecksum if true, ensure the returned checksum is valid by regenerating it (see
+   * explanations above)
+   * @return address checksum as trytes string.
+   */
+  const Types::Trytes& getChecksum(bool validChecksum = false);
+
+  /**
+   * @return whether the address is empty or not.
    */
   bool empty() const;
 
@@ -92,7 +109,7 @@ public:
    *
    * @return Whether the two transactions are equal or not.
    */
-  bool operator==(const Tag& rhs) const;
+  bool operator==(const Address& rhs) const;
 
   /**
    * Comparison operator.
@@ -101,7 +118,7 @@ public:
    *
    * @return Whether the two transactions are equal or not.
    */
-  bool operator!=(const Tag& rhs) const;
+  bool operator!=(const Address& rhs) const;
 
 public:
   /**
@@ -124,14 +141,14 @@ public:
 
 private:
   /**
-   * tag value without padding
+   * address value without checksum
    */
-  Types::Trytes tag_;
+  Types::Trytes address_;
 
   /**
-   * tag value with 9's right-padding
+   * address checksum
    */
-  Types::Trytes paddedTag_;
+  Types::Trytes checksum_;
 };
 
 }  // namespace Models

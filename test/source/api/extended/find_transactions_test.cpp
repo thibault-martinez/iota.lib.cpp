@@ -43,8 +43,8 @@ TEST(Extended, FindTransactionsByAddressesInvalidAddress) {
   auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
   IOTA::API::Responses::FindTransactions res;
 
-  EXPECT_EXCEPTION(res = api.findTransactionsByAddresses({ "9999" }), IOTA::Errors::BadRequest,
-                   "Invalid addresses input")
+  EXPECT_EXCEPTION(res = api.findTransactionsByAddresses({ "9999" }), IOTA::Errors::IllegalState,
+                   "address has invalid length")
 
   EXPECT_GE(res.getDuration(), 0);
 }

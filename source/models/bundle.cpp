@@ -92,8 +92,9 @@ Bundle::finalize(const std::shared_ptr<Crypto::ISponge>& customSponge) {
     auto lastIndexTrits =
         Types::tritsToTrytes(Types::intToTrits(trx.getLastIndex(), TryteAlphabetLength));
 
-    auto t = Types::trytesToTrits(trx.getAddress() + value + trx.getTag().toTrytesWithPadding() +
-                                  timestamp + currentIndex + lastIndexTrits);
+    auto t = Types::trytesToTrits(trx.getAddress().toTrytes() + value +
+                                  trx.getTag().toTrytesWithPadding() + timestamp + currentIndex +
+                                  lastIndexTrits);
 
     sponge->absorb(t);
   }

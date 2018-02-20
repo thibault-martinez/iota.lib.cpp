@@ -53,7 +53,7 @@ TEST(Extended, PrepareTransfers) {
   auto trx1 = IOTA::Models::Transaction{ res[0] };
   EXPECT_EQ(trx1.getCurrentIndex(), 0);
   EXPECT_EQ(trx1.getLastIndex(), 3);
-  EXPECT_EQ(trx1.getTag(), "TESTTAG99999999999999999999");
+  EXPECT_EQ(trx1.getTag(), IOTA::Models::Tag{ "TESTTAG99999999999999999999" });
   EXPECT_EQ(trx1.getNonce(), IOTA::EmptyNonce);
   EXPECT_EQ(trx1.getTrunkTransaction(), IOTA::EmptyHash);
   EXPECT_EQ(trx1.getBranchTransaction(), IOTA::EmptyHash);
@@ -93,7 +93,7 @@ TEST(Extended, PrepareTransfers) {
   auto trx2 = IOTA::Models::Transaction{ res[1] };
   EXPECT_EQ(trx2.getCurrentIndex(), 1);
   EXPECT_EQ(trx2.getLastIndex(), 3);
-  EXPECT_EQ(trx2.getTag(), "TESTTAG99999999999999999999");
+  EXPECT_EQ(trx2.getTag(), IOTA::Models::Tag{ "TESTTAG99999999999999999999" });
   EXPECT_EQ(trx2.getNonce(), IOTA::EmptyNonce);
   EXPECT_EQ(trx2.getTrunkTransaction(), IOTA::EmptyHash);
   EXPECT_EQ(trx2.getBranchTransaction(), IOTA::EmptyHash);
@@ -108,7 +108,7 @@ TEST(Extended, PrepareTransfers) {
   auto trx3 = IOTA::Models::Transaction{ res[2] };
   EXPECT_EQ(trx3.getCurrentIndex(), 2);
   EXPECT_EQ(trx3.getLastIndex(), 3);
-  EXPECT_EQ(trx3.getTag(), "TESTTAG99999999999999999999");
+  EXPECT_EQ(trx3.getTag(), IOTA::Models::Tag{ "TESTTAG99999999999999999999" });
   EXPECT_EQ(trx3.getNonce(), IOTA::EmptyNonce);
   EXPECT_EQ(trx3.getTrunkTransaction(), IOTA::EmptyHash);
   EXPECT_EQ(trx3.getBranchTransaction(), IOTA::EmptyHash);
@@ -123,7 +123,7 @@ TEST(Extended, PrepareTransfers) {
   auto trx4 = IOTA::Models::Transaction{ res[3] };
   EXPECT_EQ(trx4.getCurrentIndex(), 3);
   EXPECT_EQ(trx4.getLastIndex(), 3);
-  EXPECT_EQ(trx4.getTag(), "TESTTAG99999999999999999999");
+  EXPECT_EQ(trx4.getTag(), IOTA::Models::Tag{ "TESTTAG99999999999999999999" });
   EXPECT_EQ(trx4.getNonce(), IOTA::EmptyNonce);
   EXPECT_EQ(trx4.getTrunkTransaction(), IOTA::EmptyHash);
   EXPECT_EQ(trx4.getBranchTransaction(), IOTA::EmptyHash);
@@ -162,7 +162,7 @@ TEST(Extended, PrepareTransfersWithChecksum) {
   auto trx1 = IOTA::Models::Transaction{ res[0] };
   EXPECT_EQ(trx1.getCurrentIndex(), 0);
   EXPECT_EQ(trx1.getLastIndex(), 3);
-  EXPECT_EQ(trx1.getTag(), "TESTTAG99999999999999999999");
+  EXPECT_EQ(trx1.getTag(), IOTA::Models::Tag{ "TESTTAG99999999999999999999" });
   EXPECT_EQ(trx1.getNonce(), IOTA::EmptyNonce);
   EXPECT_EQ(trx1.getTrunkTransaction(), IOTA::EmptyHash);
   EXPECT_EQ(trx1.getBranchTransaction(), IOTA::EmptyHash);
@@ -202,7 +202,7 @@ TEST(Extended, PrepareTransfersWithChecksum) {
   auto trx2 = IOTA::Models::Transaction{ res[1] };
   EXPECT_EQ(trx2.getCurrentIndex(), 1);
   EXPECT_EQ(trx2.getLastIndex(), 3);
-  EXPECT_EQ(trx2.getTag(), "TESTTAG99999999999999999999");
+  EXPECT_EQ(trx2.getTag(), IOTA::Models::Tag{ "TESTTAG99999999999999999999" });
   EXPECT_EQ(trx2.getNonce(), IOTA::EmptyNonce);
   EXPECT_EQ(trx2.getTrunkTransaction(), IOTA::EmptyHash);
   EXPECT_EQ(trx2.getBranchTransaction(), IOTA::EmptyHash);
@@ -217,7 +217,7 @@ TEST(Extended, PrepareTransfersWithChecksum) {
   auto trx3 = IOTA::Models::Transaction{ res[2] };
   EXPECT_EQ(trx3.getCurrentIndex(), 2);
   EXPECT_EQ(trx3.getLastIndex(), 3);
-  EXPECT_EQ(trx3.getTag(), "TESTTAG99999999999999999999");
+  EXPECT_EQ(trx3.getTag(), IOTA::Models::Tag{ "TESTTAG99999999999999999999" });
   EXPECT_EQ(trx3.getNonce(), IOTA::EmptyNonce);
   EXPECT_EQ(trx3.getTrunkTransaction(), IOTA::EmptyHash);
   EXPECT_EQ(trx3.getBranchTransaction(), IOTA::EmptyHash);
@@ -232,7 +232,7 @@ TEST(Extended, PrepareTransfersWithChecksum) {
   auto trx4 = IOTA::Models::Transaction{ res[3] };
   EXPECT_EQ(trx4.getCurrentIndex(), 3);
   EXPECT_EQ(trx4.getLastIndex(), 3);
-  EXPECT_EQ(trx4.getTag(), "TESTTAG99999999999999999999");
+  EXPECT_EQ(trx4.getTag(), IOTA::Models::Tag{ "TESTTAG99999999999999999999" });
   EXPECT_EQ(trx4.getNonce(), IOTA::EmptyNonce);
   EXPECT_EQ(trx4.getTrunkTransaction(), IOTA::EmptyHash);
   EXPECT_EQ(trx4.getBranchTransaction(), IOTA::EmptyHash);
@@ -270,7 +270,7 @@ TEST(Extended, PrepareTransfersNoRemainderAddress) {
   auto trx1 = IOTA::Models::Transaction{ res[0] };
   EXPECT_EQ(trx1.getCurrentIndex(), 0);
   EXPECT_EQ(trx1.getLastIndex(), 3);
-  EXPECT_EQ(trx1.getTag(), "TESTTAG99999999999999999999");
+  EXPECT_EQ(trx1.getTag(), IOTA::Models::Tag{ "TESTTAG99999999999999999999" });
   EXPECT_EQ(trx1.getNonce(), IOTA::EmptyNonce);
   EXPECT_EQ(trx1.getTrunkTransaction(), IOTA::EmptyHash);
   EXPECT_EQ(trx1.getBranchTransaction(), IOTA::EmptyHash);
@@ -310,7 +310,7 @@ TEST(Extended, PrepareTransfersNoRemainderAddress) {
   auto trx2 = IOTA::Models::Transaction{ res[1] };
   EXPECT_EQ(trx2.getCurrentIndex(), 1);
   EXPECT_EQ(trx2.getLastIndex(), 3);
-  EXPECT_EQ(trx2.getTag(), "TESTTAG99999999999999999999");
+  EXPECT_EQ(trx2.getTag(), IOTA::Models::Tag{ "TESTTAG99999999999999999999" });
   EXPECT_EQ(trx2.getNonce(), IOTA::EmptyNonce);
   EXPECT_EQ(trx2.getTrunkTransaction(), IOTA::EmptyHash);
   EXPECT_EQ(trx2.getBranchTransaction(), IOTA::EmptyHash);
@@ -325,7 +325,7 @@ TEST(Extended, PrepareTransfersNoRemainderAddress) {
   auto trx3 = IOTA::Models::Transaction{ res[2] };
   EXPECT_EQ(trx3.getCurrentIndex(), 2);
   EXPECT_EQ(trx3.getLastIndex(), 3);
-  EXPECT_EQ(trx3.getTag(), "TESTTAG99999999999999999999");
+  EXPECT_EQ(trx3.getTag(), IOTA::Models::Tag{ "TESTTAG99999999999999999999" });
   EXPECT_EQ(trx3.getNonce(), IOTA::EmptyNonce);
   EXPECT_EQ(trx3.getTrunkTransaction(), IOTA::EmptyHash);
   EXPECT_EQ(trx3.getBranchTransaction(), IOTA::EmptyHash);
@@ -340,7 +340,7 @@ TEST(Extended, PrepareTransfersNoRemainderAddress) {
   auto trx4 = IOTA::Models::Transaction{ res[3] };
   EXPECT_EQ(trx4.getCurrentIndex(), 3);
   EXPECT_EQ(trx4.getLastIndex(), 3);
-  EXPECT_EQ(trx4.getTag(), "TESTTAG99999999999999999999");
+  EXPECT_EQ(trx4.getTag(), IOTA::Models::Tag{ "TESTTAG99999999999999999999" });
   EXPECT_EQ(trx4.getNonce(), IOTA::EmptyNonce);
   EXPECT_EQ(trx4.getTrunkTransaction(), IOTA::EmptyHash);
   EXPECT_EQ(trx4.getBranchTransaction(), IOTA::EmptyHash);
@@ -395,7 +395,7 @@ TEST(Extended, PrepareTransfersInvalidSeed) {
 TEST(Extended, PrepareTransfersInvalidTransferAddress) {
   auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
 
-  auto transfer  = IOTA::Models::Transfer{ "HELLO", 100, "TESTMSG", "TESTTAG99999999999999999999" };
+  auto transfer  = IOTA::Models::Transfer{ "", 100, "TESTMSG", "TESTTAG99999999999999999999" };
   auto transfers = std::vector<IOTA::Models::Transfer>{ transfer };
 
   auto input  = IOTA::Models::Input{ ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
@@ -435,7 +435,7 @@ TEST(Extended, PrepareTransfersInvalidRemainder) {
   auto inputs = std::vector<IOTA::Models::Input>{ input };
 
   EXPECT_EXCEPTION(api.prepareTransfers(ACCOUNT_1_SEED, 2, transfers, "hello", inputs, true),
-                   IOTA::Errors::IllegalState, "Invalid Remainder");
+                   IOTA::Errors::IllegalState, "address has invalid length");
 }
 
 TEST(Extended, PrepareTransfersNotEnoughFund) {
@@ -474,7 +474,7 @@ TEST(Extended, PrepareTransfersNotEnoughFundWithoutCheckAndFakeBalance) {
   auto trx1 = IOTA::Models::Transaction{ res[0] };
   EXPECT_EQ(trx1.getCurrentIndex(), 0);
   EXPECT_EQ(trx1.getLastIndex(), 2);
-  EXPECT_EQ(trx1.getTag(), "TESTTAG99999999999999999999");
+  EXPECT_EQ(trx1.getTag(), IOTA::Models::Tag{ "TESTTAG99999999999999999999" });
   EXPECT_EQ(trx1.getNonce(), IOTA::EmptyNonce);
   EXPECT_EQ(trx1.getTrunkTransaction(), IOTA::EmptyHash);
   EXPECT_EQ(trx1.getBranchTransaction(), IOTA::EmptyHash);
@@ -514,7 +514,7 @@ TEST(Extended, PrepareTransfersNotEnoughFundWithoutCheckAndFakeBalance) {
   auto trx2 = IOTA::Models::Transaction{ res[1] };
   EXPECT_EQ(trx2.getCurrentIndex(), 1);
   EXPECT_EQ(trx2.getLastIndex(), 2);
-  EXPECT_EQ(trx2.getTag(), "TESTTAG99999999999999999999");
+  EXPECT_EQ(trx2.getTag(), IOTA::Models::Tag{ "TESTTAG99999999999999999999" });
   EXPECT_EQ(trx2.getNonce(), IOTA::EmptyNonce);
   EXPECT_EQ(trx2.getTrunkTransaction(), IOTA::EmptyHash);
   EXPECT_EQ(trx2.getBranchTransaction(), IOTA::EmptyHash);
@@ -529,7 +529,7 @@ TEST(Extended, PrepareTransfersNotEnoughFundWithoutCheckAndFakeBalance) {
   auto trx3 = IOTA::Models::Transaction{ res[2] };
   EXPECT_EQ(trx3.getCurrentIndex(), 2);
   EXPECT_EQ(trx3.getLastIndex(), 2);
-  EXPECT_EQ(trx3.getTag(), "TESTTAG99999999999999999999");
+  EXPECT_EQ(trx3.getTag(), IOTA::Models::Tag{ "TESTTAG99999999999999999999" });
   EXPECT_EQ(trx3.getNonce(), IOTA::EmptyNonce);
   EXPECT_EQ(trx3.getTrunkTransaction(), IOTA::EmptyHash);
   EXPECT_EQ(trx3.getBranchTransaction(), IOTA::EmptyHash);
@@ -583,7 +583,7 @@ TEST(Extended, PrepareTransfersNotKnowingBalance) {
   auto trx1 = IOTA::Models::Transaction{ res[0] };
   EXPECT_EQ(trx1.getCurrentIndex(), 0);
   EXPECT_EQ(trx1.getLastIndex(), 3);
-  EXPECT_EQ(trx1.getTag(), "TESTTAG99999999999999999999");
+  EXPECT_EQ(trx1.getTag(), IOTA::Models::Tag{ "TESTTAG99999999999999999999" });
   EXPECT_EQ(trx1.getNonce(), IOTA::EmptyNonce);
   EXPECT_EQ(trx1.getTrunkTransaction(), IOTA::EmptyHash);
   EXPECT_EQ(trx1.getBranchTransaction(), IOTA::EmptyHash);
@@ -623,7 +623,7 @@ TEST(Extended, PrepareTransfersNotKnowingBalance) {
   auto trx2 = IOTA::Models::Transaction{ res[1] };
   EXPECT_EQ(trx2.getCurrentIndex(), 1);
   EXPECT_EQ(trx2.getLastIndex(), 3);
-  EXPECT_EQ(trx2.getTag(), "TESTTAG99999999999999999999");
+  EXPECT_EQ(trx2.getTag(), IOTA::Models::Tag{ "TESTTAG99999999999999999999" });
   EXPECT_EQ(trx2.getNonce(), IOTA::EmptyNonce);
   EXPECT_EQ(trx2.getTrunkTransaction(), IOTA::EmptyHash);
   EXPECT_EQ(trx2.getBranchTransaction(), IOTA::EmptyHash);
@@ -638,7 +638,7 @@ TEST(Extended, PrepareTransfersNotKnowingBalance) {
   auto trx3 = IOTA::Models::Transaction{ res[2] };
   EXPECT_EQ(trx3.getCurrentIndex(), 2);
   EXPECT_EQ(trx3.getLastIndex(), 3);
-  EXPECT_EQ(trx3.getTag(), "TESTTAG99999999999999999999");
+  EXPECT_EQ(trx3.getTag(), IOTA::Models::Tag{ "TESTTAG99999999999999999999" });
   EXPECT_EQ(trx3.getNonce(), IOTA::EmptyNonce);
   EXPECT_EQ(trx3.getTrunkTransaction(), IOTA::EmptyHash);
   EXPECT_EQ(trx3.getBranchTransaction(), IOTA::EmptyHash);
@@ -653,7 +653,7 @@ TEST(Extended, PrepareTransfersNotKnowingBalance) {
   auto trx4 = IOTA::Models::Transaction{ res[3] };
   EXPECT_EQ(trx4.getCurrentIndex(), 3);
   EXPECT_EQ(trx4.getLastIndex(), 3);
-  EXPECT_EQ(trx4.getTag(), "TESTTAG99999999999999999999");
+  EXPECT_EQ(trx4.getTag(), IOTA::Models::Tag{ "TESTTAG99999999999999999999" });
   EXPECT_EQ(trx4.getNonce(), IOTA::EmptyNonce);
   EXPECT_EQ(trx4.getTrunkTransaction(), IOTA::EmptyHash);
   EXPECT_EQ(trx4.getBranchTransaction(), IOTA::EmptyHash);
@@ -691,7 +691,7 @@ TEST(Extended, PrepareTransfersNoInput) {
   auto trx1 = IOTA::Models::Transaction{ res[0] };
   EXPECT_EQ(trx1.getCurrentIndex(), 0);
   EXPECT_EQ(trx1.getLastIndex(), 3);
-  EXPECT_EQ(trx1.getTag(), "TESTTAG99999999999999999999");
+  EXPECT_EQ(trx1.getTag(), IOTA::Models::Tag{ "TESTTAG99999999999999999999" });
   EXPECT_EQ(trx1.getNonce(), IOTA::EmptyNonce);
   EXPECT_EQ(trx1.getTrunkTransaction(), IOTA::EmptyHash);
   EXPECT_EQ(trx1.getBranchTransaction(), IOTA::EmptyHash);
@@ -731,7 +731,7 @@ TEST(Extended, PrepareTransfersNoInput) {
   auto trx2 = IOTA::Models::Transaction{ res[1] };
   EXPECT_EQ(trx2.getCurrentIndex(), 1);
   EXPECT_EQ(trx2.getLastIndex(), 3);
-  EXPECT_EQ(trx2.getTag(), "TESTTAG99999999999999999999");
+  EXPECT_EQ(trx2.getTag(), IOTA::Models::Tag{ "TESTTAG99999999999999999999" });
   EXPECT_EQ(trx2.getNonce(), IOTA::EmptyNonce);
   EXPECT_EQ(trx2.getTrunkTransaction(), IOTA::EmptyHash);
   EXPECT_EQ(trx2.getBranchTransaction(), IOTA::EmptyHash);
@@ -746,7 +746,7 @@ TEST(Extended, PrepareTransfersNoInput) {
   auto trx3 = IOTA::Models::Transaction{ res[2] };
   EXPECT_EQ(trx3.getCurrentIndex(), 2);
   EXPECT_EQ(trx3.getLastIndex(), 3);
-  EXPECT_EQ(trx3.getTag(), "TESTTAG99999999999999999999");
+  EXPECT_EQ(trx3.getTag(), IOTA::Models::Tag{ "TESTTAG99999999999999999999" });
   EXPECT_EQ(trx3.getNonce(), IOTA::EmptyNonce);
   EXPECT_EQ(trx3.getTrunkTransaction(), IOTA::EmptyHash);
   EXPECT_EQ(trx3.getBranchTransaction(), IOTA::EmptyHash);
@@ -761,7 +761,7 @@ TEST(Extended, PrepareTransfersNoInput) {
   auto trx4 = IOTA::Models::Transaction{ res[3] };
   EXPECT_EQ(trx4.getCurrentIndex(), 3);
   EXPECT_EQ(trx4.getLastIndex(), 3);
-  EXPECT_EQ(trx4.getTag(), "TESTTAG99999999999999999999");
+  EXPECT_EQ(trx4.getTag(), IOTA::Models::Tag{ "TESTTAG99999999999999999999" });
   EXPECT_EQ(trx4.getNonce(), IOTA::EmptyNonce);
   EXPECT_EQ(trx4.getTrunkTransaction(), IOTA::EmptyHash);
   EXPECT_EQ(trx4.getBranchTransaction(), IOTA::EmptyHash);
@@ -801,7 +801,7 @@ TEST(Extended, PrepareTransfersInputSecurity) {
   auto trx1 = IOTA::Models::Transaction{ res[0] };
   EXPECT_EQ(trx1.getCurrentIndex(), 0);
   EXPECT_EQ(trx1.getLastIndex(), 4);
-  EXPECT_EQ(trx1.getTag(), "TESTTAG99999999999999999999");
+  EXPECT_EQ(trx1.getTag(), IOTA::Models::Tag{ "TESTTAG99999999999999999999" });
   EXPECT_EQ(trx1.getNonce(), IOTA::EmptyNonce);
   EXPECT_EQ(trx1.getTrunkTransaction(), IOTA::EmptyHash);
   EXPECT_EQ(trx1.getBranchTransaction(), IOTA::EmptyHash);
@@ -841,7 +841,7 @@ TEST(Extended, PrepareTransfersInputSecurity) {
   auto trx2 = IOTA::Models::Transaction{ res[1] };
   EXPECT_EQ(trx2.getCurrentIndex(), 1);
   EXPECT_EQ(trx2.getLastIndex(), 4);
-  EXPECT_EQ(trx2.getTag(), "TESTTAG99999999999999999999");
+  EXPECT_EQ(trx2.getTag(), IOTA::Models::Tag{ "TESTTAG99999999999999999999" });
   EXPECT_EQ(trx2.getNonce(), IOTA::EmptyNonce);
   EXPECT_EQ(trx2.getTrunkTransaction(), IOTA::EmptyHash);
   EXPECT_EQ(trx2.getBranchTransaction(), IOTA::EmptyHash);
@@ -856,7 +856,7 @@ TEST(Extended, PrepareTransfersInputSecurity) {
   auto trx3 = IOTA::Models::Transaction{ res[2] };
   EXPECT_EQ(trx3.getCurrentIndex(), 2);
   EXPECT_EQ(trx3.getLastIndex(), 4);
-  EXPECT_EQ(trx3.getTag(), "TESTTAG99999999999999999999");
+  EXPECT_EQ(trx3.getTag(), IOTA::Models::Tag{ "TESTTAG99999999999999999999" });
   EXPECT_EQ(trx3.getNonce(), IOTA::EmptyNonce);
   EXPECT_EQ(trx3.getTrunkTransaction(), IOTA::EmptyHash);
   EXPECT_EQ(trx3.getBranchTransaction(), IOTA::EmptyHash);
@@ -871,7 +871,7 @@ TEST(Extended, PrepareTransfersInputSecurity) {
   auto trx4 = IOTA::Models::Transaction{ res[3] };
   EXPECT_EQ(trx4.getCurrentIndex(), 3);
   EXPECT_EQ(trx4.getLastIndex(), 4);
-  EXPECT_EQ(trx4.getTag(), "TESTTAG99999999999999999999");
+  EXPECT_EQ(trx4.getTag(), IOTA::Models::Tag{ "TESTTAG99999999999999999999" });
   EXPECT_EQ(trx4.getNonce(), IOTA::EmptyNonce);
   EXPECT_EQ(trx4.getTrunkTransaction(), IOTA::EmptyHash);
   EXPECT_EQ(trx4.getBranchTransaction(), IOTA::EmptyHash);
@@ -886,7 +886,7 @@ TEST(Extended, PrepareTransfersInputSecurity) {
   auto trx5 = IOTA::Models::Transaction{ res[4] };
   EXPECT_EQ(trx5.getCurrentIndex(), 4);
   EXPECT_EQ(trx5.getLastIndex(), 4);
-  EXPECT_EQ(trx5.getTag(), "TESTTAG99999999999999999999");
+  EXPECT_EQ(trx5.getTag(), IOTA::Models::Tag{ "TESTTAG99999999999999999999" });
   EXPECT_EQ(trx5.getNonce(), IOTA::EmptyNonce);
   EXPECT_EQ(trx5.getTrunkTransaction(), IOTA::EmptyHash);
   EXPECT_EQ(trx5.getBranchTransaction(), IOTA::EmptyHash);
@@ -943,7 +943,7 @@ TEST(Extended, PrepareTransfersZeroTransfer) {
   auto trx1 = IOTA::Models::Transaction{ res[0] };
   EXPECT_EQ(trx1.getCurrentIndex(), 0);
   EXPECT_EQ(trx1.getLastIndex(), 0);
-  EXPECT_EQ(trx1.getTag(), "TESTTAG99999999999999999999");
+  EXPECT_EQ(trx1.getTag(), IOTA::Models::Tag{ "TESTTAG99999999999999999999" });
   EXPECT_EQ(trx1.getNonce(), IOTA::EmptyNonce);
   EXPECT_EQ(trx1.getTrunkTransaction(), IOTA::EmptyHash);
   EXPECT_EQ(trx1.getBranchTransaction(), IOTA::EmptyHash);
@@ -1001,7 +1001,7 @@ TEST(Extended, PrepareTransfersZeroTransferNoInput) {
   auto trx1 = IOTA::Models::Transaction{ res[0] };
   EXPECT_EQ(trx1.getCurrentIndex(), 0);
   EXPECT_EQ(trx1.getLastIndex(), 0);
-  EXPECT_EQ(trx1.getTag(), "TESTTAG99999999999999999999");
+  EXPECT_EQ(trx1.getTag(), IOTA::Models::Tag{ "TESTTAG99999999999999999999" });
   EXPECT_EQ(trx1.getNonce(), IOTA::EmptyNonce);
   EXPECT_EQ(trx1.getTrunkTransaction(), IOTA::EmptyHash);
   EXPECT_EQ(trx1.getBranchTransaction(), IOTA::EmptyHash);
@@ -1087,7 +1087,7 @@ TEST(Extended, PrepareTransfersTooLongMessage) {
   auto trx1 = IOTA::Models::Transaction{ res[0] };
   EXPECT_EQ(trx1.getCurrentIndex(), 0);
   EXPECT_EQ(trx1.getLastIndex(), 4);
-  EXPECT_EQ(trx1.getTag(), "TESTTAG99999999999999999999");
+  EXPECT_EQ(trx1.getTag(), IOTA::Models::Tag{ "TESTTAG99999999999999999999" });
   EXPECT_EQ(trx1.getNonce(), IOTA::EmptyNonce);
   EXPECT_EQ(trx1.getTrunkTransaction(), IOTA::EmptyHash);
   EXPECT_EQ(trx1.getBranchTransaction(), IOTA::EmptyHash);
@@ -1127,7 +1127,7 @@ TEST(Extended, PrepareTransfersTooLongMessage) {
   auto trx2 = IOTA::Models::Transaction{ res[1] };
   EXPECT_EQ(trx2.getCurrentIndex(), 1);
   EXPECT_EQ(trx2.getLastIndex(), 4);
-  EXPECT_EQ(trx2.getTag(), "TESTTAG99999999999999999999");
+  EXPECT_EQ(trx2.getTag(), IOTA::Models::Tag{ "TESTTAG99999999999999999999" });
   EXPECT_EQ(trx2.getNonce(), IOTA::EmptyNonce);
   EXPECT_EQ(trx2.getTrunkTransaction(), IOTA::EmptyHash);
   EXPECT_EQ(trx2.getBranchTransaction(), IOTA::EmptyHash);
@@ -1167,7 +1167,7 @@ TEST(Extended, PrepareTransfersTooLongMessage) {
   auto trx3 = IOTA::Models::Transaction{ res[2] };
   EXPECT_EQ(trx3.getCurrentIndex(), 2);
   EXPECT_EQ(trx3.getLastIndex(), 4);
-  EXPECT_EQ(trx3.getTag(), "TESTTAG99999999999999999999");
+  EXPECT_EQ(trx3.getTag(), IOTA::Models::Tag{ "TESTTAG99999999999999999999" });
   EXPECT_EQ(trx3.getNonce(), IOTA::EmptyNonce);
   EXPECT_EQ(trx3.getTrunkTransaction(), IOTA::EmptyHash);
   EXPECT_EQ(trx3.getBranchTransaction(), IOTA::EmptyHash);
@@ -1182,7 +1182,7 @@ TEST(Extended, PrepareTransfersTooLongMessage) {
   auto trx4 = IOTA::Models::Transaction{ res[3] };
   EXPECT_EQ(trx4.getCurrentIndex(), 3);
   EXPECT_EQ(trx4.getLastIndex(), 4);
-  EXPECT_EQ(trx4.getTag(), "TESTTAG99999999999999999999");
+  EXPECT_EQ(trx4.getTag(), IOTA::Models::Tag{ "TESTTAG99999999999999999999" });
   EXPECT_EQ(trx4.getNonce(), IOTA::EmptyNonce);
   EXPECT_EQ(trx4.getTrunkTransaction(), IOTA::EmptyHash);
   EXPECT_EQ(trx4.getBranchTransaction(), IOTA::EmptyHash);
@@ -1197,7 +1197,7 @@ TEST(Extended, PrepareTransfersTooLongMessage) {
   auto trx5 = IOTA::Models::Transaction{ res[4] };
   EXPECT_EQ(trx5.getCurrentIndex(), 4);
   EXPECT_EQ(trx5.getLastIndex(), 4);
-  EXPECT_EQ(trx5.getTag(), "TESTTAG99999999999999999999");
+  EXPECT_EQ(trx5.getTag(), IOTA::Models::Tag{ "TESTTAG99999999999999999999" });
   EXPECT_EQ(trx5.getNonce(), IOTA::EmptyNonce);
   EXPECT_EQ(trx5.getTrunkTransaction(), IOTA::EmptyHash);
   EXPECT_EQ(trx5.getBranchTransaction(), IOTA::EmptyHash);

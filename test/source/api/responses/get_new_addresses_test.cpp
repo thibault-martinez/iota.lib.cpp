@@ -26,30 +26,34 @@
 #include <gtest/gtest.h>
 
 #include <iota/api/responses/get_new_addresses.hpp>
+#include <test/utils/constants.hpp>
 
 TEST(GetNewAddressesResponse, CtorShouldInitFields) {
-  const IOTA::API::Responses::GetNewAddresses res{ { "ADDR1", "ADDR2" }, 42 };
+  const IOTA::API::Responses::GetNewAddresses res{
+    { ACCOUNT_1_ADDRESS_1_HASH, ACCOUNT_1_ADDRESS_2_HASH }, 42
+  };
 
-  EXPECT_EQ(res.getAddresses(), std::vector<IOTA::Types::Trytes>({ "ADDR1", "ADDR2" }));
+  EXPECT_EQ(res.getAddresses(), std::vector<IOTA::Models::Address>(
+                                    { ACCOUNT_1_ADDRESS_1_HASH, ACCOUNT_1_ADDRESS_2_HASH }));
   EXPECT_EQ(res.getDuration(), 42);
 }
 
 TEST(GetNewAddressesResponse, GetAddressesNonConst) {
   IOTA::API::Responses::GetNewAddresses res;
 
-  res.getAddresses().push_back("ADDR1");
+  res.getAddresses().push_back(ACCOUNT_1_ADDRESS_1_HASH);
 
-  EXPECT_EQ(res.getAddresses(), std::vector<IOTA::Types::Trytes>({ "ADDR1" }));
+  EXPECT_EQ(res.getAddresses(), std::vector<IOTA::Models::Address>({ ACCOUNT_1_ADDRESS_1_HASH }));
   EXPECT_EQ(res.getDuration(), 0);
 }
 
 TEST(GetNewAddressesResponse, setAddresses) {
   IOTA::API::Responses::GetNewAddresses res;
 
-  std::vector<IOTA::Types::Trytes> addresses = res.getAddresses();
-  addresses.push_back("ADDR1");
+  std::vector<IOTA::Models::Address> addresses = res.getAddresses();
+  addresses.push_back(ACCOUNT_1_ADDRESS_1_HASH);
   res.setAddresses(addresses);
 
-  EXPECT_EQ(res.getAddresses(), std::vector<IOTA::Types::Trytes>({ "ADDR1" }));
+  EXPECT_EQ(res.getAddresses(), std::vector<IOTA::Models::Address>({ ACCOUNT_1_ADDRESS_1_HASH }));
   EXPECT_EQ(res.getDuration(), 0);
 }

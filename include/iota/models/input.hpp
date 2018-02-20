@@ -25,6 +25,7 @@
 
 #pragma once
 
+#include <iota/models/address.hpp>
 #include <iota/types/trytes.hpp>
 
 namespace IOTA {
@@ -49,7 +50,7 @@ public:
    * @param keyIndex The key index for input in transaction.
    * @param security The security level for input.
    */
-  Input(const Types::Trytes& address, const int64_t& balance, const int32_t& keyIndex,
+  Input(const Models::Address& address, const int64_t& balance, const int32_t& keyIndex,
         const int32_t& security);
 
   /**
@@ -61,12 +62,12 @@ public:
   /**
    * @return Address of your peer.
    */
-  const Types::Trytes& getAddress() const;
+  const Models::Address& getAddress() const;
 
   /**
-   * @param addr set address of your peer.
+   * @param addr set addres.
    */
-  void setAddress(const Types::Trytes& addr);
+  void setAddress(const Models::Address& addr);
 
 public:
   /**
@@ -120,7 +121,7 @@ private:
   /**
    * The address.
    */
-  Types::Trytes address_;
+  Models::Address address_;
   /**
    * The balance.
    */

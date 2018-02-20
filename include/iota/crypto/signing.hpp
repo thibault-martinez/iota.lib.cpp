@@ -25,6 +25,7 @@
 
 #pragma once
 
+#include <iota/models/fwd.hpp>
 #include <iota/types/trits.hpp>
 #include <iota/types/trytes.hpp>
 
@@ -98,7 +99,7 @@ Types::Trits signatureFragment(const std::vector<int8_t>& normalizedBundleFragme
  *
  * @return whether signature fragment are valid or not.
  */
-bool validateSignatures(const Types::Trytes&              expectedAddress,
+bool validateSignatures(const Models::Address&            expectedAddress,
                         const std::vector<Types::Trytes>& signatureFragments,
                         const Types::Trytes&              bundleHash);
 

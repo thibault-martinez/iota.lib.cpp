@@ -26,9 +26,11 @@
 #include <gtest/gtest.h>
 
 #include <iota/api/extended.hpp>
+#include <iota/errors/illegal_state.hpp>
 #include <iota/models/transaction.hpp>
 #include <test/utils/configuration.hpp>
 #include <test/utils/constants.hpp>
+#include <test/utils/expect_exception.hpp>
 
 TEST(Extended, FindTransactionObjects) {
   auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
@@ -96,5 +98,6 @@ TEST(Extended, FindTransactionObjectsInvalidAddrHash) {
 TEST(Extended, FindTransactionObjectsInvalidHash) {
   auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
 
-  EXPECT_THROW(api.findTransactionObjects({ "hello" }), IOTA::Errors::BadRequest);
+  EXPECT_EXCEPTION(api.findTransactionObjects({ "hello" }), IOTA::Errors::IllegalState,
+                   "address has invalid length");
 }

@@ -27,6 +27,7 @@
 
 #include <vector>
 
+#include <iota/models/address.hpp>
 #include <iota/types/trytes.hpp>
 
 namespace IOTA {
@@ -49,7 +50,7 @@ public:
    * @param addr The address.
    * @param signatureFragments The signature fragments.
    */
-  Signature(const Types::Trytes& addr, const std::vector<Types::Trytes>& signatureFragments);
+  Signature(const Models::Address& addr, const std::vector<Types::Trytes>& signatureFragments);
 
   /**
    * Default dtor.
@@ -60,12 +61,12 @@ public:
   /**
    * @return The address.
    */
-  const Types::Trytes& getAddress() const;
+  const Models::Address& getAddress() const;
 
   /**
    * @param address The address.
    */
-  void setAddress(const Types::Trytes& address);
+  void setAddress(const Models::Address& address);
 
 public:
   /**
@@ -102,7 +103,7 @@ private:
   /**
    * The adress.
    */
-  Types::Trytes address_;
+  Models::Address address_;
   /**
    * The signature fragments.
    */

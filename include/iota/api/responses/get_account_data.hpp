@@ -57,7 +57,7 @@ public:
    * @param balance The balance.
    * @param duration The request duration.
    */
-  GetAccountData(const std::vector<Types::Trytes>&  addresses,
+  GetAccountData(const std::vector<Models::Address>& addresses,
                  const std::vector<Models::Bundle>& transfers, const int64_t& balance,
                  const int64_t& duration);
 
@@ -70,17 +70,17 @@ public:
   /**
    * @return The addresses.
    */
-  const std::vector<Types::Trytes>& getAddresses() const;
+  const std::vector<Models::Address>& getAddresses() const;
 
   /**
    * @return The addresses (non-const version).
    */
-  std::vector<Types::Trytes>& getAddresses();
+  std::vector<Models::Address>& getAddresses();
 
   /**
    * @param addresses new vector of addresses for GetAccountData response
    */
-  void setAddresses(const std::vector<Types::Trytes>& addresses);
+  void setAddresses(const std::vector<Models::Address>& addresses);
 
 public:
   /**
@@ -113,7 +113,7 @@ private:
   /**
    * The account addresses.
    */
-  std::vector<Types::Trytes> addresses_;
+  std::vector<Models::Address> addresses_;
   /**
    * The account transfers.
    */

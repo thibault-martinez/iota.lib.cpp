@@ -27,6 +27,7 @@
 
 #include <utility>
 
+#include <iota/models/address.hpp>
 #include <iota/models/tag.hpp>
 #include <iota/types/trytes.hpp>
 
@@ -70,64 +71,32 @@ public:
    * @param address Address of the transaction.
    * @param value Value sent.
    * @param bundle Bundle hash.
-   * @param tag Tag of the transaction. Must be a Models::Tag, or implicitly convertible to it.
+   * @param tag Tag of the transaction.
    * @param attachmentTimestamp Attachment timestamp.
    * @param attachmentTimestampLowerBound Lower bound of the attachment timestamp.
    * @param attachmentTimestampUpperBound Index of the transaction in the bundle.
    */
-  template <typename TagType>
   Transaction(const Types::Trytes& signatureFragments, int64_t currentIndex, int64_t lastIndex,
               const Types::Trytes& nonce, const Types::Trytes& hash, int64_t timestamp,
               const Types::Trytes& trunkTransaction, const Types::Trytes& branchTransaction,
-              const Types::Trytes& address, int64_t value, const Types::Trytes& bundle,
-              const TagType& tag, int64_t attachmentTimestamp,
-              int64_t attachmentTimestampLowerBound, int64_t attachmentTimestampUpperBound)
-      : hash_(hash),
-        signatureFragments_(signatureFragments),
-        address_(address),
-        value_(value),
-        tag_(tag),
-        obsoleteTag_(tag),
-        timestamp_(timestamp),
-        attachmentTimestamp_(attachmentTimestamp),
-        attachmentTimestampLowerBound_(attachmentTimestampLowerBound),
-        attachmentTimestampUpperBound_(attachmentTimestampUpperBound),
-        currentIndex_(currentIndex),
-        lastIndex_(lastIndex),
-        bundle_(bundle),
-        trunkTransaction_(trunkTransaction),
-        branchTransaction_(branchTransaction),
-        nonce_(nonce),
-        persistence_(false) {
-  }
+              const Models::Address& address, int64_t value, const Types::Trytes& bundle,
+              const Models::Tag& tag, int64_t attachmentTimestamp,
+              int64_t attachmentTimestampLowerBound, int64_t attachmentTimestampUpperBound);
 
   /**
    * Initializes a new instance of the Transaction class.
    *
    * @param address Address of the transaction.
    * @param value Value sent.
-   * @param tag Tag of the transaction. Must be a Models::Tag, or implicitly convertible to it.
+   * @param tag Tag of the transaction.
    * @param timestamp Timestamp at which transaction was issued.
    * @param attachmentTimestamp Attachment timestamp.
    * @param attachmentTimestampLowerBound Lower bound of the attachment timestamp.
    * @param attachmentTimestampUpperBound Index of the transaction in the bundle.
    */
-  template <typename TagType>
-  Transaction(const Types::Trytes& address, int64_t value, const TagType& tag, int64_t timestamp,
-              int64_t attachmentTimestamp = 0, int64_t attachmentTimestampLowerBound = 0,
-              int64_t attachmentTimestampUpperBound = 0)
-      : address_(address),
-        value_(value),
-        tag_(tag),
-        obsoleteTag_(tag),
-        timestamp_(timestamp),
-        attachmentTimestamp_(attachmentTimestamp),
-        attachmentTimestampLowerBound_(attachmentTimestampLowerBound),
-        attachmentTimestampUpperBound_(attachmentTimestampUpperBound),
-        currentIndex_(0),
-        lastIndex_(0),
-        persistence_(false) {
-  }
+  Transaction(const Models::Address& address, int64_t value, const Models::Tag& tag,
+              int64_t timestamp, int64_t attachmentTimestamp = 0,
+              int64_t attachmentTimestampLowerBound = 0, int64_t attachmentTimestampUpperBound = 0);
 
 public:
   /**
@@ -168,14 +137,14 @@ public:
    *
    * @return The address.
    */
-  const Types::Trytes& getAddress() const;
+  const Models::Address& getAddress() const;
 
   /**
    * Set the address.
    *
    * @param address The address.
    */
-  void setAddress(const Types::Trytes& address);
+  void setAddress(const Models::Address& address);
 
   /**
    * Get the value.
@@ -205,13 +174,6 @@ public:
   void setTag(const Models::Tag& tag);
 
   /**
-   * Set the tag, trytes-based for convenient use
-   *
-   * @param tag The tag.
-   */
-  void setTag(const Types::Trytes& tag);
-
-  /**
    * Get the obsolete tag.
    *
    * @return The obsolete tag.
@@ -224,13 +186,6 @@ public:
    * @param tag The obsolete tag.
    */
   void setObsoleteTag(const Models::Tag& tag);
-
-  /**
-   * Set the obsolete tag, trytes-based for convenient use
-   *
-   * @param tag The obsolete tag.
-   */
-  void setObsoleteTag(const Types::Trytes& tag);
 
   /**
    * Get the timestamp.
@@ -496,7 +451,7 @@ private:
   /**
    * Address of the transaction.
    */
-  Types::Trytes address_;
+  Models::Address address_;
   /**
    * Value sent.
    */
