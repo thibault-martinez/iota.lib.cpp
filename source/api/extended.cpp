@@ -64,14 +64,9 @@ Extended::Extended(const std::string& host, const uint16_t& port, bool localPow,
  */
 
 Responses::GetBalancesAndFormat
-Extended::getInputs(const Types::Trytes& seed, const int32_t& start, const int32_t& end,
+Extended::getInputs(const Models::Seed& seed, const int32_t& start, const int32_t& end,
                     const int32_t& security, const int64_t& threshold) const {
   const Utils::StopWatch stopWatch;
-
-  // validate the seed
-  if ((!Types::isValidTrytes(seed))) {
-    throw Errors::IllegalState("Invalid Seed");
-  }
 
   if (security < 1 || security > 3) {
     throw Errors::IllegalState("Invalid Security Level");
@@ -154,14 +149,9 @@ Extended::getBalancesAndFormat(const std::vector<Models::Address>& addresses,
 }
 
 Responses::GetNewAddresses
-Extended::getNewAddresses(const Types::Trytes& seed, const uint32_t& index, const int32_t& security,
+Extended::getNewAddresses(const Models::Seed& seed, const uint32_t& index, const int32_t& security,
                           const int32_t& total, bool returnAll) const {
   const Utils::StopWatch stopWatch;
-
-  // Validate the seed
-  if ((!Types::isValidTrytes(seed))) {
-    throw Errors::IllegalState("Invalid Seed");
-  }
 
   // Validate the security level
   if (security < 1 || security > 3) {
@@ -373,18 +363,13 @@ Extended::getLatestInclusion(const std::vector<Types::Trytes>& hashes) const {
 }
 
 std::vector<Types::Trytes>
-Extended::prepareTransfers(const Types::Trytes& seed, int security,
+Extended::prepareTransfers(const Models::Seed& seed, int security,
                            const std::vector<Models::Transfer>& transfers,
                            const Models::Address&               remainder,
                            const std::vector<Models::Input>& inputs, bool validateInputs) const {
   // Validate transfers object
   if (!isTransfersCollectionValid(transfers)) {
     throw Errors::IllegalState("Invalid Transfer");
-  }
-
-  // Validate the seed
-  if (!Types::isValidTrytes(seed)) {
-    throw Errors::IllegalState("Invalid Seed");
   }
 
   // Validate the security level
@@ -598,14 +583,9 @@ Extended::getBundle(const Types::Trytes& transaction) const {
 }
 
 Responses::GetTransfers
-Extended::getTransfers(const Types::Trytes& seed, int start, int end, int security,
+Extended::getTransfers(const Models::Seed& seed, int start, int end, int security,
                        bool inclusionStates) const {
   const Utils::StopWatch stopWatch;
-
-  // Validate the seed
-  if ((!Types::isValidTrytes(seed))) {
-    throw Errors::IllegalState("Invalid Seed");
-  }
 
   // Validate the security level
   if (security < 1 || security > 3) {
@@ -625,7 +605,7 @@ Extended::getTransfers(const Types::Trytes& seed, int start, int end, int securi
 }
 
 Responses::SendTransfer
-Extended::sendTransfer(const Types::Trytes& seed, int security, int depth, int minWeightMagnitude,
+Extended::sendTransfer(const Models::Seed& seed, int security, int depth, int minWeightMagnitude,
                        std::vector<Models::Transfer>&    transfers,
                        const std::vector<Models::Input>& inputs,
                        const Models::Address&            address) const {
@@ -697,7 +677,7 @@ Extended::findTransactionsByBundles(const std::vector<Types::Trytes>& bundles) c
 }
 
 Responses::GetAccountData
-Extended::getAccountData(const Types::Trytes& seed, int index, int security, int total,
+Extended::getAccountData(const Models::Seed& seed, int index, int security, int total,
                          bool returnAll, int start, int end, bool inclusionStates,
                          long threshold) const {
   const Utils::StopWatch stopWatch;
@@ -740,16 +720,11 @@ Extended::findTailTransactionHash(const Types::Trytes& hash) const {
 }
 
 std::vector<Types::Trytes>
-Extended::addRemainder(const Types::Trytes& seed, const unsigned int& security,
+Extended::addRemainder(const Models::Seed& seed, const unsigned int& security,
                        const std::vector<Models::Input>& inputs, Models::Bundle& bundle,
                        const Models::Tag& tag, const int64_t& totalValue,
                        const Models::Address&            remainderAddress,
                        const std::vector<Types::Trytes>& signatureFragments) const {
-  //! Validate the seed
-  if (!Types::isValidTrytes(seed)) {
-    throw Errors::IllegalState("Invalid Seed");
-  }
-
   auto totalTransferValue = totalValue;
 
   for (const auto& input : inputs) {
@@ -937,7 +912,7 @@ Extended::initiateTransfer(int securitySum, const Models::Address& inputAddress,
  */
 
 Models::Address
-Extended::newAddress(const Types::Trytes& seed, const int32_t& index, const int32_t& security) {
+Extended::newAddress(const Models::Seed& seed, const int32_t& index, const int32_t& security) {
   auto key          = Crypto::Signing::key(seed, index, security);
   auto digests      = Crypto::Signing::digests(key);
   auto addressTrits = Crypto::Signing::address(digests);
@@ -946,7 +921,7 @@ Extended::newAddress(const Types::Trytes& seed, const int32_t& index, const int3
 }
 
 std::vector<Types::Trytes>
-Extended::signInputsAndReturn(const Types::Trytes& seed, const std::vector<Models::Input>& inputs,
+Extended::signInputsAndReturn(const Models::Seed& seed, const std::vector<Models::Input>& inputs,
                               Models::Bundle&                   bundle,
                               const std::vector<Types::Trytes>& signatureFragments) const {
   bundle.finalize(Crypto::create(cryptoType_));

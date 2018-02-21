@@ -47,7 +47,7 @@ namespace Signing {
  *
  * @return The key as trits.
  */
-Types::Trits key(const Types::Trytes& seed, const unsigned int& index = 0,
+Types::Trits key(const Models::Seed& seed, const unsigned int& index = 0,
                  const unsigned int& security = 1);
 
 /**

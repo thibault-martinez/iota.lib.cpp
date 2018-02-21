@@ -71,7 +71,7 @@ public:
    *
    * @return The inputs.
    */
-  Responses::GetBalancesAndFormat getInputs(const Types::Trytes& seed, const int32_t& start,
+  Responses::GetBalancesAndFormat getInputs(const Models::Seed& seed, const int32_t& start,
                                             const int32_t& end, const int32_t& security,
                                             const int64_t& threshold) const;
 
@@ -106,7 +106,7 @@ public:
    *
    * @return An array of strings with the specifed number of addresses.
    */
-  Responses::GetNewAddresses getNewAddresses(const Types::Trytes& seed, const uint32_t& index = 0,
+  Responses::GetNewAddresses getNewAddresses(const Models::Seed& seed, const uint32_t& index = 0,
                                              const int32_t& security = 2, const int32_t& total = 0,
                                              bool returnAll = false) const;
 
@@ -202,7 +202,7 @@ public:
    *
    * @return Returns bundle trytes.
    */
-  std::vector<Types::Trytes> prepareTransfers(const Types::Trytes& seed, int security,
+  std::vector<Types::Trytes> prepareTransfers(const Models::Seed& seed, int security,
                                               const std::vector<Models::Transfer>& transfers,
                                               const Models::Address&               remainder,
                                               const std::vector<Models::Input>&    inputs,
@@ -234,7 +234,7 @@ public:
    *
    * @return Bundle of transfers.
    */
-  Responses::GetTransfers getTransfers(const Types::Trytes& seed, int start, int end, int security,
+  Responses::GetTransfers getTransfers(const Models::Seed& seed, int start, int end, int security,
                                        bool inclusionStates) const;
 
   /**
@@ -252,7 +252,7 @@ public:
    *
    * @return Array of Transaction objects.
    */
-  Responses::SendTransfer sendTransfer(const Types::Trytes& seed, int security, int depth,
+  Responses::SendTransfer sendTransfer(const Models::Seed& seed, int security, int depth,
                                        int                               minWeightMagnitude,
                                        std::vector<Models::Transfer>&    transfers,
                                        const std::vector<Models::Input>& inputs,
@@ -338,7 +338,7 @@ public:
    *
    * @return Account data.
    */
-  Responses::GetAccountData getAccountData(const Types::Trytes& seed, int index, int security,
+  Responses::GetAccountData getAccountData(const Models::Seed& seed, int index, int security,
                                            int total, bool returnAll, int start, int end,
                                            bool inclusionStates, long threshold) const;
 
@@ -362,7 +362,7 @@ public:
    * @return Vector of trytes.
    */
   std::vector<Types::Trytes> addRemainder(
-      const Types::Trytes& seed, const unsigned int& security,
+      const Models::Seed& seed, const unsigned int& security,
       const std::vector<Models::Input>& inputs, Models::Bundle& bundle, const Models::Tag& tag,
       const int64_t& totalValue, const Models::Address& remainderAddress,
       const std::vector<Types::Trytes>& signatureFragments) const;
@@ -407,11 +407,11 @@ private:
    *
    * @return A new address.
    */
-  static Models::Address newAddress(const Types::Trytes& seed, const int32_t& index,
+  static Models::Address newAddress(const Models::Seed& seed, const int32_t& index,
                                     const int32_t& security);
 
   std::vector<Types::Trytes> signInputsAndReturn(
-      const Types::Trytes& seed, const std::vector<Models::Input>& inputs, Models::Bundle& bundle,
+      const Models::Seed& seed, const std::vector<Models::Input>& inputs, Models::Bundle& bundle,
       const std::vector<Types::Trytes>& signatureFragments) const;
 
   /**

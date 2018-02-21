@@ -27,6 +27,7 @@
 #include <iota/crypto/kerl.hpp>
 #include <iota/crypto/signing.hpp>
 #include <iota/models/bundle.hpp>
+#include <iota/models/seed.hpp>
 #include <iota/types/trinary.hpp>
 
 namespace IOTA {
@@ -41,9 +42,9 @@ namespace Signing {
 static const int NormalizedTryteValueUpperBound = 13;
 
 Types::Trits
-key(const Types::Trytes& seed, const unsigned int& index, const unsigned int& security) {
+key(const Models::Seed& seed, const unsigned int& index, const unsigned int& security) {
   Kerl         k;
-  Types::Trits seedTrits = Types::trytesToTrits(seed);
+  Types::Trits seedTrits = Types::trytesToTrits(seed.toTrytes());
 
   for (unsigned int i = 0; i < index; ++i) {
     for (unsigned int j = 0; j < TritHashLength; ++j) {

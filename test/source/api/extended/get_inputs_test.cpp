@@ -29,6 +29,7 @@
 #include <iota/api/responses/get_balances_and_format.hpp>
 #include <iota/errors/illegal_state.hpp>
 #include <iota/models/input.hpp>
+#include <iota/models/seed.hpp>
 #include <test/utils/configuration.hpp>
 #include <test/utils/constants.hpp>
 
@@ -64,12 +65,6 @@ TEST(Extended, GetInputs) {
   EXPECT_EQ(input4.getBalance(), ACCOUNT_2_ADDRESS_5_FUND);
   EXPECT_EQ(input4.getKeyIndex(), 4);
   EXPECT_EQ(input4.getSecurity(), 2);
-}
-
-TEST(Extended, GetInputsInvalidSeed) {
-  auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
-
-  EXPECT_THROW(api.getInputs("hello", 0, 0, 2, 0), IOTA::Errors::IllegalState);
 }
 
 TEST(Extended, GetInputsInvalidSecurity) {

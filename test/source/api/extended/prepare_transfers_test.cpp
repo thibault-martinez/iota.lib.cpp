@@ -28,6 +28,7 @@
 #include <iota/api/extended.hpp>
 #include <iota/errors/illegal_state.hpp>
 #include <iota/models/input.hpp>
+#include <iota/models/seed.hpp>
 #include <iota/models/transaction.hpp>
 #include <iota/models/transfer.hpp>
 #include <test/utils/configuration.hpp>
@@ -374,22 +375,6 @@ TEST(Extended, PrepareTransfersNoTransfer) {
                                   ACCOUNT_1_ADDRESS_2_HASH_WITHOUT_CHECKSUM, inputs, true);
 
   ASSERT_EQ(res.size(), 0UL);
-}
-
-TEST(Extended, PrepareTransfersInvalidSeed) {
-  auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
-
-  auto transfer = IOTA::Models::Transfer{ ACCOUNT_2_ADDRESS_1_HASH_WITHOUT_CHECKSUM, 100, "TESTMSG",
-                                          "TESTTAG99999999999999999999" };
-  auto transfers = std::vector<IOTA::Models::Transfer>{ transfer };
-
-  auto input  = IOTA::Models::Input{ ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
-                                    ACCOUNT_1_ADDRESS_1_FUND, 0, 2 };
-  auto inputs = std::vector<IOTA::Models::Input>{ input };
-
-  EXPECT_EXCEPTION(api.prepareTransfers("hello", 2, transfers,
-                                        ACCOUNT_1_ADDRESS_2_HASH_WITHOUT_CHECKSUM, inputs, true),
-                   IOTA::Errors::IllegalState, "Invalid Seed");
 }
 
 TEST(Extended, PrepareTransfersInvalidTransferAddress) {
