@@ -23,8 +23,6 @@
 //
 //
 
-#include <string>
-
 #include <iota/constants.hpp>
 #include <iota/errors/illegal_state.hpp>
 #include <iota/models/tag.hpp>
@@ -36,6 +34,9 @@ namespace Models {
 
 Tag::Tag(const Types::Trytes& tag) {
   setTag(tag);
+}
+
+Tag::Tag(const char* tag) : Tag(Types::Trytes(tag)) {
 }
 
 const Types::Trytes&

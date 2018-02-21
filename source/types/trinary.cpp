@@ -81,12 +81,6 @@ isArrayOfHashes(const std::vector<Trytes>& hashes) {
 }
 
 bool
-isValidAddress(const Trytes& s) {
-  return (s.length() == AddressLength || s.length() == AddressLengthWithChecksum) &&
-         isValidTrytes(s);
-}
-
-bool
 isValidHash(const Trytes& s) {
   return s.length() == HashLength && isValidTrytes(s);
 }

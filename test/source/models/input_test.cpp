@@ -26,29 +26,30 @@
 #include <gtest/gtest.h>
 
 #include <iota/models/input.hpp>
+#include <test/utils/constants.hpp>
 
 TEST(Input, CtorDefault) {
   IOTA::Models::Input i;
 
-  EXPECT_EQ(i.getAddress(), "");
+  EXPECT_EQ(i.getAddress(), IOTA::Models::Address{ "" });
   EXPECT_EQ(i.getBalance(), 0);
   EXPECT_EQ(i.getKeyIndex(), 0);
   EXPECT_EQ(i.getSecurity(), 0);
 }
 
 TEST(Input, CtorFull) {
-  IOTA::Models::Input i = { "addr", 1, 2, 3 };
+  IOTA::Models::Input i = { ACCOUNT_1_ADDRESS_1_HASH, 1, 2, 3 };
 
-  EXPECT_EQ(i.getAddress(), "addr");
+  EXPECT_EQ(i.getAddress(), IOTA::Models::Address{ ACCOUNT_1_ADDRESS_1_HASH });
   EXPECT_EQ(i.getBalance(), 1);
   EXPECT_EQ(i.getKeyIndex(), 2);
   EXPECT_EQ(i.getSecurity(), 3);
 }
 
 TEST(Input, ConstGetters) {
-  const IOTA::Models::Input i = { "addr", 1, 2, 3 };
+  const IOTA::Models::Input i = { ACCOUNT_1_ADDRESS_1_HASH, 1, 2, 3 };
 
-  EXPECT_EQ(i.getAddress(), "addr");
+  EXPECT_EQ(i.getAddress(), IOTA::Models::Address{ ACCOUNT_1_ADDRESS_1_HASH });
   EXPECT_EQ(i.getBalance(), 1);
   EXPECT_EQ(i.getKeyIndex(), 2);
   EXPECT_EQ(i.getSecurity(), 3);
@@ -56,10 +57,10 @@ TEST(Input, ConstGetters) {
 
 TEST(Input, AddressGetterAndSetter) {
   IOTA::Models::Input i;
-  EXPECT_EQ(i.getAddress(), "");
+  EXPECT_EQ(i.getAddress(), IOTA::Models::Address{ "" });
 
-  i.setAddress("addr");
-  EXPECT_EQ(i.getAddress(), "addr");
+  i.setAddress(ACCOUNT_1_ADDRESS_1_HASH);
+  EXPECT_EQ(i.getAddress(), IOTA::Models::Address{ ACCOUNT_1_ADDRESS_1_HASH });
 }
 
 TEST(Input, BalanceGetterAndSetter) {
@@ -87,45 +88,45 @@ TEST(Input, SecurityGetterAndSetter) {
 }
 
 TEST(Input, EqOperator) {
-  IOTA::Models::Input lhs("addr", 1, 2, 3);
-  IOTA::Models::Input rhs("addr", 1, 2, 3);
+  IOTA::Models::Input lhs(ACCOUNT_1_ADDRESS_1_HASH, 1, 2, 3);
+  IOTA::Models::Input rhs(ACCOUNT_1_ADDRESS_1_HASH, 1, 2, 3);
   EXPECT_TRUE(lhs == rhs);
 
-  IOTA::Models::Input lhs_neq_1("addr", 1, 2, 3);
-  IOTA::Models::Input rhs_neq_1("neq_addr", 1, 2, 3);
+  IOTA::Models::Input lhs_neq_1(ACCOUNT_1_ADDRESS_1_HASH, 1, 2, 3);
+  IOTA::Models::Input rhs_neq_1(ACCOUNT_1_ADDRESS_2_HASH, 1, 2, 3);
   EXPECT_FALSE(lhs_neq_1 == rhs_neq_1);
 
-  IOTA::Models::Input lhs_neq_2("addr", 1, 2, 3);
-  IOTA::Models::Input rhs_neq_2("addr", 4, 2, 3);
+  IOTA::Models::Input lhs_neq_2(ACCOUNT_1_ADDRESS_1_HASH, 1, 2, 3);
+  IOTA::Models::Input rhs_neq_2(ACCOUNT_1_ADDRESS_1_HASH, 4, 2, 3);
   EXPECT_FALSE(lhs_neq_2 == rhs_neq_2);
 
-  IOTA::Models::Input lhs_neq_3("addr", 1, 2, 3);
-  IOTA::Models::Input rhs_neq_3("addr", 1, 4, 3);
+  IOTA::Models::Input lhs_neq_3(ACCOUNT_1_ADDRESS_1_HASH, 1, 2, 3);
+  IOTA::Models::Input rhs_neq_3(ACCOUNT_1_ADDRESS_1_HASH, 1, 4, 3);
   EXPECT_FALSE(lhs_neq_3 == rhs_neq_3);
 
-  IOTA::Models::Input lhs_neq_4("addr", 1, 2, 3);
-  IOTA::Models::Input rhs_neq_4("addr", 1, 2, 4);
+  IOTA::Models::Input lhs_neq_4(ACCOUNT_1_ADDRESS_1_HASH, 1, 2, 3);
+  IOTA::Models::Input rhs_neq_4(ACCOUNT_1_ADDRESS_1_HASH, 1, 2, 4);
   EXPECT_FALSE(lhs_neq_4 == rhs_neq_4);
 }
 
 TEST(Input, NEqOperator) {
-  IOTA::Models::Input lhs("addr", 1, 2, 3);
-  IOTA::Models::Input rhs("addr", 1, 2, 3);
+  IOTA::Models::Input lhs(ACCOUNT_1_ADDRESS_1_HASH, 1, 2, 3);
+  IOTA::Models::Input rhs(ACCOUNT_1_ADDRESS_1_HASH, 1, 2, 3);
   EXPECT_FALSE(lhs != rhs);
 
-  IOTA::Models::Input lhs_neq_1("addr", 1, 2, 3);
-  IOTA::Models::Input rhs_neq_1("neq_addr", 1, 2, 3);
+  IOTA::Models::Input lhs_neq_1(ACCOUNT_1_ADDRESS_1_HASH, 1, 2, 3);
+  IOTA::Models::Input rhs_neq_1(ACCOUNT_1_ADDRESS_2_HASH, 1, 2, 3);
   EXPECT_TRUE(lhs_neq_1 != rhs_neq_1);
 
-  IOTA::Models::Input lhs_neq_2("addr", 1, 2, 3);
-  IOTA::Models::Input rhs_neq_2("addr", 4, 2, 3);
+  IOTA::Models::Input lhs_neq_2(ACCOUNT_1_ADDRESS_1_HASH, 1, 2, 3);
+  IOTA::Models::Input rhs_neq_2(ACCOUNT_1_ADDRESS_1_HASH, 4, 2, 3);
   EXPECT_TRUE(lhs_neq_2 != rhs_neq_2);
 
-  IOTA::Models::Input lhs_neq_3("addr", 1, 2, 3);
-  IOTA::Models::Input rhs_neq_3("addr", 1, 4, 3);
+  IOTA::Models::Input lhs_neq_3(ACCOUNT_1_ADDRESS_1_HASH, 1, 2, 3);
+  IOTA::Models::Input rhs_neq_3(ACCOUNT_1_ADDRESS_1_HASH, 1, 4, 3);
   EXPECT_TRUE(lhs_neq_3 != rhs_neq_3);
 
-  IOTA::Models::Input lhs_neq_4("addr", 1, 2, 3);
-  IOTA::Models::Input rhs_neq_4("addr", 1, 2, 4);
+  IOTA::Models::Input lhs_neq_4(ACCOUNT_1_ADDRESS_1_HASH, 1, 2, 3);
+  IOTA::Models::Input rhs_neq_4(ACCOUNT_1_ADDRESS_1_HASH, 1, 2, 4);
   EXPECT_TRUE(lhs_neq_4 != rhs_neq_4);
 }

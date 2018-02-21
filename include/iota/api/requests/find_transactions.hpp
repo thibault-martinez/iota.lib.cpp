@@ -26,6 +26,7 @@
 #pragma once
 
 #include <iota/api/requests/base.hpp>
+#include <iota/models/address.hpp>
 #include <iota/models/tag.hpp>
 #include <iota/types/trytes.hpp>
 
@@ -56,10 +57,10 @@ public:
    * @param bundles List of bundle hashes. The hashes need to be extended to 81chars by padding
    * the hash with 9's.
    */
-  explicit FindTransactions(const std::vector<Types::Trytes>& addresses = {},
-                            const std::vector<Models::Tag>&   tags      = {},
-                            const std::vector<Types::Trytes>& approvees = {},
-                            const std::vector<Types::Trytes>& bundles   = {});
+  explicit FindTransactions(const std::vector<Models::Address>& addresses = {},
+                            const std::vector<Models::Tag>&     tags      = {},
+                            const std::vector<Types::Trytes>&   approvees = {},
+                            const std::vector<Types::Trytes>&   bundles   = {});
 
   /**
    * Default dtor.
@@ -78,17 +79,17 @@ public:
   /**
    * @return addresses.
    */
-  const std::vector<Types::Trytes>& getAddresses() const;
+  const std::vector<Models::Address>& getAddresses() const;
 
   /**
    * @return addresses (non const version).
    */
-  std::vector<Types::Trytes>& getAddresses();
+  std::vector<Models::Address>& getAddresses();
 
   /**
    * @param addrs new addresses for api call.
    */
-  void setAddresses(const std::vector<Types::Trytes>& addrs);
+  void setAddresses(const std::vector<Models::Address>& addrs);
 
 public:
   /**
@@ -142,7 +143,7 @@ private:
   /**
    * List of addresses.
    */
-  std::vector<Types::Trytes> addresses_;
+  std::vector<Models::Address> addresses_;
   /**
    * List of transaction tags.
    */

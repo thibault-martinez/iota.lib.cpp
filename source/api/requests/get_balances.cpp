@@ -24,7 +24,6 @@
 //
 
 #include <iota/api/requests/get_balances.hpp>
-#include <iota/crypto/checksum.hpp>
 
 namespace IOTA {
 
@@ -32,7 +31,7 @@ namespace API {
 
 namespace Requests {
 
-GetBalances::GetBalances(const std::vector<Types::Trytes>& addresses, const int& threshold)
+GetBalances::GetBalances(const std::vector<Models::Address>& addresses, const int& threshold)
     : Base("getBalances"), addresses_(addresses), threshold_(threshold) {
 }
 
@@ -41,23 +40,23 @@ GetBalances::serialize(json& data) const {
   Base::serialize(data);
 
   for (auto& address : addresses_) {
-    data["addresses"].emplace_back(IOTA::Crypto::Checksum::remove(address));
+    data["addresses"].emplace_back(address.toTrytes());
   }
   data["threshold"] = threshold_;
 }
 
-const std::vector<Types::Trytes>&
+const std::vector<Models::Address>&
 GetBalances::getAddresses() const {
   return addresses_;
 }
 
-std::vector<Types::Trytes>&
+std::vector<Models::Address>&
 GetBalances::getAddresses() {
   return addresses_;
 }
 
 void
-GetBalances::setAddresses(const std::vector<Types::Trytes>& addrs) {
+GetBalances::setAddresses(const std::vector<Models::Address>& addrs) {
   addresses_ = addrs;
 }
 

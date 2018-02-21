@@ -26,42 +26,48 @@
 #include <gtest/gtest.h>
 
 #include <iota/api/requests/find_transactions.hpp>
+#include <test/utils/constants.hpp>
 
 TEST(FindTransactionsRequest, CtorShouldInitFields) {
-  const IOTA::API::Requests::FindTransactions req{ { "addr1", "addr2" },
+  const IOTA::API::Requests::FindTransactions req{ { ACCOUNT_1_ADDRESS_1_HASH,
+                                                     ACCOUNT_1_ADDRESS_2_HASH },
                                                    { { "TAGONE" }, { "TAGTWO" } },
                                                    { "approvee1", "approvee2" },
                                                    { "bundle1", "bundle2" } };
 
-  EXPECT_EQ(req.getAddresses(), std::vector<IOTA::Types::Trytes>({ "addr1", "addr2" }));
+  EXPECT_EQ(req.getAddresses(), std::vector<IOTA::Models::Address>(
+                                    { ACCOUNT_1_ADDRESS_1_HASH, ACCOUNT_1_ADDRESS_2_HASH }));
   EXPECT_EQ(req.getTags(), std::vector<IOTA::Models::Tag>({ { "TAGONE" }, { "TAGTWO" } }));
   EXPECT_EQ(req.getApprovees(), std::vector<IOTA::Types::Trytes>({ "approvee1", "approvee2" }));
   EXPECT_EQ(req.getBundles(), std::vector<IOTA::Types::Trytes>({ "bundle1", "bundle2" }));
 }
 
 TEST(FindTransactionsRequest, GetAddressesNonConst) {
-  IOTA::API::Requests::FindTransactions req{ { "addr1", "addr2" },
+  IOTA::API::Requests::FindTransactions req{ { ACCOUNT_1_ADDRESS_1_HASH, ACCOUNT_1_ADDRESS_2_HASH },
                                              { { "TAGONE" }, { "TAGTWO" } },
                                              { "approvee1", "approvee2" },
                                              { "bundle1", "bundle2" } };
 
-  req.getAddresses().push_back("addr3");
+  req.getAddresses().push_back(ACCOUNT_1_ADDRESS_3_HASH);
 
-  EXPECT_EQ(req.getAddresses(), std::vector<IOTA::Types::Trytes>({ "addr1", "addr2", "addr3" }));
+  EXPECT_EQ(req.getAddresses(),
+            std::vector<IOTA::Models::Address>(
+                { ACCOUNT_1_ADDRESS_1_HASH, ACCOUNT_1_ADDRESS_2_HASH, ACCOUNT_1_ADDRESS_3_HASH }));
   EXPECT_EQ(req.getTags(), std::vector<IOTA::Models::Tag>({ { "TAGONE" }, { "TAGTWO" } }));
   EXPECT_EQ(req.getApprovees(), std::vector<IOTA::Types::Trytes>({ "approvee1", "approvee2" }));
   EXPECT_EQ(req.getBundles(), std::vector<IOTA::Types::Trytes>({ "bundle1", "bundle2" }));
 }
 
 TEST(FindTransactionsRequest, GetTagsNonConst) {
-  IOTA::API::Requests::FindTransactions req{ { "addr1", "addr2" },
+  IOTA::API::Requests::FindTransactions req{ { ACCOUNT_1_ADDRESS_1_HASH, ACCOUNT_1_ADDRESS_2_HASH },
                                              { { "TAGONE" }, { "TAGTWO" } },
                                              { "approvee1", "approvee2" },
                                              { "bundle1", "bundle2" } };
 
   req.getTags().push_back({ "TAGTHREE" });
 
-  EXPECT_EQ(req.getAddresses(), std::vector<IOTA::Types::Trytes>({ "addr1", "addr2" }));
+  EXPECT_EQ(req.getAddresses(), std::vector<IOTA::Models::Address>(
+                                    { ACCOUNT_1_ADDRESS_1_HASH, ACCOUNT_1_ADDRESS_2_HASH }));
   EXPECT_EQ(req.getTags(),
             std::vector<IOTA::Models::Tag>({ { "TAGONE" }, { "TAGTWO" }, { "TAGTHREE" } }));
   EXPECT_EQ(req.getApprovees(), std::vector<IOTA::Types::Trytes>({ "approvee1", "approvee2" }));
@@ -69,14 +75,15 @@ TEST(FindTransactionsRequest, GetTagsNonConst) {
 }
 
 TEST(FindTransactionsRequest, GetApproveesNonConst) {
-  IOTA::API::Requests::FindTransactions req{ { "addr1", "addr2" },
+  IOTA::API::Requests::FindTransactions req{ { ACCOUNT_1_ADDRESS_1_HASH, ACCOUNT_1_ADDRESS_2_HASH },
                                              { { "TAGONE" }, { "TAGTWO" } },
                                              { "approvee1", "approvee2" },
                                              { "bundle1", "bundle2" } };
 
   req.getApprovees().push_back("approvee3");
 
-  EXPECT_EQ(req.getAddresses(), std::vector<IOTA::Types::Trytes>({ "addr1", "addr2" }));
+  EXPECT_EQ(req.getAddresses(), std::vector<IOTA::Models::Address>(
+                                    { ACCOUNT_1_ADDRESS_1_HASH, ACCOUNT_1_ADDRESS_2_HASH }));
   EXPECT_EQ(req.getTags(), std::vector<IOTA::Models::Tag>({ { "TAGONE" }, { "TAGTWO" } }));
   EXPECT_EQ(req.getApprovees(),
             std::vector<IOTA::Types::Trytes>({ "approvee1", "approvee2", "approvee3" }));
@@ -84,14 +91,15 @@ TEST(FindTransactionsRequest, GetApproveesNonConst) {
 }
 
 TEST(FindTransactionsRequest, GetBundlesNonConst) {
-  IOTA::API::Requests::FindTransactions req{ { "addr1", "addr2" },
+  IOTA::API::Requests::FindTransactions req{ { ACCOUNT_1_ADDRESS_1_HASH, ACCOUNT_1_ADDRESS_2_HASH },
                                              { { "TAGONE" }, { "TAGTWO" } },
                                              { "approvee1", "approvee2" },
                                              { "bundle1", "bundle2" } };
 
   req.getBundles().push_back("bundle3");
 
-  EXPECT_EQ(req.getAddresses(), std::vector<IOTA::Types::Trytes>({ "addr1", "addr2" }));
+  EXPECT_EQ(req.getAddresses(), std::vector<IOTA::Models::Address>(
+                                    { ACCOUNT_1_ADDRESS_1_HASH, ACCOUNT_1_ADDRESS_2_HASH }));
   EXPECT_EQ(req.getTags(), std::vector<IOTA::Models::Tag>({ { "TAGONE" }, { "TAGTWO" } }));
   EXPECT_EQ(req.getApprovees(), std::vector<IOTA::Types::Trytes>({ "approvee1", "approvee2" }));
   EXPECT_EQ(req.getBundles(),
@@ -99,63 +107,69 @@ TEST(FindTransactionsRequest, GetBundlesNonConst) {
 }
 
 TEST(FindTransactionsRequest, SetAddresses) {
-  IOTA::API::Requests::FindTransactions req{ { "addr1", "addr2" },
+  IOTA::API::Requests::FindTransactions req{ { ACCOUNT_1_ADDRESS_1_HASH, ACCOUNT_1_ADDRESS_2_HASH },
                                              { { "TAGONE" }, { "TAGTWO" } },
                                              { "approvee1", "approvee2" },
                                              { "bundle1", "bundle2" } };
 
-  req.setAddresses({ "null1", "null2" });
+  req.setAddresses({ ACCOUNT_1_ADDRESS_3_HASH, ACCOUNT_1_ADDRESS_4_HASH });
 
-  EXPECT_EQ(req.getAddresses(), std::vector<IOTA::Types::Trytes>({ "null1", "null2" }));
+  EXPECT_EQ(req.getAddresses(), std::vector<IOTA::Models::Address>(
+                                    { ACCOUNT_1_ADDRESS_3_HASH, ACCOUNT_1_ADDRESS_4_HASH }));
   EXPECT_EQ(req.getTags(), std::vector<IOTA::Models::Tag>({ { "TAGONE" }, { "TAGTWO" } }));
   EXPECT_EQ(req.getApprovees(), std::vector<IOTA::Types::Trytes>({ "approvee1", "approvee2" }));
   EXPECT_EQ(req.getBundles(), std::vector<IOTA::Types::Trytes>({ "bundle1", "bundle2" }));
 }
 
 TEST(FindTransactionsRequest, SetTags) {
-  IOTA::API::Requests::FindTransactions req{ { "addr1", "addr2" },
+  IOTA::API::Requests::FindTransactions req{ { ACCOUNT_1_ADDRESS_1_HASH, ACCOUNT_1_ADDRESS_2_HASH },
                                              { { "TAGONE" }, { "TAGTWO" } },
                                              { "approvee1", "approvee2" },
                                              { "bundle1", "bundle2" } };
 
   req.setTags({ { "NULLONE" }, { "NULLTWO" } });
 
-  EXPECT_EQ(req.getAddresses(), std::vector<IOTA::Types::Trytes>({ "addr1", "addr2" }));
+  EXPECT_EQ(req.getAddresses(), std::vector<IOTA::Models::Address>(
+                                    { ACCOUNT_1_ADDRESS_1_HASH, ACCOUNT_1_ADDRESS_2_HASH }));
   EXPECT_EQ(req.getTags(), std::vector<IOTA::Models::Tag>({ { "NULLONE" }, { "NULLTWO" } }));
   EXPECT_EQ(req.getApprovees(), std::vector<IOTA::Types::Trytes>({ "approvee1", "approvee2" }));
   EXPECT_EQ(req.getBundles(), std::vector<IOTA::Types::Trytes>({ "bundle1", "bundle2" }));
 }
 
 TEST(FindTransactionsRequest, SetApprovees) {
-  IOTA::API::Requests::FindTransactions req{ { "addr1", "addr2" },
+  IOTA::API::Requests::FindTransactions req{ { ACCOUNT_1_ADDRESS_1_HASH, ACCOUNT_1_ADDRESS_2_HASH },
                                              { { "TAGONE" }, { "TAGTWO" } },
                                              { "approvee1", "approvee2" },
                                              { "bundle1", "bundle2" } };
 
-  req.setApprovees({ "null1", "null2" });
+  req.setApprovees({ ACCOUNT_1_ADDRESS_3_HASH, ACCOUNT_1_ADDRESS_4_HASH });
 
-  EXPECT_EQ(req.getAddresses(), std::vector<IOTA::Types::Trytes>({ "addr1", "addr2" }));
+  EXPECT_EQ(req.getAddresses(), std::vector<IOTA::Models::Address>(
+                                    { ACCOUNT_1_ADDRESS_1_HASH, ACCOUNT_1_ADDRESS_2_HASH }));
   EXPECT_EQ(req.getTags(), std::vector<IOTA::Models::Tag>({ { "TAGONE" }, { "TAGTWO" } }));
-  EXPECT_EQ(req.getApprovees(), std::vector<IOTA::Types::Trytes>({ "null1", "null2" }));
+  EXPECT_EQ(req.getApprovees(), std::vector<IOTA::Types::Trytes>(
+                                    { ACCOUNT_1_ADDRESS_3_HASH, ACCOUNT_1_ADDRESS_4_HASH }));
   EXPECT_EQ(req.getBundles(), std::vector<IOTA::Types::Trytes>({ "bundle1", "bundle2" }));
 }
 
 TEST(FindTransactionsRequest, SetBundles) {
-  IOTA::API::Requests::FindTransactions req{ { "addr1", "addr2" },
+  IOTA::API::Requests::FindTransactions req{ { ACCOUNT_1_ADDRESS_1_HASH, ACCOUNT_1_ADDRESS_2_HASH },
                                              { { "TAGONE" }, { "TAGTWO" } },
                                              { "approvee1", "approvee2" },
                                              { "bundle1", "bundle2" } };
 
   req.setBundles({ "null1", "null2" });
 
-  EXPECT_EQ(req.getAddresses(), std::vector<IOTA::Types::Trytes>({ "addr1", "addr2" }));
+  EXPECT_EQ(req.getAddresses(), std::vector<IOTA::Models::Address>(
+                                    { ACCOUNT_1_ADDRESS_1_HASH, ACCOUNT_1_ADDRESS_2_HASH }));
   EXPECT_EQ(req.getTags(), std::vector<IOTA::Models::Tag>({ { "TAGONE" }, { "TAGTWO" } }));
   EXPECT_EQ(req.getApprovees(), std::vector<IOTA::Types::Trytes>({ "approvee1", "approvee2" }));
   EXPECT_EQ(req.getBundles(), std::vector<IOTA::Types::Trytes>({ "null1", "null2" }));
 }
 
 TEST(FindTransactionsRequest, SerializeShouldInitJson) {
-  const IOTA::API::Requests::FindTransactions req{ { "addr1", "addr2" },
+  const IOTA::API::Requests::FindTransactions req{ { ACCOUNT_1_ADDRESS_1_HASH,
+                                                     ACCOUNT_1_ADDRESS_2_HASH },
                                                    { { "TAGONE" }, { "TAGTWO" } },
                                                    { "approvee1", "approvee2" },
                                                    { "bundle1", "bundle2" } };
@@ -164,7 +178,9 @@ TEST(FindTransactionsRequest, SerializeShouldInitJson) {
   req.serialize(data);
 
   EXPECT_EQ(data["command"].get<std::string>(), "findTransactions");
-  EXPECT_EQ(data["addresses"], std::vector<IOTA::Types::Trytes>({ "addr1", "addr2" }));
+  EXPECT_EQ(data["addresses"],
+            std::vector<IOTA::Types::Trytes>({ ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
+                                               ACCOUNT_1_ADDRESS_2_HASH_WITHOUT_CHECKSUM }));
   EXPECT_EQ(data["tags"], std::vector<IOTA::Types::Trytes>(
                               { "TAGONE999999999999999999999", "TAGTWO999999999999999999999" }));
   EXPECT_EQ(data["approvees"], std::vector<IOTA::Types::Trytes>({ "approvee1", "approvee2" }));

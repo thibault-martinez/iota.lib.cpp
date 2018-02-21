@@ -89,10 +89,10 @@ Core::getTips() const {
 }
 
 Responses::FindTransactions
-Core::findTransactions(const std::vector<Types::Trytes>& addresses,
-                       const std::vector<Models::Tag>&   tags,
-                       const std::vector<Types::Trytes>& approvees,
-                       const std::vector<Types::Trytes>& bundles) const {
+Core::findTransactions(const std::vector<Models::Address>& addresses,
+                       const std::vector<Models::Tag>&     tags,
+                       const std::vector<Types::Trytes>&   approvees,
+                       const std::vector<Types::Trytes>&   bundles) const {
   //! skip request if no input, simply return empty
   if (addresses.empty() && tags.empty() && approvees.empty() && bundles.empty()) {
     return Responses::FindTransactions();
@@ -123,7 +123,7 @@ Core::getInclusionStates(const std::vector<Types::Trytes>& transactions,
 }
 
 Responses::GetBalances
-Core::getBalances(const std::vector<Types::Trytes>& addresses, const int& threshold) const {
+Core::getBalances(const std::vector<Models::Address>& addresses, const int& threshold) const {
   return service_.request<Requests::GetBalances, Responses::GetBalances>(addresses, threshold);
 }
 

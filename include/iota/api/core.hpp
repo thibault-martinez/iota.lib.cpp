@@ -27,6 +27,7 @@
 
 #include <iota/api/responses/fwd.hpp>
 #include <iota/api/service.hpp>
+#include <iota/models/address.hpp>
 #include <iota/models/tag.hpp>
 
 namespace IOTA {
@@ -125,10 +126,10 @@ public:
    *
    * @return The response.
    */
-  Responses::FindTransactions findTransactions(const std::vector<Types::Trytes>& addresses,
-                                               const std::vector<Models::Tag>&   tags,
-                                               const std::vector<Types::Trytes>& approvees,
-                                               const std::vector<Types::Trytes>& bundles) const;
+  Responses::FindTransactions findTransactions(const std::vector<Models::Address>& addresses,
+                                               const std::vector<Models::Tag>&     tags,
+                                               const std::vector<Types::Trytes>&   approvees,
+                                               const std::vector<Types::Trytes>&   bundles) const;
 
   /**
    * Returns the raw transaction data (trytes) of a specific transaction. These trytes can then be
@@ -172,8 +173,8 @@ public:
    *
    * @return The response.
    */
-  Responses::GetBalances getBalances(const std::vector<Types::Trytes>& addresses,
-                                     const int&                        threshold) const;
+  Responses::GetBalances getBalances(const std::vector<Models::Address>& addresses,
+                                     const int&                          threshold) const;
 
   /**
    * Tip selection which returns trunkTransaction and branchTransaction. The input value is depth,

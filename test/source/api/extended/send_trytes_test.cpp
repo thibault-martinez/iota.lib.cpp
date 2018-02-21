@@ -26,7 +26,7 @@
 #include <gtest/gtest.h>
 
 #include <iota/api/extended.hpp>
-#include <iota/crypto/checksum.hpp>
+#include <iota/errors/bad_request.hpp>
 #include <iota/errors/illegal_state.hpp>
 #include <iota/models/bundle.hpp>
 #include <test/utils/configuration.hpp>
@@ -57,8 +57,8 @@ TEST(Extended, SendTrytesOne) {
   IOTA::API::Extended api(get_proxy_host(), get_proxy_port());
 
   IOTA::Models::Bundle b;
-  b.addTransaction({ IOTA::Crypto::Checksum::remove(ACCOUNT_4_ADDRESS_1_HASH), 0, IOTA::EmptyTag,
-                     IOTA::Utils::StopWatch::now().count() });
+  b.addTransaction(
+      { ACCOUNT_4_ADDRESS_1_HASH, 0, IOTA::EmptyTag, IOTA::Utils::StopWatch::now().count() });
   b.finalize();
   b.addTrytes({ EMPTY_SIGNATURE_FRAGMENT });
   auto tx = b.getTransactions()[0].toTrytes();
@@ -69,14 +69,14 @@ TEST(Extended, SendTrytesMulti) {
   IOTA::API::Extended api(get_proxy_host(), get_proxy_port());
 
   IOTA::Models::Bundle b;
-  b.addTransaction({ IOTA::Crypto::Checksum::remove(ACCOUNT_4_ADDRESS_1_HASH), 0, IOTA::EmptyTag,
-                     IOTA::Utils::StopWatch::now().count() });
-  b.addTransaction({ IOTA::Crypto::Checksum::remove(ACCOUNT_4_ADDRESS_1_HASH), 0, IOTA::EmptyTag,
-                     IOTA::Utils::StopWatch::now().count() });
-  b.addTransaction({ IOTA::Crypto::Checksum::remove(ACCOUNT_4_ADDRESS_1_HASH), 0, IOTA::EmptyTag,
-                     IOTA::Utils::StopWatch::now().count() });
-  b.addTransaction({ IOTA::Crypto::Checksum::remove(ACCOUNT_4_ADDRESS_1_HASH), 0, IOTA::EmptyTag,
-                     IOTA::Utils::StopWatch::now().count() });
+  b.addTransaction(
+      { ACCOUNT_4_ADDRESS_1_HASH, 0, IOTA::EmptyTag, IOTA::Utils::StopWatch::now().count() });
+  b.addTransaction(
+      { ACCOUNT_4_ADDRESS_1_HASH, 0, IOTA::EmptyTag, IOTA::Utils::StopWatch::now().count() });
+  b.addTransaction(
+      { ACCOUNT_4_ADDRESS_1_HASH, 0, IOTA::EmptyTag, IOTA::Utils::StopWatch::now().count() });
+  b.addTransaction(
+      { ACCOUNT_4_ADDRESS_1_HASH, 0, IOTA::EmptyTag, IOTA::Utils::StopWatch::now().count() });
   b.finalize();
   b.addTrytes({ EMPTY_SIGNATURE_FRAGMENT });
   auto tx0 = b.getTransactions()[0].toTrytes();

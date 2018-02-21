@@ -35,6 +35,8 @@ class Neighbor;
 class Signature;
 class Transaction;
 class Transfer;
+class Tag;
+class Address;
 
 }  // namespace Models
 

@@ -54,6 +54,49 @@ Transaction::Transaction(const Types::Trytes& trytes) {
   initFromTrytes(trytes);
 }
 
+Transaction::Transaction(const Types::Trytes& signatureFragments, int64_t currentIndex,
+                         int64_t lastIndex, const Types::Trytes& nonce, const Types::Trytes& hash,
+                         int64_t timestamp, const Types::Trytes& trunkTransaction,
+                         const Types::Trytes& branchTransaction, const Models::Address& address,
+                         int64_t value, const Types::Trytes& bundle, const Models::Tag& tag,
+                         int64_t attachmentTimestamp, int64_t attachmentTimestampLowerBound,
+                         int64_t attachmentTimestampUpperBound)
+    : hash_(hash),
+      signatureFragments_(signatureFragments),
+      address_(address),
+      value_(value),
+      tag_(tag),
+      obsoleteTag_(tag),
+      timestamp_(timestamp),
+      attachmentTimestamp_(attachmentTimestamp),
+      attachmentTimestampLowerBound_(attachmentTimestampLowerBound),
+      attachmentTimestampUpperBound_(attachmentTimestampUpperBound),
+      currentIndex_(currentIndex),
+      lastIndex_(lastIndex),
+      bundle_(bundle),
+      trunkTransaction_(trunkTransaction),
+      branchTransaction_(branchTransaction),
+      nonce_(nonce),
+      persistence_(false) {
+}
+
+Transaction::Transaction(const Models::Address& address, int64_t value, const Models::Tag& tag,
+                         int64_t timestamp, int64_t attachmentTimestamp,
+                         int64_t attachmentTimestampLowerBound,
+                         int64_t attachmentTimestampUpperBound)
+    : address_(address),
+      value_(value),
+      tag_(tag),
+      obsoleteTag_(tag),
+      timestamp_(timestamp),
+      attachmentTimestamp_(attachmentTimestamp),
+      attachmentTimestampLowerBound_(attachmentTimestampLowerBound),
+      attachmentTimestampUpperBound_(attachmentTimestampUpperBound),
+      currentIndex_(0),
+      lastIndex_(0),
+      persistence_(false) {
+}
+
 bool
 Transaction::isTailTransaction() const {
   return getCurrentIndex() == 0;
@@ -79,13 +122,13 @@ Transaction::setSignatureFragments(const Types::Trytes& signatureFragments) {
   signatureFragments_ = signatureFragments;
 }
 
-const Types::Trytes&
+const Models::Address&
 Transaction::getAddress() const {
   return address_;
 }
 
 void
-Transaction::setAddress(const Types::Trytes& address) {
+Transaction::setAddress(const Models::Address& address) {
   address_ = address;
 }
 
@@ -109,11 +152,6 @@ Transaction::setTag(const Models::Tag& tag) {
   tag_ = tag;
 }
 
-void
-Transaction::setTag(const Types::Trytes& tag) {
-  setTag(Models::Tag{ tag });
-}
-
 const Models::Tag&
 Transaction::getObsoleteTag() const {
   return obsoleteTag_;
@@ -122,11 +160,6 @@ Transaction::getObsoleteTag() const {
 void
 Transaction::setObsoleteTag(const Models::Tag& tag) {
   obsoleteTag_ = tag;
-}
-
-void
-Transaction::setObsoleteTag(const Types::Trytes& tag) {
-  setObsoleteTag(Models::Tag{ tag });
 }
 
 int64_t
@@ -264,10 +297,11 @@ Transaction::toTrytes() const {
       Types::intToTrits(getAttachmentTimestampUpperBound(), TryteAlphabetLength));
   auto tag = getTag().empty() ? getObsoleteTag() : getTag();
 
-  return getSignatureFragments() + getAddress() + value + getObsoleteTag().toTrytesWithPadding() +
-         timestamp + currentIndex + lastIndex + getBundle() + getTrunkTransaction() +
-         getBranchTransaction() + tag.toTrytesWithPadding() + attachmentTimestamp +
-         attachmentTimestampLowerBound + attachmentTimestampUpperBound + getNonce();
+  return getSignatureFragments() + getAddress().toTrytes() + value +
+         getObsoleteTag().toTrytesWithPadding() + timestamp + currentIndex + lastIndex +
+         getBundle() + getTrunkTransaction() + getBranchTransaction() + tag.toTrytesWithPadding() +
+         attachmentTimestamp + attachmentTimestampLowerBound + attachmentTimestampUpperBound +
+         getNonce();
 }
 
 void

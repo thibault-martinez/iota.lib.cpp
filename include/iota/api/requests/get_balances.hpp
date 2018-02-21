@@ -26,6 +26,7 @@
 #pragma once
 
 #include <iota/api/requests/base.hpp>
+#include <iota/models/address.hpp>
 #include <iota/types/trytes.hpp>
 
 namespace IOTA {
@@ -52,7 +53,8 @@ public:
    * @param addresses List of addresses you want to get the confirmed balance from.
    * @param threshold Confirmation threshold, should be set to 100.
    */
-  explicit GetBalances(const std::vector<Types::Trytes>& addresses = {}, const int& threshold = 0);
+  explicit GetBalances(const std::vector<Models::Address>& addresses = {},
+                       const int&                          threshold = 0);
 
   /**
    * Default dtor.
@@ -71,17 +73,17 @@ public:
   /**
    * @return addresses.
    */
-  const std::vector<Types::Trytes>& getAddresses() const;
+  const std::vector<Models::Address>& getAddresses() const;
 
   /**
    * @return addresses (non const version).
    */
-  std::vector<Types::Trytes>& getAddresses();
+  std::vector<Models::Address>& getAddresses();
 
   /**
    * @param addrs new addresses for api call.
    */
-  void setAddresses(const std::vector<Types::Trytes>& addrs);
+  void setAddresses(const std::vector<Models::Address>& addrs);
 
 public:
   /**
@@ -98,7 +100,7 @@ private:
   /**
    * List of addresses you want to get the confirmed balance from.
    */
-  std::vector<Types::Trytes> addresses_;
+  std::vector<Models::Address> addresses_;
   /**
    * Confirmation threshold, should be set to 100.
    */
