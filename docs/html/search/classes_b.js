@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['seed',['Seed',['../class_i_o_t_a_1_1_models_1_1_seed.html',1,'IOTA::Models']]],
   ['sendtransfer',['SendTransfer',['../class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_send_transfer.html',1,'IOTA::API::Responses']]],
   ['service',['Service',['../class_i_o_t_a_1_1_a_p_i_1_1_service.html',1,'IOTA::API']]],
   ['signature',['Signature',['../class_i_o_t_a_1_1_models_1_1_signature.html',1,'IOTA::Models']]],
