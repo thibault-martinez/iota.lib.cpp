@@ -25,6 +25,7 @@
 
 #include <algorithm>
 #include <array>
+#include <cmath>
 #include <cstdlib>
 #include <functional>
 
@@ -278,9 +279,19 @@ tritsToTrytes(const Trits& trits, std::size_t length) {
 
 Types::Trits
 intToTrits(const int64_t& value) {
-  Types::Trits trits;
-  uint64_t     absoluteValue = std::abs(value);
+  if (value == 0)
+    return {};
 
+  Types::Trits trits;
+  int          sign          = (value > 0) - (value < 0);
+  uint64_t     absoluteValue = value * sign;
+
+  // pre-computed log3(e)
+  static const double log3e = 0.91023922662683739361;
+  // predict number of digits of value in base 3 with basic logarithms
+  const int size = std::ceil(std::log(absoluteValue) * log3e) + 1;
+  // reserving the right size will avoid reallocating in the loop, saving up time
+  trits.reserve(size);
   while (absoluteValue > 0) {
     int8_t remainder = absoluteValue % 3;
     absoluteValue    = absoluteValue / 3;
@@ -290,11 +301,7 @@ intToTrits(const int64_t& value) {
       absoluteValue++;
     }
 
-    trits.push_back(remainder);
-  }
-
-  if (value < 0) {
-    std::transform(std::begin(trits), std::end(trits), std::begin(trits), std::negate<int>());
+    trits.push_back(remainder * sign);
   }
 
   return trits;
