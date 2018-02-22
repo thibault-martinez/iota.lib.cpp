@@ -45,17 +45,7 @@ Kerl::absorb(const Types::Trits& trits, std::size_t offset, std::size_t length) 
     length = trits.size();
   if (length % TritHashLength != 0)
     throw Errors::Crypto("Kerl::absorb failed : illegal length");
-  while (offset < length) {
-    auto                begin = trits.cbegin() + offset;
-    auto                end = trits.cbegin() + std::min(offset + TritHashLength, length);
-    std::vector<int8_t> tritsChunk(begin, end);
-
-    tritsChunk.back() = 0;
-    auto bytesChunk   = Types::tritsToBytes(tritsChunk);
-
-    keccak_.absorb(bytesChunk);
-    offset += TritHashLength;
-  }
+  absorb(trits.data(), offset, length);
 }
 
 void
@@ -64,15 +54,42 @@ Kerl::squeeze(Types::Trits& trits, std::size_t offset, std::size_t length) {
     length = TritHashLength;
   if (length % TritHashLength != 0)
     throw Errors::Crypto("Kerl::squeeze failed : illegal length");
+  squeeze(trits.data(), offset, length);
+  trits.resize(TritHashLength);
+}
+
+/**
+ * Private methods
+ */
+
+void
+Kerl::absorb(const int8_t* trits, std::size_t offset, std::size_t length) {
+  int8_t bytesChunk[ByteHashLength];
+  int8_t cpy[length];
+  std::memcpy(cpy, trits, length);
   while (offset < length) {
-    auto bytes = keccak_.squeeze();
-    trits      = Types::bytesToTrits(bytes);
+    auto end = std::min(offset + TritHashLength, length);
+
+    cpy[end - 1] = 0;
+    Types::tritsToBytes(cpy + offset, end - offset, bytesChunk);
+
+    keccak_.absorb(bytesChunk, ByteHashLength);
+    offset += TritHashLength;
+  }
+}
+
+void
+Kerl::squeeze(int8_t* trits, std::size_t offset, std::size_t length) {
+  int8_t bytesChunk[ByteHashLength];
+  while (offset < length) {
+    keccak_.squeeze(bytesChunk);
+    Types::bytesToTrits(bytesChunk, ByteHashLength, trits);
 
     trits[TritHashLength - 1] = 0;
-    std::transform(bytes.begin(), bytes.end(), bytes.begin(),
+    std::transform(bytesChunk, bytesChunk + ByteHashLength, bytesChunk,
                    [](const int8_t& byte) { return byte ^ 0xFF; });
     keccak_.reset();
-    keccak_.absorb(bytes);
+    keccak_.absorb(bytesChunk, ByteHashLength);
     offset += TritHashLength;
   }
 }

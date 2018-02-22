@@ -88,13 +88,20 @@ isValidHash(const Trytes& s) {
 
 std::vector<int8_t>
 tritsToBytes(const Trits& trits) {
-  size_t i = trits.size();
-  // strip leading zeroes;
+  int8_t bytes[ByteHashLength];
+  tritsToBytes(trits.data(), trits.size(), bytes);
+  return { std::begin(bytes), std::end(bytes) };
+}
+
+void
+tritsToBytes(const int8_t* trits, size_t size, int8_t* res) {
+  size_t i = size;
   while (i && !trits[i - 1]) {
     i--;
   }
   if (i == 0) {
-    return std::vector<int8_t>(ByteHashLength, 0);
+    std::memset(res, 0, ByteHashLength);
+    return;
   }
   std::vector<uint32_t> data(1, 0);
   int8_t                sign = trits[i - 1];
@@ -158,8 +165,8 @@ tritsToBytes(const Trits& trits) {
   }
 
   // read out the bytes
-  std::vector<int8_t> bytes(nr_bytes);
-  uint32_t            dw = 0;
+  int8_t   bytes[nr_bytes];
+  uint32_t dw = 0;
   for (size_t i = 0; i < nr_bytes; ++i) {
     if (!(i & 0x3)) {
       dw = data[i >> 2];
@@ -168,16 +175,21 @@ tritsToBytes(const Trits& trits) {
     dw >>= 8;
   }
 
-  std::vector<int8_t> res(48, sign == 1 ? 0 : -1);
-  std::copy(bytes.begin(), bytes.end(), res.begin() + ByteHashLength - nr_bytes);
-
-  return res;
+  std::memset(res, sign == 1 ? 0 : -1, ByteHashLength - nr_bytes);
+  std::memcpy(res + ByteHashLength - nr_bytes, bytes, nr_bytes);
 }
 
 Trits
 bytesToTrits(const std::vector<int8_t>& bytes) {
-  int8_t                sign     = bytes.empty() || bytes[0] >= 0 ? 1 : -1;
-  size_t                nr_bytes = bytes.size();
+  int8_t trits[TritHashLength];
+  bytesToTrits(bytes.data(), bytes.size(), trits);
+  return { std::begin(trits), std::end(trits) };
+}
+
+void
+bytesToTrits(const int8_t* bytes, size_t size, int8_t* trits) {
+  int8_t                sign     = size == 0 || bytes[0] >= 0 ? 1 : -1;
+  size_t                nr_bytes = size;
   size_t                j        = (nr_bytes + 3) >> 2;
   std::vector<uint32_t> div(j, 0);
   uint32_t              dw = sign == 1 ? 0 : (0xffffffff << 8);
@@ -205,13 +217,12 @@ bytesToTrits(const std::vector<int8_t>& bytes) {
     }
   }
 
-  std::vector<int8_t> trits;
-
   // strip leading zeros
   while (j && !div[j - 1]) {
     --j;
   }
 
+  unsigned int i = 0;
   while (j) {
     // divide by 3
     uint64_t rem = 0;
@@ -240,12 +251,10 @@ bytesToTrits(const std::vector<int8_t>& bytes) {
       }
       rem -= 3;
     }
-
-    trits.push_back(sign * static_cast<int8_t>(rem));
+    if (i < TritHashLength)
+      trits[i++] = sign * static_cast<int8_t>(rem);
   }
-
-  trits.resize(TritHashLength, 0);
-  return trits;
+  std::memset(trits + i, 0, TritHashLength - i);
 }
 
 Trits

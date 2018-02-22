@@ -65,7 +65,9 @@ bool isValidHash(const Trytes& s);
 bool isArrayOfHashes(const std::vector<Trytes>& hashes);
 
 std::vector<int8_t> tritsToBytes(const Trits& trits);
+void                tritsToBytes(const int8_t* trits, size_t size, int8_t* bytes);
 Trits               bytesToTrits(const std::vector<int8_t>& bytes);
+void                bytesToTrits(const int8_t* bytes, size_t size, int8_t* trits);
 
 Trits  trytesToTrits(const Trytes& trytes);
 Trytes tritsToTrytes(const Trits& trits);

@@ -74,11 +74,24 @@ public:
    */
   void absorb(const std::vector<int8_t>& bytes);
   /**
+   * Absorb the given bytes into the internal state of the sponge (array version).
+   *
+   * @param bytes The bytes
+   * @param size Number of bytes.
+   */
+  void absorb(const int8_t* bytes, size_t size);
+  /**
    * Squeeze out bytes from the internal state of the sponge.
    *
    * @return The bytes.
    */
   std::vector<int8_t> squeeze();
+  /**
+   * Squeeze out bytes from the internal state of the sponge (array version).
+   *
+   * @param bytes Bytes where to squeeze out the internal state of the sponge.
+   */
+  void squeeze(int8_t* bytes);
   /**
    * Get an hexadecimal digest of the ouput.
    *
@@ -97,6 +110,16 @@ protected:
   virtual bool hashUpdate(const std::vector<int8_t>& bytes);
 
   /**
+  ** Keccak_HashUpdate wrapper to allow mock testing (array version).
+  *
+  * @param bytes Bytes to be absorbed into the internal state of the sponge.
+  * @param size Number of bytes to be absorbed into the internal state of the sponge.
+  *
+  * @return The update status.
+  */
+  virtual bool hashUpdate(const int8_t* bytes, size_t size);
+
+  /**
   ** Keccak_HashSqueeze wrapper to allow mock testing.
   *
   * @param bytes Bytes where to squeeze out the internal state of the sponge.
@@ -104,6 +127,15 @@ protected:
   * @return The squeeze status.
   */
   virtual bool hashSqueeze(std::vector<int8_t>& bytes);
+
+  /**
+  ** Keccak_HashSqueeze wrapper to allow mock testing (array version).
+  *
+  * @param bytes Bytes where to squeeze out the internal state of the sponge.
+  *
+  * @return The squeeze status.
+  */
+  virtual bool hashSqueeze(int8_t* bytes);
 
   /**
   ** Keccak_HashInitialize wrapper to allow mock testing.

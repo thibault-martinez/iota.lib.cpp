@@ -68,6 +68,24 @@ public:
 
 private:
   /**
+   * Absorb the input trits into the current state of the sponge (array version).
+   *
+   * @param trits Input trits to be applied (absorbed) on current state of the sponge.
+   * @param offset Offset at which the current state of the sponge should be modified.
+   * @param length Length of the given input that should be used for absorption.
+   */
+  inline void absorb(const int8_t* trits, std::size_t offset = 0, std::size_t length = 0);
+  /**
+   * Squeeze the current state of the sponge to the given trits (array version).
+   *
+   * @param trits Trits to be updated (squeezed) based on current state of the sponge.
+   * @param offset Offset at which the trits should be modified.
+   * @param length Length of the current state of the sponge that should be used for squeezing.
+   */
+  inline void squeeze(int8_t* trits, std::size_t offset = 0, std::size_t length = 0);
+
+private:
+  /**
    * Internal keccak algorithm.
    */
   Keccak384 keccak_;
