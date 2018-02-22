@@ -29,6 +29,7 @@
 #include <iota/api/responses/get_transfers.hpp>
 #include <iota/errors/illegal_state.hpp>
 #include <iota/models/bundle.hpp>
+#include <iota/models/seed.hpp>
 #include <test/utils/configuration.hpp>
 #include <test/utils/constants.hpp>
 
@@ -61,12 +62,6 @@ TEST(Extended, GetTransfers) {
   for (size_t i = 0; i < expectedBundleRes.size(); ++i) {
     EXPECT_EQ(res.getTransfers()[i], expectedBundleRes[i]);
   }
-}
-
-TEST(Extended, GetTransfersInvalidSeed) {
-  auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
-
-  EXPECT_THROW(api.getTransfers("hello", 0, 0, 2, true), IOTA::Errors::IllegalState);
 }
 
 TEST(Extended, GetTransfersInvalidSecurity) {

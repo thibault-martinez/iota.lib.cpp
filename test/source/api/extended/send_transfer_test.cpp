@@ -30,6 +30,7 @@
 #include <iota/errors/bad_request.hpp>
 #include <iota/errors/illegal_state.hpp>
 #include <iota/models/input.hpp>
+#include <iota/models/seed.hpp>
 #include <iota/models/transfer.hpp>
 #include <test/utils/configuration.hpp>
 #include <test/utils/constants.hpp>
@@ -151,22 +152,6 @@ TEST(Extended, SendTransferInvalidRemainderAddress) {
   EXPECT_EXCEPTION(
       api.sendTransfer(ACCOUNT_5_SEED, 2, 27, POW_LEVEL, transfers, inputs, "invalid__"),
       IOTA::Errors::IllegalState, "address has invalid length");
-}
-
-TEST(Extended, SendTransferInvalidSeed) {
-  IOTA::API::Extended api(get_proxy_host(), get_proxy_port(), true, 380);
-
-  IOTA::Models::Transfer transfer = { ACCOUNT_5_ADDRESS_2_HASH_WITHOUT_CHECKSUM, 42, "TESTMSG",
-                                      "TESTTAG99999999999999999999" };
-  std::vector<IOTA::Models::Transfer> transfers = { transfer };
-
-  IOTA::Models::Input input = { ACCOUNT_5_ADDRESS_1_HASH_WITHOUT_CHECKSUM, ACCOUNT_5_ADDRESS_1_FUND,
-                                0, 2 };
-  std::vector<IOTA::Models::Input> inputs = { input };
-
-  EXPECT_EXCEPTION(api.sendTransfer("invalid__", 2, 27, POW_LEVEL, transfers, inputs,
-                                    ACCOUNT_5_ADDRESS_1_HASH_WITHOUT_CHECKSUM),
-                   IOTA::Errors::IllegalState, "Invalid Seed");
 }
 
 TEST(Extended, SendTransferNoInput) {

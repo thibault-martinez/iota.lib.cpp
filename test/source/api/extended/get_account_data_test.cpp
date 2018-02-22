@@ -29,6 +29,7 @@
 #include <iota/api/responses/get_account_data.hpp>
 #include <iota/errors/illegal_state.hpp>
 #include <iota/models/bundle.hpp>
+#include <iota/models/seed.hpp>
 #include <test/utils/configuration.hpp>
 #include <test/utils/constants.hpp>
 
@@ -68,13 +69,6 @@ TEST(Extended, GetAccountData) {
   }
 
   EXPECT_EQ(res.getBalance(), ACCOUNT_2_FUND);
-}
-
-TEST(Extended, GetAccountDataInvalidSeed) {
-  auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
-
-  EXPECT_THROW(api.getAccountData("hello", 0, 2, 0, true, 0, 0, true, 0),
-               IOTA::Errors::IllegalState);
 }
 
 TEST(Extended, GetAccountDataInvalidSecurity) {

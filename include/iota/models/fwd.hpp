@@ -37,6 +37,7 @@ class Transaction;
 class Transfer;
 class Tag;
 class Address;
+class Seed;
 
 }  // namespace Models
 

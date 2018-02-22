@@ -29,6 +29,7 @@
 #include <iota/errors/illegal_state.hpp>
 #include <iota/models/bundle.hpp>
 #include <iota/models/input.hpp>
+#include <iota/models/seed.hpp>
 #include <test/utils/configuration.hpp>
 #include <test/utils/constants.hpp>
 #include <test/utils/expect_exception.hpp>
@@ -96,20 +97,6 @@ TEST(Extended, AddRemainder) {
   //! should have same bundle
   EXPECT_EQ(trx1.getBundle(), trx2.getBundle());
   EXPECT_EQ(trx1.getBundle(), trx3.getBundle());
-}
-
-TEST(Extended, AddRemainderInvalidSeed) {
-  IOTA::API::Extended api(get_proxy_host(), get_proxy_port());
-
-  auto input  = IOTA::Models::Input{ ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
-                                    ACCOUNT_1_ADDRESS_1_FUND, 0, 2 };
-  auto inputs = std::vector<IOTA::Models::Input>{ input };
-  auto bundle = IOTA::Models::Bundle{};
-
-  EXPECT_EXCEPTION(
-      api.addRemainder("hello", 2, inputs, bundle, "TESTTAG99999999999999999999", 100,
-                       ACCOUNT_1_ADDRESS_2_HASH_WITHOUT_CHECKSUM, { EMPTY_SIGNATURE_FRAGMENT }),
-      IOTA::Errors::IllegalState, "Invalid Seed");
 }
 
 TEST(Extended, AddRemainderInvalidTag) {

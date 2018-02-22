@@ -29,6 +29,7 @@
 
 #include <iota/crypto/signing.hpp>
 #include <iota/models/bundle.hpp>
+#include <iota/models/seed.hpp>
 #include <iota/types/trinary.hpp>
 #include <test/utils/configuration.hpp>
 

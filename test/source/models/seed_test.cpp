@@ -23,29 +23,25 @@
 //
 //
 
-#include <algorithm>
-#include <iterator>
-#include <random>
+#include <gtest/gtest.h>
 
 #include <iota/constants.hpp>
-#include <iota/utils/random_seed_generator.hpp>
+#include <iota/models/seed.hpp>
+#include <iota/types/trinary.hpp>
 
-namespace IOTA {
+TEST(Seed, GenerateOne) {
+  auto seed = IOTA::Models::Seed::generateRandomSeed();
 
-namespace Utils {
-
-Types::Trytes
-RandomSeedGenerator::operator()() const {
-  std::random_device                 rd;
-  std::default_random_engine         dre(rd());
-  std::uniform_int_distribution<int> uid(0, TryteAlphabetLength - 1);
-
-  Types::Trytes str;
-  str.reserve(SeedLength);
-  std::generate_n(std::back_inserter(str), SeedLength, [&]() { return TryteAlphabet[uid(dre)]; });
-  return str;
+  EXPECT_EQ(seed.toTrytes().size(), IOTA::SeedLength);
+  EXPECT_TRUE(IOTA::Types::isValidTrytes(seed.toTrytes()));
 }
 
-}  // namespace Utils
+TEST(Seed, GenerateMultiple) {
+  auto seed1 = IOTA::Models::Seed::generateRandomSeed();
+  auto seed2 = IOTA::Models::Seed::generateRandomSeed();
+  auto seed3 = IOTA::Models::Seed::generateRandomSeed();
 
-}  // namespace IOTA
+  EXPECT_NE(seed1.toTrytes(), seed2.toTrytes());
+  EXPECT_NE(seed1.toTrytes(), seed3.toTrytes());
+  EXPECT_NE(seed2.toTrytes(), seed3.toTrytes());
+}
