@@ -54,8 +54,8 @@ Kerl::squeeze(Types::Trits& trits, std::size_t offset, std::size_t length) {
     length = TritHashLength;
   if (length % TritHashLength != 0)
     throw Errors::Crypto("Kerl::squeeze failed : illegal length");
-  squeeze(trits.data(), offset, length);
   trits.resize(TritHashLength);
+  squeeze(trits.data(), offset, length);
 }
 
 /**
