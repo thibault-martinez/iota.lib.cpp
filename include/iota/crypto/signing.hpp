@@ -43,7 +43,6 @@ namespace Signing {
  *
  * @param seed The seed.
  * @param index The index of the key.
- * @param security The security level of the key.
  *
  * @return The key as trits.
  */
