@@ -1,6 +1,7 @@
 var searchData=
 [
   ['_7eaddneighbors',['~AddNeighbors',['../class_i_o_t_a_1_1_a_p_i_1_1_requests_1_1_add_neighbors.html#a4738e43540f8671015f1d99e71616c62',1,'IOTA::API::Requests::AddNeighbors::~AddNeighbors()'],['../class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_add_neighbors.html#a0fc13e2b21b52953fef8a36954ef5c54',1,'IOTA::API::Responses::AddNeighbors::~AddNeighbors()']]],
+  ['_7eaddress',['~Address',['../class_i_o_t_a_1_1_models_1_1_address.html#aa47746972ee7f98fbdb5686ace994b24',1,'IOTA::Models::Address']]],
   ['_7eattachtotangle',['~AttachToTangle',['../class_i_o_t_a_1_1_a_p_i_1_1_requests_1_1_attach_to_tangle.html#aa7c23f3f70f3b67ddbc0765d1daa1df5',1,'IOTA::API::Requests::AttachToTangle::~AttachToTangle()'],['../class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_attach_to_tangle.html#a5c0a7fcd0fa81a6705fed785f09e49cf',1,'IOTA::API::Responses::AttachToTangle::~AttachToTangle()']]],
   ['_7ebase',['~Base',['../class_i_o_t_a_1_1_a_p_i_1_1_requests_1_1_base.html#aee8f8815f16636c1643f313460c96324',1,'IOTA::API::Requests::Base::~Base()'],['../class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_base.html#a479eed3f0d928ab429a881572fce5800',1,'IOTA::API::Responses::Base::~Base()']]],
   ['_7ebroadcasttransactions',['~BroadcastTransactions',['../class_i_o_t_a_1_1_a_p_i_1_1_requests_1_1_broadcast_transactions.html#a5a7d8e4ebea1c11eacc6c99a399e6625',1,'IOTA::API::Requests::BroadcastTransactions']]],
@@ -27,13 +28,14 @@ var searchData=
   ['_7eisponge',['~ISponge',['../class_i_o_t_a_1_1_crypto_1_1_i_sponge.html#a9673b9b7c6a07d26d817d3cc4c64c0b5',1,'IOTA::Crypto::ISponge']]],
   ['_7eneighbor',['~Neighbor',['../class_i_o_t_a_1_1_models_1_1_neighbor.html#a53315023253a3b5d2cb2099214daad9e',1,'IOTA::Models::Neighbor']]],
   ['_7epow',['~Pow',['../class_i_o_t_a_1_1_crypto_1_1_pow.html#a4d3015c5dc0d68dcb2b131407d8609cf',1,'IOTA::Crypto::Pow']]],
-  ['_7erandomseedgenerator',['~RandomSeedGenerator',['../class_i_o_t_a_1_1_utils_1_1_random_seed_generator.html#a63b03982be6653e35ebb2d11a69ba5fd',1,'IOTA::Utils::RandomSeedGenerator']]],
   ['_7eremoveneighbors',['~RemoveNeighbors',['../class_i_o_t_a_1_1_a_p_i_1_1_requests_1_1_remove_neighbors.html#a3ee7c626c2f907f6892ee03297686505',1,'IOTA::API::Requests::RemoveNeighbors::~RemoveNeighbors()'],['../class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_remove_neighbors.html#a78e918b6575fdd7c1e738677755ea6af',1,'IOTA::API::Responses::RemoveNeighbors::~RemoveNeighbors()']]],
   ['_7ereplaybundle',['~ReplayBundle',['../class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_replay_bundle.html#afb9232e28c1048e61204e11806a1c29d',1,'IOTA::API::Responses::ReplayBundle']]],
+  ['_7eseed',['~Seed',['../class_i_o_t_a_1_1_models_1_1_seed.html#a2f80118390cbbedbee3bedc70bb2b97b',1,'IOTA::Models::Seed']]],
   ['_7esendtransfer',['~SendTransfer',['../class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_send_transfer.html#ac653b628b436b5981274f5bf9f4067ff',1,'IOTA::API::Responses::SendTransfer']]],
   ['_7eservice',['~Service',['../class_i_o_t_a_1_1_a_p_i_1_1_service.html#a844a11df43c2125d2730c2cf7f81a8ce',1,'IOTA::API::Service']]],
   ['_7esignature',['~Signature',['../class_i_o_t_a_1_1_models_1_1_signature.html#aa118828297e90aa4117be57954e55ae0',1,'IOTA::Models::Signature']]],
   ['_7estoretransactions',['~StoreTransactions',['../class_i_o_t_a_1_1_a_p_i_1_1_requests_1_1_store_transactions.html#ad05ffd191afb3bdf680481ac42442485',1,'IOTA::API::Requests::StoreTransactions']]],
+  ['_7etag',['~Tag',['../class_i_o_t_a_1_1_models_1_1_tag.html#a90d3710829290dbb09b1b1cd2dc9de7b',1,'IOTA::Models::Tag']]],
   ['_7etransaction',['~Transaction',['../class_i_o_t_a_1_1_models_1_1_transaction.html#a53695323fb3949101baf56c2803f1ffc',1,'IOTA::Models::Transaction']]],
   ['_7etransfer',['~Transfer',['../class_i_o_t_a_1_1_models_1_1_transfer.html#acc5abadeb82f1e1681e864d12fed90a8',1,'IOTA::Models::Transfer']]]
 ];

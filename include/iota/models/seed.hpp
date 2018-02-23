@@ -70,11 +70,6 @@ public:
    */
   void setSeed(const Types::Trytes& seed);
 
-  /**
-   * @return whether the seed is empty or not.
-   */
-  bool empty() const;
-
 public:
   /**
    * Generate seed randomly

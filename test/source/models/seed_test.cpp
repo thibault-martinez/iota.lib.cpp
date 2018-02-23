@@ -26,8 +26,10 @@
 #include <gtest/gtest.h>
 
 #include <iota/constants.hpp>
+#include <iota/errors/illegal_state.hpp>
 #include <iota/models/seed.hpp>
 #include <iota/types/trinary.hpp>
+#include <test/utils/expect_exception.hpp>
 
 TEST(Seed, GenerateOne) {
   auto seed = IOTA::Models::Seed::generateRandomSeed();
@@ -44,4 +46,114 @@ TEST(Seed, GenerateMultiple) {
   EXPECT_NE(seed1.toTrytes(), seed2.toTrytes());
   EXPECT_NE(seed1.toTrytes(), seed3.toTrytes());
   EXPECT_NE(seed2.toTrytes(), seed3.toTrytes());
+}
+
+TEST(Seed, FromCtor) {
+  IOTA::Models::Seed seedEmptyCtor;
+  EXPECT_EQ(seedEmptyCtor.toTrytes(),
+            "999999999999999999999999999999999999999999999999999999999999999999999999999999999");
+
+  IOTA::Models::Seed seedFullValidSeed("9ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+  EXPECT_EQ(seedFullValidSeed.toTrytes(),
+            "9ABCDEFGHIJKLMNOPQRSTUVWXYZ999999999999999999999999999999999999999999999999999999");
+
+  IOTA::Models::Seed seedShortSeed("ABC");
+  EXPECT_EQ(seedShortSeed.toTrytes(),
+            "ABC999999999999999999999999999999999999999999999999999999999999999999999999999999");
+
+  IOTA::Models::Seed seedTrailing9s("ABC999");
+  EXPECT_EQ(seedTrailing9s.toTrytes(),
+            "ABC999999999999999999999999999999999999999999999999999999999999999999999999999999");
+
+  EXPECT_EXCEPTION(
+      IOTA::Models::Seed seedTooLongSeed(
+          "9999999999999999999999999999999999999999999999999999999999999999999999999999999999"),
+      IOTA::Errors::IllegalState, "seed is too long");
+
+  EXPECT_EXCEPTION(
+      IOTA::Models::Seed seedInvalid(
+          "999999999999999999999999999999999999999999999999999999999999999999999999999999998"),
+      IOTA::Errors::IllegalState, "seed is not a valid trytes string");
+}
+
+TEST(Seed, FromSetter) {
+  IOTA::Models::Seed seed;
+
+  seed.setSeed("");
+  EXPECT_EQ(seed.toTrytes(),
+            "999999999999999999999999999999999999999999999999999999999999999999999999999999999");
+
+  seed.setSeed("9ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+  EXPECT_EQ(seed.toTrytes(),
+            "9ABCDEFGHIJKLMNOPQRSTUVWXYZ999999999999999999999999999999999999999999999999999999");
+
+  seed.setSeed("ABC");
+  EXPECT_EQ(seed.toTrytes(),
+            "ABC999999999999999999999999999999999999999999999999999999999999999999999999999999");
+
+  seed.setSeed("ABC999");
+  EXPECT_EQ(seed.toTrytes(),
+            "ABC999999999999999999999999999999999999999999999999999999999999999999999999999999");
+
+  EXPECT_EXCEPTION(
+      seed.setSeed(
+          "ABC9999999999999999999999999999999999999999999999999999999999999999999999999999999"),
+      IOTA::Errors::IllegalState, "seed is too long");
+  //! keeps previous value
+  EXPECT_EQ(seed.toTrytes(),
+            "ABC999999999999999999999999999999999999999999999999999999999999999999999999999999");
+
+  EXPECT_EXCEPTION(seed.setSeed("ABC8"), IOTA::Errors::IllegalState,
+                   "seed is not a valid trytes string");
+  //! keeps previous value
+  EXPECT_EQ(seed.toTrytes(),
+            "ABC999999999999999999999999999999999999999999999999999999999999999999999999999999");
+}
+
+TEST(Seed, ImplicitConversion) {
+  std::string        seedStr = "ABC999";
+  IOTA::Models::Seed seed    = seedStr;
+
+  EXPECT_EQ(seed.toTrytes(),
+            "ABC999999999999999999999999999999999999999999999999999999999999999999999999999999");
+}
+
+TEST(Seed, OperatorEq) {
+  IOTA::Models::Seed lhs_eq("SEED");
+  IOTA::Models::Seed rhs_eq("SEED999");
+  EXPECT_TRUE(lhs_eq == rhs_eq);
+
+  IOTA::Models::Seed lhs_neq("SEEDONE");
+  IOTA::Models::Seed rhs_neq("SEEDTWO999");
+  EXPECT_FALSE(lhs_neq == rhs_neq);
+}
+
+TEST(Seed, OperatorNEq) {
+  IOTA::Models::Seed lhs_eq("SEED");
+  IOTA::Models::Seed rhs_eq("SEED999");
+  EXPECT_FALSE(lhs_eq != rhs_eq);
+
+  IOTA::Models::Seed lhs_neq("SEEDONE");
+  IOTA::Models::Seed rhs_neq("SEEDTWO999");
+  EXPECT_TRUE(lhs_neq != rhs_neq);
+}
+
+TEST(Seed, OperatorEqTrytes) {
+  IOTA::Models::Seed  lhs_eq("SEED");
+  IOTA::Types::Trytes rhs_eq("SEED999");
+  EXPECT_TRUE(lhs_eq == rhs_eq);
+
+  IOTA::Models::Seed  lhs_neq("SEEDONE");
+  IOTA::Types::Trytes rhs_neq("SEEDTWO999");
+  EXPECT_FALSE(lhs_neq == rhs_neq);
+}
+
+TEST(Seed, OperatorNEqTrytes) {
+  IOTA::Models::Seed  lhs_eq("SEED");
+  IOTA::Types::Trytes rhs_eq("SEED999");
+  EXPECT_FALSE(lhs_eq != rhs_eq);
+
+  IOTA::Models::Seed  lhs_neq("SEEDONE");
+  IOTA::Types::Trytes rhs_neq("SEEDTWO999");
+  EXPECT_TRUE(lhs_neq != rhs_neq);
 }

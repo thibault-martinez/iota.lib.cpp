@@ -61,11 +61,6 @@ Seed::setSeed(const Types::Trytes& seed) {
   seed_ = Types::Utils::rightPad(seed, SeedLength, '9');
 }
 
-bool
-Seed::empty() const {
-  return seed_.empty();
-}
-
 Seed
 Seed::generateRandomSeed() {
   std::random_device                 rd;
