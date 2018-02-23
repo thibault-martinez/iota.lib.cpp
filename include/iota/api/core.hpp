@@ -174,7 +174,7 @@ public:
    * @return The response.
    */
   Responses::GetBalances getBalances(const std::vector<Models::Address>& addresses,
-                                     const int&                          threshold) const;
+                                     const int&                          threshold = 100) const;
 
   /**
    * Tip selection which returns trunkTransaction and branchTransaction. The input value is depth,

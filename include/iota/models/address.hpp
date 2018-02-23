@@ -43,15 +43,23 @@ public:
    * Ctor.
    *
    * @param address the address value. It must be a valid address. Checksum can be included.
+   * @param balance The balance associated of the address.
+   * @param keyIndex The key index of the address.
+   * @param security The security level of the address.
    */
-  Address(const Types::Trytes& address = "");
+  Address(const Types::Trytes& address = "", const int64_t& balance = 0,
+          const int32_t& keyIndex = 0, const int32_t& security = 2);
 
   /**
    * Ctor, char* based to make implicitly convertion to Address more flexible.
    *
    * @param address the address value. It must be a valid address. Checksum can be included.
+   * @param balance The balance associated of the address.
+   * @param keyIndex The key index of the address.
+   * @param security The security level of the address.
    */
-  Address(const char* address);
+  Address(const char* address, const int64_t& balance = 0, const int32_t& keyIndex = 0,
+          const int32_t& security = 2);
 
   /**
    * Default dtor.
@@ -103,6 +111,39 @@ public:
 
 public:
   /**
+   * @return Balance.
+   */
+  const int64_t& getBalance() const;
+
+  /**
+   * @param balance set new balance for input.
+   */
+  void setBalance(const int64_t& balance);
+
+public:
+  /**
+   * @return Key Index.
+   */
+  const int32_t& getKeyIndex() const;
+
+  /**
+   * @param keyIndex set new keyIndex for input in transaction.
+   */
+  void setKeyIndex(const int32_t& keyIndex);
+
+public:
+  /**
+   * @return Security.
+   */
+  const int32_t& getSecurity() const;
+
+  /**
+   * @param security set new security level for input.
+   */
+  void setSecurity(const int32_t& security);
+
+public:
+  /**
    * Comparison operator.
    *
    * @param rhs other object to compare with.
@@ -149,6 +190,21 @@ private:
    * address checksum
    */
   Types::Trytes checksum_;
+
+  /**
+   * The balance.
+   */
+  int64_t balance_ = 0;
+
+  /**
+   * The key index.
+   */
+  int32_t keyIndex_ = 0;
+
+  /**
+   * The security.
+   */
+  int32_t security_ = 0;
 };
 
 }  // namespace Models

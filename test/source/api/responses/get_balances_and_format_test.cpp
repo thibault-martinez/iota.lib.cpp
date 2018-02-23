@@ -26,7 +26,7 @@
 #include <gtest/gtest.h>
 
 #include <iota/api/responses/get_balances_and_format.hpp>
-#include <iota/models/input.hpp>
+#include <iota/models/address.hpp>
 #include <test/utils/constants.hpp>
 
 TEST(GetBalancesAndFormatResponse, DefaultCtorShouldInitFields) {
@@ -38,27 +38,27 @@ TEST(GetBalancesAndFormatResponse, DefaultCtorShouldInitFields) {
 }
 
 TEST(GetBalancesAndFormatResponse, CtorShouldInitFields) {
-  const IOTA::API::Responses::GetBalancesAndFormat res({ { ACCOUNT_1_ADDRESS_1_HASH, 1, 2, 3 },
-                                                         { ACCOUNT_1_ADDRESS_2_HASH, 4, 5, 6 },
-                                                         { ACCOUNT_1_ADDRESS_3_HASH, 7, 8, 9 } },
+  const IOTA::API::Responses::GetBalancesAndFormat res({ { ACCOUNT_1_ADDRESS_1_HASH, 1, 2, 1 },
+                                                         { ACCOUNT_1_ADDRESS_2_HASH, 4, 5, 2 },
+                                                         { ACCOUNT_1_ADDRESS_3_HASH, 7, 8, 3 } },
                                                        42, 21);
 
   ASSERT_EQ(res.getInputs().size(), 3UL);
 
-  EXPECT_EQ(res.getInputs()[0].getAddress(), IOTA::Models::Address{ ACCOUNT_1_ADDRESS_1_HASH });
+  EXPECT_EQ(res.getInputs()[0].toTrytes(), ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM);
   EXPECT_EQ(res.getInputs()[0].getBalance(), 1);
   EXPECT_EQ(res.getInputs()[0].getKeyIndex(), 2);
-  EXPECT_EQ(res.getInputs()[0].getSecurity(), 3);
+  EXPECT_EQ(res.getInputs()[0].getSecurity(), 1);
 
-  EXPECT_EQ(res.getInputs()[1].getAddress(), IOTA::Models::Address{ ACCOUNT_1_ADDRESS_2_HASH });
+  EXPECT_EQ(res.getInputs()[1].toTrytes(), ACCOUNT_1_ADDRESS_2_HASH_WITHOUT_CHECKSUM);
   EXPECT_EQ(res.getInputs()[1].getBalance(), 4);
   EXPECT_EQ(res.getInputs()[1].getKeyIndex(), 5);
-  EXPECT_EQ(res.getInputs()[1].getSecurity(), 6);
+  EXPECT_EQ(res.getInputs()[1].getSecurity(), 2);
 
-  EXPECT_EQ(res.getInputs()[2].getAddress(), IOTA::Models::Address{ ACCOUNT_1_ADDRESS_3_HASH });
+  EXPECT_EQ(res.getInputs()[2].toTrytes(), ACCOUNT_1_ADDRESS_3_HASH_WITHOUT_CHECKSUM);
   EXPECT_EQ(res.getInputs()[2].getBalance(), 7);
   EXPECT_EQ(res.getInputs()[2].getKeyIndex(), 8);
-  EXPECT_EQ(res.getInputs()[2].getSecurity(), 9);
+  EXPECT_EQ(res.getInputs()[2].getSecurity(), 3);
 
   EXPECT_EQ(res.getTotalBalance(), 42);
   EXPECT_EQ(res.getDuration(), 21);
@@ -71,7 +71,7 @@ TEST(GetBalancesAndFormatResponse, GetInputsNonConst) {
 
   ASSERT_EQ(res.getInputs().size(), 1UL);
 
-  EXPECT_EQ(res.getInputs()[0].getAddress(), IOTA::Models::Address{ ACCOUNT_1_ADDRESS_1_HASH });
+  EXPECT_EQ(res.getInputs()[0].toTrytes(), ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM);
   EXPECT_EQ(res.getInputs()[0].getBalance(), 1);
   EXPECT_EQ(res.getInputs()[0].getKeyIndex(), 2);
   EXPECT_EQ(res.getInputs()[0].getSecurity(), 3);
@@ -87,7 +87,7 @@ TEST(GetBalancesAndFormatResponse, SetInputs) {
 
   ASSERT_EQ(res.getInputs().size(), 1UL);
 
-  EXPECT_EQ(res.getInputs()[0].getAddress(), IOTA::Models::Address{ ACCOUNT_1_ADDRESS_1_HASH });
+  EXPECT_EQ(res.getInputs()[0].toTrytes(), ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM);
   EXPECT_EQ(res.getInputs()[0].getBalance(), 1);
   EXPECT_EQ(res.getInputs()[0].getKeyIndex(), 2);
   EXPECT_EQ(res.getInputs()[0].getSecurity(), 3);

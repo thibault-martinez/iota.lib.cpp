@@ -36,11 +36,12 @@ namespace IOTA {
 
 namespace Models {
 
-Seed::Seed(const Types::Trytes& seed) {
+Seed::Seed(const Types::Trytes& seed, int security) {
   setSeed(seed);
+  setSecurity(security);
 }
 
-Seed::Seed(const char* seed) : Seed(Types::Trytes(seed)) {
+Seed::Seed(const char* seed, int security) : Seed(Types::Trytes(seed), security) {
 }
 
 const Types::Trytes&
@@ -71,6 +72,21 @@ Seed::generateRandomSeed() {
   str.reserve(SeedLength);
   std::generate_n(std::back_inserter(str), SeedLength, [&]() { return TryteAlphabet[uid(dre)]; });
   return str;
+}
+
+void
+Seed::setSecurity(int security) {
+  //! Validate the security level
+  if (security < 1 || security > 3) {
+    throw Errors::IllegalState("Invalid Security Level");
+  }
+
+  security_ = security;
+}
+
+int
+Seed::getSecurity() const {
+  return security_;
 }
 
 bool

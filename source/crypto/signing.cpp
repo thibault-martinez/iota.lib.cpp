@@ -42,7 +42,7 @@ namespace Signing {
 static const int NormalizedTryteValueUpperBound = 13;
 
 Types::Trits
-key(const Models::Seed& seed, const unsigned int& index, const unsigned int& security) {
+key(const Models::Seed& seed, const unsigned int& index) {
   Kerl         k;
   Types::Trits seedTrits = Types::trytesToTrits(seed.toTrytes());
 
@@ -64,7 +64,7 @@ key(const Models::Seed& seed, const unsigned int& index, const unsigned int& sec
   Types::Trits keyTrits;
   Types::Trits trits;
 
-  for (unsigned int i = 0; i < security; ++i) {
+  for (int i = 0; i < seed.getSecurity(); ++i) {
     for (unsigned int j = 0; j < FragmentLength; ++j) {
       k.squeeze(trits);
       keyTrits.insert(std::end(keyTrits), std::begin(trits), std::end(trits));

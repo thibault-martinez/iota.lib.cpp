@@ -28,14 +28,14 @@
 #include <iota/api/extended.hpp>
 #include <iota/api/responses/get_balances_and_format.hpp>
 #include <iota/errors/illegal_state.hpp>
-#include <iota/models/input.hpp>
+#include <iota/models/address.hpp>
 #include <test/utils/configuration.hpp>
 #include <test/utils/constants.hpp>
 
 TEST(Extended, GetBalancesAndFormat) {
   auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
   auto res = api.getBalancesAndFormat(
-      { ACCOUNT_2_ADDRESS_1_HASH, ACCOUNT_2_ADDRESS_2_HASH, ACCOUNT_2_ADDRESS_3_HASH }, 0, 0, 2);
+      { ACCOUNT_2_ADDRESS_1_HASH, ACCOUNT_2_ADDRESS_2_HASH, ACCOUNT_2_ADDRESS_3_HASH }, 0, 0);
 
   //! address 1 has 0 iota, should not be returned as input
 
@@ -43,25 +43,16 @@ TEST(Extended, GetBalancesAndFormat) {
   ASSERT_EQ(res.getInputs().size(), 2UL);
 
   const auto& input_1 = res.getInputs()[0];
-  EXPECT_EQ(input_1.getAddress(), ACCOUNT_2_ADDRESS_2_HASH);
+  EXPECT_EQ(input_1.toTrytes(), ACCOUNT_2_ADDRESS_2_HASH_WITHOUT_CHECKSUM);
   EXPECT_EQ(input_1.getBalance(), ACCOUNT_2_ADDRESS_2_FUND);
   EXPECT_EQ(input_1.getKeyIndex(), 1);  //! still note the offset is shifted by one
-  EXPECT_EQ(input_1.getSecurity(), 2);
+  EXPECT_EQ(input_1.getSecurity(), 2);  //! security is untouched
 
   const auto& input_2 = res.getInputs()[1];
-  EXPECT_EQ(input_2.getAddress(), ACCOUNT_2_ADDRESS_3_HASH);
+  EXPECT_EQ(input_2.toTrytes(), ACCOUNT_2_ADDRESS_3_HASH_WITHOUT_CHECKSUM);
   EXPECT_EQ(input_2.getBalance(), ACCOUNT_2_ADDRESS_3_FUND);
   EXPECT_EQ(input_2.getKeyIndex(), 2);  //! still note the offset is shifted by one
-  EXPECT_EQ(input_2.getSecurity(), 2);
-}
-
-TEST(Extended, GetBalancesAndFormatInvalidSecurity) {
-  auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
-
-  EXPECT_THROW(api.getBalancesAndFormat(
-                   { ACCOUNT_2_ADDRESS_1_HASH, ACCOUNT_2_ADDRESS_2_HASH, ACCOUNT_2_ADDRESS_3_HASH },
-                   0, 0, 0),
-               IOTA::Errors::IllegalState);
+  EXPECT_EQ(input_2.getSecurity(), 2);  //! security is untouched
 }
 
 TEST(Extended, GetBalancesAndFormatInvalidBalance) {
@@ -69,14 +60,14 @@ TEST(Extended, GetBalancesAndFormatInvalidBalance) {
 
   EXPECT_THROW(api.getBalancesAndFormat(
                    { ACCOUNT_2_ADDRESS_1_HASH, ACCOUNT_2_ADDRESS_2_HASH, ACCOUNT_2_ADDRESS_3_HASH },
-                   717650144175136, 0, 2),
+                   717650144175136, 0),
                IOTA::Errors::IllegalState);
 }
 
 TEST(Extended, GetBalancesAndFormatStart) {
   auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
   auto res = api.getBalancesAndFormat(
-      { ACCOUNT_2_ADDRESS_1_HASH, ACCOUNT_2_ADDRESS_2_HASH, ACCOUNT_2_ADDRESS_3_HASH }, 0, 10, 2);
+      { ACCOUNT_2_ADDRESS_1_HASH, ACCOUNT_2_ADDRESS_2_HASH, ACCOUNT_2_ADDRESS_3_HASH }, 0, 10);
 
   //! address 1 has 0 iota, should not be returned as input
 
@@ -84,14 +75,14 @@ TEST(Extended, GetBalancesAndFormatStart) {
   ASSERT_EQ(res.getInputs().size(), 2UL);
 
   const auto& input_1 = res.getInputs()[0];
-  EXPECT_EQ(input_1.getAddress(), ACCOUNT_2_ADDRESS_2_HASH);
+  EXPECT_EQ(input_1.toTrytes(), ACCOUNT_2_ADDRESS_2_HASH_WITHOUT_CHECKSUM);
   EXPECT_EQ(input_1.getBalance(), ACCOUNT_2_ADDRESS_2_FUND);
   EXPECT_EQ(input_1.getKeyIndex(), 11);  //! still note the offset is shifted by one
-  EXPECT_EQ(input_1.getSecurity(), 2);
+  EXPECT_EQ(input_1.getSecurity(), 2);   //! security is untouched
 
   const auto& input_2 = res.getInputs()[1];
-  EXPECT_EQ(input_2.getAddress(), ACCOUNT_2_ADDRESS_3_HASH);
+  EXPECT_EQ(input_2.toTrytes(), ACCOUNT_2_ADDRESS_3_HASH_WITHOUT_CHECKSUM);
   EXPECT_EQ(input_2.getBalance(), ACCOUNT_2_ADDRESS_3_FUND);
   EXPECT_EQ(input_2.getKeyIndex(), 12);  //! still note the offset is shifted by one
-  EXPECT_EQ(input_2.getSecurity(), 2);
+  EXPECT_EQ(input_2.getSecurity(), 2);   //! security is untouched
 }

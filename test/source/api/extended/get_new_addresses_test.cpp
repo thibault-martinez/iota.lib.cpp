@@ -33,20 +33,10 @@
 #include <test/utils/constants.hpp>
 #include <test/utils/expect_exception.hpp>
 
-TEST(Extended, GetNewAddressesInvalidSecurityLevel) {
-  auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
-
-  EXPECT_EXCEPTION(api.getNewAddresses(ACCOUNT_1_SEED, 0, -1, 0, false), IOTA::Errors::IllegalState,
-                   "Invalid Security Level");
-
-  EXPECT_EXCEPTION(api.getNewAddresses(ACCOUNT_1_SEED, 0, 4, 0, false), IOTA::Errors::IllegalState,
-                   "Invalid Security Level");
-}
-
 TEST(Extended, GetNewAddressesTotalReturnAll) {
   auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
 
-  auto res = api.getNewAddresses(ACCOUNT_1_SEED, 0, 2, 7, true);
+  auto res = api.getNewAddresses(ACCOUNT_1_SEED, 0, 7, true);
 
   EXPECT_EQ(res.getAddresses().size(), 7UL);
   EXPECT_EQ(res.getAddresses()[0], ACCOUNT_1_ADDRESS_1_HASH);
@@ -61,7 +51,7 @@ TEST(Extended, GetNewAddressesTotalReturnAll) {
 TEST(Extended, GetNewAddressesTotalReturnOne) {
   auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
 
-  auto res = api.getNewAddresses(ACCOUNT_1_SEED, 0, 2, 7, false);
+  auto res = api.getNewAddresses(ACCOUNT_1_SEED, 0, 7, false);
 
   EXPECT_EQ(res.getAddresses().size(), 1UL);
   EXPECT_EQ(res.getAddresses()[0], ACCOUNT_1_ADDRESS_7_HASH_WITHOUT_CHECKSUM);
@@ -70,7 +60,7 @@ TEST(Extended, GetNewAddressesTotalReturnOne) {
 TEST(Extended, GetNewAddressesNoTotalReturnAll) {
   auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
 
-  auto res = api.getNewAddresses(ACCOUNT_1_SEED, 0, 2, 0, true);
+  auto res = api.getNewAddresses(ACCOUNT_1_SEED, 0, 0, true);
 
   EXPECT_EQ(res.getAddresses().size(), 7UL);
   EXPECT_EQ(res.getAddresses()[0], ACCOUNT_1_ADDRESS_1_HASH);
@@ -85,7 +75,7 @@ TEST(Extended, GetNewAddressesNoTotalReturnAll) {
 TEST(Extended, GetNewAddressesNoTotalReturnOne) {
   auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
 
-  auto res = api.getNewAddresses(ACCOUNT_1_SEED, 0, 2, 0, false);
+  auto res = api.getNewAddresses(ACCOUNT_1_SEED, 0, 0, false);
 
   EXPECT_EQ(res.getAddresses().size(), 1UL);
   EXPECT_EQ(res.getAddresses()[0], ACCOUNT_1_ADDRESS_7_HASH_WITHOUT_CHECKSUM);

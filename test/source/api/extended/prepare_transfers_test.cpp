@@ -27,7 +27,7 @@
 
 #include <iota/api/extended.hpp>
 #include <iota/errors/illegal_state.hpp>
-#include <iota/models/input.hpp>
+#include <iota/models/address.hpp>
 #include <iota/models/seed.hpp>
 #include <iota/models/transaction.hpp>
 #include <iota/models/transfer.hpp>
@@ -42,11 +42,11 @@ TEST(Extended, PrepareTransfers) {
                                           "TESTTAG99999999999999999999" };
   auto transfers = std::vector<IOTA::Models::Transfer>{ transfer };
 
-  auto input  = IOTA::Models::Input{ ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
-                                    ACCOUNT_1_ADDRESS_1_FUND, 0, 2 };
-  auto inputs = std::vector<IOTA::Models::Input>{ input };
+  auto input  = IOTA::Models::Address{ ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
+                                      ACCOUNT_1_ADDRESS_1_FUND, 0, 2 };
+  auto inputs = std::vector<IOTA::Models::Address>{ input };
 
-  auto res = api.prepareTransfers(ACCOUNT_1_SEED, 2, transfers,
+  auto res = api.prepareTransfers(ACCOUNT_1_SEED, transfers,
                                   ACCOUNT_1_ADDRESS_2_HASH_WITHOUT_CHECKSUM, inputs, true);
 
   ASSERT_EQ(res.size(), 4UL);
@@ -152,11 +152,11 @@ TEST(Extended, PrepareTransfersWithChecksum) {
                                           "TESTTAG99999999999999999999" };
   auto transfers = std::vector<IOTA::Models::Transfer>{ transfer };
 
-  auto input  = IOTA::Models::Input{ ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
-                                    ACCOUNT_1_ADDRESS_1_FUND, 0, 2 };
-  auto inputs = std::vector<IOTA::Models::Input>{ input };
+  auto input  = IOTA::Models::Address{ ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
+                                      ACCOUNT_1_ADDRESS_1_FUND, 0, 2 };
+  auto inputs = std::vector<IOTA::Models::Address>{ input };
 
-  auto res = api.prepareTransfers(ACCOUNT_1_SEED, 2, transfers,
+  auto res = api.prepareTransfers(ACCOUNT_1_SEED, transfers,
                                   ACCOUNT_1_ADDRESS_2_HASH_WITHOUT_CHECKSUM, inputs, true);
 
   ASSERT_EQ(res.size(), 4UL);
@@ -261,11 +261,11 @@ TEST(Extended, PrepareTransfersNoRemainderAddress) {
                                           "TESTTAG99999999999999999999" };
   auto transfers = std::vector<IOTA::Models::Transfer>{ transfer };
 
-  auto input  = IOTA::Models::Input{ ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
-                                    ACCOUNT_1_ADDRESS_1_FUND, 0, 2 };
-  auto inputs = std::vector<IOTA::Models::Input>{ input };
+  auto input  = IOTA::Models::Address{ ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
+                                      ACCOUNT_1_ADDRESS_1_FUND, 0, 2 };
+  auto inputs = std::vector<IOTA::Models::Address>{ input };
 
-  auto res = api.prepareTransfers(ACCOUNT_1_SEED, 2, transfers, "", inputs, true);
+  auto res = api.prepareTransfers(ACCOUNT_1_SEED, transfers, "", inputs, true);
 
   ASSERT_EQ(res.size(), 4UL);
   auto trx1 = IOTA::Models::Transaction{ res[0] };
@@ -367,11 +367,11 @@ TEST(Extended, PrepareTransfersNoTransfer) {
 
   auto transfers = std::vector<IOTA::Models::Transfer>{};
 
-  auto input  = IOTA::Models::Input{ ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
-                                    ACCOUNT_1_ADDRESS_1_FUND, 0, 2 };
-  auto inputs = std::vector<IOTA::Models::Input>{ input };
+  auto input  = IOTA::Models::Address{ ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
+                                      ACCOUNT_1_ADDRESS_1_FUND, 0, 2 };
+  auto inputs = std::vector<IOTA::Models::Address>{ input };
 
-  auto res = api.prepareTransfers(ACCOUNT_1_SEED, 2, transfers,
+  auto res = api.prepareTransfers(ACCOUNT_1_SEED, transfers,
                                   ACCOUNT_1_ADDRESS_2_HASH_WITHOUT_CHECKSUM, inputs, true);
 
   ASSERT_EQ(res.size(), 0UL);
@@ -383,11 +383,11 @@ TEST(Extended, PrepareTransfersInvalidTransferAddress) {
   auto transfer  = IOTA::Models::Transfer{ "", 100, "TESTMSG", "TESTTAG99999999999999999999" };
   auto transfers = std::vector<IOTA::Models::Transfer>{ transfer };
 
-  auto input  = IOTA::Models::Input{ ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
-                                    ACCOUNT_1_ADDRESS_1_FUND, 0, 2 };
-  auto inputs = std::vector<IOTA::Models::Input>{ input };
+  auto input  = IOTA::Models::Address{ ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
+                                      ACCOUNT_1_ADDRESS_1_FUND, 0, 2 };
+  auto inputs = std::vector<IOTA::Models::Address>{ input };
 
-  EXPECT_EXCEPTION(api.prepareTransfers(ACCOUNT_1_SEED, 2, transfers,
+  EXPECT_EXCEPTION(api.prepareTransfers(ACCOUNT_1_SEED, transfers,
                                         ACCOUNT_1_ADDRESS_2_HASH_WITHOUT_CHECKSUM, inputs, true),
                    IOTA::Errors::IllegalState, "Invalid Transfer");
 }
@@ -399,11 +399,11 @@ TEST(Extended, PrepareTransfersInvalidTransferMsg) {
                                           "invalid__", "TESTTAG99999999999999999999" };
   auto transfers = std::vector<IOTA::Models::Transfer>{ transfer };
 
-  auto input  = IOTA::Models::Input{ ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
-                                    ACCOUNT_1_ADDRESS_1_FUND, 0, 2 };
-  auto inputs = std::vector<IOTA::Models::Input>{ input };
+  auto input  = IOTA::Models::Address{ ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
+                                      ACCOUNT_1_ADDRESS_1_FUND, 0, 2 };
+  auto inputs = std::vector<IOTA::Models::Address>{ input };
 
-  EXPECT_EXCEPTION(api.prepareTransfers(ACCOUNT_1_SEED, 2, transfers,
+  EXPECT_EXCEPTION(api.prepareTransfers(ACCOUNT_1_SEED, transfers,
                                         ACCOUNT_1_ADDRESS_2_HASH_WITHOUT_CHECKSUM, inputs, true),
                    IOTA::Errors::IllegalState, "Invalid Transfer");
 }
@@ -415,11 +415,11 @@ TEST(Extended, PrepareTransfersInvalidRemainder) {
                                           "TESTTAG99999999999999999999" };
   auto transfers = std::vector<IOTA::Models::Transfer>{ transfer };
 
-  auto input  = IOTA::Models::Input{ ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
-                                    ACCOUNT_1_ADDRESS_1_FUND, 0, 2 };
-  auto inputs = std::vector<IOTA::Models::Input>{ input };
+  auto input  = IOTA::Models::Address{ ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
+                                      ACCOUNT_1_ADDRESS_1_FUND, 0, 2 };
+  auto inputs = std::vector<IOTA::Models::Address>{ input };
 
-  EXPECT_EXCEPTION(api.prepareTransfers(ACCOUNT_1_SEED, 2, transfers, "hello", inputs, true),
+  EXPECT_EXCEPTION(api.prepareTransfers(ACCOUNT_1_SEED, transfers, "hello", inputs, true),
                    IOTA::Errors::IllegalState, "address has invalid length");
 }
 
@@ -431,11 +431,11 @@ TEST(Extended, PrepareTransfersNotEnoughFund) {
                                           "TESTTAG99999999999999999999" };
   auto transfers = std::vector<IOTA::Models::Transfer>{ transfer };
 
-  auto input  = IOTA::Models::Input{ ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
-                                    ACCOUNT_1_ADDRESS_1_FUND, 0, 2 };
-  auto inputs = std::vector<IOTA::Models::Input>{ input };
+  auto input  = IOTA::Models::Address{ ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
+                                      ACCOUNT_1_ADDRESS_1_FUND, 0, 2 };
+  auto inputs = std::vector<IOTA::Models::Address>{ input };
 
-  EXPECT_EXCEPTION(api.prepareTransfers(ACCOUNT_1_SEED, 2, transfers,
+  EXPECT_EXCEPTION(api.prepareTransfers(ACCOUNT_1_SEED, transfers,
                                         ACCOUNT_1_ADDRESS_2_HASH_WITHOUT_CHECKSUM, inputs, true),
                    IOTA::Errors::IllegalState, "Not enough balance");
 }
@@ -448,11 +448,11 @@ TEST(Extended, PrepareTransfersNotEnoughFundWithoutCheckAndFakeBalance) {
                                           "TESTTAG99999999999999999999" };
   auto transfers = std::vector<IOTA::Models::Transfer>{ transfer };
 
-  auto input  = IOTA::Models::Input{ ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
-                                    ACCOUNT_1_ADDRESS_1_FUND + 1, 0, 2 };
-  auto inputs = std::vector<IOTA::Models::Input>{ input };
+  auto input  = IOTA::Models::Address{ ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
+                                      ACCOUNT_1_ADDRESS_1_FUND + 1, 0, 2 };
+  auto inputs = std::vector<IOTA::Models::Address>{ input };
 
-  auto res = api.prepareTransfers(ACCOUNT_1_SEED, 2, transfers,
+  auto res = api.prepareTransfers(ACCOUNT_1_SEED, transfers,
                                   ACCOUNT_1_ADDRESS_2_HASH_WITHOUT_CHECKSUM, inputs, false);
 
   ASSERT_EQ(res.size(), 3UL);
@@ -542,11 +542,11 @@ TEST(Extended, PrepareTransfersNotEnoughFundWithFakeBalanceAndCheck) {
                                           "TESTTAG99999999999999999999" };
   auto transfers = std::vector<IOTA::Models::Transfer>{ transfer };
 
-  auto input  = IOTA::Models::Input{ ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
-                                    ACCOUNT_1_ADDRESS_1_FUND + 1, 0, 2 };
-  auto inputs = std::vector<IOTA::Models::Input>{ input };
+  auto input  = IOTA::Models::Address{ ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
+                                      ACCOUNT_1_ADDRESS_1_FUND + 1, 0, 2 };
+  auto inputs = std::vector<IOTA::Models::Address>{ input };
 
-  EXPECT_EXCEPTION(api.prepareTransfers(ACCOUNT_1_SEED, 2, transfers,
+  EXPECT_EXCEPTION(api.prepareTransfers(ACCOUNT_1_SEED, transfers,
                                         ACCOUNT_1_ADDRESS_2_HASH_WITHOUT_CHECKSUM, inputs, true),
                    IOTA::Errors::IllegalState, "Not enough balance");
 }
@@ -558,10 +558,10 @@ TEST(Extended, PrepareTransfersNotKnowingBalance) {
                                           "TESTTAG99999999999999999999" };
   auto transfers = std::vector<IOTA::Models::Transfer>{ transfer };
 
-  auto input  = IOTA::Models::Input{ ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM, 0, 0, 2 };
-  auto inputs = std::vector<IOTA::Models::Input>{ input };
+  auto input  = IOTA::Models::Address{ ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM, 0, 0, 2 };
+  auto inputs = std::vector<IOTA::Models::Address>{ input };
 
-  auto res = api.prepareTransfers(ACCOUNT_1_SEED, 2, transfers,
+  auto res = api.prepareTransfers(ACCOUNT_1_SEED, transfers,
                                   ACCOUNT_1_ADDRESS_2_HASH_WITHOUT_CHECKSUM, inputs, true);
 
   ASSERT_EQ(res.size(), 4UL);
@@ -666,9 +666,9 @@ TEST(Extended, PrepareTransfersNoInput) {
                                           "TESTTAG99999999999999999999" };
   auto transfers = std::vector<IOTA::Models::Transfer>{ transfer };
 
-  auto inputs = std::vector<IOTA::Models::Input>{};
+  auto inputs = std::vector<IOTA::Models::Address>{};
 
-  auto res = api.prepareTransfers(ACCOUNT_1_SEED, 2, transfers,
+  auto res = api.prepareTransfers(ACCOUNT_1_SEED, transfers,
                                   ACCOUNT_1_ADDRESS_2_HASH_WITHOUT_CHECKSUM, inputs, true);
 
   ASSERT_EQ(res.size(), 4UL);
@@ -774,11 +774,11 @@ TEST(Extended, PrepareTransfersInputSecurity) {
                                           "TESTTAG99999999999999999999" };
   auto transfers = std::vector<IOTA::Models::Transfer>{ transfer };
 
-  auto input  = IOTA::Models::Input{ ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
-                                    ACCOUNT_1_ADDRESS_1_FUND, 0, 3 };
-  auto inputs = std::vector<IOTA::Models::Input>{ input };
+  auto input  = IOTA::Models::Address{ ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
+                                      ACCOUNT_1_ADDRESS_1_FUND, 0, 3 };
+  auto inputs = std::vector<IOTA::Models::Address>{ input };
 
-  auto res = api.prepareTransfers(ACCOUNT_1_SEED, 3, transfers,
+  auto res = api.prepareTransfers(ACCOUNT_1_SEED, transfers,
                                   ACCOUNT_1_ADDRESS_2_HASH_WITHOUT_CHECKSUM, inputs, true);
 
   ASSERT_EQ(res.size(), 5UL);
@@ -893,22 +893,6 @@ TEST(Extended, PrepareTransfersInputSecurity) {
   EXPECT_EQ(transfers[0].getAddress(), ACCOUNT_2_ADDRESS_1_HASH_WITHOUT_CHECKSUM);
 }
 
-TEST(Extended, PrepareTransfersInvalidSecurityLevel) {
-  auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
-
-  auto transfer = IOTA::Models::Transfer{ ACCOUNT_2_ADDRESS_1_HASH_WITHOUT_CHECKSUM, 100, "TESTMSG",
-                                          "TESTTAG99999999999999999999" };
-  auto transfers = std::vector<IOTA::Models::Transfer>{ transfer };
-
-  auto input  = IOTA::Models::Input{ ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
-                                    ACCOUNT_1_ADDRESS_1_FUND, 0, 2 };
-  auto inputs = std::vector<IOTA::Models::Input>{ input };
-
-  EXPECT_EXCEPTION(api.prepareTransfers(ACCOUNT_1_SEED, 42, transfers,
-                                        ACCOUNT_1_ADDRESS_2_HASH_WITHOUT_CHECKSUM, inputs, true),
-                   IOTA::Errors::IllegalState, "Invalid Security Level");
-}
-
 TEST(Extended, PrepareTransfersZeroTransfer) {
   auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
 
@@ -916,11 +900,11 @@ TEST(Extended, PrepareTransfersZeroTransfer) {
                                           "TESTTAG99999999999999999999" };
   auto transfers = std::vector<IOTA::Models::Transfer>{ transfer };
 
-  auto input  = IOTA::Models::Input{ ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
-                                    ACCOUNT_1_ADDRESS_1_FUND, 0, 2 };
-  auto inputs = std::vector<IOTA::Models::Input>{ input };
+  auto input  = IOTA::Models::Address{ ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
+                                      ACCOUNT_1_ADDRESS_1_FUND, 0, 2 };
+  auto inputs = std::vector<IOTA::Models::Address>{ input };
 
-  auto res = api.prepareTransfers(ACCOUNT_1_SEED, 2, transfers,
+  auto res = api.prepareTransfers(ACCOUNT_1_SEED, transfers,
                                   ACCOUNT_1_ADDRESS_2_HASH_WITHOUT_CHECKSUM, inputs, true);
 
   ASSERT_EQ(res.size(), 1UL);
@@ -976,9 +960,9 @@ TEST(Extended, PrepareTransfersZeroTransferNoInput) {
                                           "TESTTAG99999999999999999999" };
   auto transfers = std::vector<IOTA::Models::Transfer>{ transfer };
 
-  auto inputs = std::vector<IOTA::Models::Input>{};
+  auto inputs = std::vector<IOTA::Models::Address>{};
 
-  auto res = api.prepareTransfers(ACCOUNT_1_SEED, 2, transfers,
+  auto res = api.prepareTransfers(ACCOUNT_1_SEED, transfers,
                                   ACCOUNT_1_ADDRESS_2_HASH_WITHOUT_CHECKSUM, inputs, true);
 
   ASSERT_EQ(res.size(), 1UL);
@@ -1060,11 +1044,11 @@ TEST(Extended, PrepareTransfersTooLongMessage) {
   };
   auto transfers = std::vector<IOTA::Models::Transfer>{ transfer };
 
-  auto input  = IOTA::Models::Input{ ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
-                                    ACCOUNT_1_ADDRESS_1_FUND, 0, 2 };
-  auto inputs = std::vector<IOTA::Models::Input>{ input };
+  auto input  = IOTA::Models::Address{ ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
+                                      ACCOUNT_1_ADDRESS_1_FUND, 0, 2 };
+  auto inputs = std::vector<IOTA::Models::Address>{ input };
 
-  auto res = api.prepareTransfers(ACCOUNT_1_SEED, 2, transfers,
+  auto res = api.prepareTransfers(ACCOUNT_1_SEED, transfers,
                                   ACCOUNT_1_ADDRESS_2_HASH_WITHOUT_CHECKSUM, inputs, true);
 
   ASSERT_EQ(res.size(), 5UL);

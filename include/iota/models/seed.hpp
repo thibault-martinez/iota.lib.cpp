@@ -42,15 +42,17 @@ public:
    * Ctor.
    *
    * @param seed the seed value. It must be a valid seed.
+   * @param security Security level of the seed. Must be between 1 (low, fast) and 3 (high slow).
    */
-  Seed(const Types::Trytes& seed = "");
+  Seed(const Types::Trytes& seed = "", int security = 2);
 
   /**
    * Ctor, char* based to make implicitly convertion to Seed more flexible.
    *
    * @param seed the seed value. It must be a valid seed.
+   * @param security Security level of the seed. Must be between 1 (low, fast) and 3 (high slow).
    */
-  Seed(const char* seed);
+  Seed(const char* seed, int security = 2);
 
   /**
    * Default dtor.
@@ -69,6 +71,19 @@ public:
    * @param seed the seed value. It must be a valid seed.
    */
   void setSeed(const Types::Trytes& seed);
+
+  /**
+   * Set the seed security.
+   * Must be between 1 (low, fast) and 3 (high slow).
+   *
+   * @param security the new security level of the seed.
+   */
+  void setSecurity(int security);
+
+  /**
+   * @return the security level of the seed
+   */
+  int getSecurity() const;
 
 public:
   /**
@@ -117,9 +132,13 @@ public:
 
 private:
   /**
-   * seed value without checksum
+   * seed value
    */
   Types::Trytes seed_;
+  /**
+   * security level of the seem
+   */
+  int security_;
 };
 
 }  // namespace Models

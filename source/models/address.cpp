@@ -32,11 +32,16 @@ namespace IOTA {
 
 namespace Models {
 
-Address::Address(const Types::Trytes& address) {
+Address::Address(const Types::Trytes& address, const int64_t& balance, const int32_t& keyIndex,
+                 const int32_t& security)
+    : balance_(balance), keyIndex_(keyIndex) {
   setAddress(address);
+  setSecurity(security);
 }
 
-Address::Address(const char* address) : Address(Types::Trytes(address)) {
+Address::Address(const char* address, const int64_t& balance, const int32_t& keyIndex,
+                 const int32_t& security)
+    : Address(Types::Trytes(address), balance, keyIndex, security) {
 }
 
 const Types::Trytes&
@@ -88,6 +93,41 @@ Address::getChecksum(bool validChecksum) {
   }
 
   return checksum_;
+}
+
+const int64_t&
+Address::getBalance() const {
+  return balance_;
+}
+
+void
+Address::setBalance(const int64_t& balance) {
+  balance_ = balance;
+}
+
+const int32_t&
+Address::getKeyIndex() const {
+  return keyIndex_;
+}
+
+void
+Address::setKeyIndex(const int32_t& keyIndex) {
+  keyIndex_ = keyIndex;
+}
+
+const int32_t&
+Address::getSecurity() const {
+  return security_;
+}
+
+void
+Address::setSecurity(const int32_t& security) {
+  //! Validate the security level
+  if (security < 1 || security > 3) {
+    throw Errors::IllegalState("Invalid Security Level");
+  }
+
+  security_ = security;
 }
 
 bool

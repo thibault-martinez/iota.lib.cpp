@@ -47,8 +47,7 @@ namespace Signing {
  *
  * @return The key as trits.
  */
-Types::Trits key(const Models::Seed& seed, const unsigned int& index = 0,
-                 const unsigned int& security = 1);
+Types::Trits key(const Models::Seed& seed, const unsigned int& index = 0);
 
 /**
  * Compute hash x normalizedBundleFragment[i] for each fragment in the signature.

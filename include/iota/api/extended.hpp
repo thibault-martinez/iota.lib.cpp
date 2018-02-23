@@ -64,7 +64,6 @@ public:
    * getBalances), or by providing a key range to use for searching through.
    *
    * @param seed      Tryte-encoded seed. It should be noted that this seed is not transferred.
-   * @param security  The Security level of private key / seed.
    * @param start     Starting key index.
    * @param end       Ending key index.
    * @param threshold Min balance required.
@@ -72,8 +71,7 @@ public:
    * @return The inputs.
    */
   Responses::GetBalancesAndFormat getInputs(const Models::Seed& seed, const int32_t& start,
-                                            const int32_t& end, const int32_t& security,
-                                            const int64_t& threshold) const;
+                                            const int32_t& end, const int64_t& threshold) const;
 
   /**
    * Gets the balances and formats the output.
@@ -83,21 +81,18 @@ public:
    *                  until the threshold is reached. If threshold is > 0 and is not reached,
    *                  Not Enough Balance exception is raised.
    * @param start     Starting key index.
-   * @param stopWatch the stopwatch.
-   * @param security  The security level of private key / seed.
    *
    * @return Inputs object.
    **/
   Responses::GetBalancesAndFormat getBalancesAndFormat(
-      const std::vector<Models::Address>& addresses, const int64_t& threshold, const int32_t& start,
-      const int32_t& security, const Utils::StopWatch& stopWatch = {}) const;
+      const std::vector<Models::Address>& addresses, const int64_t& threshold,
+      const int32_t& start) const;
 
   /**
    * Generates a new address from a seed and returns the remainderAddress.
    * This is either done deterministically, or by providing the index of the new remainderAddress.
    *
    * @param seed      Tryte-encoded seed. It should be noted that this seed is not transferred.
-   * @param security  Security level to be used for the private key / address. Can be 1, 2 or 3.
    * @param index     Key index to start search from. If the index is provided, the generation of
    * the address is not deterministic.
    * @param total     Total number of addresses to generate.
@@ -107,8 +102,8 @@ public:
    * @return An array of strings with the specifed number of addresses.
    */
   Responses::GetNewAddresses getNewAddresses(const Models::Seed& seed, const uint32_t& index = 0,
-                                             const int32_t& security = 2, const int32_t& total = 0,
-                                             bool returnAll = false) const;
+                                             const int32_t& total     = 0,
+                                             bool           returnAll = false) const;
 
   /**
    * Basically traverse the Bundle by going down the trunkTransactions until
@@ -193,7 +188,6 @@ public:
    * transaction data (trytes).
    *
    * @param seed      81-tryte encoded address of recipient.
-   * @param security  The security level of private key / seed.
    * @param transfers Array of transfer objects.
    * @param remainder If defined, this address will be used for sending the remainder value (of the
    * inputs) to.
@@ -202,10 +196,10 @@ public:
    *
    * @return Returns bundle trytes.
    */
-  std::vector<Types::Trytes> prepareTransfers(const Models::Seed& seed, int security,
+  std::vector<Types::Trytes> prepareTransfers(const Models::Seed&                  seed,
                                               const std::vector<Models::Transfer>& transfers,
                                               const Models::Address&               remainder,
-                                              const std::vector<Models::Input>&    inputs,
+                                              const std::vector<Models::Address>&  inputs,
                                               bool validateInputs = true) const;
 
   /**
@@ -227,14 +221,13 @@ public:
    *
    * @param seed            Tryte-encoded seed. It should be noted that this seed is not
    * transferred.
-   * @param security        The security level of private key / seed.
    * @param start           Starting key index.
    * @param end             Ending key index.
    * @param inclusionStates If <code>true</code>, it gets the inclusion states of the transfers.
    *
    * @return Bundle of transfers.
    */
-  Responses::GetTransfers getTransfers(const Models::Seed& seed, int start, int end, int security,
+  Responses::GetTransfers getTransfers(const Models::Seed& seed, int start, int end,
                                        bool inclusionStates) const;
 
   /**
@@ -242,7 +235,6 @@ public:
    * it broadcasts and stores the transactions locally.
    *
    * @param seed               Tryte-encoded seed
-   * @param security           The security level of private key / seed.
    * @param depth              The depth.
    * @param minWeightMagnitude The minimum weight magnitude.
    * @param transfers          Array of transfer objects.
@@ -252,11 +244,10 @@ public:
    *
    * @return Array of Transaction objects.
    */
-  Responses::SendTransfer sendTransfer(const Models::Seed& seed, int security, int depth,
-                                       int                               minWeightMagnitude,
-                                       std::vector<Models::Transfer>&    transfers,
-                                       const std::vector<Models::Input>& inputs,
-                                       const Models::Address&            address) const;
+  Responses::SendTransfer sendTransfer(const Models::Seed& seed, int depth, int minWeightMagnitude,
+                                       std::vector<Models::Transfer>&      transfers,
+                                       const std::vector<Models::Address>& inputs,
+                                       const Models::Address&              address) const;
 
   /**
    * Wrapper function that gets transactions to approve, attaches to Tangle, broadcasts and stores.
@@ -327,7 +318,6 @@ public:
    * transferred.
    * @param index           Key index to start search from. If the index is provided, the generation
    * of the address is not deterministic. Default is 0.
-   * @param security        The Security level of private key / seed.
    * @param total           Total number of addresses to generate. 0 for unlimited
    * @param returnAll       If <code>true</code>, it returns all addresses which were
    * deterministically generated (until findTransactions returns null).
@@ -338,9 +328,9 @@ public:
    *
    * @return Account data.
    */
-  Responses::GetAccountData getAccountData(const Models::Seed& seed, int index, int security,
-                                           int total, bool returnAll, int start, int end,
-                                           bool inclusionStates, long threshold) const;
+  Responses::GetAccountData getAccountData(const Models::Seed& seed, int index, int total,
+                                           bool returnAll, int start, int end, bool inclusionStates,
+                                           long threshold) const;
 
   /**
    * @param hash The hash of a transaction
@@ -350,7 +340,6 @@ public:
 
   /**
    * @param seed               Tryte-encoded seed.
-   * @param security           The security level of private key / seed.
    * @param inputs             List of inputs used for funding the transfer.
    * @param bundle             To be populated.
    * @param tag                The tag
@@ -362,9 +351,8 @@ public:
    * @return Vector of trytes.
    */
   std::vector<Types::Trytes> addRemainder(
-      const Models::Seed& seed, const unsigned int& security,
-      const std::vector<Models::Input>& inputs, Models::Bundle& bundle, const Models::Tag& tag,
-      const int64_t& totalValue, const Models::Address& remainderAddress,
+      const Models::Seed& seed, const std::vector<Models::Address>& inputs, Models::Bundle& bundle,
+      const Models::Tag& tag, const int64_t& totalValue, const Models::Address& remainderAddress,
       const std::vector<Types::Trytes>& signatureFragments) const;
 
   /**
@@ -383,7 +371,6 @@ public:
    * Prepares transfer by generating the bundle with the corresponding cosigner transactions.
    * Does not contain signatures.
    *
-   * @param securitySum      The sum of security levels used by all co-signers.
    * @param inputAddress     Array of input addresses as well as the securitySum.
    * @param remainderAddress Has to be generated by the cosigners before initiating the transfer,
    * can be null if fully spent.
@@ -391,8 +378,7 @@ public:
    *
    * @return Bundle of transaction objects.
    */
-  std::vector<Models::Transaction> initiateTransfer(int                            securitySum,
-                                                    const Models::Address&         inputAddress,
+  std::vector<Models::Transaction> initiateTransfer(const Models::Address&         inputAddress,
                                                     const Models::Address&         remainderAddress,
                                                     std::vector<Models::Transfer>& transfers) const;
 
@@ -403,15 +389,13 @@ private:
    *
    * @param seed      The tryte-encoded seed.
    * @param index     The index to start search from.
-   * @param security  The security level of private key.
    *
    * @return A new address.
    */
-  static Models::Address newAddress(const Models::Seed& seed, const int32_t& index,
-                                    const int32_t& security);
+  static Models::Address newAddress(const Models::Seed& seed, const int32_t& index);
 
   std::vector<Types::Trytes> signInputsAndReturn(
-      const Models::Seed& seed, const std::vector<Models::Input>& inputs, Models::Bundle& bundle,
+      const Models::Seed& seed, const std::vector<Models::Address>& inputs, Models::Bundle& bundle,
       const std::vector<Types::Trytes>& signatureFragments) const;
 
   /**

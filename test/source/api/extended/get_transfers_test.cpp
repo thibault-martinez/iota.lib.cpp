@@ -35,7 +35,7 @@
 
 TEST(Extended, GetTransfers) {
   auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
-  auto res = api.getTransfers(ACCOUNT_2_SEED, 0, 0, 2, true);
+  auto res = api.getTransfers(ACCOUNT_2_SEED, 0, 0, true);
 
   std::vector<IOTA::Models::Bundle> expectedBundleRes;
 
@@ -64,15 +64,9 @@ TEST(Extended, GetTransfers) {
   }
 }
 
-TEST(Extended, GetTransfersInvalidSecurity) {
-  auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
-
-  EXPECT_THROW(api.getTransfers(ACCOUNT_2_SEED, 0, 0, 42, true), IOTA::Errors::IllegalState);
-}
-
 TEST(Extended, GetTransfersStartEnd) {
   auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
-  auto res = api.getTransfers(ACCOUNT_2_SEED, 1, 3, 2, true);
+  auto res = api.getTransfers(ACCOUNT_2_SEED, 1, 3, true);
 
   std::vector<IOTA::Models::Bundle> expectedBundleRes;
 

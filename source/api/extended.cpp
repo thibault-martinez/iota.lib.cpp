@@ -42,7 +42,7 @@
 #include <iota/crypto/signing.hpp>
 #include <iota/errors/illegal_state.hpp>
 #include <iota/models/bundle.hpp>
-#include <iota/models/input.hpp>
+#include <iota/models/seed.hpp>
 #include <iota/models/signature.hpp>
 #include <iota/models/transaction.hpp>
 #include <iota/models/transfer.hpp>
@@ -65,16 +65,12 @@ Extended::Extended(const std::string& host, const uint16_t& port, bool localPow,
 
 Responses::GetBalancesAndFormat
 Extended::getInputs(const Models::Seed& seed, const int32_t& start, const int32_t& end,
-                    const int32_t& security, const int64_t& threshold) const {
-  const Utils::StopWatch stopWatch;
-
-  if (security < 1 || security > 3) {
-    throw Errors::IllegalState("Invalid Security Level");
-  }
+                    const int64_t& threshold) const {
+  const Utils::StopWatch          stopWatch;
+  Responses::GetBalancesAndFormat res;
 
   // If start value bigger than end, return error
-  // or if difference between end and start is bigger than 500 keys
-  if (start > end || end > (start + 500)) {
+  if (start > end) {
     throw Errors::IllegalState("Invalid inputs provided");
   }
 
@@ -86,10 +82,10 @@ Extended::getInputs(const Models::Seed& seed, const int32_t& start, const int32_
     std::vector<Models::Address> allAddresses;
 
     for (int i = start; i < end; ++i) {
-      allAddresses.emplace_back(newAddress(seed, i, security));
+      allAddresses.emplace_back(newAddress(seed, i));
     }
 
-    return getBalancesAndFormat(allAddresses, threshold, start, security, stopWatch);
+    res = getBalancesAndFormat(allAddresses, threshold, start);
   }
   //  Case 2: iterate till threshold || end
   //
@@ -97,18 +93,18 @@ Extended::getInputs(const Models::Seed& seed, const int32_t& start, const int32_
   //  Calls getNewAddress and deterministically generates and returns all addresses
   //  We then do getBalance, format the output and return it
   else {
-    const auto res = getNewAddresses(seed, start, security, 0, true);
-    return getBalancesAndFormat(res.getAddresses(), threshold, start, security, stopWatch);
+    res = getBalancesAndFormat(getNewAddresses(seed, start, 0, true).getAddresses(), threshold,
+                               start);
   }
+
+  res.setDuration(stopWatch.getElapsedTimeMilliSeconds().count());
+  return res;
 }
 
 Responses::GetBalancesAndFormat
 Extended::getBalancesAndFormat(const std::vector<Models::Address>& addresses,
-                               const int64_t& threshold, const int32_t& start,
-                               const int32_t& security, const Utils::StopWatch& stopWatch) const {
-  if (security < 1 || security > 3) {
-    throw Errors::IllegalState("Invalid Security Level");
-  }
+                               const int64_t& threshold, const int32_t& start) const {
+  const Utils::StopWatch stopWatch;
 
   //! retrieve balances for all given addresses
   std::vector<std::string> balances =
@@ -119,8 +115,8 @@ Extended::getBalancesAndFormat(const std::vector<Models::Address>& addresses,
   bool thresholdReached = threshold == 0;
   int  i                = -1;
 
-  std::vector<Models::Input> inputs;
-  int64_t                    totalBalance = 0;
+  std::vector<Models::Address> inputs;
+  int64_t                      totalBalance = 0;
 
   for (const auto& address : addresses) {
     //! retrieve balance for given address
@@ -131,8 +127,12 @@ Extended::getBalancesAndFormat(const std::vector<Models::Address>& addresses,
       continue;
     }
 
+    Models::Address input = address;
+    input.setBalance(balance);
+    input.setKeyIndex(start + i);
+
     //! Add input to result and increase totalBalance of all aggregated inputs
-    inputs.emplace_back(address, balance, start + i, security);
+    inputs.push_back(std::move(input));
     totalBalance += balance;
 
     if (!thresholdReached && totalBalance >= threshold) {
@@ -149,14 +149,9 @@ Extended::getBalancesAndFormat(const std::vector<Models::Address>& addresses,
 }
 
 Responses::GetNewAddresses
-Extended::getNewAddresses(const Models::Seed& seed, const uint32_t& index, const int32_t& security,
-                          const int32_t& total, bool returnAll) const {
+Extended::getNewAddresses(const Models::Seed& seed, const uint32_t& index, const int32_t& total,
+                          bool returnAll) const {
   const Utils::StopWatch stopWatch;
-
-  // Validate the security level
-  if (security < 1 || security > 3) {
-    throw Errors::IllegalState("Invalid Security Level");
-  }
 
   std::vector<Models::Address> allAddresses;
 
@@ -164,7 +159,7 @@ Extended::getNewAddresses(const Models::Seed& seed, const uint32_t& index, const
   // Simply generate and return the list of all addresses.
   if (total) {
     for (uint32_t i = index; i < index + total; ++i) {
-      allAddresses.emplace_back(newAddress(seed, i, security));
+      allAddresses.emplace_back(newAddress(seed, i));
     }
   }
   // Case 2 : no total provided.
@@ -172,7 +167,7 @@ Extended::getNewAddresses(const Models::Seed& seed, const uint32_t& index, const
   // of addresses.
   else {
     for (int32_t i = index; true; i++) {
-      const auto addr = newAddress(seed, i, security);
+      const auto addr = newAddress(seed, i);
       const auto res  = findTransactionsByAddresses({ addr });
 
       allAddresses.emplace_back(std::move(addr));
@@ -363,18 +358,12 @@ Extended::getLatestInclusion(const std::vector<Types::Trytes>& hashes) const {
 }
 
 std::vector<Types::Trytes>
-Extended::prepareTransfers(const Models::Seed& seed, int security,
-                           const std::vector<Models::Transfer>& transfers,
-                           const Models::Address&               remainder,
-                           const std::vector<Models::Input>& inputs, bool validateInputs) const {
+Extended::prepareTransfers(const Models::Seed& seed, const std::vector<Models::Transfer>& transfers,
+                           const Models::Address&              remainder,
+                           const std::vector<Models::Address>& inputs, bool validateInputs) const {
   // Validate transfers object
   if (!isTransfersCollectionValid(transfers)) {
     throw Errors::IllegalState("Invalid Transfer");
-  }
-
-  // Validate the security level
-  if (security < 1 || security > 3) {
-    throw Errors::IllegalState("Invalid Security Level");
   }
 
   Models::Bundle             bundle;
@@ -430,22 +419,16 @@ Extended::prepareTransfers(const Models::Seed& seed, int security,
     //  Case 1: user provided inputs
     //  Validate the inputs by calling getBalances
     if (!validateInputs)
-      return addRemainder(seed, security, inputs, bundle, transfers.back().getTag(), totalValue,
-                          remainder, signatureFragments);
+      return addRemainder(seed, inputs, bundle, transfers.back().getTag(), totalValue, remainder,
+                          signatureFragments);
     if (!inputs.empty()) {
-      // Get list if addresses of the provided inputs
-      std::vector<Models::Address> inputsAddresses;
-      for (const auto& input : inputs) {
-        inputsAddresses.emplace_back(input.getAddress());
-      }
-
       const auto balancesResponse =
-          getBalances(inputsAddresses, GetBalancesRecommandedConfirmationThreshold);
+          getBalances(inputs, GetBalancesRecommandedConfirmationThreshold);
       const auto balances = balancesResponse.getBalances();
 
-      std::vector<Models::Input> confirmedInputs;
-      int64_t                    totalBalance = 0;
-      int                        i            = 0;
+      std::vector<Models::Address> confirmedInputs;
+      int64_t                      totalBalance = 0;
+      int                          i            = 0;
       for (const auto& balance : balances) {
         int64_t thisBalance = std::stoll(balance);
 
@@ -468,8 +451,8 @@ Extended::prepareTransfers(const Models::Seed& seed, int security,
         throw Errors::IllegalState("Not enough balance");
       }
 
-      return addRemainder(seed, security, confirmedInputs, bundle, transfers.back().getTag(),
-                          totalValue, remainder, signatureFragments);
+      return addRemainder(seed, confirmedInputs, bundle, transfers.back().getTag(), totalValue,
+                          remainder, signatureFragments);
     }
 
     //  Case 2: Get inputs deterministically
@@ -477,9 +460,9 @@ Extended::prepareTransfers(const Models::Seed& seed, int security,
     //  If no inputs provided, derive the addresses from the seed and
     //  confirm that the inputs exceed the threshold
     else {
-      const auto newinputs = getInputs(seed, 0, 0, security, totalValue);
+      const auto newinputs = getInputs(seed, 0, 0, totalValue);
       // If inputs with enough balance
-      return addRemainder(seed, security, newinputs.getInputs(), bundle, transfers.back().getTag(),
+      return addRemainder(seed, newinputs.getInputs(), bundle, transfers.back().getTag(),
                           totalValue, remainder, signatureFragments);
     }
   } else {
@@ -583,40 +566,28 @@ Extended::getBundle(const Types::Trytes& transaction) const {
 }
 
 Responses::GetTransfers
-Extended::getTransfers(const Models::Seed& seed, int start, int end, int security,
-                       bool inclusionStates) const {
+Extended::getTransfers(const Models::Seed& seed, int start, int end, bool inclusionStates) const {
   const Utils::StopWatch stopWatch;
 
-  // Validate the security level
-  if (security < 1 || security > 3) {
-    throw Errors::IllegalState("Invalid Security Level");
-  }
-
   // If start value bigger than end, return error
-  // or if difference between end and start is bigger than 500 keys
-  if (start > end || end > (start + 500)) {
+  if (start > end) {
     throw Errors::IllegalState("Invalid inputs provided");
   }
 
-  const auto gna     = getNewAddresses(seed, start, security, end, true);
+  const auto gna     = getNewAddresses(seed, start, end, true);
   const auto bundles = bundlesFromAddresses(gna.getAddresses(), inclusionStates);
 
   return { bundles, stopWatch.getElapsedTimeMilliSeconds().count() };
 }
 
 Responses::SendTransfer
-Extended::sendTransfer(const Models::Seed& seed, int security, int depth, int minWeightMagnitude,
-                       std::vector<Models::Transfer>&    transfers,
-                       const std::vector<Models::Input>& inputs,
-                       const Models::Address&            address) const {
-  // Validate the security level
-  if (security < 1 || security > 3) {
-    throw Errors::IllegalState("Invalid Security Level");
-  }
-
+Extended::sendTransfer(const Models::Seed& seed, int depth, int minWeightMagnitude,
+                       std::vector<Models::Transfer>&      transfers,
+                       const std::vector<Models::Address>& inputs,
+                       const Models::Address&              address) const {
   const Utils::StopWatch stopWatch;
 
-  const auto trytes = prepareTransfers(seed, security, transfers, address, inputs);
+  const auto trytes = prepareTransfers(seed, transfers, address, inputs);
   const auto trxs   = sendTrytes(trytes, depth, minWeightMagnitude);
 
   std::vector<bool> successful;
@@ -677,14 +648,13 @@ Extended::findTransactionsByBundles(const std::vector<Types::Trytes>& bundles) c
 }
 
 Responses::GetAccountData
-Extended::getAccountData(const Models::Seed& seed, int index, int security, int total,
-                         bool returnAll, int start, int end, bool inclusionStates,
-                         long threshold) const {
+Extended::getAccountData(const Models::Seed& seed, int index, int total, bool returnAll, int start,
+                         int end, bool inclusionStates, long threshold) const {
   const Utils::StopWatch stopWatch;
 
-  const auto gna = getNewAddresses(seed, index, security, total, returnAll);
-  const auto gtr = getTransfers(seed, start, end, security, inclusionStates);
-  const auto gip = getInputs(seed, start, end, security, threshold);
+  const auto gna = getNewAddresses(seed, index, total, returnAll);
+  const auto gtr = getTransfers(seed, start, end, inclusionStates);
+  const auto gip = getInputs(seed, start, end, threshold);
 
   return { gna.getAddresses(), gtr.getTransfers(), gip.getTotalBalance(),
            stopWatch.getElapsedTimeMilliSeconds().count() };
@@ -720,9 +690,8 @@ Extended::findTailTransactionHash(const Types::Trytes& hash) const {
 }
 
 std::vector<Types::Trytes>
-Extended::addRemainder(const Models::Seed& seed, const unsigned int& security,
-                       const std::vector<Models::Input>& inputs, Models::Bundle& bundle,
-                       const Models::Tag& tag, const int64_t& totalValue,
+Extended::addRemainder(const Models::Seed& seed, const std::vector<Models::Address>& inputs,
+                       Models::Bundle& bundle, const Models::Tag& tag, const int64_t& totalValue,
                        const Models::Address&            remainderAddress,
                        const std::vector<Types::Trytes>& signatureFragments) const {
   auto totalTransferValue = totalValue;
@@ -732,7 +701,7 @@ Extended::addRemainder(const Models::Seed& seed, const unsigned int& security,
     auto    toSubtract  = -thisBalance;
     int64_t timestamp   = Utils::StopWatch::now().count();
     // Add input as bundle entry
-    bundle.addTransaction({ input.getAddress(), toSubtract, tag, timestamp }, input.getSecurity());
+    bundle.addTransaction({ input, toSubtract, tag, timestamp }, input.getSecurity());
     // If there is a remainder value
     // Add extra output to send remaining funds to
     if (thisBalance >= totalTransferValue) {
@@ -746,7 +715,7 @@ Extended::addRemainder(const Models::Seed& seed, const unsigned int& security,
         return signInputsAndReturn(seed, inputs, bundle, signatureFragments);
       } else if (remainder > 0) {
         // Generate a new Address by calling getNewAddress
-        auto res = getNewAddresses(seed, 0, security, 0, false);
+        auto res = getNewAddresses(seed, 0, 0, false);
         // Remainder bundle entry
         bundle.addTransaction({ res.getAddresses()[0], remainder, tag, timestamp });
         // Final function for signing inputs
@@ -788,7 +757,7 @@ Extended::replayBundle(const Types::Trytes& transaction, int depth, int minWeigh
 }
 
 std::vector<Models::Transaction>
-Extended::initiateTransfer(int securitySum, const Models::Address& inputAddress,
+Extended::initiateTransfer(const Models::Address&         inputAddress,
                            const Models::Address&         remainderAddress,
                            std::vector<Models::Transfer>& transfers) const {
   //! If message is not supplied, provide it
@@ -804,7 +773,7 @@ Extended::initiateTransfer(int securitySum, const Models::Address& inputAddress,
     throw Errors::IllegalState("Invalid input address");
   }
 
-  // Input validation of transfers object
+  // Address validation of transfers object
   if (!isTransfersCollectionValid(transfers)) {
     throw Errors::IllegalState("Invalid transfer");
   }
@@ -880,7 +849,7 @@ Extended::initiateTransfer(int securitySum, const Models::Address& inputAddress,
     //! Add input as bundle entry
     //! Only a single entry, signatures will be added later
     bundle.addTransaction({ inputAddress, toSubtract, transfers.back().getTag(), timestamp },
-                          securitySum);
+                          inputAddress.getSecurity());
   }
 
   //! Return not enough balance error
@@ -912,16 +881,16 @@ Extended::initiateTransfer(int securitySum, const Models::Address& inputAddress,
  */
 
 Models::Address
-Extended::newAddress(const Models::Seed& seed, const int32_t& index, const int32_t& security) {
-  auto key          = Crypto::Signing::key(seed, index, security);
+Extended::newAddress(const Models::Seed& seed, const int32_t& index) {
+  auto key          = Crypto::Signing::key(seed, index);
   auto digests      = Crypto::Signing::digests(key);
   auto addressTrits = Crypto::Signing::address(digests);
 
-  return Types::tritsToTrytes(addressTrits);
+  return IOTA::Models::Address{ Types::tritsToTrytes(addressTrits), 0, index, seed.getSecurity() };
 }
 
 std::vector<Types::Trytes>
-Extended::signInputsAndReturn(const Models::Seed& seed, const std::vector<Models::Input>& inputs,
+Extended::signInputsAndReturn(const Models::Seed& seed, const std::vector<Models::Address>& inputs,
                               Models::Bundle&                   bundle,
                               const std::vector<Types::Trytes>& signatureFragments) const {
   bundle.finalize(Crypto::create(cryptoType_));
@@ -940,7 +909,7 @@ Extended::signInputsAndReturn(const Models::Seed& seed, const std::vector<Models
       int keyIndex    = 0;
       int keySecurity = 0;
       for (const auto& input : inputs) {
-        if (input.getAddress() == addr) {
+        if (input == addr) {
           keyIndex    = input.getKeyIndex();
           keySecurity = input.getSecurity();
         }
@@ -949,7 +918,7 @@ Extended::signInputsAndReturn(const Models::Seed& seed, const std::vector<Models
       auto bundleHash = tx.getBundle();
 
       // Get corresponding private key of address
-      auto key = Crypto::Signing::key(seed, keyIndex, keySecurity);
+      auto key = Crypto::Signing::key(seed, keyIndex);
 
       //  First 6561 trits for the firstFragment
       std::vector<int8_t> firstFragment(&key[0], &key[6561]);

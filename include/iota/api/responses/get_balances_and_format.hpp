@@ -58,7 +58,7 @@ public:
    * @param totalBalance The total balance.
    * @param duration Request duration.
    */
-  GetBalancesAndFormat(const std::vector<Models::Input>& inputs, const int64_t& totalBalance,
+  GetBalancesAndFormat(const std::vector<Models::Address>& inputs, const int64_t& totalBalance,
                        const int64_t& duration);
 
   /**
@@ -70,17 +70,17 @@ public:
   /**
    * @return Inputs.
    */
-  const std::vector<Models::Input>& getInputs() const;
+  const std::vector<Models::Address>& getInputs() const;
 
   /**
    * @return Inputs. (non const version)
    */
-  std::vector<Models::Input>& getInputs();
+  std::vector<Models::Address>& getInputs();
 
   /**
    * @param inputs New inputs for api response
    */
-  void setInputs(const std::vector<Models::Input>& inputs);
+  void setInputs(const std::vector<Models::Address>& inputs);
 
 public:
   /**
@@ -94,8 +94,8 @@ public:
   void setTotalBalance(const int64_t& totalBalance);
 
 private:
-  std::vector<Models::Input> inputs_;
-  int64_t                    totalBalance_ = 0;
+  std::vector<Models::Address> inputs_;
+  int64_t                      totalBalance_ = 0;
 };
 
 }  // namespace Responses
