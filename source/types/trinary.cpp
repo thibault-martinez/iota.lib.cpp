@@ -27,6 +27,7 @@
 #include <array>
 #include <cmath>
 #include <cstdlib>
+#include <cstring>
 #include <functional>
 
 #include <iota/constants.hpp>
