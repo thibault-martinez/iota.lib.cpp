@@ -189,6 +189,7 @@ constants_hpp_content = \
 
 # precompute data
 account_3_addr_1 = "E9LVPMKJIAGCIPVKMUOYTQMSYAUQDUMEYUUCLXRQUWJJ9JXRDXQNGIOUPQVIMIWHFIRXD9QSYOP9KG9BW"
+account_4_addr_1 = "EHMKBYQAFTPVBKQYDKTWWDKHXKHUALIDEBBIXABI9PJWHFBXY9MPRSJCWKJTDPGHBKAL9MYEFM9TXVCE9"
 account_1_seed   = "SXDHBTSTV9YHWKFFAZBHQXJTQHTO9HJMDBZHOJDKV9MMAODELRICQAQMEOCZXZKO9USMBUAKJCAYTF9TM"
 account_2_seed   = "S9YOBZWUIHQFGHQCUOFCKHFR99IJMSZNNHUDXRAGDZKLGEBGPNDWROALSUODRJNMFFQHDVNISRMVMPVNE"
 account_3_seed   = "UYMUEUOCKNROIJPNFFDLBP9GCQUJFRLIBQ9SMICMHSHSOXUZLOWHFJDPEEPUESUXJEAJFTICCEGPMMHKO"
@@ -206,6 +207,7 @@ constants_hpp_content += gen_account_info(5, account_5_seed, 5)
 # Bundle info
 constants_hpp_content += gen_bundle_info_for_transfer(1, "Trx from account 2 to account 3", account_2_seed, account_3_addr_1, 42)
 constants_hpp_content += gen_bundle_info_for_transfer(2, "Initial funding of account_3:address_1", account_2_seed, account_3_addr_1, 0)
+constants_hpp_content += gen_bundle_info_for_transfer(5, "Trx from account 5 to account 3", account_5_seed, account_4_addr_1, 0)
 
 # account bundles
 constants_hpp_content += gen_account_bundles_list(2, account_2_seed)
