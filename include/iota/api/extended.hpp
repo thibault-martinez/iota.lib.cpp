@@ -63,83 +63,83 @@ public:
    * deterministically (by genearating all addresses until findTransactions is empty and doing
    * getBalances), or by providing a key range to use for searching through.
    *
-   * @param seed      Tryte-encoded seed. It should be noted that this seed is not transferred.
-   * @param start     Starting key index.
-   * @param end       Ending key index.
-   * @param threshold Min balance required.
+   * @param seed      Seed to be used for address generation.
+   * @param start     Starting key index for address generation (included).
+   * @param end       Ending key index for address generation (excluded).
+   * @param threshold Min balance required, 0 for unlimited.
    *
    * @return The inputs.
    */
-  Responses::GetBalancesAndFormat getInputs(const Models::Seed& seed, const int32_t& start,
-                                            const int32_t& end, const int64_t& threshold) const;
+  Responses::GetBalancesAndFormat getInputs(const Models::Seed& seed, const int32_t& start = 0,
+                                            const int32_t& end       = 0,
+                                            const int64_t& threshold = 0) const;
 
   /**
-   * Gets the balances and formats the output.
+   * Gets the balances for the given addresses.
    *
-   * @param addresses The addresses.
+   * @param addresses The addresses for which balance need to be retrieved
    * @param threshold If set to 0, fetch balance for all input addresses. Otherwise, keep fetching
    *                  until the threshold is reached. If threshold is > 0 and is not reached,
    *                  Not Enough Balance exception is raised.
-   * @param start     Starting key index.
    *
-   * @return Inputs object.
+   * @return Addresses for which balance was retrieved, and their balance.
    **/
   Responses::GetBalancesAndFormat getBalancesAndFormat(
-      const std::vector<Models::Address>& addresses, const int64_t& threshold,
-      const int32_t& start) const;
+      const std::vector<Models::Address>& addresses, const int64_t& threshold = 0) const;
 
   /**
-   * Generates a new address from a seed and returns the remainderAddress.
+   * Generates a new address from a seed.
    * This is either done deterministically, or by providing the index of the new remainderAddress.
    *
-   * @param seed      Tryte-encoded seed. It should be noted that this seed is not transferred.
+   * @param seed      Seed to be used for address generation.
    * @param index     Key index to start search from. If the index is provided, the generation of
    * the address is not deterministic.
-   * @param total     Total number of addresses to generate.
+   * @param total     Total number of addresses to generate. If set to 0, generates from index until
+   * it finds an address without any transaction.
    * @param returnAll If <code>true</code>, it returns all addresses which were deterministically
-   * generated (until findTransactions returns null).
+   * generated. Otherwise, returns only the last generated address.
    *
-   * @return An array of strings with the specifed number of addresses.
+   * @return Array of generated addresses.
    */
   Responses::GetNewAddresses getNewAddresses(const Models::Seed& seed, const uint32_t& index = 0,
                                              const int32_t& total     = 0,
                                              bool           returnAll = false) const;
 
   /**
-   * Basically traverse the Bundle by going down the trunkTransactions until
+   * Traverse the Bundle by going down the trunkTransactions until
    * the bundle hash of the transaction is no longer the same. In case the input
-   * transaction hash is not a tail, we return an error.
+   * transaction hash is not a tail, return an error.
    *
    * @param trunkTx    Hash of a trunk or a tail transaction of a bundle.
    *
-   * @return Filled bundle corresponding to tail transaction.
+   * @return Bundle corresponding to tail transaction.
    */
   Models::Bundle traverseBundle(const Types::Trytes& trunkTx) const;
 
   /**
-   * Basically traverse the Bundle by going down the trunkTransactions until
+   * Traverse the Bundle by going down the trunkTransactions until
    * the bundle hash of the transaction is no longer the same. In case the input
    * transaction hash is not a tail, we return an error.
    *
    * @param trunkTx    Hash of a trunk or a tail transaction of a bundle.
-   * @param bundleHash The bundle hash.
+   * @param bundleHash Current bundle hash, or empty if not found yet.
    * @param bundle     Bundle to be populated.
    *
-   * @return Filled bundle corresponding to tail transaction.
+   * @return Bundle corresponding to tail transaction.
    */
   Models::Bundle traverseBundle(const Types::Trytes& trunkTx, Types::Trytes bundleHash,
                                 Models::Bundle& bundle) const;
 
   /**
-   * function to get the formatted bundles of a list of addresses.
+   * Get bundles corresponding to the given addresses.
    *
-   * @param addresses       List of addresses.
+   * @param addresses       List of addresses for which to find the bundle objects.
    * @param inclusionStates If <code>true</code>, it gets the inclusion states of the transfers.
    *
-   * @return List of bundles
+   * @return Bundles.
    */
   std::vector<Models::Bundle> bundlesFromAddresses(const std::vector<Models::Address>& addresses,
-                                                   bool inclusionStates) const;
+                                                   bool inclusionStates = false) const;
 
   /**
    * Lookup transactions for given addresses and return a list of transaction objects
@@ -157,7 +157,7 @@ public:
    *
    * @param trx_hashes Hashes of the transactions to find
    *
-   * @return Transaction objects.
+   * @return Transactions.
    **/
   std::vector<Models::Transaction> getTransactionsObjects(
       const std::vector<IOTA::Types::Trytes>& trx_hashes) const;
@@ -173,44 +173,43 @@ public:
       const std::vector<IOTA::Types::Trytes>& input) const;
 
   /**
-   * Wrapper function for getNodeInfo and getInclusionStates
+   * Get inclusion states for the given transactions.
    *
-   * @param hashes The hashes.
+   * @param hashes Hash of the transactions for which the inclusion states will be retrieved.
    *
-   * @return Inclusion state.
+   * @return Inclusion states.
    */
   Responses::GetInclusionStates getLatestInclusion(const std::vector<Types::Trytes>& hashes) const;
 
   /**
-   * Main purpose of this function is to get an array of transfer objects as input, and then prepare
-   * the transfer by generating the correct bundle, as well as choosing and signing the inputs if
-   * necessary (if it's a value transfer). The output of this function is an array of the raw
-   * transaction data (trytes).
+   * Prepare the transfer by generating the correct bundle, as well as choosing and signing the
+   * inputs if necessary (if it's a value transfer). The output of this function is an array of the
+   * raw transaction data (trytes).
    *
-   * @param seed      81-tryte encoded address of recipient.
+   * @param seed      Seed to be used for address generation.
    * @param transfers Array of transfer objects.
-   * @param remainder If defined, this address will be used for sending the remainder value (of the
-   * inputs) to.
-   * @param inputs    The inputs.
+   * @param remainder If this address will be used for sending the remainder value to. Leave empty
+   * to automatically choose one.
+   * @param inputs    The inputs. Leave empty to automatically find inputs based on the seed.
    * @param validateInputs Whether or not to validate the balances of the provided inputs.
    *
    * @return Returns bundle trytes.
    */
   std::vector<Types::Trytes> prepareTransfers(const Models::Seed&                  seed,
                                               const std::vector<Models::Transfer>& transfers,
-                                              const Models::Address&               remainder,
-                                              const std::vector<Models::Address>&  inputs,
+                                              const Models::Address&               remainder = {},
+                                              const std::vector<Models::Address>&  inputs    = {},
                                               bool validateInputs = true) const;
 
   /**
-   * Gets the associated bundle transactions of a single transaction.
-   * Does validation of signatures, total sum as well as bundle order.
+   * Gets the associated bundle of a tail transaction.
+   * Does validation of signatures, total sum as well as bundle ordering.
    * Basically the same as traverseBundle, but with bundle validity check (signature, order, value
    * and hash check).
    *
    * @param transaction Hash of a tail transaction.
    *
-   * @return array of transactions belonging to bundle corresponding to the input trx
+   * @return Transactions of the bundle corresponding to the input trx
    */
   Responses::GetBundle getBundle(const Types::Trytes& transaction) const;
 
@@ -219,40 +218,40 @@ public:
    * calculating deterministically which addresses were already used, or by providing a list of
    * indexes to get the transfers from.
    *
-   * @param seed            Tryte-encoded seed. It should be noted that this seed is not
-   * transferred.
-   * @param start           Starting key index.
-   * @param end             Ending key index.
+   * @param seed            Seed to be used for address generation.
+   * @param start           Starting key index for address generation (included).
+   * @param end             Ending key index for address generation (excluded).
    * @param inclusionStates If <code>true</code>, it gets the inclusion states of the transfers.
    *
    * @return Bundle of transfers.
    */
-  Responses::GetTransfers getTransfers(const Models::Seed& seed, int start, int end,
-                                       bool inclusionStates) const;
+  Responses::GetTransfers getTransfers(const Models::Seed& seed, int start = 0, int end = 0,
+                                       bool inclusionStates = false) const;
 
   /**
    * Wrapper function that basically does prepareTransfers, as well as attachToTangle and finally,
-   * it broadcasts and stores the transactions locally.
+   * it broadcasts and stores the transactions.
    *
-   * @param seed               Tryte-encoded seed
+   * @param seed               Seed to be used for address generation.
    * @param depth              The depth.
    * @param minWeightMagnitude The minimum weight magnitude.
    * @param transfers          Array of transfer objects.
    * @param inputs             List of inputs used for funding the transfer.
-   * @param address            If defined, this address will be used for sending the remainder value
-   * (of the inputs) to.
+   * @param inputs             Inputs. Leave empty to automatically find inputs based on the seed.
+   * @param remainder If this address will be used for sending the remainder value to. Leave empty
+   * to automatically choose one.
    *
    * @return Array of Transaction objects.
    */
   Responses::SendTransfer sendTransfer(const Models::Seed& seed, int depth, int minWeightMagnitude,
                                        std::vector<Models::Transfer>&      transfers,
-                                       const std::vector<Models::Address>& inputs,
-                                       const Models::Address&              address) const;
+                                       const std::vector<Models::Address>& inputs    = {},
+                                       const Models::Address&              remainder = {}) const;
 
   /**
    * Wrapper function that gets transactions to approve, attaches to Tangle, broadcasts and stores.
    *
-   * @param trytes             The trytes.
+   * @param trytes             The trytes of the transactions to be attached.
    * @param depth              The depth.
    * @param minWeightMagnitude The minimum weight magnitude.
    *
@@ -303,8 +302,7 @@ public:
   /**
    * Find the transactions which match the specified bundles.
    *
-   * @param bundles The list of bundle hashes that need to be extended to 81 chars by padding the
-   * hash with 9's.
+   * @param bundles The list of bundle hashes.
    *
    * @return the list of transactions which contain the specified bundle hash.
    */
@@ -312,48 +310,39 @@ public:
       const std::vector<Types::Trytes>& bundles) const;
 
   /**
-   * Similar to getTransfers, just that it returns additional account data
+   * Get inputs, transfers and balance of a given account.
    *
-   * @param seed            Tryte-encoded seed. It should be noted that this seed is not
-   * transferred.
-   * @param index           Key index to start search from. If the index is provided, the generation
-   * of the address is not deterministic. Default is 0.
-   * @param total           Total number of addresses to generate. 0 for unlimited
+   * @param seed            Seed to be used for address generation.
+   * @param start           Starting key index for address generation (included).
+   * @param end             Ending key index for address generation (excluded).
    * @param returnAll       If <code>true</code>, it returns all addresses which were
-   * deterministically generated (until findTransactions returns null).
-   * @param start           Starting key index. 0 to skip.
-   * @param end             Ending key index. 0 to skip.
+   * deterministically generated. Otherwise, returns only the last generated address.
    * @param inclusionStates If <code>true</code>, it gets the inclusion states of the transfers.
    * @param threshold       Min balance required. 0 to skip.
    *
    * @return Account data.
    */
-  Responses::GetAccountData getAccountData(const Models::Seed& seed, int index, int total,
-                                           bool returnAll, int start, int end, bool inclusionStates,
-                                           long threshold) const;
+  Responses::GetAccountData getAccountData(const Models::Seed& seed, int start = 0, int end = 0,
+                                           bool returnAll = true, bool inclusionStates = true,
+                                           long threshold = 0) const;
 
   /**
-   * @param hash The hash of a transaction
-   * @return hash of the tail transaction of the bundle to which the input trx belongs or EmptyHash
-   */
-  Types::Trytes findTailTransactionHash(const Types::Trytes& hash) const;
-
-  /**
-   * @param seed               Tryte-encoded seed.
-   * @param inputs             List of inputs used for funding the transfer.
+   * Add remainder transaction to the given bundle
+   *
+   * @param seed               Seed to be used for address generation.
+   * @param inputs             Inputs used for funding the transfer.
    * @param bundle             To be populated.
-   * @param tag                The tag
-   * @param totalValue         The total value.
-   * @param remainderAddress   If defined, this address will be used for sending the remainder value
-   * (of the inputs) to.
+   * @param tag                Tag of the transaction
+   * @param totalValue         The total value to be transfered.
+   * @param remainder          If this address will be used for sending the remainder value to.
    * @param signatureFragments The signature fragments.
    *
    * @return Vector of trytes.
    */
   std::vector<Types::Trytes> addRemainder(
       const Models::Seed& seed, const std::vector<Models::Address>& inputs, Models::Bundle& bundle,
-      const Models::Tag& tag, const int64_t& totalValue, const Models::Address& remainderAddress,
-      const std::vector<Types::Trytes>& signatureFragments) const;
+      const Models::Tag& tag, int64_t totalValue, const Models::Address& remainderAddress,
+      const std::vector<Types::Trytes>& signatureFragments = {}) const;
 
   /**
    * Replays a transfer by doing Proof of Work again.
@@ -371,16 +360,16 @@ public:
    * Prepares transfer by generating the bundle with the corresponding cosigner transactions.
    * Does not contain signatures.
    *
-   * @param inputAddress     Array of input addresses as well as the securitySum.
+   * @param inputAddress     Array of input addresses.
    * @param remainderAddress Has to be generated by the cosigners before initiating the transfer,
-   * can be null if fully spent.
+   * can be empty if fully spent.
    * @param transfers The transfers.
    *
-   * @return Bundle of transaction objects.
+   * @return Array of transaction objects.
    */
-  std::vector<Models::Transaction> initiateTransfer(const Models::Address&         inputAddress,
-                                                    const Models::Address&         remainderAddress,
-                                                    std::vector<Models::Transfer>& transfers) const;
+  std::vector<Models::Transaction> initiateTransfer(
+      const Models::Address& inputAddress, const Models::Address& remainderAddress,
+      const std::vector<Models::Transfer>& transfers) const;
 
 private:
   /**

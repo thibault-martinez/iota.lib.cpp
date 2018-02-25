@@ -25,8 +25,10 @@
 
 #include <gtest/gtest.h>
 
+#include <iota/errors/illegal_state.hpp>
 #include <iota/models/transfer.hpp>
 #include <test/utils/constants.hpp>
+#include <test/utils/expect_exception.hpp>
 
 TEST(Transfer, CtorDefault) {
   IOTA::Models::Transfer t;
@@ -38,64 +40,71 @@ TEST(Transfer, CtorDefault) {
 }
 
 TEST(Transfer, CtorShort) {
-  IOTA::Models::Transfer t = { ACCOUNT_1_ADDRESS_1_HASH, 1, "msg", "TAG" };
+  IOTA::Models::Transfer t = { ACCOUNT_1_ADDRESS_1_HASH, 1, "MSG", "TAG" };
 
   EXPECT_EQ(t.getAddress(), IOTA::Models::Address{ ACCOUNT_1_ADDRESS_1_HASH });
   EXPECT_EQ(t.getValue(), 1);
-  EXPECT_EQ(t.getMessage(), "msg");
+  EXPECT_EQ(t.getMessage(), "MSG");
   EXPECT_EQ(t.getTag(), IOTA::Models::Tag{ "TAG" });
+
+  EXPECT_EXCEPTION(
+      IOTA::Models::Transfer invalidTransfer(ACCOUNT_1_ADDRESS_1_HASH, 1, "abc", "TAG"),
+      IOTA::Errors::IllegalState, "message is not a valid trytes string")
 }
 
 TEST(Transfer, ConstGetters) {
-  const IOTA::Models::Transfer t = { ACCOUNT_1_ADDRESS_1_HASH, 1, "msg", "TAG" };
+  const IOTA::Models::Transfer t = { ACCOUNT_1_ADDRESS_1_HASH, 1, "MSG", "TAG" };
 
   EXPECT_EQ(t.getAddress(), IOTA::Models::Address{ ACCOUNT_1_ADDRESS_1_HASH });
   EXPECT_EQ(t.getValue(), 1);
-  EXPECT_EQ(t.getMessage(), "msg");
+  EXPECT_EQ(t.getMessage(), "MSG");
   EXPECT_EQ(t.getTag(), IOTA::Models::Tag{ "TAG" });
 }
 
 TEST(Transfer, AddressGetterAndSetter) {
-  IOTA::Models::Transfer t = { ACCOUNT_1_ADDRESS_1_HASH, 1, "msg", "TAG" };
+  IOTA::Models::Transfer t = { ACCOUNT_1_ADDRESS_1_HASH, 1, "MSG", "TAG" };
 
   t.setAddress(ACCOUNT_1_ADDRESS_2_HASH);
 
   EXPECT_EQ(t.getAddress(), IOTA::Models::Address{ ACCOUNT_1_ADDRESS_2_HASH });
   EXPECT_EQ(t.getValue(), 1);
-  EXPECT_EQ(t.getMessage(), "msg");
+  EXPECT_EQ(t.getMessage(), "MSG");
   EXPECT_EQ(t.getTag(), IOTA::Models::Tag{ "TAG" });
 }
 
 TEST(Transfer, ValueGetterAndSetter) {
-  IOTA::Models::Transfer t = { ACCOUNT_1_ADDRESS_1_HASH, 1, "msg", "TAG" };
+  IOTA::Models::Transfer t = { ACCOUNT_1_ADDRESS_1_HASH, 1, "MSG", "TAG" };
 
   t.setValue(42);
 
   EXPECT_EQ(t.getAddress(), IOTA::Models::Address{ ACCOUNT_1_ADDRESS_1_HASH });
   EXPECT_EQ(t.getValue(), 42);
-  EXPECT_EQ(t.getMessage(), "msg");
+  EXPECT_EQ(t.getMessage(), "MSG");
   EXPECT_EQ(t.getTag(), IOTA::Models::Tag{ "TAG" });
 }
 
 TEST(Transfer, MessageGetterAndSetter) {
-  IOTA::Models::Transfer t = { ACCOUNT_1_ADDRESS_1_HASH, 1, "msg", "TAG" };
+  IOTA::Models::Transfer t = { ACCOUNT_1_ADDRESS_1_HASH, 1, "MSG", "TAG" };
 
-  t.setMessage("edited");
+  t.setMessage("EDITED");
 
   EXPECT_EQ(t.getAddress(), IOTA::Models::Address{ ACCOUNT_1_ADDRESS_1_HASH });
   EXPECT_EQ(t.getValue(), 1);
-  EXPECT_EQ(t.getMessage(), "edited");
+  EXPECT_EQ(t.getMessage(), "EDITED");
   EXPECT_EQ(t.getTag(), IOTA::Models::Tag{ "TAG" });
+
+  EXPECT_EXCEPTION(t.setMessage("abc"), IOTA::Errors::IllegalState,
+                   "message is not a valid trytes string");
 }
 
 TEST(Transfer, TagGetterAndSetter) {
-  IOTA::Models::Transfer t = { ACCOUNT_1_ADDRESS_1_HASH, 1, "msg", "TAG" };
+  IOTA::Models::Transfer t = { ACCOUNT_1_ADDRESS_1_HASH, 1, "MSG", "TAG" };
 
   t.setTag("EDITED");
 
   EXPECT_EQ(t.getAddress(), IOTA::Models::Address{ ACCOUNT_1_ADDRESS_1_HASH });
   EXPECT_EQ(t.getValue(), 1);
-  EXPECT_EQ(t.getMessage(), "msg");
+  EXPECT_EQ(t.getMessage(), "MSG");
   EXPECT_EQ(t.getTag(), IOTA::Models::Tag{ "EDITED" });
 }
 
@@ -106,16 +115,15 @@ TEST(Transfer, IsValid) {
   EXPECT_TRUE(t.isValid());
 }
 
-TEST(Transfer, IsValidInvalidMessage) {
-  IOTA::Models::Transfer t = { BUNDLE_1_TRX_1_ADDRESS, BUNDLE_1_TRX_1_VALUE, "z&7",
-                               BUNDLE_1_TRX_1_TAG };
+TEST(Transfer, IsValidEmptyAddress) {
+  IOTA::Models::Transfer t = { "", BUNDLE_1_TRX_1_VALUE, "MSG", BUNDLE_1_TRX_1_TAG };
 
   EXPECT_FALSE(t.isValid());
 }
 
 TEST(Transfer, EqAndDiffOperators) {
-  IOTA::Models::Transfer t1 = { ACCOUNT_1_ADDRESS_1_HASH, 1, "msg1", "TAGONE" };
-  IOTA::Models::Transfer t2 = { ACCOUNT_1_ADDRESS_2_HASH, 2, "msg2", "TAGTWO" };
+  IOTA::Models::Transfer t1 = { ACCOUNT_1_ADDRESS_1_HASH, 1, "MSGONE", "TAGONE" };
+  IOTA::Models::Transfer t2 = { ACCOUNT_1_ADDRESS_2_HASH, 2, "MSGTWO", "TAGTWO" };
 
   EXPECT_EQ(t1 == t2, false);
   EXPECT_EQ(t1 != t2, true);
@@ -130,7 +138,7 @@ TEST(Transfer, EqAndDiffOperators) {
   EXPECT_EQ(t1 == t2, false);
   EXPECT_EQ(t1 != t2, true);
 
-  t2.setMessage("msg1");
+  t2.setMessage("MSGONE");
 
   EXPECT_EQ(t1 == t2, false);
   EXPECT_EQ(t1 != t2, true);

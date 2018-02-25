@@ -66,44 +66,26 @@ Extended::Extended(const std::string& host, const uint16_t& port, bool localPow,
 Responses::GetBalancesAndFormat
 Extended::getInputs(const Models::Seed& seed, const int32_t& start, const int32_t& end,
                     const int64_t& threshold) const {
-  const Utils::StopWatch          stopWatch;
-  Responses::GetBalancesAndFormat res;
+  const Utils::StopWatch stopWatch;
 
   // If start value bigger than end, return error
   if (start > end) {
     throw Errors::IllegalState("Invalid inputs provided");
   }
 
-  //  Case 1: start and end
-  //
-  //  If start and end is defined by the user, simply iterate through the keys
-  //  and call getBalances
-  if (end != 0) {
-    std::vector<Models::Address> allAddresses;
+  int32_t nbAddresses = end != 0 ? end - start : 0;
+  auto    addresses   = getNewAddresses(seed, start, nbAddresses, true).getAddresses();
+  auto    res         = getBalancesAndFormat(addresses, threshold);
 
-    for (int i = start; i < end; ++i) {
-      allAddresses.emplace_back(newAddress(seed, i));
-    }
-
-    res = getBalancesAndFormat(allAddresses, threshold, start);
-  }
-  //  Case 2: iterate till threshold || end
-  //
-  //  Either start from index: 0 or start (if defined) until threshold is reached.
-  //  Calls getNewAddress and deterministically generates and returns all addresses
-  //  We then do getBalance, format the output and return it
-  else {
-    res = getBalancesAndFormat(getNewAddresses(seed, start, 0, true).getAddresses(), threshold,
-                               start);
-  }
-
+  //! update duration
   res.setDuration(stopWatch.getElapsedTimeMilliSeconds().count());
+
   return res;
 }
 
 Responses::GetBalancesAndFormat
 Extended::getBalancesAndFormat(const std::vector<Models::Address>& addresses,
-                               const int64_t& threshold, const int32_t& start) const {
+                               const int64_t&                      threshold) const {
   const Utils::StopWatch stopWatch;
 
   //! retrieve balances for all given addresses
@@ -129,7 +111,6 @@ Extended::getBalancesAndFormat(const std::vector<Models::Address>& addresses,
 
     Models::Address input = address;
     input.setBalance(balance);
-    input.setKeyIndex(start + i);
 
     //! Add input to result and increase totalBalance of all aggregated inputs
     inputs.push_back(std::move(input));
@@ -648,11 +629,11 @@ Extended::findTransactionsByBundles(const std::vector<Types::Trytes>& bundles) c
 }
 
 Responses::GetAccountData
-Extended::getAccountData(const Models::Seed& seed, int index, int total, bool returnAll, int start,
-                         int end, bool inclusionStates, long threshold) const {
+Extended::getAccountData(const Models::Seed& seed, int start, int end, bool returnAll,
+                         bool inclusionStates, long threshold) const {
   const Utils::StopWatch stopWatch;
 
-  const auto gna = getNewAddresses(seed, index, total, returnAll);
+  const auto gna = getNewAddresses(seed, start, end - start, returnAll);
   const auto gtr = getTransfers(seed, start, end, inclusionStates);
   const auto gip = getInputs(seed, start, end, threshold);
 
@@ -660,42 +641,11 @@ Extended::getAccountData(const Models::Seed& seed, int index, int total, bool re
            stopWatch.getElapsedTimeMilliSeconds().count() };
 }
 
-Types::Trytes
-Extended::findTailTransactionHash(const Types::Trytes& hash) const {
-  const auto gtr = getTrytes({ hash });
-
-  if (gtr.getTrytes().empty()) {
-    throw Errors::IllegalState("Bundle transactions not visible");
-  }
-
-  auto trx = Models::Transaction{ gtr.getTrytes()[0] };
-
-  if (trx.getBundle().empty()) {
-    throw Errors::IllegalState("Invalid trytes, could not create object");
-  }
-
-  //! check if current trx is tail
-  if (trx.isTailTransaction()) {
-    return trx.getHash();
-  }
-
-  //! if not, fetch based on bundle hash
-  for (const auto& t : findTransactionObjectsByBundle({ trx.getBundle() })) {
-    if (t.isTailTransaction()) {
-      return t.getHash();
-    }
-  }
-
-  return EmptyHash;
-}
-
 std::vector<Types::Trytes>
 Extended::addRemainder(const Models::Seed& seed, const std::vector<Models::Address>& inputs,
-                       Models::Bundle& bundle, const Models::Tag& tag, const int64_t& totalValue,
+                       Models::Bundle& bundle, const Models::Tag& tag, int64_t totalValue,
                        const Models::Address&            remainderAddress,
                        const std::vector<Types::Trytes>& signatureFragments) const {
-  auto totalTransferValue = totalValue;
-
   for (const auto& input : inputs) {
     auto    thisBalance = input.getBalance();
     auto    toSubtract  = -thisBalance;
@@ -704,8 +654,8 @@ Extended::addRemainder(const Models::Seed& seed, const std::vector<Models::Addre
     bundle.addTransaction({ input, toSubtract, tag, timestamp }, input.getSecurity());
     // If there is a remainder value
     // Add extra output to send remaining funds to
-    if (thisBalance >= totalTransferValue) {
-      auto remainder = thisBalance - totalTransferValue;
+    if (thisBalance >= totalValue) {
+      auto remainder = thisBalance - totalValue;
       // If user has provided remainder address
       // Use it to send remaining funds to
       if (remainder > 0 && !remainderAddress.empty()) {
@@ -725,10 +675,10 @@ Extended::addRemainder(const Models::Seed& seed, const std::vector<Models::Addre
         // simply sign and return
         return signInputsAndReturn(seed, inputs, bundle, signatureFragments);
       }
-      // If multiple inputs provided, subtract the totalTransferValue by
+      // If multiple inputs provided, subtract the totalValue by
       // the inputs balance
     } else {
-      totalTransferValue -= thisBalance;
+      totalValue -= thisBalance;
     }
   }
   throw Errors::IllegalState("Not enough balance");
@@ -757,17 +707,9 @@ Extended::replayBundle(const Types::Trytes& transaction, int depth, int minWeigh
 }
 
 std::vector<Models::Transaction>
-Extended::initiateTransfer(const Models::Address&         inputAddress,
-                           const Models::Address&         remainderAddress,
-                           std::vector<Models::Transfer>& transfers) const {
-  //! If message is not supplied, provide it
-  //! Also remove the checksum of the address if it's there
-  for (auto& transfer : transfers) {
-    if (transfer.getMessage().empty()) {
-      transfer.setMessage(Types::Utils::rightPad(transfer.getMessage(), 2187, '9'));
-    }
-  }
-
+Extended::initiateTransfer(const Models::Address&               inputAddress,
+                           const Models::Address&               remainderAddress,
+                           const std::vector<Models::Transfer>& transfers) const {
   //! validate input address
   if (inputAddress.empty()) {
     throw Errors::IllegalState("Invalid input address");
@@ -862,7 +804,7 @@ Extended::initiateTransfer(const Models::Address&         inputAddress,
   if (totalBalance > totalValue) {
     int64_t remainder = totalBalance - totalValue;
 
-    // Remainder bundle entry if necessary
+    //! Remainder bundle entry if necessary
     if (remainderAddress.empty()) {
       throw Errors::IllegalState("No remainder address defined");
     }

@@ -435,18 +435,6 @@ TEST(Extended, InitiateTransfersInvalidTransferAddress) {
                    IOTA::Errors::IllegalState, "Invalid transfer");
 }
 
-TEST(Extended, InitiateTransfersInvalidTransferMsg) {
-  auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
-
-  auto transfer  = IOTA::Models::Transfer{ ACCOUNT_2_ADDRESS_1_HASH_WITHOUT_CHECKSUM, 100,
-                                          "invalid__", "TESTTAG99999999999999999999" };
-  auto transfers = std::vector<IOTA::Models::Transfer>{ transfer };
-
-  EXPECT_EXCEPTION(api.initiateTransfer(ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
-                                        ACCOUNT_1_ADDRESS_2_HASH_WITHOUT_CHECKSUM, transfers),
-                   IOTA::Errors::IllegalState, "Invalid transfer");
-}
-
 TEST(Extended, InitiateTransfersNotEnoughFund) {
   auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
 
