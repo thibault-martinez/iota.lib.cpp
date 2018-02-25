@@ -204,7 +204,7 @@ private:
   /**
    * The security.
    */
-  int32_t security_ = 0;
+  int32_t security_ = 2;
 };
 
 }  // namespace Models

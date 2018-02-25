@@ -37,12 +37,18 @@ TEST(Address, FromCtor) {
   EXPECT_EQ(addrEmptyCtor.toTrytes(), "");
   EXPECT_EQ(addrEmptyCtor.toTrytesWithChecksum(), "");
   EXPECT_EQ(addrEmptyCtor.getChecksum(), "");
+  EXPECT_EQ(addrEmptyCtor.getSecurity(), 2);
+  EXPECT_EQ(addrEmptyCtor.getKeyIndex(), 0);
+  EXPECT_EQ(addrEmptyCtor.getBalance(), 0);
 
   IOTA::Models::Address addrFullValidAddr(ACCOUNT_1_ADDRESS_1_HASH);
   EXPECT_EQ(addrFullValidAddr.empty(), false);
   EXPECT_EQ(addrFullValidAddr.toTrytes(), ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM);
   EXPECT_EQ(addrFullValidAddr.toTrytesWithChecksum(), ACCOUNT_1_ADDRESS_1_HASH);
   EXPECT_EQ(addrFullValidAddr.getChecksum(), ACCOUNT_1_ADDRESS_1_HASH.substr(IOTA::AddressLength));
+  EXPECT_EQ(addrFullValidAddr.getSecurity(), 2);
+  EXPECT_EQ(addrFullValidAddr.getKeyIndex(), 0);
+  EXPECT_EQ(addrFullValidAddr.getBalance(), 0);
 
   IOTA::Models::Address addrValidAddrWithoutChecksum(ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM);
   EXPECT_EQ(addrValidAddrWithoutChecksum.empty(), false);
@@ -50,6 +56,9 @@ TEST(Address, FromCtor) {
   EXPECT_EQ(addrValidAddrWithoutChecksum.toTrytesWithChecksum(), ACCOUNT_1_ADDRESS_1_HASH);
   EXPECT_EQ(addrValidAddrWithoutChecksum.getChecksum(),
             ACCOUNT_1_ADDRESS_1_HASH.substr(IOTA::AddressLength));
+  EXPECT_EQ(addrValidAddrWithoutChecksum.getSecurity(), 2);
+  EXPECT_EQ(addrValidAddrWithoutChecksum.getKeyIndex(), 0);
+  EXPECT_EQ(addrValidAddrWithoutChecksum.getBalance(), 0);
 
   EXPECT_EXCEPTION(IOTA::Models::Address addrTooLongAddr(ACCOUNT_1_ADDRESS_1_HASH + '9'),
                    IOTA::Errors::IllegalState, "address has invalid length");
@@ -57,6 +66,46 @@ TEST(Address, FromCtor) {
   EXPECT_EXCEPTION(
       IOTA::Models::Address addrInvalid(ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM + "888888888"),
       IOTA::Errors::IllegalState, "address is not a valid trytes string");
+}
+
+TEST(Address, FullCtor) {
+  IOTA::Models::Address addr = { "", 1, 2, 3 };
+  EXPECT_EQ(addr.empty(), true);
+  EXPECT_EQ(addr.toTrytes(), "");
+  EXPECT_EQ(addr.toTrytesWithChecksum(), "");
+  EXPECT_EQ(addr.getChecksum(), "");
+  EXPECT_EQ(addr.getSecurity(), 3);
+  EXPECT_EQ(addr.getKeyIndex(), 2);
+  EXPECT_EQ(addr.getBalance(), 1);
+
+  EXPECT_EXCEPTION(IOTA::Models::Address addrInvalidSecurity("", 1, 3, 5),
+                   IOTA::Errors::IllegalState, "Invalid Security Level");
+}
+
+TEST(Transaction, SecurityGetterAndSetter) {
+  IOTA::Models::Address addr = { "", 1, 2, 3 };
+  EXPECT_EQ(addr.getSecurity(), 3);
+
+  addr.setSecurity(1);
+  EXPECT_EQ(addr.getSecurity(), 1);
+
+  EXPECT_EXCEPTION(addr.setSecurity(5), IOTA::Errors::IllegalState, "Invalid Security Level");
+}
+
+TEST(Transaction, BalanceGetterAndSetter) {
+  IOTA::Models::Address addr = { "", 1, 2, 3 };
+  EXPECT_EQ(addr.getBalance(), 1);
+
+  addr.setBalance(3);
+  EXPECT_EQ(addr.getBalance(), 3);
+}
+
+TEST(Transaction, keyIndexGetterAndSetter) {
+  IOTA::Models::Address addr = { "", 1, 2, 3 };
+  EXPECT_EQ(addr.getKeyIndex(), 2);
+
+  addr.setKeyIndex(3);
+  EXPECT_EQ(addr.getKeyIndex(), 3);
 }
 
 TEST(Address, FromSetter) {
