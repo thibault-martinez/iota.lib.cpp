@@ -334,7 +334,7 @@ public:
    * @param bundle             To be populated.
    * @param tag                Tag of the transaction
    * @param totalValue         The total value to be transfered.
-   * @param remainder          If this address will be used for sending the remainder value to.
+   * @param remainderAddress   If this address will be used for sending the remainder value to.
    * @param signatureFragments The signature fragments.
    *
    * @return Vector of trytes.
