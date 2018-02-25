@@ -65,14 +65,14 @@ Kerl::squeeze(Types::Trits& trits, std::size_t offset, std::size_t length) {
 
 void
 Kerl::absorb(const int8_t* trits, std::size_t offset, std::size_t length) {
-  int8_t bytesChunk[ByteHashLength];
-  int8_t cpy[length];
-  std::memcpy(cpy, trits, length);
+  int8_t              bytesChunk[ByteHashLength];
+  std::vector<int8_t> cpy;
+  cpy.assign(trits, trits + length);
   while (offset < length) {
     auto end = std::min(offset + TritHashLength, length);
 
     cpy[end - 1] = 0;
-    Types::tritsToBytes(cpy + offset, end - offset, bytesChunk);
+    Types::tritsToBytes(cpy.data() + offset, end - offset, bytesChunk);
 
     keccak_.absorb(bytesChunk, ByteHashLength);
     offset += TritHashLength;
