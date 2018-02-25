@@ -36,10 +36,10 @@
 TEST(Extended, ReplayBundle) {
   IOTA::API::Extended api(get_proxy_host(), get_proxy_port(), true, 380);
 
-  auto res = api.replayBundle(BUNDLE_1_TRX_1_HASH, 27, POW_LEVEL);
+  auto res = api.replayBundle(ACCOUNT_5_BUNDLE_1_TRX_1_HASH, 27, POW_LEVEL);
 
-  ASSERT_EQ(res.getSuccessfully().size(), 4UL);
-  ASSERT_EQ(res.getSuccessfully(), std::vector<bool>({ true, true, true, true }));
+  ASSERT_EQ(res.getSuccessfully().size(), 1UL);
+  ASSERT_EQ(res.getSuccessfully(), std::vector<bool>({ true }));
 }
 
 TEST(Extended, ReplayBundleNonTailTransaction) {
