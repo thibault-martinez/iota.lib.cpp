@@ -140,7 +140,7 @@ Extended::getNewAddresses(const Models::Seed& seed, const uint32_t& index, const
   // Simply generate and return the list of all addresses.
   if (total) {
     for (uint32_t i = index; i < index + total; ++i) {
-      allAddresses.emplace_back(newAddress(seed, i));
+      allAddresses.emplace_back(seed.newAddress(i));
     }
   }
   // Case 2 : no total provided.
@@ -148,7 +148,7 @@ Extended::getNewAddresses(const Models::Seed& seed, const uint32_t& index, const
   // of addresses.
   else {
     for (int32_t i = index; true; i++) {
-      const auto addr = newAddress(seed, i);
+      const auto addr = seed.newAddress(i);
       const auto res  = findTransactionsByAddresses({ addr });
 
       allAddresses.emplace_back(std::move(addr));
@@ -822,15 +822,6 @@ Extended::initiateTransfer(const Models::Address&               inputAddress,
  * Private methods.
  */
 
-Models::Address
-Extended::newAddress(const Models::Seed& seed, const int32_t& index) {
-  auto key          = Crypto::Signing::key(seed, index);
-  auto digests      = Crypto::Signing::digests(key);
-  auto addressTrits = Crypto::Signing::address(digests);
-
-  return IOTA::Models::Address{ Types::tritsToTrytes(addressTrits), 0, index, seed.getSecurity() };
-}
-
 std::vector<Types::Trytes>
 Extended::signInputsAndReturn(const Models::Seed& seed, const std::vector<Models::Address>& inputs,
                               Models::Bundle&                   bundle,
@@ -860,7 +851,7 @@ Extended::signInputsAndReturn(const Models::Seed& seed, const std::vector<Models
       auto bundleHash = tx.getBundle();
 
       // Get corresponding private key of address
-      auto key = Crypto::Signing::key(seed, keyIndex);
+      auto key = Crypto::Signing::key(seed.toTrytes(), keyIndex, seed.getSecurity());
 
       //  First 6561 trits for the firstFragment
       std::vector<int8_t> firstFragment(&key[0], &key[6561]);

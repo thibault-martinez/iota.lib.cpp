@@ -372,17 +372,6 @@ public:
       const std::vector<Models::Transfer>& transfers) const;
 
 private:
-  /**
-   * Generates a new address.
-   * It should be noted that the seed is not transferred.
-   *
-   * @param seed      The tryte-encoded seed.
-   * @param index     The index to start search from.
-   *
-   * @return A new address.
-   */
-  static Models::Address newAddress(const Models::Seed& seed, const int32_t& index);
-
   std::vector<Types::Trytes> signInputsAndReturn(
       const Models::Seed& seed, const std::vector<Models::Address>& inputs, Models::Bundle& bundle,
       const std::vector<Types::Trytes>& signatureFragments) const;

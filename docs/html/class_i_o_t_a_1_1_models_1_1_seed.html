@@ -90,6 +90,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aaa486dc821265291cb8dd3e98e4848af"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6ac3ae67455d5d37ca1877f4dab29bfd"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_models_1_1_seed.html#a6ac3ae67455d5d37ca1877f4dab29bfd">getSecurity</a> () const</td></tr>
 <tr class="separator:a6ac3ae67455d5d37ca1877f4dab29bfd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af56928573f5af73851f7af62a3d5fa77"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_i_o_t_a_1_1_models_1_1_address.html">Models::Address</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_models_1_1_seed.html#af56928573f5af73851f7af62a3d5fa77">newAddress</a> (int32_t index, int32_t security=0) const</td></tr>
+<tr class="separator:af56928573f5af73851f7af62a3d5fa77"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4440f1fef6f893e360f0b77434c40160"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_models_1_1_seed.html#a4440f1fef6f893e360f0b77434c40160">operator==</a> (const <a class="el" href="class_i_o_t_a_1_1_models_1_1_seed.html">Seed</a> &amp;rhs) const</td></tr>
 <tr class="separator:a4440f1fef6f893e360f0b77434c40160"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac1254fc84170ff0ea15b7af171257b16"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_models_1_1_seed.html#ac1254fc84170ff0ea15b7af171257b16">operator!=</a> (const <a class="el" href="class_i_o_t_a_1_1_models_1_1_seed.html">Seed</a> &amp;rhs) const</td></tr>
@@ -103,6 +105,8 @@ Public Member Functions</h2></td></tr>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a2c265f25fbed82424a3668333386ce81"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_i_o_t_a_1_1_models_1_1_seed.html">Seed</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_models_1_1_seed.html#a2c265f25fbed82424a3668333386ce81">generateRandomSeed</a> ()</td></tr>
 <tr class="separator:a2c265f25fbed82424a3668333386ce81"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac481f67eec9ab08d9c5b50ae9bf9f7c1"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_i_o_t_a_1_1_models_1_1_address.html">Models::Address</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_models_1_1_seed.html#ac481f67eec9ab08d9c5b50ae9bf9f7c1">newAddress</a> (const <a class="el" href="class_i_o_t_a_1_1_models_1_1_seed.html">Models::Seed</a> &amp;seed, int32_t index, int32_t security=0)</td></tr>
+<tr class="separator:ac481f67eec9ab08d9c5b50ae9bf9f7c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Used to store seeds. Provides validity checks at construction / value set. Any seeds stored represented with this class are ensured to be valid. </p>
@@ -247,6 +251,95 @@ Static Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>the security level of the seed </dd></dl>
+
+</div>
+</div>
+<a id="af56928573f5af73851f7af62a3d5fa77"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af56928573f5af73851f7af62a3d5fa77">&#9670;&nbsp;</a></span>newAddress() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_i_o_t_a_1_1_models_1_1_address.html">Models::Address</a> IOTA::Models::Seed::newAddress </td>
+          <td>(</td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>index</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>security</em> = <code>0</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Generates a new address.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">index</td><td>The index to start the generation from. </td></tr>
+    <tr><td class="paramname">security</td><td>If set to 0, use the seed security. Otherwise, use the specified security.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A new address. </dd></dl>
+
+</div>
+</div>
+<a id="ac481f67eec9ab08d9c5b50ae9bf9f7c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac481f67eec9ab08d9c5b50ae9bf9f7c1">&#9670;&nbsp;</a></span>newAddress() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="class_i_o_t_a_1_1_models_1_1_address.html">Models::Address</a> IOTA::Models::Seed::newAddress </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_i_o_t_a_1_1_models_1_1_seed.html">Models::Seed</a> &amp;&#160;</td>
+          <td class="paramname"><em>seed</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>index</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>security</em> = <code>0</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Generates a new address.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">seed</td><td>The tryte-encoded seed. </td></tr>
+    <tr><td class="paramname">index</td><td>The index to start search from. </td></tr>
+    <tr><td class="paramname">security</td><td>If set to 0, use the seed security. Otherwise, use the specified security.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A new address. </dd></dl>
 
 </div>
 </div>

@@ -56,8 +56,7 @@ TEST(SigningTest, Key) {
       continue;
     }
 
-    EXPECT_EQ(key, IOTA::Types::tritsToTrytes(
-                       IOTA::Crypto::Signing::key(IOTA::Models::Seed{ seed, security }, index)));
+    EXPECT_EQ(key, IOTA::Types::tritsToTrytes(IOTA::Crypto::Signing::key(seed, index, security)));
   }
 }
 

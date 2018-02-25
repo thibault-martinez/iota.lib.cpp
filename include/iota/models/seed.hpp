@@ -25,6 +25,7 @@
 
 #pragma once
 
+#include <iota/models/fwd.hpp>
 #include <iota/types/trinary.hpp>
 
 namespace IOTA {
@@ -91,6 +92,28 @@ public:
    * @return generated seed
    */
   static Seed generateRandomSeed();
+
+public:
+  /**
+   * Generates a new address.
+   *
+   * @param index     The index to start the generation from.
+   * @param security  If set to 0, use the seed security. Otherwise, use the specified security.
+   *
+   * @return A new address.
+   */
+  Models::Address newAddress(int32_t index, int32_t security = 0) const;
+
+  /**
+   * Generates a new address.
+   *
+   * @param seed      The tryte-encoded seed.
+   * @param index     The index to start search from.
+   * @param security  If set to 0, use the seed security. Otherwise, use the specified security.
+   *
+   * @return A new address.
+   */
+  static Models::Address newAddress(const Models::Seed& seed, int32_t index, int32_t security = 0);
 
 public:
   /**

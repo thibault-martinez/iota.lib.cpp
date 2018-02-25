@@ -24,7 +24,9 @@
 //
 
 #include <iota/constants.hpp>
+#include <iota/crypto/signing.hpp>
 #include <iota/errors/illegal_state.hpp>
+#include <iota/models/address.hpp>
 #include <iota/models/seed.hpp>
 #include <iota/types/utils.hpp>
 
@@ -87,6 +89,26 @@ Seed::setSecurity(int security) {
 int
 Seed::getSecurity() const {
   return security_;
+}
+
+Models::Address
+Seed::newAddress(int32_t index, int32_t security) const {
+  return Seed::newAddress(*this, index, security);
+}
+
+Models::Address
+Seed::newAddress(const Models::Seed& seed, int32_t index, int32_t security) {
+  if (security == 0) {
+    security = seed.getSecurity();
+  } else if (security < 1 || security > 3) {
+    throw Errors::IllegalState("Invalid Security Level");
+  }
+
+  auto key          = Crypto::Signing::key(seed.toTrytes(), index, security);
+  auto digests      = Crypto::Signing::digests(key);
+  auto addressTrits = Crypto::Signing::address(digests);
+
+  return IOTA::Models::Address{ Types::tritsToTrytes(addressTrits), 0, index, security };
 }
 
 bool
