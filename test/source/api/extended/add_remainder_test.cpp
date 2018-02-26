@@ -27,8 +27,8 @@
 
 #include <iota/api/extended.hpp>
 #include <iota/errors/illegal_state.hpp>
+#include <iota/models/address.hpp>
 #include <iota/models/bundle.hpp>
-#include <iota/models/input.hpp>
 #include <iota/models/seed.hpp>
 #include <test/utils/configuration.hpp>
 #include <test/utils/constants.hpp>
@@ -37,13 +37,13 @@
 TEST(Extended, AddRemainder) {
   IOTA::API::Extended api(get_proxy_host(), get_proxy_port());
 
-  auto input  = IOTA::Models::Input{ ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
-                                    ACCOUNT_1_ADDRESS_1_FUND, 0, 2 };
-  auto inputs = std::vector<IOTA::Models::Input>{ input };
+  auto input  = IOTA::Models::Address{ ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
+                                      ACCOUNT_1_ADDRESS_1_FUND, 0, 2 };
+  auto inputs = std::vector<IOTA::Models::Address>{ input };
   auto bundle = IOTA::Models::Bundle{};
 
   auto res =
-      api.addRemainder(ACCOUNT_1_SEED, 2, inputs, bundle, "TESTTAG99999999999999999999", 100,
+      api.addRemainder(ACCOUNT_1_SEED, inputs, bundle, "TESTTAG99999999999999999999", 100,
                        ACCOUNT_1_ADDRESS_2_HASH_WITHOUT_CHECKSUM, { EMPTY_SIGNATURE_FRAGMENT });
 
   ASSERT_EQ(res.size(), 3UL);
@@ -102,13 +102,13 @@ TEST(Extended, AddRemainder) {
 TEST(Extended, AddRemainderInvalidTag) {
   IOTA::API::Extended api(get_proxy_host(), get_proxy_port());
 
-  auto input  = IOTA::Models::Input{ ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
-                                    ACCOUNT_1_ADDRESS_1_FUND, 0, 2 };
-  auto inputs = std::vector<IOTA::Models::Input>{ input };
+  auto input  = IOTA::Models::Address{ ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
+                                      ACCOUNT_1_ADDRESS_1_FUND, 0, 2 };
+  auto inputs = std::vector<IOTA::Models::Address>{ input };
   auto bundle = IOTA::Models::Bundle{};
 
   EXPECT_EXCEPTION(
-      api.addRemainder(ACCOUNT_1_SEED, 2, inputs, bundle, "hello", 100,
+      api.addRemainder(ACCOUNT_1_SEED, inputs, bundle, "hello", 100,
                        ACCOUNT_1_ADDRESS_2_HASH_WITHOUT_CHECKSUM, { EMPTY_SIGNATURE_FRAGMENT }),
       IOTA::Errors::IllegalState, "tag is not a valid trytes string");
 }
@@ -116,13 +116,13 @@ TEST(Extended, AddRemainderInvalidTag) {
 TEST(Extended, AddRemainderTooShortTag) {
   IOTA::API::Extended api(get_proxy_host(), get_proxy_port());
 
-  auto input  = IOTA::Models::Input{ ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
-                                    ACCOUNT_1_ADDRESS_1_FUND, 0, 2 };
-  auto inputs = std::vector<IOTA::Models::Input>{ input };
+  auto input  = IOTA::Models::Address{ ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
+                                      ACCOUNT_1_ADDRESS_1_FUND, 0, 2 };
+  auto inputs = std::vector<IOTA::Models::Address>{ input };
   auto bundle = IOTA::Models::Bundle{};
 
   auto res =
-      api.addRemainder(ACCOUNT_1_SEED, 2, inputs, bundle, "TESTTAG", 100,
+      api.addRemainder(ACCOUNT_1_SEED, inputs, bundle, "TESTTAG", 100,
                        ACCOUNT_1_ADDRESS_2_HASH_WITHOUT_CHECKSUM, { EMPTY_SIGNATURE_FRAGMENT });
 
   ASSERT_EQ(res.size(), 3UL);
@@ -181,11 +181,11 @@ TEST(Extended, AddRemainderTooShortTag) {
 TEST(Extended, AddRemainderNotInput) {
   IOTA::API::Extended api(get_proxy_host(), get_proxy_port());
 
-  auto inputs = std::vector<IOTA::Models::Input>{};
+  auto inputs = std::vector<IOTA::Models::Address>{};
   auto bundle = IOTA::Models::Bundle{};
 
   EXPECT_EXCEPTION(
-      api.addRemainder(ACCOUNT_1_SEED, 2, inputs, bundle, "TESTTAG99999999999999999999", 100,
+      api.addRemainder(ACCOUNT_1_SEED, inputs, bundle, "TESTTAG99999999999999999999", 100,
                        ACCOUNT_1_ADDRESS_2_HASH_WITHOUT_CHECKSUM, { EMPTY_SIGNATURE_FRAGMENT }),
       IOTA::Errors::IllegalState, "Not enough balance");
 }
@@ -193,13 +193,13 @@ TEST(Extended, AddRemainderNotInput) {
 TEST(Extended, AddRemainderNotEnoughBalance) {
   IOTA::API::Extended api(get_proxy_host(), get_proxy_port());
 
-  auto input  = IOTA::Models::Input{ ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
-                                    ACCOUNT_1_ADDRESS_1_FUND, 0, 2 };
-  auto inputs = std::vector<IOTA::Models::Input>{ input };
+  auto input  = IOTA::Models::Address{ ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
+                                      ACCOUNT_1_ADDRESS_1_FUND, 0, 2 };
+  auto inputs = std::vector<IOTA::Models::Address>{ input };
   auto bundle = IOTA::Models::Bundle{};
 
   EXPECT_EXCEPTION(
-      api.addRemainder(ACCOUNT_1_SEED, 2, inputs, bundle, "TESTTAG99999999999999999999",
+      api.addRemainder(ACCOUNT_1_SEED, inputs, bundle, "TESTTAG99999999999999999999",
                        ACCOUNT_1_ADDRESS_1_FUND + 1, ACCOUNT_1_ADDRESS_2_HASH_WITHOUT_CHECKSUM,
                        { EMPTY_SIGNATURE_FRAGMENT }),
       IOTA::Errors::IllegalState, "Not enough balance");
@@ -208,17 +208,16 @@ TEST(Extended, AddRemainderNotEnoughBalance) {
 TEST(Extended, AddRemainderMultipleInputs) {
   IOTA::API::Extended api(get_proxy_host(), get_proxy_port());
 
-  auto input1 = IOTA::Models::Input{ ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
-                                     ACCOUNT_1_ADDRESS_1_FUND, 0, 2 };
-  auto input2 = IOTA::Models::Input{ ACCOUNT_1_ADDRESS_2_HASH_WITHOUT_CHECKSUM,
-                                     ACCOUNT_1_ADDRESS_2_FUND, 0, 2 };
-  auto inputs = std::vector<IOTA::Models::Input>{ input1, input2 };
+  auto input1 = IOTA::Models::Address{ ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
+                                       ACCOUNT_1_ADDRESS_1_FUND, 0, 2 };
+  auto input2 = IOTA::Models::Address{ ACCOUNT_1_ADDRESS_2_HASH_WITHOUT_CHECKSUM,
+                                       ACCOUNT_1_ADDRESS_2_FUND, 0, 2 };
+  auto inputs = std::vector<IOTA::Models::Address>{ input1, input2 };
   auto bundle = IOTA::Models::Bundle{};
 
-  auto res =
-      api.addRemainder(ACCOUNT_1_SEED, 2, inputs, bundle, "TESTTAG99999999999999999999",
-                       ACCOUNT_1_ADDRESS_1_FUND + 1, ACCOUNT_1_ADDRESS_2_HASH_WITHOUT_CHECKSUM,
-                       { EMPTY_SIGNATURE_FRAGMENT });
+  auto res = api.addRemainder(
+      ACCOUNT_1_SEED, inputs, bundle, "TESTTAG99999999999999999999", ACCOUNT_1_ADDRESS_1_FUND + 1,
+      ACCOUNT_1_ADDRESS_2_HASH_WITHOUT_CHECKSUM, { EMPTY_SIGNATURE_FRAGMENT });
 
   ASSERT_EQ(res.size(), 5UL);
   ASSERT_EQ(bundle.getTransactions().size(), 5UL);
@@ -308,15 +307,15 @@ TEST(Extended, AddRemainderMultipleInputs) {
 TEST(Extended, AddRemainderMultipleUnecessaryInputs) {
   IOTA::API::Extended api(get_proxy_host(), get_proxy_port());
 
-  auto input1 = IOTA::Models::Input{ ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
-                                     ACCOUNT_1_ADDRESS_1_FUND, 0, 2 };
-  auto input2 = IOTA::Models::Input{ ACCOUNT_1_ADDRESS_2_HASH_WITHOUT_CHECKSUM,
-                                     ACCOUNT_1_ADDRESS_2_FUND, 0, 2 };
-  auto inputs = std::vector<IOTA::Models::Input>{ input1, input2 };
+  auto input1 = IOTA::Models::Address{ ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
+                                       ACCOUNT_1_ADDRESS_1_FUND, 0, 2 };
+  auto input2 = IOTA::Models::Address{ ACCOUNT_1_ADDRESS_2_HASH_WITHOUT_CHECKSUM,
+                                       ACCOUNT_1_ADDRESS_2_FUND, 0, 2 };
+  auto inputs = std::vector<IOTA::Models::Address>{ input1, input2 };
   auto bundle = IOTA::Models::Bundle{};
 
   auto res =
-      api.addRemainder(ACCOUNT_1_SEED, 2, inputs, bundle, "TESTTAG99999999999999999999", 100,
+      api.addRemainder(ACCOUNT_1_SEED, inputs, bundle, "TESTTAG99999999999999999999", 100,
                        ACCOUNT_1_ADDRESS_2_HASH_WITHOUT_CHECKSUM, { EMPTY_SIGNATURE_FRAGMENT });
 
   ASSERT_EQ(res.size(), 3UL);
@@ -375,13 +374,13 @@ TEST(Extended, AddRemainderMultipleUnecessaryInputs) {
 TEST(Extended, AddRemainderZeroValue) {
   IOTA::API::Extended api(get_proxy_host(), get_proxy_port());
 
-  auto input  = IOTA::Models::Input{ ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
-                                    ACCOUNT_1_ADDRESS_1_FUND, 0, 2 };
-  auto inputs = std::vector<IOTA::Models::Input>{ input };
+  auto input  = IOTA::Models::Address{ ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
+                                      ACCOUNT_1_ADDRESS_1_FUND, 0, 2 };
+  auto inputs = std::vector<IOTA::Models::Address>{ input };
   auto bundle = IOTA::Models::Bundle{};
 
   auto res =
-      api.addRemainder(ACCOUNT_1_SEED, 2, inputs, bundle, "TESTTAG99999999999999999999", 0,
+      api.addRemainder(ACCOUNT_1_SEED, inputs, bundle, "TESTTAG99999999999999999999", 0,
                        ACCOUNT_1_ADDRESS_2_HASH_WITHOUT_CHECKSUM, { EMPTY_SIGNATURE_FRAGMENT });
 
   ASSERT_EQ(res.size(), 3UL);
@@ -440,12 +439,12 @@ TEST(Extended, AddRemainderZeroValue) {
 TEST(Extended, AddRemainderMatchingInput) {
   IOTA::API::Extended api(get_proxy_host(), get_proxy_port());
 
-  auto input  = IOTA::Models::Input{ ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
-                                    ACCOUNT_1_ADDRESS_1_FUND, 0, 2 };
-  auto inputs = std::vector<IOTA::Models::Input>{ input };
+  auto input  = IOTA::Models::Address{ ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
+                                      ACCOUNT_1_ADDRESS_1_FUND, 0, 2 };
+  auto inputs = std::vector<IOTA::Models::Address>{ input };
   auto bundle = IOTA::Models::Bundle{};
 
-  auto res = api.addRemainder(ACCOUNT_1_SEED, 2, inputs, bundle, "TESTTAG99999999999999999999",
+  auto res = api.addRemainder(ACCOUNT_1_SEED, inputs, bundle, "TESTTAG99999999999999999999",
                               ACCOUNT_1_ADDRESS_1_FUND, ACCOUNT_1_ADDRESS_2_HASH_WITHOUT_CHECKSUM,
                               { EMPTY_SIGNATURE_FRAGMENT });
 
@@ -489,12 +488,12 @@ TEST(Extended, AddRemainderMatchingInput) {
 TEST(Extended, AddRemainderNoRemainderAddress) {
   IOTA::API::Extended api(get_proxy_host(), get_proxy_port());
 
-  auto input  = IOTA::Models::Input{ ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
-                                    ACCOUNT_1_ADDRESS_1_FUND, 0, 2 };
-  auto inputs = std::vector<IOTA::Models::Input>{ input };
+  auto input  = IOTA::Models::Address{ ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
+                                      ACCOUNT_1_ADDRESS_1_FUND, 0, 2 };
+  auto inputs = std::vector<IOTA::Models::Address>{ input };
   auto bundle = IOTA::Models::Bundle{};
 
-  auto res = api.addRemainder(ACCOUNT_1_SEED, 2, inputs, bundle, "TESTTAG99999999999999999999", 100,
+  auto res = api.addRemainder(ACCOUNT_1_SEED, inputs, bundle, "TESTTAG99999999999999999999", 100,
                               "", { EMPTY_SIGNATURE_FRAGMENT });
 
   ASSERT_EQ(res.size(), 3UL);
@@ -553,14 +552,14 @@ TEST(Extended, AddRemainderNoRemainderAddress) {
 TEST(Extended, AddRemainderSecurity) {
   IOTA::API::Extended api(get_proxy_host(), get_proxy_port());
 
-  auto input  = IOTA::Models::Input{ ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
-                                    ACCOUNT_1_ADDRESS_1_FUND, 0, 2 };
-  auto inputs = std::vector<IOTA::Models::Input>{ input };
+  auto input  = IOTA::Models::Address{ ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
+                                      ACCOUNT_1_ADDRESS_1_FUND, 0, 2 };
+  auto inputs = std::vector<IOTA::Models::Address>{ input };
   auto bundle = IOTA::Models::Bundle{};
 
-  auto res =
-      api.addRemainder(ACCOUNT_1_SEED, 3, inputs, bundle, "TESTTAG99999999999999999999", 100,
-                       ACCOUNT_1_ADDRESS_2_HASH_WITHOUT_CHECKSUM, { EMPTY_SIGNATURE_FRAGMENT });
+  auto res = api.addRemainder(
+      IOTA::Models::Seed{ ACCOUNT_1_SEED, 3 }, inputs, bundle, "TESTTAG99999999999999999999", 100,
+      ACCOUNT_1_ADDRESS_2_HASH_WITHOUT_CHECKSUM, { EMPTY_SIGNATURE_FRAGMENT });
 
   ASSERT_EQ(res.size(), 3UL);
   ASSERT_EQ(bundle.getTransactions().size(), 3UL);
@@ -618,12 +617,13 @@ TEST(Extended, AddRemainderSecurity) {
 TEST(Extended, AddRemainderMultipleFragments) {
   IOTA::API::Extended api(get_proxy_host(), get_proxy_port());
 
-  auto input  = IOTA::Models::Input{ ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
-                                    ACCOUNT_1_ADDRESS_1_FUND, 0, 2 };
-  auto inputs = std::vector<IOTA::Models::Input>{ input };
+  auto input  = IOTA::Models::Address{ ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
+                                      ACCOUNT_1_ADDRESS_1_FUND, 0, 2 };
+  auto inputs = std::vector<IOTA::Models::Address>{ input };
   auto bundle = IOTA::Models::Bundle{};
 
-  auto res = api.addRemainder(ACCOUNT_1_SEED, 3, inputs, bundle, "TESTTAG99999999999999999999", 100,
+  auto res = api.addRemainder(IOTA::Models::Seed{ ACCOUNT_1_SEED, 3 }, inputs, bundle,
+                              "TESTTAG99999999999999999999", 100,
                               ACCOUNT_1_ADDRESS_2_HASH_WITHOUT_CHECKSUM,
                               { EMPTY_SIGNATURE_FRAGMENT, EMPTY_SIGNATURE_FRAGMENT });
 

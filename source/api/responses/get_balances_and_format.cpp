@@ -24,7 +24,7 @@
 //
 
 #include <iota/api/responses/get_balances_and_format.hpp>
-#include <iota/models/input.hpp>
+#include <iota/models/address.hpp>
 
 namespace IOTA {
 
@@ -32,23 +32,23 @@ namespace API {
 
 namespace Responses {
 
-GetBalancesAndFormat::GetBalancesAndFormat(const std::vector<Models::Input>& inputs,
+GetBalancesAndFormat::GetBalancesAndFormat(const std::vector<Models::Address>& inputs,
                                            const int64_t& totalBalance, const int64_t& duration)
     : Base(duration), inputs_(inputs), totalBalance_(totalBalance) {
 }
 
-const std::vector<Models::Input>&
+const std::vector<Models::Address>&
 GetBalancesAndFormat::getInputs() const {
   return inputs_;
 }
 
-std::vector<Models::Input>&
+std::vector<Models::Address>&
 GetBalancesAndFormat::getInputs() {
   return inputs_;
 }
 
 void
-GetBalancesAndFormat::setInputs(const std::vector<Models::Input>& inputs) {
+GetBalancesAndFormat::setInputs(const std::vector<Models::Address>& inputs) {
   inputs_ = inputs;
 }
 

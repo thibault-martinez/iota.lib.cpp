@@ -40,7 +40,7 @@ TEST(Extended, InitiateTransfer) {
                                           "TESTTAG99999999999999999999" };
   auto transfers = std::vector<IOTA::Models::Transfer>{ transfer };
 
-  auto res = api.initiateTransfer(2, ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
+  auto res = api.initiateTransfer(ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
                                   ACCOUNT_1_ADDRESS_2_HASH_WITHOUT_CHECKSUM, transfers);
 
   ASSERT_EQ(res.size(), 4UL);
@@ -146,8 +146,9 @@ TEST(Extended, InitiateTransferSecurity) {
                                           "TESTTAG99999999999999999999" };
   auto transfers = std::vector<IOTA::Models::Transfer>{ transfer };
 
-  auto res = api.initiateTransfer(3, ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
-                                  ACCOUNT_1_ADDRESS_2_HASH_WITHOUT_CHECKSUM, transfers);
+  auto res = api.initiateTransfer(
+      IOTA::Models::Address{ ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM, 0, 0, 3 },
+      ACCOUNT_1_ADDRESS_2_HASH_WITHOUT_CHECKSUM, transfers);
 
   ASSERT_EQ(res.size(), 5UL);
 
@@ -268,7 +269,7 @@ TEST(Extended, InitiateTransferWithChecksum) {
                                           "TESTTAG99999999999999999999" };
   auto transfers = std::vector<IOTA::Models::Transfer>{ transfer };
 
-  auto res = api.initiateTransfer(2, ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
+  auto res = api.initiateTransfer(ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
                                   ACCOUNT_1_ADDRESS_2_HASH_WITHOUT_CHECKSUM, transfers);
 
   ASSERT_EQ(res.size(), 4UL);
@@ -374,9 +375,8 @@ TEST(Extended, InitiateTransfersNoRemainderAddress) {
                                           "TESTTAG99999999999999999999" };
   auto transfers = std::vector<IOTA::Models::Transfer>{ transfer };
 
-  EXPECT_EXCEPTION(
-      api.initiateTransfer(2, ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM, "", transfers),
-      IOTA::Errors::IllegalState, "No remainder address defined");
+  EXPECT_EXCEPTION(api.initiateTransfer(ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM, "", transfers),
+                   IOTA::Errors::IllegalState, "No remainder address defined");
 }
 
 TEST(Extended, InitiateTransfersInvalidRemainderAddress) {
@@ -387,7 +387,7 @@ TEST(Extended, InitiateTransfersInvalidRemainderAddress) {
   auto transfers = std::vector<IOTA::Models::Transfer>{ transfer };
 
   EXPECT_EXCEPTION(
-      api.initiateTransfer(2, ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM, "yolo", transfers),
+      api.initiateTransfer(ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM, "yolo", transfers),
       IOTA::Errors::IllegalState, "address has invalid length");
 }
 
@@ -399,7 +399,7 @@ TEST(Extended, InitiateTransfersInvalidInputAddress) {
   auto transfers = std::vector<IOTA::Models::Transfer>{ transfer };
 
   EXPECT_EXCEPTION(
-      api.initiateTransfer(2, "yolo", ACCOUNT_1_ADDRESS_2_HASH_WITHOUT_CHECKSUM, transfers),
+      api.initiateTransfer("yolo", ACCOUNT_1_ADDRESS_2_HASH_WITHOUT_CHECKSUM, transfers),
       IOTA::Errors::IllegalState, "address has invalid length");
 }
 
@@ -410,9 +410,8 @@ TEST(Extended, InitiateTransfersNoInputAddress) {
                                           "TESTTAG99999999999999999999" };
   auto transfers = std::vector<IOTA::Models::Transfer>{ transfer };
 
-  EXPECT_EXCEPTION(
-      api.initiateTransfer(2, "", ACCOUNT_1_ADDRESS_2_HASH_WITHOUT_CHECKSUM, transfers),
-      IOTA::Errors::IllegalState, "Invalid input address");
+  EXPECT_EXCEPTION(api.initiateTransfer("", ACCOUNT_1_ADDRESS_2_HASH_WITHOUT_CHECKSUM, transfers),
+                   IOTA::Errors::IllegalState, "Invalid input address");
 }
 
 TEST(Extended, InitiateTransferNoTransfer) {
@@ -420,7 +419,7 @@ TEST(Extended, InitiateTransferNoTransfer) {
 
   auto transfers = std::vector<IOTA::Models::Transfer>{};
 
-  EXPECT_EXCEPTION(api.initiateTransfer(2, ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
+  EXPECT_EXCEPTION(api.initiateTransfer(ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
                                         ACCOUNT_1_ADDRESS_2_HASH_WITHOUT_CHECKSUM, transfers),
                    IOTA::Errors::IllegalState, "Invalid value transfer");
 }
@@ -431,19 +430,7 @@ TEST(Extended, InitiateTransfersInvalidTransferAddress) {
   auto transfer  = IOTA::Models::Transfer{ "", 100, "TESTMSG", "TESTTAG99999999999999999999" };
   auto transfers = std::vector<IOTA::Models::Transfer>{ transfer };
 
-  EXPECT_EXCEPTION(api.initiateTransfer(2, ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
-                                        ACCOUNT_1_ADDRESS_2_HASH_WITHOUT_CHECKSUM, transfers),
-                   IOTA::Errors::IllegalState, "Invalid transfer");
-}
-
-TEST(Extended, InitiateTransfersInvalidTransferMsg) {
-  auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
-
-  auto transfer  = IOTA::Models::Transfer{ ACCOUNT_2_ADDRESS_1_HASH_WITHOUT_CHECKSUM, 100,
-                                          "invalid__", "TESTTAG99999999999999999999" };
-  auto transfers = std::vector<IOTA::Models::Transfer>{ transfer };
-
-  EXPECT_EXCEPTION(api.initiateTransfer(2, ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
+  EXPECT_EXCEPTION(api.initiateTransfer(ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
                                         ACCOUNT_1_ADDRESS_2_HASH_WITHOUT_CHECKSUM, transfers),
                    IOTA::Errors::IllegalState, "Invalid transfer");
 }
@@ -456,7 +443,7 @@ TEST(Extended, InitiateTransfersNotEnoughFund) {
                                           "TESTTAG99999999999999999999" };
   auto transfers = std::vector<IOTA::Models::Transfer>{ transfer };
 
-  EXPECT_EXCEPTION(api.initiateTransfer(2, ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
+  EXPECT_EXCEPTION(api.initiateTransfer(ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
                                         ACCOUNT_1_ADDRESS_2_HASH_WITHOUT_CHECKSUM, transfers),
                    IOTA::Errors::IllegalState, "Not enough balance");
 }
@@ -468,7 +455,7 @@ TEST(Extended, InitiateTransfersZeroTransfer) {
                                           "TESTTAG99999999999999999999" };
   auto transfers = std::vector<IOTA::Models::Transfer>{ transfer };
 
-  EXPECT_EXCEPTION(api.initiateTransfer(2, ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
+  EXPECT_EXCEPTION(api.initiateTransfer(ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
                                         ACCOUNT_1_ADDRESS_2_HASH_WITHOUT_CHECKSUM, transfers),
                    IOTA::Errors::IllegalState, "Invalid value transfer");
 }
@@ -480,7 +467,7 @@ TEST(Extended, InitiateTransferNoTag) {
       IOTA::Models::Transfer{ ACCOUNT_2_ADDRESS_1_HASH_WITHOUT_CHECKSUM, 100, "TESTMSG", "" };
   auto transfers = std::vector<IOTA::Models::Transfer>{ transfer };
 
-  auto res = api.initiateTransfer(2, ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
+  auto res = api.initiateTransfer(ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
                                   ACCOUNT_1_ADDRESS_2_HASH_WITHOUT_CHECKSUM, transfers);
 
   ASSERT_EQ(res.size(), 4UL);
@@ -586,7 +573,7 @@ TEST(Extended, InitiateTransferNoMsg) {
                                           "TESTTAG99999999999999999999" };
   auto transfers = std::vector<IOTA::Models::Transfer>{ transfer };
 
-  auto res = api.initiateTransfer(2, ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
+  auto res = api.initiateTransfer(ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
                                   ACCOUNT_1_ADDRESS_2_HASH_WITHOUT_CHECKSUM, transfers);
 
   ASSERT_EQ(res.size(), 4UL);
@@ -693,7 +680,7 @@ TEST(Extended, InitiateTransferTooLargeMessage) {
   };
   auto transfers = std::vector<IOTA::Models::Transfer>{ transfer };
 
-  auto res = api.initiateTransfer(2, ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
+  auto res = api.initiateTransfer(ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
                                   ACCOUNT_1_ADDRESS_2_HASH_WITHOUT_CHECKSUM, transfers);
 
   ASSERT_EQ(res.size(), 5UL);

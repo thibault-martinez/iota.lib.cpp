@@ -30,7 +30,6 @@ namespace IOTA {
 namespace Models {
 
 class Bundle;
-class Input;
 class Neighbor;
 class Signature;
 class Transaction;

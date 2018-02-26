@@ -25,6 +25,7 @@
 
 #pragma once
 
+#include <iota/models/fwd.hpp>
 #include <iota/types/trinary.hpp>
 
 namespace IOTA {
@@ -42,15 +43,17 @@ public:
    * Ctor.
    *
    * @param seed the seed value. It must be a valid seed.
+   * @param security Security level of the seed. Must be between 1 (low, fast) and 3 (high slow).
    */
-  Seed(const Types::Trytes& seed = "");
+  Seed(const Types::Trytes& seed = "", int security = 2);
 
   /**
    * Ctor, char* based to make implicitly convertion to Seed more flexible.
    *
    * @param seed the seed value. It must be a valid seed.
+   * @param security Security level of the seed. Must be between 1 (low, fast) and 3 (high slow).
    */
-  Seed(const char* seed);
+  Seed(const char* seed, int security = 2);
 
   /**
    * Default dtor.
@@ -70,12 +73,47 @@ public:
    */
   void setSeed(const Types::Trytes& seed);
 
+  /**
+   * Set the seed security.
+   * Must be between 1 (low, fast) and 3 (high slow).
+   *
+   * @param security the new security level of the seed.
+   */
+  void setSecurity(int security);
+
+  /**
+   * @return the security level of the seed
+   */
+  int getSecurity() const;
+
 public:
   /**
    * Generate seed randomly
    * @return generated seed
    */
   static Seed generateRandomSeed();
+
+public:
+  /**
+   * Generates a new address.
+   *
+   * @param index     The index to start the generation from.
+   * @param security  If set to 0, use the seed security. Otherwise, use the specified security.
+   *
+   * @return A new address.
+   */
+  Models::Address newAddress(int32_t index, int32_t security = 0) const;
+
+  /**
+   * Generates a new address.
+   *
+   * @param seed      The tryte-encoded seed.
+   * @param index     The index to start search from.
+   * @param security  If set to 0, use the seed security. Otherwise, use the specified security.
+   *
+   * @return A new address.
+   */
+  static Models::Address newAddress(const Models::Seed& seed, int32_t index, int32_t security = 0);
 
 public:
   /**
@@ -117,9 +155,13 @@ public:
 
 private:
   /**
-   * seed value without checksum
+   * seed value
    */
   Types::Trytes seed_;
+  /**
+   * security level of the seem
+   */
+  int security_;
 };
 
 }  // namespace Models

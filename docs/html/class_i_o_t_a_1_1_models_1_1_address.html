@@ -75,10 +75,10 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ac2da37f2bd06732a6fd2aa0cb8a2fc2b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_models_1_1_address.html#ac2da37f2bd06732a6fd2aa0cb8a2fc2b">Address</a> (const Types::Trytes &amp;address=&quot;&quot;)</td></tr>
-<tr class="separator:ac2da37f2bd06732a6fd2aa0cb8a2fc2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeeedfecf20c25ab881f36d6b84ab32b6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_models_1_1_address.html#aeeedfecf20c25ab881f36d6b84ab32b6">Address</a> (const char *address)</td></tr>
-<tr class="separator:aeeedfecf20c25ab881f36d6b84ab32b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1fa77649ecd400957cc98c250a0395e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_models_1_1_address.html#ab1fa77649ecd400957cc98c250a0395e">Address</a> (const Types::Trytes &amp;address=&quot;&quot;, const int64_t &amp;balance=0, const int32_t &amp;keyIndex=0, const int32_t &amp;security=2)</td></tr>
+<tr class="separator:ab1fa77649ecd400957cc98c250a0395e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac063cf7a06bdd4c6f4933dc684035fcb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_models_1_1_address.html#ac063cf7a06bdd4c6f4933dc684035fcb">Address</a> (const char *address, const int64_t &amp;balance=0, const int32_t &amp;keyIndex=0, const int32_t &amp;security=2)</td></tr>
+<tr class="separator:ac063cf7a06bdd4c6f4933dc684035fcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa47746972ee7f98fbdb5686ace994b24"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_models_1_1_address.html#aa47746972ee7f98fbdb5686ace994b24">~Address</a> ()=default</td></tr>
 <tr class="separator:aa47746972ee7f98fbdb5686ace994b24"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a237f38aec1677f228f36caadaca1d120"><td class="memItemLeft" align="right" valign="top">const Types::Trytes &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_models_1_1_address.html#a237f38aec1677f228f36caadaca1d120">toTrytes</a> () const</td></tr>
@@ -91,6 +91,18 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aece1e316f897ed8e225de3b6416a272c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3e7af651f6df5a9bb068a37132c53209"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_models_1_1_address.html#a3e7af651f6df5a9bb068a37132c53209">empty</a> () const</td></tr>
 <tr class="separator:a3e7af651f6df5a9bb068a37132c53209"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad25e67ab3d300f2939a1c33d21929da4"><td class="memItemLeft" align="right" valign="top">const int64_t &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_models_1_1_address.html#ad25e67ab3d300f2939a1c33d21929da4">getBalance</a> () const</td></tr>
+<tr class="separator:ad25e67ab3d300f2939a1c33d21929da4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3e37e9c194f09a0d49d9a0b4ee9c1f88"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_models_1_1_address.html#a3e37e9c194f09a0d49d9a0b4ee9c1f88">setBalance</a> (const int64_t &amp;balance)</td></tr>
+<tr class="separator:a3e37e9c194f09a0d49d9a0b4ee9c1f88"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ad02e7dd4132a09070c2fd0e08f2c0a"><td class="memItemLeft" align="right" valign="top">const int32_t &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_models_1_1_address.html#a6ad02e7dd4132a09070c2fd0e08f2c0a">getKeyIndex</a> () const</td></tr>
+<tr class="separator:a6ad02e7dd4132a09070c2fd0e08f2c0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf6ff497a74f05694db3b2e08284fcff"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_models_1_1_address.html#acf6ff497a74f05694db3b2e08284fcff">setKeyIndex</a> (const int32_t &amp;keyIndex)</td></tr>
+<tr class="separator:acf6ff497a74f05694db3b2e08284fcff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaf7773727d09c196ebba0146b60b2aaf"><td class="memItemLeft" align="right" valign="top">const int32_t &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_models_1_1_address.html#aaf7773727d09c196ebba0146b60b2aaf">getSecurity</a> () const</td></tr>
+<tr class="separator:aaf7773727d09c196ebba0146b60b2aaf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a387beaaca91e6f80bcbc02aeb656a412"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_models_1_1_address.html#a387beaaca91e6f80bcbc02aeb656a412">setSecurity</a> (const int32_t &amp;security)</td></tr>
+<tr class="separator:a387beaaca91e6f80bcbc02aeb656a412"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a471b7ca15b39c9cacb861d486a53d69b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_models_1_1_address.html#a471b7ca15b39c9cacb861d486a53d69b">operator==</a> (const <a class="el" href="class_i_o_t_a_1_1_models_1_1_address.html">Address</a> &amp;rhs) const</td></tr>
 <tr class="separator:a471b7ca15b39c9cacb861d486a53d69b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a350597cb6f00083967061638916e2abb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_models_1_1_address.html#a350597cb6f00083967061638916e2abb">operator!=</a> (const <a class="el" href="class_i_o_t_a_1_1_models_1_1_address.html">Address</a> &amp;rhs) const</td></tr>
@@ -103,8 +115,8 @@ Public Member Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Used to store addresses. Provides validity checks at construction / value set. Provides checksum generation. Any addresses stored represented with this class are ensured to be valid. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ac2da37f2bd06732a6fd2aa0cb8a2fc2b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac2da37f2bd06732a6fd2aa0cb8a2fc2b">&#9670;&nbsp;</a></span>Address() <span class="overload">[1/2]</span></h2>
+<a id="ab1fa77649ecd400957cc98c250a0395e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1fa77649ecd400957cc98c250a0395e">&#9670;&nbsp;</a></span>Address() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -113,8 +125,30 @@ Public Member Functions</h2></td></tr>
           <td class="memname">IOTA::Models::Address::Address </td>
           <td>(</td>
           <td class="paramtype">const Types::Trytes &amp;&#160;</td>
-          <td class="paramname"><em>address</em> = <code>&quot;&quot;</code></td><td>)</td>
+          <td class="paramname"><em>address</em> = <code>&quot;&quot;</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const int64_t &amp;&#160;</td>
+          <td class="paramname"><em>balance</em> = <code>0</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t &amp;&#160;</td>
+          <td class="paramname"><em>keyIndex</em> = <code>0</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t &amp;&#160;</td>
+          <td class="paramname"><em>security</em> = <code>2</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -122,14 +156,17 @@ Public Member Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">address</td><td>the address value. It must be a valid address. Checksum can be included. </td></tr>
+    <tr><td class="paramname">balance</td><td>The balance associated of the address. </td></tr>
+    <tr><td class="paramname">keyIndex</td><td>The key index of the address. </td></tr>
+    <tr><td class="paramname">security</td><td>The security level of the address. </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="aeeedfecf20c25ab881f36d6b84ab32b6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeeedfecf20c25ab881f36d6b84ab32b6">&#9670;&nbsp;</a></span>Address() <span class="overload">[2/2]</span></h2>
+<a id="ac063cf7a06bdd4c6f4933dc684035fcb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac063cf7a06bdd4c6f4933dc684035fcb">&#9670;&nbsp;</a></span>Address() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -138,8 +175,30 @@ Public Member Functions</h2></td></tr>
           <td class="memname">IOTA::Models::Address::Address </td>
           <td>(</td>
           <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>address</em></td><td>)</td>
+          <td class="paramname"><em>address</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const int64_t &amp;&#160;</td>
+          <td class="paramname"><em>balance</em> = <code>0</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t &amp;&#160;</td>
+          <td class="paramname"><em>keyIndex</em> = <code>0</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t &amp;&#160;</td>
+          <td class="paramname"><em>security</em> = <code>2</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -147,6 +206,9 @@ Public Member Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">address</td><td>the address value. It must be a valid address. Checksum can be included. </td></tr>
+    <tr><td class="paramname">balance</td><td>The balance associated of the address. </td></tr>
+    <tr><td class="paramname">keyIndex</td><td>The key index of the address. </td></tr>
+    <tr><td class="paramname">security</td><td>The security level of the address. </td></tr>
   </table>
   </dd>
 </dl>
@@ -198,6 +260,24 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ad25e67ab3d300f2939a1c33d21929da4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad25e67ab3d300f2939a1c33d21929da4">&#9670;&nbsp;</a></span>getBalance()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const int64_t&amp; IOTA::Models::Address::getBalance </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Balance. </dd></dl>
+
+</div>
+</div>
 <a id="aece1e316f897ed8e225de3b6416a272c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aece1e316f897ed8e225de3b6416a272c">&#9670;&nbsp;</a></span>getChecksum()</h2>
 
@@ -221,6 +301,42 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>address checksum as trytes string. </dd></dl>
+
+</div>
+</div>
+<a id="a6ad02e7dd4132a09070c2fd0e08f2c0a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ad02e7dd4132a09070c2fd0e08f2c0a">&#9670;&nbsp;</a></span>getKeyIndex()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const int32_t&amp; IOTA::Models::Address::getKeyIndex </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Key Index. </dd></dl>
+
+</div>
+</div>
+<a id="aaf7773727d09c196ebba0146b60b2aaf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf7773727d09c196ebba0146b60b2aaf">&#9670;&nbsp;</a></span>getSecurity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const int32_t&amp; IOTA::Models::Address::getSecurity </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Security. </dd></dl>
 
 </div>
 </div>
@@ -347,6 +463,78 @@ Public Member Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">address</td><td>the address value. It must be a valid address. Checksum can be included. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a3e37e9c194f09a0d49d9a0b4ee9c1f88"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e37e9c194f09a0d49d9a0b4ee9c1f88">&#9670;&nbsp;</a></span>setBalance()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void IOTA::Models::Address::setBalance </td>
+          <td>(</td>
+          <td class="paramtype">const int64_t &amp;&#160;</td>
+          <td class="paramname"><em>balance</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">balance</td><td>set new balance for input. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="acf6ff497a74f05694db3b2e08284fcff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf6ff497a74f05694db3b2e08284fcff">&#9670;&nbsp;</a></span>setKeyIndex()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void IOTA::Models::Address::setKeyIndex </td>
+          <td>(</td>
+          <td class="paramtype">const int32_t &amp;&#160;</td>
+          <td class="paramname"><em>keyIndex</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">keyIndex</td><td>set new keyIndex for input in transaction. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a387beaaca91e6f80bcbc02aeb656a412"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a387beaaca91e6f80bcbc02aeb656a412">&#9670;&nbsp;</a></span>setSecurity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void IOTA::Models::Address::setSecurity </td>
+          <td>(</td>
+          <td class="paramtype">const int32_t &amp;&#160;</td>
+          <td class="paramname"><em>security</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">security</td><td>set new security level for input. </td></tr>
   </table>
   </dd>
 </dl>

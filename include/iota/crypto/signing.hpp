@@ -41,14 +41,13 @@ namespace Signing {
 /**
  * Derive a private key from a seed.
  *
- * @param seed The seed.
- * @param index The index of the key.
- * @param security The security level of the key.
+ * @param seed      Seed to be used for address generation.
+ * @param index     The index to start the generation from.
+ * @param security  The security to use for address generation.
  *
  * @return The key as trits.
  */
-Types::Trits key(const Models::Seed& seed, const unsigned int& index = 0,
-                 const unsigned int& security = 1);
+Types::Trits key(const Types::Trytes& seed, int32_t index = 0, int32_t security = 2);
 
 /**
  * Compute hash x normalizedBundleFragment[i] for each fragment in the signature.

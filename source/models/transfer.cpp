@@ -24,6 +24,7 @@
 //
 
 #include <iota/constants.hpp>
+#include <iota/errors/illegal_state.hpp>
 #include <iota/models/transfer.hpp>
 #include <iota/types/trinary.hpp>
 
@@ -33,7 +34,8 @@ namespace Models {
 
 Transfer::Transfer(const Models::Address& address, int64_t value, const Types::Trytes& message,
                    const Models::Tag& tag)
-    : address_(address), value_(value), message_(message), tag_(tag) {
+    : address_(address), value_(value), tag_(tag) {
+  setMessage(message);
 }
 
 const Models::Address&
@@ -63,6 +65,10 @@ Transfer::getMessage() const {
 
 void
 Transfer::setMessage(const Types::Trytes& message) {
+  if (!Types::isValidTrytes(message)) {
+    throw Errors::IllegalState("message is not a valid trytes string");
+  }
+
   message_ = message;
 }
 
@@ -78,16 +84,7 @@ Transfer::setTag(const Models::Tag& tag) {
 
 bool
 Transfer::isValid() const {
-  // Check if message is correct trytes of any length
-  if (!Types::isValidTrytes(getMessage())) {
-    return false;
-  }
-
-  if (getAddress().empty()) {
-    return false;
-  }
-
-  return true;
+  return !address_.empty();
 }
 
 bool

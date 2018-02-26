@@ -50,7 +50,6 @@
 
 #include <iota/models/address.hpp>
 #include <iota/models/bundle.hpp>
-#include <iota/models/input.hpp>
 #include <iota/models/neighbor.hpp>
 #include <iota/models/seed.hpp>
 #include <iota/models/signature.hpp>

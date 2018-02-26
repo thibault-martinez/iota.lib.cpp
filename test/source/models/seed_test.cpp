@@ -52,18 +52,22 @@ TEST(Seed, FromCtor) {
   IOTA::Models::Seed seedEmptyCtor;
   EXPECT_EQ(seedEmptyCtor.toTrytes(),
             "999999999999999999999999999999999999999999999999999999999999999999999999999999999");
+  EXPECT_EQ(seedEmptyCtor.getSecurity(), 2);
 
   IOTA::Models::Seed seedFullValidSeed("9ABCDEFGHIJKLMNOPQRSTUVWXYZ");
   EXPECT_EQ(seedFullValidSeed.toTrytes(),
             "9ABCDEFGHIJKLMNOPQRSTUVWXYZ999999999999999999999999999999999999999999999999999999");
+  EXPECT_EQ(seedFullValidSeed.getSecurity(), 2);
 
   IOTA::Models::Seed seedShortSeed("ABC");
   EXPECT_EQ(seedShortSeed.toTrytes(),
             "ABC999999999999999999999999999999999999999999999999999999999999999999999999999999");
+  EXPECT_EQ(seedShortSeed.getSecurity(), 2);
 
   IOTA::Models::Seed seedTrailing9s("ABC999");
   EXPECT_EQ(seedTrailing9s.toTrytes(),
             "ABC999999999999999999999999999999999999999999999999999999999999999999999999999999");
+  EXPECT_EQ(seedTrailing9s.getSecurity(), 2);
 
   EXPECT_EXCEPTION(
       IOTA::Models::Seed seedTooLongSeed(
@@ -82,18 +86,22 @@ TEST(Seed, FromSetter) {
   seed.setSeed("");
   EXPECT_EQ(seed.toTrytes(),
             "999999999999999999999999999999999999999999999999999999999999999999999999999999999");
+  EXPECT_EQ(seed.getSecurity(), 2);
 
   seed.setSeed("9ABCDEFGHIJKLMNOPQRSTUVWXYZ");
   EXPECT_EQ(seed.toTrytes(),
             "9ABCDEFGHIJKLMNOPQRSTUVWXYZ999999999999999999999999999999999999999999999999999999");
+  EXPECT_EQ(seed.getSecurity(), 2);
 
   seed.setSeed("ABC");
   EXPECT_EQ(seed.toTrytes(),
             "ABC999999999999999999999999999999999999999999999999999999999999999999999999999999");
+  EXPECT_EQ(seed.getSecurity(), 2);
 
   seed.setSeed("ABC999");
   EXPECT_EQ(seed.toTrytes(),
             "ABC999999999999999999999999999999999999999999999999999999999999999999999999999999");
+  EXPECT_EQ(seed.getSecurity(), 2);
 
   EXPECT_EXCEPTION(
       seed.setSeed(
@@ -102,12 +110,24 @@ TEST(Seed, FromSetter) {
   //! keeps previous value
   EXPECT_EQ(seed.toTrytes(),
             "ABC999999999999999999999999999999999999999999999999999999999999999999999999999999");
+  EXPECT_EQ(seed.getSecurity(), 2);
 
   EXPECT_EXCEPTION(seed.setSeed("ABC8"), IOTA::Errors::IllegalState,
                    "seed is not a valid trytes string");
   //! keeps previous value
   EXPECT_EQ(seed.toTrytes(),
             "ABC999999999999999999999999999999999999999999999999999999999999999999999999999999");
+  EXPECT_EQ(seed.getSecurity(), 2);
+}
+
+TEST(Transaction, SecurityGetterAndSetter) {
+  IOTA::Models::Seed seed = { "", 3 };
+  EXPECT_EQ(seed.getSecurity(), 3);
+
+  seed.setSecurity(1);
+  EXPECT_EQ(seed.getSecurity(), 1);
+
+  EXPECT_EXCEPTION(seed.setSecurity(5), IOTA::Errors::IllegalState, "Invalid Security Level");
 }
 
 TEST(Seed, ImplicitConversion) {
