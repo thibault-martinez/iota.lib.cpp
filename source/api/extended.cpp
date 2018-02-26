@@ -555,7 +555,7 @@ Extended::getTransfers(const Models::Seed& seed, int start, int end, bool inclus
     throw Errors::IllegalState("Invalid inputs provided");
   }
 
-  const auto gna     = getNewAddresses(seed, start, end, true);
+  const auto gna     = getNewAddresses(seed, start, end - start, true);
   const auto bundles = bundlesFromAddresses(gna.getAddresses(), inclusionStates);
 
   return { bundles, stopWatch.getElapsedTimeMilliSeconds().count() };

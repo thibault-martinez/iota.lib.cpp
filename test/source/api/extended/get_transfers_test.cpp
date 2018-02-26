@@ -76,9 +76,6 @@ TEST(Extended, GetTransfersStartEnd) {
   expectedBundleRes.push_back(
       IOTA::Models::Bundle({ IOTA::Models::Transaction(ACCOUNT_2_BUNDLE_3_TRX_1_TRYTES) }));
 
-  expectedBundleRes.push_back(
-      IOTA::Models::Bundle({ IOTA::Models::Transaction(ACCOUNT_2_BUNDLE_4_TRX_1_TRYTES) }));
-
   ASSERT_EQ(res.getTransfers().size(), expectedBundleRes.size());
 
   for (size_t i = 0; i < expectedBundleRes.size(); ++i) {
