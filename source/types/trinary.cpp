@@ -135,9 +135,9 @@ tritsToBytes(const Trits& trits) {
           data[j] = data[j] + 0xffffffff + carry;
           carry   = data[j] != 0xffffffff;
         }
-        if (!data.back()) {
-          data.pop_back();
-        }
+        // Note: subtracting 1 from the number represented by data would only require to shorten
+        // data if the represented number was 2^(32*k), however, data always represents a multiple
+        // of 3, but 2^n is not divisible by 3 for any n
         break;
     }
   }
