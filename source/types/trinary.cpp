@@ -25,6 +25,7 @@
 
 #include <algorithm>
 #include <array>
+#include <cassert>
 #include <cmath>
 #include <cstdlib>
 #include <functional>
@@ -110,7 +111,11 @@ tritsToBytes(const Trits& trits) {
       data.push_back(static_cast<uint32_t>(sum & 0xffffffff));
     }
     switch (sign * trits[i - 1]) {
-      case 1:
+      case 0: {
+        // nothing to do here
+        break;
+      }
+      case 1: {
         // increment by 1
         for (size_t j = 0; j < data.size(); ++j) {
           data[j] = data[j] + 1;
@@ -128,7 +133,8 @@ tritsToBytes(const Trits& trits) {
           data.push_back(1);
         }
         break;
-      case -1:
+      }
+      case -1: {
         // decrement by 1
         uint8_t carry = 0;
         for (size_t j = 0; j < data.size(); ++j) {
@@ -139,6 +145,12 @@ tritsToBytes(const Trits& trits) {
         // data if the represented number was 2^(32*k), however, data always represents a multiple
         // of 3, but 2^n is not divisible by 3 for any n
         break;
+      }
+      default: {
+        // if we reach here, trits is not valid
+        assert(false);
+        break;
+      }
     }
   }
 
