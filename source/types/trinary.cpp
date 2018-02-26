@@ -119,6 +119,12 @@ tritsToBytes(const Trits& trits) {
           }
         }
         if (!data.back()) {
+          // if the 32 most significant bits all got flipped to 0 by the increment (i.e. data
+          // represented 2^(32*k) - 1, where k is the size of data), we need to expand data by the
+          // carry
+          // Note: data always represents a multiple of 3 and since 2^(32*k) - 1 = 4^(16*k) - 1 is
+          // divisible by 3 for any k (by the fact of 4^n - 1 being divisible by 3 for any n), the
+          // carry might be required for any k
           data.push_back(1);
         }
         break;
