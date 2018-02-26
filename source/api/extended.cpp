@@ -629,15 +629,15 @@ Extended::findTransactionsByBundles(const std::vector<Types::Trytes>& bundles) c
 }
 
 Responses::GetAccountData
-Extended::getAccountData(const Models::Seed& seed, int start, int end, bool returnAll,
-                         bool inclusionStates, long threshold) const {
+Extended::getAccountData(const Models::Seed& seed, int start, int end, bool inclusionStates,
+                         long threshold) const {
   const Utils::StopWatch stopWatch;
 
-  const auto gna = getNewAddresses(seed, start, end - start, returnAll);
-  const auto gtr = getTransfers(seed, start, end, inclusionStates);
-  const auto gip = getInputs(seed, start, end, threshold);
+  const auto addresses = getNewAddresses(seed, start, end - start, true);
+  const auto transfers = bundlesFromAddresses(addresses.getAddresses(), inclusionStates);
+  const auto balances  = getBalancesAndFormat(addresses.getAddresses(), threshold);
 
-  return { gna.getAddresses(), gtr.getTransfers(), gip.getTotalBalance(),
+  return { addresses.getAddresses(), transfers, balances.getTotalBalance(),
            stopWatch.getElapsedTimeMilliSeconds().count() };
 }
 

@@ -315,7 +315,6 @@ public:
    * @param seed            Seed to be used for address generation.
    * @param start           Starting key index for address generation (included).
    * @param end             Ending key index for address generation (excluded).
-   * @param returnAll       If <code>true</code>, it returns all addresses which were
    * deterministically generated. Otherwise, returns only the last generated address.
    * @param inclusionStates If <code>true</code>, it gets the inclusion states of the transfers.
    * @param threshold       Min balance required. 0 to skip.
@@ -323,8 +322,7 @@ public:
    * @return Account data.
    */
   Responses::GetAccountData getAccountData(const Models::Seed& seed, int start = 0, int end = 0,
-                                           bool returnAll = true, bool inclusionStates = true,
-                                           long threshold = 0) const;
+                                           bool inclusionStates = true, long threshold = 0) const;
 
   /**
    * Add remainder transaction to the given bundle
