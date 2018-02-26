@@ -264,38 +264,61 @@ Extended::bundlesFromAddresses(const std::vector<Models::Address>& addresses,
     return {};
 
   //! filter tail/non tail transactions
-  std::vector<Types::Trytes> tailTransactions;
-  std::vector<Types::Trytes> nonTailBundleHashes;
+  std::vector<Models::Transaction> tailTrxs;
+  std::vector<Models::Transaction> nonTailTrxs;
 
-  // Sort tail and nonTails
   for (const auto& trx : trxs) {
     if (trx.isTailTransaction()) {
-      tailTransactions.emplace_back(trx.getHash());
-    } else if (std::find(nonTailBundleHashes.begin(), nonTailBundleHashes.end(), trx.getBundle()) ==
-               nonTailBundleHashes.end()) {
-      nonTailBundleHashes.emplace_back(trx.getBundle());
+      tailTrxs.emplace_back(trx);
+    } else {
+      nonTailTrxs.emplace_back(trx);
     }
+  }
+
+  //! filter out non-tail transactions for which we already got the bundle tail transaction
+  //! only keep bundle hash to pass that as argument of findTransactionObjectsByBundle
+  std::vector<Types::Trytes> nonTailTrxsBundleHashes;
+
+  for (const auto& trx : nonTailTrxs) {
+    //! skip if we already filtered a non-tail transaction belonging to the same bundle
+    auto nonTailDuplicateBundle =
+        std::find(nonTailTrxsBundleHashes.begin(), nonTailTrxsBundleHashes.end(), trx.getBundle());
+
+    if (nonTailDuplicateBundle != nonTailTrxsBundleHashes.end()) {
+      continue;
+    }
+
+    //! skip if we already got a tail transaction fro that bundle
+    auto tailDuplicateBundle = std::find_if(
+        tailTrxs.begin(), tailTrxs.end(),
+        [&](const Models::Transaction& lhs) { return lhs.getBundle() == trx.getBundle(); });
+
+    if (tailDuplicateBundle != tailTrxs.end()) {
+      continue;
+    }
+
+    //! otherwise keep track to fetch bundle with findTransactionObjectsByBundle
+    nonTailTrxsBundleHashes.push_back(trx.getBundle());
   }
 
   //! find transactions for bundles of non tail transactions
-  //! TODO:v1.2.0(optimization): this will maybe re-query some tail transactions we already got (and
-  //! we do filter that out in the next for loop) we maybe can filter the bundle list passed to
-  //! findTransactionObjectsByBundle by restructuring the previous loop
-  const auto bundleObjects = findTransactionObjectsByBundle(nonTailBundleHashes);
+  //! add these transactions to the list of tail transactions
+  const auto trxFromBundle = findTransactionObjectsByBundle(nonTailTrxsBundleHashes);
+  tailTrxs.insert(tailTrxs.end(), trxFromBundle.begin(), trxFromBundle.end());
 
-  //! add tail transactions found with findTransactionObjectsByBundle
-  for (const auto& trx : bundleObjects) {
-    if (trx.isTailTransaction() && std::find(tailTransactions.begin(), tailTransactions.end(),
-                                             trx.getHash()) == tailTransactions.end()) {
-      tailTransactions.emplace_back(trx.getHash());
-    }
+  //! keep only hash
+  std::vector<Types::Trytes> tailTrxsHashes;
+  tailTrxsHashes.reserve(tailTrxs.size());
+
+  for (const auto& trx : tailTrxs) {
+    tailTrxsHashes.emplace_back(trx.getHash());
   }
 
-  // If inclusionStates, get the confirmation status
-  // of the tail transactions, and thus the bundles
+  //! If inclusionStates, get the confirmation status
+  //! of the tail transactions, and thus the bundles
   Responses::GetInclusionStates inclusionStates;
-  if (withInclusionStates && !tailTransactions.empty()) {
-    inclusionStates = getLatestInclusion(tailTransactions);
+  if (withInclusionStates && !tailTrxsHashes.empty()) {
+    inclusionStates = getLatestInclusion(tailTrxsHashes);
 
     if (inclusionStates.getStates().empty()) {
       throw Errors::IllegalState("No inclusion states");
@@ -305,9 +328,9 @@ Extended::bundlesFromAddresses(const std::vector<Models::Address>& addresses,
   std::vector<Models::Bundle> bundles;
   std::mutex                  bundlesMtx;
 
-  Utils::parallel_for(0, tailTransactions.size(), [&](std::size_t i) {
+  Utils::parallel_for(0, tailTrxsHashes.size(), [&](std::size_t i) {
     try {
-      const auto& transaction    = tailTransactions[i];
+      const auto& transaction    = tailTrxsHashes[i];
       const auto  bundleResponse = getBundle(transaction);
       auto        gbr            = Models::Bundle{ bundleResponse.getTransactions() };
 
