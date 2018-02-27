@@ -34,7 +34,7 @@
 TEST(Pow, OneThread1) {
   IOTA::API::Core   api(get_proxy_host(), get_proxy_port());
   IOTA::Crypto::Pow p;
-  auto              tx = BUNDLE_1_TRX_1_TRYTES;
+  auto              tx = UNUSED_TRYTES_1;
 
   tx.replace(IOTA::TrxTrytesLength - IOTA::NonceLength, IOTA::NonceLength, IOTA::NonceLength, '9');
   auto nonce = p(tx, POW_LEVEL, 1);
@@ -45,7 +45,7 @@ TEST(Pow, OneThread1) {
 TEST(Pow, OneThread2) {
   IOTA::API::Core   api(get_proxy_host(), get_proxy_port());
   IOTA::Crypto::Pow p;
-  auto              tx = BUNDLE_1_TRX_2_TRYTES;
+  auto              tx = UNUSED_TRYTES_2;
 
   tx.replace(IOTA::TrxTrytesLength - IOTA::NonceLength, IOTA::NonceLength, IOTA::NonceLength, '9');
   auto nonce = p(tx, POW_LEVEL, 1);
@@ -56,7 +56,7 @@ TEST(Pow, OneThread2) {
 TEST(Pow, OneThread3) {
   IOTA::API::Core   api(get_proxy_host(), get_proxy_port());
   IOTA::Crypto::Pow p;
-  auto              tx = BUNDLE_1_TRX_3_TRYTES;
+  auto              tx = UNUSED_TRYTES_3;
 
   tx.replace(IOTA::TrxTrytesLength - IOTA::NonceLength, IOTA::NonceLength, IOTA::NonceLength, '9');
   auto nonce = p(tx, POW_LEVEL, 1);
@@ -67,7 +67,7 @@ TEST(Pow, OneThread3) {
 TEST(Pow, OneThread4) {
   IOTA::API::Core   api(get_proxy_host(), get_proxy_port());
   IOTA::Crypto::Pow p;
-  auto              tx = BUNDLE_1_TRX_4_TRYTES;
+  auto              tx = UNUSED_TRYTES_4;
 
   tx.replace(IOTA::TrxTrytesLength - IOTA::NonceLength, IOTA::NonceLength, IOTA::NonceLength, '9');
   auto nonce = p(tx, POW_LEVEL, 1);
@@ -78,7 +78,7 @@ TEST(Pow, OneThread4) {
 TEST(Pow, MaxThreads1) {
   IOTA::API::Core   api(get_proxy_host(), get_proxy_port());
   IOTA::Crypto::Pow p;
-  auto              tx = ACCOUNT_2_BUNDLE_1_TRX_1_TRYTES;
+  auto              tx = UNUSED_TRYTES_5;
 
   tx.replace(IOTA::TrxTrytesLength - IOTA::NonceLength, IOTA::NonceLength, IOTA::NonceLength, '9');
   auto nonce = p(tx, POW_LEVEL);
@@ -89,7 +89,7 @@ TEST(Pow, MaxThreads1) {
 TEST(Pow, MaxThreads2) {
   IOTA::API::Core   api(get_proxy_host(), get_proxy_port());
   IOTA::Crypto::Pow p;
-  auto              tx = ACCOUNT_2_BUNDLE_2_TRX_1_TRYTES;
+  auto              tx = UNUSED_TRYTES_6;
 
   tx.replace(IOTA::TrxTrytesLength - IOTA::NonceLength, IOTA::NonceLength, IOTA::NonceLength, '9');
   auto nonce = p(tx, POW_LEVEL);
@@ -100,7 +100,7 @@ TEST(Pow, MaxThreads2) {
 TEST(Pow, MaxThreads3) {
   IOTA::API::Core   api(get_proxy_host(), get_proxy_port());
   IOTA::Crypto::Pow p;
-  auto              tx = ACCOUNT_2_BUNDLE_3_TRX_1_TRYTES;
+  auto              tx = UNUSED_TRYTES_7;
 
   tx.replace(IOTA::TrxTrytesLength - IOTA::NonceLength, IOTA::NonceLength, IOTA::NonceLength, '9');
   auto nonce = p(tx, POW_LEVEL);
@@ -111,7 +111,7 @@ TEST(Pow, MaxThreads3) {
 TEST(Pow, MaxThreads4) {
   IOTA::API::Core   api(get_proxy_host(), get_proxy_port());
   IOTA::Crypto::Pow p;
-  auto              tx = ACCOUNT_2_BUNDLE_4_TRX_1_TRYTES;
+  auto              tx = UNUSED_TRYTES_8;
 
   tx.replace(IOTA::TrxTrytesLength - IOTA::NonceLength, IOTA::NonceLength, IOTA::NonceLength, '9');
   auto nonce = p(tx, POW_LEVEL);
