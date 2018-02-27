@@ -25,12 +25,12 @@
 
 #include <algorithm>
 #include <array>
-#include <cassert>
 #include <cmath>
 #include <cstdlib>
 #include <functional>
 
 #include <iota/constants.hpp>
+#include <iota/errors/illegal_state.hpp>
 #include <iota/types/trinary.hpp>
 
 namespace IOTA {
@@ -148,7 +148,7 @@ tritsToBytes(const Trits& trits) {
       }
       default: {
         // if we reach here, trits is not valid
-        assert(false);
+        throw Errors::IllegalState("Invalid trits provided");
         break;
       }
     }
