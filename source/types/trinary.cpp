@@ -25,6 +25,7 @@
 
 #include <algorithm>
 #include <array>
+#include <cassert>
 #include <cmath>
 #include <cstdlib>
 #include <functional>
@@ -110,7 +111,11 @@ tritsToBytes(const Trits& trits) {
       data.push_back(static_cast<uint32_t>(sum & 0xffffffff));
     }
     switch (sign * trits[i - 1]) {
-      case 1:
+      case 0: {
+        // nothing to do here
+        break;
+      }
+      case 1: {
         // increment by 1
         for (size_t j = 0; j < data.size(); ++j) {
           data[j] = data[j] + 1;
@@ -119,20 +124,33 @@ tritsToBytes(const Trits& trits) {
           }
         }
         if (!data.back()) {
+          // if the 32 most significant bits all got flipped to 0 by the increment (i.e. data
+          // represented 2^(32*k) - 1, where k is the size of data), we need to expand data by the
+          // carry
+          // Note: data always represents a multiple of 3 and since 2^(32*k) - 1 = 4^(16*k) - 1 is
+          // divisible by 3 for any k (by the fact of 4^n - 1 being divisible by 3 for any n), the
+          // carry might be required for any k
           data.push_back(1);
         }
         break;
-      case -1:
+      }
+      case -1: {
         // decrement by 1
         uint8_t carry = 0;
         for (size_t j = 0; j < data.size(); ++j) {
           data[j] = data[j] + 0xffffffff + carry;
           carry   = data[j] != 0xffffffff;
         }
-        if (!data.back()) {
-          data.pop_back();
-        }
+        // Note: subtracting 1 from the number represented by data would only require to shorten
+        // data if the represented number was 2^(32*k), however, data always represents a multiple
+        // of 3, but 2^n is not divisible by 3 for any n
         break;
+      }
+      default: {
+        // if we reach here, trits is not valid
+        assert(false);
+        break;
+      }
     }
   }
 
