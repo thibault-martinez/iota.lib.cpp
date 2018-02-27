@@ -44,32 +44,50 @@ Keccak384::reset() {
 
 void
 Keccak384::absorb(const std::vector<int8_t>& bytes) {
-  if (!hashUpdate(bytes)) {
-    throw Errors::Crypto("Keccak384::update failed");
-  }
+  absorb(bytes.data(), bytes.size());
 }
 
-bool
-Keccak384::hashUpdate(const std::vector<int8_t>& bytes) {
-  return Keccak_HashUpdate(&khi_, reinterpret_cast<const BitSequence*>(bytes.data()),
-                           bytes.size() * 8) != FAIL;
+void
+Keccak384::absorb(const int8_t* bytes, size_t size) {
+  if (!hashUpdate(bytes, size)) {
+    throw Errors::Crypto("Keccak384::update failed");
+  }
 }
 
 std::vector<int8_t>
 Keccak384::squeeze() {
   std::vector<int8_t> bytes(Keccak384::hashBitLength / 8);
 
+  squeeze(bytes.data());
+  return bytes;
+}
+
+void
+Keccak384::squeeze(int8_t* bytes) {
   if (!hashSqueeze(bytes)) {
     throw Errors::Crypto("Keccak384::squeeze failed");
   }
+}
 
-  return bytes;
+bool
+Keccak384::hashUpdate(const std::vector<int8_t>& bytes) {
+  return hashUpdate(bytes.data(), bytes.size());
+}
+
+bool
+Keccak384::hashUpdate(const int8_t* bytes, size_t size) {
+  return Keccak_HashUpdate(&khi_, reinterpret_cast<const BitSequence*>(bytes), size * 8) != FAIL;
 }
 
 bool
 Keccak384::hashSqueeze(std::vector<int8_t>& bytes) {
-  return Keccak_HashSqueeze(&khi_, reinterpret_cast<BitSequence*>(bytes.data()),
-                            khi_.fixedOutputLength) != FAIL;
+  return hashSqueeze(bytes.data());
+}
+
+bool
+Keccak384::hashSqueeze(int8_t* bytes) {
+  return Keccak_HashSqueeze(&khi_, reinterpret_cast<BitSequence*>(bytes), khi_.fixedOutputLength) !=
+         FAIL;
 }
 
 std::string

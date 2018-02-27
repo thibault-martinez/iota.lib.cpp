@@ -37,8 +37,14 @@ protected:
   bool hashUpdate(const std::vector<int8_t>&) {
     return false;
   }
+  bool hashUpdate(const int8_t*, size_t) {
+    return false;
+  }
 
   bool hashSqueeze(std::vector<int8_t>&) {
+    return false;
+  }
+  bool hashSqueeze(int8_t*) {
     return false;
   }
 
