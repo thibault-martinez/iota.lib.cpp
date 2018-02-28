@@ -217,9 +217,9 @@ Extended::traverseBundle(const Types::Trytes& trunkTx, Types::Trytes bundleHash,
 }
 
 std::vector<Models::Transaction>
-Extended::findTransactionObjects(const std::vector<Models::Address>& input) const {
+Extended::findTransactionObjects(const std::vector<Models::Address>& addresses) const {
   //! get the transaction objects of the transactions
-  return getTransactionsObjects(findTransactions(input, {}, {}, {}).getHashes());
+  return getTransactionsObjects(findTransactions(addresses, {}, {}, {}).getHashes());
 }
 
 std::vector<Models::Transaction>
@@ -565,10 +565,10 @@ Responses::SendTransfer
 Extended::sendTransfer(const Models::Seed& seed, int depth, int minWeightMagnitude,
                        std::vector<Models::Transfer>&      transfers,
                        const std::vector<Models::Address>& inputs,
-                       const Models::Address&              address) const {
+                       const Models::Address&              remainder) const {
   const Utils::StopWatch stopWatch;
 
-  const auto trytes = prepareTransfers(seed, transfers, address, inputs);
+  const auto trytes = prepareTransfers(seed, transfers, remainder, inputs);
   const auto trxs   = sendTrytes(trytes, depth, minWeightMagnitude);
 
   std::vector<bool> successful;

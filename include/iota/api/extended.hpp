@@ -134,12 +134,12 @@ public:
    * Get bundles corresponding to the given addresses.
    *
    * @param addresses       List of addresses for which to find the bundle objects.
-   * @param inclusionStates If <code>true</code>, it gets the inclusion states of the transfers.
+   * @param withInclusionStates If <code>true</code>, it gets the inclusion states of the transfers.
    *
    * @return Bundles.
    */
   std::vector<Models::Bundle> bundlesFromAddresses(const std::vector<Models::Address>& addresses,
-                                                   bool inclusionStates = false) const;
+                                                   bool withInclusionStates = false) const;
 
   /**
    * Lookup transactions for given addresses and return a list of transaction objects
