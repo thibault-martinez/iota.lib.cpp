@@ -28,7 +28,9 @@
 #include <gtest/gtest.h>
 
 #include <iota/constants.hpp>
+#include <iota/errors/illegal_state.hpp>
 #include <iota/types/trinary.hpp>
+#include <test/utils/expect_exception.hpp>
 
 TEST(Trinary, IsValidTryte) {
   for (char c : IOTA::TryteAlphabet) {
@@ -98,6 +100,8 @@ TEST(Trinary, tritsToBytes) {
                            (int8_t)0xff, (int8_t)0xff, (int8_t)0xff, (int8_t)0xff });
   b9.insert(std::begin(b9), IOTA::ByteHashLength - b9.size(), 0x00);
 
+  EXPECT_EXCEPTION(IOTA::Types::tritsToBytes({ -1, 0, 1, 2, 1, 0, -1 }), IOTA::Errors::IllegalState,
+                   "Invalid trits provided");
   EXPECT_EQ(IOTA::Types::tritsToBytes({}), b0);
   EXPECT_EQ(IOTA::Types::tritsToBytes({ 0 }), b1);
   EXPECT_EQ(IOTA::Types::tritsToBytes({ 1 }), b2);
