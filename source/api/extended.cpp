@@ -23,6 +23,8 @@
 //
 //
 
+#include <iostream>
+
 #include <iota/api/extended.hpp>
 #include <iota/api/responses/attach_to_tangle.hpp>
 #include <iota/api/responses/find_transactions.hpp>
@@ -168,52 +170,99 @@ Extended::getNewAddresses(const Models::Seed& seed, const uint32_t& index, const
 
 Models::Bundle
 Extended::traverseBundle(const Types::Trytes& trunkTx) const {
-  Models::Bundle bundle;
-
-  //! Check for invalid hash
-  if (!Types::isValidHash(trunkTx)) {
-    throw Errors::IllegalState("Invalid transaction supplied.");
-  }
-
-  return traverseBundle(trunkTx, "", bundle);
+  return traverseBundles({ trunkTx }).front();
 }
 
-Models::Bundle
-Extended::traverseBundle(const Types::Trytes& trunkTx, Types::Trytes bundleHash,
-                         Models::Bundle& bundle) const {
-  //! get trytes for transaction
-  const auto gtr = getTrytes({ trunkTx });
-  // If fail to get trytes, return error
-  if (gtr.getTrytes().empty()) {
-    throw Errors::IllegalState("Bundle transactions not visible");
+std::vector<Models::Bundle>
+Extended::traverseBundles(const std::vector<Types::Trytes>& trunkTrxs, bool throwOnFail) const {
+  //! Check for invalid hash
+  for (const auto& trx : trunkTrxs) {
+    if (!Types::isValidHash(trx)) {
+      throw Errors::IllegalState("Invalid transaction supplied.");
+    }
   }
 
-  //! get transaction itself
-  const auto trx = Models::Transaction{ gtr.getTrytes()[0] };
-  // If first transaction to search is not a tail, return error
-  if (bundleHash.empty() && !trx.isTailTransaction()) {
-    throw Errors::IllegalState("Invalid tail transaction supplied.");
+  //! init bundles to return
+  std::vector<Models::Bundle> bundles(trunkTrxs.size(), {});
+
+  //! convert to vector<ref_wrapper<bundle>>
+  std::vector<std::reference_wrapper<Models::Bundle>> bundlesRefs;
+  for (auto& bundle : bundles) {
+    bundlesRefs.push_back(std::ref(bundle));
   }
-  // Detect infinite recursion
-  if (trx.getTrunkTransaction() == trx.getHash()) {
+
+  traverseBundles(trunkTrxs, bundlesRefs, throwOnFail);
+
+  return bundles;
+}
+
+void
+Extended::traverseBundles(const std::vector<Types::Trytes>&                          trxs,
+                          const std::vector<std::reference_wrapper<Models::Bundle>>& bundles,
+                          bool throwOnFail) const {
+  //! nothing to fetch
+  if (trxs.empty()) {
+    return;
+  }
+
+  //! get trytes for non-empty transactions
+  const auto gtr = getTrytes(trxs);
+
+  //! If fail to get trytes, return error
+  if (gtr.getTrytes().empty()) {
     throw Errors::IllegalState("Invalid transaction supplied.");
   }
 
-  // If no bundle hash, define it
-  if (bundleHash.empty()) {
-    bundleHash = trx.getBundle();
+  //! keep track of which bundles need to be filled recursively
+  std::vector<Types::Trytes>                          trunkTrxs;
+  std::vector<std::reference_wrapper<Models::Bundle>> partialBundles;
+
+  //! process each tryte
+  for (std::size_t i = 0; i < gtr.getTrytes().size(); ++i) {
+    //! get transaction itself
+    const auto trx = Models::Transaction{ gtr.getTrytes()[i] };
+
+    //! get bundle
+    auto& bundle = bundles[i].get();
+
+    //! If first transaction to search is not a tail, return error
+    if (bundle.getHash().empty() && !trx.isTailTransaction()) {
+      if (throwOnFail) {
+        throw Errors::IllegalState("Invalid tail transaction supplied.");
+      }
+      //! if we are in silent mode, we clear the bundle and continue
+      bundle = {};
+      continue;
+    }
+
+    //! Detect infinite recursion
+    if (trx.getTrunkTransaction() == trx.getHash()) {
+      if (throwOnFail) {
+        throw Errors::IllegalState("Invalid transaction supplied.");
+      }
+      //! if we are in silent mode, we clear the bundle and continue
+      bundle = {};
+      continue;
+    }
+
+    //! If no bundle hash, define it
+    if (bundle.getHash().empty()) {
+      bundle.setHash(trx.getBundle());
+    }
+
+    if (bundle.getHash() == trx.getBundle()) {
+      //! Add transaction object to bundle
+      bundle.addTransaction(trx);
+
+      //! keep track of which bundles need to be filled recursively
+      trunkTrxs.push_back(trx.getTrunkTransaction());
+      partialBundles.push_back(bundle);
+      continue;
+    }
   }
 
-  // If different bundle hash, return with bundle
-  if (bundleHash != trx.getBundle()) {
-    return bundle;
-  }
-
-  // Add transaction object to bundle
-  bundle.addTransaction(trx);
-
-  // Continue traversing with new trunkTx
-  return traverseBundle(trx.getTrunkTransaction(), bundleHash, bundle);
+  //! Continue traversing with new trunkTx
+  traverseBundles(trunkTrxs, partialBundles, throwOnFail);
 }
 
 std::vector<Models::Transaction>
@@ -325,35 +374,53 @@ Extended::bundlesFromAddresses(const std::vector<Models::Address>& addresses,
     }
   }
 
-  std::vector<Models::Bundle> bundles;
-  std::mutex                  bundlesMtx;
+  std::mutex                  allBundlesMtx;
+  std::vector<Models::Bundle> allBundles;
 
-  Utils::parallel_for(0, tailTrxsHashes.size(), [&](std::size_t i) {
-    try {
-      const auto& transaction    = tailTrxsHashes[i];
-      const auto  bundleResponse = getBundle(transaction);
-      auto        gbr            = Models::Bundle{ bundleResponse.getTransactions() };
+  std::size_t nb_cores   = std::thread::hardware_concurrency();
+  std::size_t nb_threads = std::min(nb_cores, tailTrxsHashes.size());
 
-      if (!gbr.getTransactions().empty()) {
-        if (withInclusionStates) {
-          bool inclusion = inclusionStates.getStates()[i];
+  Utils::parallel_for(nb_threads, [&](int cpu, int num_cpus) {
+    int start = tailTrxsHashes.size() * cpu / num_cpus;
+    int end   = tailTrxsHashes.size() * (cpu + 1) / num_cpus;
 
-          for (auto& t : gbr.getTransactions()) {
-            t.setPersistence(inclusion);
-          }
+    //! for last cpu, ensure we got all remaining of the list
+    if (cpu == num_cpus - 1) {
+      end = tailTrxsHashes.size();
+    }
+
+    auto startIt = tailTrxsHashes.begin() + start;
+    auto endIt   = tailTrxsHashes.begin() + end;
+    auto bundles = traverseBundles({ startIt, endIt }, false);
+
+    if (withInclusionStates) {
+      for (std::size_t i = 0; i < bundles.size(); ++i) {
+        auto& trxs      = bundles[i].getTransactions();
+        bool  inclusion = inclusionStates.getStates()[start + i];
+
+        for (auto& t : trxs) {
+          t.setPersistence(inclusion);
         }
-
-        std::lock_guard<std::mutex> lock(bundlesMtx);
-        bundles.push_back(std::move(gbr));
       }
-    } catch (const std::runtime_error&) {
-      // If error returned from getBundle, ignore it because the bundle was most likely incorrect
+    }
+
+    std::lock_guard<std::mutex> lock(allBundlesMtx);
+
+    //! only keep valid non-empty bundles
+    for (auto& bundle : bundles) {
+      if (!bundle.getTransactions().empty()) {
+        try {
+          verifyBundle(bundle);
+          allBundles.push_back(std::move(bundle));
+        } catch (std::runtime_error&) {
+        }
+      }
     }
   });
 
-  std::sort(bundles.begin(), bundles.end());
+  std::sort(allBundles.begin(), allBundles.end());
 
-  return bundles;
+  return allBundles;
 }
 
 Responses::GetInclusionStates
@@ -491,9 +558,18 @@ Extended::getBundle(const Types::Trytes& transaction) const {
   const Utils::StopWatch stopWatch;
 
   //! get bundle hash for transaction
-  const auto    bundle     = traverseBundle(transaction);
+  const auto bundle = traverseBundle(transaction);
+
+  //! verify bundle integrity
+  verifyBundle(bundle);
+
+  return { bundle.getTransactions(), stopWatch.getElapsedTimeMilliSeconds().count() };
+}
+
+void
+Extended::verifyBundle(const Models::Bundle& bundle) const {
   int64_t       totalSum   = 0;
-  Types::Trytes bundleHash = bundle.getTransactions()[0].getBundle();
+  Types::Trytes bundleHash = bundle.getHash();
 
   //! init curl
   const auto curl = Crypto::create(Crypto::SpongeType::KERL);
@@ -565,8 +641,6 @@ Extended::getBundle(const Types::Trytes& transaction) const {
       throw Errors::IllegalState("Invalid Signature");
     }
   }
-
-  return { bundle.getTransactions(), stopWatch.getElapsedTimeMilliSeconds().count() };
 }
 
 Responses::GetTransfers

@@ -85,6 +85,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a88899f6a846927a1e6c5ee79488633de"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad0ba00b366aa26f939373867f1d7f74b"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="class_i_o_t_a_1_1_models_1_1_transaction.html">Models::Transaction</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_models_1_1_bundle.html#ad0ba00b366aa26f939373867f1d7f74b">getTransactions</a> ()</td></tr>
 <tr class="separator:ad0ba00b366aa26f939373867f1d7f74b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac03b78d3b4018c20cd39d1b6ee251067"><td class="memItemLeft" align="right" valign="top">const Types::Trytes &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_models_1_1_bundle.html#ac03b78d3b4018c20cd39d1b6ee251067">getHash</a> () const</td></tr>
+<tr class="separator:ac03b78d3b4018c20cd39d1b6ee251067"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a30600d85444a60ba48a2617793d635bb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_models_1_1_bundle.html#a30600d85444a60ba48a2617793d635bb">setHash</a> (const Types::Trytes &amp;hash)</td></tr>
+<tr class="separator:a30600d85444a60ba48a2617793d635bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afb80de928ab513610ad6b5126cd6734b"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_models_1_1_bundle.html#afb80de928ab513610ad6b5126cd6734b">getLength</a> () const</td></tr>
 <tr class="separator:afb80de928ab513610ad6b5126cd6734b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a37ea13d3e6c6c0b569084b029921f2ad"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_models_1_1_bundle.html#a37ea13d3e6c6c0b569084b029921f2ad">empty</a> () const</td></tr>
@@ -299,6 +303,24 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ac03b78d3b4018c20cd39d1b6ee251067"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac03b78d3b4018c20cd39d1b6ee251067">&#9670;&nbsp;</a></span>getHash()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const Types::Trytes&amp; IOTA::Models::Bundle::getHash </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>bundle hash </dd></dl>
+
+</div>
+</div>
 <a id="afb80de928ab513610ad6b5126cd6734b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#afb80de928ab513610ad6b5126cd6734b">&#9670;&nbsp;</a></span>getLength()</h2>
 
@@ -477,6 +499,31 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>whether the current bundle occured after the given one. </dd></dl>
+
+</div>
+</div>
+<a id="a30600d85444a60ba48a2617793d635bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a30600d85444a60ba48a2617793d635bb">&#9670;&nbsp;</a></span>setHash()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void IOTA::Models::Bundle::setHash </td>
+          <td>(</td>
+          <td class="paramtype">const Types::Trytes &amp;&#160;</td>
+          <td class="paramname"><em>hash</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Set the hash of the bundle. This does NOT update the underlying transaction.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">hash</td><td>New hash for bundle </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

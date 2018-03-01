@@ -56,6 +56,16 @@ Bundle::empty() const {
   return getLength() == 0;
 }
 
+const Types::Trytes&
+Bundle::getHash() const {
+  return hash_;
+}
+
+void
+Bundle::setHash(const Types::Trytes& hash) {
+  hash_ = hash;
+}
+
 void
 Bundle::addTransaction(const Transaction& transaction, int32_t signatureMessageLength) {
   transactions_.push_back(transaction);
