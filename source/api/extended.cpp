@@ -78,7 +78,7 @@ Extended::getInputs(const Models::Seed& seed, const int32_t& start, const int32_
   auto    res         = getBalancesAndFormat(addresses, threshold);
 
   //! update duration
-  res.setDuration(stopWatch.getElapsedTimeMilliSeconds().count());
+  res.setDuration(stopWatch.getElapsedTime().count());
 
   return res;
 }
@@ -126,7 +126,7 @@ Extended::getBalancesAndFormat(const std::vector<Models::Address>& addresses,
     throw Errors::IllegalState("Not enough balance");
   }
 
-  return { inputs, totalBalance, stopWatch.getElapsedTimeMilliSeconds().count() };
+  return { inputs, totalBalance, stopWatch.getElapsedTime().count() };
 }
 
 Responses::GetNewAddresses
@@ -163,7 +163,7 @@ Extended::getNewAddresses(const Models::Seed& seed, const uint32_t& index, const
     allAddresses.erase(std::begin(allAddresses), std::end(allAddresses) - 1);
   }
 
-  return { allAddresses, stopWatch.getElapsedTimeMilliSeconds().count() };
+  return { allAddresses, stopWatch.getElapsedTime().count() };
 }
 
 Models::Bundle
@@ -543,7 +543,7 @@ Extended::getBundle(const Types::Trytes& transaction) const {
     }
   }
 
-  return { bundle.getTransactions(), stopWatch.getElapsedTimeMilliSeconds().count() };
+  return { bundle.getTransactions(), stopWatch.getElapsedTime().count() };
 }
 
 Responses::GetTransfers
@@ -558,7 +558,7 @@ Extended::getTransfers(const Models::Seed& seed, int start, int end, bool inclus
   const auto gna     = getNewAddresses(seed, start, end - start, true);
   const auto bundles = bundlesFromAddresses(gna.getAddresses(), inclusionStates);
 
-  return { bundles, stopWatch.getElapsedTimeMilliSeconds().count() };
+  return { bundles, stopWatch.getElapsedTime().count() };
 }
 
 Responses::SendTransfer
@@ -578,7 +578,7 @@ Extended::sendTransfer(const Models::Seed& seed, int depth, int minWeightMagnitu
     successful.push_back(!response.getHashes().empty());
   }
 
-  return { successful, stopWatch.getElapsedTimeMilliSeconds().count() };
+  return { successful, stopWatch.getElapsedTime().count() };
 }
 
 std::vector<Models::Transaction>
@@ -638,7 +638,7 @@ Extended::getAccountData(const Models::Seed& seed, int start, int end, bool retu
   const auto gip = getInputs(seed, start, end, threshold);
 
   return { gna.getAddresses(), gtr.getTransfers(), gip.getTotalBalance(),
-           stopWatch.getElapsedTimeMilliSeconds().count() };
+           stopWatch.getElapsedTime().count() };
 }
 
 std::vector<Types::Trytes>
@@ -703,7 +703,7 @@ Extended::replayBundle(const Types::Trytes& transaction, int depth, int minWeigh
     successful.push_back(!response.getHashes().empty());
   }
 
-  return { successful, stopWatch.getElapsedTimeMilliSeconds().count() };
+  return { successful, stopWatch.getElapsedTime().count() };
 }
 
 std::vector<Models::Transaction>

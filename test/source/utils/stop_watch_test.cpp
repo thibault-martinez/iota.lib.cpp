@@ -34,7 +34,8 @@ TEST(StopWatch, CtorShouldStartTimer) {
 
   std::this_thread::sleep_for(std::chrono::seconds(1));
 
-  EXPECT_EQ(s.getElapsedTimeSeconds().count(), 1);
+  EXPECT_TRUE(s.getElapsedTime().count() >= 990);
+  EXPECT_TRUE(s.getElapsedTime().count() <= 1010);
 }
 
 TEST(StopWatch, NowShouldReturnCurrentTime) {
@@ -67,7 +68,8 @@ TEST(StopWatch, RestartShouldRestartTimer) {
   s.restart();
   std::this_thread::sleep_for(std::chrono::seconds(1));
 
-  EXPECT_EQ(s.getElapsedTimeSeconds().count(), 1);
+  EXPECT_TRUE(s.getElapsedTime().count() >= 990);
+  EXPECT_TRUE(s.getElapsedTime().count() <= 1010);
 }
 
 TEST(StopWatch, PauseShouldStopTimer) {
@@ -77,7 +79,8 @@ TEST(StopWatch, PauseShouldStopTimer) {
   s.pause();
   std::this_thread::sleep_for(std::chrono::seconds(1));
 
-  EXPECT_EQ(s.getElapsedTimeSeconds().count(), 1);
+  EXPECT_TRUE(s.getElapsedTime().count() >= 990);
+  EXPECT_TRUE(s.getElapsedTime().count() <= 1010);
 }
 
 TEST(StopWatch, MultiplePauseShouldNotReset) {
@@ -89,7 +92,8 @@ TEST(StopWatch, MultiplePauseShouldNotReset) {
   s.pause();
   std::this_thread::sleep_for(std::chrono::seconds(1));
 
-  EXPECT_EQ(s.getElapsedTimeSeconds().count(), 1);
+  EXPECT_TRUE(s.getElapsedTime().count() >= 990);
+  EXPECT_TRUE(s.getElapsedTime().count() <= 1010);
 }
 
 TEST(StopWatch, ResumeShouldResumePausedTimer) {
@@ -101,7 +105,8 @@ TEST(StopWatch, ResumeShouldResumePausedTimer) {
   s.resume();
   std::this_thread::sleep_for(std::chrono::seconds(1));
 
-  EXPECT_EQ(s.getElapsedTimeSeconds().count(), 2);
+  EXPECT_TRUE(s.getElapsedTime().count() >= 1990);
+  EXPECT_TRUE(s.getElapsedTime().count() <= 2010);
 }
 
 TEST(StopWatch, ResumeShouldDoNothingIfRunning) {
@@ -111,7 +116,8 @@ TEST(StopWatch, ResumeShouldDoNothingIfRunning) {
   s.resume();
   std::this_thread::sleep_for(std::chrono::seconds(1));
 
-  EXPECT_EQ(s.getElapsedTimeSeconds().count(), 2);
+  EXPECT_TRUE(s.getElapsedTime().count() >= 1990);
+  EXPECT_TRUE(s.getElapsedTime().count() <= 2010);
 }
 
 TEST(StopWatch, GetElapsedTimeMiliSeconds) {
@@ -119,14 +125,6 @@ TEST(StopWatch, GetElapsedTimeMiliSeconds) {
 
   std::this_thread::sleep_for(std::chrono::seconds(1));
 
-  EXPECT_TRUE(s.getElapsedTimeMilliSeconds().count() >= 1000);
-  EXPECT_TRUE(s.getElapsedTimeMilliSeconds().count() < 2000);
-}
-
-TEST(StopWatch, GetElapsedTimeSeconds) {
-  IOTA::Utils::StopWatch s;
-
-  std::this_thread::sleep_for(std::chrono::seconds(1));
-
-  EXPECT_EQ(s.getElapsedTimeSeconds().count(), 1);
+  EXPECT_TRUE(s.getElapsedTime().count() >= 1000);
+  EXPECT_TRUE(s.getElapsedTime().count() < 2000);
 }
