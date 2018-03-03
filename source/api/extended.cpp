@@ -183,7 +183,7 @@ Extended::traverseBundles(const std::vector<Types::Trytes>& trunkTrxs, bool thro
   }
 
   //! init bundles to return
-  std::vector<Models::Bundle> bundles(trunkTrxs.size(), {});
+  std::vector<Models::Bundle> bundles(trunkTrxs.size(), Models::Bundle{});
 
   //! convert to vector<ref_wrapper<bundle>>
   std::vector<std::reference_wrapper<Models::Bundle>> bundlesRefs;
