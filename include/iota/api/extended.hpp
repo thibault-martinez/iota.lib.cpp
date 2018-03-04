@@ -117,18 +117,25 @@ public:
   Models::Bundle traverseBundle(const Types::Trytes& trunkTx) const;
 
   /**
-   * Traverse the Bundle by going down the trunkTransactions until
-   * the bundle hash of the transaction is no longer the same. In case the input
-   * transaction hash is not a tail, we return an error.
+   * Traverse multiple bundles. Similar to traverseBundle but with multiple trunk trxs.
    *
-   * @param trunkTx    Hash of a trunk or a tail transaction of a bundle.
-   * @param bundleHash Current bundle hash, or empty if not found yet.
-   * @param bundle     Bundle to be populated.
+   * @param trunkTrxs   Hashes of trunk or a tail transactions of bundles.
+   * @param throwOnFail if true, throw an exception if one of the bundle is invalid. Otherwise,
+   * return an empty bundle instead and keeps processing the other bundles
    *
-   * @return Bundle corresponding to tail transaction.
+   * @return Bundles corresponding to tail transactions.
    */
-  Models::Bundle traverseBundle(const Types::Trytes& trunkTx, Types::Trytes bundleHash,
-                                Models::Bundle& bundle) const;
+  std::vector<Models::Bundle> traverseBundles(const std::vector<Types::Trytes>& trunkTrxs,
+                                              bool throwOnFail = true) const;
+
+  /**
+   * Verify the integrity of a bundle.
+   * Does validation of signatures, total sum as well as bundle ordering.
+   * Throws an exception in case of invalid bundle.
+   *
+   * @param bundle  The bundle to verify
+   */
+  void verifyBundle(const Models::Bundle& bundle) const;
 
   /**
    * Get bundles corresponding to the given addresses.
@@ -315,7 +322,6 @@ public:
    * @param seed            Seed to be used for address generation.
    * @param start           Starting key index for address generation (included).
    * @param end             Ending key index for address generation (excluded).
-   * @param returnAll       If <code>true</code>, it returns all addresses which were
    * deterministically generated. Otherwise, returns only the last generated address.
    * @param inclusionStates If <code>true</code>, it gets the inclusion states of the transfers.
    * @param threshold       Min balance required. 0 to skip.
@@ -323,8 +329,7 @@ public:
    * @return Account data.
    */
   Responses::GetAccountData getAccountData(const Models::Seed& seed, int start = 0, int end = 0,
-                                           bool returnAll = true, bool inclusionStates = true,
-                                           long threshold = 0) const;
+                                           bool inclusionStates = true, long threshold = 0) const;
 
   /**
    * Add remainder transaction to the given bundle
@@ -375,6 +380,10 @@ private:
   std::vector<Types::Trytes> signInputsAndReturn(
       const Models::Seed& seed, const std::vector<Models::Address>& inputs, Models::Bundle& bundle,
       const std::vector<Types::Trytes>& signatureFragments) const;
+
+  void traverseBundles(const std::vector<Types::Trytes>&                          trxs,
+                       const std::vector<std::reference_wrapper<Models::Bundle>>& bundles,
+                       bool throwOnFail) const;
 
   /**
    * @return true if all transfers are valid, false otherwise

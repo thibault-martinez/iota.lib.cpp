@@ -62,7 +62,7 @@ parallel_for(int threads, F fn) {
   std::vector<std::future<void>> futures(num_cpus);
 
   for (int cpu = 0; cpu != num_cpus; ++cpu) {
-    futures[cpu] = std::async(std::launch::async, fn, cpu);
+    futures[cpu] = std::async(std::launch::async, fn, cpu, num_cpus);
   }
   for (int cpu = 0; cpu != num_cpus; ++cpu) {
     futures[cpu].get();

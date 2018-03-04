@@ -34,6 +34,9 @@ namespace IOTA {
 namespace Models {
 
 Bundle::Bundle(const std::vector<Models::Transaction>& transactions) : transactions_(transactions) {
+  if (!empty()) {
+    hash_ = getTransactions()[0].getBundle();
+  }
 }
 
 const std::vector<Models::Transaction>&
@@ -56,8 +59,22 @@ Bundle::empty() const {
   return getLength() == 0;
 }
 
+const Types::Trytes&
+Bundle::getHash() const {
+  return hash_;
+}
+
+void
+Bundle::setHash(const Types::Trytes& hash) {
+  hash_ = hash;
+}
+
 void
 Bundle::addTransaction(const Transaction& transaction, int32_t signatureMessageLength) {
+  if (empty()) {
+    hash_ = transaction.getBundle();
+  }
+
   transactions_.push_back(transaction);
 
   if (signatureMessageLength > 1) {
@@ -102,9 +119,10 @@ Bundle::finalize(const std::shared_ptr<Crypto::ISponge>& customSponge) {
   IOTA::Types::Trits hash(TritHashLength);
   sponge->squeeze(hash);
 
-  Types::Trytes hashInTrytes = Types::tritsToTrytes(hash);
+  //! set bundle hash for each underlying transaction
+  hash_ = Types::tritsToTrytes(hash);
   for (std::size_t i = 0; i < transactions_.size(); i++) {
-    transactions_[i].setBundle(hashInTrytes);
+    transactions_[i].setBundle(hash_);
   }
 }
 
@@ -184,10 +202,7 @@ Bundle::operator>(const Bundle& rhs) const {
 
 bool
 Bundle::operator==(const Bundle& rhs) const {
-  auto lhsHash = empty() ? "" : getTransactions()[0].getBundle();
-  auto rhsHash = rhs.empty() ? "" : rhs.getTransactions()[0].getBundle();
-
-  return lhsHash == rhsHash;
+  return getHash() == rhs.getHash();
 }
 
 bool

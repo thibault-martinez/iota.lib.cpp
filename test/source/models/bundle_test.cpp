@@ -135,45 +135,37 @@ TEST(Bundle, GetLengthWithPush) {
 }
 
 TEST(Bundle, EqOperator) {
-  IOTA::Models::Bundle eq_lhs({ { ACCOUNT_1_ADDRESS_1_HASH, 0, "TAG", 1, 2, 3, 4 },
-                                { ACCOUNT_1_ADDRESS_1_HASH, 0, "TAG", 5, 6, 7, 8 } });
-  IOTA::Models::Bundle eq_rhs({ { ACCOUNT_1_ADDRESS_1_HASH, 0, "TAG", 9, 2, 10, 11 },
-                                { ACCOUNT_1_ADDRESS_1_HASH, 0, "TAG", 12, 13, 14, 16 } });
+  IOTA::Models::Bundle eq_lhs;
+  eq_lhs.setHash("ABC");
 
-  eq_lhs.getTransactions()[0].setBundle("eq");
-  eq_rhs.getTransactions()[0].setBundle("eq");
+  IOTA::Models::Bundle eq_rhs;
+  eq_rhs.setHash("ABC");
 
   EXPECT_EQ(eq_lhs == eq_rhs, true);
 
-  IOTA::Models::Bundle neq_lhs({ { ACCOUNT_1_ADDRESS_1_HASH, 0, "TAG", 1, 2, 3, 4 },
-                                 { ACCOUNT_1_ADDRESS_1_HASH, 0, "TAG", 5, 6, 7, 8 } });
-  IOTA::Models::Bundle neq_rhs({ { ACCOUNT_1_ADDRESS_1_HASH, 0, "TAG", 9, 0, 10, 11 },
-                                 { ACCOUNT_1_ADDRESS_1_HASH, 0, "TAG", 12, 13, 14, 16 } });
+  IOTA::Models::Bundle neq_lhs;
+  neq_lhs.setHash("ABC");
 
-  neq_lhs.getTransactions()[0].setBundle("eq");
-  neq_rhs.getTransactions()[0].setBundle("neq");
+  IOTA::Models::Bundle neq_rhs;
+  neq_rhs.setHash("DEF");
 
   EXPECT_EQ(neq_lhs == neq_rhs, false);
 }
 
 TEST(Bundle, NeqOperator) {
-  IOTA::Models::Bundle eq_lhs({ { ACCOUNT_1_ADDRESS_1_HASH, 0, "TAG", 1, 2, 3, 4 },
-                                { ACCOUNT_1_ADDRESS_1_HASH, 0, "TAG", 5, 6, 7, 8 } });
-  IOTA::Models::Bundle eq_rhs({ { ACCOUNT_1_ADDRESS_1_HASH, 0, "TAG", 9, 2, 10, 11 },
-                                { ACCOUNT_1_ADDRESS_1_HASH, 0, "TAG", 12, 13, 14, 16 } });
+  IOTA::Models::Bundle eq_lhs;
+  eq_lhs.setHash("ABC");
 
-  eq_lhs.getTransactions()[0].setBundle("eq");
-  eq_rhs.getTransactions()[0].setBundle("eq");
+  IOTA::Models::Bundle eq_rhs;
+  eq_rhs.setHash("ABC");
 
   EXPECT_EQ(eq_lhs != eq_rhs, false);
 
-  IOTA::Models::Bundle neq_lhs({ { ACCOUNT_1_ADDRESS_1_HASH, 0, "TAG", 1, 2, 3, 4 },
-                                 { ACCOUNT_1_ADDRESS_1_HASH, 0, "TAG", 5, 6, 7, 8 } });
-  IOTA::Models::Bundle neq_rhs({ { ACCOUNT_1_ADDRESS_1_HASH, 0, "TAG", 9, 0, 10, 11 },
-                                 { ACCOUNT_1_ADDRESS_1_HASH, 0, "TAG", 12, 13, 14, 16 } });
+  IOTA::Models::Bundle neq_lhs;
+  neq_lhs.setHash("ABC");
 
-  neq_lhs.getTransactions()[0].setBundle("eq");
-  neq_rhs.getTransactions()[0].setBundle("neq");
+  IOTA::Models::Bundle neq_rhs;
+  neq_rhs.setHash("DEF");
 
   EXPECT_EQ(neq_lhs != neq_rhs, true);
 }

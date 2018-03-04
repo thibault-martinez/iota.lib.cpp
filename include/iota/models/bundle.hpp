@@ -72,6 +72,18 @@ public:
   std::vector<Models::Transaction>& getTransactions();
 
   /**
+   * @return bundle hash
+   */
+  const Types::Trytes& getHash() const;
+
+  /**
+   * Set the hash of the bundle. This does NOT update the underlying transaction.
+   *
+   * @param hash  New hash for bundle
+   */
+  void setHash(const Types::Trytes& hash);
+
+  /**
    * @return The length of the bundle.
    */
   std::size_t getLength() const;
@@ -143,6 +155,8 @@ private:
    * Bundle's transactions.
    */
   std::vector<Models::Transaction> transactions_;
+
+  Types::Trytes hash_;
 };
 
 }  // namespace Models
