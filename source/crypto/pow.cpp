@@ -86,23 +86,23 @@ Pow::operator()(const Types::Trytes& trytes, int minWeightMagnitude, int threads
 
   initialize(stateLow.data(), stateHigh.data(), trits);
 
-  Utils::parallel_for(threads,
-                      [this, stateLow, stateHigh, minWeightMagnitude, &result](uint32_t i) {
-                        uint64_t stateLowCpy[stateSize];
-                        uint64_t stateHighCpy[stateSize];
+  Utils::parallel_for(
+      threads, [this, stateLow, stateHigh, minWeightMagnitude, &result](uint32_t i, uint32_t) {
+        uint64_t stateLowCpy[stateSize];
+        uint64_t stateHighCpy[stateSize];
 
-                        std::memcpy(stateLowCpy, stateLow.data(), stateSize * sizeof(uint64_t));
-                        std::memcpy(stateHighCpy, stateHigh.data(), stateSize * sizeof(uint64_t));
+        std::memcpy(stateLowCpy, stateLow.data(), stateSize * sizeof(uint64_t));
+        std::memcpy(stateHighCpy, stateHigh.data(), stateSize * sizeof(uint64_t));
 
-                        for (uint32_t j = 0; j < i; ++j) {
-                          increment(stateLowCpy, stateHighCpy, nonceOffset + TritHashLength / 9,
-                                    nonceOffset + (TritHashLength / 9) * 2);
-                        }
+        for (uint32_t j = 0; j < i; ++j) {
+          increment(stateLowCpy, stateHighCpy, nonceOffset + TritHashLength / 9,
+                    nonceOffset + (TritHashLength / 9) * 2);
+        }
 
-                        auto trits = loop(stateLowCpy, stateHighCpy, minWeightMagnitude);
-                        if (!trits.empty())
-                          result = IOTA::Types::tritsToTrytes(trits);
-                      });
+        auto trits = loop(stateLowCpy, stateHighCpy, minWeightMagnitude);
+        if (!trits.empty())
+          result = IOTA::Types::tritsToTrytes(trits);
+      });
   return result;
 }
 

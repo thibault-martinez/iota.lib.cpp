@@ -35,7 +35,7 @@
 
 TEST(Extended, GetAccountData) {
   auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
-  auto res = api.getAccountData(ACCOUNT_2_SEED, 0, 0, true, true, 0);
+  auto res = api.getAccountData(ACCOUNT_2_SEED, 0, 0, true, 0);
 
   EXPECT_EQ(res.getAddresses(),
             std::vector<IOTA::Models::Address>(
@@ -73,7 +73,7 @@ TEST(Extended, GetAccountData) {
 
 TEST(Extended, GetAccountDataStartEnd) {
   auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
-  auto res = api.getAccountData(ACCOUNT_2_SEED, 1, 3, true, true, 0);
+  auto res = api.getAccountData(ACCOUNT_2_SEED, 1, 3, true, 0);
 
   EXPECT_EQ(res.getAddresses(), std::vector<IOTA::Models::Address>(
                                     { ACCOUNT_2_ADDRESS_2_HASH, ACCOUNT_2_ADDRESS_3_HASH }));
@@ -82,17 +82,8 @@ TEST(Extended, GetAccountDataStartEnd) {
   EXPECT_EQ(res.getBalance(), ACCOUNT_2_ADDRESS_2_FUND + ACCOUNT_2_ADDRESS_3_FUND);
 }
 
-TEST(Extended, GetAccountDataReturnAll) {
-  auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
-  auto res = api.getAccountData(ACCOUNT_2_SEED, 0, 0, false, true, 0);
-
-  EXPECT_EQ(res.getAddresses(), std::vector<IOTA::Models::Address>({ ACCOUNT_2_ADDRESS_6_HASH }));
-  EXPECT_FALSE(res.getTransfers().empty());
-  EXPECT_EQ(res.getBalance(), ACCOUNT_2_FUND);
-}
 TEST(Extended, GetAccountDataMin) {
   auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
 
-  EXPECT_THROW(api.getAccountData(ACCOUNT_2_SEED, 0, 0, true, true, 1000000),
-               IOTA::Errors::IllegalState);
+  EXPECT_THROW(api.getAccountData(ACCOUNT_2_SEED, 0, 0, true, 1000000), IOTA::Errors::IllegalState);
 }
