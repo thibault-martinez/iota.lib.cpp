@@ -34,6 +34,7 @@ TEST(StopWatch, CtorShouldStartTimer) {
 
   std::this_thread::sleep_for(std::chrono::seconds(1));
 
+  std::cout << s.getElapsedTime().count() << '\n';
   EXPECT_TRUE(s.getElapsedTime().count() >= 990);
   EXPECT_TRUE(s.getElapsedTime().count() <= 1010);
 }
@@ -68,6 +69,7 @@ TEST(StopWatch, RestartShouldRestartTimer) {
   s.restart();
   std::this_thread::sleep_for(std::chrono::seconds(1));
 
+  std::cout << s.getElapsedTime().count() << '\n';
   EXPECT_TRUE(s.getElapsedTime().count() >= 990);
   EXPECT_TRUE(s.getElapsedTime().count() <= 1010);
 }
@@ -79,6 +81,7 @@ TEST(StopWatch, PauseShouldStopTimer) {
   s.pause();
   std::this_thread::sleep_for(std::chrono::seconds(1));
 
+  std::cout << s.getElapsedTime().count() << '\n';
   EXPECT_TRUE(s.getElapsedTime().count() >= 990);
   EXPECT_TRUE(s.getElapsedTime().count() <= 1010);
 }
@@ -92,6 +95,7 @@ TEST(StopWatch, MultiplePauseShouldNotReset) {
   s.pause();
   std::this_thread::sleep_for(std::chrono::seconds(1));
 
+  std::cout << s.getElapsedTime().count() << '\n';
   EXPECT_TRUE(s.getElapsedTime().count() >= 990);
   EXPECT_TRUE(s.getElapsedTime().count() <= 1010);
 }
@@ -105,6 +109,7 @@ TEST(StopWatch, ResumeShouldResumePausedTimer) {
   s.resume();
   std::this_thread::sleep_for(std::chrono::seconds(1));
 
+  std::cout << s.getElapsedTime().count() << '\n';
   EXPECT_TRUE(s.getElapsedTime().count() >= 1990);
   EXPECT_TRUE(s.getElapsedTime().count() <= 2010);
 }
@@ -116,6 +121,7 @@ TEST(StopWatch, ResumeShouldDoNothingIfRunning) {
   s.resume();
   std::this_thread::sleep_for(std::chrono::seconds(1));
 
+  std::cout << s.getElapsedTime().count() << '\n';
   EXPECT_TRUE(s.getElapsedTime().count() >= 1990);
   EXPECT_TRUE(s.getElapsedTime().count() <= 2010);
 }
@@ -125,6 +131,7 @@ TEST(StopWatch, GetElapsedTimeMiliSeconds) {
 
   std::this_thread::sleep_for(std::chrono::seconds(1));
 
+  std::cout << s.getElapsedTime().count() << '\n';
   EXPECT_TRUE(s.getElapsedTime().count() >= 1000);
   EXPECT_TRUE(s.getElapsedTime().count() < 2000);
 }
