@@ -34,8 +34,8 @@ TEST(StopWatch, CtorShouldStartTimer) {
 
   std::this_thread::sleep_for(std::chrono::seconds(1));
 
-  EXPECT_TRUE(s.getElapsedTime().count() >= 950);
-  EXPECT_TRUE(s.getElapsedTime().count() <= 1050);
+  EXPECT_TRUE(s.getElapsedTime().count() >= 900);
+  EXPECT_TRUE(s.getElapsedTime().count() <= 1100);
 }
 
 TEST(StopWatch, NowShouldReturnCurrentTime) {
@@ -68,8 +68,8 @@ TEST(StopWatch, RestartShouldRestartTimer) {
   s.restart();
   std::this_thread::sleep_for(std::chrono::seconds(1));
 
-  EXPECT_TRUE(s.getElapsedTime().count() >= 950);
-  EXPECT_TRUE(s.getElapsedTime().count() <= 1050);
+  EXPECT_TRUE(s.getElapsedTime().count() >= 900);
+  EXPECT_TRUE(s.getElapsedTime().count() <= 1100);
 }
 
 TEST(StopWatch, PauseShouldStopTimer) {
@@ -79,8 +79,8 @@ TEST(StopWatch, PauseShouldStopTimer) {
   s.pause();
   std::this_thread::sleep_for(std::chrono::seconds(1));
 
-  EXPECT_TRUE(s.getElapsedTime().count() >= 950);
-  EXPECT_TRUE(s.getElapsedTime().count() <= 1050);
+  EXPECT_TRUE(s.getElapsedTime().count() >= 900);
+  EXPECT_TRUE(s.getElapsedTime().count() <= 1100);
 }
 
 TEST(StopWatch, MultiplePauseShouldNotReset) {
@@ -92,8 +92,8 @@ TEST(StopWatch, MultiplePauseShouldNotReset) {
   s.pause();
   std::this_thread::sleep_for(std::chrono::seconds(1));
 
-  EXPECT_TRUE(s.getElapsedTime().count() >= 950);
-  EXPECT_TRUE(s.getElapsedTime().count() <= 1050);
+  EXPECT_TRUE(s.getElapsedTime().count() >= 900);
+  EXPECT_TRUE(s.getElapsedTime().count() <= 1100);
 }
 
 TEST(StopWatch, ResumeShouldResumePausedTimer) {
@@ -105,8 +105,8 @@ TEST(StopWatch, ResumeShouldResumePausedTimer) {
   s.resume();
   std::this_thread::sleep_for(std::chrono::seconds(1));
 
-  EXPECT_TRUE(s.getElapsedTime().count() >= 1900);
-  EXPECT_TRUE(s.getElapsedTime().count() <= 2100);
+  EXPECT_TRUE(s.getElapsedTime().count() >= 1800);
+  EXPECT_TRUE(s.getElapsedTime().count() <= 2200);
 }
 
 TEST(StopWatch, ResumeShouldDoNothingIfRunning) {
@@ -116,6 +116,6 @@ TEST(StopWatch, ResumeShouldDoNothingIfRunning) {
   s.resume();
   std::this_thread::sleep_for(std::chrono::seconds(1));
 
-  EXPECT_TRUE(s.getElapsedTime().count() >= 1900);
-  EXPECT_TRUE(s.getElapsedTime().count() <= 2100);
+  EXPECT_TRUE(s.getElapsedTime().count() >= 1800);
+  EXPECT_TRUE(s.getElapsedTime().count() <= 2200);
 }
