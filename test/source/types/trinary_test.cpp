@@ -78,6 +78,54 @@ TEST(Trinary, IsValidHash) {
   EXPECT_FALSE(IOTA::Types::isValidHash("9"));
 }
 
+TEST(Trinary, charToTrytes) {
+  const std::string cset(
+      "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!\"#$%&'()*+,-./"
+      ":;<=>?@[\\]^_`{|}~ \t\n");
+  const std::string tset(
+      "UAVAWAXAYAZA9BABBBCBPCQCRCSCTCUCVCWCXCYCZC9DADBDCDDDEDFDGDHDIDJDKDLDMDNDKBLBMBNBOBPBQB"
+      "RBSBTBUBVBWBXBYBZB9CACBCCCDCECFCGCHCICFAGAHAIAJAKALAMANAOAPAQARASATADBEBFBGBHBIBJBJCKC"
+      "LCMCNCOCODPDQDRDEAI9J9");
+
+  for (size_t i = 0; i < cset.size(); ++i) {
+    EXPECT_EQ(IOTA::Types::charToTrytes(cset[i]), tset.substr(2 * i, 2));
+  }
+}
+
+TEST(Trinary, stringToTrytes) {
+  EXPECT_EQ(IOTA::Types::stringToTrytes(""), IOTA::Types::Trytes{ "" });
+  EXPECT_EQ(IOTA::Types::stringToTrytes("ASCII Message to Trytes"),
+            "KBBCMBSBSBEAWBTCGDGDPCVCTCEAHDCDEACCFDMDHDTCGD");
+  EXPECT_EQ(IOTA::Types::stringToTrytes("Lorem ipsum dolor sit amet, consectetur adipiscing elit."),
+            "VBCDFDTCADEAXCDDGDIDADEASCCD9DCDFDEAGDXCHDEAPCADTCHDQAEARCCDBDGDTCRCHDTCHDIDFDEAPCSCXC"
+            "DDXCGDRCXCBDVCEATC9DXCHDSA");
+  EXPECT_EQ(
+      IOTA::Types::stringToTrytes("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVW"
+                                  "XYZ!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~ \t\n"),
+      "UAVAWAXAYAZA9BABBBCBPCQCRCSCTCUCVCWCXCYCZC9DADBDCDDDEDFDGDHDIDJDKDLDMDNDKBLBMBNBOBPBQB"
+      "RBSBTBUBVBWBXBYBZB9CACBCCCDCECFCGCHCICFAGAHAIAJAKALAMANAOAPAQARASATADBEBFBGBHBIBJBJCKC"
+      "LCMCNCOCODPDQDRDEAI9J9");
+}
+
+TEST(Trinary, trytesToString) {
+  EXPECT_EXCEPTION(IOTA::Types::trytesToString("ABC"), IOTA::Errors::IllegalState,
+                   "Odd number of trytes provided");
+  EXPECT_EQ(IOTA::Types::trytesToString("KBBCMBSBSBEAWBTCGDGDPCVCTCEAHDCDEACCFDMDHDTCGD"),
+            "ASCII Message to Trytes");
+  EXPECT_EQ(
+      IOTA::Types::trytesToString(
+          "VBCDFDTCADEAXCDDGDIDADEASCCD9DCDFDEAGDXCHDEAPCADTCHDQAEARCCDBDGDTCRCHDTCHDIDFDEAPCSCXC"
+          "DDXCGDRCXCBDVCEATC9DXCHDSA"),
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
+  EXPECT_EQ(
+      IOTA::Types::trytesToString(
+          "UAVAWAXAYAZA9BABBBCBPCQCRCSCTCUCVCWCXCYCZC9DADBDCDDDEDFDGDHDIDJDKDLDMDNDKBLBMBNBOBPBQB"
+          "RBSBTBUBVBWBXBYBZB9CACBCCCDCECFCGCHCICFAGAHAIAJAKALAMANAOAPAQARASATADBEBFBGBHBIBJBJCKC"
+          "LCMCNCOCODPDQDRDEAI9J9"),
+      "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVW"
+      "XYZ!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~ \t\n");
+}
+
 TEST(Trinary, tritsToBytes) {
   std::vector<int8_t> b0(IOTA::ByteHashLength, 0);
   std::vector<int8_t> b1({ (int8_t)0x00, (int8_t)0x00, (int8_t)0x00, (int8_t)0x00 });
