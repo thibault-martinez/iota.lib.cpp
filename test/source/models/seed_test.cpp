@@ -27,6 +27,7 @@
 
 #include <iota/constants.hpp>
 #include <iota/errors/illegal_state.hpp>
+#include <iota/models/address.hpp>
 #include <iota/models/seed.hpp>
 #include <iota/types/trinary.hpp>
 #include <test/utils/expect_exception.hpp>
@@ -120,7 +121,7 @@ TEST(Seed, FromSetter) {
   EXPECT_EQ(seed.getSecurity(), 2);
 }
 
-TEST(Transaction, SecurityGetterAndSetter) {
+TEST(Seed, SecurityGetterAndSetter) {
   IOTA::Models::Seed seed = { "", 3 };
   EXPECT_EQ(seed.getSecurity(), 3);
 
@@ -136,6 +137,12 @@ TEST(Seed, ImplicitConversion) {
 
   EXPECT_EQ(seed.toTrytes(),
             "ABC999999999999999999999999999999999999999999999999999999999999999999999999999999");
+}
+
+TEST(Seed, newAddressInvalidSecurityLevel) {
+  auto seed = IOTA::Models::Seed::generateRandomSeed();
+  EXPECT_EXCEPTION(seed.newAddress(0, -1), IOTA::Errors::IllegalState, "Invalid Security Level");
+  EXPECT_EXCEPTION(seed.newAddress(0, 4), IOTA::Errors::IllegalState, "Invalid Security Level");
 }
 
 TEST(Seed, OperatorEq) {
