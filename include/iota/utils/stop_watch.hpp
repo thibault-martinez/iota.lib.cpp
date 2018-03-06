@@ -60,12 +60,7 @@ public:
   /**
    * @return Elapsed time in milliseconds.
    */
-  std::chrono::milliseconds getElapsedTimeMilliSeconds() const;
-
-  /**
-   * @return Elapsed time in seconds.
-   */
-  std::chrono::seconds getElapsedTimeSeconds() const;
+  std::chrono::milliseconds getElapsedTime() const;
 
 public:
   /**

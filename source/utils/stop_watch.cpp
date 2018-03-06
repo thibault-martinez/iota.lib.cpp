@@ -51,7 +51,7 @@ StopWatch::pause() {
     return;
   }
 
-  currentTime_ = getElapsedTimeMilliSeconds();
+  currentTime_ = getElapsedTime();
   running_     = false;
 }
 
@@ -66,17 +66,12 @@ StopWatch::resume() {
 }
 
 std::chrono::milliseconds
-StopWatch::getElapsedTimeMilliSeconds() const {
+StopWatch::getElapsedTime() const {
   if (running_) {
     return now() - startTime_;
   }
 
   return currentTime_;
-}
-
-std::chrono::seconds
-StopWatch::getElapsedTimeSeconds() const {
-  return std::chrono::duration_cast<std::chrono::seconds>(getElapsedTimeMilliSeconds());
 }
 
 }  // namespace Utils
