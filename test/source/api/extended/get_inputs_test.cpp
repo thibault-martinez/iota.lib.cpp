@@ -32,6 +32,7 @@
 #include <iota/models/seed.hpp>
 #include <test/utils/configuration.hpp>
 #include <test/utils/constants.hpp>
+#include <test/utils/expect_exception.hpp>
 
 TEST(Extended, GetInputs) {
   auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
@@ -87,6 +88,12 @@ TEST(Extended, GetInputsStartEnd) {
   EXPECT_EQ(input2.getBalance(), ACCOUNT_2_ADDRESS_4_FUND);
   EXPECT_EQ(input2.getKeyIndex(), 3);
   EXPECT_EQ(input2.getSecurity(), 2);
+}
+
+TEST(Extended, GetInputsInvalidStart) {
+  auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
+  EXPECT_EXCEPTION(auto res = api.getInputs(ACCOUNT_2_SEED, 5, 4, 0), IOTA::Errors::IllegalState,
+                   "Invalid inputs provided");
 }
 
 TEST(Extended, GetInputMin) {
