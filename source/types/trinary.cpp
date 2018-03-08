@@ -87,6 +87,32 @@ isValidHash(const Trytes& s) {
   return s.length() == HashLength && isValidTrytes(s);
 }
 
+Trytes
+charToTrytes(const char c) {
+  return Trytes{ TryteAlphabet[c % 27], TryteAlphabet[c / 27] };
+}
+
+Trytes
+stringToTrytes(const std::string& str) {
+  Trytes t;
+  for (const auto& c : str) {
+    t += charToTrytes(c);
+  }
+  return t;
+}
+
+std::string
+trytesToString(const Trytes& trytes) {
+  if (trytes.size() % 2 != 0)
+    throw Errors::IllegalState("Odd number of trytes provided");
+
+  std::string str;
+  for (size_t i = 0; i < trytes.size(); i += 2) {
+    str += TryteAlphabet.find(trytes[i]) + TryteAlphabet.find(trytes[i + 1]) * 27;
+  }
+  return str;
+}
+
 std::vector<int8_t>
 tritsToBytes(const Trits& trits) {
   size_t i = trits.size();
