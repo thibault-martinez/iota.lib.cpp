@@ -25,8 +25,7 @@
 
 #pragma once
 
-#include <cstdint>
-
+#include <iota/constants.hpp>
 #include <iota/types/trinary.hpp>
 
 namespace IOTA {
@@ -47,17 +46,17 @@ public:
   std::vector<int8_t> toBytes() const;
 
 private:
-  bool         is_negative();
-  uint32_t     mult_byte_mem(uint8_t factor, unsigned int ms_index);
-  uint32_t     div_byte_mem(uint8_t divisor);
+  bool         is_negative() const;
+  uint32_t     mul(uint8_t factor, unsigned int ms_index);
+  uint32_t     div(uint8_t divisor);
   bool         add(const uint32_t *a, const uint32_t *b);
   bool         sub(const uint32_t *a, const uint32_t *b);
-  unsigned int add_u32_mem(uint32_t summand);
-  int          cmp(const uint32_t *b);
+  unsigned int add_u32(uint32_t summand);
+  int          cmp(const uint32_t *b) const;
   bool         set_last_trit_zero();
 
 private:
-  uint32_t data[12];
+  uint32_t data[WordHashLength];
 };
 
 }  // namespace Types

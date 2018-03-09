@@ -27,28 +27,34 @@
 
 #include <iota/types/big_int.hpp>
 
-#define os_swap_u32(u32)                                                                 \
+#define swap_u32(u32)                                                                    \
   (((unsigned long int)(u32) >> 24) | (((unsigned long int)(u32) << 8) & 0x00FF0000UL) | \
    (((unsigned long int)(u32) >> 8) & 0x0000FF00UL) | ((unsigned long int)(u32) << 24))
 
-#define INT_LENGTH 12
 // base of the ternary system
 #define BASE 3
 
+namespace IOTA {
+
+namespace Types {
+
 // the middle of the domain described by 242 trits, i.e. \sum_{k=0}^{241} 3^k
-static const uint32_t HALF_3[12] = { 0xa5ce8964, 0x9f007669, 0x1484504f, 0x3ade00d9,
-                                     0x0c24486e, 0x50979d57, 0x79a4c702, 0x48bbae36,
-                                     0xa9f6808b, 0xaa06a805, 0xa87fabdf, 0x5e69ebef };
+static constexpr uint32_t HALF_3[WordHashLength] = {
+  0xa5ce8964, 0x9f007669, 0x1484504f, 0x3ade00d9, 0x0c24486e, 0x50979d57,
+  0x79a4c702, 0x48bbae36, 0xa9f6808b, 0xaa06a805, 0xa87fabdf, 0x5e69ebef
+};
 
 // the two's complement of HALF_3_u, i.e. ~HALF_3_u + 1
-static const uint32_t NEG_HALF_3[12] = { 0x5a31769c, 0x60ff8996, 0xeb7bafb0, 0xc521ff26,
-                                         0xf3dbb791, 0xaf6862a8, 0x865b38fd, 0xb74451c9,
-                                         0x56097f74, 0x55f957fa, 0x57805420, 0xa1961410 };
+static constexpr uint32_t NEG_HALF_3[WordHashLength] = { 0x5a31769c, 0x60ff8996, 0xeb7bafb0,
+                                                         0xc521ff26, 0xf3dbb791, 0xaf6862a8,
+                                                         0x865b38fd, 0xb74451c9, 0x56097f74,
+                                                         0x55f957fa, 0x57805420, 0xa1961410 };
 
 // representing the value of the highes trit in the feasible domain, i.e 3^242
-static const uint32_t LAST_TRIT[12] = { 0x4b9d12c9, 0x3e00ecd3, 0x2908a09f, 0x75bc01b2,
-                                        0x184890dc, 0xa12f3aae, 0xf3498e04, 0x91775c6c,
-                                        0x53ed0116, 0x540d500b, 0x50ff57bf, 0xbcd3d7df };
+static constexpr uint32_t LAST_TRIT[WordHashLength] = { 0x4b9d12c9, 0x3e00ecd3, 0x2908a09f,
+                                                        0x75bc01b2, 0x184890dc, 0xa12f3aae,
+                                                        0xf3498e04, 0x91775c6c, 0x53ed0116,
+                                                        0x540d500b, 0x50ff57bf, 0xbcd3d7df };
 
 static inline bool
 addcarry_u32(uint32_t *r, uint32_t a, uint32_t b, bool c_in) {
@@ -59,11 +65,7 @@ addcarry_u32(uint32_t *r, uint32_t a, uint32_t b, bool c_in) {
   return carry;
 }
 
-namespace IOTA {
-
-namespace Types {
-
-Bigint::Bigint() {
+Bigint::Bigint() : data{ 0 } {
 }
 
 Bigint::~Bigint() {
@@ -72,14 +74,14 @@ Bigint::~Bigint() {
 void
 Bigint::fromTrits(const Trits &trits) {
   unsigned int ms_index = 0;  // initialy there is no most significant word >0
-  std::memset(data, 0, 12 * sizeof(data[0]));
+  std::memset(data, 0, WordHashLength * sizeof(data[0]));
 
   // ignore the 243th trit, as it cannot be fully represented in 48 bytes
-  for (unsigned int i = 242; i-- > 0;) {
+  for (unsigned int i = TritHashLength - 1; i-- > 0;) {
     // convert to non-balanced ternary
     const uint8_t trit = trits[i] + 1;
 
-    const uint32_t carry = mult_byte_mem(BASE, ms_index);
+    const uint32_t carry = mul(BASE, ms_index);
     if (carry > 0) {
       // if there is carry we need to use the next higher byte
       data[++ms_index] = carry;
@@ -90,7 +92,7 @@ Bigint::fromTrits(const Trits &trits) {
       continue;
     }
 
-    const unsigned int last_changed_index = add_u32_mem(trit);
+    const unsigned int last_changed_index = add_u32(trit);
     if (last_changed_index > ms_index) {
       ms_index = last_changed_index;
     }
@@ -110,16 +112,16 @@ Bigint::fromBytes(const std::vector<int8_t> &bytes) {
   const uint32_t *p = (const uint32_t *)bytes.data();
 
   // reverse word order
-  for (unsigned int i = 12; i-- > 0;) {
+  for (unsigned int i = WordHashLength; i-- > 0;) {
     // convert byte order if necessary
-    data[i] = os_swap_u32(*p);
+    data[i] = swap_u32(*p);
     p++;
   }
 }
 
 Trits
 Bigint::toTrits() {
-  Trits trits(243);
+  Trits trits(TritHashLength);
   // the two's complement represention is only correct, if the number fits
   // into 48 bytes, i.e. has the 243th trit set to 0
   set_last_trit_zero();
@@ -132,24 +134,24 @@ Bigint::toTrits() {
   }
 
   // ignore the 243th trit, as it cannot be fully represented in 48 bytes
-  for (unsigned int i = 0; i < 242; i++) {
-    const uint32_t rem = div_byte_mem(BASE);
+  for (unsigned int i = 0; i < TritHashLength - 1; i++) {
+    const uint32_t rem = div(BASE);
     trits[i]           = rem - 1;  // convert back to balanced
   }
   // set the last trit to zero for consistency
-  trits[242] = 0;
+  trits[TritHashLength - 1] = 0;
   return trits;
 }
 
 std::vector<int8_t>
 Bigint::toBytes() const {
-  std::vector<int8_t> bytes(48);
+  std::vector<int8_t> bytes(ByteHashLength);
   uint32_t *          p = (uint32_t *)bytes.data();
 
   // reverse word order
-  for (unsigned int i = 12; i-- > 0;) {
+  for (unsigned int i = WordHashLength; i-- > 0;) {
     // convert byte order if necessary
-    *p++ = os_swap_u32(data[i]);
+    *p++ = swap_u32(data[i]);
   }
   return bytes;
 }
@@ -159,13 +161,13 @@ Bigint::toBytes() const {
  */
 
 bool
-Bigint::is_negative() {
+Bigint::is_negative() const {
   // whether the most significant bit of the most significant byte is set
-  return (data[12 - 1] >> (sizeof(data[0]) * 8 - 1) != 0);
+  return (data[WordHashLength - 1] >> (sizeof(data[0]) * 8 - 1) != 0);
 }
 
 uint32_t
-Bigint::mult_byte_mem(uint8_t factor, unsigned int ms_index) {
+Bigint::mul(uint8_t factor, unsigned int ms_index) {
   uint32_t carry = 0;
 
   for (unsigned int i = 0; i <= ms_index; i++) {
@@ -179,10 +181,10 @@ Bigint::mult_byte_mem(uint8_t factor, unsigned int ms_index) {
 }
 
 uint32_t
-Bigint::div_byte_mem(uint8_t divisor) {
+Bigint::div(uint8_t divisor) {
   uint32_t remainder = 0;
 
-  for (unsigned int i = 12; i-- > 0;) {
+  for (unsigned int i = WordHashLength; i-- > 0;) {
     const uint64_t v = (uint64_t)0x100000000 * remainder + data[i];
 
     remainder = v % divisor;
@@ -195,7 +197,7 @@ Bigint::div_byte_mem(uint8_t divisor) {
 bool
 Bigint::add(const uint32_t *a, const uint32_t *b) {
   bool carry = false;
-  for (unsigned int i = 0; i < 12; i++) {
+  for (unsigned int i = 0; i < WordHashLength; i++) {
     carry = addcarry_u32(&data[i], a[i], b[i], carry);
   }
 
@@ -205,7 +207,7 @@ Bigint::add(const uint32_t *a, const uint32_t *b) {
 bool
 Bigint::sub(const uint32_t *a, const uint32_t *b) {
   bool carry = true;
-  for (unsigned int i = 0; i < 12; i++) {
+  for (unsigned int i = 0; i < WordHashLength; i++) {
     carry = addcarry_u32(&data[i], a[i], ~b[i], carry);
   }
 
@@ -213,13 +215,13 @@ Bigint::sub(const uint32_t *a, const uint32_t *b) {
 }
 
 unsigned int
-Bigint::add_u32_mem(uint32_t summand) {
+Bigint::add_u32(uint32_t summand) {
   bool carry = addcarry_u32(&data[0], data[0], summand, false);
   if (carry == false) {
     return 0;
   }
 
-  for (unsigned int i = 1; i < 12; i++) {
+  for (unsigned int i = 1; i < WordHashLength; i++) {
     carry = addcarry_u32(&data[i], data[i], 0, true);
     if (carry == false) {
       return i;
@@ -227,12 +229,12 @@ Bigint::add_u32_mem(uint32_t summand) {
   }
 
   // overflow
-  return 12;
+  return WordHashLength;
 }
 
 int
-Bigint::cmp(const uint32_t *b) {
-  for (unsigned int i = 12; i-- > 0;) {
+Bigint::cmp(const uint32_t *b) const {
+  for (unsigned int i = WordHashLength; i-- > 0;) {
     if (data[i] < b[i]) {
       return -1;
     }
