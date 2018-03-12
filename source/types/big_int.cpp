@@ -24,6 +24,7 @@
 //
 
 #include <stdint.h>
+#include <cstring>
 
 #include <iota/errors/illegal_state.hpp>
 #include <iota/types/big_int.hpp>
