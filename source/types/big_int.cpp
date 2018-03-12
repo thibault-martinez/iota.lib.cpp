@@ -25,6 +25,7 @@
 
 #include <stdint.h>
 
+#include <iota/errors/illegal_state.hpp>
 #include <iota/types/big_int.hpp>
 
 #define swap_u32(u32)                                                                    \
@@ -73,6 +74,8 @@ Bigint::~Bigint() {
 
 void
 Bigint::fromTrits(const Trits &trits) {
+  if (trits.size() != TritHashLength)
+    throw Errors::IllegalState("Invalid trits provided");
   unsigned int ms_index = 0;  // initialy there is no most significant word >0
   std::memset(data, 0, WordHashLength * sizeof(data[0]));
 
@@ -109,6 +112,8 @@ Bigint::fromTrits(const Trits &trits) {
 
 void
 Bigint::fromBytes(const std::vector<int8_t> &bytes) {
+  if (bytes.size() != ByteHashLength)
+    throw Errors::IllegalState("Invalid bytes provided");
   const uint32_t *p = (const uint32_t *)bytes.data();
 
   // reverse word order
