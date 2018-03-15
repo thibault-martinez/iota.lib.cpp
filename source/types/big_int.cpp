@@ -23,40 +23,42 @@
 //
 //
 
-#include <stdint.h>
 #include <cstring>
 
 #include <iota/errors/illegal_state.hpp>
 #include <iota/types/big_int.hpp>
 
-#define swap_u32(u32)                                                                    \
-  (((unsigned long int)(u32) >> 24) | (((unsigned long int)(u32) << 8) & 0x00FF0000UL) | \
-   (((unsigned long int)(u32) >> 8) & 0x0000FF00UL) | ((unsigned long int)(u32) << 24))
-
-// base of the ternary system
-#define BASE 3
+#define swap32(x)                                                                    \
+  (((unsigned long int)(x) >> 24) | (((unsigned long int)(x) << 8) & 0x00FF0000UL) | \
+   (((unsigned long int)(x) >> 8) & 0x0000FF00UL) | ((unsigned long int)(x) << 24))
 
 namespace IOTA {
 
 namespace Types {
 
-// the middle of the domain described by 242 trits, i.e. \sum_{k=0}^{241} 3^k
-static constexpr uint32_t HALF_3[WordHashLength] = {
+/**
+ * The middle of the domain described by 242 trits, i.e. \sum_{k=0}^{241} 3^k.
+ */
+static constexpr uint32_t half3[WordHashLength] = {
   0xa5ce8964, 0x9f007669, 0x1484504f, 0x3ade00d9, 0x0c24486e, 0x50979d57,
   0x79a4c702, 0x48bbae36, 0xa9f6808b, 0xaa06a805, 0xa87fabdf, 0x5e69ebef
 };
 
-// the two's complement of HALF_3_u, i.e. ~HALF_3_u + 1
-static constexpr uint32_t NEG_HALF_3[WordHashLength] = { 0x5a31769c, 0x60ff8996, 0xeb7bafb0,
-                                                         0xc521ff26, 0xf3dbb791, 0xaf6862a8,
-                                                         0x865b38fd, 0xb74451c9, 0x56097f74,
-                                                         0x55f957fa, 0x57805420, 0xa1961410 };
+/**
+ * The two's complement of half3, i.e. ~half3 + 1.
+ */
+static constexpr uint32_t negHalf3[WordHashLength] = { 0x5a31769c, 0x60ff8996, 0xeb7bafb0,
+                                                       0xc521ff26, 0xf3dbb791, 0xaf6862a8,
+                                                       0x865b38fd, 0xb74451c9, 0x56097f74,
+                                                       0x55f957fa, 0x57805420, 0xa1961410 };
 
-// representing the value of the highes trit in the feasible domain, i.e 3^242
-static constexpr uint32_t LAST_TRIT[WordHashLength] = { 0x4b9d12c9, 0x3e00ecd3, 0x2908a09f,
-                                                        0x75bc01b2, 0x184890dc, 0xa12f3aae,
-                                                        0xf3498e04, 0x91775c6c, 0x53ed0116,
-                                                        0x540d500b, 0x50ff57bf, 0xbcd3d7df };
+/**
+ * Representing the value of the highest trit in the feasible domain, i.e 3^242.
+ */
+static constexpr uint32_t lastTrit[WordHashLength] = { 0x4b9d12c9, 0x3e00ecd3, 0x2908a09f,
+                                                       0x75bc01b2, 0x184890dc, 0xa12f3aae,
+                                                       0xf3498e04, 0x91775c6c, 0x53ed0116,
+                                                       0x540d500b, 0x50ff57bf, 0xbcd3d7df };
 
 static inline bool
 addcarry_u32(uint32_t *r, uint32_t a, uint32_t b, bool c_in) {
@@ -85,7 +87,7 @@ Bigint::fromTrits(const Trits &trits) {
     // convert to non-balanced ternary
     const uint8_t trit = trits[i] + 1;
 
-    const uint32_t carry = mul(BASE, ms_index);
+    const uint32_t carry = mul(TrinaryBase, ms_index);
     if (carry > 0) {
       // if there is carry we need to use the next higher byte
       data[++ms_index] = carry;
@@ -103,11 +105,11 @@ Bigint::fromTrits(const Trits &trits) {
   }
 
   // convert to balanced ternary using two's complement
-  if (cmp(HALF_3) >= 0) {
-    sub(data, HALF_3);
+  if (cmp(half3) >= 0) {
+    sub(data, half3);
   } else {
     // equivalent to bytes := ~(HALF_3 - bytes) + 1
-    add(NEG_HALF_3, data);
+    add(negHalf3, data);
   }
 }
 
@@ -120,7 +122,7 @@ Bigint::fromBytes(const std::vector<int8_t> &bytes) {
   // reverse word order
   for (unsigned int i = WordHashLength; i-- > 0;) {
     // convert byte order if necessary
-    data[i] = swap_u32(*p);
+    data[i] = swap32(*p);
     p++;
   }
 }
@@ -134,14 +136,14 @@ Bigint::toTrits() {
 
   // convert to the (positive) number representing non-balanced ternary
   if (is_negative()) {
-    sub(data, NEG_HALF_3);
+    sub(data, negHalf3);
   } else {
-    add(data, HALF_3);
+    add(data, half3);
   }
 
   // ignore the 243th trit, as it cannot be fully represented in 48 bytes
   for (unsigned int i = 0; i < TritHashLength - 1; i++) {
-    const uint32_t rem = div(BASE);
+    const uint32_t rem = div(TrinaryBase);
     trits[i]           = rem - 1;  // convert back to balanced
   }
   // set the last trit to zero for consistency
@@ -157,7 +159,7 @@ Bigint::toBytes() const {
   // reverse word order
   for (unsigned int i = WordHashLength; i-- > 0;) {
     // convert byte order if necessary
-    *p++ = swap_u32(data[i]);
+    *p++ = swap32(data[i]);
   }
   return bytes;
 }
@@ -254,13 +256,13 @@ Bigint::cmp(const uint32_t *b) const {
 bool
 Bigint::set_last_trit_zero() {
   if (is_negative()) {
-    if (cmp(NEG_HALF_3) < 0) {
-      add(data, LAST_TRIT);
+    if (cmp(negHalf3) < 0) {
+      add(data, lastTrit);
       return true;
     }
   } else {
-    if (cmp(HALF_3) > 0) {
-      sub(data, LAST_TRIT);
+    if (cmp(half3) > 0) {
+      sub(data, lastTrit);
       return true;
     }
   }

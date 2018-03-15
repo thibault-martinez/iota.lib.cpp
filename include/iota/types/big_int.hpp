@@ -34,15 +34,41 @@ namespace Types {
 
 class Bigint {
 public:
+  /**
+   * Default ctor.
+   */
   Bigint();
+  /**
+   * Default dtor.
+   */
   virtual ~Bigint();
 
 public:
+  /**
+   * Initialize bigint from trits.
+   *
+   * @trits The trits.
+   */
   void fromTrits(const Trits &trits);
+  /**
+   * Initialize bigint from bytes.
+   *
+   * @bytes The bytes.
+   */
   void fromBytes(const std::vector<int8_t> &bytes);
 
 public:
-  Trits               toTrits();
+  /**
+   * Convert bigint to trits.
+   *
+   * @return The trits.
+   */
+  Trits toTrits();
+  /**
+   * Convert bigint to bytes.
+   *
+   * @return The bytes.
+   */
   std::vector<int8_t> toBytes() const;
 
 private:

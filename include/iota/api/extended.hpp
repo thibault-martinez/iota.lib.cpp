@@ -135,7 +135,7 @@ public:
    *
    * @param bundle  The bundle to verify
    */
-  void verifyBundle(const Models::Bundle& bundle) const;
+  static void verifyBundle(const Models::Bundle& bundle);
 
   /**
    * Get bundles corresponding to the given addresses.

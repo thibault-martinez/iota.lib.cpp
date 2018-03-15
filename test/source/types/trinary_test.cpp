@@ -127,7 +127,6 @@ TEST(Trinary, trytesToString) {
 }
 
 TEST(Trinary, tritsToBytes) {
-  std::vector<int8_t> b0{};
   std::vector<int8_t> b1({ (int8_t)0x00, (int8_t)0x00, (int8_t)0x00, (int8_t)0x00 });
   b1.insert(std::begin(b1), IOTA::ByteHashLength - b1.size(), 0x00);
   std::vector<int8_t> b2({ (int8_t)0x00, (int8_t)0x00, (int8_t)0x00, (int8_t)0x01 });

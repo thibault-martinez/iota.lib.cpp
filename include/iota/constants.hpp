@@ -61,6 +61,7 @@ constexpr int PowStateSize      = 729;
 constexpr int PowNumberOfRounds = 81;
 
 //! Misc
+constexpr int TrinaryBase                                 = 3;
 constexpr int GetBalancesRecommandedConfirmationThreshold = 100;
 
 //! IRI API version

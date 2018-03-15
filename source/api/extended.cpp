@@ -567,7 +567,7 @@ Extended::getBundle(const Types::Trytes& transaction) const {
 }
 
 void
-Extended::verifyBundle(const Models::Bundle& bundle) const {
+Extended::verifyBundle(const Models::Bundle& bundle) {
   int64_t       totalSum   = 0;
   Types::Trytes bundleHash = bundle.getHash();
 
