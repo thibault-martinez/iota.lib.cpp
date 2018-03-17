@@ -28,13 +28,15 @@
 #include <iota/errors/illegal_state.hpp>
 #include <iota/types/big_int.hpp>
 
-#define swap32(x)                                                                    \
-  (((unsigned long int)(x) >> 24) | (((unsigned long int)(x) << 8) & 0x00FF0000UL) | \
-   (((unsigned long int)(x) >> 8) & 0x0000FF00UL) | ((unsigned long int)(x) << 24))
-
 namespace IOTA {
 
 namespace Types {
+
+inline static constexpr uint32_t
+swap32(uint32_t x) {
+  return (((unsigned long int)(x) >> 24) | (((unsigned long int)(x) << 8) & 0x00FF0000UL) |
+          (((unsigned long int)(x) >> 8) & 0x0000FF00UL) | ((unsigned long int)(x) << 24));
+}
 
 /**
  * The middle of the domain described by 242 trits, i.e. \sum_{k=0}^{241} 3^k.
@@ -59,15 +61,6 @@ static constexpr uint32_t lastTrit[WordHashLength] = { 0x4b9d12c9, 0x3e00ecd3, 0
                                                        0x75bc01b2, 0x184890dc, 0xa12f3aae,
                                                        0xf3498e04, 0x91775c6c, 0x53ed0116,
                                                        0x540d500b, 0x50ff57bf, 0xbcd3d7df };
-
-static inline bool
-addcarry_u32(uint32_t *r, uint32_t a, uint32_t b, bool c_in) {
-  const uint32_t sum   = a + b + (c_in ? 1 : 0);
-  const bool     carry = (sum < a) || (c_in && (sum <= a));
-
-  *r = sum;
-  return carry;
-}
 
 Bigint::Bigint() : data{ 0 } {
 }
@@ -98,7 +91,7 @@ Bigint::fromTrits(const Trits &trits) {
       continue;
     }
 
-    const unsigned int last_changed_index = add_u32(trit);
+    const unsigned int last_changed_index = addU32(trit);
     if (last_changed_index > ms_index) {
       ms_index = last_changed_index;
     }
@@ -132,10 +125,10 @@ Bigint::toTrits() {
   Trits trits(TritHashLength);
   // the two's complement represention is only correct, if the number fits
   // into 48 bytes, i.e. has the 243th trit set to 0
-  set_last_trit_zero();
+  setLastTritZero();
 
   // convert to the (positive) number representing non-balanced ternary
-  if (is_negative()) {
+  if (isNegative()) {
     sub(data, negHalf3);
   } else {
     add(data, half3);
@@ -169,7 +162,7 @@ Bigint::toBytes() const {
  */
 
 bool
-Bigint::is_negative() const {
+Bigint::isNegative() const {
   // whether the most significant bit of the most significant byte is set
   return (data[WordHashLength - 1] >> (sizeof(data[0]) * 8 - 1) != 0);
 }
@@ -206,7 +199,7 @@ bool
 Bigint::add(const uint32_t *a, const uint32_t *b) {
   bool carry = false;
   for (unsigned int i = 0; i < WordHashLength; i++) {
-    carry = addcarry_u32(&data[i], a[i], b[i], carry);
+    carry = addcarryU32(&data[i], a[i], b[i], carry);
   }
 
   return carry;
@@ -216,21 +209,21 @@ bool
 Bigint::sub(const uint32_t *a, const uint32_t *b) {
   bool carry = true;
   for (unsigned int i = 0; i < WordHashLength; i++) {
-    carry = addcarry_u32(&data[i], a[i], ~b[i], carry);
+    carry = addcarryU32(&data[i], a[i], ~b[i], carry);
   }
 
   return carry;
 }
 
 unsigned int
-Bigint::add_u32(uint32_t summand) {
-  bool carry = addcarry_u32(&data[0], data[0], summand, false);
+Bigint::addU32(uint32_t summand) {
+  bool carry = addcarryU32(&data[0], data[0], summand, false);
   if (carry == false) {
     return 0;
   }
 
   for (unsigned int i = 1; i < WordHashLength; i++) {
-    carry = addcarry_u32(&data[i], data[i], 0, true);
+    carry = addcarryU32(&data[i], data[i], 0, true);
     if (carry == false) {
       return i;
     }
@@ -238,6 +231,15 @@ Bigint::add_u32(uint32_t summand) {
 
   // overflow
   return WordHashLength;
+}
+
+bool
+Bigint::addcarryU32(uint32_t *r, uint32_t a, uint32_t b, bool c_in) {
+  const uint32_t sum   = a + b + (c_in ? 1 : 0);
+  const bool     carry = (sum < a) || (c_in && (sum <= a));
+
+  *r = sum;
+  return carry;
 }
 
 int
@@ -254,8 +256,8 @@ Bigint::cmp(const uint32_t *b) const {
 }
 
 bool
-Bigint::set_last_trit_zero() {
-  if (is_negative()) {
+Bigint::setLastTritZero() {
+  if (isNegative()) {
     if (cmp(negHalf3) < 0) {
       add(data, lastTrit);
       return true;
