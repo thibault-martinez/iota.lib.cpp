@@ -32,23 +32,24 @@ namespace IOTA {
 //! Trytes
 const Types::Trytes TryteAlphabet = "9ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-//! Length-related constants
-const unsigned int ChecksumLength            = 9;
-const unsigned int TryteAlphabetLength       = 27;
-const unsigned int FragmentLength            = 27;
-const unsigned int TagLength                 = 27;
-const unsigned int SeedLength                = 81;
-const unsigned int SeedLengthWithChecksum    = 90;
-const unsigned int AddressLength             = 81;
-const unsigned int AddressLengthWithChecksum = 90;
-const unsigned int HashLength                = 81;
-const unsigned int NonceLength               = 27;
-const unsigned int TritNonceLength           = 81;
-const unsigned int ByteHashLength            = 48;
-const unsigned int TritHashLength            = 243;
-const unsigned int MaxTrxMsgLength           = 2187;
-const unsigned int TxLength                  = 8019;
-const unsigned int TrxTrytesLength           = 2673;
+//! Length-related constexprants
+constexpr unsigned int ChecksumLength            = 9;
+constexpr unsigned int TryteAlphabetLength       = 27;
+constexpr unsigned int FragmentLength            = 27;
+constexpr unsigned int TagLength                 = 27;
+constexpr unsigned int SeedLength                = 81;
+constexpr unsigned int SeedLengthWithChecksum    = 90;
+constexpr unsigned int AddressLength             = 81;
+constexpr unsigned int AddressLengthWithChecksum = 90;
+constexpr unsigned int HashLength                = 81;
+constexpr unsigned int NonceLength               = 27;
+constexpr unsigned int TritNonceLength           = 81;
+constexpr unsigned int WordHashLength            = 12;
+constexpr unsigned int ByteHashLength            = 48;
+constexpr unsigned int TritHashLength            = 243;
+constexpr unsigned int MaxTrxMsgLength           = 2187;
+constexpr unsigned int TxLength                  = 8019;
+constexpr unsigned int TrxTrytesLength           = 2673;
 
 //! Default values
 const Types::Trytes EmptyHash(HashLength, '9');
@@ -56,11 +57,12 @@ const Types::Trytes EmptyNonce(NonceLength, '9');
 const Types::Trytes EmptyTag(TagLength, '9');
 
 //! POW configuration
-const int PowStateSize      = 729;
-const int PowNumberOfRounds = 81;
+constexpr int PowStateSize      = 729;
+constexpr int PowNumberOfRounds = 81;
 
 //! Misc
-const int GetBalancesRecommandedConfirmationThreshold = 100;
+constexpr int TrinaryBase                                 = 3;
+constexpr int GetBalancesRecommandedConfirmationThreshold = 100;
 
 //! IRI API version
 const std::string APIVersion = "1.2.0";

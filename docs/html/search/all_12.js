@@ -4,6 +4,7 @@ var searchData=
   ['_7eaddress',['~Address',['../class_i_o_t_a_1_1_models_1_1_address.html#aa47746972ee7f98fbdb5686ace994b24',1,'IOTA::Models::Address']]],
   ['_7eattachtotangle',['~AttachToTangle',['../class_i_o_t_a_1_1_a_p_i_1_1_requests_1_1_attach_to_tangle.html#aa7c23f3f70f3b67ddbc0765d1daa1df5',1,'IOTA::API::Requests::AttachToTangle::~AttachToTangle()'],['../class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_attach_to_tangle.html#a5c0a7fcd0fa81a6705fed785f09e49cf',1,'IOTA::API::Responses::AttachToTangle::~AttachToTangle()']]],
   ['_7ebase',['~Base',['../class_i_o_t_a_1_1_a_p_i_1_1_requests_1_1_base.html#aee8f8815f16636c1643f313460c96324',1,'IOTA::API::Requests::Base::~Base()'],['../class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_base.html#a479eed3f0d928ab429a881572fce5800',1,'IOTA::API::Responses::Base::~Base()']]],
+  ['_7ebigint',['~Bigint',['../class_i_o_t_a_1_1_types_1_1_bigint.html#acdccb75bac02208c63641c48020738c9',1,'IOTA::Types::Bigint']]],
   ['_7ebroadcasttransactions',['~BroadcastTransactions',['../class_i_o_t_a_1_1_a_p_i_1_1_requests_1_1_broadcast_transactions.html#a5a7d8e4ebea1c11eacc6c99a399e6625',1,'IOTA::API::Requests::BroadcastTransactions']]],
   ['_7ebundle',['~Bundle',['../class_i_o_t_a_1_1_models_1_1_bundle.html#a722279ae56e65f6302dfba10f1e7b583',1,'IOTA::Models::Bundle']]],
   ['_7ecore',['~Core',['../class_i_o_t_a_1_1_a_p_i_1_1_core.html#a77c19113fb5e0f7a0a74b992e955ffce',1,'IOTA::API::Core']]],
