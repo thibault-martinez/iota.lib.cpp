@@ -38,7 +38,16 @@ AddNeighbors::AddNeighbors(const std::vector<std::string>& uris)
 void
 AddNeighbors::serialize(json& data) const {
   Base::serialize(data);
-  // data["uris"] = uris_;
+
+  rapidjson::Value arr;
+  arr.SetArray();
+
+  for (const auto& a : uris_) {
+    arr.PushBack(rapidjson::Value(a.data(), data.GetAllocator()), data.GetAllocator());
+  }
+
+  data.AddMember(rapidjson::Value("uris", data.GetAllocator()).Move(), arr.Move(),
+                 data.GetAllocator());
 }
 
 const std::vector<std::string>&

@@ -20,5 +20,6 @@ main() {
 
   for (int i = 0; i < 1000; ++i) {
     api.getNodeInfo();
+    api.addNeighbors({ "udp://8.8.8.8:14265", "udp://8.8.8.5:14265" });
   }
 }
