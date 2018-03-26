@@ -42,23 +42,23 @@ GetNeighbors::GetNeighbors(const json& res) {
 void
 GetNeighbors::deserialize(const json& res) {
   Base::deserialize(res);
-  for (const auto& neighbor : res["neighbors"]) {
+  for (const auto& neighbor : res["neighbors"].GetArray()) {
     Models::Neighbor obj;
 
-    if (neighbor.count("address")) {
-      obj.setAddress(neighbor.at("address").get<Types::Trytes>());
+    if (neighbor.HasMember("address")) {
+      obj.setAddress(neighbor["address"].GetString());
     }
 
-    if (neighbor.count("numberOfAllTransactions")) {
-      obj.setNumberOfAllTransactions(neighbor.at("numberOfAllTransactions").get<int64_t>());
+    if (neighbor.HasMember("numberOfAllTransactions")) {
+      obj.setNumberOfAllTransactions(neighbor["numberOfAllTransactions"].GetInt64());
     }
 
-    if (neighbor.count("numberOfInvalidTransactions")) {
-      obj.setNumberOfInvalidTransactions(neighbor.at("numberOfInvalidTransactions").get<int64_t>());
+    if (neighbor.HasMember("numberOfInvalidTransactions")) {
+      obj.setNumberOfInvalidTransactions(neighbor["numberOfInvalidTransactions"].GetInt64());
     }
 
-    if (neighbor.count("numberOfNewTransactions")) {
-      obj.setNumberOfNewTransactions(neighbor.at("numberOfNewTransactions").get<int64_t>());
+    if (neighbor.HasMember("numberOfNewTransactions")) {
+      obj.setNumberOfNewTransactions(neighbor["numberOfNewTransactions"].GetInt64());
     }
 
     neighbors_.push_back(std::move(obj));

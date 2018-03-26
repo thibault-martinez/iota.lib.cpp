@@ -26,7 +26,10 @@
 #pragma once
 
 #include <cpr/cpr.h>
-#include <json.hpp>
+#include <rapidjson/document.h>
+#include <rapidjson/rapidjson.h>
+#include <rapidjson/stringbuffer.h>
+#include <rapidjson/writer.h>
 
 #include <iota/constants.hpp>
 #include <iota/errors/bad_request.hpp>
@@ -35,7 +38,7 @@
 #include <iota/errors/unauthorized.hpp>
 #include <iota/errors/unrecognized.hpp>
 
-using json = nlohmann::json;
+using json = rapidjson::Document;
 
 namespace IOTA {
 
@@ -71,11 +74,15 @@ public:
   Response request(Args&&... args) const {
     auto request = Request{ args... };
 
-    json data;
+    json data(rapidjson::kObjectType);
     request.serialize(data);
 
+    rapidjson::StringBuffer                    buffer;
+    rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
+    data.Accept(writer);
+
     auto url     = cpr::Url{ "http://" + host_ + ":" + std::to_string(port_) };
-    auto body    = cpr::Body{ data.dump() };
+    auto body    = cpr::Body{ buffer.GetString() };
     auto headers = cpr::Header{ { "Content-Type", "application/json" },
                                 { "Content-Length", std::to_string(body.size()) },
                                 { "X-IOTA-API-Version", APIVersion } };
@@ -84,14 +91,13 @@ public:
     if (res.error.code != cpr::ErrorCode::OK)
       throw Errors::Network(res.error.message);
 
-    json        resJson;
     std::string error;
 
     try {
-      resJson = json::parse(res.text);
+      data.ParseInsitu((char*)res.text.data());
 
-      if (resJson.count("error")) {
-        error = resJson["error"].get<std::string>();
+      if (data.HasMember("error")) {
+        error = data["error"].GetString();
       }
     } catch (const std::runtime_error&) {
       if (res.elapsed >= timeout_) {
@@ -104,7 +110,7 @@ public:
     Response response;
     switch (res.status_code) {
       case 200:
-        return Response{ resJson };
+        return Response{ data };
       case 400:
         throw Errors::BadRequest(error);
       case 401:

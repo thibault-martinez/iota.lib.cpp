@@ -64,65 +64,64 @@ void
 GetNodeInfo::deserialize(const json& res) {
   Base::deserialize(res);
 
-  if (res.count("appName")) {
-    appName_ = res.at("appName").get<std::string>();
+  if (res.HasMember("appName")) {
+    appName_ = res["appName"].GetString();
   }
 
-  if (res.count("appVersion")) {
-    appVersion_ = res.at("appVersion").get<std::string>();
+  if (res.HasMember("appVersion")) {
+    appVersion_ = res["appVersion"].GetString();
   }
 
-  if (res.count("jreAvailableProcessors")) {
-    jreAvailableProcessors_ = res.at("jreAvailableProcessors").get<int64_t>();
+  if (res.HasMember("jreAvailableProcessors")) {
+    jreAvailableProcessors_ = res["jreAvailableProcessors"].GetInt64();
   }
 
-  if (res.count("jreFreeMemory")) {
-    jreFreeMemory_ = res.at("jreFreeMemory").get<int64_t>();
+  if (res.HasMember("jreFreeMemory")) {
+    jreFreeMemory_ = res["jreFreeMemory"].GetInt64();
   }
 
-  if (res.count("jreMaxMemory")) {
-    jreMaxMemory_ = res.at("jreMaxMemory").get<int64_t>();
+  if (res.HasMember("jreMaxMemory")) {
+    jreMaxMemory_ = res["jreMaxMemory"].GetInt64();
   }
 
-  if (res.count("jreTotalMemory")) {
-    jreTotalMemory_ = res.at("jreTotalMemory").get<int64_t>();
+  if (res.HasMember("jreTotalMemory")) {
+    jreTotalMemory_ = res["jreTotalMemory"].GetInt64();
   }
 
-  if (res.count("latestMilestone")) {
-    latestMilestone_ = res.at("latestMilestone").get<Types::Trytes>();
+  if (res.HasMember("latestMilestone")) {
+    latestMilestone_ = res["latestMilestone"].GetString();
   }
 
-  if (res.count("latestMilestoneIndex")) {
-    latestMilestoneIndex_ = res.at("latestMilestoneIndex").get<int64_t>();
+  if (res.HasMember("latestMilestoneIndex")) {
+    latestMilestoneIndex_ = res["latestMilestoneIndex"].GetInt64();
   }
 
-  if (res.count("latestSolidSubtangleMilestone")) {
-    latestSolidSubtangleMilestone_ = res.at("latestSolidSubtangleMilestone").get<Types::Trytes>();
+  if (res.HasMember("latestSolidSubtangleMilestone")) {
+    latestSolidSubtangleMilestone_ = res["latestSolidSubtangleMilestone"].GetString();
   }
 
-  if (res.count("latestSolidSubtangleMilestoneIndex")) {
-    latestSolidSubtangleMilestoneIndex_ =
-        res.at("latestSolidSubtangleMilestoneIndex").get<int64_t>();
+  if (res.HasMember("latestSolidSubtangleMilestoneIndex")) {
+    latestSolidSubtangleMilestoneIndex_ = res["latestSolidSubtangleMilestoneIndex"].GetInt64();
   }
 
-  if (res.count("neighbors")) {
-    neighbors_ = res.at("neighbors").get<int64_t>();
+  if (res.HasMember("neighbors")) {
+    neighbors_ = res["neighbors"].GetInt64();
   }
 
-  if (res.count("packetsQueueSize")) {
-    packetsQueueSize_ = res.at("packetsQueueSize").get<int64_t>();
+  if (res.HasMember("packetsQueueSize")) {
+    packetsQueueSize_ = res["packetsQueueSize"].GetInt64();
   }
 
-  if (res.count("time")) {
-    time_ = res.at("time").get<int64_t>();
+  if (res.HasMember("time")) {
+    time_ = res["time"].GetInt64();
   }
 
-  if (res.count("tips")) {
-    tips_ = res.at("tips").get<int64_t>();
+  if (res.HasMember("tips")) {
+    tips_ = res["tips"].GetInt64();
   }
 
-  if (res.count("transactionsToRequest")) {
-    transactionsToRequest_ = res.at("transactionsToRequest").get<int64_t>();
+  if (res.HasMember("transactionsToRequest")) {
+    transactionsToRequest_ = res["transactionsToRequest"].GetInt64();
   }
 }
 

@@ -42,8 +42,8 @@ void
 AddNeighbors::deserialize(const json& res) {
   Base::deserialize(res);
 
-  if (res.count("addedNeighbors")) {
-    addedNeighbors_ = res.at("addedNeighbors").get<int64_t>();
+  if (res.HasMember("addedNeighbors")) {
+    addedNeighbors_ = res["addedNeighbors"].GetInt64();
   }
 }
 

@@ -42,8 +42,13 @@ void
 GetTips::deserialize(const json& res) {
   Base::deserialize(res);
 
-  if (res.count("hashes")) {
-    hashes_ = res.at("hashes").get<std::vector<Types::Trytes>>();
+  if (res.HasMember("hashes")) {
+    auto arr = res["hashes"].GetArray();
+
+    hashes_.clear();
+    for (auto it = arr.Begin(); it != arr.End(); ++it) {
+      hashes_.push_back(it->GetString());
+    }
   }
 }
 

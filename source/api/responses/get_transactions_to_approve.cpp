@@ -44,12 +44,12 @@ void
 GetTransactionsToApprove::deserialize(const json& res) {
   Base::deserialize(res);
 
-  if (res.count("trunkTransaction")) {
-    trunkTransaction_ = res.at("trunkTransaction").get<Types::Trytes>();
+  if (res.HasMember("trunkTransaction")) {
+    trunkTransaction_ = res["trunkTransaction"].GetString();
   }
 
-  if (res.count("branchTransaction")) {
-    branchTransaction_ = res.at("branchTransaction").get<Types::Trytes>();
+  if (res.HasMember("branchTransaction")) {
+    branchTransaction_ = res["branchTransaction"].GetString();
   }
 }
 

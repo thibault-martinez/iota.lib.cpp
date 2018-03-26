@@ -27,6 +27,8 @@
 
 #include <iota/api/requests/base.hpp>
 
+#include <vector>
+
 namespace IOTA {
 
 namespace API {

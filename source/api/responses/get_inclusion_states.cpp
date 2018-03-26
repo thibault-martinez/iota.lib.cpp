@@ -42,8 +42,13 @@ void
 GetInclusionStates::deserialize(const json& res) {
   Base::deserialize(res);
 
-  if (res.count("states")) {
-    states_ = res.at("states").get<std::vector<bool>>();
+  if (res.HasMember("states")) {
+    auto arr = res["states"].GetArray();
+
+    states_.clear();
+    for (auto it = arr.Begin(); it != arr.End(); ++it) {
+      states_.push_back(it->GetBool());
+    }
   }
 }
 

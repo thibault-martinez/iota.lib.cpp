@@ -44,16 +44,21 @@ void
 GetBalances::deserialize(const json& res) {
   Base::deserialize(res);
 
-  if (res.count("balances")) {
-    balances_ = res.at("balances").get<std::vector<std::string>>();
+  if (res.HasMember("balances")) {
+    auto arr = res["balances"].GetArray();
+
+    balances_.clear();
+    for (auto it = arr.Begin(); it != arr.End(); ++it) {
+      balances_.push_back(it->GetString());
+    }
   }
 
-  if (res.count("milestone")) {
-    milestone_ = res.at("milestone").get<Types::Trytes>();
+  if (res.HasMember("milestone")) {
+    milestone_ = res["milestone"].GetString();
   }
 
-  if (res.count("milestoneIndex")) {
-    milestoneIndex_ = res.at("milestoneIndex").get<int64_t>();
+  if (res.HasMember("milestoneIndex")) {
+    milestoneIndex_ = res["milestoneIndex"].GetInt64();
   }
 }
 

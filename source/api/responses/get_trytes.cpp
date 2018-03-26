@@ -42,8 +42,13 @@ void
 GetTrytes::deserialize(const json& res) {
   Base::deserialize(res);
 
-  if (res.count("trytes")) {
-    trytes_ = res.at("trytes").get<std::vector<Types::Trytes>>();
+  if (res.HasMember("trytes")) {
+    auto arr = res["trytes"].GetArray();
+
+    trytes_.clear();
+    for (auto it = arr.Begin(); it != arr.End(); ++it) {
+      trytes_.push_back(it->GetString());
+    }
   }
 }
 

@@ -65,7 +65,7 @@ configure_file(cmake/version.hpp.in
 file(GLOB_RECURSE PROJECT_SOURCE_FILES ${PROJECT_SOURCE_DIR}/*.cpp)
 
 include_directories("${PROJECT_INCLUDE_DIR}")
-include_directories("external/json/src")
+include_directories("external/rapidjson/include")
 
 ########## DEPENDENCIES ##########
 

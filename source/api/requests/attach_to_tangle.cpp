@@ -45,10 +45,10 @@ AttachToTangle::AttachToTangle(const Types::Trytes&              trunkTransactio
 void
 AttachToTangle::serialize(json& data) const {
   Base::serialize(data);
-  data["trunkTransaction"]   = trunkTransaction_;
-  data["branchTransaction"]  = branchTransaction_;
-  data["minWeightMagnitude"] = minWeightMagnitude_;
-  data["trytes"]             = trytes_;
+  // data["trunkTransaction"]   = trunkTransaction_;
+  // data["branchTransaction"]  = branchTransaction_;
+  // data["minWeightMagnitude"] = minWeightMagnitude_;
+  // data["trytes"]             = trytes_;
 }
 
 const Types::Trytes&

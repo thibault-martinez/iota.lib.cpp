@@ -27,9 +27,10 @@
 
 #include <cstdint>
 
-#include <json.hpp>
+#include <rapidjson/document.h>
+#include <rapidjson/rapidjson.h>
 
-using json = nlohmann::json;
+using json = rapidjson::Document;
 
 namespace IOTA {
 

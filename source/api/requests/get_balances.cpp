@@ -39,9 +39,13 @@ void
 GetBalances::serialize(json& data) const {
   Base::serialize(data);
 
+  rapidjson::Value                    arr(rapidjson::kArrayType);
+  rapidjson::Document::AllocatorType& allocator = data.GetAllocator();
   for (auto& address : addresses_) {
-    data["addresses"].emplace_back(address.toTrytes());
+    arr.PushBack(rapidjson::Value(address.toTrytes().data(), allocator).Move(), allocator);
   }
+
+  data["addresses"] = arr;
   data["threshold"] = threshold_;
 }
 

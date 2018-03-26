@@ -28,6 +28,8 @@
 #include <iota/api/requests/base.hpp>
 #include <iota/types/trytes.hpp>
 
+#include <vector>
+
 namespace IOTA {
 
 namespace API {
