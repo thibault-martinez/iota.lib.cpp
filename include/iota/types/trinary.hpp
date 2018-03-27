@@ -124,8 +124,11 @@ Trytes stringToTrytes(const std::string& str);
  */
 std::string trytesToString(const Trytes& trytes);
 
-std::vector<int8_t> tritsToBytes(const Trits& trits);
-Trits               bytesToTrits(const std::vector<int8_t>& bytes);
+std::vector<uint8_t> tritsToBytes(const Trits& trits, std::size_t offset = 0);
+Trits                bytesToTrits(const std::vector<uint8_t>& bytes, std::size_t offset = 0);
+
+std::vector<uint8_t> trytesToBytes(const Trytes& trytes);
+Trytes               bytesToTrytes(const std::vector<uint8_t>& bytes);
 
 Trits  trytesToTrits(const Trytes& trytes);
 Trytes tritsToTrytes(const Trits& trits);

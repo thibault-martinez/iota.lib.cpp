@@ -25,7 +25,6 @@
 
 #pragma once
 
-#include <iota/crypto/i_sponge.hpp>
 #include <iota/crypto/keccak384.hpp>
 
 namespace IOTA {
@@ -37,7 +36,7 @@ namespace Crypto {
  * Trits are absorbed by the sponge function and later squeezed to provide message digest, derive
  * keys etc.
  */
-class Kerl : public ISponge {
+class Kerl {
 public:
   Kerl()          = default;
   virtual ~Kerl() = default;
@@ -46,25 +45,33 @@ public:
   /**
    * Reset current state of the sponge.
    */
-  void reset() override;
+  void reset();
 
   /**
-   * Absorb the input trits into the current state of the sponge.
+   * Absorb the input bytes into the current state of the sponge.
    *
-   * @param trits Input trits to be applied (absorbed) on current state of the sponge.
+   * @param bytes Input bytes to be absorbed on current state of the sponge.
    * @param offset Offset at which the current state of the sponge should be modified.
    * @param length Length of the given input that should be used for absorption.
    */
-  void absorb(const Types::Trits& trits, std::size_t offset = 0, std::size_t length = 0) override;
+  void absorb(const std::vector<uint8_t>& bytes, std::size_t offset = 0, std::size_t length = 0);
 
   /**
    * Squeeze the current state of the sponge to the given trits.
    *
-   * @param trits Trits to be updated (squeezed) based on current state of the sponge.
-   * @param offset Offset at which the trits should be modified.
-   * @param length Length of the current state of the sponge that should be used for squeezing.
+   * @param bytes Bytes to be squeezed based on current state of the sponge.
+   * @param offset Offset at which the bytes should be modified.
    */
-  void squeeze(Types::Trits& trits, std::size_t offset = 0, std::size_t length = 0) override;
+  void squeeze(std::vector<uint8_t>& bytes, std::size_t offset = 0);
+
+  /**
+   * Squeeze the final current state of the sponge to the given trits.
+   * Kerl should not be used after this function is called, unless it is reseted.
+   *
+   * @param bytes Bytes to be squeezed based on current state of the sponge.
+   * @param offset Offset at which the bytes should be modified.
+   */
+  void finalSqueeze(std::vector<uint8_t>& bytes, std::size_t offset = 0);
 
 private:
   /**

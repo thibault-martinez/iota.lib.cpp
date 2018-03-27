@@ -23,8 +23,7 @@
 //
 //
 
-#include <iomanip>
-#include <sstream>
+#include <string>
 
 #include <iota/crypto/keccak384.hpp>
 #include <iota/errors/crypto.hpp>
@@ -43,44 +42,28 @@ Keccak384::reset() {
 }
 
 void
-Keccak384::absorb(const std::vector<int8_t>& bytes) {
-  if (!hashUpdate(bytes)) {
+Keccak384::absorb(const uint8_t* bytes, size_t size) {
+  if (!hashUpdate(bytes, size)) {
     throw Errors::Crypto("Keccak384::update failed");
   }
 }
 
 bool
-Keccak384::hashUpdate(const std::vector<int8_t>& bytes) {
-  return Keccak_HashUpdate(&khi_, reinterpret_cast<const BitSequence*>(bytes.data()),
-                           bytes.size() * 8) != FAIL;
+Keccak384::hashUpdate(const uint8_t* bytes, size_t size) {
+  return Keccak_HashUpdate(&khi_, reinterpret_cast<const BitSequence*>(bytes), size * 8) != FAIL;
 }
 
-std::vector<int8_t>
-Keccak384::squeeze() {
-  std::vector<int8_t> bytes(Keccak384::hashBitLength / 8);
-
+void
+Keccak384::squeeze(uint8_t* bytes) {
   if (!hashSqueeze(bytes)) {
     throw Errors::Crypto("Keccak384::squeeze failed");
   }
-
-  return bytes;
 }
 
 bool
-Keccak384::hashSqueeze(std::vector<int8_t>& bytes) {
-  return Keccak_HashSqueeze(&khi_, reinterpret_cast<BitSequence*>(bytes.data()),
-                            khi_.fixedOutputLength) != FAIL;
-}
-
-std::string
-Keccak384::digest() {
-  std::stringstream stream;
-  auto              bytes = squeeze();
-  for (auto& byte : bytes) {
-    stream << std::setw(2) << std::hex << std::setfill('0')
-           << static_cast<int>(static_cast<uint8_t>(byte));
-  }
-  return stream.str();
+Keccak384::hashSqueeze(uint8_t* bytes) {
+  return Keccak_HashSqueeze(&khi_, reinterpret_cast<BitSequence*>(bytes), khi_.fixedOutputLength) !=
+         FAIL;
 }
 
 void

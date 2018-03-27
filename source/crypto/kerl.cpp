@@ -28,6 +28,7 @@
 #include <iota/constants.hpp>
 #include <iota/crypto/kerl.hpp>
 #include <iota/errors/crypto.hpp>
+#include <iota/types/big_int.hpp>
 #include <iota/types/trinary.hpp>
 
 namespace IOTA {
@@ -40,41 +41,40 @@ Kerl::reset() {
 }
 
 void
-Kerl::absorb(const Types::Trits& trits, std::size_t offset, std::size_t length) {
+Kerl::absorb(const std::vector<uint8_t>& bytes, std::size_t offset, std::size_t length) {
   if (length == 0)
-    length = trits.size();
-  if (length % TritHashLength != 0)
+    length = bytes.size();
+  if (length % ByteHashLength != 0)
     throw Errors::Crypto("Kerl::absorb failed : illegal length");
-  while (offset < length) {
-    auto                begin = trits.cbegin() + offset;
-    auto                end   = trits.cbegin() + std::min(offset + TritHashLength, length);
-    std::vector<int8_t> tritsChunk(begin, end);
-
-    tritsChunk.back() = 0;
-    auto bytesChunk   = Types::tritsToBytes(tritsChunk);
-
-    keccak_.absorb(bytesChunk);
-    offset += TritHashLength;
+  while (length > 0) {
+    keccak_.absorb(bytes.data() + offset, ByteHashLength);
+    offset += ByteHashLength;
+    length -= ByteHashLength;
   }
 }
 
 void
-Kerl::squeeze(Types::Trits& trits, std::size_t offset, std::size_t length) {
-  if (length == 0)
-    length = TritHashLength;
-  if (length % TritHashLength != 0)
-    throw Errors::Crypto("Kerl::squeeze failed : illegal length");
-  while (offset < length) {
-    auto bytes = keccak_.squeeze();
-    trits      = Types::bytesToTrits(bytes);
+Kerl::squeeze(std::vector<uint8_t>& bytes, std::size_t offset) {
+  uint8_t state[ByteHashLength];
+  keccak_.squeeze(bytes.data() + offset);
+  std::memcpy(state, bytes.data() + offset, ByteHashLength);
+  Types::Bigint b;  // TODO(bigint class or namespace ?)
+  b.fromBytes(bytes, offset);
+  b.setLastTritZero();
+  b.toBytes(bytes, offset);
+  std::transform(std::begin(state), std::end(state), std::begin(state),
+                 [](const int8_t& byte) { return byte ^ 0xFF; });
+  keccak_.reset();
+  keccak_.absorb(state);
+}
 
-    trits[TritHashLength - 1] = 0;
-    std::transform(bytes.begin(), bytes.end(), bytes.begin(),
-                   [](const int8_t& byte) { return byte ^ 0xFF; });
-    keccak_.reset();
-    keccak_.absorb(bytes);
-    offset += TritHashLength;
-  }
+void
+Kerl::finalSqueeze(std::vector<uint8_t>& bytes, std::size_t offset) {
+  keccak_.squeeze(bytes.data() + offset);
+  Types::Bigint b;  // TODO(bigint class or namespace ?)
+  b.fromBytes(bytes, offset);
+  b.setLastTritZero();
+  b.toBytes(bytes, offset);
 }
 
 }  // namespace Crypto

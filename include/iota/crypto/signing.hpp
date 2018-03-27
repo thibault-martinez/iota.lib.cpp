@@ -45,9 +45,28 @@ namespace Signing {
  * @param index     The index to start the generation from.
  * @param security  The security to use for address generation.
  *
- * @return The key as trits.
+ * @return The key as bytes.
  */
-Types::Trits key(const Types::Trytes& seed, int32_t index = 0, int32_t security = 2);
+std::vector<uint8_t> key(const std::vector<uint8_t>& seedBytes, uint32_t index = 0,
+                         uint32_t security = 2);
+
+/**
+ * Compute digests from key.
+ *
+ * @param key The key.
+ *
+ * @return The digests.
+ */
+std::vector<uint8_t> digests(const std::vector<uint8_t>& key);
+
+/**
+ * Compute address from digests.
+ *
+ * @param digests The digests.
+ *
+ * @return The address.
+ */
+std::vector<uint8_t> address(const std::vector<uint8_t>& digests);
 
 /**
  * Compute hash x normalizedBundleFragment[i] for each fragment in the signature.
@@ -57,26 +76,8 @@ Types::Trits key(const Types::Trytes& seed, int32_t index = 0, int32_t security 
  *
  * @return The digest.
  */
-Types::Trits digest(const std::vector<int8_t>& normalizedBundleFragment,
-                    const Types::Trits&        signatureFragment);
-
-/**
- * Compute digests from key.
- *
- * @param key The key.
- *
- * @return The digests.
- */
-Types::Trits digests(const Types::Trits& key);
-
-/**
- * Compute address from digests.
- *
- * @param digests The digests.
- *
- * @return The address.
- */
-Types::Trits address(const Types::Trits& digests);
+std::vector<uint8_t> digest(const std::vector<int8_t>&  normalizedBundleFragment,
+                            const std::vector<uint8_t>& signatureFragment);
 
 /**
  * Compute signature from bundle fragment and key fragment.

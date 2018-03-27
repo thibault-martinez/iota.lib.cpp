@@ -43,20 +43,23 @@ public:
   /**
    * The value of the rate r (size of the part of the state that is written and read).
    */
-  static const unsigned int rate = 832;
+  static constexpr unsigned int rate = 832;
+
   /**
    * The value of the capacity c (size of the part that is untouched by input/output).
    */
-  static const unsigned int capacity = 768;
+  static constexpr unsigned int capacity = 768;
+
   /**
    * The desired number of output bits.
    */
-  static const unsigned int hashBitLength = 384;
+  static constexpr unsigned int hashBitLength = 384;
+
   /**
    * Bits that will be automatically appended to the end of the input message, as in domain
    * separation.
    */
-  static const unsigned int delimitedSuffix = 0x01;
+  static constexpr unsigned int delimitedSuffix = 0x01;
 
 public:
   Keccak384();
@@ -67,24 +70,21 @@ public:
    * Reset internal state of the sponge.
    */
   void reset();
+
   /**
    * Absorb the given bytes into the internal state of the sponge.
    *
    * @param bytes The bytes.
+   * @param size The number of bytes.
    */
-  void absorb(const std::vector<int8_t>& bytes);
+  void absorb(const uint8_t* bytes, size_t size = hashBitLength / 8);
+
   /**
-   * Squeeze out bytes from the internal state of the sponge.
+   * Squeeze out bytes from the internal state of the sponge into the given bytes.
    *
-   * @return The bytes.
+   * @param bytes The bytes.
    */
-  std::vector<int8_t> squeeze();
-  /**
-   * Get an hexadecimal digest of the ouput.
-   *
-   * @return An hexadecimal digest.
-   */
-  std::string digest();
+  void squeeze(uint8_t* bytes);
 
 protected:
   /**
@@ -94,7 +94,7 @@ protected:
   *
   * @return The update status.
   */
-  virtual bool hashUpdate(const std::vector<int8_t>& bytes);
+  virtual bool hashUpdate(const uint8_t* bytes, size_t size);
 
   /**
   ** Keccak_HashSqueeze wrapper to allow mock testing.
@@ -103,7 +103,7 @@ protected:
   *
   * @return The squeeze status.
   */
-  virtual bool hashSqueeze(std::vector<int8_t>& bytes);
+  virtual bool hashSqueeze(uint8_t* bytes);
 
   /**
   ** Keccak_HashInitialize wrapper to allow mock testing.

@@ -24,7 +24,7 @@
 //
 
 #include <iota/constants.hpp>
-#include <iota/crypto/sponge_factory.hpp>
+#include <iota/crypto/kerl.hpp>
 #include <iota/models/bundle.hpp>
 #include <iota/types/trinary.hpp>
 #include <iota/types/utils.hpp>
@@ -88,12 +88,8 @@ Bundle::addTransaction(const Transaction& transaction, int32_t signatureMessageL
 }
 
 void
-Bundle::finalize(const std::shared_ptr<Crypto::ISponge>& customSponge) {
-  std::shared_ptr<Crypto::ISponge> sponge =
-      customSponge ? customSponge : Crypto::create(Crypto::SpongeType::KERL);
-
-  //! ensure sponge is reset
-  sponge->reset();
+Bundle::finalize() {
+  Crypto::Kerl k;
 
   for (std::size_t i = 0; i < transactions_.size(); i++) {
     auto& trx = transactions_[i];
@@ -109,18 +105,18 @@ Bundle::finalize(const std::shared_ptr<Crypto::ISponge>& customSponge) {
     auto lastIndexTrits =
         Types::tritsToTrytes(Types::intToTrits(trx.getLastIndex(), TryteAlphabetLength));
 
-    auto t = Types::trytesToTrits(trx.getAddress().toTrytes() + value +
-                                  trx.getTag().toTrytesWithPadding() + timestamp + currentIndex +
-                                  lastIndexTrits);
+    auto bytes = Types::trytesToBytes(trx.getAddress().toTrytes() + value +
+                                      trx.getTag().toTrytesWithPadding() + timestamp +
+                                      currentIndex + lastIndexTrits);
 
-    sponge->absorb(t);
+    k.absorb(bytes);
   }
 
-  IOTA::Types::Trits hash(TritHashLength);
-  sponge->squeeze(hash);
+  std::vector<uint8_t> hash(ByteHashLength);
+  k.finalSqueeze(hash);
 
   //! set bundle hash for each underlying transaction
-  hash_ = Types::tritsToTrytes(hash);
+  hash_ = Types::bytesToTrytes(hash);
   for (std::size_t i = 0; i < transactions_.size(); i++) {
     transactions_[i].setBundle(hash_);
   }

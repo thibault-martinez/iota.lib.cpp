@@ -28,7 +28,6 @@
 #include <algorithm>
 
 #include <iota/constants.hpp>
-#include <iota/crypto/i_sponge.hpp>
 #include <iota/types/trits.hpp>
 
 namespace IOTA {
@@ -40,7 +39,7 @@ namespace Crypto {
  * Trits are absorbed by the sponge function and later squeezed to provide message digest, derive
  * keys etc.
  */
-class Curl : public ISponge {
+class Curl {
 public:
   /**
    * Default ctor.
@@ -55,7 +54,7 @@ public:
   /**
    * Reset current state of the crypto algorithm.
    */
-  void reset() override;
+  void reset();
 
   /**
    * Absorb the input into the current state.
@@ -64,7 +63,7 @@ public:
    * @param offset offset at which the current state should be modified.
    * @param length length of the given input that should be used for absorption.
    */
-  void absorb(const Types::Trits& trits, std::size_t offset = 0, std::size_t length = 0) override;
+  void absorb(const Types::Trits& trits, std::size_t offset = 0, std::size_t length = 0);
 
   /**
    * Squeeze the current state to the given input/output.
@@ -73,7 +72,7 @@ public:
    * @param offset offset at which the input trists should be modified.
    * @param length length of the current state that should be used for squeezing.
    */
-  void squeeze(Types::Trits& trits, std::size_t offset = 0, std::size_t length = 0) override;
+  void squeeze(Types::Trits& trits, std::size_t offset = 0, std::size_t length = 0);
 
 private:
   /**
