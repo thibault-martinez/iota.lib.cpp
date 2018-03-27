@@ -24,6 +24,7 @@
 //
 
 #include <algorithm>
+#include <cstring>
 
 #include <iota/constants.hpp>
 #include <iota/crypto/kerl.hpp>
