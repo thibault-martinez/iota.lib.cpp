@@ -66,7 +66,7 @@ public:
 
   /**
    * Squeeze the final current state of the sponge to the given trits.
-   * Kerl should not be used after this function is called, unless it is reseted.
+   * Kerl should not be used after this function is called, unless it is reset.
    *
    * @param bytes Bytes to be squeezed based on current state of the sponge.
    * @param offset Offset at which the bytes should be modified.

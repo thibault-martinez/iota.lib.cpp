@@ -59,7 +59,7 @@ Kerl::squeeze(std::vector<uint8_t>& bytes, std::size_t offset) {
   uint8_t state[ByteHashLength];
   keccak_.squeeze(bytes.data() + offset);
   std::memcpy(state, bytes.data() + offset, ByteHashLength);
-  Types::Bigint b;  // TODO(bigint class or namespace ?)
+  Types::Bigint b;
   b.fromBytes(bytes, offset);
   b.setLastTritZero();
   b.toBytes(bytes, offset);
@@ -72,7 +72,7 @@ Kerl::squeeze(std::vector<uint8_t>& bytes, std::size_t offset) {
 void
 Kerl::finalSqueeze(std::vector<uint8_t>& bytes, std::size_t offset) {
   keccak_.squeeze(bytes.data() + offset);
-  Types::Bigint b;  // TODO(bigint class or namespace ?)
+  Types::Bigint b;
   b.fromBytes(bytes, offset);
   b.setLastTritZero();
   b.toBytes(bytes, offset);

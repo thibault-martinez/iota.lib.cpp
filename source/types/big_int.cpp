@@ -110,7 +110,7 @@ void
 Bigint::fromBytes(const std::vector<uint8_t> &bytes, std::size_t offset) {
   if (bytes.size() - offset < ByteHashLength)
     throw Errors::IllegalState("Invalid bytes provided");
-  const uint32_t *p = (const uint32_t *)(bytes.data() + offset);
+  const uint32_t *p = reinterpret_cast<const uint32_t *>(bytes.data() + offset);
 
   // reverse word order
   for (unsigned int i = WordHashLength; i-- > 0;) {
@@ -146,7 +146,7 @@ Bigint::toTrits() {
 
 void
 Bigint::toBytes(std::vector<uint8_t> &bytes, std::size_t offset) const {
-  uint32_t *p = (uint32_t *)(bytes.data() + offset);
+  uint32_t *p = reinterpret_cast<uint32_t *>(bytes.data() + offset);
 
   // reverse word order
   for (unsigned int i = WordHashLength; i-- > 0;) {

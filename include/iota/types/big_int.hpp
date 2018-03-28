@@ -71,7 +71,7 @@ public:
    */
   void toBytes(std::vector<uint8_t> &bytes, std::size_t offset = 0) const;
 
-public:  // TODO(Bigint class or namespace ?)
+public:
   bool         setLastTritZero();
   unsigned int addU32(uint32_t summand);
 

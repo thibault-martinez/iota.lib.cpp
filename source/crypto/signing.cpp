@@ -131,7 +131,7 @@ Types::Trits
 signatureFragment(const std::vector<int8_t>& normalizedBundleFragment,
                   const Types::Trits&        keyFragment) {
   Kerl         k;
-  Types::Trits signatureFragment{};
+  Types::Trits signatureFragment;
 
   for (unsigned int i = 0; i < FragmentLength; ++i) {
     Types::Trits buffer(keyFragment.begin() + i * TritHashLength,
