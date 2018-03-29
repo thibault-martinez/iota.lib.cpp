@@ -88,8 +88,8 @@ Inheritance diagram for IOTA::API::Extended:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a24292e0b13d2bfe35584f733c322b8c9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_extended.html#a24292e0b13d2bfe35584f733c322b8c9">Extended</a> (const std::string &amp;host, const uint16_t &amp;port, bool localPow=true, int timeout=60, Crypto::SpongeType cryptoType=Crypto::SpongeType::KERL)</td></tr>
-<tr class="separator:a24292e0b13d2bfe35584f733c322b8c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeac1b8f7245faef7a8a6f3cb2658f316"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_extended.html#aeac1b8f7245faef7a8a6f3cb2658f316">Extended</a> (const std::string &amp;host, const uint16_t &amp;port, bool localPow=true, int timeout=60)</td></tr>
+<tr class="separator:aeac1b8f7245faef7a8a6f3cb2658f316"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae292873ec0cd8936d28e7ffe95cb6c83"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_extended.html#ae292873ec0cd8936d28e7ffe95cb6c83">~Extended</a> ()=default</td></tr>
 <tr class="separator:ae292873ec0cd8936d28e7ffe95cb6c83"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa5696880a45ae505fc60ce8a3057f7b1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_balances_and_format.html">Responses::GetBalancesAndFormat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_extended.html#aa5696880a45ae505fc60ce8a3057f7b1">getInputs</a> (const <a class="el" href="class_i_o_t_a_1_1_models_1_1_seed.html">Models::Seed</a> &amp;seed, const int32_t &amp;start=0, const int32_t &amp;end=0, const int64_t &amp;threshold=0) const</td></tr>
@@ -182,8 +182,8 @@ Static Public Member Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_extended.html">Extended</a> API calls which will help do just about anything possible with IOTA. These are mostly wrapper functions of <a class="el" href="class_i_o_t_a_1_1_a_p_i_1_1_core.html">Core</a> API calls. <a href="https://github.com/iotaledger/wiki/blob/master/api-proposal.md#proposed-api-calls">https://github.com/iotaledger/wiki/blob/master/api-proposal.md#proposed-api-calls</a> </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a24292e0b13d2bfe35584f733c322b8c9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a24292e0b13d2bfe35584f733c322b8c9">&#9670;&nbsp;</a></span>Extended()</h2>
+<a id="aeac1b8f7245faef7a8a6f3cb2658f316"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeac1b8f7245faef7a8a6f3cb2658f316">&#9670;&nbsp;</a></span>Extended()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -210,13 +210,7 @@ Static Public Member Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>timeout</em> = <code>60</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">Crypto::SpongeType&#160;</td>
-          <td class="paramname"><em>cryptoType</em> = <code>Crypto::SpongeType::KERL</code>&#160;</td>
+          <td class="paramname"><em>timeout</em> = <code>60</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -232,7 +226,6 @@ Static Public Member Functions</h2></td></tr>
     <tr><td class="paramname">port</td><td>The port of the node to connect to. </td></tr>
     <tr><td class="paramname">localPow</td><td>Whether to do local or remote proof of work. </td></tr>
     <tr><td class="paramname">timeout</td><td>Timeout for the requests. </td></tr>
-    <tr><td class="paramname">cryptoType</td><td>Type of cryptographic algorithm to use. </td></tr>
   </table>
   </dd>
 </dl>

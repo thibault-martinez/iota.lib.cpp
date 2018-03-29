@@ -80,14 +80,20 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aa60058f8209380f7441d6f709bcd991d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acdccb75bac02208c63641c48020738c9"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_types_1_1_bigint.html#acdccb75bac02208c63641c48020738c9">~Bigint</a> ()</td></tr>
 <tr class="separator:acdccb75bac02208c63641c48020738c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab6c1534e73e6961c91c5c0a929388bed"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_types_1_1_bigint.html#ab6c1534e73e6961c91c5c0a929388bed">fromTrits</a> (const Trits &amp;trits)</td></tr>
-<tr class="separator:ab6c1534e73e6961c91c5c0a929388bed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4133e63cf80edbcf6415d182ba94aea9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_types_1_1_bigint.html#a4133e63cf80edbcf6415d182ba94aea9">fromBytes</a> (const std::vector&lt; int8_t &gt; &amp;bytes)</td></tr>
-<tr class="separator:a4133e63cf80edbcf6415d182ba94aea9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e0c6616b4ffd802a166e761db2869c1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_types_1_1_bigint.html#a0e0c6616b4ffd802a166e761db2869c1">fromTrits</a> (const Trits &amp;trits, std::size_t offset=0)</td></tr>
+<tr class="separator:a0e0c6616b4ffd802a166e761db2869c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9821890b3abc2b7febf8062568d574a6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_types_1_1_bigint.html#a9821890b3abc2b7febf8062568d574a6">fromBytes</a> (const std::vector&lt; uint8_t &gt; &amp;bytes, std::size_t offset=0)</td></tr>
+<tr class="separator:a9821890b3abc2b7febf8062568d574a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:addac933c6efa8b2cc27ca226843e8d5b"><td class="memItemLeft" align="right" valign="top">Trits&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_types_1_1_bigint.html#addac933c6efa8b2cc27ca226843e8d5b">toTrits</a> ()</td></tr>
 <tr class="separator:addac933c6efa8b2cc27ca226843e8d5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9a78ffc42050cb1378fef29ad701875b"><td class="memItemLeft" align="right" valign="top">std::vector&lt; int8_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_types_1_1_bigint.html#a9a78ffc42050cb1378fef29ad701875b">toBytes</a> () const</td></tr>
-<tr class="separator:a9a78ffc42050cb1378fef29ad701875b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7251ff07ed056f7d7d4c0d2e9fe5c2fe"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_types_1_1_bigint.html#a7251ff07ed056f7d7d4c0d2e9fe5c2fe">toBytes</a> (std::vector&lt; uint8_t &gt; &amp;bytes, std::size_t offset=0) const</td></tr>
+<tr class="separator:a7251ff07ed056f7d7d4c0d2e9fe5c2fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72bd567569123c7a99dcf0610e80997c"><td class="memItemLeft" align="right" valign="top"><a id="a72bd567569123c7a99dcf0610e80997c"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>setLastTritZero</b> ()</td></tr>
+<tr class="separator:a72bd567569123c7a99dcf0610e80997c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad112378c91af3fe655fe7baa597f7a91"><td class="memItemLeft" align="right" valign="top"><a id="ad112378c91af3fe655fe7baa597f7a91"></a>
+unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>addU32</b> (uint32_t summand)</td></tr>
+<tr class="separator:ad112378c91af3fe655fe7baa597f7a91"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="aa60058f8209380f7441d6f709bcd991d"></a>
@@ -135,8 +141,8 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a4133e63cf80edbcf6415d182ba94aea9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4133e63cf80edbcf6415d182ba94aea9">&#9670;&nbsp;</a></span>fromBytes()</h2>
+<a id="a9821890b3abc2b7febf8062568d574a6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9821890b3abc2b7febf8062568d574a6">&#9670;&nbsp;</a></span>fromBytes()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -144,9 +150,19 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">void IOTA::Types::Bigint::fromBytes </td>
           <td>(</td>
-          <td class="paramtype">const std::vector&lt; int8_t &gt; &amp;&#160;</td>
-          <td class="paramname"><em>bytes</em></td><td>)</td>
+          <td class="paramtype">const std::vector&lt; uint8_t &gt; &amp;&#160;</td>
+          <td class="paramname"><em>bytes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>offset</em> = <code>0</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -155,8 +171,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ab6c1534e73e6961c91c5c0a929388bed"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab6c1534e73e6961c91c5c0a929388bed">&#9670;&nbsp;</a></span>fromTrits()</h2>
+<a id="a0e0c6616b4ffd802a166e761db2869c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e0c6616b4ffd802a166e761db2869c1">&#9670;&nbsp;</a></span>fromTrits()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -165,8 +181,18 @@ Public Member Functions</h2></td></tr>
           <td class="memname">void IOTA::Types::Bigint::fromTrits </td>
           <td>(</td>
           <td class="paramtype">const Trits &amp;&#160;</td>
-          <td class="paramname"><em>trits</em></td><td>)</td>
+          <td class="paramname"><em>trits</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>offset</em> = <code>0</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -175,17 +201,28 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a9a78ffc42050cb1378fef29ad701875b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9a78ffc42050cb1378fef29ad701875b">&#9670;&nbsp;</a></span>toBytes()</h2>
+<a id="a7251ff07ed056f7d7d4c0d2e9fe5c2fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7251ff07ed056f7d7d4c0d2e9fe5c2fe">&#9670;&nbsp;</a></span>toBytes()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::vector&lt;int8_t&gt; IOTA::Types::Bigint::toBytes </td>
+          <td class="memname">void IOTA::Types::Bigint::toBytes </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td class="paramtype">std::vector&lt; uint8_t &gt; &amp;&#160;</td>
+          <td class="paramname"><em>bytes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>offset</em> = <code>0</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">

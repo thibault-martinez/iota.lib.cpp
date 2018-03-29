@@ -25,7 +25,6 @@ var searchData=
   ['_7egettrytes',['~GetTrytes',['../class_i_o_t_a_1_1_a_p_i_1_1_requests_1_1_get_trytes.html#aa23d105e1ec0d92532f249223215ec0e',1,'IOTA::API::Requests::GetTrytes::~GetTrytes()'],['../class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_get_trytes.html#a5b68ba6a21b16011a17d08da5c319c82',1,'IOTA::API::Responses::GetTrytes::~GetTrytes()']]],
   ['_7einterruptattachingtotangle',['~InterruptAttachingToTangle',['../class_i_o_t_a_1_1_a_p_i_1_1_requests_1_1_interrupt_attaching_to_tangle.html#a93812244998466cf75523a20817ca527',1,'IOTA::API::Requests::InterruptAttachingToTangle']]],
   ['_7eipow',['~IPow',['../class_i_o_t_a_1_1_crypto_1_1_i_pow.html#a452b1a00e4090a7defa2c3f4c1b1d094',1,'IOTA::Crypto::IPow']]],
-  ['_7eisponge',['~ISponge',['../class_i_o_t_a_1_1_crypto_1_1_i_sponge.html#a9673b9b7c6a07d26d817d3cc4c64c0b5',1,'IOTA::Crypto::ISponge']]],
   ['_7eneighbor',['~Neighbor',['../class_i_o_t_a_1_1_models_1_1_neighbor.html#a53315023253a3b5d2cb2099214daad9e',1,'IOTA::Models::Neighbor']]],
   ['_7epow',['~Pow',['../class_i_o_t_a_1_1_crypto_1_1_pow.html#a4d3015c5dc0d68dcb2b131407d8609cf',1,'IOTA::Crypto::Pow']]],
   ['_7eremoveneighbors',['~RemoveNeighbors',['../class_i_o_t_a_1_1_a_p_i_1_1_requests_1_1_remove_neighbors.html#a3ee7c626c2f907f6892ee03297686505',1,'IOTA::API::Requests::RemoveNeighbors::~RemoveNeighbors()'],['../class_i_o_t_a_1_1_a_p_i_1_1_responses_1_1_remove_neighbors.html#a78e918b6575fdd7c1e738677755ea6af',1,'IOTA::API::Responses::RemoveNeighbors::~RemoveNeighbors()']]],
