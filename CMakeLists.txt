@@ -28,7 +28,7 @@
 cmake_minimum_required(VERSION 3.1.0)
 include(${CMAKE_ROOT}/Modules/ExternalProject.cmake)
 
-project(iota VERSION "1.0.0")
+project(iota VERSION "1.2.0")
 enable_language(C CXX)
 
 option(BUILD_TESTING "" OFF)
