@@ -104,11 +104,13 @@ Seed::newAddress(const Models::Seed& seed, int32_t index, int32_t security) {
     throw Errors::IllegalState("Invalid Security Level");
   }
 
-  auto key          = Crypto::Signing::key(seed.toTrytes(), index, security);
-  auto digests      = Crypto::Signing::digests(key);
-  auto addressTrits = Crypto::Signing::address(digests);
+  auto seedBytes     = Types::trytesToBytes(seed.toTrytes());
+  auto keyBytes      = Crypto::Signing::key(seedBytes, index, security);
+  auto digestsBytes  = Crypto::Signing::digests(keyBytes);
+  auto addressBytes  = Crypto::Signing::address(digestsBytes);
+  auto addressTrytes = Types::bytesToTrytes(addressBytes);
 
-  return IOTA::Models::Address{ Types::tritsToTrytes(addressTrits), 0, index, security };
+  return IOTA::Models::Address{ addressTrytes, 0, index, security };
 }
 
 bool

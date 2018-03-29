@@ -26,7 +26,6 @@
 #pragma once
 
 #include <iota/api/core.hpp>
-#include <iota/crypto/sponge_factory.hpp>
 #include <iota/models/fwd.hpp>
 #include <iota/utils/stop_watch.hpp>
 
@@ -48,10 +47,8 @@ public:
    * @param port The port of the node to connect to.
    * @param localPow Whether to do local or remote proof of work.
    * @param timeout Timeout for the requests.
-   * @param cryptoType Type of cryptographic algorithm to use.
    */
-  Extended(const std::string& host, const uint16_t& port, bool localPow = true, int timeout = 60,
-           Crypto::SpongeType cryptoType = Crypto::SpongeType::KERL);
+  Extended(const std::string& host, const uint16_t& port, bool localPow = true, int timeout = 60);
   /**
    * Default dtor.
    */
@@ -389,12 +386,6 @@ private:
    * @return true if all transfers are valid, false otherwise
    */
   static bool isTransfersCollectionValid(const std::vector<Models::Transfer>& transfers);
-
-private:
-  /**
-   * crypto algorithm to be used internally.
-   */
-  Crypto::SpongeType cryptoType_;
 };
 
 }  // namespace API

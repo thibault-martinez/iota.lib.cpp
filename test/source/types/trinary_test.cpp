@@ -127,24 +127,23 @@ TEST(Trinary, trytesToString) {
 }
 
 TEST(Trinary, tritsToBytes) {
-  std::vector<int8_t> b1({ (int8_t)0x00, (int8_t)0x00, (int8_t)0x00, (int8_t)0x00 });
+  std::vector<uint8_t> b1({ 0x00, 0x00, 0x00, 0x00 });
   b1.insert(std::begin(b1), IOTA::ByteHashLength - b1.size(), 0x00);
-  std::vector<int8_t> b2({ (int8_t)0x00, (int8_t)0x00, (int8_t)0x00, (int8_t)0x01 });
+  std::vector<uint8_t> b2({ 0x00, 0x00, 0x00, 0x01 });
   b2.insert(std::begin(b2), IOTA::ByteHashLength - b2.size(), 0x00);
-  std::vector<int8_t> b3({ (int8_t)0xff, (int8_t)0xff, (int8_t)0xff, (int8_t)0xff });
+  std::vector<uint8_t> b3({ 0xff, 0xff, 0xff, 0xff });
   b3.insert(std::begin(b3), IOTA::ByteHashLength - b3.size(), 0xff);
-  std::vector<int8_t> b4({ (int8_t)0x00, (int8_t)0x00, (int8_t)0x00, (int8_t)0x2a });
+  std::vector<uint8_t> b4({ 0x00, 0x00, 0x00, 0x2a });
   b4.insert(std::begin(b4), IOTA::ByteHashLength - b4.size(), 0x00);
-  std::vector<int8_t> b5({ (int8_t)0xff, (int8_t)0xff, (int8_t)0xff, (int8_t)0xd6 });
+  std::vector<uint8_t> b5({ 0xff, 0xff, 0xff, 0xd6 });
   b5.insert(std::begin(b5), IOTA::ByteHashLength - b5.size(), 0xff);
-  std::vector<int8_t> b6({ (int8_t)0x49, (int8_t)0x96, (int8_t)0x02, (int8_t)0xd2 });
+  std::vector<uint8_t> b6({ 0x49, 0x96, 0x02, 0xd2 });
   b6.insert(std::begin(b6), IOTA::ByteHashLength - b6.size(), 0x00);
-  std::vector<int8_t> b7({ (int8_t)0xb6, (int8_t)0x69, (int8_t)0xfd, (int8_t)0x2e });
+  std::vector<uint8_t> b7({ 0xb6, 0x69, 0xfd, 0x2e });
   b7.insert(std::begin(b7), IOTA::ByteHashLength - b7.size(), 0xff);
-  std::vector<int8_t> b8({ (int8_t)0x01, (int8_t)0x00, (int8_t)0x00, (int8_t)0x00, (int8_t)0x00 });
+  std::vector<uint8_t> b8({ 0x01, 0x00, 0x00, 0x00, 0x00 });
   b8.insert(std::begin(b8), IOTA::ByteHashLength - b8.size(), 0x00);
-  std::vector<int8_t> b9({ (int8_t)0x08, (int8_t)0xff, (int8_t)0xff, (int8_t)0xff, (int8_t)0xff,
-                           (int8_t)0xff, (int8_t)0xff, (int8_t)0xff, (int8_t)0xff });
+  std::vector<uint8_t> b9({ 0x08, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff });
   b9.insert(std::begin(b9), IOTA::ByteHashLength - b9.size(), 0x00);
 
   IOTA::Types::Trits t0({});
@@ -204,29 +203,25 @@ TEST(Trinary, bytesToTrits) {
                           0,  -1, 0, 0,  1, 0,  -1, 0,  0,  -1, -1, -1, -1, 1 });
   t9.insert(std::end(t9), IOTA::TritHashLength - t9.size(), 0x00);
 
-  std::vector<int8_t> b0{};
-  std::vector<int8_t> b1{ (int8_t)0x00, (int8_t)0x00, (int8_t)0x00, (int8_t)0x00 };
+  std::vector<uint8_t> b1{ 0x00, 0x00, 0x00, 0x00 };
   b1.insert(std::begin(b1), IOTA::ByteHashLength - b1.size(), 0x00);
-  std::vector<int8_t> b2{ (int8_t)0x00, (int8_t)0x00, (int8_t)0x00, (int8_t)0x01 };
+  std::vector<uint8_t> b2{ 0x00, 0x00, 0x00, 0x01 };
   b2.insert(std::begin(b2), IOTA::ByteHashLength - b2.size(), 0x00);
-  std::vector<int8_t> b3{ (int8_t)0xff, (int8_t)0xff, (int8_t)0xff, (int8_t)0xff };
+  std::vector<uint8_t> b3{ 0xff, 0xff, 0xff, 0xff };
   b3.insert(std::begin(b3), IOTA::ByteHashLength - b3.size(), 0xff);
-  std::vector<int8_t> b4{ (int8_t)0x00, (int8_t)0x00, (int8_t)0x00, (int8_t)0x2a };
+  std::vector<uint8_t> b4{ 0x00, 0x00, 0x00, 0x2a };
   b4.insert(std::begin(b4), IOTA::ByteHashLength - b4.size(), 0x00);
-  std::vector<int8_t> b5{ (int8_t)0xff, (int8_t)0xff, (int8_t)0xff, (int8_t)0xd6 };
+  std::vector<uint8_t> b5{ 0xff, 0xff, 0xff, 0xd6 };
   b5.insert(std::begin(b5), IOTA::ByteHashLength - b5.size(), 0xff);
-  std::vector<int8_t> b6{ (int8_t)0x49, (int8_t)0x96, (int8_t)0x02, (int8_t)0xd2 };
+  std::vector<uint8_t> b6{ 0x49, 0x96, 0x02, 0xd2 };
   b6.insert(std::begin(b6), IOTA::ByteHashLength - b6.size(), 0x00);
-  std::vector<int8_t> b7{ (int8_t)0xb6, (int8_t)0x69, (int8_t)0xfd, (int8_t)0x2e };
+  std::vector<uint8_t> b7{ 0xb6, 0x69, 0xfd, 0x2e };
   b7.insert(std::begin(b7), IOTA::ByteHashLength - b7.size(), 0xff);
-  std::vector<int8_t> b8{ (int8_t)0x01, (int8_t)0x00, (int8_t)0x00, (int8_t)0x00, (int8_t)0x00 };
+  std::vector<uint8_t> b8{ 0x01, 0x00, 0x00, 0x00, 0x00 };
   b8.insert(std::begin(b8), IOTA::ByteHashLength - b8.size(), 0x00);
-  std::vector<int8_t> b9{ (int8_t)0x08, (int8_t)0xff, (int8_t)0xff, (int8_t)0xff, (int8_t)0xff,
-                          (int8_t)0xff, (int8_t)0xff, (int8_t)0xff, (int8_t)0xff };
+  std::vector<uint8_t> b9{ 0x08, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff };
   b9.insert(std::begin(b9), IOTA::ByteHashLength - b9.size(), 0x00);
 
-  EXPECT_EXCEPTION(IOTA::Types::bytesToTrits(b0), IOTA::Errors::IllegalState,
-                   "Invalid bytes provided");
   EXPECT_EQ(IOTA::Types::bytesToTrits(b1), t1);
   EXPECT_EQ(IOTA::Types::bytesToTrits(b2), t2);
   EXPECT_EQ(IOTA::Types::bytesToTrits(b3), t3);

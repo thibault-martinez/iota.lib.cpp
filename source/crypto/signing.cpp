@@ -28,6 +28,7 @@
 #include <iota/crypto/signing.hpp>
 #include <iota/models/bundle.hpp>
 #include <iota/models/seed.hpp>
+#include <iota/types/big_int.hpp>
 #include <iota/types/trinary.hpp>
 
 namespace IOTA {
@@ -39,101 +40,93 @@ namespace Signing {
 //! When a tryte value is normalized, it is converted into a list of integers.
 //! The int values ranged from -13 to 13 (giving a set of 27 values, matching the alphabet length)
 //! This characteristic is used in the Signing algorithm
-static const int NormalizedTryteValueUpperBound = 13;
+static constexpr int NormalizedTryteUpperBound = 13;
 
-Types::Trits
-key(const Types::Trytes& seed, int32_t index, int32_t security) {
-  Kerl         k;
-  Types::Trits seedTrits = Types::trytesToTrits(seed);
+std::vector<uint8_t>
+key(const std::vector<uint8_t>& seedBytes, uint32_t index, uint32_t security) {
+  Kerl k;
 
-  for (int32_t i = 0; i < index; ++i) {
-    for (unsigned int j = 0; j < TritHashLength; ++j) {
-      if (++seedTrits[j] > 1) {
-        seedTrits[j] = -1;
-      } else {
-        break;
-      }
-    }
-  }
+  Types::Bigint        b;
+  std::vector<uint8_t> seedIndexBytes(ByteHashLength);
 
-  k.absorb(seedTrits);
-  k.squeeze(seedTrits);
+  b.fromBytes(seedBytes);
+  b.addU32(index);
+  b.toBytes(seedIndexBytes);
+
+  k.absorb(seedIndexBytes);
+  k.finalSqueeze(seedIndexBytes);
   k.reset();
-  k.absorb(seedTrits);
+  k.absorb(seedIndexBytes);
 
-  Types::Trits keyTrits;
-  Types::Trits trits;
+  std::vector<uint8_t> keyBytes(security * FragmentLength * ByteHashLength);
 
-  for (int i = 0; i < security; ++i) {
+  unsigned int offset = 0;
+  for (unsigned int i = 0; i < security; ++i) {
     for (unsigned int j = 0; j < FragmentLength; ++j) {
-      k.squeeze(trits);
-      keyTrits.insert(std::end(keyTrits), std::begin(trits), std::end(trits));
+      k.squeeze(keyBytes, offset);
+      offset += ByteHashLength;
     }
   }
-  return keyTrits;
+  return keyBytes;
 }
 
-Types::Trits
-digest(const std::vector<int8_t>& normalizedBundleFragment, const Types::Trits& signatureFragment) {
-  Kerl k1;
-  Kerl k2;
+std::vector<uint8_t>
+digests(const std::vector<uint8_t>& key) {
+  Kerl                 k1;
+  Kerl                 k2;
+  unsigned int         security = key.size() / (ByteHashLength * FragmentLength);
+  std::vector<uint8_t> digests(security * ByteHashLength);
 
-  for (unsigned int i = 0; i < FragmentLength; i++) {
-    Types::Trits buffer(&signatureFragment[i * TritHashLength],
-                        &signatureFragment[(i + 1) * TritHashLength]);
-    for (unsigned int j = normalizedBundleFragment[i] + NormalizedTryteValueUpperBound; j-- > 0;) {
-      k2.reset();
-      k2.absorb(buffer);
-      k2.squeeze(buffer);
-    }
-    k1.absorb(buffer);
-  }
-  Types::Trits buffer(TritHashLength);
-  k1.squeeze(buffer);
-  return buffer;
-}
-
-Types::Trits
-digests(const Types::Trits& key) {
-  Kerl         k;
-  auto         numKeys = key.size() / (TritHashLength * FragmentLength);
-  Types::Trits digests;
-
-  for (unsigned int i = 0; i < numKeys; ++i) {
-    Types::Trits keyFragment(key.begin() + (i * TritHashLength * FragmentLength),
-                             key.begin() + ((i + 1) * TritHashLength * FragmentLength));
-    for (unsigned int j = 0; j < FragmentLength; ++j) {
-      Types::Trits buffer(keyFragment.begin() + (j * TritHashLength),
-                          keyFragment.begin() + ((j + 1) * TritHashLength));
+  for (unsigned int i = 0; i < security; ++i) {
+    std::vector<uint8_t> keyFragment(key.begin() + (i * ByteHashLength * FragmentLength),
+                                     key.begin() + ((i + 1) * ByteHashLength * FragmentLength));
+    for (unsigned j = 0; j < FragmentLength; ++j) {
+      auto fragmentOffset = j * ByteHashLength;
       for (unsigned int l = 0; l < FragmentLength - 1; ++l) {
-        k.reset();
-        k.absorb(buffer);
-        k.squeeze(buffer);
+        k1.reset();
+        k1.absorb(keyFragment, fragmentOffset, ByteHashLength);
+        k1.finalSqueeze(keyFragment, fragmentOffset);
       }
-      // TODO:1.2.0(optimization) optimize
-      for (unsigned int l = 0; l < 243; ++l) {
-        keyFragment[j * 243 + l] = buffer[l];
-      }
+      k2.absorb(keyFragment, fragmentOffset, ByteHashLength);
     }
-
-    k.reset();
-    k.absorb(keyFragment);
-    Types::Trits buffer(TritHashLength);
-    k.squeeze(buffer);
-    digests.insert(std::end(digests), std::begin(buffer), std::end(buffer));
+    k2.finalSqueeze(digests, i * ByteHashLength);
+    k2.reset();
   }
   return digests;
 }
 
-Types::Trits
-address(const Types::Trits& digests) {
-  Kerl         k;
-  Types::Trits addressTrits(TritHashLength);
+std::vector<uint8_t>
+address(const std::vector<uint8_t>& digests) {
+  Kerl                 k;
+  std::vector<uint8_t> addressBytes(ByteHashLength);
+
   k.absorb(digests);
-  k.squeeze(addressTrits);
-  return addressTrits;
+  k.finalSqueeze(addressBytes);
+  return addressBytes;
 }
 
+std::vector<uint8_t>
+digest(const std::vector<int8_t>&  normalizedBundleFragment,
+       const std::vector<uint8_t>& signatureFragment) {
+  Kerl k1;
+  Kerl k2;
+
+  for (unsigned int i = 0; i < FragmentLength; i++) {
+    std::vector<uint8_t> buffer(&signatureFragment[i * ByteHashLength],
+                                &signatureFragment[(i + 1) * ByteHashLength]);
+    for (unsigned int j = normalizedBundleFragment[i] + NormalizedTryteUpperBound; j > 0; --j) {
+      k2.reset();
+      k2.absorb(buffer);
+      k2.finalSqueeze(buffer);
+    }
+    k1.absorb(buffer);
+  }
+  std::vector<uint8_t> buffer(ByteHashLength);
+  k1.finalSqueeze(buffer);
+  return buffer;
+}
+
+// TODO(Optimize)
 Types::Trits
 signatureFragment(const std::vector<int8_t>& normalizedBundleFragment,
                   const Types::Trits&        keyFragment) {
@@ -143,12 +136,14 @@ signatureFragment(const std::vector<int8_t>& normalizedBundleFragment,
   for (unsigned int i = 0; i < FragmentLength; ++i) {
     Types::Trits buffer(keyFragment.begin() + i * TritHashLength,
                         keyFragment.begin() + (i + 1) * TritHashLength);
-    for (int j = 0; j < NormalizedTryteValueUpperBound - normalizedBundleFragment[i]; ++j) {
+    auto         bytes = Types::tritsToBytes(buffer);
+    for (int j = 0; j < NormalizedTryteUpperBound - normalizedBundleFragment[i]; ++j) {
       k.reset();
-      k.absorb(buffer);
-      k.squeeze(buffer);
+      k.absorb(bytes);
+      k.finalSqueeze(bytes);
     }
-    signatureFragment.insert(std::end(signatureFragment), std::begin(buffer), std::end(buffer));
+    auto buff = Types::bytesToTrits(bytes);
+    signatureFragment.insert(std::end(signatureFragment), std::begin(buff), std::end(buff));
   }
 
   return signatureFragment;
@@ -161,7 +156,7 @@ validateSignatures(const Models::Address&            expectedAddress,
   Models::Bundle                   bundle;
   auto                             normalizedBundleHash = bundle.normalizedBundle(bundleHash);
   std::vector<std::vector<int8_t>> normalizedBundleFragments;
-  Types::Trits                     digests;
+  std::vector<uint8_t>             digests;
 
   for (unsigned int i = 0; i < 3; i++) {
     normalizedBundleFragments.emplace_back(normalizedBundleHash.begin() + i * FragmentLength,
@@ -170,12 +165,12 @@ validateSignatures(const Models::Address&            expectedAddress,
 
   for (unsigned int i = 0; i < signatureFragments.size(); ++i) {
     auto digestBuffer =
-        digest(normalizedBundleFragments[i % 3], Types::trytesToTrits(signatureFragments[i]));
+        digest(normalizedBundleFragments[i % 3], Types::trytesToBytes(signatureFragments[i]));
 
     digests.insert(std::end(digests), std::begin(digestBuffer), std::end(digestBuffer));
   }
 
-  return expectedAddress == Types::tritsToTrytes(address(digests));
+  return expectedAddress == Types::bytesToTrytes(address(digests));
 }
 
 }  // namespace Signing

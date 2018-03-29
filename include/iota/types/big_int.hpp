@@ -49,13 +49,13 @@ public:
    *
    * @trits The trits.
    */
-  void fromTrits(const Trits &trits);
+  void fromTrits(const Trits &trits, std::size_t offset = 0);
   /**
    * Initialize bigint from bytes.
    *
    * @bytes The bytes.
    */
-  void fromBytes(const std::vector<int8_t> &bytes);
+  void fromBytes(const std::vector<uint8_t> &bytes, std::size_t offset = 0);
 
 public:
   /**
@@ -69,18 +69,20 @@ public:
    *
    * @return The bytes.
    */
-  std::vector<int8_t> toBytes() const;
+  void toBytes(std::vector<uint8_t> &bytes, std::size_t offset = 0) const;
+
+public:
+  bool         setLastTritZero();
+  unsigned int addU32(uint32_t summand);
 
 private:
-  inline bool         isNegative() const;
-  inline uint32_t     mul(uint8_t factor, unsigned int ms_index);
-  inline uint32_t     div(uint8_t divisor);
-  inline bool         add(const uint32_t *a, const uint32_t *b);
-  inline bool         sub(const uint32_t *a, const uint32_t *b);
-  inline unsigned int addU32(uint32_t summand);
-  inline bool         addcarryU32(uint32_t *r, uint32_t a, uint32_t b, bool c_in);
-  inline int          cmp(const uint32_t *b) const;
-  inline bool         setLastTritZero();
+  inline bool     isNegative() const;
+  inline uint32_t mul(uint8_t factor, unsigned int ms_index);
+  inline uint32_t div(uint8_t divisor);
+  inline bool     add(const uint32_t *a, const uint32_t *b);
+  inline bool     sub(const uint32_t *a, const uint32_t *b);
+  inline bool     addcarryU32(uint32_t *r, uint32_t a, uint32_t b, bool c_in);
+  inline int      cmp(const uint32_t *b) const;
 
 private:
   uint32_t data[WordHashLength];

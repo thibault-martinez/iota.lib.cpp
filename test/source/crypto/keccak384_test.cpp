@@ -34,11 +34,11 @@
 
 class Keccak384Mock : public IOTA::Crypto::Keccak384 {
 protected:
-  bool hashUpdate(const std::vector<int8_t>&) {
+  bool hashUpdate(const uint8_t *, size_t) {
     return false;
   }
 
-  bool hashSqueeze(std::vector<int8_t>&) {
+  bool hashSqueeze(uint8_t *) {
     return false;
   }
 
@@ -53,12 +53,21 @@ TEST(Keccak384, digest) {
   ASSERT_TRUE(file.is_open());
   IOTA::Crypto::Keccak384 k;
   while (std::getline(file, line)) {
-    auto                semicolon = line.find(';');
-    auto                input     = line.substr(0, semicolon);
-    auto                digest    = line.substr(semicolon + 1);
-    std::vector<int8_t> v(std::begin(input), std::end(input));
-    k.absorb(v);
-    EXPECT_EQ(digest, k.digest());
+    auto semicolon = line.find(';');
+    auto input     = line.substr(0, semicolon);
+    auto digest    = line.substr(semicolon + 1);
+
+    k.absorb(reinterpret_cast<const uint8_t *>(input.data()), input.size());
+
+    std::stringstream stream;
+    uint8_t           bytes[IOTA::Crypto::Keccak384::hashBitLength / 8];
+    k.squeeze(bytes);
+    for (auto &byte : bytes) {
+      stream << std::setw(2) << std::hex << std::setfill('0')
+             << static_cast<int>(static_cast<uint8_t>(byte));
+    };
+
+    EXPECT_EQ(digest, stream.str());
     k.reset();
   }
 }
@@ -78,5 +87,5 @@ TEST(Keccak384, AbsorbFail) {
 TEST(Keccak384, SqueezeFail) {
   Keccak384Mock mock;
 
-  EXPECT_EXCEPTION(mock.squeeze(), IOTA::Errors::Crypto, "Keccak384::squeeze failed");
+  EXPECT_EXCEPTION(mock.squeeze(nullptr), IOTA::Errors::Crypto, "Keccak384::squeeze failed");
 }

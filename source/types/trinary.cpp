@@ -114,20 +114,48 @@ trytesToString(const Trytes& trytes) {
   return str;
 }
 
-std::vector<int8_t>
-tritsToBytes(const Trits& trits) {
-  Bigint b;
+std::vector<uint8_t>
+tritsToBytes(const Trits& trits, std::size_t offset) {
+  Bigint               b;
+  std::vector<uint8_t> bytes(ByteHashLength);
 
-  b.fromTrits(trits);
-  return b.toBytes();
+  b.fromTrits(trits, offset);
+  b.toBytes(bytes);
+  return bytes;
 }
 
 Trits
-bytesToTrits(const std::vector<int8_t>& bytes) {
+bytesToTrits(const std::vector<uint8_t>& bytes, std::size_t offset) {
   Bigint b;
+  Trits  trits;
 
-  b.fromBytes(bytes);
-  return b.toTrits();
+  for (unsigned int i = 0; i < bytes.size() - offset; i += ByteHashLength) {
+    b.fromBytes(bytes, offset + i);
+    auto t = b.toTrits();
+    trits.insert(std::end(trits), std::begin(t), std::end(t));
+  }
+  return trits;
+}
+
+std::vector<uint8_t>
+trytesToBytes(const Trytes& trytes) {
+  if (trytes.size() % HashLength != 0)
+    throw Errors::IllegalState("Illegal length");
+  std::vector<uint8_t> bytes;
+  auto                 trits = trytesToTrits(trytes);
+  for (unsigned int i = 0; i < trytes.size() / HashLength; ++i) {
+    auto chunk = tritsToBytes(trits, i * TritHashLength);
+    bytes.insert(std::end(bytes), std::begin(chunk), std::end(chunk));
+  }
+  return (bytes);
+}
+
+Trytes
+bytesToTrytes(const std::vector<uint8_t>& bytes) {
+  if (bytes.size() % ByteHashLength != 0)
+    throw Errors::IllegalState("Illegal length");
+  auto trits = bytesToTrits(bytes);
+  return tritsToTrytes(trits);
 }
 
 Trits

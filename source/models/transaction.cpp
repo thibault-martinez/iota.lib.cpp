@@ -24,7 +24,7 @@
 //
 
 #include <iota/constants.hpp>
-#include <iota/crypto/sponge_factory.hpp>
+#include <iota/crypto/curl.hpp>
 #include <iota/errors/illegal_state.hpp>
 #include <iota/models/transaction.hpp>
 #include <iota/types/trinary.hpp>
@@ -321,9 +321,9 @@ Transaction::initFromTrytes(const Types::Trytes& trytes) {
   auto hash             = Types::Trits(TritHashLength);
 
   // generate the correct transaction hash
-  auto curl = Crypto::create(Crypto::SpongeType::CURL);
-  curl->absorb(transactionTrits);
-  curl->squeeze(hash);
+  Crypto::Curl curl;
+  curl.absorb(transactionTrits);
+  curl.squeeze(hash);
 
   //! Hash
   setHash(Types::tritsToTrytes(hash));

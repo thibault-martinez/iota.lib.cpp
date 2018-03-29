@@ -24,7 +24,7 @@
 //
 
 #include <iota/constants.hpp>
-#include <iota/crypto/sponge_factory.hpp>
+#include <iota/crypto/kerl.hpp>
 #include <iota/errors/illegal_state.hpp>
 #include <iota/models/address.hpp>
 
@@ -83,13 +83,13 @@ const Types::Trytes&
 Address::getChecksum(bool validChecksum) {
   //! note that we do not do anything for empty address
   if (!empty() && (checksum_.empty() || validChecksum)) {
-    auto         sponge = Crypto::create(Crypto::SpongeType::KERL);
-    Types::Trits checksumTrits(TritHashLength);
+    Crypto::Kerl         k;
+    std::vector<uint8_t> checksumBytes(ByteHashLength);
 
-    sponge->absorb(Types::trytesToTrits(address_));
-    sponge->squeeze(checksumTrits);
+    k.absorb(Types::trytesToBytes(address_));
+    k.finalSqueeze(checksumBytes);
 
-    checksum_ = Types::tritsToTrytes(checksumTrits).substr(AddressLength - ChecksumLength);
+    checksum_ = Types::bytesToTrytes(checksumBytes).substr(AddressLength - ChecksumLength);
   }
 
   return checksum_;

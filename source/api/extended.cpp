@@ -41,6 +41,7 @@
 #include <iota/api/responses/replay_bundle.hpp>
 #include <iota/api/responses/send_transfer.hpp>
 #include <iota/crypto/curl.hpp>
+#include <iota/crypto/kerl.hpp>
 #include <iota/crypto/signing.hpp>
 #include <iota/errors/illegal_state.hpp>
 #include <iota/models/bundle.hpp>
@@ -56,9 +57,8 @@ namespace IOTA {
 
 namespace API {
 
-Extended::Extended(const std::string& host, const uint16_t& port, bool localPow, int timeout,
-                   Crypto::SpongeType cryptoType)
-    : Core(host, port, localPow, timeout), cryptoType_(cryptoType) {
+Extended::Extended(const std::string& host, const uint16_t& port, bool localPow, int timeout)
+    : Core(host, port, localPow, timeout) {
 }
 
 /*
@@ -538,8 +538,7 @@ Extended::prepareTransfers(const Models::Seed& seed, const std::vector<Models::T
     }
   } else {
     // If no input required, don't sign and simply finalize the bundle
-    const auto curl = Crypto::create(cryptoType_);
-    bundle.finalize(curl);
+    bundle.finalize();
     bundle.addTrytes(signatureFragments);
 
     const auto                 trxb = bundle.getTransactions();
@@ -572,7 +571,7 @@ Extended::verifyBundle(const Models::Bundle& bundle) {
   Types::Trytes bundleHash = bundle.getHash();
 
   //! init curl
-  const auto curl = Crypto::create(Crypto::SpongeType::KERL);
+  Crypto::Kerl k;
 
   std::vector<Models::Signature> signaturesToValidate;
   for (std::size_t i = 0; i < bundle.getTransactions().size(); ++i) {
@@ -587,7 +586,7 @@ Extended::verifyBundle(const Models::Bundle& bundle) {
     totalSum += trxValue;
 
     //! Absorb bundle hash + value + timestamp + lastIndex + currentIndex trytes.
-    curl->absorb(Types::trytesToTrits(trx.toTrytes().substr(2187, 162)));
+    k.absorb(Types::trytesToBytes(trx.toTrytes().substr(2187, 162)));
 
     //! if transaction has some value, we can processs next transactions
     if (trxValue >= 0) {
@@ -619,11 +618,11 @@ Extended::verifyBundle(const Models::Bundle& bundle) {
     throw Errors::IllegalState("Invalid Bundle Sum");
   }
 
-  std::vector<int8_t> bundleFromTrxs(TritHashLength);
-  curl->squeeze(bundleFromTrxs);
+  std::vector<uint8_t> bundleFromTrxs(ByteHashLength);
+  k.finalSqueeze(bundleFromTrxs);
 
   //! Check if bundle hash is the same as returned by tx object
-  if (Types::tritsToTrytes(bundleFromTrxs) != bundleHash) {
+  if (Types::bytesToTrytes(bundleFromTrxs) != bundleHash) {
     throw Errors::IllegalState("Invalid Bundle Hash");
   }
 
@@ -909,7 +908,7 @@ Extended::initiateTransfer(const Models::Address&               inputAddress,
     bundle.addTransaction({ remainderAddress, remainder, transfers.back().getTag(), timestamp });
   }
 
-  bundle.finalize(Crypto::create(cryptoType_));
+  bundle.finalize();
   bundle.addTrytes(signatureFragments);
 
   return bundle.getTransactions();
@@ -923,7 +922,7 @@ std::vector<Types::Trytes>
 Extended::signInputsAndReturn(const Models::Seed& seed, const std::vector<Models::Address>& inputs,
                               Models::Bundle&                   bundle,
                               const std::vector<Types::Trytes>& signatureFragments) const {
-  bundle.finalize(Crypto::create(cryptoType_));
+  bundle.finalize();
   bundle.addTrytes(signatureFragments);
 
   //  SIGNING OF INPUTS
@@ -948,7 +947,8 @@ Extended::signInputsAndReturn(const Models::Seed& seed, const std::vector<Models
       auto bundleHash = tx.getBundle();
 
       // Get corresponding private key of address
-      auto key = Crypto::Signing::key(seed.toTrytes(), keyIndex, seed.getSecurity());
+      auto key = Types::bytesToTrits(Crypto::Signing::key(
+          Types::trytesToBytes(seed.toTrytes()), keyIndex, seed.getSecurity()));  // TODO(optimize)
 
       //  First 6561 trits for the firstFragment
       std::vector<int8_t> firstFragment(&key[0], &key[6561]);

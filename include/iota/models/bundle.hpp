@@ -28,7 +28,6 @@
 #include <memory>
 #include <vector>
 
-#include <iota/crypto/i_sponge.hpp>
 #include <iota/models/tag.hpp>
 #include <iota/models/transaction.hpp>
 #include <iota/types/trytes.hpp>
@@ -104,11 +103,9 @@ public:
   void addTransaction(const Transaction& transaction, int32_t signatureMessageLength = 1);
 
   /**
-   * Finalizes the bundle using the specified curl implementation.
-   *
-   * @param customSponge The custom sponge.
+   * Finalizes the bundle.
    */
-  void finalize(const std::shared_ptr<IOTA::Crypto::ISponge>& customSponge = nullptr);
+  void finalize();
 
   /**
    * Adds the trytes.

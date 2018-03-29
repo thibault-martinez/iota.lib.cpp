@@ -69,8 +69,8 @@ Bigint::~Bigint() {
 }
 
 void
-Bigint::fromTrits(const Trits &trits) {
-  if (trits.size() != TritHashLength)
+Bigint::fromTrits(const Trits &trits, std::size_t offset) {
+  if (trits.size() - offset < TritHashLength)
     throw Errors::IllegalState("Invalid trits provided");
   unsigned int ms_index = 0;  // initialy there is no most significant word >0
   std::memset(data, 0, WordHashLength * sizeof(data[0]));
@@ -78,7 +78,7 @@ Bigint::fromTrits(const Trits &trits) {
   // ignore the 243th trit, as it cannot be fully represented in 48 bytes
   for (unsigned int i = TritHashLength - 1; i-- > 0;) {
     // convert to non-balanced ternary
-    const uint8_t trit = trits[i] + 1;
+    const uint8_t trit = trits[offset + i] + 1;
 
     const uint32_t carry = mul(TrinaryBase, ms_index);
     if (carry > 0) {
@@ -107,10 +107,10 @@ Bigint::fromTrits(const Trits &trits) {
 }
 
 void
-Bigint::fromBytes(const std::vector<int8_t> &bytes) {
-  if (bytes.size() != ByteHashLength)
+Bigint::fromBytes(const std::vector<uint8_t> &bytes, std::size_t offset) {
+  if (bytes.size() - offset < ByteHashLength)
     throw Errors::IllegalState("Invalid bytes provided");
-  const uint32_t *p = (const uint32_t *)bytes.data();
+  const uint32_t *p = reinterpret_cast<const uint32_t *>(bytes.data() + offset);
 
   // reverse word order
   for (unsigned int i = WordHashLength; i-- > 0;) {
@@ -144,17 +144,15 @@ Bigint::toTrits() {
   return trits;
 }
 
-std::vector<int8_t>
-Bigint::toBytes() const {
-  std::vector<int8_t> bytes(ByteHashLength);
-  uint32_t *          p = (uint32_t *)bytes.data();
+void
+Bigint::toBytes(std::vector<uint8_t> &bytes, std::size_t offset) const {
+  uint32_t *p = reinterpret_cast<uint32_t *>(bytes.data() + offset);
 
   // reverse word order
   for (unsigned int i = WordHashLength; i-- > 0;) {
     // convert byte order if necessary
     *p++ = swap32(data[i]);
   }
-  return bytes;
 }
 
 /**
