@@ -35,10 +35,8 @@ Base::Base(const std::string& command) : command_(command) {
 }
 
 void
-Base::serialize(json& data) const {
-  data.AddMember(rapidjson::Value("command", data.GetAllocator()).Move(),
-                 rapidjson::Value(command_.data(), data.GetAllocator()).Move(),
-                 data.GetAllocator());
+Base::serialize(Utils::json& data) const {
+  data.set("command", command_);
 }
 
 const std::string&

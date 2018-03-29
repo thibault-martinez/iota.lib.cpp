@@ -36,9 +36,10 @@ BroadcastTransactions::BroadcastTransactions(const std::vector<Types::Trytes>& t
 }
 
 void
-BroadcastTransactions::serialize(json& data) const {
+BroadcastTransactions::serialize(Utils::json& data) const {
   Base::serialize(data);
-  // data["trytes"] = trytes_;
+
+  data.set("trytes", trytes_);
 }
 
 const std::vector<Types::Trytes>&

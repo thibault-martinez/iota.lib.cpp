@@ -36,17 +36,12 @@ GetBalances::GetBalances(const std::vector<Models::Address>& addresses, const in
 }
 
 void
-GetBalances::serialize(json& data) const {
+GetBalances::serialize(Utils::json& data) const {
   Base::serialize(data);
 
-  rapidjson::Value                    arr(rapidjson::kArrayType);
-  rapidjson::Document::AllocatorType& allocator = data.GetAllocator();
-  for (auto& address : addresses_) {
-    arr.PushBack(rapidjson::Value(address.toTrytes().data(), allocator).Move(), allocator);
-  }
-
-  data["addresses"] = arr;
-  data["threshold"] = threshold_;
+  data.set<Models::Address>("addresses", addresses_,
+                            [](const Models::Address& addr) { return addr.toTrytes(); });
+  data.set("threshold", threshold_);
 }
 
 const std::vector<Models::Address>&

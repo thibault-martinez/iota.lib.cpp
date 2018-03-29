@@ -34,21 +34,16 @@ namespace Responses {
 GetInclusionStates::GetInclusionStates(const std::vector<bool>& states) : states_(states) {
 }
 
-GetInclusionStates::GetInclusionStates(const json& res) {
+GetInclusionStates::GetInclusionStates(const Utils::json& res) {
   deserialize(res);
 }
 
 void
-GetInclusionStates::deserialize(const json& res) {
+GetInclusionStates::deserialize(const Utils::json& res) {
   Base::deserialize(res);
 
-  if (res.HasMember("states")) {
-    auto arr = res["states"].GetArray();
-
-    states_.clear();
-    for (auto it = arr.Begin(); it != arr.End(); ++it) {
-      states_.push_back(it->GetBool());
-    }
+  if (res.has("states")) {
+    states_ = res.getBoolVector("states");
   }
 }
 

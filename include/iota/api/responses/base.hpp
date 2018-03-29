@@ -27,10 +27,7 @@
 
 #include <cstdint>
 
-#include <rapidjson/document.h>
-#include <rapidjson/rapidjson.h>
-
-using json = rapidjson::Document;
+#include <iota/utils/json.hpp>
 
 namespace IOTA {
 
@@ -55,7 +52,7 @@ public:
    *
    * @param res json to be used for deserialization.
    */
-  explicit Base(const json& res);
+  explicit Base(const Utils::json& res);
 
   /**
    * Default dtor.
@@ -68,7 +65,7 @@ public:
    *
    * @param res json data to be used for deserialization.
    */
-  virtual void deserialize(const json& res);
+  virtual void deserialize(const Utils::json& res);
 
 public:
   /**

@@ -23,6 +23,7 @@
 //
 //
 
+#include <cmath>
 #include <iostream>
 
 #include <iota/api/extended.hpp>

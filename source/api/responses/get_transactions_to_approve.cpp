@@ -36,20 +36,20 @@ GetTransactionsToApprove::GetTransactionsToApprove(const Types::Trytes& trunkTra
     : trunkTransaction_(trunkTransaction), branchTransaction_(branchTransaction) {
 }
 
-GetTransactionsToApprove::GetTransactionsToApprove(const json& res) {
+GetTransactionsToApprove::GetTransactionsToApprove(const Utils::json& res) {
   deserialize(res);
 }
 
 void
-GetTransactionsToApprove::deserialize(const json& res) {
+GetTransactionsToApprove::deserialize(const Utils::json& res) {
   Base::deserialize(res);
 
-  if (res.HasMember("trunkTransaction")) {
-    trunkTransaction_ = res["trunkTransaction"].GetString();
+  if (res.has("trunkTransaction")) {
+    trunkTransaction_ = res.getString("trunkTransaction");
   }
 
-  if (res.HasMember("branchTransaction")) {
-    branchTransaction_ = res["branchTransaction"].GetString();
+  if (res.has("branchTransaction")) {
+    branchTransaction_ = res.getString("branchTransaction");
   }
 }
 

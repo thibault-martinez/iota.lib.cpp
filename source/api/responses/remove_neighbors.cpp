@@ -35,16 +35,16 @@ RemoveNeighbors::RemoveNeighbors(const int64_t& removedNeighbors)
     : removedNeighbors_(removedNeighbors) {
 }
 
-RemoveNeighbors::RemoveNeighbors(const json& res) {
+RemoveNeighbors::RemoveNeighbors(const Utils::json& res) {
   deserialize(res);
 }
 
 void
-RemoveNeighbors::deserialize(const json& res) {
+RemoveNeighbors::deserialize(const Utils::json& res) {
   Base::deserialize(res);
 
-  if (res.HasMember("removedNeighbors")) {
-    removedNeighbors_ = res["removedNeighbors"].GetInt64();
+  if (res.has("removedNeighbors")) {
+    removedNeighbors_ = res.getInt("removedNeighbors");
   }
 }
 

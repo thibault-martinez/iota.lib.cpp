@@ -80,7 +80,7 @@ public:
    *
    * @param res json to be used for deserialization.
    */
-  explicit GetNodeInfo(const json& res);
+  explicit GetNodeInfo(const Utils::json& res);
 
   /**
    * Default dtor.
@@ -93,7 +93,7 @@ public:
    *
    * @param res json data to be used for deserialization.
    */
-  void deserialize(const json& res) override;
+  void deserialize(const Utils::json& res) override;
 
 public:
   /**

@@ -25,10 +25,9 @@
 
 #pragma once
 
-#include <rapidjson/document.h>
-#include <rapidjson/rapidjson.h>
+#include <string>
 
-using json = rapidjson::Document;
+#include <iota/utils/json.hpp>
 
 namespace IOTA {
 
@@ -59,7 +58,7 @@ public:
    *
    * @param data where to store serialisation.
    */
-  virtual void serialize(json& data) const;
+  virtual void serialize(Utils::json& data) const;
 
 public:
   /**

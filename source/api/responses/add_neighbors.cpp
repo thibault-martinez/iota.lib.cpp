@@ -34,16 +34,16 @@ namespace Responses {
 AddNeighbors::AddNeighbors(const int64_t& addedNeighbors) : addedNeighbors_(addedNeighbors) {
 }
 
-AddNeighbors::AddNeighbors(const json& res) {
+AddNeighbors::AddNeighbors(const Utils::json& res) {
   deserialize(res);
 }
 
 void
-AddNeighbors::deserialize(const json& res) {
+AddNeighbors::deserialize(const Utils::json& res) {
   Base::deserialize(res);
 
-  if (res.HasMember("addedNeighbors")) {
-    addedNeighbors_ = res["addedNeighbors"].GetInt64();
+  if (res.has("addedNeighbors")) {
+    addedNeighbors_ = res.getInt("addedNeighbors");
   }
 }
 

@@ -57,7 +57,7 @@ public:
    *
    * @param res json to be used for deserialization.
    */
-  explicit GetTips(const json& res);
+  explicit GetTips(const Utils::json& res);
 
   /**
    * Default dtor.
@@ -70,7 +70,7 @@ public:
    *
    * @param res json data to be used for deserialization.
    */
-  void deserialize(const json& res) override;
+  void deserialize(const Utils::json& res) override;
 
 public:
   /**

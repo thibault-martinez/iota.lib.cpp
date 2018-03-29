@@ -36,29 +36,24 @@ GetBalances::GetBalances(const std::vector<std::string>& balances, const Types::
     : balances_(balances), milestone_(milestone), milestoneIndex_(milestoneIndex) {
 }
 
-GetBalances::GetBalances(const json& res) {
+GetBalances::GetBalances(const Utils::json& res) {
   deserialize(res);
 }
 
 void
-GetBalances::deserialize(const json& res) {
+GetBalances::deserialize(const Utils::json& res) {
   Base::deserialize(res);
 
-  if (res.HasMember("balances")) {
-    auto arr = res["balances"].GetArray();
-
-    balances_.clear();
-    for (auto it = arr.Begin(); it != arr.End(); ++it) {
-      balances_.push_back(it->GetString());
-    }
+  if (res.has("balances")) {
+    balances_ = res.getStringVector("balances");
   }
 
-  if (res.HasMember("milestone")) {
-    milestone_ = res["milestone"].GetString();
+  if (res.has("milestone")) {
+    milestone_ = res.getString("milestone");
   }
 
-  if (res.HasMember("milestoneIndex")) {
-    milestoneIndex_ = res["milestoneIndex"].GetInt64();
+  if (res.has("milestoneIndex")) {
+    milestoneIndex_ = res.getInt("milestoneIndex");
   }
 }
 

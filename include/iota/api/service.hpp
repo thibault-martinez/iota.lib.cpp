@@ -26,10 +26,6 @@
 #pragma once
 
 #include <cpr/cpr.h>
-#include <rapidjson/document.h>
-#include <rapidjson/rapidjson.h>
-#include <rapidjson/stringbuffer.h>
-#include <rapidjson/writer.h>
 
 #include <iota/constants.hpp>
 #include <iota/errors/bad_request.hpp>
@@ -37,8 +33,7 @@
 #include <iota/errors/network.hpp>
 #include <iota/errors/unauthorized.hpp>
 #include <iota/errors/unrecognized.hpp>
-
-using json = rapidjson::Document;
+#include <iota/utils/json.hpp>
 
 namespace IOTA {
 
@@ -74,15 +69,11 @@ public:
   Response request(Args&&... args) const {
     auto request = Request{ args... };
 
-    json data(rapidjson::kObjectType);
+    Utils::json data;
     request.serialize(data);
 
-    rapidjson::StringBuffer                    buffer;
-    rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
-    data.Accept(writer);
-
     auto url     = cpr::Url{ "http://" + host_ + ":" + std::to_string(port_) };
-    auto body    = cpr::Body{ buffer.GetString() };
+    auto body    = cpr::Body{ data.dumps() };
     auto headers = cpr::Header{ { "Content-Type", "application/json" },
                                 { "Content-Length", std::to_string(body.size()) },
                                 { "X-IOTA-API-Version", APIVersion } };
@@ -94,10 +85,10 @@ public:
     std::string error;
 
     try {
-      data.ParseInsitu((char*)res.text.data());
+      data.loads(res.text);
 
-      if (data.HasMember("error")) {
-        error = data["error"].GetString();
+      if (data.has("error")) {
+        error = data.getString("error");
       }
     } catch (const std::runtime_error&) {
       if (res.elapsed >= timeout_) {
@@ -133,10 +124,12 @@ private:
    * Host of the node.
    */
   std::string host_;
+
   /**
    * Port of the node.
    */
   unsigned int port_;
+
   /**
    * Timeout for requests.
    */
