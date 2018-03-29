@@ -26,6 +26,7 @@
 #include <gtest/gtest.h>
 
 #include <iota/api/requests/broadcast_transactions.hpp>
+#include <iota/utils/json.hpp>
 
 TEST(BroadcastTransactionsRequest, CtorShouldInitFields) {
   const IOTA::API::Requests::BroadcastTransactions res{ { "TESTA", "TESTB" } };
@@ -54,10 +55,9 @@ TEST(BroadcastTransactionsRequest, SetTrytes) {
 TEST(BroadcastTransactionsRequest, Serialize) {
   const IOTA::API::Requests::BroadcastTransactions res{ { "TESTA", "TESTB" } };
 
-  json data;
+  IOTA::Utils::json data;
   res.serialize(data);
 
-  EXPECT_EQ(data["command"], "broadcastTransactions");
-  EXPECT_EQ(data["trytes"].get<std::vector<std::string>>(),
-            std::vector<IOTA::Types::Trytes>({ "TESTA", "TESTB" }));
+  EXPECT_EQ(data.getString("command"), "broadcastTransactions");
+  EXPECT_EQ(data.getStringVector("trytes"), std::vector<IOTA::Types::Trytes>({ "TESTA", "TESTB" }));
 }

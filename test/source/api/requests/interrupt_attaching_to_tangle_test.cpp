@@ -26,12 +26,13 @@
 #include <gtest/gtest.h>
 
 #include <iota/api/requests/interrupt_attaching_to_tangle.hpp>
+#include <iota/utils/json.hpp>
 
 TEST(InterruptAttachingToTangleRequest, SerializeShouldInitJson) {
   const IOTA::API::Requests::InterruptAttachingToTangle req;
-  json                                                  data;
+  IOTA::Utils::json                                     data;
 
   req.serialize(data);
 
-  EXPECT_EQ(data["command"].get<std::string>(), "interruptAttachingToTangle");
+  EXPECT_EQ(data.getString("command"), "interruptAttachingToTangle");
 }

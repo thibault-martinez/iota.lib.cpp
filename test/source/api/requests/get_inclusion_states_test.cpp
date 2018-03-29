@@ -26,6 +26,7 @@
 #include <gtest/gtest.h>
 
 #include <iota/api/requests/get_inclusion_states.hpp>
+#include <iota/utils/json.hpp>
 
 TEST(GetInclusionStatesRequest, CtorShouldInitFields) {
   const IOTA::API::Requests::GetInclusionStates req(
@@ -74,11 +75,12 @@ TEST(GetInclusionStatesRequest, SetTips) {
 
 TEST(GetInclusionStatesRequest, SerializeShouldInitJson) {
   const IOTA::API::Requests::GetInclusionStates req{ { "tx1", "tx2" }, { "tip1", "tip2" } };
-  json                                          data;
+  IOTA::Utils::json                             data;
 
   req.serialize(data);
 
-  EXPECT_EQ(data["command"].get<std::string>(), "getInclusionStates");
-  EXPECT_EQ(data["transactions"], std::vector<IOTA::Types::Trytes>({ "tx1", "tx2" }));
-  EXPECT_EQ(data["tips"], std::vector<IOTA::Types::Trytes>({ "tip1", "tip2" }));
+  EXPECT_EQ(data.getString("command"), "getInclusionStates");
+  EXPECT_EQ(data.getStringVector("transactions"),
+            std::vector<IOTA::Types::Trytes>({ "tx1", "tx2" }));
+  EXPECT_EQ(data.getStringVector("tips"), std::vector<IOTA::Types::Trytes>({ "tip1", "tip2" }));
 }

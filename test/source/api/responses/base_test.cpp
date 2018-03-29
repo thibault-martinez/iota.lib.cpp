@@ -26,6 +26,7 @@
 #include <gtest/gtest.h>
 
 #include <iota/api/responses/base.hpp>
+#include <iota/utils/json.hpp>
 
 TEST(BaseResponse, CtorShouldInitFields) {
   const IOTA::API::Responses::Base res{ 0 };
@@ -43,9 +44,9 @@ TEST(BaseResponse, SetDuration) {
 
 TEST(BaseResponse, DeserializeShouldSetFields) {
   IOTA::API::Responses::Base res;
-  json                       data;
+  IOTA::Utils::json          data;
 
-  data["duration"] = 42;
+  data.set("duration", 42);
   res.deserialize(data);
   EXPECT_EQ(res.getDuration(), 42);
 }

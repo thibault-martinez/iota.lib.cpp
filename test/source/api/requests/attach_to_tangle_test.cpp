@@ -26,6 +26,7 @@
 #include <gtest/gtest.h>
 
 #include <iota/api/requests/attach_to_tangle.hpp>
+#include <iota/utils/json.hpp>
 
 TEST(AttachToTangleRequest, CtorShouldInitFields) {
   const IOTA::API::Requests::AttachToTangle req{ "trunk", "branch", 42, { "trytes1", "trytes2" } };
@@ -93,13 +94,14 @@ TEST(AttachToTangleRequest, setTrytes) {
 
 TEST(AttachToTangleRequest, SerializeShouldInitJson) {
   const IOTA::API::Requests::AttachToTangle req{ "trunk", "branch", 42, { "trytes1", "trytes2" } };
-  json                                      data;
+  IOTA::Utils::json                         data;
 
   req.serialize(data);
 
-  EXPECT_EQ(data["command"].get<std::string>(), "attachToTangle");
-  EXPECT_EQ(data["trunkTransaction"], "trunk");
-  EXPECT_EQ(data["branchTransaction"], "branch");
-  EXPECT_EQ(data["minWeightMagnitude"], 42);
-  EXPECT_EQ(data["trytes"], std::vector<IOTA::Types::Trytes>({ "trytes1", "trytes2" }));
+  EXPECT_EQ(data.getString("command"), "attachToTangle");
+  EXPECT_EQ(data.getString("trunkTransaction"), "trunk");
+  EXPECT_EQ(data.getString("branchTransaction"), "branch");
+  EXPECT_EQ(data.getInt("minWeightMagnitude"), 42);
+  EXPECT_EQ(data.getStringVector("trytes"),
+            std::vector<IOTA::Types::Trytes>({ "trytes1", "trytes2" }));
 }

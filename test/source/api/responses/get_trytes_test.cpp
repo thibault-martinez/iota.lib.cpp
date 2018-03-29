@@ -26,6 +26,7 @@
 #include <gtest/gtest.h>
 
 #include <iota/api/responses/get_trytes.hpp>
+#include <iota/utils/json.hpp>
 
 TEST(GetTrytesResponse, DefaultCtorShouldInitFields) {
   const IOTA::API::Responses::GetTrytes res;
@@ -74,11 +75,11 @@ TEST(GetTrytesResponse, SetTrytes) {
 
 TEST(GetTrytesResponse, DeserializeShouldSetFields) {
   IOTA::API::Responses::GetTrytes  res;
-  json                             data;
+  IOTA::Utils::json                data;
   std::vector<IOTA::Types::Trytes> trytes;
 
   trytes.push_back("TEST");
-  data["trytes"] = trytes;
+  data.set("trytes", trytes);
   res.deserialize(data);
   EXPECT_EQ(res.getTrytes(), trytes);
 }

@@ -26,6 +26,7 @@
 #include <gtest/gtest.h>
 
 #include <iota/api/requests/get_balances.hpp>
+#include <iota/utils/json.hpp>
 #include <test/utils/constants.hpp>
 
 TEST(GetBalancesRequest, DefaultCtorShouldInitFields) {
@@ -83,13 +84,13 @@ TEST(GetBalancesRequest, SerializeShouldInitJson) {
   const IOTA::API::Requests::GetBalances req{
     { ACCOUNT_1_ADDRESS_1_HASH, ACCOUNT_1_ADDRESS_2_HASH }, 42
   };
-  json data;
+  IOTA::Utils::json data;
 
   req.serialize(data);
 
-  EXPECT_EQ(data["command"].get<std::string>(), "getBalances");
-  EXPECT_EQ(data["addresses"],
+  EXPECT_EQ(data.getString("command"), "getBalances");
+  EXPECT_EQ(data.getStringVector("addresses"),
             std::vector<IOTA::Types::Trytes>({ ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
                                                ACCOUNT_1_ADDRESS_2_HASH_WITHOUT_CHECKSUM }));
-  EXPECT_EQ(data["threshold"], 42);
+  EXPECT_EQ(data.getInt("threshold"), 42);
 }

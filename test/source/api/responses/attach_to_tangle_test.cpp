@@ -26,6 +26,7 @@
 #include <gtest/gtest.h>
 
 #include <iota/api/responses/attach_to_tangle.hpp>
+#include <iota/utils/json.hpp>
 
 TEST(AttachToTangleResponse, CtorShouldInitFields) {
   const IOTA::API::Responses::AttachToTangle res{ std::vector<IOTA::Types::Trytes>(
@@ -57,11 +58,11 @@ TEST(AttachToTangleResponse, SetTrytes) {
 
 TEST(AttachToTangleResponse, DeserializeShouldSetFields) {
   IOTA::API::Responses::AttachToTangle res;
-  json                                 data;
+  IOTA::Utils::json                    data;
   std::vector<IOTA::Types::Trytes>     trytes;
 
   trytes.push_back("TEST");
-  data["trytes"] = trytes;
+  data.set("trytes", trytes);
   res.deserialize(data);
   EXPECT_EQ(res.getTrytes(), trytes);
 }

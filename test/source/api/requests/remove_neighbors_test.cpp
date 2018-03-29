@@ -26,6 +26,7 @@
 #include <gtest/gtest.h>
 
 #include <iota/api/requests/remove_neighbors.hpp>
+#include <iota/utils/json.hpp>
 
 TEST(RemoveNeighborsRequest, CtorShouldInitFields) {
   const IOTA::API::Requests::RemoveNeighbors req{ { "uri1", "uri2" } };
@@ -51,10 +52,10 @@ TEST(RemoveNeighborsRequest, SetUris) {
 
 TEST(RemoveNeighborsRequest, SerializeShouldInitJson) {
   const IOTA::API::Requests::RemoveNeighbors req{ { "uri1", "uri2" } };
-  json                                       data;
+  IOTA::Utils::json                          data;
 
   req.serialize(data);
 
-  EXPECT_EQ(data["command"], "removeNeighbors");
-  EXPECT_EQ(data["uris"], std::vector<std::string>({ "uri1", "uri2" }));
+  EXPECT_EQ(data.getString("command"), "removeNeighbors");
+  EXPECT_EQ(data.getStringVector("uris"), std::vector<std::string>({ "uri1", "uri2" }));
 }

@@ -26,6 +26,7 @@
 #include <gtest/gtest.h>
 
 #include <iota/api/responses/find_transactions.hpp>
+#include <iota/utils/json.hpp>
 
 TEST(FindTransactionsResponse, DefaultCtorShouldInitFields) {
   const IOTA::API::Responses::FindTransactions res;
@@ -74,11 +75,11 @@ TEST(FindTransactionsResponse, SetHashes) {
 
 TEST(FindTransactionsResponse, DeserializeShouldSetFields) {
   IOTA::API::Responses::FindTransactions res;
-  json                                   data;
+  IOTA::Utils::json                      data;
   std::vector<IOTA::Types::Trytes>       hashes;
 
   hashes.push_back("TEST");
-  data["hashes"] = hashes;
+  data.set("hashes", hashes);
   res.deserialize(data);
   EXPECT_EQ(res.getHashes(), hashes);
 }

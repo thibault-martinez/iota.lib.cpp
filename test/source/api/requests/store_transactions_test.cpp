@@ -26,6 +26,7 @@
 #include <gtest/gtest.h>
 
 #include <iota/api/requests/store_transactions.hpp>
+#include <iota/utils/json.hpp>
 
 TEST(StoreTransactionsRequest, CtorShouldInitFields) {
   const IOTA::API::Requests::StoreTransactions res{ { "TESTA", "TESTB" } };
@@ -53,10 +54,10 @@ TEST(StoreTransactionsRequest, SetTrytes) {
 
 TEST(StoreTransactionsRequest, SerializeShouldInitJson) {
   const IOTA::API::Requests::StoreTransactions req{ { "TESTA", "TESTB" } };
-  json                                         data;
+  IOTA::Utils::json                            data;
 
   req.serialize(data);
 
-  EXPECT_EQ(data["command"].get<std::string>(), "storeTransactions");
-  EXPECT_EQ(data["trytes"], std::vector<IOTA::Types::Trytes>({ "TESTA", "TESTB" }));
+  EXPECT_EQ(data.getString("command"), "storeTransactions");
+  EXPECT_EQ(data.getStringVector("trytes"), std::vector<IOTA::Types::Trytes>({ "TESTA", "TESTB" }));
 }

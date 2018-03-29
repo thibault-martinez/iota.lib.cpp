@@ -26,6 +26,7 @@
 #include <gtest/gtest.h>
 
 #include <iota/api/responses/get_balances.hpp>
+#include <iota/utils/json.hpp>
 
 TEST(GetBalancesReponse, DefaultCtorShouldInitFields) {
   const IOTA::API::Responses::GetBalances res;
@@ -102,11 +103,11 @@ TEST(GetBalancesReponse, SetMilestoneIndex) {
 
 TEST(GetBalancesReponse, DeserializeShouldSetFields) {
   IOTA::API::Responses::GetBalances res;
-  json                              data;
+  IOTA::Utils::json                 data;
 
-  data["balances"]       = std::vector<std::string>({ "bal1", "bal2", "bal3" });
-  data["milestone"]      = "milestone";
-  data["milestoneIndex"] = 1;
+  data.set("balances", std::vector<std::string>({ "bal1", "bal2", "bal3" }));
+  data.set("milestone", "milestone");
+  data.set("milestoneIndex", 1);
 
   res.deserialize(data);
 

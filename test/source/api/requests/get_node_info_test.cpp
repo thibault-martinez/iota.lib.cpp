@@ -26,12 +26,13 @@
 #include <gtest/gtest.h>
 
 #include <iota/api/requests/get_node_info.hpp>
+#include <iota/utils/json.hpp>
 
 TEST(GetNodeInfoRequest, SerializeShouldInitJson) {
   const IOTA::API::Requests::GetNodeInfo req;
-  json                                   data;
+  IOTA::Utils::json                      data;
 
   req.serialize(data);
 
-  EXPECT_EQ(data["command"].get<std::string>(), "getNodeInfo");
+  EXPECT_EQ(data.getString("command"), "getNodeInfo");
 }

@@ -26,6 +26,7 @@
 #include <gtest/gtest.h>
 
 #include <iota/api/responses/get_inclusion_states.hpp>
+#include <iota/utils/json.hpp>
 
 TEST(GetInclusionStatesResponse, CtorShouldInitFields) {
   const IOTA::API::Responses::GetInclusionStates res{ std::vector<bool>({ true, false, true }) };
@@ -47,11 +48,11 @@ TEST(GetInclusionStatesResponse, SetStates) {
 
 TEST(GetInclusionStatesResponse, DeserializeShouldSetFields) {
   IOTA::API::Responses::GetInclusionStates res;
-  json                                     data;
+  IOTA::Utils::json                        data;
   std::vector<bool>                        states;
 
   states.push_back("TEST");
-  data["states"] = states;
+  data.set("states", states);
   res.deserialize(data);
   EXPECT_EQ(res.getStates(), states);
 }

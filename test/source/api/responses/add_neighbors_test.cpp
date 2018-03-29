@@ -26,6 +26,7 @@
 #include <gtest/gtest.h>
 
 #include <iota/api/responses/add_neighbors.hpp>
+#include <iota/utils/json.hpp>
 
 TEST(AddNeighborsResponse, CtorShouldInitFields) {
   const IOTA::API::Responses::AddNeighbors res{ 42 };
@@ -45,9 +46,9 @@ TEST(AddNeighborsResponse, SetAddedNeighbors) {
 
 TEST(AddNeighborsResponse, DeserializeShouldSetFields) {
   IOTA::API::Responses::AddNeighbors res;
-  json                               data;
+  IOTA::Utils::json                  data;
 
-  data["addedNeighbors"] = 42;
+  data.set("addedNeighbors", 42);
   res.deserialize(data);
   EXPECT_EQ(res.getAddedNeighbors(), 42);
 }

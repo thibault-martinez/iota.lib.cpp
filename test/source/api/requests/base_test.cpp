@@ -26,6 +26,7 @@
 #include <gtest/gtest.h>
 
 #include <iota/api/requests/base.hpp>
+#include <iota/utils/json.hpp>
 
 TEST(BaseRequest, CtorShouldInitFields) {
   const IOTA::API::Requests::Base req{ { "cmd" } };
@@ -35,9 +36,9 @@ TEST(BaseRequest, CtorShouldInitFields) {
 
 TEST(BaseRequest, SerializeShouldInitJson) {
   const IOTA::API::Requests::Base req{ "cmd" };
-  json                            data;
+  IOTA::Utils::json               data;
 
   req.serialize(data);
 
-  EXPECT_EQ(data["command"].get<std::string>(), "cmd");
+  EXPECT_EQ(data.getString("command"), "cmd");
 }

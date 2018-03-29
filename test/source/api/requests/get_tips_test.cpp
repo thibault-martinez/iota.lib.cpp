@@ -26,12 +26,13 @@
 #include <gtest/gtest.h>
 
 #include <iota/api/requests/get_tips.hpp>
+#include <iota/utils/json.hpp>
 
 TEST(GetTipsRequest, SerializeShouldInitJson) {
   const IOTA::API::Requests::GetTips req;
-  json                               data;
+  IOTA::Utils::json                  data;
 
   req.serialize(data);
 
-  EXPECT_EQ(data["command"].get<std::string>(), "getTips");
+  EXPECT_EQ(data.getString("command"), "getTips");
 }
