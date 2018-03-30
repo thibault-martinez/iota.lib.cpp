@@ -90,33 +90,47 @@ Bundle::addTransaction(const Transaction& transaction, int32_t signatureMessageL
 void
 Bundle::finalize() {
   Crypto::Kerl k;
+  bool         validBundle = false;
 
-  for (std::size_t i = 0; i < transactions_.size(); i++) {
-    auto& trx = transactions_[i];
+  while (!validBundle) {
+    k.reset();
+    for (std::size_t i = 0; i < transactions_.size(); i++) {
+      auto& trx = transactions_[i];
 
-    trx.setCurrentIndex(i);
-    trx.setLastIndex(transactions_.size() - 1);
+      trx.setCurrentIndex(i);
+      trx.setLastIndex(transactions_.size() - 1);
 
-    auto value = Types::tritsToTrytes(Types::intToTrits(trx.getValue(), SeedLength));
-    auto timestamp =
-        Types::tritsToTrytes(Types::intToTrits(trx.getTimestamp(), TryteAlphabetLength));
-    auto currentIndex =
-        Types::tritsToTrytes(Types::intToTrits(trx.getCurrentIndex(), TryteAlphabetLength));
-    auto lastIndexTrits =
-        Types::tritsToTrytes(Types::intToTrits(trx.getLastIndex(), TryteAlphabetLength));
+      auto value = Types::tritsToTrytes(Types::intToTrits(trx.getValue(), SeedLength));
+      auto timestamp =
+          Types::tritsToTrytes(Types::intToTrits(trx.getTimestamp(), TryteAlphabetLength));
+      auto currentIndex =
+          Types::tritsToTrytes(Types::intToTrits(trx.getCurrentIndex(), TryteAlphabetLength));
+      auto lastIndexTrits =
+          Types::tritsToTrytes(Types::intToTrits(trx.getLastIndex(), TryteAlphabetLength));
 
-    auto bytes = Types::trytesToBytes(trx.getAddress().toTrytes() + value +
-                                      trx.getTag().toTrytesWithPadding() + timestamp +
-                                      currentIndex + lastIndexTrits);
+      auto bytes = Types::trytesToBytes(trx.getAddress().toTrytes() + value +
+                                        trx.getObsoleteTag().toTrytesWithPadding() + timestamp +
+                                        currentIndex + lastIndexTrits);
+      k.absorb(bytes);
+    }
 
-    k.absorb(bytes);
+    std::vector<uint8_t> hash(ByteHashLength);
+    k.finalSqueeze(hash);
+
+    //! set bundle hash for each underlying transaction
+    hash_               = Types::bytesToTrytes(hash);
+    auto normalizedHash = normalizedBundle(hash_);
+
+    if (std::find(std::begin(normalizedHash), std::end(normalizedHash), 13 /* = M */) !=
+        std::end(normalizedHash)) {
+      // Insecure bundle. Increment Tag and recompute bundle hash.
+      auto tagTrits = Types::trytesToTrits(transactions_[0].getObsoleteTag().toTrytesWithPadding());
+      Types::incrementTrits(tagTrits);
+      transactions_[0].setObsoleteTag(Types::tritsToTrytes(tagTrits));
+    } else {
+      validBundle = true;
+    }
   }
-
-  std::vector<uint8_t> hash(ByteHashLength);
-  k.finalSqueeze(hash);
-
-  //! set bundle hash for each underlying transaction
-  hash_ = Types::bytesToTrytes(hash);
   for (std::size_t i = 0; i < transactions_.size(); i++) {
     transactions_[i].setBundle(hash_);
   }

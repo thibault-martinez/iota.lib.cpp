@@ -149,6 +149,13 @@ tritsToInt(const Trits& trits) {
   return res;
 }
 
+/**
+ * Increments the specified trits.
+ *
+ * @param trits The trits.
+ */
+void incrementTrits(Trits& trits);
+
 }  // namespace Types
 
 }  // namespace IOTA
