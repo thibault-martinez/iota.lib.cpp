@@ -51,7 +51,7 @@ TEST(GetInclusionStatesResponse, DeserializeShouldSetFields) {
   IOTA::Utils::json                        data;
   std::vector<bool>                        states;
 
-  states.push_back("TEST");
+  states.push_back(true);
   data.set("states", states);
   res.deserialize(data);
   EXPECT_EQ(res.getStates(), states);

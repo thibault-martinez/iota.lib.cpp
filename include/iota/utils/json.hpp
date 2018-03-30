@@ -133,6 +133,13 @@ public:
   void set(const std::string& key, const std::vector<bool>& value);
 
   /**
+   * set the key with the json array value
+   * @param key    the key to be set
+   * @param value  the value to set the key with
+   */
+  void set(const std::string& key, std::vector<json>& value);
+
+  /**
    * set the key with the string array value
    * takes as input an array of any model and a function converting each item into a string
    * @param key        the key to be set

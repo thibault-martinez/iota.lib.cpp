@@ -96,6 +96,18 @@ json::set(const std::string& key, const std::vector<bool>& value) {
   json_.AddMember(key_val.Move(), arr.Move(), memory_pool_);
 }
 
+void
+json::set(const std::string& key, std::vector<json>& value) {
+  auto arr     = rapidjson::Value{ rapidjson::kArrayType };
+  auto key_val = rapidjson::Value{ key.data(), memory_pool_ };
+
+  for (auto& val : value) {
+    arr.PushBack(val.json_, memory_pool_);
+  }
+
+  json_.AddMember(key_val.Move(), arr.Move(), memory_pool_);
+}
+
 int64_t
 json::getInt(const std::string& key) const {
   return json_[key.data()].GetInt64();
@@ -136,7 +148,7 @@ json::getJsonVector(const std::string& key) const {
 
   std::vector<json> res;
   for (auto it = arr.Begin(); it != arr.End(); ++it) {
-    res.push_back(std::move(json(*it)));
+    res.push_back(json(*it));
   }
 
   return res;
