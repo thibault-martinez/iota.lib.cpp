@@ -23,6 +23,8 @@
 //
 //
 
+#include <algorithm>
+
 #include <iota/constants.hpp>
 #include <iota/crypto/kerl.hpp>
 #include <iota/models/bundle.hpp>
