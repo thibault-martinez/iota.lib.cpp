@@ -120,9 +120,8 @@ Bundle::finalize() {
     //! set bundle hash for each underlying transaction
     hash_               = Types::bytesToTrytes(hash);
     auto normalizedHash = normalizedBundle(hash_);
-
-    if (std::find(std::begin(normalizedHash), std::end(normalizedHash), 13 /* = M */) !=
-        std::end(normalizedHash)) {
+    if (transactions_.size() != 0 && std::find(std::begin(normalizedHash), std::end(normalizedHash),
+                                               13 /* = M */) != std::end(normalizedHash)) {
       // Insecure bundle. Increment Tag and recompute bundle hash.
       auto tagTrits = Types::trytesToTrits(transactions_[0].getObsoleteTag().toTrytesWithPadding());
       Types::incrementTrits(tagTrits);
