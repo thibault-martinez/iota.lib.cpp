@@ -22,11 +22,12 @@
 # SOFTWARE.
 #
 #
-
 ExternalProject_Add("cpr_dep"
                     GIT_SUBMODULES ""
                     CMAKE_ARGS "-DBUILD_CPR_TESTS=OFF"
                     CMAKE_ARGS "-DBUILD_TESTING=0"
+                    CMAKE_ARGS "-DBUILD_CURL_EXE=OFF"
+                    CMAKE_ARGS "-DHTTP_ONLY=ON"
                     CMAKE_ARGS "-DCMAKE_INSTALL_PREFIX=${CMAKE_SOURCE_DIR}/deps"
                     CMAKE_ARGS "-DCMAKE_ARCHIVE_OUTPUT_DIRECTORY=${CMAKE_SOURCE_DIR}/deps/lib"
                     CMAKE_ARGS "-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=${CMAKE_SOURCE_DIR}/deps/lib"
