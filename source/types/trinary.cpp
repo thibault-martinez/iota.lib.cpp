@@ -187,14 +187,14 @@ tritsToTrytes(const Trits& trits, std::size_t length) {
   return trytes;
 }
 
-Types::Trits
+Trits
 intToTrits(const int64_t& value) {
   if (value == 0)
     return {};
 
-  Types::Trits trits;
-  int          sign          = (value > 0) - (value < 0);
-  uint64_t     absoluteValue = value * sign;
+  Trits    trits;
+  int      sign          = (value > 0) - (value < 0);
+  uint64_t absoluteValue = value * sign;
 
   // pre-computed log3(e)
   static const double log3e = 0.91023922662683739361;
@@ -217,13 +217,24 @@ intToTrits(const int64_t& value) {
   return trits;
 }
 
-Types::Trits
+Trits
 intToTrits(const int64_t& value, std::size_t length) {
   auto res = intToTrits(value);
 
   res.resize(length, 0);
 
   return res;
+}
+
+void
+incrementTrits(Trits& trits) {
+  for (unsigned int i = 0; i < trits.size(); ++i) {
+    if (++trits[i] > 1) {
+      trits[i] = -1;
+    } else {
+      break;
+    }
+  }
 }
 
 }  // namespace Types
