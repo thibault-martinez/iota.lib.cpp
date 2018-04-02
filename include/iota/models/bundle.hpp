@@ -122,6 +122,14 @@ public:
    */
   std::vector<int8_t> normalizedBundle(const Types::Trytes& bundleHash);
 
+protected:
+  /**
+   * generate the hash corresponding to this bundle of transactions.
+   * This function does **NOT** check whether the normalized bundle contain 13 (security flaw).
+   * This method must remain private (or protected for tests purposed).
+   */
+  void generateHash(void);
+
 public:
   /**
    * @param rhs An object to compare with this object.
