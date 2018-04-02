@@ -1,6 +1,22 @@
 # Changelog
 
+## 1.2.1
+| Type | Details |
+|------|---------|
+|Date|April 2nd, 2018|
+|Tag|[v1.2.1](https://github.com/thibault-martinez/iota.lib.cpp/releases/tag/v1.2.1)|
+|Description|Bundle finalization security patch.|
+|Added|-|
+|Changed|Bundle finalization routine is now executed repeatedly until normalized bundle hash contains no 13 ('M').|
+|Removed|-|
+|Upgrading|-|
+
+
 ## 1.2.0
+**DO NOT USE IN PRODUCTION !**
+
+**1.2.1 will be released quickly to fix a security issue**
+
 | Type | Details |
 |------|---------|
 |Date|March 29th, 2018|
