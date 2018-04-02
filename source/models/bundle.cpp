@@ -104,12 +104,12 @@ Bundle::generateHash() {
         Types::tritsToTrytes(Types::intToTrits(trx.getTimestamp(), TryteAlphabetLength));
     auto currentIndex =
         Types::tritsToTrytes(Types::intToTrits(trx.getCurrentIndex(), TryteAlphabetLength));
-    auto lastIndexTrits =
+    auto lastIndex =
         Types::tritsToTrytes(Types::intToTrits(trx.getLastIndex(), TryteAlphabetLength));
 
     auto bytes = Types::trytesToBytes(trx.getAddress().toTrytes() + value +
                                       trx.getObsoleteTag().toTrytesWithPadding() + timestamp +
-                                      currentIndex + lastIndexTrits);
+                                      currentIndex + lastIndex);
     k.absorb(bytes);
   }
 
@@ -129,8 +129,8 @@ Bundle::finalize() {
 
     //! check that normalized hash does not contain "13" (otherwise, this may lead to security flaw)
     auto normalizedHash = normalizedBundle(hash_);
-    if (transactions_.size() != 0 && std::find(std::begin(normalizedHash), std::end(normalizedHash),
-                                               13 /* = M */) != std::end(normalizedHash)) {
+    if (!transactions_.empty() && std::find(std::begin(normalizedHash), std::end(normalizedHash),
+                                            13 /* = M */) != std::end(normalizedHash)) {
       // Insecure bundle. Increment Tag and recompute bundle hash.
       auto tagTrits = Types::trytesToTrits(transactions_[0].getObsoleteTag().toTrytesWithPadding());
       Types::incrementTrits(tagTrits);
