@@ -231,6 +231,8 @@ TEST(Bundle, Finalize) {
   b.addTransaction(IOTA::Models::Transaction(BUNDLE_1_TRX_3_TRYTES));
   b.addTransaction(IOTA::Models::Transaction(BUNDLE_1_TRX_4_TRYTES));
 
+  b.getTransactions()[0].setObsoleteTag(b.getTransactions()[0].getTag());
+
   b.generateHash();
 
   auto hash           = b.getHash();

@@ -118,7 +118,7 @@ public:
    * Normalized the bundle.
    *
    * @param bundleHash The bundle hash.
-   * @return normalizedBundle A normalized bundle hash.
+   * @return A normalized bundle hash.
    */
   std::vector<int8_t> normalizedBundle(const Types::Trytes& bundleHash);
 
@@ -161,6 +161,9 @@ private:
    */
   std::vector<Models::Transaction> transactions_;
 
+  /**
+   * Hash corresponding to this bundle of transactions.
+   */
   Types::Trytes hash_;
 };
 
