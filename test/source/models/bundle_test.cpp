@@ -216,15 +216,36 @@ TEST(Bundle, GtOperator) {
 //! Output is a valid bundle hash
 //!
 
+class BundleWithPublicGenerateHash : public IOTA::Models::Bundle {
+public:
+  void generateHash() {
+    IOTA::Models::Bundle::generateHash();
+  }
+};
+
 TEST(Bundle, Finalize) {
-  IOTA::Models::Bundle b;
+  BundleWithPublicGenerateHash b;
 
   b.addTransaction(IOTA::Models::Transaction(BUNDLE_1_TRX_1_TRYTES));
   b.addTransaction(IOTA::Models::Transaction(BUNDLE_1_TRX_2_TRYTES));
   b.addTransaction(IOTA::Models::Transaction(BUNDLE_1_TRX_3_TRYTES));
   b.addTransaction(IOTA::Models::Transaction(BUNDLE_1_TRX_4_TRYTES));
 
+  b.getTransactions()[0].setObsoleteTag(b.getTransactions()[0].getTag());
+
+  b.generateHash();
+
+  auto hash           = b.getHash();
+  auto normalizedHash = b.normalizedBundle(hash);
+  EXPECT_NE(std::find(std::begin(normalizedHash), std::end(normalizedHash), 13),
+            std::end(normalizedHash));
+
   b.finalize();
+
+  hash           = b.getHash();
+  normalizedHash = b.normalizedBundle(hash);
+  EXPECT_EQ(std::find(std::begin(normalizedHash), std::end(normalizedHash), 13),
+            std::end(normalizedHash));
 
   for (const auto& trx : b.getTransactions()) {
     EXPECT_EQ(trx.getBundle(), BUNDLE_1_HASH);
