@@ -28,12 +28,14 @@
 #
 if (NOT WIN32)
 
-  if (ARCH EQUAL "64")
-    # 64 bits
-    set (KECCAK_TARGET "generic64")
-  else ()
-    # 32 bits
-    set (KECCAK_TARGET "generic32")
+  if (NOT KECCAK_ARCH_OPTIMIZATION)
+    if (ARCH EQUAL "64")
+      # 64 bits
+      set (KECCAK_ARCH_OPTIMIZATION "generic64")
+    else ()
+      # 32 bits
+      set (KECCAK_ARCH_OPTIMIZATION "generic32")
+    endif ()
   endif ()
 
   ExternalProject_Add("keccak_dep"
@@ -41,12 +43,12 @@ if (NOT WIN32)
                       SOURCE_DIR "${CMAKE_SOURCE_DIR}/external/keccak"
                       CONFIGURE_COMMAND ""
                       UPDATE_COMMAND ""
-                      BUILD_COMMAND cd ${CMAKE_SOURCE_DIR}/external/keccak && make ${KECCAK_TARGET}/libkeccak.a
+                      BUILD_COMMAND cd ${CMAKE_SOURCE_DIR}/external/keccak && make ${KECCAK_ARCH_OPTIMIZATION}/libkeccak.a
                       INSTALL_COMMAND mkdir -p ${CMAKE_SOURCE_DIR}/deps/lib &&
                                       mkdir -p ${CMAKE_SOURCE_DIR}/deps/lib &&
                                       cd ${CMAKE_SOURCE_DIR}/external/keccak &&
-                                      cp bin/${KECCAK_TARGET}/libkeccak.a ${CMAKE_SOURCE_DIR}/deps/lib &&
-                                      cp -a bin/${KECCAK_TARGET}/libkeccak.a.headers/ ${CMAKE_SOURCE_DIR}/deps/include)
+                                      cp bin/${KECCAK_ARCH_OPTIMIZATION}/libkeccak.a ${CMAKE_SOURCE_DIR}/deps/lib &&
+                                      cp -a bin/${KECCAK_ARCH_OPTIMIZATION}/libkeccak.a.headers/ ${CMAKE_SOURCE_DIR}/deps/include)
 
   target_link_libraries(${CMAKE_PROJECT_NAME} keccak)
   add_dependencies(${CMAKE_PROJECT_NAME} keccak_dep)

@@ -23,10 +23,12 @@
 #
 #
 
-if (CMAKE_SIZEOF_VOID_P EQUAL 8)
-  # 64 bits
-  set (ARCH "64")
-elseif (CMAKE_SIZEOF_VOID_P EQUAL 4)
-  # 32 bits
-  set (ARCH "32")
+if (NOT ARCH)
+  if (CMAKE_SIZEOF_VOID_P EQUAL 8)
+    # 64 bits
+    set (ARCH "64")
+  elseif (CMAKE_SIZEOF_VOID_P EQUAL 4)
+    # 32 bits
+    set (ARCH "32")
+  endif ()
 endif ()
