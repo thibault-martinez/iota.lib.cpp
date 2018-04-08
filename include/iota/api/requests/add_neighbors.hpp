@@ -27,6 +27,8 @@
 
 #include <iota/api/requests/base.hpp>
 
+#include <vector>
+
 namespace IOTA {
 
 namespace API {
@@ -60,7 +62,7 @@ public:
    *
    * @param data where to store serialisation.
    */
-  void serialize(json& data) const override;
+  void serialize(Utils::json& data) const override;
 
 public:
   /**

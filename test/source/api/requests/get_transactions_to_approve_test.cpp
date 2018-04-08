@@ -26,6 +26,7 @@
 #include <gtest/gtest.h>
 
 #include <iota/api/requests/get_transactions_to_approve.hpp>
+#include <iota/utils/json.hpp>
 
 TEST(GetTransactionToApproveRequest, Ctor) {
   const IOTA::API::Requests::GetTransactionsToApprove req{};
@@ -49,10 +50,10 @@ TEST(GetTransactionToApproveRequest, SetDepth) {
 
 TEST(GetTransactionToApproveRequest, SerializeShouldInitJson) {
   const IOTA::API::Requests::GetTransactionsToApprove req{ 42 };
-  json                                                data;
+  IOTA::Utils::json                                   data;
 
   req.serialize(data);
 
-  EXPECT_EQ(data["command"].get<std::string>(), "getTransactionsToApprove");
-  EXPECT_EQ(data["depth"], 42);
+  EXPECT_EQ(data.getString("command"), "getTransactionsToApprove");
+  EXPECT_EQ(data.getInt("depth"), 42);
 }

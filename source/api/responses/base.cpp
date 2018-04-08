@@ -34,14 +34,14 @@ namespace Responses {
 Base::Base(const int64_t& duration) : duration_(duration) {
 }
 
-Base::Base(const json& res) {
+Base::Base(const Utils::json& res) {
   deserialize(res);
 }
 
 void
-Base::deserialize(const json& res) {
-  if (res.count("duration")) {
-    duration_ = res.at("duration").get<long>();
+Base::deserialize(const Utils::json& res) {
+  if (res.has("duration")) {
+    duration_ = res.getInt("duration");
   }
 }
 

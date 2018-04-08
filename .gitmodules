@@ -10,3 +10,6 @@
 [submodule "external/keccak"]
 	path = external/keccak
 	url = https://github.com/gvanas/KeccakCodePackage
+[submodule "external/rapidjson"]
+	path = external/rapidjson
+	url = https://github.com/Tencent/rapidjson

@@ -27,6 +27,7 @@
 
 #include <iota/api/responses/get_neighbors.hpp>
 #include <iota/models/neighbor.hpp>
+#include <iota/utils/json.hpp>
 
 TEST(GetNeighborsResponse, CtorShouldInitFields) {
   const IOTA::API::Responses::GetNeighbors res{ std::vector<IOTA::Models::Neighbor>(
@@ -79,14 +80,14 @@ TEST(GetNeighborsResponse, SetNeighbors) {
 
 TEST(GetNeighborsResponse, DeserializeShouldSetFields) {
   IOTA::API::Responses::GetNeighbors res;
-  json                               data;
-  json                               neighbor;
+  IOTA::Utils::json                  data;
+  IOTA::Utils::json                  neighbor;
 
-  neighbor["address"]                     = "addr1";
-  neighbor["numberOfAllTransactions"]     = 1;
-  neighbor["numberOfInvalidTransactions"] = 2;
-  neighbor["numberOfNewTransactions"]     = 3;
-  data["neighbors"]                       = std::vector<json>{ neighbor };
+  neighbor.set("address", "addr1");
+  neighbor.set("numberOfAllTransactions", 1);
+  neighbor.set("numberOfInvalidTransactions", 2);
+  neighbor.set("numberOfNewTransactions", 3);
+  data.set("neighbors", std::vector<IOTA::Utils::json>{ neighbor });
 
   res.deserialize(data);
 

@@ -36,9 +36,10 @@ StoreTransactions::StoreTransactions(const std::vector<Types::Trytes>& trytes)
 }
 
 void
-StoreTransactions::serialize(json& data) const {
+StoreTransactions::serialize(Utils::json& data) const {
   Base::serialize(data);
-  data["trytes"] = trytes_;
+
+  data.set("trytes", trytes_);
 }
 
 const std::vector<Types::Trytes>&

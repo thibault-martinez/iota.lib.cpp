@@ -35,30 +35,31 @@ namespace Responses {
 GetNeighbors::GetNeighbors(const std::vector<Models::Neighbor>& neighbors) : neighbors_(neighbors) {
 }
 
-GetNeighbors::GetNeighbors(const json& res) {
+GetNeighbors::GetNeighbors(const Utils::json& res) {
   deserialize(res);
 }
 
 void
-GetNeighbors::deserialize(const json& res) {
+GetNeighbors::deserialize(const Utils::json& res) {
   Base::deserialize(res);
-  for (const auto& neighbor : res["neighbors"]) {
+
+  for (const auto& neighbor : res.getJsonVector("neighbors")) {
     Models::Neighbor obj;
 
-    if (neighbor.count("address")) {
-      obj.setAddress(neighbor.at("address").get<Types::Trytes>());
+    if (neighbor.has("address")) {
+      obj.setAddress(neighbor.getString("address"));
     }
 
-    if (neighbor.count("numberOfAllTransactions")) {
-      obj.setNumberOfAllTransactions(neighbor.at("numberOfAllTransactions").get<int64_t>());
+    if (neighbor.has("numberOfAllTransactions")) {
+      obj.setNumberOfAllTransactions(neighbor.getInt("numberOfAllTransactions"));
     }
 
-    if (neighbor.count("numberOfInvalidTransactions")) {
-      obj.setNumberOfInvalidTransactions(neighbor.at("numberOfInvalidTransactions").get<int64_t>());
+    if (neighbor.has("numberOfInvalidTransactions")) {
+      obj.setNumberOfInvalidTransactions(neighbor.getInt("numberOfInvalidTransactions"));
     }
 
-    if (neighbor.count("numberOfNewTransactions")) {
-      obj.setNumberOfNewTransactions(neighbor.at("numberOfNewTransactions").get<int64_t>());
+    if (neighbor.has("numberOfNewTransactions")) {
+      obj.setNumberOfNewTransactions(neighbor.getInt("numberOfNewTransactions"));
     }
 
     neighbors_.push_back(std::move(obj));

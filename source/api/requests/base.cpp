@@ -35,8 +35,8 @@ Base::Base(const std::string& command) : command_(command) {
 }
 
 void
-Base::serialize(json& data) const {
-  data = json{ { "command", command_ } };
+Base::serialize(Utils::json& data) const {
+  data.set("command", command_);
 }
 
 const std::string&

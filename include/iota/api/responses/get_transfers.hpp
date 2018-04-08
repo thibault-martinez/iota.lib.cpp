@@ -28,6 +28,8 @@
 #include <iota/api/responses/base.hpp>
 #include <iota/models/fwd.hpp>
 
+#include <vector>
+
 namespace IOTA {
 
 namespace API {

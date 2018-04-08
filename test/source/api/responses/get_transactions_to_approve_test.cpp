@@ -26,6 +26,7 @@
 #include <gtest/gtest.h>
 
 #include <iota/api/responses/get_transactions_to_approve.hpp>
+#include <iota/utils/json.hpp>
 
 TEST(GetTransactionsToApproveResponse, CtorShouldInitFields) {
   const IOTA::API::Responses::GetTransactionsToApprove res{ "TESTA", "TESTB" };
@@ -47,10 +48,10 @@ TEST(GetTransactionsToApproveResponse, Setters) {
 
 TEST(GetTransactionsToApproveResponse, DeserializeShouldSetFields) {
   IOTA::API::Responses::GetTransactionsToApprove res;
-  json                                           data;
+  IOTA::Utils::json                              data;
 
-  data["trunkTransaction"]  = "TEST1";
-  data["branchTransaction"] = "TEST2";
+  data.set("trunkTransaction", "TEST1");
+  data.set("branchTransaction", "TEST2");
   res.deserialize(data);
 
   EXPECT_EQ(res.getTrunkTransaction(), "TEST1");

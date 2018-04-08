@@ -36,13 +36,12 @@ GetBalances::GetBalances(const std::vector<Models::Address>& addresses, const in
 }
 
 void
-GetBalances::serialize(json& data) const {
+GetBalances::serialize(Utils::json& data) const {
   Base::serialize(data);
 
-  for (auto& address : addresses_) {
-    data["addresses"].emplace_back(address.toTrytes());
-  }
-  data["threshold"] = threshold_;
+  data.set<Models::Address>("addresses", addresses_,
+                            [](const Models::Address& addr) { return addr.toTrytes(); });
+  data.set("threshold", threshold_);
 }
 
 const std::vector<Models::Address>&

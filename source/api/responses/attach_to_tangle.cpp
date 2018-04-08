@@ -34,16 +34,16 @@ namespace Responses {
 AttachToTangle::AttachToTangle(const std::vector<Types::Trytes>& trytes) : trytes_(trytes) {
 }
 
-AttachToTangle::AttachToTangle(const json& res) {
+AttachToTangle::AttachToTangle(const Utils::json& res) {
   deserialize(res);
 }
 
 void
-AttachToTangle::deserialize(const json& res) {
+AttachToTangle::deserialize(const Utils::json& res) {
   Base::deserialize(res);
 
-  if (res.count("trytes")) {
-    trytes_ = res.at("trytes").get<std::vector<Types::Trytes>>();
+  if (res.has("trytes")) {
+    trytes_ = res.getStringVector("trytes");
   }
 }
 

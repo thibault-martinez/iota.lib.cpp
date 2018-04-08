@@ -26,6 +26,7 @@
 #include <gtest/gtest.h>
 
 #include <iota/api/responses/get_tips.hpp>
+#include <iota/utils/json.hpp>
 
 TEST(GetTipsResponse, CtorShouldInitFields) {
   const IOTA::API::Responses::GetTips res{ std::vector<IOTA::Types::Trytes>({ "TESTA", "TESTB" }) };
@@ -56,11 +57,11 @@ TEST(GetTipsResponse, SetHashes) {
 
 TEST(GetTipsResponse, DeserializeShouldSetFields) {
   IOTA::API::Responses::GetTips    res;
-  json                             data;
+  IOTA::Utils::json                data;
   std::vector<IOTA::Types::Trytes> hashes;
 
   hashes.push_back("TEST");
-  data["hashes"] = hashes;
+  data.set("hashes", hashes);
   res.deserialize(data);
   EXPECT_EQ(res.getHashes(), hashes);
 }

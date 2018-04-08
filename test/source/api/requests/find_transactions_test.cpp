@@ -26,6 +26,7 @@
 #include <gtest/gtest.h>
 
 #include <iota/api/requests/find_transactions.hpp>
+#include <iota/utils/json.hpp>
 #include <test/utils/constants.hpp>
 
 TEST(FindTransactionsRequest, CtorShouldInitFields) {
@@ -173,16 +174,19 @@ TEST(FindTransactionsRequest, SerializeShouldInitJson) {
                                                    { { "TAGONE" }, { "TAGTWO" } },
                                                    { "approvee1", "approvee2" },
                                                    { "bundle1", "bundle2" } };
-  json                                        data;
+  IOTA::Utils::json                           data;
 
   req.serialize(data);
 
-  EXPECT_EQ(data["command"].get<std::string>(), "findTransactions");
-  EXPECT_EQ(data["addresses"],
+  EXPECT_EQ(data.getString("command"), "findTransactions");
+  EXPECT_EQ(data.getStringVector("addresses"),
             std::vector<IOTA::Types::Trytes>({ ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
                                                ACCOUNT_1_ADDRESS_2_HASH_WITHOUT_CHECKSUM }));
-  EXPECT_EQ(data["tags"], std::vector<IOTA::Types::Trytes>(
-                              { "TAGONE999999999999999999999", "TAGTWO999999999999999999999" }));
-  EXPECT_EQ(data["approvees"], std::vector<IOTA::Types::Trytes>({ "approvee1", "approvee2" }));
-  EXPECT_EQ(data["bundles"], std::vector<IOTA::Types::Trytes>({ "bundle1", "bundle2" }));
+  EXPECT_EQ(data.getStringVector("tags"),
+            std::vector<IOTA::Types::Trytes>(
+                { "TAGONE999999999999999999999", "TAGTWO999999999999999999999" }));
+  EXPECT_EQ(data.getStringVector("approvees"),
+            std::vector<IOTA::Types::Trytes>({ "approvee1", "approvee2" }));
+  EXPECT_EQ(data.getStringVector("bundles"),
+            std::vector<IOTA::Types::Trytes>({ "bundle1", "bundle2" }));
 }

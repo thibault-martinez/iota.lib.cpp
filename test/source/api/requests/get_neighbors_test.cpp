@@ -26,12 +26,13 @@
 #include <gtest/gtest.h>
 
 #include <iota/api/requests/get_neighbors.hpp>
+#include <iota/utils/json.hpp>
 
 TEST(GetNeighborsRequest, SerializeShouldInitJson) {
   const IOTA::API::Requests::GetNeighbors req;
-  json                                    data;
+  IOTA::Utils::json                       data;
 
   req.serialize(data);
 
-  EXPECT_EQ(data["command"].get<std::string>(), "getNeighbors");
+  EXPECT_EQ(data.getString("command"), "getNeighbors");
 }

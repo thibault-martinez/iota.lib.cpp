@@ -36,9 +36,10 @@ AddNeighbors::AddNeighbors(const std::vector<std::string>& uris)
 }
 
 void
-AddNeighbors::serialize(json& data) const {
+AddNeighbors::serialize(Utils::json& data) const {
   Base::serialize(data);
-  data["uris"] = uris_;
+
+  data.set("uris", uris_);
 }
 
 const std::vector<std::string>&

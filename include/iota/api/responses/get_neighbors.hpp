@@ -28,6 +28,8 @@
 #include <iota/api/responses/base.hpp>
 #include <iota/models/fwd.hpp>
 
+#include <vector>
+
 namespace IOTA {
 
 namespace API {
@@ -56,7 +58,7 @@ public:
    *
    * @param res json to be used for deserialization.
    */
-  explicit GetNeighbors(const json& res);
+  explicit GetNeighbors(const Utils::json& res);
 
   /**
    * Default dtor.
@@ -69,7 +71,7 @@ public:
    *
    * @param res json data to be used for deserialization.
    */
-  void deserialize(const json& res) override;
+  void deserialize(const Utils::json& res) override;
 
 public:
   /**

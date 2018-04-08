@@ -25,9 +25,9 @@
 
 #pragma once
 
-#include <json.hpp>
+#include <string>
 
-using json = nlohmann::json;
+#include <iota/utils/json.hpp>
 
 namespace IOTA {
 
@@ -58,7 +58,7 @@ public:
    *
    * @param data where to store serialisation.
    */
-  virtual void serialize(json& data) const;
+  virtual void serialize(Utils::json& data) const;
 
 public:
   /**

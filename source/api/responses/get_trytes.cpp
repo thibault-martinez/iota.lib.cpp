@@ -34,16 +34,16 @@ namespace Responses {
 GetTrytes::GetTrytes(const std::vector<Types::Trytes>& trytes) : trytes_(trytes) {
 }
 
-GetTrytes::GetTrytes(const json& res) {
+GetTrytes::GetTrytes(const Utils::json& res) {
   deserialize(res);
 }
 
 void
-GetTrytes::deserialize(const json& res) {
+GetTrytes::deserialize(const Utils::json& res) {
   Base::deserialize(res);
 
-  if (res.count("trytes")) {
-    trytes_ = res.at("trytes").get<std::vector<Types::Trytes>>();
+  if (res.has("trytes")) {
+    trytes_ = res.getStringVector("trytes");
   }
 }
 

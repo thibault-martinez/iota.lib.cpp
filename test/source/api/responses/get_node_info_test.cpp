@@ -26,6 +26,7 @@
 #include <gtest/gtest.h>
 
 #include <iota/api/responses/get_node_info.hpp>
+#include <iota/utils/json.hpp>
 
 TEST(GetNodeInfoResponse, CtorShouldInitFields) {
   const IOTA::API::Responses::GetNodeInfo res{
@@ -443,23 +444,23 @@ TEST(GetNodeInfoResponse, SetTransactionsToRequest) {
 
 TEST(GetNodeInfoResponse, DeserializeShouldSetFields) {
   IOTA::API::Responses::GetNodeInfo res;
-  json                              data;
+  IOTA::Utils::json                 data;
 
-  data["appName"]                            = "appname";
-  data["appVersion"]                         = "appversion";
-  data["jreAvailableProcessors"]             = 1;
-  data["jreFreeMemory"]                      = 2;
-  data["jreMaxMemory"]                       = 3;
-  data["jreTotalMemory"]                     = 4;
-  data["latestMilestone"]                    = "milestone";
-  data["latestMilestoneIndex"]               = 5;
-  data["latestSolidSubtangleMilestone"]      = "submilestone";
-  data["latestSolidSubtangleMilestoneIndex"] = 6;
-  data["neighbors"]                          = 7;
-  data["packetsQueueSize"]                   = 8;
-  data["time"]                               = 9;
-  data["tips"]                               = 10;
-  data["transactionsToRequest"]              = 11;
+  data.set("appName", "appname");
+  data.set("appVersion", "appversion");
+  data.set("jreAvailableProcessors", 1);
+  data.set("jreFreeMemory", 2);
+  data.set("jreMaxMemory", 3);
+  data.set("jreTotalMemory", 4);
+  data.set("latestMilestone", "milestone");
+  data.set("latestMilestoneIndex", 5);
+  data.set("latestSolidSubtangleMilestone", "submilestone");
+  data.set("latestSolidSubtangleMilestoneIndex", 6);
+  data.set("neighbors", 7);
+  data.set("packetsQueueSize", 8);
+  data.set("time", 9);
+  data.set("tips", 10);
+  data.set("transactionsToRequest", 11);
 
   res.deserialize(data);
 

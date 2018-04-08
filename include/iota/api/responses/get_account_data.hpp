@@ -29,6 +29,8 @@
 #include <iota/models/fwd.hpp>
 #include <iota/types/trytes.hpp>
 
+#include <vector>
+
 namespace IOTA {
 
 namespace API {

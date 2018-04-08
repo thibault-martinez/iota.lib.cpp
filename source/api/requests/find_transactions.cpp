@@ -43,27 +43,25 @@ FindTransactions::FindTransactions(const std::vector<Models::Address>& addresses
 }
 
 void
-FindTransactions::serialize(json& data) const {
+FindTransactions::serialize(Utils::json& data) const {
   Base::serialize(data);
 
   if (!addresses_.empty()) {
-    for (auto& address : addresses_) {
-      data["addresses"].emplace_back(address.toTrytes());
-    }
+    data.set<Models::Address>("addresses", addresses_,
+                              [](const Models::Address& addr) { return addr.toTrytes(); });
   }
 
   if (!tags_.empty()) {
-    for (const auto& tag : tags_) {
-      data["tags"].emplace_back(tag.toTrytesWithPadding());
-    }
+    data.set<Models::Tag>("tags", tags_,
+                          [](const Models::Tag& tag) { return tag.toTrytesWithPadding(); });
   }
 
   if (!approvees_.empty()) {
-    data["approvees"] = approvees_;
+    data.set("approvees", approvees_);
   }
 
   if (!bundles_.empty()) {
-    data["bundles"] = bundles_;
+    data.set("bundles", bundles_);
   }
 }
 

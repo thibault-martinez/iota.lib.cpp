@@ -34,16 +34,16 @@ namespace Responses {
 GetTips::GetTips(const std::vector<Types::Trytes>& hashes) : hashes_(hashes) {
 }
 
-GetTips::GetTips(const json& res) {
+GetTips::GetTips(const Utils::json& res) {
   deserialize(res);
 }
 
 void
-GetTips::deserialize(const json& res) {
+GetTips::deserialize(const Utils::json& res) {
   Base::deserialize(res);
 
-  if (res.count("hashes")) {
-    hashes_ = res.at("hashes").get<std::vector<Types::Trytes>>();
+  if (res.has("hashes")) {
+    hashes_ = res.getStringVector("hashes");
   }
 }
 

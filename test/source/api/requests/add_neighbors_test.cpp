@@ -26,6 +26,7 @@
 #include <gtest/gtest.h>
 
 #include <iota/api/requests/add_neighbors.hpp>
+#include <iota/utils/json.hpp>
 
 TEST(AddNeighborsRequest, CtorShouldInitFields) {
   const IOTA::API::Requests::AddNeighbors req{ { "uri1", "uri2" } };
@@ -51,10 +52,10 @@ TEST(AddNeighborsRequest, SetUris) {
 
 TEST(AddNeighborsRequest, SerializeShouldInitJson) {
   const IOTA::API::Requests::AddNeighbors req{ { "uri1", "uri2" } };
-  json                                    data;
+  IOTA::Utils::json                       data;
 
   req.serialize(data);
 
-  EXPECT_EQ(data["command"].get<std::string>(), "addNeighbors");
-  EXPECT_EQ(data["uris"], std::vector<std::string>({ "uri1", "uri2" }));
+  EXPECT_EQ(data.getString("command"), "addNeighbors");
+  EXPECT_EQ(data.getStringVector("uris"), std::vector<std::string>({ "uri1", "uri2" }));
 }

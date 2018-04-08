@@ -26,6 +26,7 @@
 #include <gtest/gtest.h>
 
 #include <iota/api/responses/remove_neighbors.hpp>
+#include <iota/utils/json.hpp>
 
 TEST(RemoveNeighborsResponse, DefaultCtorShouldInitFields) {
   const IOTA::API::Responses::RemoveNeighbors res{};
@@ -52,9 +53,9 @@ TEST(RemoveNeighborsResponse, SetRemovedNeighbors) {
 
 TEST(RemoveNeighborsResponse, DeserializeShouldSetFields) {
   IOTA::API::Responses::RemoveNeighbors res;
-  json                                  data;
+  IOTA::Utils::json                     data;
 
-  data["removedNeighbors"] = 42;
+  data.set("removedNeighbors", 42);
   res.deserialize(data);
   EXPECT_EQ(res.getRemovedNeighbors(), 42);
 }
