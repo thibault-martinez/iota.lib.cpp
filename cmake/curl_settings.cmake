@@ -22,6 +22,9 @@
 # SOFTWARE.
 #
 #
+
+find_package(OpenSSL REQUIRED)
+
 ExternalProject_Add("curl_dep"
                     GIT_SUBMODULES ""
                     CMAKE_ARGS "-DBUILD_CURL_EXE=OFF"
