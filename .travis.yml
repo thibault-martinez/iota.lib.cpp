@@ -57,6 +57,11 @@ matrix:
       osx_image: xcode8
       env: MATRIX_EVAL="brew install gcc && CC=gcc-7 && CXX=g++-7 && CMAKE_BUILD_TYPE=Release"
 
+    # OSX x Gcc 7 x Release x m32
+    - os: osx
+      osx_image: xcode8
+      env: MATRIX_EVAL="brew install gcc && CC=gcc-7 && CXX=g++-7 && CMAKE_BUILD_TYPE=Release && M32=1"
+
     # OSX x Clang xcode 6.4 x Release
     - os: osx
       osx_image: xcode6.4
@@ -91,6 +96,11 @@ matrix:
     - os: osx
       osx_image: xcode9.2
       env: MATRIX_EVAL="CC=clang && CXX=clang++ && CMAKE_BUILD_TYPE=Release"
+
+    # OSX x Calng xcode 9.2 x Release x m32
+    - os: osx
+      osx_image: xcode9.2
+      env: MATRIX_EVAL="CC=clang && CXX=clang++ && CMAKE_BUILD_TYPE=Release && M32=1"
 
     # Linux x Gcc 4.9 x Release
     - os: linux
@@ -127,6 +137,15 @@ matrix:
           sources: ['ubuntu-toolchain-r-test']
           packages: ['g++-7']
       env: MATRIX_EVAL="CC=gcc-7 && CXX=g++-7 && CMAKE_BUILD_TYPE=Release"
+
+    # Linux x Gcc 7 x Release x m32
+    - os: linux
+      compiler: gcc
+      addons:
+        apt:
+          sources: ['ubuntu-toolchain-r-test']
+          packages: ['g++-7']
+      env: MATRIX_EVAL="CC=gcc-7 && CXX=g++-7 && CMAKE_BUILD_TYPE=Release && M32=1"
 
     # Linux x Clang 3.5 x Release
     - os: linux
@@ -190,6 +209,15 @@ matrix:
           sources: ['ubuntu-toolchain-r-test', 'llvm-toolchain-trusty-5.0']
           packages: ['g++-6', 'clang-5.0']
       env: MATRIX_EVAL="CC=clang-5.0 && CXX=clang++-5.0 && CMAKE_BUILD_TYPE=Release"
+
+    # Linux x Clang 5.0 x Release x m32
+    - os: linux
+      compiler: clang
+      addons:
+        apt:
+          sources: ['ubuntu-toolchain-r-test', 'llvm-toolchain-trusty-5.0']
+          packages: ['g++-6', 'clang-5.0']
+      env: MATRIX_EVAL="CC=clang-5.0 && CXX=clang++-5.0 && CMAKE_BUILD_TYPE=Release && M32=1"
 
     # OSX x Clang xcode 9.2 x Cppcheck
     - os: osx
@@ -296,7 +324,8 @@ before_script:
 script:
   - mkdir -p build
   - cd build
-  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then cmake -DOPENSSL_ROOT_DIR=/usr/local/opt/openssl/ -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -DBUILD_TESTS=1 ..; fi
-  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then cmake -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -DBUILD_TESTS=1 ..; fi
+  - cmake -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -DBUILD_TESTS=1 ..
+  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then cmake -DOPENSSL_ROOT_DIR=/usr/local/opt/openssl/ ..; fi
+  - if [ "$M32" == "1" ]; then cmake -DCMAKE_CXX_FLAGS="-m32" ..; fi
   - make
   - GTEST_COLOR=1 ctest -VV
