@@ -33,6 +33,8 @@ ExternalProject_Add("cpr_dep"
                     CMAKE_ARGS "-Wno-dev"
                     CMAKE_ARGS "-DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}"
                     CMAKE_ARGS "-DCMAKE_PREFIX_PATH=${CMAKE_SOURCE_DIR}/deps"
+                    CMAKE_ARGS "-DCMAKE_C_FLAGS=${FORWARD_FLAGS}"
+                    CMAKE_ARGS "-DCMAKE_CXX_FLAGS=${FORWARD_FLAGS}"
                     INSTALL_COMMAND cmake -E echo "Skipping install step."
                     SOURCE_DIR "${CMAKE_SOURCE_DIR}/external/cpr")
 
