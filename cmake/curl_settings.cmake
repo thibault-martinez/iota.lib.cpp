@@ -33,6 +33,8 @@ ExternalProject_Add("curl_dep"
                     CMAKE_ARGS "-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=${CMAKE_SOURCE_DIR}/deps/lib"
                     CMAKE_ARGS "-Wno-dev"
                     CMAKE_ARGS "-DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}"
+                    CMAKE_ARGS "-DCMAKE_C_FLAGS=${FORWARD_FLAGS}"
+                    CMAKE_ARGS "-DCMAKE_CXX_FLAGS=${FORWARD_FLAGS}"
                     SOURCE_DIR "${CMAKE_SOURCE_DIR}/external/curl")
 
 include_directories(${CMAKE_SOURCE_DIR}/external/cpr/include)
