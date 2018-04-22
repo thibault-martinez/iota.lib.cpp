@@ -69,9 +69,9 @@ TEST(Multisigning, Basic) {
 
   IOTA::Models::Transfer tf{ ACCOUNT_5_ADDRESS_1_HASH, 1, "", IOTA::EmptyTag };
 
-  msa.setSecurity(6);  // TODO automaticcaly set security
-
   auto txs = api.initiateTransfer(msa, msa.toTrytes(), { tf });
+
+  EXPECT_EQ(txs.size(), 8UL);
 
   IOTA::Models::Bundle bundle(txs);
 

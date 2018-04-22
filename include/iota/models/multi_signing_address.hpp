@@ -41,7 +41,31 @@ namespace Models {
 class MultiSigningAddress : public Address {
 public:
   /**
+   * Ctor.
+   *
+   * @param address the address value. It must be a valid address. Checksum can be included.
+   * @param balance The balance associated of the address.
+   * @param keyIndex The key index of the address.
+   * @param security The security level of the address.
+   */
+  MultiSigningAddress(const Types::Trytes& address = "", const int64_t& balance = 0,
+                      const int32_t& keyIndex = 0, const int32_t& security = 0);
+
+  /**
+   * Ctor, char* based to make implicitly convertion to Address more flexible.
+   *
+   * @param address the address value. It must be a valid address. Checksum can be included.
+   * @param balance The balance associated of the address.
+   * @param keyIndex The key index of the address.
+   * @param security The security level of the address.
+   */
+  MultiSigningAddress(const char* address, const int64_t& balance = 0, const int32_t& keyIndex = 0,
+                      const int32_t& security = 0);
+
+public:
+  /**
    * Absorbs key digests
+   * Increments security according to digests.
    *
    * @param digests The key digests in bytes.
    **/

@@ -31,8 +31,22 @@ namespace IOTA {
 
 namespace Models {
 
+MultiSigningAddress::MultiSigningAddress(const Types::Trytes& address, const int64_t& balance,
+                                         const int32_t& keyIndex, const int32_t& security) {
+  setAddress(address);
+  setSecurity(security);
+  balance_  = balance;
+  keyIndex_ = keyIndex;
+}
+
+MultiSigningAddress::MultiSigningAddress(const char* address, const int64_t& balance,
+                                         const int32_t& keyIndex, const int32_t& security)
+    : MultiSigningAddress(Types::Trytes(address), balance, keyIndex, security) {
+}
+
 void
 MultiSigningAddress::absorbDigests(const std::vector<uint8_t>& digests) {
+  security_ += digests.size() / ByteHashLength;
   k_.absorb(digests);
 }
 
@@ -61,7 +75,7 @@ MultiSigningAddress::validate(const std::vector<std::vector<uint8_t>> digests) {
 void
 MultiSigningAddress::setSecurity(const int32_t& security) {
   //! Validate the security level
-  if (security < 1) {
+  if (security < 0) {
     throw Errors::IllegalState("Invalid Security Level");
   }
   security_ = security;
