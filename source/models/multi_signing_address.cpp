@@ -1,0 +1,58 @@
+//
+// MIT License
+//
+// Copyright (c) 2017-2018 Thibault Martinez and Simon Ninon
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+//
+//
+
+#include <iota/constants.hpp>
+#include <iota/errors/illegal_state.hpp>
+#include <iota/models/multi_signing_address.hpp>
+
+namespace IOTA {
+
+namespace Models {
+
+void
+MultiSigningAddress::absorbDigest(const std::vector<uint8_t>& digest) {
+  k_.absorb(digest);
+}
+
+void
+MultiSigningAddress::finalize() {
+  std::vector<uint8_t> addressBytes(ByteHashLength);
+
+  k_.squeeze(addressBytes);
+  setAddress(IOTA::Types::bytesToTrytes(addressBytes));
+}
+
+void
+MultiSigningAddress::setSecurity(const int32_t& security) {
+  //! Validate the security level
+  if (security < 1) {
+    throw Errors::IllegalState("Invalid Security Level");
+  }
+  security_ = security;
+}
+
+}  // namespace Models
+
+}  // namespace IOTA

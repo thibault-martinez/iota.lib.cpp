@@ -180,7 +180,7 @@ public:
    */
   bool operator!=(const Types::Trytes& rhs) const;
 
-private:
+protected:
   /**
    * address value without checksum
    */
