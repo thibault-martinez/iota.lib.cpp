@@ -32,12 +32,39 @@ namespace IOTA {
 
 namespace Models {
 
+/**
+ * Used to store multi signing addresses.
+ * Provides validity checks at construction / value set.
+ * Provides checksum generation.
+ * Any multi signing addresses stored represented with this class are ensured to be valid.
+ */
 class MultiSigningAddress : public Address {
 public:
-  void absorbDigest(const std::vector<uint8_t>& digest);
+  /**
+   * Absorbs key digests
+   *
+   * @param digests The key digests in bytes.
+   **/
+  void absorbDigests(const std::vector<uint8_t>& digests);
+
+  /**
+   * Finalizes and set the multisig address.
+   **/
   void finalize();
 
+  /**
+   * Validates a generated multisig address.
+   *
+   * @param digests The keys digests.
+   *
+   * @return whether the multisig address is valid or not.
+   **/
+  bool validate(const std::vector<std::vector<uint8_t>> digests);
+
 public:
+  /**
+   * Set the security level of the address.
+   */
   void setSecurity(const int32_t& security);
 
 private:

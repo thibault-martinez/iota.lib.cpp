@@ -35,8 +35,6 @@ namespace IOTA {
 
 namespace Models {
 
-// TODO operator []
-
 Bundle::Bundle(const std::vector<Models::Transaction>& transactions) : transactions_(transactions) {
   if (!empty()) {
     hash_ = getTransactions()[0].getBundle();

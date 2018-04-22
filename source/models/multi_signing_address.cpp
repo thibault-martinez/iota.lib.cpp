@@ -32,8 +32,8 @@ namespace IOTA {
 namespace Models {
 
 void
-MultiSigningAddress::absorbDigest(const std::vector<uint8_t>& digest) {
-  k_.absorb(digest);
+MultiSigningAddress::absorbDigests(const std::vector<uint8_t>& digests) {
+  k_.absorb(digests);
 }
 
 void
@@ -42,6 +42,20 @@ MultiSigningAddress::finalize() {
 
   k_.squeeze(addressBytes);
   setAddress(IOTA::Types::bytesToTrytes(addressBytes));
+}
+
+bool
+MultiSigningAddress::validate(const std::vector<std::vector<uint8_t>> digests) {
+  Crypto::Kerl k;
+
+  for (const auto& digest : digests) {
+    k.absorb(digest);
+  }
+
+  std::vector<uint8_t> addressBytes(ByteHashLength);
+  k.squeeze(addressBytes);
+
+  return IOTA::Types::bytesToTrytes(addressBytes) == address_;
 }
 
 void

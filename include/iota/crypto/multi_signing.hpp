@@ -32,21 +32,48 @@ namespace IOTA {
 namespace Crypto {
 
 /**
- * Multi-signing related functions.
+ * Multi signing related functions.
  */
 namespace MultiSigning {
 
+/**
+ * Derive a private key from a seed.
+ *
+ * @param seedBytes Seed in bytes to be used for address generation.
+ * @param index     The index to start the generation from.
+ * @param security  The security to use for address generation.
+ *
+ * @return The key as bytes.
+ */
 std::vector<uint8_t> key(const std::vector<uint8_t>& seedBytes, uint32_t index, uint32_t security);
 
-std::vector<uint8_t> getDigest(const std::vector<uint8_t>& seedBytes, uint32_t index,
-                               uint32_t security);
+/**
+ * Compute digests from key.
+ *
+ * @param keyBytes The key in bytes.
+ *
+ * @return The digests.
+ */
+std::vector<uint8_t> digests(const std::vector<uint8_t>& keyBytes);
 
-bool validateAddress(const Models::MultiSigningAddress&      msa,
-                     const std::vector<std::vector<uint8_t>> digests);
-
+/**
+ * Adds the cosigner signatures to the corresponding bundle transaction
+ *
+ * @param bundleToSign  Bundle to be signed.
+ * @param inputAddress  Input address.
+ * @param key           Key to sign with.
+ */
 void addSignature(Models::Bundle& bundleToSign, const Models::MultiSigningAddress& inputAddress,
                   const std::vector<uint8_t>& key);
 
+/**
+ * Validate the signature fragment.
+ *
+ * @param signedBundle The bundle.
+ * @param inputAddress The address.
+ *
+ * @return whether the signatures are valid or not.
+ */
 bool validateSignatures(const Models::Bundle&              signedBundle,
                         const Models::MultiSigningAddress& inputAddress);
 

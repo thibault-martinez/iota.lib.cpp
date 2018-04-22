@@ -26,13 +26,11 @@
 #include <gtest/gtest.h>
 
 #include <iota/api/extended.hpp>
-#include <iota/api/responses/send_transfer.hpp>
 #include <iota/constants.hpp>
 #include <iota/crypto/multi_signing.hpp>
 #include <iota/models/bundle.hpp>
 #include <iota/models/multi_signing_address.hpp>
 #include <iota/models/seed.hpp>
-#include <iota/models/transaction.hpp>
 #include <iota/models/transfer.hpp>
 #include <iota/types/trinary.hpp>
 #include <test/utils/configuration.hpp>
@@ -42,46 +40,43 @@ TEST(Multisigning, Basic) {
   IOTA::Models::MultiSigningAddress msa;
   auto                              api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
 
-  auto firstDigest =
-      IOTA::Crypto::MultiSigning::getDigest(IOTA::Types::trytesToBytes(ACCOUNT_1_SEED), 0, 3);
+  auto firstKey = IOTA::Crypto::MultiSigning::key(IOTA::Types::trytesToBytes(ACCOUNT_1_SEED), 0, 3);
+  auto firstDigest = IOTA::Crypto::MultiSigning::digests(firstKey);
   EXPECT_EQ(
       IOTA::Types::bytesToTrytes(firstDigest),
       "GU9ZRLULWQRZWNHBLUYGDNURQXUFPBULCL9IECYWSNNFLNSDRXTUUFVHWKAOBPQBWQABPQGS9HXEVGPFXFIEUIGGEZQK"
       "9NVQNNPUCJIP9UL9HFEHCQF9EUKOFBRDMXTYEVA9PTAQGQWTJSFSPNG9MVCN9WKAUPCMHCPROSOJXGRAVOVKBCLOSDCP"
       "EMZTZEASAOQVT9JSTATWUZRPBXQCRAPMWGKOXBRSGPMUWAYDPYRLUWALURC");
 
-  auto secondDigest =
-      IOTA::Crypto::MultiSigning::getDigest(IOTA::Types::trytesToBytes(ACCOUNT_2_SEED), 0, 3);
+  auto secondKey =
+      IOTA::Crypto::MultiSigning::key(IOTA::Types::trytesToBytes(ACCOUNT_2_SEED), 0, 3);
+  auto secondDigest = IOTA::Crypto::MultiSigning::digests(secondKey);
   EXPECT_EQ(
       IOTA::Types::bytesToTrytes(secondDigest),
       "RBORTXIJFOBZZ9Z9UPMLKMFWFSNIPUDAYCAQOZNHKQ9XRZCZTCCWRJHXAXARSUXCPIHSIEYPPGFGHCADBR9YVOBNQNVE"
       "MVPPSRNZYFSGXSKAKCLYMKJRZJHXRUXUTAYS9YBNKHVVVOANLAMKPPGXSEWQZOVBFQPAZAGNXBMYIUGPDRJMVQGXFZAI"
       "APTLAMPW9BFEHTWEL9UIB9XHVEAGSFATCDYLYLHOAVPCKPNSVVJRGXOYZ9C");
 
-  msa.absorbDigest(firstDigest);
-  msa.absorbDigest(secondDigest);
+  msa.absorbDigests(firstDigest);
+  msa.absorbDigests(secondDigest);
   msa.finalize();
 
+  // TODO add in constants.hpp
   EXPECT_EQ(msa.toTrytes(),
             "IZRSJJABYOJ9ZGMIDQPEYLIORMSJBHLIYVBOCOYG9CKKCCJG99MDZYANLWQFEIBGUA9QJSXXKTACDHSSZ");
 
-  EXPECT_TRUE(IOTA::Crypto::MultiSigning::validateAddress(msa, { firstDigest, secondDigest }));
+  EXPECT_TRUE(msa.validate({ firstDigest, secondDigest }));
 
   IOTA::Models::Transfer tf{ ACCOUNT_5_ADDRESS_1_HASH, 1, "", IOTA::EmptyTag };
 
-  // msa.setBalance(1000);
-  msa.setSecurity(6);  //////////////////TODO
+  msa.setSecurity(6);  // TODO automaticcaly set security
 
   auto txs = api.initiateTransfer(msa, msa.toTrytes(), { tf });
 
   IOTA::Models::Bundle bundle(txs);
 
-  IOTA::Crypto::MultiSigning::addSignature(
-      bundle, msa,
-      IOTA::Crypto::MultiSigning::key(IOTA::Types::trytesToBytes(ACCOUNT_1_SEED), 0, 3));
-  IOTA::Crypto::MultiSigning::addSignature(
-      bundle, msa,
-      IOTA::Crypto::MultiSigning::key(IOTA::Types::trytesToBytes(ACCOUNT_2_SEED), 0, 3));
+  IOTA::Crypto::MultiSigning::addSignature(bundle, msa, firstKey);
+  IOTA::Crypto::MultiSigning::addSignature(bundle, msa, secondKey);
 
   EXPECT_TRUE(IOTA::Crypto::MultiSigning::validateSignatures(bundle, msa));
 }

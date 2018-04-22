@@ -41,7 +41,7 @@ namespace Signing {
 /**
  * Derive a private key from a seed.
  *
- * @param seed      Seed to be used for address generation.
+ * @param seedBytes Seed in bytes to be used for address generation.
  * @param index     The index to start the generation from.
  * @param security  The security to use for address generation.
  *
@@ -53,11 +53,11 @@ std::vector<uint8_t> key(const std::vector<uint8_t>& seedBytes, uint32_t index =
 /**
  * Compute digests from key.
  *
- * @param key The key.
+ * @param keyBytes The key in bytes.
  *
  * @return The digests.
  */
-std::vector<uint8_t> digests(const std::vector<uint8_t>& key);
+std::vector<uint8_t> digests(const std::vector<uint8_t>& keyBytes);
 
 /**
  * Compute address from digests.

@@ -35,71 +35,16 @@ namespace Crypto {
 
 namespace MultiSigning {
 
-/**
- *   Gets the key value of a seed
- *
- *   @method getKey
- *   @param {string} seed
- *   @param {int} index
- *   @param {int} security Security level to be used for the private key / address. Can be 1, 2 or 3
- *   @returns {string} digest trytes
- **/
 std::vector<uint8_t>
 key(const std::vector<uint8_t>& seedBytes, uint32_t index, uint32_t security) {
   return Signing::key(seedBytes, index, security);
 }
 
 std::vector<uint8_t>
-getDigest(const std::vector<uint8_t>& seedBytes, uint32_t index, uint32_t security) {
-  auto keyBytes = Signing::key(seedBytes, index, security);
+digests(const std::vector<uint8_t>& keyBytes) {
   return Signing::digests(keyBytes);
 }
 
-// /**
-//  * Gets the key value of a seed
-//  *
-//  * @param seed  Tryte-encoded seed. It should be noted that this seed is not transferred
-//  * @param index Key index to start search from. If the index is provided, the generation of the
-//  *address is not deterministic.
-//  * @return trytes.
-//  * @throws ArgumentException is thrown when the specified security level is not valid.
-//  **/
-//
-// public
-// String
-// getKey(String seed, int index, int security) throws ArgumentException {
-//   return Converter.trytes(
-//       signingInstance.key(Converter.trits(seed, 81 * security), index, security));
-// }
-//
-
-// TODO here ?
-bool
-validateAddress(const Models::MultiSigningAddress&      msa,
-                const std::vector<std::vector<uint8_t>> digests) {
-  Kerl k;
-
-  for (const auto& digest : digests) {
-    k.absorb(digest);
-  }
-
-  std::vector<uint8_t> addressBytes(ByteHashLength);
-  k.squeeze(addressBytes);
-
-  return IOTA::Types::bytesToTrytes(addressBytes) == msa.toTrytes();
-}
-
-/**
- *   Adds the cosigner signatures to the corresponding bundle transaction
- *
- *   @method addSignature
- *   @param {array} bundleToSign
- *   @param {int} cosignerIndex
- *   @param {string} inputAddress
- *   @param {string} key
- *   @param {function} callback
- *   @returns {array} trytes Returns bundle trytes
- **/
 void
 addSignature(Models::Bundle& bundleToSign, const Models::MultiSigningAddress& inputAddress,
              const std::vector<uint8_t>& key) {
@@ -125,26 +70,20 @@ addSignature(Models::Bundle& bundleToSign, const Models::MultiSigningAddress& in
       // Else sign the transactionse
       else {
         auto bundleHash = bundleToSign.getTransactions()[i].getBundle();
-
         //  First 6561 trits for the firstFragment
         std::vector<int8_t> firstFragment(&keyTrits[0], &keyTrits[6561]);
-
         //  Get the normalized bundle hash
         auto normalizedBundleHash = bundleToSign.normalizedBundle(bundleHash);
         std::vector<std::vector<int8_t>> normalizedBundleFragments;
-
         // Split hash into 3 fragments
         for (unsigned int k = 0; k < 3; ++k) {
           normalizedBundleFragments.emplace_back(&normalizedBundleHash[k * 27],
                                                  &normalizedBundleHash[(k + 1) * 27]);
         }
-
         //  First bundle fragment uses 27 trytes
         auto firstBundleFragment = normalizedBundleFragments[numSignedTxs % 3];
-
         //  Calculate the new signatureFragment with the first bundle fragment
         auto firstSignedFragment = Signing::signatureFragment(firstBundleFragment, firstFragment);
-
         //  Convert signature to trytes and assign the new signatureFragment
         bundleToSign.getTransactions()[i].setSignatureFragments(
             Types::tritsToTrytes(firstSignedFragment));
@@ -152,19 +91,15 @@ addSignature(Models::Bundle& bundleToSign, const Models::MultiSigningAddress& in
         for (unsigned int j = 1; j < security; ++j) {
           //  Next 6561 trits for the firstFragment
           std::vector<int8_t> nextFragment(&keyTrits[j * 6561], &keyTrits[(j + 1) * 6561]);
-
           //  Use the next 27 trytes
           auto nextBundleFragment = normalizedBundleFragments[(numSignedTxs + j) % 3];
-
           //  Calculate the new signatureFragment with the first bundle fragment
           auto nextSignedFragment = Signing::signatureFragment(nextBundleFragment, nextFragment);
-
           //  Convert signature to trytes and add new bundle entry at i + j position
           // Assign the signature fragment
           bundleToSign.getTransactions()[i + j].setSignatureFragments(
               Types::tritsToTrytes(nextSignedFragment));
         }
-
         break;
       }
     }
