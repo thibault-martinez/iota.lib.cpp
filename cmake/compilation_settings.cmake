@@ -55,13 +55,3 @@ IF (WIN32)
 ELSE ()
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -W -Wall -Wextra -O3")
 ENDIF (WIN32)
-
-########## CLANG SETTINGS ##########
-
-IF (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-
-########## GNU SETTINGS ##########
-
-ELSEIF (CMAKE_CXX_COMPILER_ID MATCHES "GNU")
-
-endif()
