@@ -90,6 +90,11 @@ std::vector<uint8_t> digest(const std::vector<int8_t>&  normalizedBundleFragment
 Types::Trits signatureFragment(const std::vector<int8_t>& normalizedBundleFragment,
                                const Types::Trits&        keyFragment);
 
+std::vector<Types::Trytes> signInputs(const Models::Seed&                 seed,
+                                      const std::vector<Models::Address>& inputs,
+                                      Models::Bundle&                     bundle,
+                                      const std::vector<Types::Trytes>&   signatureFragments);
+
 /**
  * Validate signature fragments.
  *
