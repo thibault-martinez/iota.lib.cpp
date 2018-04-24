@@ -25,6 +25,7 @@
 
 #pragma once
 
+#include <cstdint>
 #include <vector>
 
 extern "C" {
