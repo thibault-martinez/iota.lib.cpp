@@ -25,6 +25,7 @@
 
 #pragma once
 
+#include <iota/crypto/kerl.hpp>
 #include <iota/types/trinary.hpp>
 
 namespace IOTA {
@@ -39,6 +40,9 @@ namespace Models {
  */
 class Address {
 public:
+  enum Type { NORMAL, MULTISIG };
+
+public:
   /**
    * Ctor.
    *
@@ -48,7 +52,7 @@ public:
    * @param security The security level of the address.
    */
   Address(const Types::Trytes& address = "", const int64_t& balance = 0,
-          const int32_t& keyIndex = 0, const int32_t& security = 2);
+          const int32_t& keyIndex = 0, const int32_t& security = 2, Type type = NORMAL);
 
   /**
    * Ctor, char* based to make implicitly convertion to Address more flexible.
@@ -59,7 +63,14 @@ public:
    * @param security The security level of the address.
    */
   Address(const char* address, const int64_t& balance = 0, const int32_t& keyIndex = 0,
-          const int32_t& security = 2);
+          const int32_t& security = 2, Type type = NORMAL);
+
+  /**
+   * Ctor - mainly to used to build multisig addresses.
+   *
+   * @param type The address type, normal or multisig.
+   */
+  Address(Type type);
 
   /**
    * Default dtor.
@@ -108,6 +119,32 @@ public:
    * @return whether the address is empty or not.
    */
   bool empty() const;
+
+  /**
+   * Multisig address related methods.
+   */
+public:
+  /**
+   * Absorbs key digests
+   * Increments security according to digests.
+   *
+   * @param digests The key digests in bytes.
+   **/
+  void absorbDigests(const std::vector<uint8_t>& digests);
+
+  /**
+   * Finalizes and set the multisig address.
+   **/
+  void finalize();
+
+  /**
+   * Validates a generated multisig address.
+   *
+   * @param digests The keys digests.
+   *
+   * @return whether the multisig address is valid or not.
+   **/
+  bool validate(const std::vector<std::vector<uint8_t>> digests);
 
 public:
   /**
@@ -180,7 +217,7 @@ public:
    */
   bool operator!=(const Types::Trytes& rhs) const;
 
-protected:
+private:
   /**
    * address value without checksum
    */
@@ -205,6 +242,16 @@ protected:
    * The security.
    */
   int32_t security_ = 2;
+
+  /**
+   * Type of the address (normal/multisig)
+   */
+  Type type_;
+
+  /**
+   * Instance of Kerl for multisig addresses.
+   */
+  Crypto::Kerl k_;
 };
 
 }  // namespace Models

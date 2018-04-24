@@ -25,7 +25,7 @@
 
 #pragma once
 
-#include <iota/models/multi_signing_address.hpp>
+#include <iota/models/address.hpp>
 
 namespace IOTA {
 
@@ -63,7 +63,7 @@ std::vector<uint8_t> digests(const std::vector<uint8_t>& keyBytes);
  * @param inputAddress  Input address.
  * @param key           Key to sign with.
  */
-void addSignature(Models::Bundle& bundleToSign, const Models::MultiSigningAddress& inputAddress,
+void addSignature(Models::Bundle& bundleToSign, const Models::Address& inputAddress,
                   const std::vector<uint8_t>& key);
 
 /**
@@ -74,8 +74,7 @@ void addSignature(Models::Bundle& bundleToSign, const Models::MultiSigningAddres
  *
  * @return whether the signatures are valid or not.
  */
-bool validateSignatures(const Models::Bundle&              signedBundle,
-                        const Models::MultiSigningAddress& inputAddress);
+bool validateSignatures(const Models::Bundle& signedBundle, const Models::Address& inputAddress);
 
 }  // namespace MultiSigning
 

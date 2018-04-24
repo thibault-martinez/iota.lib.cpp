@@ -29,7 +29,6 @@
 #include <iota/constants.hpp>
 #include <iota/crypto/multi_signing.hpp>
 #include <iota/models/bundle.hpp>
-#include <iota/models/multi_signing_address.hpp>
 #include <iota/models/seed.hpp>
 #include <iota/models/transfer.hpp>
 #include <iota/types/trinary.hpp>
@@ -37,8 +36,8 @@
 #include <test/utils/constants.hpp>
 
 TEST(Multisigning, Basic) {
-  IOTA::Models::MultiSigningAddress msa;
-  auto                              api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
+  IOTA::Models::Address msa(IOTA::Models::Address::MULTISIG);
+  auto                  api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
 
   auto firstKey = IOTA::Crypto::MultiSigning::key(IOTA::Types::trytesToBytes(ACCOUNT_1_SEED), 0, 3);
   auto firstDigest = IOTA::Crypto::MultiSigning::digests(firstKey);

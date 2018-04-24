@@ -27,7 +27,6 @@
 #include <iota/crypto/kerl.hpp>
 #include <iota/crypto/signing.hpp>
 #include <iota/models/bundle.hpp>
-#include <iota/models/multi_signing_address.hpp>
 
 namespace IOTA {
 
@@ -46,7 +45,7 @@ digests(const std::vector<uint8_t>& keyBytes) {
 }
 
 void
-addSignature(Models::Bundle& bundleToSign, const Models::MultiSigningAddress& inputAddress,
+addSignature(Models::Bundle& bundleToSign, const Models::Address& inputAddress,
              const std::vector<uint8_t>& key) {
   // Get the security used for the private key
   // 1 security level = 2187 trytes
@@ -107,8 +106,7 @@ addSignature(Models::Bundle& bundleToSign, const Models::MultiSigningAddress& in
 }
 
 bool
-validateSignatures(const Models::Bundle&              signedBundle,
-                   const Models::MultiSigningAddress& inputAddress) {
+validateSignatures(const Models::Bundle& signedBundle, const Models::Address& inputAddress) {
   Types::Trytes              bundleHash;
   std::vector<Types::Trytes> signatureFragments;
 
