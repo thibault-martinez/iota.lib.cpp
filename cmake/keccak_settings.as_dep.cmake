@@ -48,8 +48,9 @@ if (NOT WIN32)
                                       mkdir -p ${CMAKE_SOURCE_DIR}/deps/lib &&
                                       cd ${CMAKE_SOURCE_DIR}/external/keccak &&
                                       cp bin/${KECCAK_ARCH_OPTIMIZATION}/libkeccak.a ${CMAKE_SOURCE_DIR}/deps/lib &&
-                                      cp -a bin/${KECCAK_ARCH_OPTIMIZATION}/libkeccak.a.headers/ ${CMAKE_SOURCE_DIR}/deps/include)
+                                      cp -a bin/${KECCAK_ARCH_OPTIMIZATION}/libkeccak.a.headers ${CMAKE_SOURCE_DIR}/deps/include)
 
+  include_directories(${CMAKE_SOURCE_DIR}/deps/include/libkeccak.a.headers)
   target_link_libraries(${CMAKE_PROJECT_NAME} keccak)
   add_dependencies(${CMAKE_PROJECT_NAME} keccak_dep)
 
