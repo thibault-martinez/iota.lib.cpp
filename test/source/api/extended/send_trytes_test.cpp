@@ -61,7 +61,7 @@ TEST(Extended, SendTrytesOne) {
       { ACCOUNT_4_ADDRESS_1_HASH, 0, IOTA::EmptyTag, IOTA::Utils::StopWatch::now().count() });
   b.finalize();
   b.addTrytes({ EMPTY_SIGNATURE_FRAGMENT });
-  auto tx = b.getTransactions()[0].toTrytes();
+  auto tx = b[0].toTrytes();
   EXPECT_NO_THROW(api.sendTrytes({ tx }, 27, POW_LEVEL));
 }
 
@@ -79,9 +79,9 @@ TEST(Extended, SendTrytesMulti) {
       { ACCOUNT_4_ADDRESS_1_HASH, 0, IOTA::EmptyTag, IOTA::Utils::StopWatch::now().count() });
   b.finalize();
   b.addTrytes({ EMPTY_SIGNATURE_FRAGMENT });
-  auto tx0 = b.getTransactions()[0].toTrytes();
-  auto tx1 = b.getTransactions()[1].toTrytes();
-  auto tx2 = b.getTransactions()[2].toTrytes();
-  auto tx3 = b.getTransactions()[3].toTrytes();
+  auto tx0 = b[0].toTrytes();
+  auto tx1 = b[1].toTrytes();
+  auto tx2 = b[2].toTrytes();
+  auto tx3 = b[3].toTrytes();
   EXPECT_NO_THROW(api.sendTrytes({ tx0, tx1, tx2, tx3 }, 27, POW_LEVEL));
 }
