@@ -70,7 +70,7 @@ public:
    *
    * @param type The address type, normal or multisig.
    */
-  Address(Type type);
+  explicit Address(Type type);
 
   /**
    * Default dtor.
