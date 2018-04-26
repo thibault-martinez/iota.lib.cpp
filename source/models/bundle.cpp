@@ -37,7 +37,7 @@ namespace Models {
 
 Bundle::Bundle(const std::vector<Models::Transaction>& transactions) : transactions_(transactions) {
   if (!empty()) {
-    hash_ = getTransactions()[0].getBundle();
+    hash_ = transactions_[0].getBundle();
   }
 }
 
@@ -206,16 +206,16 @@ Bundle::normalizedBundle(const Types::Trytes& bundleHash) {
 
 bool
 Bundle::operator<(const Bundle& rhs) const {
-  int64_t lhsTS = empty() ? 0 : getTransactions()[0].getAttachmentTimestamp();
-  int64_t rhsTS = rhs.empty() ? 0 : rhs.getTransactions()[0].getAttachmentTimestamp();
+  int64_t lhsTS = empty() ? 0 : transactions_[0].getAttachmentTimestamp();
+  int64_t rhsTS = rhs.empty() ? 0 : rhs[0].getAttachmentTimestamp();
 
   return lhsTS < rhsTS;
 }
 
 bool
 Bundle::operator>(const Bundle& rhs) const {
-  int64_t lhsTS = empty() ? 0 : getTransactions()[0].getAttachmentTimestamp();
-  int64_t rhsTS = rhs.empty() ? 0 : rhs.getTransactions()[0].getAttachmentTimestamp();
+  int64_t lhsTS = empty() ? 0 : transactions_[0].getAttachmentTimestamp();
+  int64_t rhsTS = rhs.empty() ? 0 : rhs[0].getAttachmentTimestamp();
 
   return lhsTS > rhsTS;
 }
@@ -228,6 +228,14 @@ Bundle::operator==(const Bundle& rhs) const {
 bool
 Bundle::operator!=(const Bundle& rhs) const {
   return !operator==(rhs);
+}
+
+Transaction& Bundle::operator[](const int index) {
+  return transactions_[index];
+}
+
+const Transaction& Bundle::operator[](const int index) const {
+  return transactions_[index];
 }
 
 }  // namespace Models

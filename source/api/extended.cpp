@@ -575,7 +575,7 @@ Extended::verifyBundle(const Models::Bundle& bundle) {
 
   std::vector<Models::Signature> signaturesToValidate;
   for (std::size_t i = 0; i < bundle.getTransactions().size(); ++i) {
-    const auto& trx = bundle.getTransactions()[i];
+    const auto& trx = bundle[i];
 
     if (static_cast<int64_t>(i) != trx.getCurrentIndex()) {
       throw Errors::IllegalState("Invalid Bundle");
@@ -599,7 +599,7 @@ Extended::verifyBundle(const Models::Bundle& bundle) {
 
     //! Find the subsequent txs with the remaining signature fragment
     for (std::size_t y = i + 1; y < bundle.getTransactions().size(); ++y) {
-      const auto& newBundleTx = bundle.getTransactions()[y];
+      const auto& newBundleTx = bundle[y];
 
       // Check if new tx is part of the signature fragment
       if (newBundleTx.getAddress() == trx.getAddress() && newBundleTx.getValue() == 0) {
@@ -627,7 +627,7 @@ Extended::verifyBundle(const Models::Bundle& bundle) {
   }
 
   //! Last tx in the bundle should have currentIndex == lastIndex
-  const auto& lastTrx = bundle.getTransactions()[bundle.getLength() - 1];
+  const auto& lastTrx = bundle[bundle.getLength() - 1];
   if (lastTrx.getCurrentIndex() != lastTrx.getLastIndex())
     throw Errors::IllegalState("Invalid Bundle");
 
