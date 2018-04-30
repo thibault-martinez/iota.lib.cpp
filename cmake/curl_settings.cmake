@@ -26,6 +26,8 @@
 ExternalProject_Add("curl_dep"
                     GIT_SUBMODULES ""
                     CMAKE_ARGS "-DBUILD_CURL_EXE=OFF"
+                    CMAKE_ARGS "-DUSE_MANUAL=OFF"
+                    CMAKE_ARGS "-DBUILD_TESTING=OFF"
                     CMAKE_ARGS "-DHTTP_ONLY=ON"
                     CMAKE_ARGS "-DCMAKE_USE_OPENSSL=OFF"
                     CMAKE_ARGS "-DCMAKE_USE_LIBSSH2=OFF"
