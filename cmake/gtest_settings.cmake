@@ -30,7 +30,7 @@ ExternalProject_Add("googletest_dep"
                     CMAKE_ARGS "-DCMAKE_INSTALL_PREFIX=${CMAKE_SOURCE_DIR}/deps"
                     CMAKE_ARGS "-DCMAKE_ARCHIVE_OUTPUT_DIRECTORY=${CMAKE_SOURCE_DIR}/deps/lib"
                     CMAKE_ARGS "-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=${CMAKE_SOURCE_DIR}/deps/lib"
-                    CMAKE_ARGS "-D_SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING"
+                    CMAKE_ARGS "-DCMAKE_CXX_FLAGS=-D_SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING"
                     UPDATE_COMMAND git checkout tags/release-1.8.0
                     INSTALL_COMMAND "")
 
