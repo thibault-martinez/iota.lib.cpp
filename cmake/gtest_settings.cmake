@@ -34,6 +34,9 @@ ExternalProject_Add("googletest_dep"
                     UPDATE_COMMAND git checkout tags/release-1.8.0
                     INSTALL_COMMAND "")
 
+# Prevent overriding the parent project's compiler/linker settings on Windows
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+
 ########## GOOGLE TEST INCLUDES DIRECTORIES ##########
 
 include_directories(
