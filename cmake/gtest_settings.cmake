@@ -43,3 +43,5 @@ include_directories(
   ${CMAKE_SOURCE_DIR}/${GOOGLETEST_ROOT}
   ${CMAKE_SOURCE_DIR}/${GOOGLETEST_ROOT}/include
 )
+
+add_dependencies(${CMAKE_PROJECT_NAME} googletest_dep)
