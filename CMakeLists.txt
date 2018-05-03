@@ -82,6 +82,7 @@ include(compilation_settings)
 
 ########## EXTERNAL LIBRARIES SETTINGS ##########
 
+include(curl_settings)
 include(cpr_settings)
 include(keccak_settings.as_dep)
 

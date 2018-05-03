@@ -395,7 +395,7 @@ TEST(Core, AttachToTangleRemotePowOneTx) {
       { ACCOUNT_4_ADDRESS_1_HASH, 0, IOTA::EmptyTag, IOTA::Utils::StopWatch::now().count() });
   b.finalize();
   b.addTrytes({ EMPTY_SIGNATURE_FRAGMENT });
-  auto tx  = b.getTransactions()[0].toTrytes();
+  auto tx  = b[0].toTrytes();
   auto tta = api.getTransactionsToApprove(27);
   auto att =
       api.attachToTangle(tta.getTrunkTransaction(), tta.getBranchTransaction(), POW_LEVEL, { tx });
@@ -411,7 +411,7 @@ TEST(Core, AttachToTangleLocalPowOneTx) {
       { ACCOUNT_4_ADDRESS_1_HASH, 0, IOTA::EmptyTag, IOTA::Utils::StopWatch::now().count() });
   b.finalize();
   b.addTrytes({ EMPTY_SIGNATURE_FRAGMENT });
-  auto tx  = b.getTransactions()[0].toTrytes();
+  auto tx  = b[0].toTrytes();
   auto tta = api.getTransactionsToApprove(27);
   auto att =
       api.attachToTangle(tta.getTrunkTransaction(), tta.getBranchTransaction(), POW_LEVEL, { tx });
@@ -433,7 +433,7 @@ TEST(Core, AttachToTangleRemotePowManyTx) {
       { ACCOUNT_4_ADDRESS_1_HASH, 0, IOTA::EmptyTag, IOTA::Utils::StopWatch::now().count() });
   b.finalize();
   b.addTrytes({ EMPTY_SIGNATURE_FRAGMENT });
-  auto tx  = b.getTransactions()[0].toTrytes();
+  auto tx  = b[0].toTrytes();
   auto tta = api.getTransactionsToApprove(27);
   auto att =
       api.attachToTangle(tta.getTrunkTransaction(), tta.getBranchTransaction(), POW_LEVEL, { tx });
@@ -455,7 +455,7 @@ TEST(Core, AttachToTangleLocalPowManyTx) {
       { ACCOUNT_4_ADDRESS_1_HASH, 0, IOTA::EmptyTag, IOTA::Utils::StopWatch::now().count() });
   b.finalize();
   b.addTrytes({ EMPTY_SIGNATURE_FRAGMENT });
-  auto tx  = b.getTransactions()[0].toTrytes();
+  auto tx  = b[0].toTrytes();
   auto tta = api.getTransactionsToApprove(27);
   auto att =
       api.attachToTangle(tta.getTrunkTransaction(), tta.getBranchTransaction(), POW_LEVEL, { tx });

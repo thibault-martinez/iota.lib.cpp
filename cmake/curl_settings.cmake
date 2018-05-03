@@ -23,35 +23,26 @@
 #
 #
 
-########## COMMON SETTINGS ##########
+ExternalProject_Add("curl_dep"
+                    GIT_SUBMODULES ""
+                    CMAKE_ARGS "-DBUILD_CURL_EXE=OFF"
+                    CMAKE_ARGS "-DHTTP_ONLY=ON"
+                    CMAKE_ARGS "-DOPENSSL_ROOT_DIR=${OPENSSL_ROOT_DIR}"
+                    CMAKE_ARGS "-DCMAKE_INSTALL_PREFIX=${CMAKE_SOURCE_DIR}/deps"
+                    CMAKE_ARGS "-DCMAKE_ARCHIVE_OUTPUT_DIRECTORY=${CMAKE_SOURCE_DIR}/deps/lib"
+                    CMAKE_ARGS "-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=${CMAKE_SOURCE_DIR}/deps/lib"
+                    CMAKE_ARGS "-Wno-dev"
+                    CMAKE_ARGS "-DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}"
+                    CMAKE_ARGS "-DCMAKE_C_FLAGS=${FORWARD_FLAGS}"
+                    CMAKE_ARGS "-DCMAKE_CXX_FLAGS=${FORWARD_FLAGS}"
+                    SOURCE_DIR "${CMAKE_SOURCE_DIR}/external/curl")
 
-###
-# compilation options
-###
-IF (WIN32)
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W3 /O2 /bigobj")
+include_directories(${CMAKE_SOURCE_DIR}/external/cpr/include)
 
-  # was causing conflics with gtest build
-  string(REPLACE "/RTC1" "" CMAKE_CXX_FLAGS_DEBUG ${CMAKE_CXX_FLAGS_DEBUG})
-
-  IF ("${MSVC_RUNTIME_LIBRARY_CONFIG}" STREQUAL "")
-    set(MSVC_RUNTIME_LIBRARY_CONFIG "/MD")
-  ENDIF()
-
-  foreach (flag_var CMAKE_CXX_FLAGS CMAKE_CXX_FLAGS_DEBUG CMAKE_CXX_FLAGS_RELEASE)
-    IF ("${MSVC_RUNTIME_LIBRARY_CONFIG}" STREQUAL "/MT")
-      string(REPLACE "/MD" "/MT" ${flag_var} "${${flag_var}}")
-    ELSEIF ("${MSVC_RUNTIME_LIBRARY_CONFIG}" STREQUAL "/MD")
-      string(REPLACE "/MT" "/MD" ${flag_var} "${${flag_var}}")
-    ELSE ()
-      string(REPLACE "/MD" "${MSVC_RUNTIME_LIBRARY_CONFIG}" ${flag_var} "${${flag_var}}")
-      string(REPLACE "/MT" "${MSVC_RUNTIME_LIBRARY_CONFIG}" ${flag_var} "${${flag_var}}")
-    ENDIF()
-  endforeach()
-
-  add_definitions(-D_UNICODE)
-  add_definitions(-DUNICODE)
-  add_definitions(-DWIN32_LEAN_AND_MEAN)
-ELSE ()
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -W -Wall -Wextra -O3")
+if (WIN32)
+  target_link_libraries(${CMAKE_PROJECT_NAME} cpr libcurl_imp)
+else ()
+  target_link_libraries(${CMAKE_PROJECT_NAME} cpr curl)
 ENDIF (WIN32)
+
+add_dependencies(${CMAKE_PROJECT_NAME} cpr_dep)

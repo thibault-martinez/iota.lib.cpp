@@ -41,7 +41,7 @@ TEST(Extended, BundlesFromAddresses) {
   //! first bundle is simply the initial funding
   ASSERT_EQ(bundles[0].getTransactions().size(), 1UL);
 
-  const auto& trx = bundles[0].getTransactions()[0];
+  const auto& trx = bundles[0][0];
   EXPECT_EQ(trx.getSignatureFragments(), BUNDLE_2_TRX_1_SIGNATURE_FRAGMENT);
   EXPECT_EQ(trx.getCurrentIndex(), BUNDLE_2_TRX_1_CURRENT_INDEX);
   EXPECT_EQ(trx.getLastIndex(), BUNDLE_2_TRX_1_LAST_INDEX);
@@ -59,7 +59,7 @@ TEST(Extended, BundlesFromAddresses) {
   //! second trx is spending from account 2 to account 3
   ASSERT_EQ(bundles[1].getTransactions().size(), 4UL);
 
-  const auto& trx1 = bundles[1].getTransactions()[0];
+  const auto& trx1 = bundles[1][0];
   EXPECT_EQ(trx1.getSignatureFragments(), BUNDLE_1_TRX_1_SIGNATURE_FRAGMENT);
   EXPECT_EQ(trx1.getCurrentIndex(), BUNDLE_1_TRX_1_CURRENT_INDEX);
   EXPECT_EQ(trx1.getLastIndex(), BUNDLE_1_TRX_1_LAST_INDEX);
@@ -74,7 +74,7 @@ TEST(Extended, BundlesFromAddresses) {
   EXPECT_EQ(trx1.getBundle(), BUNDLE_1_HASH);
   EXPECT_EQ(trx1.getPersistence(), true);
 
-  const auto& trx2 = bundles[1].getTransactions()[1];
+  const auto& trx2 = bundles[1][1];
   EXPECT_EQ(trx2.getSignatureFragments(), BUNDLE_1_TRX_2_SIGNATURE_FRAGMENT);
   EXPECT_EQ(trx2.getCurrentIndex(), BUNDLE_1_TRX_2_CURRENT_INDEX);
   EXPECT_EQ(trx2.getLastIndex(), BUNDLE_1_TRX_2_LAST_INDEX);
@@ -89,7 +89,7 @@ TEST(Extended, BundlesFromAddresses) {
   EXPECT_EQ(trx2.getBundle(), BUNDLE_1_HASH);
   EXPECT_EQ(trx2.getPersistence(), true);
 
-  const auto& trx3 = bundles[1].getTransactions()[2];
+  const auto& trx3 = bundles[1][2];
   EXPECT_EQ(trx3.getSignatureFragments(), BUNDLE_1_TRX_3_SIGNATURE_FRAGMENT);
   EXPECT_EQ(trx3.getCurrentIndex(), BUNDLE_1_TRX_3_CURRENT_INDEX);
   EXPECT_EQ(trx3.getLastIndex(), BUNDLE_1_TRX_3_LAST_INDEX);
@@ -104,7 +104,7 @@ TEST(Extended, BundlesFromAddresses) {
   EXPECT_EQ(trx3.getBundle(), BUNDLE_1_HASH);
   EXPECT_EQ(trx3.getPersistence(), true);
 
-  const auto& trx4 = bundles[1].getTransactions()[3];
+  const auto& trx4 = bundles[1][3];
   EXPECT_EQ(trx4.getSignatureFragments(), BUNDLE_1_TRX_4_SIGNATURE_FRAGMENT);
   EXPECT_EQ(trx4.getCurrentIndex(), BUNDLE_1_TRX_4_CURRENT_INDEX);
   EXPECT_EQ(trx4.getLastIndex(), BUNDLE_1_TRX_4_LAST_INDEX);
@@ -129,7 +129,7 @@ TEST(Extended, BundlesFromAddressesNoPersistentState) {
   //! first bundle is simply the initial funding
   ASSERT_EQ(bundles[0].getTransactions().size(), 1UL);
 
-  const auto& trx = bundles[0].getTransactions()[0];
+  const auto& trx = bundles[0][0];
   EXPECT_EQ(trx.getSignatureFragments(), BUNDLE_2_TRX_1_SIGNATURE_FRAGMENT);
   EXPECT_EQ(trx.getCurrentIndex(), BUNDLE_2_TRX_1_CURRENT_INDEX);
   EXPECT_EQ(trx.getLastIndex(), BUNDLE_2_TRX_1_LAST_INDEX);
@@ -147,7 +147,7 @@ TEST(Extended, BundlesFromAddressesNoPersistentState) {
   //! second trx is spending from account 2 to account 3
   ASSERT_EQ(bundles[1].getTransactions().size(), 4UL);
 
-  const auto& trx1 = bundles[1].getTransactions()[0];
+  const auto& trx1 = bundles[1][0];
   EXPECT_EQ(trx1.getSignatureFragments(), BUNDLE_1_TRX_1_SIGNATURE_FRAGMENT);
   EXPECT_EQ(trx1.getCurrentIndex(), BUNDLE_1_TRX_1_CURRENT_INDEX);
   EXPECT_EQ(trx1.getLastIndex(), BUNDLE_1_TRX_1_LAST_INDEX);
@@ -162,7 +162,7 @@ TEST(Extended, BundlesFromAddressesNoPersistentState) {
   EXPECT_EQ(trx1.getBundle(), BUNDLE_1_HASH);
   EXPECT_EQ(trx1.getPersistence(), false);
 
-  const auto& trx2 = bundles[1].getTransactions()[1];
+  const auto& trx2 = bundles[1][1];
   EXPECT_EQ(trx2.getSignatureFragments(), BUNDLE_1_TRX_2_SIGNATURE_FRAGMENT);
   EXPECT_EQ(trx2.getCurrentIndex(), BUNDLE_1_TRX_2_CURRENT_INDEX);
   EXPECT_EQ(trx2.getLastIndex(), BUNDLE_1_TRX_2_LAST_INDEX);
@@ -177,7 +177,7 @@ TEST(Extended, BundlesFromAddressesNoPersistentState) {
   EXPECT_EQ(trx2.getBundle(), BUNDLE_1_HASH);
   EXPECT_EQ(trx2.getPersistence(), false);
 
-  const auto& trx3 = bundles[1].getTransactions()[2];
+  const auto& trx3 = bundles[1][2];
   EXPECT_EQ(trx3.getSignatureFragments(), BUNDLE_1_TRX_3_SIGNATURE_FRAGMENT);
   EXPECT_EQ(trx3.getCurrentIndex(), BUNDLE_1_TRX_3_CURRENT_INDEX);
   EXPECT_EQ(trx3.getLastIndex(), BUNDLE_1_TRX_3_LAST_INDEX);
@@ -192,7 +192,7 @@ TEST(Extended, BundlesFromAddressesNoPersistentState) {
   EXPECT_EQ(trx3.getBundle(), BUNDLE_1_HASH);
   EXPECT_EQ(trx3.getPersistence(), false);
 
-  const auto& trx4 = bundles[1].getTransactions()[3];
+  const auto& trx4 = bundles[1][3];
   EXPECT_EQ(trx4.getSignatureFragments(), BUNDLE_1_TRX_4_SIGNATURE_FRAGMENT);
   EXPECT_EQ(trx4.getCurrentIndex(), BUNDLE_1_TRX_4_CURRENT_INDEX);
   EXPECT_EQ(trx4.getLastIndex(), BUNDLE_1_TRX_4_LAST_INDEX);

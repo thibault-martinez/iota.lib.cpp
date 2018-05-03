@@ -26,13 +26,16 @@ ExternalProject_Add("cpr_dep"
                     GIT_SUBMODULES ""
                     CMAKE_ARGS "-DBUILD_CPR_TESTS=OFF"
                     CMAKE_ARGS "-DBUILD_TESTING=0"
-                    CMAKE_ARGS "-DBUILD_CURL_EXE=OFF"
-                    CMAKE_ARGS "-DHTTP_ONLY=ON"
+                    CMAKE_ARGS "-DUSE_SYSTEM_CURL=TRUE"
                     CMAKE_ARGS "-DCMAKE_INSTALL_PREFIX=${CMAKE_SOURCE_DIR}/deps"
                     CMAKE_ARGS "-DCMAKE_ARCHIVE_OUTPUT_DIRECTORY=${CMAKE_SOURCE_DIR}/deps/lib"
                     CMAKE_ARGS "-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=${CMAKE_SOURCE_DIR}/deps/lib"
                     CMAKE_ARGS "-Wno-dev"
                     CMAKE_ARGS "-DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}"
+                    CMAKE_ARGS "-DCMAKE_PREFIX_PATH=${CMAKE_SOURCE_DIR}/deps"
+                    CMAKE_ARGS "-DCMAKE_C_FLAGS=${FORWARD_FLAGS}"
+                    CMAKE_ARGS "-DCMAKE_CXX_FLAGS=${FORWARD_FLAGS}"
+                    INSTALL_COMMAND cmake -E echo "Skipping install step."
                     SOURCE_DIR "${CMAKE_SOURCE_DIR}/external/cpr")
 
 include_directories(${CMAKE_SOURCE_DIR}/external/cpr/include)
@@ -43,4 +46,5 @@ else ()
   target_link_libraries(${CMAKE_PROJECT_NAME} cpr curl)
 ENDIF (WIN32)
 
+add_dependencies(cpr_dep curl_dep)
 add_dependencies(${CMAKE_PROJECT_NAME} cpr_dep)
