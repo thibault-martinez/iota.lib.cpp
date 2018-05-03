@@ -324,7 +324,7 @@ before_script:
 script:
   - mkdir -p build
   - cd build
-  - cmake -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -DBUILD_TESTS=1 ..
-  - if [ "$M32" == "1" ]; then cmake -DARCH="32" ..; fi
+  - if [ "$M32" != "1" ]; then cmake -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -DBUILD_TESTS=1 ..; fi
+  - if [ "$M32" == "1" ]; then cmake -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -DBUILD_TESTS=1 -DARCH="32" ..; fi
   - make
   - GTEST_COLOR=1 ctest -VV
