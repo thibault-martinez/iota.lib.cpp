@@ -25,14 +25,12 @@
 
 set(GOOGLETEST_ROOT external/googletest/googletest CACHE STRING "Google Test source root")
 
-# Prevent overriding the parent project's compiler/linker settings on Windows
-set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
-
 ExternalProject_Add("googletest_dep"
                     SOURCE_DIR "${CMAKE_SOURCE_DIR}/${GOOGLETEST_ROOT}"
                     CMAKE_ARGS "-DCMAKE_INSTALL_PREFIX=${CMAKE_SOURCE_DIR}/deps"
                     CMAKE_ARGS "-DCMAKE_ARCHIVE_OUTPUT_DIRECTORY=${CMAKE_SOURCE_DIR}/deps/lib"
                     CMAKE_ARGS "-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=${CMAKE_SOURCE_DIR}/deps/lib"
+                    CMAKE_ARGS "-Dgtest_force_shared_crt=ON" # Prevent overriding the parent project's compiler/linker settings on Windows
                     CMAKE_ARGS "-DCMAKE_CXX_FLAGS=-D_SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING"
                     UPDATE_COMMAND git checkout tags/release-1.8.0
                     INSTALL_COMMAND "")
