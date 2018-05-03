@@ -65,7 +65,7 @@ foreach(DIR ${DIRS})
 
     # compilation options
     target_compile_features(${TEST_FULL_NAME}  PRIVATE cxx_range_for)
-    target_link_libraries(${TEST_FULL_NAME} googletest ${CMAKE_PROJECT_NAME})
+    target_link_libraries(${TEST_FULL_NAME} gtest ${CMAKE_PROJECT_NAME})
 
     # platform specific compilation options
     if (NOT WIN32)

@@ -24,23 +24,18 @@
 #
 
 set(GOOGLETEST_ROOT external/googletest/googletest CACHE STRING "Google Test source root")
-set(GOOGLEMOCK_ROOT external/googletest/googlemock CACHE STRING "Google Mock source root")
 
-########## GOOGLE TEST SOURCES ##########
-
-set(GOOGLETEST_SOURCES
-  ${CMAKE_SOURCE_DIR}/${GOOGLETEST_ROOT}/src/gtest-all.cc
-  ${CMAKE_SOURCE_DIR}/${GOOGLEMOCK_ROOT}/src/gmock-all.cc
-  ${CMAKE_SOURCE_DIR}/${GOOGLEMOCK_ROOT}/src/gmock_main.cc
-)
+ExternalProject_Add("googletest_dep"
+                    SOURCE_DIR "${CMAKE_SOURCE_DIR}/${GOOGLETEST_ROOT}"
+                    CMAKE_ARGS "-DCMAKE_INSTALL_PREFIX=${CMAKE_SOURCE_DIR}/deps"
+                    CMAKE_ARGS "-DCMAKE_ARCHIVE_OUTPUT_DIRECTORY=${CMAKE_SOURCE_DIR}/deps/lib"
+                    CMAKE_ARGS "-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=${CMAKE_SOURCE_DIR}/deps/lib"
+                    UPDATE_COMMAND git checkout tags/release-1.8.0
+                    INSTALL_COMMAND "")
 
 ########## GOOGLE TEST INCLUDES DIRECTORIES ##########
 
 include_directories(
   ${CMAKE_SOURCE_DIR}/${GOOGLETEST_ROOT}
   ${CMAKE_SOURCE_DIR}/${GOOGLETEST_ROOT}/include
-  ${CMAKE_SOURCE_DIR}/${GOOGLEMOCK_ROOT}
-  ${CMAKE_SOURCE_DIR}/${GOOGLEMOCK_ROOT}/include
 )
-
-add_library(googletest ${GOOGLETEST_SOURCES})
