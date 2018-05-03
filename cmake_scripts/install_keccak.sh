@@ -3,7 +3,8 @@ cd $CMAKE_SOURCE_DIR/external/keccak
 
 # Build deps directory
 mkdir -p $CMAKE_SOURCE_DIR/deps/include/keccak
+mkdir -p $CMAKE_SOURCE_DIR/deps/lib/
 
 # Move includes and library
 cp $KECCAK_ARCH_OPTIMIZATION/libkeccak.a/*.h $CMAKE_SOURCE_DIR/deps/include/keccak
-cp libkeccak.a $CMAKE_SOURCE_DIR/deps/lib
+cp libkeccak.a $CMAKE_SOURCE_DIR/deps/lib/
