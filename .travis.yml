@@ -144,7 +144,7 @@ matrix:
       addons:
         apt:
           sources: ['ubuntu-toolchain-r-test']
-          packages: ['g++-7', 'gcc-7-multilib', 'libc6-dev-i386']
+          packages: ['g++-7', 'gcc-7-multilib', 'g++-7-multilib', 'libc6-dev-i386']
       env: MATRIX_EVAL="CC=gcc-7 && CXX=g++-7 && CMAKE_BUILD_TYPE=Release && M32=1"
 
     # Linux x Clang 3.5 x Release
@@ -216,7 +216,7 @@ matrix:
       addons:
         apt:
           sources: ['ubuntu-toolchain-r-test', 'llvm-toolchain-trusty-5.0']
-          packages: ['g++-6', 'clang-5.0', 'libc6-dev-i386']
+          packages: ['g++-6', 'clang-5.0', 'g++-7-multilib', 'libc6-dev-i386']
       env: MATRIX_EVAL="CC=clang-5.0 && CXX=clang++-5.0 && CMAKE_BUILD_TYPE=Release && M32=1"
 
     # OSX x Clang xcode 9.2 x Cppcheck
@@ -314,9 +314,8 @@ install:
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get -qq install maven; fi
   # keccak
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get -qq install xsltproc; fi
-  # gcc multi lib
-  - sudo apt-get install gcc-7-multilib g++-7-multilib libc6-dev-i386
-  - cd /usr/include && sudo ln -s x86_64-linux-gnu/asm asm && cd -
+  # fix gcc multilib installation for cross compilation
+  - if [ "$TRAVIS_OS_NAME" == "linux" ] && [ "$M32" == "1" ]; then cd /usr/include && sudo ln -s x86_64-linux-gnu/asm asm && cd -; fi
 
 before_script:
   # Increase resources limitation
