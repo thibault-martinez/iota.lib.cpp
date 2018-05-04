@@ -254,6 +254,8 @@ private:
   Crypto::Kerl k_;
 };
 
+std::ostream& operator<<(std::ostream& os, const Address& address);
+
 }  // namespace Models
 
 }  // namespace IOTA

@@ -186,6 +186,11 @@ Address::operator!=(const Types::Trytes& rhs) const {
   return operator!=(Address{ rhs });
 }
 
+std::ostream&
+operator<<(std::ostream& os, const Address& address) {
+  return os << address.toTrytes();
+}
+
 }  // namespace Models
 
 }  // namespace IOTA
