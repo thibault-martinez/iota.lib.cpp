@@ -315,7 +315,7 @@ install:
   # keccak
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get -qq install xsltproc; fi
   # gcc multi lib
-  - if [ "$TRAVIS_OS_NAME" == "linux" ] && [ "$M32" == "1" ]; then sudo apt-get -qq install gcc-7-multilib libc6-dev-i386; fi
+  - sudo apt-get install gcc-7-multilib libc6-dev-i386
 
 before_script:
   # Increase resources limitation
