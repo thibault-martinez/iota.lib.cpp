@@ -144,7 +144,7 @@ matrix:
       addons:
         apt:
           sources: ['ubuntu-toolchain-r-test']
-          packages: ['g++-7']
+          packages: ['g++-7', 'gcc-multilib', 'libc6-dev:i386']
       env: MATRIX_EVAL="CC=gcc-7 && CXX=g++-7 && CMAKE_BUILD_TYPE=Release && M32=1"
 
     # Linux x Clang 3.5 x Release
@@ -216,7 +216,7 @@ matrix:
       addons:
         apt:
           sources: ['ubuntu-toolchain-r-test', 'llvm-toolchain-trusty-5.0']
-          packages: ['g++-6', 'clang-5.0']
+          packages: ['g++-6', 'clang-5.0', 'libc6-dev:i386']
       env: MATRIX_EVAL="CC=clang-5.0 && CXX=clang++-5.0 && CMAKE_BUILD_TYPE=Release && M32=1"
 
     # OSX x Clang xcode 9.2 x Cppcheck
