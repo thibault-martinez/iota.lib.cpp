@@ -57,6 +57,11 @@ matrix:
       osx_image: xcode8
       env: MATRIX_EVAL="brew install gcc@7 && CC=gcc-7 && CXX=g++-7 && CMAKE_BUILD_TYPE=Release"
 
+    # OSX x Gcc 8 x Release
+    - os: osx
+      osx_image: xcode8
+      env: MATRIX_EVAL="brew install gcc && CC=gcc-8 && CXX=g++-8 && CMAKE_BUILD_TYPE=Release"
+
     # OSX x Gcc 7 x Release x m32
     - os: osx
       osx_image: xcode8
@@ -137,6 +142,15 @@ matrix:
           sources: ['ubuntu-toolchain-r-test']
           packages: ['g++-7']
       env: MATRIX_EVAL="CC=gcc-7 && CXX=g++-7 && CMAKE_BUILD_TYPE=Release"
+
+    # Linux x Gcc 8 x Release
+    - os: linux
+      compiler: gcc
+      addons:
+        apt:
+          sources: ['ubuntu-toolchain-r-test']
+          packages: ['g++-8']
+      env: MATRIX_EVAL="CC=gcc-8 && CXX=g++-8 && CMAKE_BUILD_TYPE=Release"
 
     # Linux x Gcc 7 x Release x m32
     - os: linux
