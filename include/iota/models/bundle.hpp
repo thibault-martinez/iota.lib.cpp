@@ -55,20 +55,20 @@ public:
    *
    * @param transactions transactions belonging to the same bundle.
    */
-  explicit Bundle(const std::vector<Models::Transaction>& transactions);
+  explicit Bundle(const std::vector<Transaction>& transactions);
 
 public:
   /**
    * @return Bundle transactions.
    */
-  const std::vector<Models::Transaction>& getTransactions() const;
+  const std::vector<Transaction>& getTransactions() const;
 
   /**
    * Non-const getTransactions.
    *
    * @return Bundle transactions.
    */
-  std::vector<Models::Transaction>& getTransactions();
+  std::vector<Transaction>& getTransactions();
 
   /**
    * @return bundle hash
@@ -155,11 +155,23 @@ public:
    */
   bool operator!=(const Bundle& rhs) const;
 
+  /**
+   * @param index The transaction index.
+   * @return the Transaction at given index.
+   */
+  Transaction& operator[](const int index);
+
+  /**
+   * @param index The transaction index.
+   * @return the Transaction at given index.
+   */
+  const Transaction& operator[](const int index) const;
+
 private:
   /**
    * Bundle's transactions.
    */
-  std::vector<Models::Transaction> transactions_;
+  std::vector<Transaction> transactions_;
 
   /**
    * Hash corresponding to this bundle of transactions.
