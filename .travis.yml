@@ -55,12 +55,12 @@ matrix:
     # OSX x Gcc 7 x Release
     - os: osx
       osx_image: xcode8
-      env: MATRIX_EVAL="brew install gcc && CC=gcc-7 && CXX=g++-7 && CMAKE_BUILD_TYPE=Release"
+      env: MATRIX_EVAL="brew install gcc7 && CC=gcc-7 && CXX=g++-7 && CMAKE_BUILD_TYPE=Release"
 
     # OSX x Gcc 7 x Release x m32
     - os: osx
       osx_image: xcode8
-      env: MATRIX_EVAL="brew install gcc && CC=gcc-7 && CXX=g++-7 && CMAKE_BUILD_TYPE=Release && M32=1"
+      env: MATRIX_EVAL="brew install gcc7 && CC=gcc-7 && CXX=g++-7 && CMAKE_BUILD_TYPE=Release && M32=1"
 
     # OSX x Clang xcode 6.4 x Release
     - os: osx
