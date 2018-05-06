@@ -34,6 +34,7 @@
 # Build
 build
 build_*
+!build_keccak.sh
 deps
 
 # Temporary files

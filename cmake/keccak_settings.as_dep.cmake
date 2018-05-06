@@ -26,7 +26,7 @@
 #
 # For non-windows platforms, we can use the keccak repository and its cmake to build keccak and link it
 #
-if (NOT WIN32)
+if (NOT WIN32 AND NOT FORWARD_FLAGS)
 
   if (NOT KECCAK_ARCH_OPTIMIZATION)
     if (ARCH EQUAL "64")
@@ -52,6 +52,30 @@ if (NOT WIN32)
 
   include_directories(${CMAKE_SOURCE_DIR}/deps/include/libkeccak.a.headers)
   target_link_libraries(${CMAKE_PROJECT_NAME} keccak)
+  add_dependencies(${CMAKE_PROJECT_NAME} keccak_dep)
+
+elseif (NOT WIN32 AND FORWARD_FLAGS)
+
+  if (NOT KECCAK_ARCH_OPTIMIZATION)
+    if (ARCH EQUAL "64")
+      # 64 bits
+      set (KECCAK_ARCH_OPTIMIZATION "generic64")
+    else ()
+      # 32 bits
+      set (KECCAK_ARCH_OPTIMIZATION "generic32")
+    endif ()
+  endif ()
+
+  ExternalProject_Add("keccak_dep"
+                      GIT_SUBMODULES ""
+                      SOURCE_DIR "${CMAKE_SOURCE_DIR}/external/keccak"
+                      CONFIGURE_COMMAND ""
+                      UPDATE_COMMAND ""
+                      BUILD_COMMAND FORWARD_FLAGS=${FORWARD_FLAGS} CMAKE_SOURCE_DIR=${CMAKE_SOURCE_DIR} KECCAK_ARCH_OPTIMIZATION=${KECCAK_ARCH_OPTIMIZATION} ${CMAKE_SOURCE_DIR}/cmake_scripts/build_keccak.sh
+                      INSTALL_COMMAND CMAKE_SOURCE_DIR=${CMAKE_SOURCE_DIR} KECCAK_ARCH_OPTIMIZATION=${KECCAK_ARCH_OPTIMIZATION} ${CMAKE_SOURCE_DIR}/cmake_scripts/install_keccak.sh)
+
+  target_link_libraries(${CMAKE_PROJECT_NAME} keccak)
+  include_directories(${CMAKE_SOURCE_DIR}/deps/include/keccak)
   add_dependencies(${CMAKE_PROJECT_NAME} keccak_dep)
 
 endif()
