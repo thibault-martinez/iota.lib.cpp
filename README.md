@@ -2,6 +2,8 @@
 
 # IOTA C++ Library
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/fcb7c6bb1f054d219072dfa3bd1462a0)](https://app.codacy.com/app/thibault.martinez.30/iota.lib.cpp?utm_source=github.com&utm_medium=referral&utm_content=thibault-martinez/iota.lib.cpp&utm_campaign=badger)
+
 [![Travis Build Status][travis-badge]][travis]
 [![Appveyor Build Status][appveyor-badge]][appveyor]
 [![Coveralls Status][coveralls-badge]][coveralls]
