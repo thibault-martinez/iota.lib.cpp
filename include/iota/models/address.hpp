@@ -52,7 +52,7 @@ public:
    * @param security The security level of the address.
    */
   Address(const Types::Trytes& address = "", const int64_t& balance = 0,
-          const int32_t& keyIndex = 0, const int32_t& security = 2, Type type = NORMAL);
+          const int32_t& keyIndex = 0, const int32_t& security = 2, const Type& type = NORMAL);
 
   /**
    * Ctor, char* based to make implicitly convertion to Address more flexible.
@@ -63,14 +63,14 @@ public:
    * @param security The security level of the address.
    */
   Address(const char* address, const int64_t& balance = 0, const int32_t& keyIndex = 0,
-          const int32_t& security = 2, Type type = NORMAL);
+          const int32_t& security = 2, const Type& type = NORMAL);
 
   /**
    * Ctor - mainly to used to build multisig addresses.
    *
    * @param type The address type, normal or multisig.
    */
-  explicit Address(Type type);
+  explicit Address(const Type& type);
 
   /**
    * Default dtor.

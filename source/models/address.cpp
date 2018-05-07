@@ -33,18 +33,18 @@ namespace IOTA {
 namespace Models {
 
 Address::Address(const Types::Trytes& address, const int64_t& balance, const int32_t& keyIndex,
-                 const int32_t& security, Type type)
+                 const int32_t& security, const Type& type)
     : balance_(balance), keyIndex_(keyIndex), type_(type) {
   setAddress(address);
   setSecurity(security);
 }
 
 Address::Address(const char* address, const int64_t& balance, const int32_t& keyIndex,
-                 const int32_t& security, Type type)
+                 const int32_t& security, const Type& type)
     : Address(Types::Trytes(address), balance, keyIndex, security, type) {
 }
 
-Address::Address(Type type) : Address("", 0, 0, 0, type) {
+Address::Address(const Type& type) : Address("", 0, 0, 0, type) {
 }
 
 const Types::Trytes&
