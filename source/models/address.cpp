@@ -33,19 +33,19 @@ namespace IOTA {
 namespace Models {
 
 Address::Address(const Types::Trytes& address, const int64_t& balance, const int32_t& keyIndex,
-                 const int32_t& security /*, const Type& type*/)
-    : balance_(balance), keyIndex_(keyIndex) /*, type_(type)*/ {
+                 const int32_t& security, const Type& type)
+    : balance_(balance), keyIndex_(keyIndex), type_(type) {
   setAddress(address);
   setSecurity(security);
 }
 
 Address::Address(const char* address, const int64_t& balance, const int32_t& keyIndex,
-                 const int32_t& security /*, const Type& type*/)
-    : Address(Types::Trytes(address), balance, keyIndex, security /*, type*/) {
+                 const int32_t& security, const Type& type)
+    : Address(Types::Trytes(address), balance, keyIndex, security, type) {
 }
 
-// Address::Address(const Type& type) : Address("", 0, 0, 0, type) {
-// }
+Address::Address(const Type& type) : Address("", 0, 0, 0, type) {
+}
 
 const Types::Trytes&
 Address::toTrytes() const {
@@ -161,8 +161,7 @@ Address::getSecurity() const {
 void
 Address::setSecurity(const int32_t& security) {
   //! Validate the security level
-  if (/*(type_ == MULTISIG && security < 0) || (type_ == NORMAL && (*/ security < 1 ||
-      security > 3 /*))*/) {
+  if ((type_ == MULTISIG && security < 0) || (type_ == NORMAL && (security < 1 || security > 3))) {
     throw Errors::IllegalState("Invalid Security Level");
   }
   security_ = security;
