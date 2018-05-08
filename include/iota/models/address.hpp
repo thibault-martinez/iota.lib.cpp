@@ -251,7 +251,7 @@ private:
   /**
    * Instance of Kerl for multisig addresses.
    */
-  Crypto::Kerl k_;
+  // Crypto::Kerl k_;
 };
 
 std::ostream& operator<<(std::ostream& os, const Address& address);

@@ -66,34 +66,35 @@ void
 Address::absorbDigests(const std::vector<uint8_t>& digests) {
   // if (type_ != MULTISIG)
   //   return;
-  security_ += digests.size() / ByteHashLength;
-  k_.absorb(digests);
+  // security_ += digests.size() / ByteHashLength;
+  // k_.absorb(digests);
 }
 
 void
 Address::finalize() {
   // if (type_ != MULTISIG)
   //   return;
-  std::vector<uint8_t> addressBytes(ByteHashLength);
-
-  k_.squeeze(addressBytes);
-  setAddress(IOTA::Types::bytesToTrytes(addressBytes));
+  // std::vector<uint8_t> addressBytes(ByteHashLength);
+  //
+  // k_.squeeze(addressBytes);
+  // setAddress(IOTA::Types::bytesToTrytes(addressBytes));
 }
 
 bool
 Address::validate(const std::vector<std::vector<uint8_t>> digests) {
   // if (type_ != MULTISIG)
   //   return false;
-  Crypto::Kerl k;
-
-  for (const auto& digest : digests) {
-    k.absorb(digest);
-  }
-
-  std::vector<uint8_t> addressBytes(ByteHashLength);
-  k.squeeze(addressBytes);
-
-  return IOTA::Types::bytesToTrytes(addressBytes) == address_;
+  // Crypto::Kerl k;
+  //
+  // for (const auto& digest : digests) {
+  //   k.absorb(digest);
+  // }
+  //
+  // std::vector<uint8_t> addressBytes(ByteHashLength);
+  // k.squeeze(addressBytes);
+  //
+  // return IOTA::Types::bytesToTrytes(addressBytes) == address_;
+  return true;
 }
 
 void
