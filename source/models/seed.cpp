@@ -133,6 +133,11 @@ Seed::operator!=(const Types::Trytes& rhs) const {
   return operator!=(Seed{ rhs });
 }
 
+std::ostream&
+operator<<(std::ostream& os, const Seed& seed) {
+  return os << seed.toTrytes();
+}
+
 }  // namespace Models
 
 }  // namespace IOTA

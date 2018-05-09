@@ -164,6 +164,8 @@ private:
   int security_;
 };
 
+std::ostream& operator<<(std::ostream& os, const Seed& seed);
+
 }  // namespace Models
 
 }  // namespace IOTA

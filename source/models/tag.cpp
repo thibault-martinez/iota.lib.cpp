@@ -93,6 +93,11 @@ Tag::operator!=(const Types::Trytes& rhs) const {
   return operator!=(Tag{ rhs });
 }
 
+std::ostream&
+operator<<(std::ostream& os, const Tag& tag) {
+  return os << tag.toTrytes();
+}
+
 }  // namespace Models
 
 }  // namespace IOTA

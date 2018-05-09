@@ -134,6 +134,8 @@ private:
   Types::Trytes paddedTag_;
 };
 
+std::ostream& operator<<(std::ostream& os, const Tag& tag);
+
 }  // namespace Models
 
 }  // namespace IOTA

@@ -374,10 +374,6 @@ public:
       const std::vector<Models::Transfer>& transfers) const;
 
 private:
-  std::vector<Types::Trytes> signInputsAndReturn(
-      const Models::Seed& seed, const std::vector<Models::Address>& inputs, Models::Bundle& bundle,
-      const std::vector<Types::Trytes>& signatureFragments) const;
-
   void traverseBundles(const std::vector<Types::Trytes>&                          trxs,
                        const std::vector<std::reference_wrapper<Models::Bundle>>& bundles,
                        bool throwOnFail) const;

@@ -376,6 +376,11 @@ Transaction::initFromTrytes(const Types::Trytes& trytes) {
   setNonce(trytes.substr(NonceOffset.first, NonceOffset.second - NonceOffset.first));
 }
 
+std::ostream&
+operator<<(std::ostream& os, const Transaction& transaction) {
+  return os << transaction.toTrytes();
+}
+
 }  // namespace Models
 
 }  // namespace IOTA

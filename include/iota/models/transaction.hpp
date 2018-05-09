@@ -510,6 +510,8 @@ private:
   bool persistence_ = false;
 };
 
+std::ostream& operator<<(std::ostream& os, const Transaction& transaction);
+
 }  // namespace Models
 
 }  // namespace IOTA

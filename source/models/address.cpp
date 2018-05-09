@@ -33,15 +33,18 @@ namespace IOTA {
 namespace Models {
 
 Address::Address(const Types::Trytes& address, const int64_t& balance, const int32_t& keyIndex,
-                 const int32_t& security)
-    : balance_(balance), keyIndex_(keyIndex) {
+                 const int32_t& security, const Type& type)
+    : balance_(balance), keyIndex_(keyIndex), type_(type), k_(std::make_shared<Crypto::Kerl>()) {
   setAddress(address);
   setSecurity(security);
 }
 
 Address::Address(const char* address, const int64_t& balance, const int32_t& keyIndex,
-                 const int32_t& security)
-    : Address(Types::Trytes(address), balance, keyIndex, security) {
+                 const int32_t& security, const Type& type)
+    : Address(Types::Trytes(address), balance, keyIndex, security, type) {
+}
+
+Address::Address(const Type& type) : Address("", 0, 0, 0, type) {
 }
 
 const Types::Trytes&
@@ -57,6 +60,40 @@ Address::toTrytesWithChecksum(bool validChecksum) {
 bool
 Address::empty() const {
   return address_.empty();
+}
+
+void
+Address::absorbDigests(const std::vector<uint8_t>& digests) {
+  if (type_ != MULTISIG)
+    return;
+  security_ += digests.size() / ByteHashLength;
+  k_->absorb(digests);
+}
+
+void
+Address::finalize() {
+  if (type_ != MULTISIG)
+    return;
+  std::vector<uint8_t> addressBytes(ByteHashLength);
+
+  k_->squeeze(addressBytes);
+  setAddress(IOTA::Types::bytesToTrytes(addressBytes));
+}
+
+bool
+Address::validate(const std::vector<std::vector<uint8_t>>& digests) {
+  if (type_ != MULTISIG)
+    return false;
+  Crypto::Kerl k;
+
+  for (const auto& digest : digests) {
+    k.absorb(digest);
+  }
+
+  std::vector<uint8_t> addressBytes(ByteHashLength);
+  k.squeeze(addressBytes);
+
+  return IOTA::Types::bytesToTrytes(addressBytes) == address_;
 }
 
 void
@@ -123,10 +160,9 @@ Address::getSecurity() const {
 void
 Address::setSecurity(const int32_t& security) {
   //! Validate the security level
-  if (security < 1 || security > 3) {
+  if ((type_ == MULTISIG && security < 0) || (type_ == NORMAL && (security < 1 || security > 3))) {
     throw Errors::IllegalState("Invalid Security Level");
   }
-
   security_ = security;
 }
 
@@ -148,6 +184,11 @@ Address::operator==(const Types::Trytes& rhs) const {
 bool
 Address::operator!=(const Types::Trytes& rhs) const {
   return operator!=(Address{ rhs });
+}
+
+std::ostream&
+operator<<(std::ostream& os, const Address& address) {
+  return os << address.toTrytes();
 }
 
 }  // namespace Models

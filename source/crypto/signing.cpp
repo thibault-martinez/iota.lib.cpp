@@ -23,6 +23,8 @@
 //
 //
 
+#include <algorithm>
+
 #include <iota/constants.hpp>
 #include <iota/crypto/kerl.hpp>
 #include <iota/crypto/signing.hpp>
@@ -147,6 +149,95 @@ signatureFragment(const std::vector<int8_t>& normalizedBundleFragment,
   }
 
   return signatureFragment;
+}
+
+std::vector<Types::Trytes>
+signInputs(const Models::Seed& seed, const std::vector<Models::Address>& inputs,
+           Models::Bundle& bundle, const std::vector<Types::Trytes>& signatureFragments) {
+  bundle.finalize();
+  bundle.addTrytes(signatureFragments);
+
+  //  SIGNING OF INPUTS
+  //
+  //  Here we do the actual signing of the inputs
+  //  Iterate over all bundle transactions, find the inputs
+  //  Get the corresponding private key and calculate the signatureFragment
+  for (auto& tx : bundle.getTransactions()) {
+    if (tx.getValue() < 0) {
+      auto addr = tx.getAddress();
+
+      // Get the corresponding keyIndex of the address
+      int keyIndex    = 0;
+      int keySecurity = 0;
+      for (const auto& input : inputs) {
+        if (input == addr) {
+          keyIndex    = input.getKeyIndex();
+          keySecurity = input.getSecurity();
+        }
+      }
+
+      auto bundleHash = tx.getBundle();
+
+      // Get corresponding private key of address
+      auto key = Types::bytesToTrits(Crypto::Signing::key(
+          Types::trytesToBytes(seed.toTrytes()), keyIndex, seed.getSecurity()));  // TODO(optimize)
+
+      //  First 6561 trits for the firstFragment
+      std::vector<int8_t> firstFragment(&key[0], &key[6561]);
+
+      //  Get the normalized bundle hash
+      auto normalizedBundleHash = bundle.normalizedBundle(bundleHash);
+
+      //  First bundle fragment uses 27 trytes
+      std::vector<int8_t> firstBundleFragment(&normalizedBundleHash[0], &normalizedBundleHash[27]);
+
+      //  Calculate the new signatureFragment with the first bundle fragment
+      auto firstSignedFragment =
+          Crypto::Signing::signatureFragment(firstBundleFragment, firstFragment);
+
+      //  Convert signature to trytes and assign the new signatureFragment
+      tx.setSignatureFragments(Types::tritsToTrytes(firstSignedFragment));
+
+      // if user chooses higher than 27-tryte security
+      // for each security level, add an additional signature
+      for (int j = 1; j < keySecurity; j++) {
+        //  Because the signature is > 2187 trytes, we need to
+        //  find the second transaction to add the remainder of the signature
+        for (auto& txb : bundle.getTransactions()) {
+          //  Same address as well as value = 0 (as we already spent the input)
+          if (txb.getAddress() == addr && txb.getValue() == 0) {
+            // Use the second 6562 trits
+            std::vector<int8_t> secondFragment(&key[6561], &key[6561 * 2]);
+
+            // The second 27 to 54 trytes of the bundle hash
+            std::vector<int8_t> secondBundleFragment(&normalizedBundleHash[27],
+                                                     &normalizedBundleHash[27 * 2]);
+
+            //  Calculate the new signature
+            auto secondSignedFragment =
+                Crypto::Signing::signatureFragment(secondBundleFragment, secondFragment);
+
+            //  Convert signature to trytes and assign it again to this bundle entry
+            txb.setSignatureFragments(Types::tritsToTrytes(secondSignedFragment));
+          }
+        }
+      }
+    }
+  }
+
+  std::vector<Types::Trytes> bundleTrytes;
+
+  std::sort(bundle.getTransactions().begin(), bundle.getTransactions().end(),
+            [](const Models::Transaction& lhs, const Models::Transaction& rhs) {
+              return lhs.getCurrentIndex() < rhs.getCurrentIndex();
+            });
+
+  // Convert all bundle entries into trytes
+  for (const auto& tx : bundle.getTransactions()) {
+    bundleTrytes.emplace_back(tx.toTrytes());
+  }
+
+  return bundleTrytes;
 }
 
 bool
