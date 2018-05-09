@@ -146,7 +146,7 @@ public:
    *
    * @return whether the multisig address is valid or not.
    **/
-  bool validate(const std::vector<std::vector<uint8_t>> digests);
+  bool validate(const std::vector<std::vector<uint8_t>>& digests);
 
 public:
   /**

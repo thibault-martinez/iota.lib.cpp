@@ -81,7 +81,7 @@ Address::finalize() {
 }
 
 bool
-Address::validate(const std::vector<std::vector<uint8_t>> digests) {
+Address::validate(const std::vector<std::vector<uint8_t>>& digests) {
   if (type_ != MULTISIG)
     return false;
   Crypto::Kerl k;
@@ -94,7 +94,6 @@ Address::validate(const std::vector<std::vector<uint8_t>> digests) {
   k.squeeze(addressBytes);
 
   return IOTA::Types::bytesToTrytes(addressBytes) == address_;
-  return true;
 }
 
 void

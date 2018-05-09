@@ -42,7 +42,7 @@ version: 1.0.{build}
 
 # Build worker image (VM template)
 image:
-  # - Visual Studio 2017
+  - Visual Studio 2017
   - Visual Studio 2015
 
 #---------------------------------#
@@ -57,7 +57,7 @@ configuration:
 
 environment:
   matrix:
-    # - arch: Win64
+    - arch: Win64
     - arch: Win32
 
 init:
