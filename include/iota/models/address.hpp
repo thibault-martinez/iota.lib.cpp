@@ -25,6 +25,8 @@
 
 #pragma once
 
+#include <memory>
+
 #include <iota/crypto/kerl.hpp>
 #include <iota/types/trinary.hpp>
 
