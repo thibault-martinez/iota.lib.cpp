@@ -34,7 +34,7 @@ namespace Models {
 
 Address::Address(const Types::Trytes& address, const int64_t& balance, const int32_t& keyIndex,
                  const int32_t& security, const Type& type)
-    : balance_(balance), keyIndex_(keyIndex), type_(type) {
+    : balance_(balance), keyIndex_(keyIndex), type_(type), k_(std::make_shared<Crypto::Kerl>()) {
   setAddress(address);
   setSecurity(security);
 }
@@ -64,36 +64,36 @@ Address::empty() const {
 
 void
 Address::absorbDigests(const std::vector<uint8_t>& digests) {
-  // if (type_ != MULTISIG)
-  //   return;
-  // security_ += digests.size() / ByteHashLength;
-  // k_.absorb(digests);
+  if (type_ != MULTISIG)
+    return;
+  security_ += digests.size() / ByteHashLength;
+  k_->absorb(digests);
 }
 
 void
 Address::finalize() {
-  // if (type_ != MULTISIG)
-  //   return;
-  // std::vector<uint8_t> addressBytes(ByteHashLength);
-  //
-  // k_.squeeze(addressBytes);
-  // setAddress(IOTA::Types::bytesToTrytes(addressBytes));
+  if (type_ != MULTISIG)
+    return;
+  std::vector<uint8_t> addressBytes(ByteHashLength);
+
+  k_->squeeze(addressBytes);
+  setAddress(IOTA::Types::bytesToTrytes(addressBytes));
 }
 
 bool
 Address::validate(const std::vector<std::vector<uint8_t>> digests) {
-  // if (type_ != MULTISIG)
-  //   return false;
-  // Crypto::Kerl k;
-  //
-  // for (const auto& digest : digests) {
-  //   k.absorb(digest);
-  // }
-  //
-  // std::vector<uint8_t> addressBytes(ByteHashLength);
-  // k.squeeze(addressBytes);
-  //
-  // return IOTA::Types::bytesToTrytes(addressBytes) == address_;
+  if (type_ != MULTISIG)
+    return false;
+  Crypto::Kerl k;
+
+  for (const auto& digest : digests) {
+    k.absorb(digest);
+  }
+
+  std::vector<uint8_t> addressBytes(ByteHashLength);
+  k.squeeze(addressBytes);
+
+  return IOTA::Types::bytesToTrytes(addressBytes) == address_;
   return true;
 }
 

@@ -252,6 +252,7 @@ private:
 
   /**
    * Instance of Kerl for multisig addresses.
+   * Due to an alignement issue on MSVC15/32bits, kerl has been made a shared_ptr.
    */
   std::shared_ptr<Crypto::Kerl> k_;
 };
