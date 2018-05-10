@@ -25,13 +25,34 @@
 
 #include <gtest/gtest.h>
 
-#include <iota/api/requests/get_neighbors.hpp>
+#include <iota/api/responses/were_addresses_spent_from.hpp>
 
-TEST(GetNeighborsRequest, SerializeShouldInitJson) {
-  const IOTA::API::Requests::GetNeighbors req;
-  json                                    data;
+TEST(WereAddressesSpentFromResponse, CtorShouldInitFields) {
+  const IOTA::API::Responses::WereAddressesSpentFrom res{ std::vector<bool>(
+      { true, false, true }) };
 
-  req.serialize(data);
+  EXPECT_EQ(res.getStates(), std::vector<bool>({ true, false, true }));
+  EXPECT_EQ(res.getDuration(), 0);
+}
 
-  EXPECT_EQ(data["command"].get<std::string>(), "getNeighbors");
+TEST(WereAddressesSpentFromResponse, GetSetStates) {
+  IOTA::API::Responses::WereAddressesSpentFrom res{ std::vector<bool>({ true, false, true }) };
+
+  std::vector<bool> states = res.getStates();
+  states.push_back(true);
+  res.setStates(states);
+
+  EXPECT_EQ(res.getStates(), std::vector<bool>({ true, false, true, true }));
+  EXPECT_EQ(res.getDuration(), 0);
+}
+
+TEST(WereAddressesSpentFromResponse, DeserializeShouldSetFields) {
+  IOTA::API::Responses::WereAddressesSpentFrom res;
+  json                                         data;
+  std::vector<bool>                            states;
+
+  states.push_back(true);
+  data["states"] = states;
+  res.deserialize(data);
+  EXPECT_EQ(res.getStates(), states);
 }

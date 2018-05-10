@@ -25,32 +25,67 @@
 
 #pragma once
 
+#include <iota/api/responses/base.hpp>
+
 namespace IOTA {
 
 namespace API {
 
 namespace Responses {
 
-class AddNeighbors;
-class AttachToTangle;
-class Base;
-class FindTransactions;
-class GetAccountData;
-class GetBalances;
-class GetBalancesAndFormat;
-class GetBundle;
-class GetInclusionStates;
-class GetNeighbors;
-class GetNewAddresses;
-class GetNodeInfo;
-class GetTips;
-class GetTransactionsToApprove;
-class GetTransfers;
-class GetTrytes;
-class RemoveNeighbors;
-class ReplayBundle;
-class SendTransfer;
-class WereAddressesSpentFrom;
+/**
+ * WereAddressesSpentFrom API call response.
+ *
+ * Check if a list of addresses was ever spent from, in the current epoch, or in previous epochs.
+ *
+ * https://iota.readme.io/reference#wereaddressesspentfrom
+ */
+class WereAddressesSpentFrom : public Base {
+public:
+  /**
+   * Full init ctor.
+   *
+   * @param states The inclusion states.
+   */
+  explicit WereAddressesSpentFrom(const std::vector<bool>& states = {});
+
+  /**
+   * Json-based ctor.
+   *
+   * @param res json to be used for deserialization.
+   */
+  explicit WereAddressesSpentFrom(const json& res);
+
+  /**
+   * Default dtor.
+   */
+  ~WereAddressesSpentFrom() = default;
+
+public:
+  /**
+   * Initialization based on json data.
+   *
+   * @param res json data to be used for deserialization.
+   */
+  void deserialize(const json& res) override;
+
+public:
+  /**
+   * @return Inclusion states of the set of transactions.
+   */
+  const std::vector<bool>& getStates() const;
+
+  /**
+   * @param states new states for api response.
+   */
+  void setStates(const std::vector<bool>& states);
+
+private:
+  /**
+   * List of state if addresses were spent from.
+   */
+  std::vector<bool> states_;
+};
 
 }  // namespace Responses
 

@@ -37,6 +37,7 @@
 #include <iota/api/responses/get_transactions_to_approve.hpp>
 #include <iota/api/responses/get_trytes.hpp>
 #include <iota/api/responses/remove_neighbors.hpp>
+#include <iota/api/responses/were_addresses_spent_from.hpp>
 #include <iota/constants.hpp>
 #include <iota/errors/illegal_state.hpp>
 #include <iota/models/bundle.hpp>
@@ -461,4 +462,37 @@ TEST(Core, AttachToTangleLocalPowManyTx) {
       api.attachToTangle(tta.getTrunkTransaction(), tta.getBranchTransaction(), POW_LEVEL, { tx });
   auto trytes = att.getTrytes()[0];
   api.storeTransactions({ trytes });
+}
+
+TEST(Core, WereAddressesSpentFromOneTrue) {
+  IOTA::API::Core api(get_proxy_host(), get_proxy_port());
+
+  auto res = api.wereAddressesSpentFrom({ ACCOUNT_2_ADDRESS_1_HASH_WITHOUT_CHECKSUM });
+
+  EXPECT_EQ(res.getStates(), std::vector<bool>({ true }));
+}
+
+TEST(Core, WereAddressesSpentFromOneFalse) {
+  IOTA::API::Core api(get_proxy_host(), get_proxy_port());
+
+  auto res = api.wereAddressesSpentFrom({ ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM });
+
+  EXPECT_EQ(res.getStates(), std::vector<bool>({ false }));
+}
+
+TEST(Core, WereAddressesSpentFromMany) {
+  IOTA::API::Core api(get_proxy_host(), get_proxy_port());
+
+  auto res = api.wereAddressesSpentFrom(
+      { ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM, ACCOUNT_2_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
+        ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM, ACCOUNT_2_ADDRESS_1_HASH_WITHOUT_CHECKSUM });
+
+  EXPECT_EQ(res.getStates(), std::vector<bool>({ false, true, false, true }));
+}
+
+TEST(Core, WereAddressesSpentFromEmpty) {
+  IOTA::API::Core api(get_proxy_host(), get_proxy_port());
+
+  EXPECT_EXCEPTION(auto res = api.wereAddressesSpentFrom({});
+                   , IOTA::Errors::BadRequest, "Invalid parameters")
 }

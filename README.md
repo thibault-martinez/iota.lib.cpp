@@ -6,6 +6,7 @@
 [![Appveyor Build Status][appveyor-badge]][appveyor]
 [![Coveralls Status][coveralls-badge]][coveralls]
 [![Documentation][documentation-badge]][documentation]
+[![IOTA API coverage][iota-api-badge]][iota-api]
 [![MIT License][license-badge]][license]
 
 This is not (yet) an official C++ client library for the [IOTA Reference Implementation (IRI)](https://github.com/iotaledger/iri).
@@ -110,12 +111,16 @@ OZCTDHTFCB9PTAZWGYCGOA9XKDKPSHWVSZDJKZCOINNQTPNNEANGPBBDLSNGKDGCAAKBDVBOVCPTRLHT
 [appveyor]: https://ci.appveyor.com/project/thibault-martinez/iota-lib-cpp/branch/master
 [appveyor-badge]: https://ci.appveyor.com/api/projects/status/lp9awde5sykw16u0/branch/master?svg=true
 
-
 [coveralls]: https://coveralls.io/github/thibault-martinez/iota.lib.cpp?branch=master
 [coveralls-badge]: https://coveralls.io/repos/github/thibault-martinez/iota.lib.cpp/badge.svg?branch=master
 
 [documentation]: https://thibault-martinez.github.io/iota.lib.cpp/html/
 [documentation-badge]: https://img.shields.io/readthedocs/pip/stable.svg
+
+[iota-api]:
+https://iota.readme.io/reference
+[iota-api-badge]:
+https://img.shields.io/badge/IOTA%20API%20coverage-15/15%20commands-green.svg
 
 [license]: https://github.com/thibault-martinez/iota.lib.cpp/blob/master/LICENSE
 [license-badge]: https://img.shields.io/apm/l/vim-mode.svg

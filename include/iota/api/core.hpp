@@ -247,6 +247,18 @@ public:
    */
   Responses::Base storeTransactions(const std::vector<Types::Trytes>& trytes) const;
 
+  /**
+   * Check if a list of addresses was ever spent from, in the current epoch, or in previous epochs.
+   *
+   * https://iota.readme.io/reference#wereaddressesspentfrom
+   *
+   * @param addresses List of addresses you want to check if they were spent from.
+   *
+   * @return The response.
+   */
+  Responses::WereAddressesSpentFrom wereAddressesSpentFrom(
+      const std::vector<Models::Address>& addresses) const;
+
 private:
   /**
    * Internal service for api calls.
