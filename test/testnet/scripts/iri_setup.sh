@@ -36,5 +36,5 @@ cp ../iri_config/iri.ini .
 mvn clean compile -q
 mvn package -q
 cp -r ../testnetdb .
-java -jar target/iri-1.4.2.1.jar -c iri.ini 1> /dev/null &
+java -jar target/iri-1.4.2.3.jar -c iri.ini 1> /dev/null &
 cd -
