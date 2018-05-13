@@ -210,10 +210,10 @@ signInputs(const Models::Seed& seed, const std::vector<Models::Address>& inputs,
         // find the subsequent transaction to add the remainder of the signature
         // Same address as well as value = 0 (as we already spent the input)
         if (bundle[i + j].getAddress() == addr && bundle[i + j].getValue() == 0) {
-          // Use the second 6562 trits
+          // Use the next 6562 trits
           std::vector<int8_t> nextFragment(&key[6561 * j], &key[6561 * (j + 1)]);
 
-          // The second 27 to 54 trytes of the bundle hash
+          // The next 27 to 54 trytes of the bundle hash
           std::vector<int8_t> nextBundleFragment(&normalizedBundleHash[27 * j],
                                                  &normalizedBundleHash[27 * (j + 1)]);
 
