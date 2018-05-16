@@ -10,8 +10,8 @@
 // copies of the Software, and to permit persons to whom the Software is
 // furnished to do so, subject to the following conditions:
 //
-// The above copyright notice and this permission notice shall be included in
-// all copies or substantial portions of the Software.
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
 //
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -23,7 +23,7 @@
 //
 //
 
-#pragma once
+#include <iota/api/responses/check_consistency.hpp>
 
 namespace IOTA {
 
@@ -31,26 +31,45 @@ namespace API {
 
 namespace Responses {
 
-class AddNeighbors;
-class AttachToTangle;
-class Base;
-class CheckConsistency;
-class FindTransactions;
-class GetAccountData;
-class GetBalances;
-class GetBalancesAndFormat;
-class GetBundle;
-class GetInclusionStates;
-class GetNeighbors;
-class GetNewAddresses;
-class GetNodeInfo;
-class GetTips;
-class GetTransactionsToApprove;
-class GetTransfers;
-class GetTrytes;
-class RemoveNeighbors;
-class ReplayBundle;
-class SendTransfer;
+CheckConsistency::CheckConsistency(const bool state, const std::string& info)
+    : state_(state), info_(info) {
+}
+
+CheckConsistency::CheckConsistency(const json& res) {
+  deserialize(res);
+}
+
+void
+CheckConsistency::deserialize(const json& res) {
+  Base::deserialize(res);
+
+  if (res.count("state")) {
+    state_ = res.at("state").get<bool>();
+  }
+  if (res.count("info")) {
+    info_ = res.at("info").get<std::string>();
+  }
+}
+
+bool
+CheckConsistency::getState() const {
+  return state_;
+}
+
+void
+CheckConsistency::setState(bool state) {
+  state_ = state;
+}
+
+const std::string&
+CheckConsistency::getInfo() const {
+  return info_;
+}
+
+void
+CheckConsistency::setInfo(const std::string& info) {
+  info_ = info;
+}
 
 }  // namespace Responses
 
