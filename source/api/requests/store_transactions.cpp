@@ -23,6 +23,8 @@
 //
 //
 
+#include <json.hpp>
+
 #include <iota/api/requests/store_transactions.hpp>
 
 namespace IOTA {

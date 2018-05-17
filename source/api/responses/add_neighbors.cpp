@@ -23,6 +23,8 @@
 //
 //
 
+#include <json.hpp>
+
 #include <iota/api/responses/add_neighbors.hpp>
 
 namespace IOTA {

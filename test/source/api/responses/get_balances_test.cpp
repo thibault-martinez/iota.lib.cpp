@@ -24,6 +24,7 @@
 //
 
 #include <gtest/gtest.h>
+#include <json.hpp>
 
 #include <iota/api/responses/get_balances.hpp>
 

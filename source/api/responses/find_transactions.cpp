@@ -23,6 +23,8 @@
 //
 //
 
+#include <json.hpp>
+
 #include <iota/api/responses/find_transactions.hpp>
 
 namespace IOTA {

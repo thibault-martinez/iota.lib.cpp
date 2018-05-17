@@ -23,6 +23,8 @@
 //
 //
 
+#include <json.hpp>
+
 #include <iota/api/requests/remove_neighbors.hpp>
 
 namespace IOTA {

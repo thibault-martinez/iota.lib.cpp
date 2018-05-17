@@ -65,7 +65,8 @@ configure_file(cmake/version.hpp.in
 file(GLOB_RECURSE PROJECT_SOURCE_FILES ${PROJECT_SOURCE_DIR}/*.cpp)
 
 include_directories("${PROJECT_INCLUDE_DIR}")
-include_directories("external/json/src")
+include_directories("external/json/include")
+include_directories("external/json/include/nlohmann")
 
 ########## DEPENDENCIES ##########
 
@@ -74,6 +75,7 @@ link_directories(${CMAKE_SOURCE_DIR}/deps/lib)
 include(keccak_settings.as_source)
 
 ########## LIBRARY ##########
+
 add_library(${CMAKE_PROJECT_NAME} STATIC ${PROJECT_SOURCE_FILES})
 
 ########## COMPILATION SETTINGS ##########
