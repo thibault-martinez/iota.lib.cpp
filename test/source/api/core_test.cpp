@@ -28,6 +28,7 @@
 #include <iota/api/core.hpp>
 #include <iota/api/responses/add_neighbors.hpp>
 #include <iota/api/responses/attach_to_tangle.hpp>
+#include <iota/api/responses/check_consistency.hpp>
 #include <iota/api/responses/find_transactions.hpp>
 #include <iota/api/responses/get_balances.hpp>
 #include <iota/api/responses/get_inclusion_states.hpp>
@@ -461,4 +462,52 @@ TEST(Core, AttachToTangleLocalPowManyTx) {
       api.attachToTangle(tta.getTrunkTransaction(), tta.getBranchTransaction(), POW_LEVEL, { tx });
   auto trytes = att.getTrytes()[0];
   api.storeTransactions({ trytes });
+}
+
+TEST(Core, CheckConsistencyEmpty) {
+  IOTA::API::Core api(get_proxy_host(), get_proxy_port());
+
+  auto res = api.checkConsistency({});
+
+  EXPECT_EQ(res.getState(), true);
+  EXPECT_EQ(res.getInfo(), "");
+}
+
+TEST(Core, CheckConsistencyInvalidTail) {
+  IOTA::API::Core api(get_proxy_host(), get_proxy_port());
+
+  EXPECT_EXCEPTION(auto res = api.checkConsistency({ "invalid tail" }), IOTA::Errors::BadRequest,
+                   "Invalid tails input")
+}
+
+TEST(Core, CheckConsistencyNotTail) {
+  IOTA::API::Core api(get_proxy_host(), get_proxy_port());
+
+  EXPECT_EXCEPTION(auto res = api.checkConsistency({ BUNDLE_1_TRX_2_HASH }),
+                   IOTA::Errors::BadRequest,
+                   std::string("Invalid transaction, not a tail: " + BUNDLE_1_TRX_2_HASH).c_str())
+}
+
+TEST(Core, CheckConsistencyOneTail) {
+  IOTA::API::Core api(get_proxy_host(), get_proxy_port());
+
+  auto res = api.checkConsistency({ BUNDLE_1_TRX_1_HASH });
+  EXPECT_EQ(res.getState(), true);
+  EXPECT_EQ(res.getInfo(), "");
+}
+
+TEST(Core, CheckConsistencyMultipleTails) {
+  IOTA::API::Core api(get_proxy_host(), get_proxy_port());
+
+  auto res =
+      api.checkConsistency({ BUNDLE_1_TRX_1_HASH, BUNDLE_1_TRX_1_HASH, BUNDLE_1_TRX_1_HASH });
+  EXPECT_EQ(res.getState(), true);
+  EXPECT_EQ(res.getInfo(), "");
+}
+
+TEST(Core, CheckConsistencyMissingTail) {
+  IOTA::API::Core api(get_proxy_host(), get_proxy_port());
+
+  EXPECT_EXCEPTION(auto res = api.checkConsistency({ IOTA::EmptyHash }), IOTA::Errors::BadRequest,
+                   std::string("Invalid transaction, missing: " + IOTA::EmptyHash).c_str())
 }
