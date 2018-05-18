@@ -259,6 +259,22 @@ public:
   Responses::WereAddressesSpentFrom wereAddressesSpentFrom(
       const std::vector<Models::Address>& addresses) const;
 
+  /*
+   * Used to ensure tail resolves to a consistent ledger which is necessary to validate before
+   * attempting promotion. Checks transaction hashes for promotability.
+   *
+   * This is called with a pending transaction (or more of them) and it will tell you if it is still
+   * possible for this transaction (or all the transactions simultaneously if you give more than
+   * one) to be confirmed, or not (because it conflicts with another already confirmed transaction).
+   *
+   * https://iota.readme.io/reference#checkconsistency
+   *
+   * @param tails Tails to check consistency.
+   *
+   * @return The response.
+   */
+  Responses::CheckConsistency checkConsistency(const std::vector<Types::Trytes>& tails) const;
+
 private:
   /**
    * Internal service for api calls.

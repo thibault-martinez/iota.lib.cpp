@@ -27,6 +27,7 @@
 #include <iota/api/requests/add_neighbors.hpp>
 #include <iota/api/requests/attach_to_tangle.hpp>
 #include <iota/api/requests/broadcast_transactions.hpp>
+#include <iota/api/requests/check_consistency.hpp>
 #include <iota/api/requests/find_transactions.hpp>
 #include <iota/api/requests/get_balances.hpp>
 #include <iota/api/requests/get_inclusion_states.hpp>
@@ -41,6 +42,7 @@
 #include <iota/api/requests/were_addresses_spent_from.hpp>
 #include <iota/api/responses/add_neighbors.hpp>
 #include <iota/api/responses/attach_to_tangle.hpp>
+#include <iota/api/responses/check_consistency.hpp>
 #include <iota/api/responses/find_transactions.hpp>
 #include <iota/api/responses/get_balances.hpp>
 #include <iota/api/responses/get_inclusion_states.hpp>
@@ -185,6 +187,11 @@ Responses::WereAddressesSpentFrom
 Core::wereAddressesSpentFrom(const std::vector<Models::Address>& addresses) const {
   return service_.request<Requests::WereAddressesSpentFrom, Responses::WereAddressesSpentFrom>(
       addresses);
+}
+
+Responses::CheckConsistency
+Core::checkConsistency(const std::vector<Types::Trytes>& tails) const {
+  return service_.request<Requests::CheckConsistency, Responses::CheckConsistency>(tails);
 }
 
 }  // namespace API

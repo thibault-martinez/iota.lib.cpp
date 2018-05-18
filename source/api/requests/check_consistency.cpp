@@ -10,8 +10,8 @@
 // copies of the Software, and to permit persons to whom the Software is
 // furnished to do so, subject to the following conditions:
 //
-// The above copyright notice and this permission notice shall be included in
-// all copies or substantial portions of the Software.
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
 //
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -23,37 +23,40 @@
 //
 //
 
-#pragma once
+#include <iota/api/requests/check_consistency.hpp>
 
 namespace IOTA {
 
 namespace API {
 
-namespace Responses {
+namespace Requests {
 
-class AddNeighbors;
-class AttachToTangle;
-class Base;
-class CheckConsistency;
-class FindTransactions;
-class GetAccountData;
-class GetBalances;
-class GetBalancesAndFormat;
-class GetBundle;
-class GetInclusionStates;
-class GetNeighbors;
-class GetNewAddresses;
-class GetNodeInfo;
-class GetTips;
-class GetTransactionsToApprove;
-class GetTransfers;
-class GetTrytes;
-class RemoveNeighbors;
-class ReplayBundle;
-class SendTransfer;
-class WereAddressesSpentFrom;
+CheckConsistency::CheckConsistency(const std::vector<Types::Trytes>& tails)
+    : Base("checkConsistency"), tails_(tails) {
+}
 
-}  // namespace Responses
+void
+CheckConsistency::serialize(json& data) const {
+  Base::serialize(data);
+  data["tails"] = tails_;
+}
+
+const std::vector<Types::Trytes>&
+CheckConsistency::getTails() const {
+  return tails_;
+}
+
+std::vector<Types::Trytes>&
+CheckConsistency::getTails() {
+  return tails_;
+}
+
+void
+CheckConsistency::setTails(const std::vector<Types::Trytes>& tails) {
+  tails_ = tails;
+}
+
+}  // namespace Requests
 
 }  // namespace API
 

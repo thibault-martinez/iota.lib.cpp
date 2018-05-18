@@ -5,6 +5,8 @@
 [![Travis Build Status][travis-badge]][travis]
 [![Appveyor Build Status][appveyor-badge]][appveyor]
 [![Coveralls Status][coveralls-badge]][coveralls]
+[![Codacy Status][codacy-badge]][codacy]
+[![CodeFactor Status][codefactor-badge]][codefactor]
 [![Documentation][documentation-badge]][documentation]
 [![IOTA API coverage][iota-api-badge]][iota-api]
 [![MIT License][license-badge]][license]
@@ -114,6 +116,16 @@ OZCTDHTFCB9PTAZWGYCGOA9XKDKPSHWVSZDJKZCOINNQTPNNEANGPBBDLSNGKDGCAAKBDVBOVCPTRLHT
 [coveralls]: https://coveralls.io/github/thibault-martinez/iota.lib.cpp?branch=master
 [coveralls-badge]: https://coveralls.io/repos/github/thibault-martinez/iota.lib.cpp/badge.svg?branch=master
 
+[codacy]:
+https://www.codacy.com/app/thibault.martinez.30/iota.lib.cpp?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=thibault-martinez/iota.lib.cpp&amp;utm_campaign=Badge_Grade
+[codacy-badge]:
+https://api.codacy.com/project/badge/Grade/a7c3070bcf4f4bc2bfff8f266208634a
+
+[codefactor]:
+https://www.codefactor.io/repository/github/thibault-martinez/iota.lib.cpp
+[codefactor-badge]:
+https://www.codefactor.io/repository/github/thibault-martinez/iota.lib.cpp/badge
+
 [documentation]: https://thibault-martinez.github.io/iota.lib.cpp/html/
 [documentation-badge]: https://img.shields.io/readthedocs/pip/stable.svg
 
@@ -123,4 +135,5 @@ https://iota.readme.io/reference
 https://img.shields.io/badge/IOTA%20API%20coverage-15/15%20commands-green.svg
 
 [license]: https://github.com/thibault-martinez/iota.lib.cpp/blob/master/LICENSE
-[license-badge]: https://img.shields.io/apm/l/vim-mode.svg
+[license-badge]:
+https://img.shields.io/apm/l/vim-mode.svg
