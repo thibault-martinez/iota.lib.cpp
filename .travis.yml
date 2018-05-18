@@ -338,11 +338,11 @@ before_script:
   - ./test/testnet/scripts/iri_setup.sh
 
 script:
-  - CMAKE_PARAMS=-DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -DBUILD_TESTS=1
+  - CMAKE_PARAMS="-DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -DBUILD_TESTS=1"
   - if [ "$M32" == "1" ]; then CMAKE_PARAMS="$CMAKE_PARAMS -DARCH=\"32\""; fi
   - if [ "$SILENCE" == "1" ]; then REDIR="2>/dev/null"; fi
   - mkdir -p build
   - cd build
-  - eval cmake $CMAKE_PARAMS ..
+  - cmake $CMAKE_PARAMS ..
   - eval make $REDIR
   - GTEST_COLOR=1 ctest -VV
