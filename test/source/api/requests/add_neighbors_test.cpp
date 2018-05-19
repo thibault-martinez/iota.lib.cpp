@@ -55,6 +55,6 @@ TEST(AddNeighborsRequest, SerializeShouldInitJson) {
 
   req.serialize(data);
 
-  EXPECT_EQ(data["command"].get<std::string>(), "addNeighbors");
+  EXPECT_EQ(data["command"], "addNeighbors");
   EXPECT_EQ(data["uris"], std::vector<std::string>({ "uri1", "uri2" }));
 }

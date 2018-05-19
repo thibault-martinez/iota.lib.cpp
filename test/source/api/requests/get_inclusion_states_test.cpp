@@ -78,7 +78,7 @@ TEST(GetInclusionStatesRequest, SerializeShouldInitJson) {
 
   req.serialize(data);
 
-  EXPECT_EQ(data["command"].get<std::string>(), "getInclusionStates");
+  EXPECT_EQ(data["command"], "getInclusionStates");
   EXPECT_EQ(data["transactions"], std::vector<IOTA::Types::Trytes>({ "tx1", "tx2" }));
   EXPECT_EQ(data["tips"], std::vector<IOTA::Types::Trytes>({ "tip1", "tip2" }));
 }

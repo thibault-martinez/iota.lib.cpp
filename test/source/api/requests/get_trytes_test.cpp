@@ -57,6 +57,6 @@ TEST(GetTrytesRequest, SerializeShouldInitJson) {
 
   req.serialize(data);
 
-  EXPECT_EQ(data["command"].get<std::string>(), "getTrytes");
+  EXPECT_EQ(data["command"], "getTrytes");
   EXPECT_EQ(data["hashes"], std::vector<IOTA::Types::Trytes>({ "TESTA", "TESTB" }));
 }

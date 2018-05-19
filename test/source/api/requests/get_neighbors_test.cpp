@@ -33,5 +33,5 @@ TEST(GetNeighborsRequest, SerializeShouldInitJson) {
 
   req.serialize(data);
 
-  EXPECT_EQ(data["command"].get<std::string>(), "getNeighbors");
+  EXPECT_EQ(data["command"], "getNeighbors");
 }

@@ -132,9 +132,9 @@ Core::getBalances(const std::vector<Models::Address>& addresses, const int& thre
 }
 
 Responses::GetTransactionsToApprove
-Core::getTransactionsToApprove(const int& depth) const {
+Core::getTransactionsToApprove(const int& depth, const Types::Trytes& reference) const {
   return service_.request<Requests::GetTransactionsToApprove, Responses::GetTransactionsToApprove>(
-      depth);
+      depth, reference);
 }
 
 Responses::AttachToTangle

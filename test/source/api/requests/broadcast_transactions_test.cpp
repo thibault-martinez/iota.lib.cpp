@@ -58,6 +58,5 @@ TEST(BroadcastTransactionsRequest, Serialize) {
   res.serialize(data);
 
   EXPECT_EQ(data["command"], "broadcastTransactions");
-  EXPECT_EQ(data["trytes"].get<std::vector<std::string>>(),
-            std::vector<IOTA::Types::Trytes>({ "TESTA", "TESTB" }));
+  EXPECT_EQ(data["trytes"], std::vector<IOTA::Types::Trytes>({ "TESTA", "TESTB" }));
 }

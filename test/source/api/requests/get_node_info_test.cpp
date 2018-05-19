@@ -33,5 +33,5 @@ TEST(GetNodeInfoRequest, SerializeShouldInitJson) {
 
   req.serialize(data);
 
-  EXPECT_EQ(data["command"].get<std::string>(), "getNodeInfo");
+  EXPECT_EQ(data["command"], "getNodeInfo");
 }
