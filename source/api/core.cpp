@@ -39,6 +39,7 @@
 #include <iota/api/requests/interrupt_attaching_to_tangle.hpp>
 #include <iota/api/requests/remove_neighbors.hpp>
 #include <iota/api/requests/store_transactions.hpp>
+#include <iota/api/requests/were_addresses_spent_from.hpp>
 #include <iota/api/responses/add_neighbors.hpp>
 #include <iota/api/responses/attach_to_tangle.hpp>
 #include <iota/api/responses/check_consistency.hpp>
@@ -51,6 +52,7 @@
 #include <iota/api/responses/get_transactions_to_approve.hpp>
 #include <iota/api/responses/get_trytes.hpp>
 #include <iota/api/responses/remove_neighbors.hpp>
+#include <iota/api/responses/were_addresses_spent_from.hpp>
 #include <iota/crypto/pow.hpp>
 #include <iota/errors/illegal_state.hpp>
 #include <iota/models/neighbor.hpp>
@@ -179,6 +181,12 @@ Core::broadcastTransactions(const std::vector<Types::Trytes>& trytes) const {
 Responses::Base
 Core::storeTransactions(const std::vector<Types::Trytes>& trytes) const {
   return service_.request<Requests::StoreTransactions, Responses::Base>(trytes);
+}
+
+Responses::WereAddressesSpentFrom
+Core::wereAddressesSpentFrom(const std::vector<Models::Address>& addresses) const {
+  return service_.request<Requests::WereAddressesSpentFrom, Responses::WereAddressesSpentFrom>(
+      addresses);
 }
 
 Responses::CheckConsistency

@@ -50,7 +50,7 @@ TEST(GetInclusionStatesResponse, DeserializeShouldSetFields) {
   json                                     data;
   std::vector<bool>                        states;
 
-  states.push_back("TEST");
+  states.push_back(true);
   data["states"] = states;
   res.deserialize(data);
   EXPECT_EQ(res.getStates(), states);
