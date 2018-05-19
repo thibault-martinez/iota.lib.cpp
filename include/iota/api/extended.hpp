@@ -373,6 +373,15 @@ public:
       const Models::Address& inputAddress, const Models::Address& remainderAddress,
       const std::vector<Models::Transfer>& transfers) const;
 
+  /**
+   * Checks if tail transaction is promotable by calling checkConsistency API call.
+   *
+   * @param tail Tail transaction hash.
+   *
+   * @return whether the given tail is promotable or not.
+   */
+  bool isPromotable(const Types::Trytes& tail) const;
+
 private:
   void traverseBundles(const std::vector<Types::Trytes>&                          trxs,
                        const std::vector<std::reference_wrapper<Models::Bundle>>& bundles,

@@ -27,6 +27,7 @@
 
 #include <iota/api/extended.hpp>
 #include <iota/api/responses/attach_to_tangle.hpp>
+#include <iota/api/responses/check_consistency.hpp>
 #include <iota/api/responses/find_transactions.hpp>
 #include <iota/api/responses/get_account_data.hpp>
 #include <iota/api/responses/get_balances.hpp>
@@ -912,6 +913,20 @@ Extended::initiateTransfer(const Models::Address&               inputAddress,
   bundle.addTrytes(signatureFragments);
 
   return bundle.getTransactions();
+}
+
+bool
+Extended::isPromotable(const Types::Trytes& tail) const {
+  if (!Types::isValidHash(tail)) {
+    return false;
+  }
+
+  try {
+    return checkConsistency({ tail }).getState();
+  } catch (IOTA::Errors::BadRequest) {
+    return false;
+  }
+  return false;
 }
 
 /*
