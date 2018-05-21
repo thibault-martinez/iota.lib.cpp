@@ -30,9 +30,6 @@ cd test/testnet/iri
 git checkout b34409b # dev branch
 cp ../iri_config/Snapshot.txt src/main/resources
 cp ../iri_config/iri.ini.windows iri.ini
-# cp ../iri_patch/Snapshot.java src/main/java/com/iota/iri/Snapshot.java
-# cp ../iri_patch/TransactionValidator.java src/main/java/com/iota/iri/TransactionValidator.java
-# cp ../iri_patch/TransactionValidatorTest.java src/test/java/com/iota/iri/TransactionValidatorTest.java
 mvn clean compile
 mvn package
 cp -r ../testnetdb ./testnetdb

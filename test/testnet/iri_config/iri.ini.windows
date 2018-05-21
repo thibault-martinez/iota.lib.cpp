@@ -1,0 +1,7 @@
+[IRI]
+TESTNET_MWM   = 1
+MAINNET_MWM   = 1
+PORT          = 14265
+TESTNET       = true
+DB_PATH       = C:/projects/iota-lib-cpp/test/testnet/iri/testnetdb
+SNAPSHOT_TIME = 0
