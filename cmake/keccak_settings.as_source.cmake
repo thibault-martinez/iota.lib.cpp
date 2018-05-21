@@ -32,28 +32,28 @@
 #
 if (WIN32)
 
-  include_directories(${CMAKE_SOURCE_DIR}/external/keccak/Modes)
-  include_directories(${CMAKE_SOURCE_DIR}/external/keccak/Constructions)
-  include_directories(${CMAKE_SOURCE_DIR}/external/keccak/Common)
-  include_directories(${CMAKE_SOURCE_DIR}/external/keccak/SnP)
+  include_directories(${CMAKE_SOURCE_DIR}/external/keccak/lib/common)
+  include_directories(${CMAKE_SOURCE_DIR}/external/keccak/lib/high/Keccak)
+  include_directories(${CMAKE_SOURCE_DIR}/external/keccak/lib/high/Keccak/FIPS202)
+  include_directories(${CMAKE_SOURCE_DIR}/external/keccak/lib/low/common)
 
-  set(KECCAK_SOURCE ${CMAKE_SOURCE_DIR}/external/keccak/Modes/KeccakHash.c
-                    ${CMAKE_SOURCE_DIR}/external/keccak/Constructions/KeccakSpongeWidth1600.c)
+  set(KECCAK_SOURCE ${CMAKE_SOURCE_DIR}/external/keccak/lib/high/Keccak/FIPS202/KeccakHash.c
+                    ${CMAKE_SOURCE_DIR}/external/keccak/lib/high/Keccak/KeccakSpongeWidth1600.c)
 
   if (ARCH EQUAL "64")
     # 64 bits
-    include_directories(${CMAKE_SOURCE_DIR}/external/keccak/SnP/KeccakP-1600/Optimized)
-    include_directories(${CMAKE_SOURCE_DIR}/external/keccak/SnP/KeccakP-1600/Optimized64)
-    include_directories(${CMAKE_SOURCE_DIR}/external/keccak/SnP/KeccakP-1600/Optimized64/ufull)
+    include_directories(${CMAKE_SOURCE_DIR}/external/keccak/lib/low/KeccakP-1600/Optimized)
+    include_directories(${CMAKE_SOURCE_DIR}/external/keccak/lib/low/KeccakP-1600/Optimized64)
+    include_directories(${CMAKE_SOURCE_DIR}/external/keccak/lib/low/KeccakP-1600/Optimized64/ufull)
 
     set(KECCAK_SOURCE ${KECCAK_SOURCE}
-                      ${CMAKE_SOURCE_DIR}/external/keccak/SnP/KeccakP-1600/Optimized64/KeccakP-1600-opt64.c)
+                      ${CMAKE_SOURCE_DIR}/external/keccak/lib/low/KeccakP-1600/Optimized64/KeccakP-1600-opt64.c)
   else ()
     # 32 bits
-    include_directories(${CMAKE_SOURCE_DIR}/external/keccak/SnP/KeccakP-1600/Inplace32BI)
+    include_directories(${CMAKE_SOURCE_DIR}/external/keccak/lib/low/KeccakP-1600/Inplace32BI)
 
     set(KECCAK_SOURCE ${KECCAK_SOURCE}
-                      ${CMAKE_SOURCE_DIR}/external/keccak/SnP/KeccakP-1600/Inplace32BI/KeccakP-1600-inplace32BI.c)
+                      ${CMAKE_SOURCE_DIR}/external/keccak/lib/low/KeccakP-1600/Inplace32BI/KeccakP-1600-inplace32BI.c)
   endif ()
 
   set(PROJECT_SOURCE_FILES ${PROJECT_SOURCE_FILES} ${KECCAK_SOURCE})
