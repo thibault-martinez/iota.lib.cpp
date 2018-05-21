@@ -71,8 +71,8 @@ elseif (NOT WIN32 AND FORWARD_FLAGS)
                       SOURCE_DIR "${CMAKE_SOURCE_DIR}/external/keccak"
                       CONFIGURE_COMMAND ""
                       UPDATE_COMMAND ""
-                      BUILD_COMMAND FORWARD_FLAGS=${FORWARD_FLAGS} CMAKE_SOURCE_DIR=${CMAKE_SOURCE_DIR} KECCAK_ARCH_OPTIMIZATION=${KECCAK_ARCH_OPTIMIZATION} ${CMAKE_SOURCE_DIR}/cmake_scripts/build_keccak.sh
-                      INSTALL_COMMAND CMAKE_SOURCE_DIR=${CMAKE_SOURCE_DIR} KECCAK_ARCH_OPTIMIZATION=${KECCAK_ARCH_OPTIMIZATION} ${CMAKE_SOURCE_DIR}/cmake_scripts/install_keccak.sh)
+                      BUILD_COMMAND FORWARD_FLAGS=${FORWARD_FLAGS} CMAKE_SOURCE_DIR=${CMAKE_SOURCE_DIR} KECCAK_ARCH_OPTIMIZATION=${KECCAK_ARCH_OPTIMIZATION} ${CMAKE_SOURCE_DIR}/cmake/scripts/build_keccak.sh
+                      INSTALL_COMMAND CMAKE_SOURCE_DIR=${CMAKE_SOURCE_DIR} KECCAK_ARCH_OPTIMIZATION=${KECCAK_ARCH_OPTIMIZATION} ${CMAKE_SOURCE_DIR}/cmake/scripts/install_keccak.sh)
 
   target_link_libraries(${CMAKE_PROJECT_NAME} keccak)
   include_directories(${CMAKE_SOURCE_DIR}/deps/include/keccak)
