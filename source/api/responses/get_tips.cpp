@@ -23,6 +23,8 @@
 //
 //
 
+#include <json.hpp>
+
 #include <iota/api/responses/get_tips.hpp>
 
 namespace IOTA {

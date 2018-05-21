@@ -23,6 +23,8 @@
 //
 //
 
+#include <json.hpp>
+
 #include <iota/api/responses/attach_to_tangle.hpp>
 
 namespace IOTA {

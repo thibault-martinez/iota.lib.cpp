@@ -23,6 +23,8 @@
 //
 //
 
+#include <json.hpp>
+
 #include <iota/api/requests/get_trytes.hpp>
 
 namespace IOTA {

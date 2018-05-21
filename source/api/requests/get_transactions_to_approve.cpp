@@ -23,6 +23,8 @@
 //
 //
 
+#include <json.hpp>
+
 #include <iota/api/requests/get_transactions_to_approve.hpp>
 
 namespace IOTA {
