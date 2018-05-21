@@ -23,6 +23,7 @@
 //
 //
 
+#include <json.hpp>
 #include <gtest/gtest.h>
 
 #include <iota/api/requests/were_addresses_spent_from.hpp>
