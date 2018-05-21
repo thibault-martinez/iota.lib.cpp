@@ -24,35 +24,54 @@
 //
 
 #include <gtest/gtest.h>
-#include <json.hpp>
 
-#include <iota/api/responses/get_inclusion_states.hpp>
+#include <iota/api/responses/check_consistency.hpp>
 
-TEST(GetInclusionStatesResponse, CtorShouldInitFields) {
-  const IOTA::API::Responses::GetInclusionStates res{ std::vector<bool>({ true, false, true }) };
+TEST(CheckConsistencyResponse, DefaultCtorShouldInitFields) {
+  const IOTA::API::Responses::CheckConsistency res;
 
-  EXPECT_EQ(res.getStates(), std::vector<bool>({ true, false, true }));
+  EXPECT_EQ(res.getState(), false);
+  EXPECT_EQ(res.getInfo(), "");
   EXPECT_EQ(res.getDuration(), 0);
 }
 
-TEST(GetInclusionStatesResponse, SetStates) {
-  IOTA::API::Responses::GetInclusionStates res;
+TEST(CheckConsistencyResponse, CtorShouldInitFields) {
+  const IOTA::API::Responses::CheckConsistency res(true, "info");
 
-  std::vector<bool> states = res.getStates();
-  states.push_back(true);
-  res.setStates(states);
-
-  EXPECT_EQ(res.getStates(), std::vector<bool>({ true }));
+  EXPECT_EQ(res.getState(), true);
+  EXPECT_EQ(res.getInfo(), "info");
   EXPECT_EQ(res.getDuration(), 0);
 }
 
-TEST(GetInclusionStatesResponse, DeserializeShouldSetFields) {
-  IOTA::API::Responses::GetInclusionStates res;
-  json                                     data;
-  std::vector<bool>                        states;
+TEST(CheckConsistencyResponse, SetState) {
+  IOTA::API::Responses::CheckConsistency res(true, "info");
 
-  states.push_back(true);
-  data["states"] = states;
+  res.setState(false);
+
+  EXPECT_EQ(res.getState(), false);
+  EXPECT_EQ(res.getInfo(), "info");
+  EXPECT_EQ(res.getDuration(), 0);
+}
+
+TEST(CheckConsistencyResponse, SetInfo) {
+  IOTA::API::Responses::CheckConsistency res(true, "info");
+
+  res.setInfo("info bis");
+
+  EXPECT_EQ(res.getState(), true);
+  EXPECT_EQ(res.getInfo(), "info bis");
+  EXPECT_EQ(res.getDuration(), 0);
+}
+
+TEST(CheckConsistencyResponse, DeserializeShouldSetFields) {
+  IOTA::API::Responses::CheckConsistency res;
+  json                                   data;
+
+  data["state"] = false;
+  data["info"]  = "info bis";
   res.deserialize(data);
-  EXPECT_EQ(res.getStates(), states);
+
+  EXPECT_EQ(res.getState(), false);
+  EXPECT_EQ(res.getInfo(), "info bis");
+  EXPECT_EQ(res.getDuration(), 0);
 }

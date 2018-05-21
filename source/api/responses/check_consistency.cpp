@@ -23,39 +23,56 @@
 //
 //
 
-#include <gtest/gtest.h>
-#include <json.hpp>
+#include <iota/api/responses/check_consistency.hpp>
 
-#include <iota/api/requests/add_neighbors.hpp>
+namespace IOTA {
 
-TEST(AddNeighborsRequest, CtorShouldInitFields) {
-  const IOTA::API::Requests::AddNeighbors req{ { "uri1", "uri2" } };
+namespace API {
 
-  EXPECT_EQ(req.getUris(), std::vector<std::string>({ "uri1", "uri2" }));
+namespace Responses {
+
+CheckConsistency::CheckConsistency(const bool state, const std::string& info)
+    : state_(state), info_(info) {
 }
 
-TEST(AddNeighborsRequest, GetUrisNonConst) {
-  IOTA::API::Requests::AddNeighbors req{ { "uri1", "uri2" } };
-
-  req.getUris().push_back("uri3");
-
-  EXPECT_EQ(req.getUris(), std::vector<std::string>({ "uri1", "uri2", "uri3" }));
+CheckConsistency::CheckConsistency(const json& res) {
+  deserialize(res);
 }
 
-TEST(AddNeighborsRequest, SetUris) {
-  IOTA::API::Requests::AddNeighbors req;
+void
+CheckConsistency::deserialize(const json& res) {
+  Base::deserialize(res);
 
-  req.setUris({ "uri1", "uri2" });
-
-  EXPECT_EQ(req.getUris(), std::vector<std::string>({ "uri1", "uri2" }));
+  if (res.count("state")) {
+    state_ = res.at("state").get<bool>();
+  }
+  if (res.count("info")) {
+    info_ = res.at("info").get<std::string>();
+  }
 }
 
-TEST(AddNeighborsRequest, SerializeShouldInitJson) {
-  const IOTA::API::Requests::AddNeighbors req{ { "uri1", "uri2" } };
-  json                                    data;
-
-  req.serialize(data);
-
-  EXPECT_EQ(data["command"].get<std::string>(), "addNeighbors");
-  EXPECT_EQ(data["uris"], std::vector<std::string>({ "uri1", "uri2" }));
+bool
+CheckConsistency::getState() const {
+  return state_;
 }
+
+void
+CheckConsistency::setState(bool state) {
+  state_ = state;
+}
+
+const std::string&
+CheckConsistency::getInfo() const {
+  return info_;
+}
+
+void
+CheckConsistency::setInfo(const std::string& info) {
+  info_ = info;
+}
+
+}  // namespace Responses
+
+}  // namespace API
+
+}  // namespace IOTA

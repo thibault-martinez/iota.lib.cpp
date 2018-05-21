@@ -23,39 +23,41 @@
 //
 //
 
-#include <gtest/gtest.h>
-#include <json.hpp>
+#include <iota/api/requests/check_consistency.hpp>
 
-#include <iota/api/requests/add_neighbors.hpp>
+namespace IOTA {
 
-TEST(AddNeighborsRequest, CtorShouldInitFields) {
-  const IOTA::API::Requests::AddNeighbors req{ { "uri1", "uri2" } };
+namespace API {
 
-  EXPECT_EQ(req.getUris(), std::vector<std::string>({ "uri1", "uri2" }));
+namespace Requests {
+
+CheckConsistency::CheckConsistency(const std::vector<Types::Trytes>& tails)
+    : Base("checkConsistency"), tails_(tails) {
 }
 
-TEST(AddNeighborsRequest, GetUrisNonConst) {
-  IOTA::API::Requests::AddNeighbors req{ { "uri1", "uri2" } };
-
-  req.getUris().push_back("uri3");
-
-  EXPECT_EQ(req.getUris(), std::vector<std::string>({ "uri1", "uri2", "uri3" }));
+void
+CheckConsistency::serialize(json& data) const {
+  Base::serialize(data);
+  data["tails"] = tails_;
 }
 
-TEST(AddNeighborsRequest, SetUris) {
-  IOTA::API::Requests::AddNeighbors req;
-
-  req.setUris({ "uri1", "uri2" });
-
-  EXPECT_EQ(req.getUris(), std::vector<std::string>({ "uri1", "uri2" }));
+const std::vector<Types::Trytes>&
+CheckConsistency::getTails() const {
+  return tails_;
 }
 
-TEST(AddNeighborsRequest, SerializeShouldInitJson) {
-  const IOTA::API::Requests::AddNeighbors req{ { "uri1", "uri2" } };
-  json                                    data;
-
-  req.serialize(data);
-
-  EXPECT_EQ(data["command"].get<std::string>(), "addNeighbors");
-  EXPECT_EQ(data["uris"], std::vector<std::string>({ "uri1", "uri2" }));
+std::vector<Types::Trytes>&
+CheckConsistency::getTails() {
+  return tails_;
 }
+
+void
+CheckConsistency::setTails(const std::vector<Types::Trytes>& tails) {
+  tails_ = tails;
+}
+
+}  // namespace Requests
+
+}  // namespace API
+
+}  // namespace IOTA

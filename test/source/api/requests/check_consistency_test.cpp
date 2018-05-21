@@ -24,38 +24,39 @@
 //
 
 #include <gtest/gtest.h>
-#include <json.hpp>
 
-#include <iota/api/requests/add_neighbors.hpp>
+#include <iota/api/requests/check_consistency.hpp>
 
-TEST(AddNeighborsRequest, CtorShouldInitFields) {
-  const IOTA::API::Requests::AddNeighbors req{ { "uri1", "uri2" } };
+TEST(CheckConsistencyRequest, CtorShouldInitFields) {
+  const IOTA::API::Requests::CheckConsistency req{ { "TESTA", "TESTB" } };
 
-  EXPECT_EQ(req.getUris(), std::vector<std::string>({ "uri1", "uri2" }));
+  EXPECT_EQ(req.getTails(), std::vector<IOTA::Types::Trytes>({ "TESTA", "TESTB" }));
 }
 
-TEST(AddNeighborsRequest, GetUrisNonConst) {
-  IOTA::API::Requests::AddNeighbors req{ { "uri1", "uri2" } };
+TEST(CheckConsistencyRequest, GetTailsNonConst) {
+  IOTA::API::Requests::CheckConsistency req{ { "TESTA" } };
 
-  req.getUris().push_back("uri3");
+  req.getTails().push_back("TESTB");
 
-  EXPECT_EQ(req.getUris(), std::vector<std::string>({ "uri1", "uri2", "uri3" }));
+  EXPECT_EQ(req.getTails(), std::vector<IOTA::Types::Trytes>({ "TESTA", "TESTB" }));
 }
 
-TEST(AddNeighborsRequest, SetUris) {
-  IOTA::API::Requests::AddNeighbors req;
+TEST(CheckConsistencyRequest, SetTails) {
+  IOTA::API::Requests::CheckConsistency req{ { "TESTA" } };
 
-  req.setUris({ "uri1", "uri2" });
+  std::vector<IOTA::Types::Trytes> hashes = req.getTails();
+  hashes.push_back("TESTB");
+  req.setTails(hashes);
 
-  EXPECT_EQ(req.getUris(), std::vector<std::string>({ "uri1", "uri2" }));
+  EXPECT_EQ(req.getTails(), std::vector<IOTA::Types::Trytes>({ "TESTA", "TESTB" }));
 }
 
-TEST(AddNeighborsRequest, SerializeShouldInitJson) {
-  const IOTA::API::Requests::AddNeighbors req{ { "uri1", "uri2" } };
-  json                                    data;
+TEST(CheckConsistencyRequest, SerializeShouldInitJson) {
+  const IOTA::API::Requests::CheckConsistency req{ { "TESTA", "TESTB" } };
+  json                                        data;
 
   req.serialize(data);
 
-  EXPECT_EQ(data["command"].get<std::string>(), "addNeighbors");
-  EXPECT_EQ(data["uris"], std::vector<std::string>({ "uri1", "uri2" }));
+  EXPECT_EQ(data["command"].get<std::string>(), "checkConsistency");
+  EXPECT_EQ(data["tails"], std::vector<IOTA::Types::Trytes>({ "TESTA", "TESTB" }));
 }

@@ -24,38 +24,35 @@
 //
 
 #include <gtest/gtest.h>
-#include <json.hpp>
 
-#include <iota/api/requests/add_neighbors.hpp>
+#include <iota/api/responses/were_addresses_spent_from.hpp>
 
-TEST(AddNeighborsRequest, CtorShouldInitFields) {
-  const IOTA::API::Requests::AddNeighbors req{ { "uri1", "uri2" } };
+TEST(WereAddressesSpentFromResponse, CtorShouldInitFields) {
+  const IOTA::API::Responses::WereAddressesSpentFrom res{ std::vector<bool>(
+      { true, false, true }) };
 
-  EXPECT_EQ(req.getUris(), std::vector<std::string>({ "uri1", "uri2" }));
+  EXPECT_EQ(res.getStates(), std::vector<bool>({ true, false, true }));
+  EXPECT_EQ(res.getDuration(), 0);
 }
 
-TEST(AddNeighborsRequest, GetUrisNonConst) {
-  IOTA::API::Requests::AddNeighbors req{ { "uri1", "uri2" } };
+TEST(WereAddressesSpentFromResponse, GetSetStates) {
+  IOTA::API::Responses::WereAddressesSpentFrom res{ std::vector<bool>({ true, false, true }) };
 
-  req.getUris().push_back("uri3");
+  std::vector<bool> states = res.getStates();
+  states.push_back(true);
+  res.setStates(states);
 
-  EXPECT_EQ(req.getUris(), std::vector<std::string>({ "uri1", "uri2", "uri3" }));
+  EXPECT_EQ(res.getStates(), std::vector<bool>({ true, false, true, true }));
+  EXPECT_EQ(res.getDuration(), 0);
 }
 
-TEST(AddNeighborsRequest, SetUris) {
-  IOTA::API::Requests::AddNeighbors req;
+TEST(WereAddressesSpentFromResponse, DeserializeShouldSetFields) {
+  IOTA::API::Responses::WereAddressesSpentFrom res;
+  json                                         data;
+  std::vector<bool>                            states;
 
-  req.setUris({ "uri1", "uri2" });
-
-  EXPECT_EQ(req.getUris(), std::vector<std::string>({ "uri1", "uri2" }));
-}
-
-TEST(AddNeighborsRequest, SerializeShouldInitJson) {
-  const IOTA::API::Requests::AddNeighbors req{ { "uri1", "uri2" } };
-  json                                    data;
-
-  req.serialize(data);
-
-  EXPECT_EQ(data["command"].get<std::string>(), "addNeighbors");
-  EXPECT_EQ(data["uris"], std::vector<std::string>({ "uri1", "uri2" }));
+  states.push_back(true);
+  data["states"] = states;
+  res.deserialize(data);
+  EXPECT_EQ(res.getStates(), states);
 }
