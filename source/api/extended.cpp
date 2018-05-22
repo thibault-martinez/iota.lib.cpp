@@ -932,7 +932,7 @@ Extended::isPromotable(const Types::Trytes& tail) const {
 Responses::SendTransfer
 Extended::promoteTransaction(const Types::Trytes& tail, int depth, int minWeightMagnitude,
                              std::vector<Models::Transfer>& transfers, int delay,
-                             const bool& interrupt) const {
+                             const std::function<bool()>& interrupt) const {
   if (!Types::isValidHash(tail)) {
     throw Errors::IllegalState("Invalid tail transaction");
   }
@@ -941,7 +941,7 @@ Extended::promoteTransaction(const Types::Trytes& tail, int depth, int minWeight
     throw Errors::IllegalState("Inconsistent subtangle");
   }
 
-  if (interrupt == true) {
+  if (interrupt()) {
     return {};
   }
 
