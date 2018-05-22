@@ -40,6 +40,7 @@
 #include <iota/api/responses/get_trytes.hpp>
 #include <iota/api/responses/replay_bundle.hpp>
 #include <iota/api/responses/send_transfer.hpp>
+#include <iota/api/responses/were_addresses_spent_from.hpp>
 #include <iota/crypto/curl.hpp>
 #include <iota/crypto/kerl.hpp>
 #include <iota/crypto/signing.hpp>
@@ -146,13 +147,19 @@ Extended::getNewAddresses(const Models::Seed& seed, const uint32_t& index, const
     }
   }
   // Case 2 : no total provided.
-  // Continue calling findTransactions to see if address was already created if null, return list
-  // of addresses.
+  // Continue calling wereAddressesSpentFrom & findTransactions to see if address was already
+  // created if null, return list of addresses.
   else {
     for (int32_t i = index; true; i++) {
       const auto addr = seed.newAddress(i);
-      const auto res  = findTransactionsByAddresses({ addr });
 
+      const auto spent = wereAddressesSpentFrom({ addr });
+      if (spent.getStates()[0]) {
+        allAddresses.emplace_back(std::move(addr));
+        continue;
+      }
+
+      const auto res = findTransactionsByAddresses({ addr });
       allAddresses.emplace_back(std::move(addr));
       if (res.getHashes().empty()) {
         break;
