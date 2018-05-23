@@ -405,9 +405,7 @@ public:
   Responses::SendTransfer promoteTransaction(const Types::Trytes& tail, int depth,
                                              int                            minWeightMagnitude,
                                              std::vector<Models::Transfer>& transfers, int delay,
-                                             const std::function<bool()>& interrupt = []() {
-                                               return false;
-                                             }) const;
+                                             const std::function<bool()>& interrupt) const;
 
 private:
   void traverseBundles(const std::vector<Types::Trytes>&                          trxs,
