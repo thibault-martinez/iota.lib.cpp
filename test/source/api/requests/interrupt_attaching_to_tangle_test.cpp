@@ -34,5 +34,5 @@ TEST(InterruptAttachingToTangleRequest, SerializeShouldInitJson) {
 
   req.serialize(data);
 
-  EXPECT_EQ(data["command"].get<std::string>(), "interruptAttachingToTangle");
+  EXPECT_EQ(data["command"], "interruptAttachingToTangle");
 }

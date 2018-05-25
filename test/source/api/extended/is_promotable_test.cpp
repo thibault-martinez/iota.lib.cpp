@@ -24,40 +24,35 @@
 //
 
 #include <gtest/gtest.h>
-#include <json.hpp>
 
-#include <iota/api/requests/get_trytes.hpp>
+#include <iota/api/extended.hpp>
+#include <test/utils/configuration.hpp>
+#include <test/utils/constants.hpp>
 
-TEST(GetTrytesRequest, CtorShouldInitFields) {
-  const IOTA::API::Requests::GetTrytes req{ { "TESTA", "TESTB" } };
-
-  EXPECT_EQ(req.getHashes(), std::vector<IOTA::Types::Trytes>({ "TESTA", "TESTB" }));
+TEST(Extended, IsPromotable) {
+  auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
 }
 
-TEST(GetTrytesRequest, GetHashesNonConst) {
-  IOTA::API::Requests::GetTrytes req{ { "TESTA" } };
+TEST(Extended, isPromotableInvalidTail) {
+  auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
 
-  req.getHashes().push_back("TESTB");
-
-  EXPECT_EQ(req.getHashes(), std::vector<IOTA::Types::Trytes>({ "TESTA", "TESTB" }));
+  EXPECT_FALSE(api.isPromotable("invalid tail"));
 }
 
-TEST(GetTrytesRequest, SetHashes) {
-  IOTA::API::Requests::GetTrytes req{ { "TESTA" } };
+TEST(Extended, CheckConsistencyMissingTail) {
+  auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
 
-  std::vector<IOTA::Types::Trytes> hashes = req.getHashes();
-  hashes.push_back("TESTB");
-  req.setHashes(hashes);
-
-  EXPECT_EQ(req.getHashes(), std::vector<IOTA::Types::Trytes>({ "TESTA", "TESTB" }));
+  EXPECT_FALSE(api.isPromotable(IOTA::EmptyHash));
 }
 
-TEST(GetTrytesRequest, SerializeShouldInitJson) {
-  const IOTA::API::Requests::GetTrytes req{ { "TESTA", "TESTB" } };
-  json                                 data;
+TEST(Extended, isPromotableNotTail) {
+  auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
 
-  req.serialize(data);
+  EXPECT_FALSE(api.isPromotable(BUNDLE_1_TRX_2_HASH));
+}
 
-  EXPECT_EQ(data["command"], "getTrytes");
-  EXPECT_EQ(data["hashes"], std::vector<IOTA::Types::Trytes>({ "TESTA", "TESTB" }));
+TEST(Extended, isPromotableOk) {
+  auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
+
+  EXPECT_TRUE(api.isPromotable(BUNDLE_1_TRX_1_HASH));
 }

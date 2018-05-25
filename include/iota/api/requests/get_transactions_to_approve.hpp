@@ -26,6 +26,7 @@
 #pragma once
 
 #include <iota/api/requests/base.hpp>
+#include <iota/types/trinary.hpp>
 
 namespace IOTA {
 
@@ -50,7 +51,7 @@ public:
    *
    * @param depth Number of bundles to go back to determine the transactions for approval.
    */
-  explicit GetTransactionsToApprove(const int& depth = 0);
+  explicit GetTransactionsToApprove(const int& depth = 0, const Types::Trytes& reference = "");
 
   /**
    * Default dtor.
@@ -76,11 +77,28 @@ public:
    */
   void setDepth(int depth);
 
+  /**
+   * @return reference.
+   */
+  const Types::Trytes& getReference() const;
+
+  /**
+   * @param reference The reference.
+   */
+  void setReference(const Types::Trytes& reference);
+
 private:
   /**
    * Number of bundles to go back to determine the transactions for approval.
    */
   int depth_;
+
+  /**
+   *
+   * Hash of transaction to start random-walk from, used to make sure the tips returned reference a
+   * given transaction in their past.
+   */
+  Types::Trytes reference_;
 };
 
 }  // namespace Requests

@@ -178,7 +178,7 @@ TEST(FindTransactionsRequest, SerializeShouldInitJson) {
 
   req.serialize(data);
 
-  EXPECT_EQ(data["command"].get<std::string>(), "findTransactions");
+  EXPECT_EQ(data["command"], "findTransactions");
   EXPECT_EQ(data["addresses"],
             std::vector<IOTA::Types::Trytes>({ ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
                                                ACCOUNT_1_ADDRESS_2_HASH_WITHOUT_CHECKSUM }));

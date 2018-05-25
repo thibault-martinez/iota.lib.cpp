@@ -27,6 +27,7 @@
 
 #include <iota/api/extended.hpp>
 #include <iota/api/responses/attach_to_tangle.hpp>
+#include <iota/api/responses/check_consistency.hpp>
 #include <iota/api/responses/find_transactions.hpp>
 #include <iota/api/responses/get_account_data.hpp>
 #include <iota/api/responses/get_balances.hpp>
@@ -667,12 +668,12 @@ Extended::getTransfers(const Models::Seed& seed, int start, int end, bool inclus
 Responses::SendTransfer
 Extended::sendTransfer(const Models::Seed& seed, int depth, int minWeightMagnitude,
                        std::vector<Models::Transfer>&      transfers,
-                       const std::vector<Models::Address>& inputs,
-                       const Models::Address&              remainder) const {
+                       const std::vector<Models::Address>& inputs, const Models::Address& remainder,
+                       const Types::Trytes& reference) const {
   const Utils::StopWatch stopWatch;
 
   const auto trytes = prepareTransfers(seed, transfers, remainder, inputs);
-  const auto trxs   = sendTrytes(trytes, depth, minWeightMagnitude);
+  const auto trxs   = sendTrytes(trytes, depth, minWeightMagnitude, reference);
 
   std::vector<bool> successful;
 
@@ -686,9 +687,9 @@ Extended::sendTransfer(const Models::Seed& seed, int depth, int minWeightMagnitu
 
 std::vector<Models::Transaction>
 Extended::sendTrytes(const std::vector<Types::Trytes>& trytes, const unsigned int& depth,
-                     const unsigned int& minWeightMagnitude) const {
+                     const unsigned int& minWeightMagnitude, const Types::Trytes& reference) const {
   // Get branch and trunk
-  const auto tta = getTransactionsToApprove(depth);
+  const auto tta = getTransactionsToApprove(depth, reference);
 
   // Attach to tangle, do pow
   const auto res = attachToTangle(tta.getTrunkTransaction(), tta.getBranchTransaction(),
@@ -919,6 +920,45 @@ Extended::initiateTransfer(const Models::Address&               inputAddress,
   bundle.addTrytes(signatureFragments);
 
   return bundle.getTransactions();
+}
+
+bool
+Extended::isPromotable(const Types::Trytes& tail) const {
+  if (!Types::isValidHash(tail)) {
+    return false;
+  }
+
+  try {
+    return checkConsistency({ tail }).getState();
+  } catch (IOTA::Errors::BadRequest) {
+    return false;
+  }
+  return false;
+}
+
+Responses::SendTransfer
+Extended::promoteTransaction(const Types::Trytes& tail, int depth, int minWeightMagnitude,
+                             std::vector<Models::Transfer>& transfers, int delay,
+                             const std::function<bool()>& interrupt) const {
+  if (!Types::isValidHash(tail)) {
+    throw Errors::IllegalState("Invalid tail transaction");
+  }
+
+  if (!isPromotable(tail)) {
+    throw Errors::IllegalState("Inconsistent subtangle");
+  }
+
+  if (interrupt()) {
+    return {};
+  }
+
+  auto res = sendTransfer(transfers[0].getAddress().toTrytes(), depth, minWeightMagnitude,
+                          transfers, {}, {}, tail);
+  if (delay > 0) {
+    std::this_thread::sleep_for(std::chrono::milliseconds(delay));
+    return promoteTransaction(tail, depth, minWeightMagnitude, transfers, delay, interrupt);
+  }
+  return res;
 }
 
 /*

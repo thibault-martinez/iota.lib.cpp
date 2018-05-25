@@ -58,6 +58,6 @@ TEST(StoreTransactionsRequest, SerializeShouldInitJson) {
 
   req.serialize(data);
 
-  EXPECT_EQ(data["command"].get<std::string>(), "storeTransactions");
+  EXPECT_EQ(data["command"], "storeTransactions");
   EXPECT_EQ(data["trytes"], std::vector<IOTA::Types::Trytes>({ "TESTA", "TESTB" }));
 }

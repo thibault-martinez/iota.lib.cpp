@@ -34,5 +34,5 @@ TEST(GetTipsRequest, SerializeShouldInitJson) {
 
   req.serialize(data);
 
-  EXPECT_EQ(data["command"].get<std::string>(), "getTips");
+  EXPECT_EQ(data["command"], "getTips");
 }

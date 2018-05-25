@@ -58,6 +58,6 @@ TEST(CheckConsistencyRequest, SerializeShouldInitJson) {
 
   req.serialize(data);
 
-  EXPECT_EQ(data["command"].get<std::string>(), "checkConsistency");
+  EXPECT_EQ(data["command"], "checkConsistency");
   EXPECT_EQ(data["tails"], std::vector<IOTA::Types::Trytes>({ "TESTA", "TESTB" }));
 }
