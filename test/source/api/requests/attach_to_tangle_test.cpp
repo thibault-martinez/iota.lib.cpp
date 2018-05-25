@@ -98,7 +98,7 @@ TEST(AttachToTangleRequest, SerializeShouldInitJson) {
 
   req.serialize(data);
 
-  EXPECT_EQ(data["command"].get<std::string>(), "attachToTangle");
+  EXPECT_EQ(data["command"], "attachToTangle");
   EXPECT_EQ(data["trunkTransaction"], "trunk");
   EXPECT_EQ(data["branchTransaction"], "branch");
   EXPECT_EQ(data["minWeightMagnitude"], 42);

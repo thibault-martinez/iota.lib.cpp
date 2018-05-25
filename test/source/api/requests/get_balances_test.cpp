@@ -88,7 +88,7 @@ TEST(GetBalancesRequest, SerializeShouldInitJson) {
 
   req.serialize(data);
 
-  EXPECT_EQ(data["command"].get<std::string>(), "getBalances");
+  EXPECT_EQ(data["command"], "getBalances");
   EXPECT_EQ(data["addresses"],
             std::vector<IOTA::Types::Trytes>({ ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
                                                ACCOUNT_1_ADDRESS_2_HASH_WITHOUT_CHECKSUM }));

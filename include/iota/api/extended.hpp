@@ -244,13 +244,16 @@ public:
    * @param inputs             Inputs. Leave empty to automatically find inputs based on the seed.
    * @param remainder If this address will be used for sending the remainder value to. Leave empty
    * to automatically choose one.
+   * @param reference Hash of transaction to start random-walk from, used to make sure the tips
+   * returned reference a given transaction in their past.
    *
    * @return Array of Transaction objects.
    */
   Responses::SendTransfer sendTransfer(const Models::Seed& seed, int depth, int minWeightMagnitude,
                                        std::vector<Models::Transfer>&      transfers,
                                        const std::vector<Models::Address>& inputs    = {},
-                                       const Models::Address&              remainder = {}) const;
+                                       const Models::Address&              remainder = {},
+                                       const Types::Trytes&                reference = "") const;
 
   /**
    * Wrapper function that gets transactions to approve, attaches to Tangle, broadcasts and stores.
@@ -258,12 +261,15 @@ public:
    * @param trytes             The trytes of the transactions to be attached.
    * @param depth              The depth.
    * @param minWeightMagnitude The minimum weight magnitude.
+   * @param reference Hash of transaction to start random-walk from, used to make sure the tips
+   * returned reference a given transaction in their past.
    *
    * @return Transactions objects.
    */
   std::vector<Models::Transaction> sendTrytes(const std::vector<Types::Trytes>& trytes,
                                               const unsigned int&               depth,
-                                              const unsigned int& minWeightMagnitude) const;
+                                              const unsigned int&               minWeightMagnitude,
+                                              const Types::Trytes& reference = "") const;
 
   /**
    * Wrapper function that does broadcastTransactions and storeTransactions.
@@ -372,6 +378,34 @@ public:
   std::vector<Models::Transaction> initiateTransfer(
       const Models::Address& inputAddress, const Models::Address& remainderAddress,
       const std::vector<Models::Transfer>& transfers) const;
+
+  /**
+   * Checks if tail transaction is promotable by calling checkConsistency API call.
+   *
+   * @param tail Tail transaction hash.
+   *
+   * @return whether the given tail is promotable or not.
+   */
+  bool isPromotable(const Types::Trytes& tail) const;
+
+  /**
+   * Promotes a transaction by adding spam on top of it, as long as it is promotable. Will promote
+   * by adding transfers on top of the current one with delay interval. Use params.interrupt to
+   * terminate the promotion. If params.delay is set to 0 only one promotion transfer will be sent.
+   *
+   * @param tail The transaction to be promoted, has to be a tail.
+   * @param depth The depth.
+   * @param minWeightMagnitude The minimum weight magnitude.
+   * @param transfers The transfers.
+   * @param delay Delay between promotion transfers.
+   * @param interrupt Flag to terminate promotion.
+   *
+   * @return Array of promotion transfers.
+   */
+  Responses::SendTransfer promoteTransaction(const Types::Trytes& tail, int depth,
+                                             int                            minWeightMagnitude,
+                                             std::vector<Models::Transfer>& transfers, int delay,
+                                             const std::function<bool()>& interrupt) const;
 
 private:
   void traverseBundles(const std::vector<Types::Trytes>&                          trxs,

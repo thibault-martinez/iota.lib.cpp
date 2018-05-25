@@ -161,6 +161,22 @@ TEST(Core, GetTransactionsToApprove) {
   EXPECT_TRUE(IOTA::Types::isValidHash(res.getBranchTransaction()));
 }
 
+TEST(Core, GetTransactionsToApproveWithReference) {
+  IOTA::API::Core api(get_proxy_host(), get_proxy_port());
+  auto            res = api.getTransactionsToApprove(27, BUNDLE_1_TRX_1_HASH);
+
+  EXPECT_GE(res.getDuration(), 0);
+  EXPECT_TRUE(IOTA::Types::isValidHash(res.getTrunkTransaction()));
+  EXPECT_TRUE(IOTA::Types::isValidHash(res.getBranchTransaction()));
+}
+
+TEST(Core, GetTransactionsToApproveInvalidReference) {
+  IOTA::API::Core api(get_proxy_host(), get_proxy_port());
+
+  EXPECT_EXCEPTION(auto res = api.getTransactionsToApprove(27, "ref");
+                   , IOTA::Errors::BadRequest, "Invalid reference input")
+}
+
 TEST(Core, FindTransactionsWithAddress) {
   IOTA::API::Core api(get_proxy_host(), get_proxy_port());
   auto            res = api.findTransactions({ BUNDLE_1_TRX_1_ADDRESS }, {}, {}, {});

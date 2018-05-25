@@ -33,14 +33,16 @@ namespace API {
 
 namespace Requests {
 
-GetTransactionsToApprove::GetTransactionsToApprove(const int& depth)
-    : Base("getTransactionsToApprove"), depth_(depth) {
+GetTransactionsToApprove::GetTransactionsToApprove(const int& depth, const Types::Trytes& reference)
+    : Base("getTransactionsToApprove"), depth_(depth), reference_(reference) {
 }
 
 void
 GetTransactionsToApprove::serialize(json& data) const {
   Base::serialize(data);
   data["depth"] = depth_;
+  if (!reference_.empty())
+    data["reference"] = reference_;
 }
 
 int
@@ -51,6 +53,16 @@ GetTransactionsToApprove::getDepth() const {
 void
 GetTransactionsToApprove::setDepth(int depth) {
   depth_ = depth;
+}
+
+const Types::Trytes&
+GetTransactionsToApprove::getReference() const {
+  return reference_;
+}
+
+void
+GetTransactionsToApprove::setReference(const Types::Trytes& reference) {
+  reference_ = reference;
 }
 
 }  // namespace Requests

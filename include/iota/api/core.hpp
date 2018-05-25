@@ -185,10 +185,13 @@ public:
    * https://iota.readme.io/reference#getbalances
    *
    * @param depth Number of bundles to go back to determine the transactions for approval.
+   * @param reference Hash of transaction to start random-walk from, used to make sure the tips
+   * returned reference a given transaction in their past.
    *
    * @return The response.
    */
-  Responses::GetTransactionsToApprove getTransactionsToApprove(const int& depth) const;
+  Responses::GetTransactionsToApprove getTransactionsToApprove(
+      const int& depth, const Types::Trytes& reference = "") const;
 
   /**
    * Attaches the specified transactions (trytes) to the Tangle by doing Proof of Work. You need to
