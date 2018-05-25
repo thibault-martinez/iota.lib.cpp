@@ -23,8 +23,8 @@
 //
 //
 
-#include <json.hpp>
 #include <gtest/gtest.h>
+#include <json.hpp>
 
 #include <iota/api/requests/check_consistency.hpp>
 
