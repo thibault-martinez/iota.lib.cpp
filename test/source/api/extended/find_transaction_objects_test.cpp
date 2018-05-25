@@ -38,7 +38,7 @@ TEST(Extended, FindTransactionObjects) {
 
   ASSERT_EQ(res.size(), 2UL);
 
-  //! trx spending from account2 to account3
+  //! initial funding of account_2:address_1
   const auto& trx1 = res[0];
   EXPECT_EQ(trx1.getSignatureFragments(), BUNDLE_2_TRX_1_SIGNATURE_FRAGMENT);
   EXPECT_EQ(trx1.getCurrentIndex(), BUNDLE_2_TRX_1_CURRENT_INDEX);
@@ -54,7 +54,7 @@ TEST(Extended, FindTransactionObjects) {
   EXPECT_EQ(trx1.getBundle(), BUNDLE_2_HASH);
   EXPECT_EQ(trx1.getPersistence(), false);
 
-  //! initial funding of account_2:address_1
+  //! trx spending from account2 to account3
   const auto& trx2 = res[1];
   EXPECT_EQ(trx2.getSignatureFragments(), BUNDLE_1_TRX_1_SIGNATURE_FRAGMENT);
   EXPECT_EQ(trx2.getCurrentIndex(), BUNDLE_1_TRX_1_CURRENT_INDEX);
