@@ -27,7 +27,7 @@
 
 git clone https://github.com/iotaledger/iri.git test/testnet/iri
 cd test/testnet/iri
-git checkout b34409b # dev branch
+git checkout bc6b943 # dev branch
 cp ../iri_config/Snapshot.txt src/main/resources
 cp ../iri_config/iri.ini.windows iri.ini
 mvn clean compile
