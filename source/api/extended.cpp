@@ -961,6 +961,55 @@ Extended::promoteTransaction(const Types::Trytes& tail, int depth, int minWeight
   return res;
 }
 
+std::vector<bool>
+Extended::isReattachable(const std::vector<Models::Address>& addresses) {
+  std::map<Types::Trytes, std::vector<Types::Trytes>> addressTxsMap;
+  std::vector<Types::Trytes>                          valueTransactions;
+
+  auto trxs = findTransactionObjects(addresses);
+  for (const auto& trx : trxs) {
+    if (trx.getValue() < 0) {
+      addressTxsMap[trx.getAddress().toTrytes()].push_back(trx.getHash());
+      valueTransactions.push_back(trx.getHash());
+    }
+  }
+
+  if (!valueTransactions.empty()) {
+    //! get the includion states of all the transactions
+    auto inclusionStates = getLatestInclusion(valueTransactions);
+    auto results         = std::vector<bool>{};
+
+    for (const auto& address : addresses) {
+      const auto& trxs = addressTxsMap[address.toTrytes()];
+
+      if (trxs.empty()) {
+        results.push_back(true);
+        continue;
+      }
+
+      bool shouldReattach = true;
+      for (const auto& trx : trxs) {
+        auto txIndex =
+            std::distance(valueTransactions.begin(),
+                          std::find(valueTransactions.begin(), valueTransactions.end(), trx));
+        auto isConfirmed = inclusionStates.getStates()[txIndex];
+
+        //! if tx confirmed, break
+        if (isConfirmed) {
+          shouldReattach = false;
+          break;
+        }
+      }
+
+      results.push_back(shouldReattach);
+    }
+
+    return results;
+  } else {
+    return std::vector<bool>(addresses.size(), true);
+  }
+}
+
 /*
  * Private methods.
  */

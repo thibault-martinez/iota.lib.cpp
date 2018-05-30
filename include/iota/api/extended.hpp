@@ -407,6 +407,15 @@ public:
                                              std::vector<Models::Transfer>& transfers, int delay,
                                              const std::function<bool()>& interrupt) const;
 
+  /**
+   * Determines whether you should replay a transaction
+   * or make a new one (either with the same input, or a different one)
+   *
+   * @param addresses Input address you want to have tested
+   * @return array of bool associated to each input address
+   **/
+  std::vector<bool> isReattachable(const std::vector<Models::Address>& addresses);
+
 private:
   void traverseBundles(const std::vector<Types::Trytes>&                          trxs,
                        const std::vector<std::reference_wrapper<Models::Bundle>>& bundles,
