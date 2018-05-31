@@ -38,6 +38,12 @@ GetBalances::GetBalances(const std::vector<std::string>& balances, const Types::
     : balances_(balances), milestone_(milestone), milestoneIndex_(milestoneIndex) {
 }
 
+GetBalances::GetBalances(const std::vector<std::string>&   balances,
+                         const std::vector<Types::Trytes>& references,
+                         const int64_t&                    milestoneIndex)
+    : balances_(balances), references_(references), milestoneIndex_(milestoneIndex) {
+}
+
 GetBalances::GetBalances(const json& res) {
   deserialize(res);
 }
@@ -48,6 +54,10 @@ GetBalances::deserialize(const json& res) {
 
   if (res.count("balances")) {
     balances_ = res.at("balances").get<std::vector<std::string>>();
+  }
+
+  if (res.count("references")) {
+    references_ = res.at("references").get<std::vector<Types::Trytes>>();
   }
 
   if (res.count("milestone")) {
@@ -72,6 +82,16 @@ GetBalances::getBalances() {
 void
 GetBalances::setBalances(const std::vector<std::string>& balances) {
   balances_ = balances;
+}
+
+const std::vector<Types::Trytes>&
+GetBalances::getReferences() const {
+  return references_;
+}
+
+void
+GetBalances::setReferences(const std::vector<Types::Trytes>& references) {
+  references_ = references;
 }
 
 const Types::Trytes&
