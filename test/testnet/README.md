@@ -32,10 +32,11 @@ It sets the repartition of the IOTA supply to specific addresses corresponding t
 
 ### 2. Run IRI
 1. Download [iotaledger/iri](https://github.com/iotaledger/iri)
-2. Replace `src/main/java/com/iota/iri/Snapshot.java` with our `test/testnet/Snapshot.java` (this is a modified version that do not verify the Snapshot signature)
-3. Copy the `Snapshot.txt` file generated previously into `src/main/resources`
-4. Build `mvn clean compile && mvn package`
-5. Run `java -jar target/iri-1.4.1.6.jar --testnet -p 14265`
+2. Checkout the `dev` branch
+3. Copy the `iri_config/Snapshot.txt` file generated previously into `src/main/resources`
+4. Copy the `iri_config/iri.ini` file at the root of the iri repository
+5. Build `mvn clean compile && mvn package`
+6. Run `java -jar target/iri-1.4.2.4.jar --testnet --testnet-no-coo-validation --snapshot=src/main/resources/Snapshot.txt -p 14265 --mwm 1 -c iri.ini`
 
 ### 3. Run a coordinator to generate a milestone
 Special thanks to [schierlm/private-iota-testnet](https://github.com/schierlm/private-iota-testnet).
