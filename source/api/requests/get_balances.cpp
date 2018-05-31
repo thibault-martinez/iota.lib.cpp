@@ -33,8 +33,9 @@ namespace API {
 
 namespace Requests {
 
-GetBalances::GetBalances(const std::vector<Models::Address>& addresses, const int& threshold)
-    : Base("getBalances"), addresses_(addresses), threshold_(threshold) {
+GetBalances::GetBalances(const std::vector<Models::Address>& addresses, const int& threshold,
+                         const std::vector<Types::Trytes>& tips)
+    : Base("getBalances"), addresses_(addresses), threshold_(threshold), tips_(tips) {
 }
 
 void
@@ -45,6 +46,9 @@ GetBalances::serialize(json& data) const {
     data["addresses"].emplace_back(address.toTrytes());
   }
   data["threshold"] = threshold_;
+  for (auto& tip : tips_) {
+    data["tips"].emplace_back(tip);
+  }
 }
 
 const std::vector<Models::Address>&
@@ -70,6 +74,21 @@ GetBalances::getThreshold() const {
 void
 GetBalances::setThreshold(int threshold) {
   threshold_ = threshold;
+}
+
+const std::vector<Types::Trytes>&
+GetBalances::getTips() const {
+  return tips_;
+}
+
+std::vector<Types::Trytes>&
+GetBalances::getTips() {
+  return tips_;
+}
+
+void
+GetBalances::setTips(const std::vector<Types::Trytes>& tips) {
+  tips_ = tips;
 }
 
 }  // namespace Requests
