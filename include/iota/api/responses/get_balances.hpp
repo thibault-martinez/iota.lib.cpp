@@ -27,6 +27,7 @@
 
 #include <iota/api/responses/base.hpp>
 #include <iota/types/trytes.hpp>
+#include <iota/utils/deprecated.hpp>
 
 namespace IOTA {
 
@@ -37,10 +38,11 @@ namespace Responses {
 /**
  * GetBalances API call response.
  *
- * Similar to getInclusionStates. It returns the confirmed balance which a list of addresses have
- * at the latest confirmed milestone. In addition to the balances, it also returns the milestone
- * as well as the index with which the confirmed balance was determined. The balances is returned
- * as a list in the same order as the addresses were provided as input.
+ * Returns the confirmed balance, as viewed by tips, in case tips is not supplied, the balance is
+ * based on the latest confirmed milestone. In addition to the balances, it also returns the
+ * referencing tips (or milestone), as well as the index with which the confirmed balance was
+ * determined. The balances is returned as a list in the same order as the addresses were provided
+ * as input.
  *
  * https://iota.readme.io/reference#getbalances
  */
@@ -52,8 +54,18 @@ public:
    * @param milestone The latest confirmed milestone.
    * @param milestoneIndex The latest confirmed milestone index.
    */
-  explicit GetBalances(const std::vector<std::string>& balances = {},
-                       const Types::Trytes& milestone = "", const int64_t& milestoneIndex = 0);
+  DEPRECATED explicit GetBalances(const std::vector<std::string>& balances,
+                                  const Types::Trytes& milestone, const int64_t& milestoneIndex);
+
+  /**
+   * Full init ctor.
+   * @param balances The confirmed balances.
+   * @param references The referencing tips (or milestone)
+   * @param milestoneIndex The latest confirmed milestone index.
+   */
+  explicit GetBalances(const std::vector<std::string>&   balances       = {},
+                       const std::vector<Types::Trytes>& references     = {},
+                       const int64_t&                    milestoneIndex = 0);
 
   /**
    * Json-based ctor.
@@ -93,14 +105,25 @@ public:
 
 public:
   /**
+   * @return referencing tips (or milestone)
+   */
+  const std::vector<Types::Trytes>& getReferences() const;
+
+  /**
+   * @param references referencing tips (or milestone)
+   */
+  void setReferences(const std::vector<Types::Trytes>& references);
+
+public:
+  /**
    * @return milestone.
    */
-  const Types::Trytes& getMilestone() const;
+  DEPRECATED const Types::Trytes& getMilestone() const;
 
   /**
    * @param milestone new milestone for api response.
    */
-  void setMilestone(const Types::Trytes& milestone);
+  DEPRECATED void setMilestone(const Types::Trytes& milestone);
 
 public:
   /**
@@ -118,6 +141,10 @@ private:
    * Confirmed balance in the same order as the addresses were provided as input.
    */
   std::vector<std::string> balances_;
+  /**
+   * referencing tips (or milestone)
+   */
+  std::vector<Types::Trytes> references_;
   /**
    * Latest confirmed milestone.
    */

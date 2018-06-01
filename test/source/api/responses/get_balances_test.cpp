@@ -32,71 +32,123 @@ TEST(GetBalancesReponse, DefaultCtorShouldInitFields) {
   const IOTA::API::Responses::GetBalances res;
 
   EXPECT_EQ(res.getBalances(), std::vector<std::string>());
+  EXPECT_EQ(res.getReferences(), std::vector<std::string>());
   EXPECT_EQ(res.getMilestone(), "");
   EXPECT_EQ(res.getMilestoneIndex(), 0);
   EXPECT_EQ(res.getDuration(), 0);
 }
 
 TEST(GetBalancesReponse, CtorShouldInitFields) {
-  const IOTA::API::Responses::GetBalances res{ { "bal1", "bal2", "bal3" }, "milestone", 1 };
+  const IOTA::API::Responses::GetBalances res{ std::vector<std::string>({ "bal1", "bal2", "bal3" }),
+                                               std::vector<std::string>({ "ref" }), 1 };
 
   EXPECT_EQ(res.getBalances(), std::vector<std::string>({ "bal1", "bal2", "bal3" }));
+  EXPECT_EQ(res.getReferences(), std::vector<std::string>({ "ref" }));
+  EXPECT_EQ(res.getMilestone(), "");
+  EXPECT_EQ(res.getMilestoneIndex(), 1);
+  EXPECT_EQ(res.getDuration(), 0);
+}
+
+TEST(GetBalancesReponse, DeprecatedCtorShouldInitFields) {
+  const IOTA::API::Responses::GetBalances res{ std::vector<std::string>({ "bal1", "bal2", "bal3" }),
+                                               "milestone", 1 };
+
+  EXPECT_EQ(res.getBalances(), std::vector<std::string>({ "bal1", "bal2", "bal3" }));
+  EXPECT_EQ(res.getReferences(), std::vector<std::string>({}));
   EXPECT_EQ(res.getMilestone(), "milestone");
   EXPECT_EQ(res.getMilestoneIndex(), 1);
   EXPECT_EQ(res.getDuration(), 0);
 }
 
 TEST(GetBalancesReponse, AssignementOperator) {
-  const IOTA::API::Responses::GetBalances res1{ { "bal1", "bal2", "bal3" }, "milestone", 1 };
-  IOTA::API::Responses::GetBalances       res2;
+  const IOTA::API::Responses::GetBalances res1{
+    std::vector<std::string>({ "bal1", "bal2", "bal3" }), std::vector<std::string>({ "ref" }), 1
+  };
+  IOTA::API::Responses::GetBalances res2;
 
   res2 = res1;
   EXPECT_EQ(res1.getBalances(), res2.getBalances());
+  EXPECT_EQ(res1.getReferences(), res2.getReferences());
+  EXPECT_EQ(res1.getMilestone(), res2.getMilestone());
+  EXPECT_EQ(res1.getMilestoneIndex(), res2.getMilestoneIndex());
+  EXPECT_EQ(res1.getDuration(), res2.getDuration());
+}
+
+TEST(GetBalancesReponse, DeprecatedCtorAssignementOperator) {
+  const IOTA::API::Responses::GetBalances res1{
+    std::vector<std::string>({ "bal1", "bal2", "bal3" }), "milestone", 1
+  };
+  IOTA::API::Responses::GetBalances res2;
+
+  res2 = res1;
+  EXPECT_EQ(res1.getBalances(), res2.getBalances());
+  EXPECT_EQ(res1.getReferences(), res2.getReferences());
   EXPECT_EQ(res1.getMilestone(), res2.getMilestone());
   EXPECT_EQ(res1.getMilestoneIndex(), res2.getMilestoneIndex());
   EXPECT_EQ(res1.getDuration(), res2.getDuration());
 }
 
 TEST(GetBalancesReponse, GetBalancesNonConst) {
-  IOTA::API::Responses::GetBalances res{ { "bal1", "bal2", "bal3" }, "milestone", 1 };
+  IOTA::API::Responses::GetBalances res{ std::vector<std::string>({ "bal1", "bal2", "bal3" }),
+                                         std::vector<std::string>({ "ref" }), 1 };
 
   res.getBalances().push_back("bal4");
 
   EXPECT_EQ(res.getBalances(), std::vector<std::string>({ "bal1", "bal2", "bal3", "bal4" }));
-  EXPECT_EQ(res.getMilestone(), "milestone");
+  EXPECT_EQ(res.getReferences(), std::vector<std::string>({ "ref" }));
+  EXPECT_EQ(res.getMilestone(), "");
   EXPECT_EQ(res.getMilestoneIndex(), 1);
   EXPECT_EQ(res.getDuration(), 0);
 }
 
 TEST(GetBalancesReponse, SetBalances) {
-  IOTA::API::Responses::GetBalances res{ { "bal1", "bal2", "bal3" }, "milestone", 1 };
+  IOTA::API::Responses::GetBalances res{ std::vector<std::string>({ "bal1", "bal2", "bal3" }),
+                                         std::vector<std::string>({ "ref" }), 1 };
 
   res.setBalances({ "bal1", "bal2", "bal3", "bal4" });
 
   EXPECT_EQ(res.getBalances(), std::vector<std::string>({ "bal1", "bal2", "bal3", "bal4" }));
-  EXPECT_EQ(res.getMilestone(), "milestone");
+  EXPECT_EQ(res.getReferences(), std::vector<std::string>({ "ref" }));
+  EXPECT_EQ(res.getMilestone(), "");
   EXPECT_EQ(res.getMilestoneIndex(), 1);
   EXPECT_EQ(res.getDuration(), 0);
 }
 
 TEST(GetBalancesReponse, SetMilestone) {
-  IOTA::API::Responses::GetBalances res{ { "bal1", "bal2", "bal3" }, "milestone", 1 };
+  IOTA::API::Responses::GetBalances res{ std::vector<std::string>({ "bal1", "bal2", "bal3" }),
+                                         std::vector<std::string>({ "ref" }), 1 };
 
-  res.setMilestone("newmilestone");
+  res.setMilestone({ "newmilestone" });
 
   EXPECT_EQ(res.getBalances(), std::vector<std::string>({ "bal1", "bal2", "bal3" }));
+  EXPECT_EQ(res.getReferences(), std::vector<std::string>({ "ref" }));
   EXPECT_EQ(res.getMilestone(), "newmilestone");
   EXPECT_EQ(res.getMilestoneIndex(), 1);
   EXPECT_EQ(res.getDuration(), 0);
 }
 
+TEST(GetBalancesReponse, SetReferences) {
+  IOTA::API::Responses::GetBalances res{ std::vector<std::string>({ "bal1", "bal2", "bal3" }),
+                                         std::vector<std::string>({ "ref" }), 1 };
+
+  res.setReferences({ "newref" });
+
+  EXPECT_EQ(res.getBalances(), std::vector<std::string>({ "bal1", "bal2", "bal3" }));
+  EXPECT_EQ(res.getReferences(), std::vector<std::string>({ "newref" }));
+  EXPECT_EQ(res.getMilestone(), "");
+  EXPECT_EQ(res.getMilestoneIndex(), 1);
+  EXPECT_EQ(res.getDuration(), 0);
+}
+
 TEST(GetBalancesReponse, SetMilestoneIndex) {
-  IOTA::API::Responses::GetBalances res{ { "bal1", "bal2", "bal3" }, "milestone", 1 };
+  IOTA::API::Responses::GetBalances res{ std::vector<std::string>({ "bal1", "bal2", "bal3" }),
+                                         std::vector<std::string>({ "ref" }), 1 };
 
   res.setMilestoneIndex(42);
 
   EXPECT_EQ(res.getBalances(), std::vector<std::string>({ "bal1", "bal2", "bal3" }));
-  EXPECT_EQ(res.getMilestone(), "milestone");
+  EXPECT_EQ(res.getReferences(), std::vector<std::string>({ "ref" }));
+  EXPECT_EQ(res.getMilestone(), "");
   EXPECT_EQ(res.getMilestoneIndex(), 42);
   EXPECT_EQ(res.getDuration(), 0);
 }
@@ -106,12 +158,14 @@ TEST(GetBalancesReponse, DeserializeShouldSetFields) {
   json                              data;
 
   data["balances"]       = std::vector<std::string>({ "bal1", "bal2", "bal3" });
+  data["references"]     = std::vector<std::string>({ "ref" });
   data["milestone"]      = "milestone";
   data["milestoneIndex"] = 1;
 
   res.deserialize(data);
 
   EXPECT_EQ(res.getBalances(), std::vector<std::string>({ "bal1", "bal2", "bal3" }));
+  EXPECT_EQ(res.getReferences(), std::vector<std::string>({ "ref" }));
   EXPECT_EQ(res.getMilestone(), "milestone");
   EXPECT_EQ(res.getMilestoneIndex(), 1);
   EXPECT_EQ(res.getDuration(), 0);

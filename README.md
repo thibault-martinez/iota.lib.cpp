@@ -74,7 +74,7 @@ A [Wiki](https://github.com/thibault-martinez/iota.lib.cpp/wiki) is available an
 
 There's an extensive list of **test cases** on the [test folder](https://github.com/thibault-martinez/iota.lib.cpp/tree/master/test/source) that can be used as reference when developing apps with IOTA.
 
-## Technologies & dependencies
+## Technologies & Dependencies
 
 ### Technologies
 
