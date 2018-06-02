@@ -28,31 +28,7 @@
 
 #include <iota/api/requests/get_trytes.hpp>
 
-TEST(GetTrytesRequest, CtorShouldInitFields) {
-  const IOTA::API::Requests::GetTrytes req{ { "TESTA", "TESTB" } };
-
-  EXPECT_EQ(req.getHashes(), std::vector<IOTA::Types::Trytes>({ "TESTA", "TESTB" }));
-}
-
-TEST(GetTrytesRequest, GetHashesNonConst) {
-  IOTA::API::Requests::GetTrytes req{ { "TESTA" } };
-
-  req.getHashes().push_back("TESTB");
-
-  EXPECT_EQ(req.getHashes(), std::vector<IOTA::Types::Trytes>({ "TESTA", "TESTB" }));
-}
-
-TEST(GetTrytesRequest, SetHashes) {
-  IOTA::API::Requests::GetTrytes req{ { "TESTA" } };
-
-  std::vector<IOTA::Types::Trytes> hashes = req.getHashes();
-  hashes.push_back("TESTB");
-  req.setHashes(hashes);
-
-  EXPECT_EQ(req.getHashes(), std::vector<IOTA::Types::Trytes>({ "TESTA", "TESTB" }));
-}
-
-TEST(GetTrytesRequest, SerializeShouldInitJson) {
+TEST(GetTrytesRequest, ConstructAndSerialize) {
   const IOTA::API::Requests::GetTrytes req{ { "TESTA", "TESTB" } };
   json                                 data;
 

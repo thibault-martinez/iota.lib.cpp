@@ -28,31 +28,7 @@
 
 #include <iota/api/requests/check_consistency.hpp>
 
-TEST(CheckConsistencyRequest, CtorShouldInitFields) {
-  const IOTA::API::Requests::CheckConsistency req{ { "TESTA", "TESTB" } };
-
-  EXPECT_EQ(req.getTails(), std::vector<IOTA::Types::Trytes>({ "TESTA", "TESTB" }));
-}
-
-TEST(CheckConsistencyRequest, GetTailsNonConst) {
-  IOTA::API::Requests::CheckConsistency req{ { "TESTA" } };
-
-  req.getTails().push_back("TESTB");
-
-  EXPECT_EQ(req.getTails(), std::vector<IOTA::Types::Trytes>({ "TESTA", "TESTB" }));
-}
-
-TEST(CheckConsistencyRequest, SetTails) {
-  IOTA::API::Requests::CheckConsistency req{ { "TESTA" } };
-
-  std::vector<IOTA::Types::Trytes> hashes = req.getTails();
-  hashes.push_back("TESTB");
-  req.setTails(hashes);
-
-  EXPECT_EQ(req.getTails(), std::vector<IOTA::Types::Trytes>({ "TESTA", "TESTB" }));
-}
-
-TEST(CheckConsistencyRequest, SerializeShouldInitJson) {
+TEST(CheckConsistencyRequest, ConstructAndSerialize) {
   const IOTA::API::Requests::CheckConsistency req{ { "TESTA", "TESTB" } };
   json                                        data;
 

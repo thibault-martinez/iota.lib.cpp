@@ -28,71 +28,7 @@
 
 #include <iota/api/requests/attach_to_tangle.hpp>
 
-TEST(AttachToTangleRequest, CtorShouldInitFields) {
-  const IOTA::API::Requests::AttachToTangle req{ "trunk", "branch", 42, { "trytes1", "trytes2" } };
-
-  EXPECT_EQ(req.getTrunkTransaction(), "trunk");
-  EXPECT_EQ(req.getBranchTransaction(), "branch");
-  EXPECT_EQ(req.getMinWeightMagnitude(), 42);
-  EXPECT_EQ(req.getTrytes(), std::vector<IOTA::Types::Trytes>({ "trytes1", "trytes2" }));
-}
-
-TEST(AttachToTangleRequest, GetTrytesNonConst) {
-  IOTA::API::Requests::AttachToTangle req{ "trunk", "branch", 42, { "trytes1" } };
-
-  req.getTrytes().push_back("trytes2");
-
-  EXPECT_EQ(req.getTrunkTransaction(), "trunk");
-  EXPECT_EQ(req.getBranchTransaction(), "branch");
-  EXPECT_EQ(req.getMinWeightMagnitude(), 42);
-  EXPECT_EQ(req.getTrytes(), std::vector<IOTA::Types::Trytes>({ "trytes1", "trytes2" }));
-}
-
-TEST(AttachToTangleRequest, setTrunkTransaction) {
-  IOTA::API::Requests::AttachToTangle req{ "trunk", "branch", 42, { "trytes1", "trytes2" } };
-
-  req.setTrunkTransaction("null");
-
-  EXPECT_EQ(req.getTrunkTransaction(), "null");
-  EXPECT_EQ(req.getBranchTransaction(), "branch");
-  EXPECT_EQ(req.getMinWeightMagnitude(), 42);
-  EXPECT_EQ(req.getTrytes(), std::vector<IOTA::Types::Trytes>({ "trytes1", "trytes2" }));
-}
-
-TEST(AttachToTangleRequest, setBranchTransaction) {
-  IOTA::API::Requests::AttachToTangle req{ "trunk", "branch", 42, { "trytes1", "trytes2" } };
-
-  req.setBranchTransaction("null");
-
-  EXPECT_EQ(req.getTrunkTransaction(), "trunk");
-  EXPECT_EQ(req.getBranchTransaction(), "null");
-  EXPECT_EQ(req.getMinWeightMagnitude(), 42);
-  EXPECT_EQ(req.getTrytes(), std::vector<IOTA::Types::Trytes>({ "trytes1", "trytes2" }));
-}
-
-TEST(AttachToTangleRequest, setMinWeightMagnitude) {
-  IOTA::API::Requests::AttachToTangle req{ "trunk", "branch", 42, { "trytes1", "trytes2" } };
-
-  req.setMinWeightMagnitude(84);
-
-  EXPECT_EQ(req.getTrunkTransaction(), "trunk");
-  EXPECT_EQ(req.getBranchTransaction(), "branch");
-  EXPECT_EQ(req.getMinWeightMagnitude(), 84);
-  EXPECT_EQ(req.getTrytes(), std::vector<IOTA::Types::Trytes>({ "trytes1", "trytes2" }));
-}
-
-TEST(AttachToTangleRequest, setTrytes) {
-  IOTA::API::Requests::AttachToTangle req{ "trunk", "branch", 42, { "trytes1", "trytes2" } };
-
-  req.setTrytes({ "null1", "null2" });
-
-  EXPECT_EQ(req.getTrunkTransaction(), "trunk");
-  EXPECT_EQ(req.getBranchTransaction(), "branch");
-  EXPECT_EQ(req.getMinWeightMagnitude(), 42);
-  EXPECT_EQ(req.getTrytes(), std::vector<IOTA::Types::Trytes>({ "null1", "null2" }));
-}
-
-TEST(AttachToTangleRequest, SerializeShouldInitJson) {
+TEST(AttachToTangleRequest, ConstructAndSerialize) {
   const IOTA::API::Requests::AttachToTangle req{ "trunk", "branch", 42, { "trytes1", "trytes2" } };
   json                                      data;
 

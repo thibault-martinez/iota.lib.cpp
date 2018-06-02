@@ -66,27 +66,6 @@ public:
    */
   void serialize(json& data) const override;
 
-public:
-  /**
-   * @return depth.
-   */
-  int getDepth() const;
-
-  /**
-   * @param depth new depth for api call.
-   */
-  void setDepth(int depth);
-
-  /**
-   * @return reference.
-   */
-  const Types::Trytes& getReference() const;
-
-  /**
-   * @param reference The reference.
-   */
-  void setReference(const Types::Trytes& reference);
-
 private:
   /**
    * Number of bundles to go back to determine the transactions for approval.

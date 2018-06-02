@@ -63,22 +63,6 @@ public:
    */
   void serialize(json& data) const override;
 
-public:
-  /**
-   * @return addresses.
-   */
-  const std::vector<Models::Address>& getAddresses() const;
-
-  /**
-   * @return addresses (non const version).
-   */
-  std::vector<Models::Address>& getAddresses();
-
-  /**
-   * @param addrs new addresses for api call.
-   */
-  void setAddresses(const std::vector<Models::Address>& addrs);
-
 private:
   /**
    * List of addresses you want to check if they were spent from.

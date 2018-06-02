@@ -28,31 +28,7 @@
 
 #include <iota/api/requests/store_transactions.hpp>
 
-TEST(StoreTransactionsRequest, CtorShouldInitFields) {
-  const IOTA::API::Requests::StoreTransactions res{ { "TESTA", "TESTB" } };
-
-  EXPECT_EQ(res.getTrytes(), std::vector<IOTA::Types::Trytes>({ "TESTA", "TESTB" }));
-}
-
-TEST(StoreTransactionsRequest, GetTrytesNonConst) {
-  IOTA::API::Requests::StoreTransactions res{ { "TESTA" } };
-
-  res.getTrytes().push_back("TESTB");
-
-  EXPECT_EQ(res.getTrytes(), std::vector<IOTA::Types::Trytes>({ "TESTA", "TESTB" }));
-}
-
-TEST(StoreTransactionsRequest, SetTrytes) {
-  IOTA::API::Requests::StoreTransactions res{ { "TESTA" } };
-
-  std::vector<IOTA::Types::Trytes> trytes = res.getTrytes();
-  trytes.push_back("TESTB");
-  res.setTrytes(trytes);
-
-  EXPECT_EQ(res.getTrytes(), std::vector<IOTA::Types::Trytes>({ "TESTA", "TESTB" }));
-}
-
-TEST(StoreTransactionsRequest, SerializeShouldInitJson) {
+TEST(StoreTransactionsRequest, ConstructAndSerialize) {
   const IOTA::API::Requests::StoreTransactions req{ { "TESTA", "TESTB" } };
   json                                         data;
 

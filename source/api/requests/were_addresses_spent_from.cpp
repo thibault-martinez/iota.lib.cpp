@@ -46,21 +46,6 @@ WereAddressesSpentFrom::serialize(json& data) const {
   }
 }
 
-const std::vector<Models::Address>&
-WereAddressesSpentFrom::getAddresses() const {
-  return addresses_;
-}
-
-std::vector<Models::Address>&
-WereAddressesSpentFrom::getAddresses() {
-  return addresses_;
-}
-
-void
-WereAddressesSpentFrom::setAddresses(const std::vector<Models::Address>& addrs) {
-  addresses_ = addrs;
-}
-
 }  // namespace Requests
 
 }  // namespace API

@@ -69,66 +69,6 @@ FindTransactions::serialize(json& data) const {
   }
 }
 
-const std::vector<Models::Address>&
-FindTransactions::getAddresses() const {
-  return addresses_;
-}
-
-std::vector<Models::Address>&
-FindTransactions::getAddresses() {
-  return addresses_;
-}
-
-void
-FindTransactions::setAddresses(const std::vector<Models::Address>& addrs) {
-  addresses_ = addrs;
-}
-
-const std::vector<Models::Tag>&
-FindTransactions::getTags() const {
-  return tags_;
-}
-
-std::vector<Models::Tag>&
-FindTransactions::getTags() {
-  return tags_;
-}
-
-void
-FindTransactions::setTags(const std::vector<Models::Tag>& tags) {
-  tags_ = tags;
-}
-
-const std::vector<Types::Trytes>&
-FindTransactions::getApprovees() const {
-  return approvees_;
-}
-
-std::vector<Types::Trytes>&
-FindTransactions::getApprovees() {
-  return approvees_;
-}
-
-void
-FindTransactions::setApprovees(const std::vector<Types::Trytes>& approvees) {
-  approvees_ = approvees;
-}
-
-const std::vector<Types::Trytes>&
-FindTransactions::getBundles() const {
-  return bundles_;
-}
-
-std::vector<Types::Trytes>&
-FindTransactions::getBundles() {
-  return bundles_;
-}
-
-void
-FindTransactions::setBundles(const std::vector<Types::Trytes>& bundles) {
-  bundles_ = bundles;
-}
-
 }  // namespace Requests
 
 }  // namespace API

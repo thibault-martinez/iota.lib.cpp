@@ -29,42 +29,7 @@
 #include <iota/api/requests/were_addresses_spent_from.hpp>
 #include <test/utils/constants.hpp>
 
-TEST(WereAddressesSpentFromRequest, DefaultCtorShouldInitFields) {
-  const IOTA::API::Requests::WereAddressesSpentFrom req{};
-
-  EXPECT_EQ(req.getAddresses(), std::vector<IOTA::Models::Address>({}));
-}
-
-TEST(WereAddressesSpentFromRequest, CtorShouldInitFields) {
-  const IOTA::API::Requests::WereAddressesSpentFrom req{ { ACCOUNT_1_ADDRESS_1_HASH,
-                                                           ACCOUNT_1_ADDRESS_2_HASH } };
-
-  EXPECT_EQ(req.getAddresses(), std::vector<IOTA::Models::Address>(
-                                    { ACCOUNT_1_ADDRESS_1_HASH, ACCOUNT_1_ADDRESS_2_HASH }));
-}
-
-TEST(WereAddressesSpentFromRequest, GetAddressesNonConst) {
-  IOTA::API::Requests::WereAddressesSpentFrom req{ { ACCOUNT_1_ADDRESS_1_HASH,
-                                                     ACCOUNT_1_ADDRESS_2_HASH } };
-
-  req.getAddresses().push_back(ACCOUNT_1_ADDRESS_3_HASH);
-
-  EXPECT_EQ(req.getAddresses(),
-            std::vector<IOTA::Models::Address>(
-                { ACCOUNT_1_ADDRESS_1_HASH, ACCOUNT_1_ADDRESS_2_HASH, ACCOUNT_1_ADDRESS_3_HASH }));
-}
-
-TEST(WereAddressesSpentFromRequest, SetAddresses) {
-  IOTA::API::Requests::WereAddressesSpentFrom req{ { ACCOUNT_1_ADDRESS_1_HASH,
-                                                     ACCOUNT_1_ADDRESS_2_HASH } };
-
-  req.setAddresses({ ACCOUNT_1_ADDRESS_3_HASH, ACCOUNT_1_ADDRESS_4_HASH });
-
-  EXPECT_EQ(req.getAddresses(), std::vector<IOTA::Models::Address>(
-                                    { ACCOUNT_1_ADDRESS_3_HASH, ACCOUNT_1_ADDRESS_4_HASH }));
-}
-
-TEST(WereAddressesSpentFromRequest, SerializeShouldInitJson) {
+TEST(WereAddressesSpentFromRequest, ConstructAndSerialize) {
   const IOTA::API::Requests::WereAddressesSpentFrom req{ { ACCOUNT_1_ADDRESS_1_HASH,
                                                            ACCOUNT_1_ADDRESS_2_HASH } };
   json                                              data;

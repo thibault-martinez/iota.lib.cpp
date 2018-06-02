@@ -64,22 +64,6 @@ public:
    */
   void serialize(json& data) const override;
 
-public:
-  /**
-   * @return hashes.
-   */
-  const std::vector<Types::Trytes>& getHashes() const;
-
-  /**
-   * @return hashes (non const version).
-   */
-  std::vector<Types::Trytes>& getHashes();
-
-  /**
-   * @param hashes new hashes for api call.
-   */
-  void setHashes(const std::vector<Types::Trytes>& hashes);
-
 private:
   /**
    * List of transaction hashes of which you want to get trytes from.

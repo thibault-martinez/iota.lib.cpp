@@ -43,21 +43,6 @@ GetTrytes::serialize(json& data) const {
   data["hashes"] = hashes_;
 }
 
-const std::vector<Types::Trytes>&
-GetTrytes::getHashes() const {
-  return hashes_;
-}
-
-std::vector<Types::Trytes>&
-GetTrytes::getHashes() {
-  return hashes_;
-}
-
-void
-GetTrytes::setHashes(const std::vector<Types::Trytes>& hashes) {
-  hashes_ = hashes;
-}
-
 }  // namespace Requests
 
 }  // namespace API

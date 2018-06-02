@@ -28,7 +28,7 @@
 
 #include <iota/api/requests/interrupt_attaching_to_tangle.hpp>
 
-TEST(InterruptAttachingToTangleRequest, SerializeShouldInitJson) {
+TEST(InterruptAttachingToTangleRequest, ConstructAndSerialize) {
   const IOTA::API::Requests::InterruptAttachingToTangle req;
   json                                                  data;
 

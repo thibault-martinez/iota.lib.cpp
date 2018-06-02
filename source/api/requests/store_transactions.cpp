@@ -43,21 +43,6 @@ StoreTransactions::serialize(json& data) const {
   data["trytes"] = trytes_;
 }
 
-const std::vector<Types::Trytes>&
-StoreTransactions::getTrytes() const {
-  return trytes_;
-}
-
-std::vector<Types::Trytes>&
-StoreTransactions::getTrytes() {
-  return trytes_;
-}
-
-void
-StoreTransactions::setTrytes(const std::vector<Types::Trytes>& trytes) {
-  trytes_ = trytes;
-}
-
 }  // namespace Requests
 
 }  // namespace API

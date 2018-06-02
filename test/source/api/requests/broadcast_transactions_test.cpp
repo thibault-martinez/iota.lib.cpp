@@ -28,31 +28,7 @@
 
 #include <iota/api/requests/broadcast_transactions.hpp>
 
-TEST(BroadcastTransactionsRequest, CtorShouldInitFields) {
-  const IOTA::API::Requests::BroadcastTransactions res{ { "TESTA", "TESTB" } };
-
-  EXPECT_EQ(res.getTrytes(), std::vector<IOTA::Types::Trytes>({ "TESTA", "TESTB" }));
-}
-
-TEST(BroadcastTransactionsRequest, GetTrytesNonConst) {
-  IOTA::API::Requests::BroadcastTransactions res;
-
-  res.getTrytes().push_back("TEST");
-
-  EXPECT_EQ(res.getTrytes(), std::vector<IOTA::Types::Trytes>({ "TEST" }));
-}
-
-TEST(BroadcastTransactionsRequest, SetTrytes) {
-  IOTA::API::Requests::BroadcastTransactions res;
-
-  std::vector<IOTA::Types::Trytes> hashes = res.getTrytes();
-  hashes.push_back("TEST");
-  res.setTrytes(hashes);
-
-  EXPECT_EQ(res.getTrytes(), std::vector<IOTA::Types::Trytes>({ "TEST" }));
-}
-
-TEST(BroadcastTransactionsRequest, Serialize) {
+TEST(BroadcastTransactionsRequest, ConstructAndSerialize) {
   const IOTA::API::Requests::BroadcastTransactions res{ { "TESTA", "TESTB" } };
 
   json data;

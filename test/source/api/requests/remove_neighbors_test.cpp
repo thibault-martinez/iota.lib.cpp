@@ -28,29 +28,7 @@
 
 #include <iota/api/requests/remove_neighbors.hpp>
 
-TEST(RemoveNeighborsRequest, CtorShouldInitFields) {
-  const IOTA::API::Requests::RemoveNeighbors req{ { "uri1", "uri2" } };
-
-  EXPECT_EQ(req.getUris(), std::vector<std::string>({ "uri1", "uri2" }));
-}
-
-TEST(RemoveNeighborsRequest, GetUrisNonConst) {
-  IOTA::API::Requests::RemoveNeighbors req{ { "uri1", "uri2" } };
-
-  req.getUris().push_back("uri3");
-
-  EXPECT_EQ(req.getUris(), std::vector<std::string>({ "uri1", "uri2", "uri3" }));
-}
-
-TEST(RemoveNeighborsRequest, SetUris) {
-  IOTA::API::Requests::RemoveNeighbors req;
-
-  req.setUris({ "uri1", "uri2" });
-
-  EXPECT_EQ(req.getUris(), std::vector<std::string>({ "uri1", "uri2" }));
-}
-
-TEST(RemoveNeighborsRequest, SerializeShouldInitJson) {
+TEST(RemoveNeighborsRequest, ConstructAndSerialize) {
   const IOTA::API::Requests::RemoveNeighbors req{ { "uri1", "uri2" } };
   json                                       data;
 

@@ -28,7 +28,7 @@
 
 #include <iota/api/requests/get_neighbors.hpp>
 
-TEST(GetNeighborsRequest, SerializeShouldInitJson) {
+TEST(GetNeighborsRequest, ConstructAndSerialize) {
   const IOTA::API::Requests::GetNeighbors req;
   json                                    data;
 

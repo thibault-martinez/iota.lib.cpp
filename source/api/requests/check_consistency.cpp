@@ -43,21 +43,6 @@ CheckConsistency::serialize(json& data) const {
   data["tails"] = tails_;
 }
 
-const std::vector<Types::Trytes>&
-CheckConsistency::getTails() const {
-  return tails_;
-}
-
-std::vector<Types::Trytes>&
-CheckConsistency::getTails() {
-  return tails_;
-}
-
-void
-CheckConsistency::setTails(const std::vector<Types::Trytes>& tails) {
-  tails_ = tails;
-}
-
 }  // namespace Requests
 
 }  // namespace API

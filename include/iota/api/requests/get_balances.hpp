@@ -69,33 +69,6 @@ public:
    */
   void serialize(json& data) const override;
 
-public:
-  /**
-   * @return addresses.
-   */
-  const std::vector<Models::Address>& getAddresses() const;
-
-  /**
-   * @return addresses (non const version).
-   */
-  std::vector<Models::Address>& getAddresses();
-
-  /**
-   * @param addrs new addresses for api call.
-   */
-  void setAddresses(const std::vector<Models::Address>& addrs);
-
-public:
-  /**
-   * @return threshold.
-   */
-  int getThreshold() const;
-
-  /**
-   * @param threshold new threshold for api call.
-   */
-  void setThreshold(int threshold);
-
 private:
   /**
    * List of addresses you want to get the confirmed balance from.

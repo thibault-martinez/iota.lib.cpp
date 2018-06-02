@@ -28,39 +28,7 @@
 
 #include <iota/api/requests/get_transactions_to_approve.hpp>
 
-TEST(GetTransactionToApproveRequest, Ctor) {
-  const IOTA::API::Requests::GetTransactionsToApprove req;
-
-  EXPECT_EQ(req.getDepth(), 0);
-  EXPECT_EQ(req.getReference(), "");
-}
-
-TEST(GetTransactionToApproveRequest, CtorShouldInitFields) {
-  const IOTA::API::Requests::GetTransactionsToApprove req{ 42, "ref" };
-
-  EXPECT_EQ(req.getDepth(), 42);
-  EXPECT_EQ(req.getReference(), "ref");
-}
-
-TEST(GetTransactionToApproveRequest, SetDepth) {
-  IOTA::API::Requests::GetTransactionsToApprove req{ 42, "ref" };
-
-  req.setDepth(84);
-
-  EXPECT_EQ(req.getDepth(), 84);
-  EXPECT_EQ(req.getReference(), "ref");
-}
-
-TEST(GetTransactionToApproveRequest, SetReference) {
-  IOTA::API::Requests::GetTransactionsToApprove req{ 42, "ref" };
-
-  req.setReference("ref2");
-
-  EXPECT_EQ(req.getDepth(), 42);
-  EXPECT_EQ(req.getReference(), "ref2");
-}
-
-TEST(GetTransactionToApproveRequest, SerializeShouldInitJson) {
+TEST(GetTransactionToApproveRequest, ConstructAndSerialize) {
   const IOTA::API::Requests::GetTransactionsToApprove req{ 42, "ref" };
   json                                                data;
 
