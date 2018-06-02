@@ -46,10 +46,10 @@ CheckConsistency::deserialize(const json& res) {
   Base::deserialize(res);
 
   if (res.count("state")) {
-    state_ = res.at("state").get<bool>();
+    state_ = res.at("state").get<decltype(state_)>();
   }
   if (res.count("info")) {
-    info_ = res.at("info").get<std::string>();
+    info_ = res.at("info").get<decltype(info_)>();
   }
 }
 

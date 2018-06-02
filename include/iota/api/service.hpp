@@ -91,7 +91,7 @@ public:
       resJson = json::parse(res.text);
 
       if (resJson.count("error")) {
-        error = resJson["error"].get<std::string>();
+        error = resJson["error"].get<decltype(error)>();
       }
     } catch (const std::runtime_error&) {
       if (res.elapsed >= timeout_) {

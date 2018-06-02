@@ -45,7 +45,7 @@ WereAddressesSpentFrom::deserialize(const json& res) {
   Base::deserialize(res);
 
   if (res.count("states")) {
-    states_ = res.at("states").get<std::vector<bool>>();
+    states_ = res.at("states").get<decltype(states_)>();
   }
 }
 

@@ -43,7 +43,7 @@ Base::Base(const json& res) {
 void
 Base::deserialize(const json& res) {
   if (res.count("duration")) {
-    duration_ = res.at("duration").get<long>();
+    duration_ = res.at("duration").get<decltype(duration_)>();
   }
 }
 

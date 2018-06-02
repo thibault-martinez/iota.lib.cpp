@@ -48,19 +48,26 @@ GetNeighbors::deserialize(const json& res) {
     Models::Neighbor obj;
 
     if (neighbor.count("address")) {
-      obj.setAddress(neighbor.at("address").get<Types::Trytes>());
+      obj.setAddress(
+          neighbor.at("address").get<std::remove_reference<decltype(obj.getAddress())>::type>());
     }
 
     if (neighbor.count("numberOfAllTransactions")) {
-      obj.setNumberOfAllTransactions(neighbor.at("numberOfAllTransactions").get<int64_t>());
+      obj.setNumberOfAllTransactions(
+          neighbor.at("numberOfAllTransactions")
+              .get<std::remove_reference<decltype(obj.getNumberOfAllTransactions())>::type>());
     }
 
     if (neighbor.count("numberOfInvalidTransactions")) {
-      obj.setNumberOfInvalidTransactions(neighbor.at("numberOfInvalidTransactions").get<int64_t>());
+      obj.setNumberOfInvalidTransactions(
+          neighbor.at("numberOfInvalidTransactions")
+              .get<std::remove_reference<decltype(obj.getNumberOfInvalidTransactions())>::type>());
     }
 
     if (neighbor.count("numberOfNewTransactions")) {
-      obj.setNumberOfNewTransactions(neighbor.at("numberOfNewTransactions").get<int64_t>());
+      obj.setNumberOfNewTransactions(
+          neighbor.at("numberOfNewTransactions")
+              .get<std::remove_reference<decltype(obj.getNumberOfNewTransactions())>::type>());
     }
 
     neighbors_.push_back(std::move(obj));
