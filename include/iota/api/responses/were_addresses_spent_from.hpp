@@ -75,11 +75,6 @@ public:
    */
   const std::vector<bool>& getStates() const;
 
-  /**
-   * @param states new states for api response.
-   */
-  void setStates(const std::vector<bool>& states);
-
 private:
   /**
    * List of state if addresses were spent from.

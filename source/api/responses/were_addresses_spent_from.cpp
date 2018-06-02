@@ -54,11 +54,6 @@ WereAddressesSpentFrom::getStates() const {
   return states_;
 }
 
-void
-WereAddressesSpentFrom::setStates(const std::vector<bool>& states) {
-  states_ = states;
-}
-
 }  // namespace Responses
 
 }  // namespace API

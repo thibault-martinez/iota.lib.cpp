@@ -36,26 +36,6 @@ TEST(AttachToTangleResponse, CtorShouldInitFields) {
   EXPECT_EQ(res.getDuration(), 0);
 }
 
-TEST(AttachToTangleResponse, GetTrytesNonConst) {
-  IOTA::API::Responses::AttachToTangle res;
-
-  res.getTrytes().push_back("TEST");
-
-  EXPECT_EQ(res.getTrytes(), std::vector<IOTA::Types::Trytes>({ "TEST" }));
-  EXPECT_EQ(res.getDuration(), 0);
-}
-
-TEST(AttachToTangleResponse, SetTrytes) {
-  IOTA::API::Responses::AttachToTangle res;
-
-  std::vector<IOTA::Types::Trytes> trytes = res.getTrytes();
-  trytes.push_back("TEST");
-  res.setTrytes(trytes);
-
-  EXPECT_EQ(res.getTrytes(), std::vector<IOTA::Types::Trytes>({ "TEST" }));
-  EXPECT_EQ(res.getDuration(), 0);
-}
-
 TEST(AttachToTangleResponse, DeserializeShouldSetFields) {
   IOTA::API::Responses::AttachToTangle res;
   json                                 data;

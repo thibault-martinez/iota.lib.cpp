@@ -66,16 +66,6 @@ public:
    */
   const std::vector<Models::Bundle>& getTransfers() const;
 
-  /**
-   * @return The transfers (non const version).
-   */
-  std::vector<Models::Bundle>& getTransfers();
-
-  /**
-   * @param transfers New vector of transfers for GetTransfers.
-   */
-  void setTransfers(const std::vector<Models::Bundle>& transfers);
-
 private:
   std::vector<Models::Bundle> transferBundle_;
 };

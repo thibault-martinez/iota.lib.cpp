@@ -43,39 +43,14 @@ GetAccountData::getAddresses() const {
   return addresses_;
 }
 
-std::vector<Models::Address>&
-GetAccountData::getAddresses() {
-  return addresses_;
-}
-
-void
-GetAccountData::setAddresses(const std::vector<Models::Address>& addresses) {
-  addresses_ = addresses;
-}
-
 const std::vector<Models::Bundle>&
 GetAccountData::getTransfers() const {
   return transfers_;
 }
 
-std::vector<Models::Bundle>&
-GetAccountData::getTransfers() {
-  return transfers_;
-}
-
-void
-GetAccountData::setTransfers(const std::vector<Models::Bundle>& transfers) {
-  transfers_ = transfers;
-}
-
 const int64_t&
 GetAccountData::getBalance() const {
   return balance_;
-}
-
-void
-GetAccountData::setBalance(const int64_t& balance) {
-  balance_ = balance;
 }
 
 }  // namespace Responses

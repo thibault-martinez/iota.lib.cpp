@@ -54,16 +54,6 @@ GetTrytes::getTrytes() const {
   return trytes_;
 }
 
-std::vector<Types::Trytes>&
-GetTrytes::getTrytes() {
-  return trytes_;
-}
-
-void
-GetTrytes::setTrytes(const std::vector<Types::Trytes>& trytes) {
-  trytes_ = trytes;
-}
-
 }  // namespace Responses
 
 }  // namespace API

@@ -42,16 +42,6 @@ GetTransfers::getTransfers() const {
   return transferBundle_;
 }
 
-std::vector<Models::Bundle>&
-GetTransfers::getTransfers() {
-  return transferBundle_;
-}
-
-void
-GetTransfers::setTransfers(const std::vector<Models::Bundle>& transfers) {
-  transferBundle_ = transfers;
-}
-
 }  // namespace Responses
 
 }  // namespace API

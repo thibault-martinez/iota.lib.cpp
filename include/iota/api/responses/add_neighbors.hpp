@@ -76,11 +76,6 @@ public:
    */
   const int64_t& getAddedNeighbors() const;
 
-  /**
-   * @param addedNeighbors set number of added neighbors.
-   */
-  void setAddedNeighbors(const int64_t& addedNeighbors);
-
 private:
   /**
    * Number of added neighbors.

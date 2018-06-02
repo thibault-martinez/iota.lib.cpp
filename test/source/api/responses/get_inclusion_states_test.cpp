@@ -35,17 +35,6 @@ TEST(GetInclusionStatesResponse, CtorShouldInitFields) {
   EXPECT_EQ(res.getDuration(), 0);
 }
 
-TEST(GetInclusionStatesResponse, SetStates) {
-  IOTA::API::Responses::GetInclusionStates res;
-
-  std::vector<bool> states = res.getStates();
-  states.push_back(true);
-  res.setStates(states);
-
-  EXPECT_EQ(res.getStates(), std::vector<bool>({ true }));
-  EXPECT_EQ(res.getDuration(), 0);
-}
-
 TEST(GetInclusionStatesResponse, DeserializeShouldSetFields) {
   IOTA::API::Responses::GetInclusionStates res;
   json                                     data;

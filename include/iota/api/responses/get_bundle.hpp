@@ -67,16 +67,6 @@ public:
    */
   const std::vector<Models::Transaction>& getTransactions() const;
 
-  /**
-   * @return The transactions (Non-const version).
-   */
-  std::vector<Models::Transaction>& getTransactions();
-
-  /**
-   * @param transactions new transactions list for GetBundle
-   */
-  void setTransactions(const std::vector<Models::Transaction>& transactions);
-
 private:
   std::vector<Models::Transaction> transactions_;
 };

@@ -53,26 +53,6 @@ TEST(FindTransactionsResponse, AssignementOperator) {
   EXPECT_EQ(res1.getDuration(), res2.getDuration());
 }
 
-TEST(FindTransactionsResponse, GetHashesNonConst) {
-  IOTA::API::Responses::FindTransactions res;
-
-  res.getHashes().push_back("TEST");
-
-  EXPECT_EQ(res.getHashes(), std::vector<IOTA::Types::Trytes>({ "TEST" }));
-  EXPECT_EQ(res.getDuration(), 0);
-}
-
-TEST(FindTransactionsResponse, SetHashes) {
-  IOTA::API::Responses::FindTransactions res;
-
-  std::vector<IOTA::Types::Trytes> hashes = res.getHashes();
-  hashes.push_back("TEST");
-  res.setHashes(hashes);
-
-  EXPECT_EQ(res.getHashes(), std::vector<IOTA::Types::Trytes>({ "TEST" }));
-  EXPECT_EQ(res.getDuration(), 0);
-}
-
 TEST(FindTransactionsResponse, DeserializeShouldSetFields) {
   IOTA::API::Responses::FindTransactions res;
   json                                   data;

@@ -103,88 +103,40 @@ public:
   const std::string& getAppName() const;
 
   /**
-   * @param appName new app name for api response.
-   */
-  void setAppName(const std::string& appName);
-
-public:
-  /**
    * @return The version of the IOTA software you're currently running.
    */
   const std::string& getAppVersion() const;
 
-  /**
-   * @param appVersion new app version for api response.
-   */
-  void setAppVersion(const std::string& appVersion);
-
-public:
   /**
    * @return Available cores on your machine for JRE.
    */
   const int64_t& getJreAvailableProcessors() const;
 
   /**
-   * @param jreAvailableProcessors new procs for api response.
-   */
-  void setJreAvailableProcessors(const int64_t& jreAvailableProcessors);
-
-public:
-  /**
    * @return The amount of free memory in the Java Virtual Machine.
    */
   const int64_t& getJreFreeMemory() const;
 
-  /**
-   * @param jreFreeMemory new free mem for api response.
-   */
-  void setJreFreeMemory(const int64_t& jreFreeMemory);
-
-public:
   /**
    * @return The maximum amount of memory that the Java virtual machine will attempt to use.
    */
   const int64_t& getJreMaxMemory() const;
 
   /**
-   * @param jreMaxMemory new max mem for api response.
-   */
-  void setJreMaxMemory(const int64_t& jreMaxMemory);
-
-public:
-  /**
    * @return The total amount of memory in the Java virtual machine.
    */
   const int64_t& getJreTotalMemory() const;
 
-  /**
-   * @param jreTotalMemory new total mem for api response.
-   */
-  void setJreTotalMemory(const int64_t& jreTotalMemory);
-
-public:
   /**
    * @return Latest milestone that was signed off by the coordinator.
    */
   const Types::Trytes& getLatestMilestone() const;
 
   /**
-   * @param latestMilestone new latest milestone for api response.
-   */
-  void setLatestMilestone(const Types::Trytes& latestMilestone);
-
-public:
-  /**
    * @return Index of the latest milestone.
    */
   const int64_t& getLatestMilestoneIndex() const;
 
-  /**
-   * @param latestMilestoneIndex new latest milestone index for api response.
-   */
-  void setLatestMilestoneIndex(const int64_t& latestMilestoneIndex);
-
-public:
   /**
    * @return The latest milestone which is solid and is used for sending transactions. For a
    * milestone to become solid your local node must basically approve the subtangle of
@@ -193,76 +145,34 @@ public:
   const Types::Trytes& getLatestSolidSubtangleMilestone() const;
 
   /**
-   * @param latestSolidSubtangleMilestone new latest solid subtangle milestone for api response.
-   */
-  void setLatestSolidSubtangleMilestone(const Types::Trytes& latestSolidSubtangleMilestone);
-
-public:
-  /**
    * @return Index of the latest solid subtangle.
    */
   const int64_t& getLatestSolidSubtangleMilestoneIndex() const;
 
-  /**
-   * @param latestSolidSubtangleMilestoneIndex new latest solid subtangle milestone index for api
-   * response.
-   */
-  void setLatestSolidSubtangleMilestoneIndex(const int64_t& latestSolidSubtangleMilestoneIndex);
-
-public:
   /**
    * @return Number of neighbors you are directly connected with.
    */
   const int64_t& getNeighbors() const;
 
   /**
-   * @param neighbors new nb of neighbors for api response.
-   */
-  void setNeighbors(const int64_t& neighbors);
-
-public:
-  /**
    * @return Packets which are currently queued up.
    */
   const int64_t& getPacketsQueueSize() const;
 
-  /**
-   * @param packetsQueueSize new queueSize for api response.
-   */
-  void setPacketsQueueSize(const int64_t& packetsQueueSize);
-
-public:
   /**
    * @return Current UNIX timestamp.
    */
   const int64_t& getTime() const;
 
   /**
-   * @param time new time for api response.
-   */
-  void setTime(const int64_t& time);
-
-public:
-  /**
    * @return Number of tips in the network.
    */
   const int64_t& getTips() const;
 
   /**
-   * @param tips new tips for api response.
-   */
-  void setTips(const int64_t& tips);
-
-public:
-  /**
    * @return Transactions to request during syncing process.
    */
   const int64_t& getTransactionsToRequest() const;
-
-  /**
-   * @param transactionsToRequest new nb transactions to requests of api response.
-   */
-  void setTransactionsToRequest(const int64_t& transactionsToRequest);
 
 private:
   /**

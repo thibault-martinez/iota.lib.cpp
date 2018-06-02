@@ -82,20 +82,9 @@ public:
   const Types::Trytes& getTrunkTransaction() const;
 
   /**
-   * @param trx new trunk transaction for api call.
-   */
-  void setTrunkTransaction(const Types::Trytes& trx);
-
-public:
-  /**
    * @return branch transaction.
    */
   const Types::Trytes& getBranchTransaction() const;
-
-  /**
-   * @param trx new branch transaction for api call.
-   */
-  void setBranchTransaction(const Types::Trytes& trx);
 
 private:
   /**

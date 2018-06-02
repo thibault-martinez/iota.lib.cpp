@@ -73,41 +73,14 @@ public:
   const std::vector<Models::Address>& getAddresses() const;
 
   /**
-   * @return The addresses (non-const version).
-   */
-  std::vector<Models::Address>& getAddresses();
-
-  /**
-   * @param addresses new vector of addresses for GetAccountData response
-   */
-  void setAddresses(const std::vector<Models::Address>& addresses);
-
-public:
-  /**
    * @return The transfers.
    */
   const std::vector<Models::Bundle>& getTransfers() const;
 
   /**
-   * @return The transfers (non-const version).
-   */
-  std::vector<Models::Bundle>& getTransfers();
-
-  /**
-   * @param transfers new vector of bundles for GetAccountData response
-   */
-  void setTransfers(const std::vector<Models::Bundle>& transfers);
-
-public:
-  /**
    * @return The balance.
    */
   const int64_t& getBalance() const;
-
-  /**
-   * @param balance new balance for GetAccountData response
-   */
-  void setBalance(const int64_t& balance);
 
 private:
   /**

@@ -36,17 +36,6 @@ TEST(WereAddressesSpentFromResponse, CtorShouldInitFields) {
   EXPECT_EQ(res.getDuration(), 0);
 }
 
-TEST(WereAddressesSpentFromResponse, GetSetStates) {
-  IOTA::API::Responses::WereAddressesSpentFrom res{ std::vector<bool>({ true, false, true }) };
-
-  std::vector<bool> states = res.getStates();
-  states.push_back(true);
-  res.setStates(states);
-
-  EXPECT_EQ(res.getStates(), std::vector<bool>({ true, false, true, true }));
-  EXPECT_EQ(res.getDuration(), 0);
-}
-
 TEST(WereAddressesSpentFromResponse, DeserializeShouldSetFields) {
   IOTA::API::Responses::WereAddressesSpentFrom res;
   json                                         data;

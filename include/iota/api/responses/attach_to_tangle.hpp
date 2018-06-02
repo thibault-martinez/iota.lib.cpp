@@ -83,16 +83,6 @@ public:
    */
   const std::vector<Types::Trytes>& getTrytes() const;
 
-  /**
-   * @return trytes (non const version).
-   */
-  std::vector<Types::Trytes>& getTrytes();
-
-  /**
-   * @param trytes new trytes for api call.
-   */
-  void setTrytes(const std::vector<Types::Trytes>& trytes);
-
 private:
   /**
    * The returned tryte value, the last 243 trytes basically consist of the: trunkTransaction +

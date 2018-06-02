@@ -54,16 +54,6 @@ AttachToTangle::getTrytes() const {
   return trytes_;
 }
 
-std::vector<Types::Trytes>&
-AttachToTangle::getTrytes() {
-  return trytes_;
-}
-
-void
-AttachToTangle::setTrytes(const std::vector<Types::Trytes>& trytes) {
-  trytes_ = trytes;
-}
-
 }  // namespace Responses
 
 }  // namespace API

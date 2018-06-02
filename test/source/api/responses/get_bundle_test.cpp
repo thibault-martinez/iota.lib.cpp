@@ -48,25 +48,3 @@ TEST(GetBundleResponse, CtorShouldInitFields) {
                                          { ACCOUNT_1_ADDRESS_3_HASH, 3, "TAGTRXTHREE", 3 } }));
   EXPECT_EQ(res.getDuration(), 42);
 }
-
-TEST(GetBundleResponse, GetTransactionsNonConst) {
-  IOTA::API::Responses::GetBundle res;
-
-  res.getTransactions().push_back({ ACCOUNT_1_ADDRESS_1_HASH, 1, "TAGTRXONE", 1 });
-
-  EXPECT_EQ(res.getTransactions(), std::vector<IOTA::Models::Transaction>(
-                                       { { ACCOUNT_1_ADDRESS_1_HASH, 1, "TAGTRXONE", 1 } }));
-  EXPECT_EQ(res.getDuration(), 0);
-}
-
-TEST(GetBundleResponse, SetTransactions) {
-  IOTA::API::Responses::GetBundle res;
-
-  std::vector<IOTA::Models::Transaction> transactions = res.getTransactions();
-  transactions.push_back({ ACCOUNT_1_ADDRESS_1_HASH, 1, "TAGTRXONE", 1 });
-  res.setTransactions(transactions);
-
-  EXPECT_EQ(res.getTransactions(), std::vector<IOTA::Models::Transaction>(
-                                       { { ACCOUNT_1_ADDRESS_1_HASH, 1, "TAGTRXONE", 1 } }));
-  EXPECT_EQ(res.getDuration(), 0);
-}

@@ -77,16 +77,6 @@ public:
    */
   const std::vector<Models::Neighbor>& getNeighbors() const;
 
-  /**
-   * @return neighbors. (non const version).
-   */
-  std::vector<Models::Neighbor>& getNeighbors();
-
-  /**
-   * @param neighbors new neighbors for api response.
-   */
-  void setNeighbors(const std::vector<Models::Neighbor>& neighbors);
-
 private:
   /**
    * Set of neighbors you are connected with, as well as their activity count. The activity counter

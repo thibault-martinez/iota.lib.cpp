@@ -79,16 +79,6 @@ public:
    */
   const std::vector<Types::Trytes>& getHashes() const;
 
-  /**
-   * @return hashes (non const version).
-   */
-  std::vector<Types::Trytes>& getHashes();
-
-  /**
-   * @param hashes new hashes for api call.
-   */
-  void setHashes(const std::vector<Types::Trytes>& hashes);
-
 private:
   /**
    * The transaction hashes which are returned depend on your input. For each specified input value,

@@ -48,36 +48,6 @@ TEST(GetNeighborsResponse, CtorShouldInitFields) {
   EXPECT_EQ(res.getDuration(), 0);
 }
 
-TEST(GetNeighborsResponse, GetNeighborsNonConst) {
-  IOTA::API::Responses::GetNeighbors res;
-
-  res.getNeighbors().push_back(IOTA::Models::Neighbor{ "addr1", 1, 2, 3 });
-
-  EXPECT_EQ(res.getNeighbors().size(), 1UL);
-
-  EXPECT_EQ(res.getNeighbors()[0].getAddress(), "addr1");
-  EXPECT_EQ(res.getNeighbors()[0].getNumberOfAllTransactions(), 1);
-  EXPECT_EQ(res.getNeighbors()[0].getNumberOfInvalidTransactions(), 2);
-  EXPECT_EQ(res.getNeighbors()[0].getNumberOfNewTransactions(), 3);
-
-  EXPECT_EQ(res.getDuration(), 0);
-}
-
-TEST(GetNeighborsResponse, SetNeighbors) {
-  IOTA::API::Responses::GetNeighbors res;
-
-  res.setNeighbors({ IOTA::Models::Neighbor{ "addr1", 1, 2, 3 } });
-
-  EXPECT_EQ(res.getNeighbors().size(), 1UL);
-
-  EXPECT_EQ(res.getNeighbors()[0].getAddress(), "addr1");
-  EXPECT_EQ(res.getNeighbors()[0].getNumberOfAllTransactions(), 1);
-  EXPECT_EQ(res.getNeighbors()[0].getNumberOfInvalidTransactions(), 2);
-  EXPECT_EQ(res.getNeighbors()[0].getNumberOfNewTransactions(), 3);
-
-  EXPECT_EQ(res.getDuration(), 0);
-}
-
 TEST(GetNeighborsResponse, DeserializeShouldSetFields) {
   IOTA::API::Responses::GetNeighbors res;
   json                               data;

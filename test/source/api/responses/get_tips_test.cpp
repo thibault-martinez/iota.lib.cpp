@@ -35,26 +35,6 @@ TEST(GetTipsResponse, CtorShouldInitFields) {
   EXPECT_EQ(res.getDuration(), 0);
 }
 
-TEST(GetTipsResponse, GetHashesNonConst) {
-  IOTA::API::Responses::GetTips res;
-
-  res.getHashes().push_back("TEST");
-
-  EXPECT_EQ(res.getHashes(), std::vector<IOTA::Types::Trytes>({ "TEST" }));
-  EXPECT_EQ(res.getDuration(), 0);
-}
-
-TEST(GetTipsResponse, SetHashes) {
-  IOTA::API::Responses::GetTips res;
-
-  std::vector<IOTA::Types::Trytes> hashes = res.getHashes();
-  hashes.push_back("TEST");
-  res.setHashes(hashes);
-
-  EXPECT_EQ(res.getHashes(), std::vector<IOTA::Types::Trytes>({ "TEST" }));
-  EXPECT_EQ(res.getDuration(), 0);
-}
-
 TEST(GetTipsResponse, DeserializeShouldSetFields) {
   IOTA::API::Responses::GetTips    res;
   json                             data;

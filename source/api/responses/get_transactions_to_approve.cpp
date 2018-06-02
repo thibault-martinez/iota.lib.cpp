@@ -60,19 +60,9 @@ GetTransactionsToApprove::getTrunkTransaction() const {
   return trunkTransaction_;
 }
 
-void
-GetTransactionsToApprove::setTrunkTransaction(const Types::Trytes& trx) {
-  trunkTransaction_ = trx;
-}
-
 const Types::Trytes&
 GetTransactionsToApprove::getBranchTransaction() const {
   return branchTransaction_;
-}
-
-void
-GetTransactionsToApprove::setBranchTransaction(const Types::Trytes& trx) {
-  branchTransaction_ = trx;
 }
 
 }  // namespace Responses

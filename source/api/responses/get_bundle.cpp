@@ -41,16 +41,6 @@ GetBundle::getTransactions() const {
   return transactions_;
 }
 
-std::vector<Models::Transaction>&
-GetBundle::getTransactions() {
-  return transactions_;
-}
-
-void
-GetBundle::setTransactions(const std::vector<Models::Transaction>& transactions) {
-  transactions_ = transactions;
-}
-
 }  // namespace Responses
 
 }  // namespace API

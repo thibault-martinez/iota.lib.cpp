@@ -42,24 +42,9 @@ GetBalancesAndFormat::getInputs() const {
   return inputs_;
 }
 
-std::vector<Models::Address>&
-GetBalancesAndFormat::getInputs() {
-  return inputs_;
-}
-
-void
-GetBalancesAndFormat::setInputs(const std::vector<Models::Address>& inputs) {
-  inputs_ = inputs;
-}
-
 const int64_t&
 GetBalancesAndFormat::getTotalBalance() const {
   return totalBalance_;
-}
-
-void
-GetBalancesAndFormat::setTotalBalance(const int64_t& totalBalance) {
-  totalBalance_ = totalBalance;
 }
 
 }  // namespace Responses

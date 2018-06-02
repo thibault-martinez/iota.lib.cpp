@@ -54,11 +54,6 @@ AddNeighbors::getAddedNeighbors() const {
   return addedNeighbors_;
 }
 
-void
-AddNeighbors::setAddedNeighbors(const int64_t& addedNeighbors) {
-  addedNeighbors_ = addedNeighbors;
-}
-
 }  // namespace Responses
 
 }  // namespace API

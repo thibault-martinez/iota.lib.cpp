@@ -82,19 +82,9 @@ public:
   bool getState() const;
 
   /**
-   * @param state consistency state.
-   */
-  void setState(bool state);
-
-  /**
    * @return info.
    */
   const std::string& getInfo() const;
-
-  /**
-   * @param info Information.
-   */
-  void setInfo(const std::string& info);
 
 private:
   /**

@@ -55,11 +55,6 @@ RemoveNeighbors::getRemovedNeighbors() const {
   return removedNeighbors_;
 }
 
-void
-RemoveNeighbors::setRemovedNeighbors(const int64_t& removedNeighbors) {
-  removedNeighbors_ = removedNeighbors;
-}
-
 }  // namespace Responses
 
 }  // namespace API

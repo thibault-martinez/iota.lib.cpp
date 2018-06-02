@@ -77,16 +77,6 @@ public:
    */
   const std::vector<Types::Trytes>& getTrytes() const;
 
-  /**
-   * @return trytes (non const version).
-   */
-  std::vector<Types::Trytes>& getTrytes();
-
-  /**
-   * @param trytes new trytes for api call.
-   */
-  void setTrytes(const std::vector<Types::Trytes>& trytes);
-
 private:
   /**
    * Raw transaction data (trytes) of the transaction.

@@ -40,16 +40,6 @@ SendTransfer::getSuccessfully() const {
   return successfully_;
 }
 
-std::vector<bool>&
-SendTransfer::getSuccessfully() {
-  return successfully_;
-}
-
-void
-SendTransfer::setSuccessfully(const std::vector<bool>& successful) {
-  successfully_ = successful;
-}
-
 }  // namespace Responses
 
 }  // namespace API
