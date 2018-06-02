@@ -191,17 +191,6 @@ TEST(Core, GetBalancesTipsNotFound) {
   EXPECT_GE(res.getDuration(), 0);
 }
 
-TEST(Core, GetBalancesTipsNotConsistent) {
-  IOTA::API::Core                   api(get_proxy_host(), get_proxy_port());
-  IOTA::API::Responses::GetBalances res;
-
-  auto tips = api.getTips().getHashes();
-  EXPECT_EXCEPTION(res = api.getBalances({ ACCOUNT_1_ADDRESS_1_HASH }, 100, { tips[0] }),
-                   IOTA::Errors::BadRequest, "Tips are not consistent")
-
-  EXPECT_GE(res.getDuration(), 0);
-}
-
 TEST(Core, GetTransactionsToApprove) {
   IOTA::API::Core api(get_proxy_host(), get_proxy_port());
   auto            res = api.getTransactionsToApprove(27);
