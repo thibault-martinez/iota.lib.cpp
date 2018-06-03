@@ -127,8 +127,10 @@ Core::getInclusionStates(const std::vector<Types::Trytes>& transactions,
 }
 
 Responses::GetBalances
-Core::getBalances(const std::vector<Models::Address>& addresses, const int& threshold) const {
-  return service_.request<Requests::GetBalances, Responses::GetBalances>(addresses, threshold);
+Core::getBalances(const std::vector<Models::Address>& addresses, const int& threshold,
+                  const std::vector<Types::Trytes>& tips) const {
+  return service_.request<Requests::GetBalances, Responses::GetBalances>(addresses, threshold,
+                                                                         tips);
 }
 
 Responses::GetTransactionsToApprove

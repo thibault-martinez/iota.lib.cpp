@@ -152,6 +152,45 @@ TEST(Core, GetBalancesInvalidThreshold) {
   EXPECT_GE(res.getDuration(), 0);
 }
 
+TEST(Core, GetBalancesWithTips) {
+  IOTA::API::Core api(get_proxy_host(), get_proxy_port());
+  auto            res = api.getBalances({ ACCOUNT_1_ADDRESS_1_HASH }, 100, { BUNDLE_1_TRX_1_HASH });
+
+  EXPECT_GE(res.getDuration(), 0);
+  EXPECT_FALSE(res.getBalances().empty());
+  EXPECT_GE(res.getMilestoneIndex(), 0);
+}
+
+TEST(Core, GetBalancesWithMultipleTips) {
+  IOTA::API::Core api(get_proxy_host(), get_proxy_port());
+  auto            res = api.getBalances({ ACCOUNT_1_ADDRESS_1_HASH }, 100,
+                             { BUNDLE_1_TRX_1_HASH, BUNDLE_1_TRX_2_HASH });
+
+  EXPECT_GE(res.getDuration(), 0);
+  EXPECT_FALSE(res.getBalances().empty());
+  EXPECT_GE(res.getMilestoneIndex(), 0);
+}
+
+TEST(Core, GetBalancesInvalidTips) {
+  IOTA::API::Core                   api(get_proxy_host(), get_proxy_port());
+  IOTA::API::Responses::GetBalances res;
+
+  EXPECT_EXCEPTION(res = api.getBalances({ ACCOUNT_1_ADDRESS_1_HASH }, 100, { "invalid tips" }),
+                   IOTA::Errors::BadRequest, "Invalid tips input")
+
+  EXPECT_GE(res.getDuration(), 0);
+}
+
+TEST(Core, GetBalancesTipsNotFound) {
+  IOTA::API::Core                   api(get_proxy_host(), get_proxy_port());
+  IOTA::API::Responses::GetBalances res;
+
+  EXPECT_EXCEPTION(res = api.getBalances({ ACCOUNT_1_ADDRESS_1_HASH }, 100, { BUNDLE_1_HASH }),
+                   IOTA::Errors::BadRequest, ("Tip not found: " + BUNDLE_1_HASH).c_str())
+
+  EXPECT_GE(res.getDuration(), 0);
+}
+
 TEST(Core, GetTransactionsToApprove) {
   IOTA::API::Core api(get_proxy_host(), get_proxy_port());
   auto            res = api.getTransactionsToApprove(27);
