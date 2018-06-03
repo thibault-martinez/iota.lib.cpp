@@ -45,7 +45,7 @@ matrix:
     # OSX x Gcc 5 x Release
     - os: osx
       osx_image: xcode8
-      env: MATRIX_EVAL="brew install gcc5 && CC=gcc-5 && CXX=g++-5 && CMAKE_BUILD_TYPE=Release"
+      env: MATRIX_EVAL="brew install gcc5 && CC=gcc-5 && CXX=g++-5 && CMAKE_BUILD_TYPE=Release && SILENCE=1"
 
     # OSX x Gcc 6 x Release
     - os: osx
