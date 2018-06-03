@@ -29,11 +29,12 @@
 #include <iota/api/requests/get_balances.hpp>
 #include <test/utils/constants.hpp>
 
-TEST(GetBalancesRequest, ConstructAndSerialize) {
-  const IOTA::API::Requests::GetBalances req{
-    { ACCOUNT_1_ADDRESS_1_HASH, ACCOUNT_1_ADDRESS_2_HASH }, 42
-  };
-  json data;
+TEST(GetBalancesRequest, SerializeShouldInitJson) {
+  const IOTA::API::Requests::GetBalances req{ { ACCOUNT_1_ADDRESS_1_HASH,
+                                                ACCOUNT_1_ADDRESS_2_HASH },
+                                              42,
+                                              { BUNDLE_1_TRX_1_HASH, BUNDLE_1_TRX_2_HASH } };
+  json                                   data;
 
   req.serialize(data);
 
@@ -42,4 +43,6 @@ TEST(GetBalancesRequest, ConstructAndSerialize) {
             std::vector<IOTA::Types::Trytes>({ ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
                                                ACCOUNT_1_ADDRESS_2_HASH_WITHOUT_CHECKSUM }));
   EXPECT_EQ(data["threshold"], 42);
+  EXPECT_EQ(data["tips"],
+            std::vector<IOTA::Types::Trytes>({ BUNDLE_1_TRX_1_HASH, BUNDLE_1_TRX_2_HASH }));
 }
