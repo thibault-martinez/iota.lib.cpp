@@ -94,47 +94,19 @@ public:
   const std::vector<std::string>& getBalances() const;
 
   /**
-   * @return balances. (non const version).
-   */
-  std::vector<std::string>& getBalances();
-
-  /**
-   * @param balances new balances for api response.
-   */
-  void setBalances(const std::vector<std::string>& balances);
-
-public:
-  /**
    * @return referencing tips (or milestone)
    */
   const std::vector<Types::Trytes>& getReferences() const;
 
-  /**
-   * @param references referencing tips (or milestone)
-   */
-  void setReferences(const std::vector<Types::Trytes>& references);
-
-public:
   /**
    * @return milestone.
    */
   DEPRECATED const Types::Trytes& getMilestone() const;
 
   /**
-   * @param milestone new milestone for api response.
-   */
-  DEPRECATED void setMilestone(const Types::Trytes& milestone);
-
-public:
-  /**
    * @return milestone index.
    */
   const int64_t& getMilestoneIndex() const;
-
-  /**
-   * @param milestoneIndex new milestone index for api response.
-   */
-  void setMilestoneIndex(const int64_t& milestoneIndex);
 
 private:
   /**

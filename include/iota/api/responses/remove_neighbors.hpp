@@ -76,11 +76,6 @@ public:
    */
   const int64_t& getRemovedNeighbors() const;
 
-  /**
-   * @param removedNeighbors new nb of removed neighbors for api response.
-   */
-  void setRemovedNeighbors(const int64_t& removedNeighbors);
-
 private:
   /**
    * Number of removed neighbors.

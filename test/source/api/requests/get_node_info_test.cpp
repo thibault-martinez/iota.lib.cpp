@@ -28,7 +28,7 @@
 
 #include <iota/api/requests/get_node_info.hpp>
 
-TEST(GetNodeInfoRequest, SerializeShouldInitJson) {
+TEST(GetNodeInfoRequest, ConstructAndSerialize) {
   const IOTA::API::Requests::GetNodeInfo req;
   json                                   data;
 

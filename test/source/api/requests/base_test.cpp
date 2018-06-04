@@ -28,13 +28,7 @@
 
 #include <iota/api/requests/base.hpp>
 
-TEST(BaseRequest, CtorShouldInitFields) {
-  const IOTA::API::Requests::Base req{ { "cmd" } };
-
-  EXPECT_EQ(req.getCommandName(), "cmd");
-}
-
-TEST(BaseRequest, SerializeShouldInitJson) {
+TEST(BaseRequest, ConstructAndSerialize) {
   const IOTA::API::Requests::Base req{ "cmd" };
   json                            data;
 

@@ -64,22 +64,6 @@ public:
    */
   void serialize(json& data) const override;
 
-public:
-  /**
-   * @return trytes.
-   */
-  const std::vector<Types::Trytes>& getTrytes() const;
-
-  /**
-   * @return trytes (non const version).
-   */
-  std::vector<Types::Trytes>& getTrytes();
-
-  /**
-   * @param trytes new trytes for api call.
-   */
-  void setTrytes(const std::vector<Types::Trytes>& trytes);
-
 private:
   /**
    * List of raw data of transactions to be rebroadcast.

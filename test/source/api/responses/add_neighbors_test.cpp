@@ -35,15 +35,6 @@ TEST(AddNeighborsResponse, CtorShouldInitFields) {
   EXPECT_EQ(res.getDuration(), 0);
 }
 
-TEST(AddNeighborsResponse, SetAddedNeighbors) {
-  IOTA::API::Responses::AddNeighbors res;
-
-  res.setAddedNeighbors(42);
-
-  EXPECT_EQ(res.getAddedNeighbors(), 42);
-  EXPECT_EQ(res.getDuration(), 0);
-}
-
 TEST(AddNeighborsResponse, DeserializeShouldSetFields) {
   IOTA::API::Responses::AddNeighbors res;
   json                               data;

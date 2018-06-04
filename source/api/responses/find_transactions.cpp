@@ -54,16 +54,6 @@ FindTransactions::getHashes() const {
   return hashes_;
 }
 
-std::vector<Types::Trytes>&
-FindTransactions::getHashes() {
-  return hashes_;
-}
-
-void
-FindTransactions::setHashes(const std::vector<Types::Trytes>& hashes) {
-  hashes_ = hashes;
-}
-
 }  // namespace Responses
 
 }  // namespace API

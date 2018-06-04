@@ -70,38 +70,6 @@ public:
    */
   void serialize(json& data) const override;
 
-public:
-  /**
-   * @return transactions.
-   */
-  const std::vector<Types::Trytes>& getTransactions() const;
-
-  /**
-   * @return transactions (non const version).
-   */
-  std::vector<Types::Trytes>& getTransactions();
-
-  /**
-   * @param trxs new transactions for api call.
-   */
-  void setTransactions(const std::vector<Types::Trytes>& trxs);
-
-public:
-  /**
-   * @return tips.
-   */
-  const std::vector<Types::Trytes>& getTips() const;
-
-  /**
-   * @return tips (non const version).
-   */
-  std::vector<Types::Trytes>& getTips();
-
-  /**
-   * @param tips new tips for api call.
-   */
-  void setTips(const std::vector<Types::Trytes>& tips);
-
 private:
   /**
    * List of transactions you want to get the inclusion state for.

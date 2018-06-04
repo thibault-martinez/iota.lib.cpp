@@ -54,11 +54,6 @@ GetInclusionStates::getStates() const {
   return states_;
 }
 
-void
-GetInclusionStates::setStates(const std::vector<bool>& states) {
-  states_ = states;
-}
-
 }  // namespace Responses
 
 }  // namespace API

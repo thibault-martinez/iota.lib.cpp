@@ -28,52 +28,7 @@
 
 #include <iota/api/requests/get_inclusion_states.hpp>
 
-TEST(GetInclusionStatesRequest, CtorShouldInitFields) {
-  const IOTA::API::Requests::GetInclusionStates req(
-      std::vector<IOTA::Types::Trytes>({ "tx1", "tx2" }),
-      std::vector<IOTA::Types::Trytes>({ "tip1", "tip2" }));
-
-  EXPECT_EQ(req.getTransactions(), std::vector<IOTA::Types::Trytes>({ "tx1", "tx2" }));
-  EXPECT_EQ(req.getTips(), std::vector<IOTA::Types::Trytes>({ "tip1", "tip2" }));
-}
-
-TEST(GetInclusionStatesRequest, GetTransactionsNonConst) {
-  IOTA::API::Requests::GetInclusionStates req{ { "tx1", "tx2" }, { "tip1", "tip2" } };
-
-  req.getTransactions().push_back("tx3");
-
-  EXPECT_EQ(req.getTransactions(), std::vector<IOTA::Types::Trytes>({ "tx1", "tx2", "tx3" }));
-  EXPECT_EQ(req.getTips(), std::vector<IOTA::Types::Trytes>({ "tip1", "tip2" }));
-}
-
-TEST(GetInclusionStatesRequest, GetTipsNonConst) {
-  IOTA::API::Requests::GetInclusionStates req{ { "tx1", "tx2" }, { "tip1", "tip2" } };
-
-  req.getTips().push_back("tip3");
-
-  EXPECT_EQ(req.getTransactions(), std::vector<IOTA::Types::Trytes>({ "tx1", "tx2" }));
-  EXPECT_EQ(req.getTips(), std::vector<IOTA::Types::Trytes>({ "tip1", "tip2", "tip3" }));
-}
-
-TEST(GetInclusionStatesRequest, SetTransactions) {
-  IOTA::API::Requests::GetInclusionStates req{ { "tx1", "tx2" }, { "tip1", "tip2" } };
-
-  req.setTransactions({ "null1", "null2" });
-
-  EXPECT_EQ(req.getTransactions(), std::vector<IOTA::Types::Trytes>({ "null1", "null2" }));
-  EXPECT_EQ(req.getTips(), std::vector<IOTA::Types::Trytes>({ "tip1", "tip2" }));
-}
-
-TEST(GetInclusionStatesRequest, SetTips) {
-  IOTA::API::Requests::GetInclusionStates req{ { "tx1", "tx2" }, { "tip1", "tip2" } };
-
-  req.setTips({ "null1", "null2" });
-
-  EXPECT_EQ(req.getTransactions(), std::vector<IOTA::Types::Trytes>({ "tx1", "tx2" }));
-  EXPECT_EQ(req.getTips(), std::vector<IOTA::Types::Trytes>({ "null1", "null2" }));
-}
-
-TEST(GetInclusionStatesRequest, SerializeShouldInitJson) {
+TEST(GetInclusionStatesRequest, ConstructAndSerialize) {
   const IOTA::API::Requests::GetInclusionStates req{ { "tx1", "tx2" }, { "tip1", "tip2" } };
   json                                          data;
 

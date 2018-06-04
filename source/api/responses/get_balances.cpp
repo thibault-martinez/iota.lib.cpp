@@ -74,24 +74,9 @@ GetBalances::getBalances() const {
   return balances_;
 }
 
-std::vector<std::string>&
-GetBalances::getBalances() {
-  return balances_;
-}
-
-void
-GetBalances::setBalances(const std::vector<std::string>& balances) {
-  balances_ = balances;
-}
-
 const std::vector<Types::Trytes>&
 GetBalances::getReferences() const {
   return references_;
-}
-
-void
-GetBalances::setReferences(const std::vector<Types::Trytes>& references) {
-  references_ = references;
 }
 
 const Types::Trytes&
@@ -99,19 +84,9 @@ GetBalances::getMilestone() const {
   return milestone_;
 }
 
-void
-GetBalances::setMilestone(const Types::Trytes& milestone) {
-  milestone_ = milestone;
-}
-
 const int64_t&
 GetBalances::getMilestoneIndex() const {
   return milestoneIndex_;
-}
-
-void
-GetBalances::setMilestoneIndex(const int64_t& milestoneIndex) {
-  milestoneIndex_ = milestoneIndex;
 }
 
 }  // namespace Responses

@@ -63,16 +63,6 @@ public:
    */
   const std::vector<bool>& getSuccessfully() const;
 
-  /**
-   * @return successful operations. (non const version)
-   */
-  std::vector<bool>& getSuccessfully();
-
-  /**
-   * @param successful new successful operations for api response
-   */
-  void setSuccessfully(const std::vector<bool>& successful);
-
 private:
   std::vector<bool> successfully_;
 };

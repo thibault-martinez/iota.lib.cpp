@@ -42,15 +42,6 @@ TEST(RemoveNeighborsResponse, CtorShouldInitFields) {
   EXPECT_EQ(res.getDuration(), 0);
 }
 
-TEST(RemoveNeighborsResponse, SetRemovedNeighbors) {
-  IOTA::API::Responses::RemoveNeighbors res;
-
-  res.setRemovedNeighbors(42);
-
-  EXPECT_EQ(res.getRemovedNeighbors(), 42);
-  EXPECT_EQ(res.getDuration(), 0);
-}
-
 TEST(RemoveNeighborsResponse, DeserializeShouldSetFields) {
   IOTA::API::Responses::RemoveNeighbors res;
   json                                  data;

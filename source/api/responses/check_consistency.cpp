@@ -58,19 +58,9 @@ CheckConsistency::getState() const {
   return state_;
 }
 
-void
-CheckConsistency::setState(bool state) {
-  state_ = state;
-}
-
 const std::string&
 CheckConsistency::getInfo() const {
   return info_;
-}
-
-void
-CheckConsistency::setInfo(const std::string& info) {
-  info_ = info;
 }
 
 }  // namespace Responses

@@ -68,22 +68,6 @@ public:
    */
   void serialize(json& data) const override;
 
-public:
-  /**
-   * @return tails.
-   */
-  const std::vector<Types::Trytes>& getTails() const;
-
-  /**
-   * @return tails (non const version).
-   */
-  std::vector<Types::Trytes>& getTails();
-
-  /**
-   * @param tails new tails for api call.
-   */
-  void setTails(const std::vector<Types::Trytes>& tailss);
-
 private:
   /**
    * List of tail transactions you want consistency from.

@@ -28,7 +28,7 @@
 
 #include <iota/api/requests/get_tips.hpp>
 
-TEST(GetTipsRequest, SerializeShouldInitJson) {
+TEST(GetTipsRequest, ConstructAndSerialize) {
   const IOTA::API::Requests::GetTips req;
   json                               data;
 

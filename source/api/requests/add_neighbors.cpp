@@ -43,21 +43,6 @@ AddNeighbors::serialize(json& data) const {
   data["uris"] = uris_;
 }
 
-const std::vector<std::string>&
-AddNeighbors::getUris() const {
-  return uris_;
-}
-
-std::vector<std::string>&
-AddNeighbors::getUris() {
-  return uris_;
-}
-
-void
-AddNeighbors::setUris(const std::vector<std::string>& uris) {
-  uris_ = uris;
-}
-
 }  // namespace Requests
 
 }  // namespace API

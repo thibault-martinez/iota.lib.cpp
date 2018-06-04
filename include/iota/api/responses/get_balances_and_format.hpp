@@ -73,25 +73,9 @@ public:
   const std::vector<Models::Address>& getInputs() const;
 
   /**
-   * @return Inputs. (non const version)
-   */
-  std::vector<Models::Address>& getInputs();
-
-  /**
-   * @param inputs New inputs for api response
-   */
-  void setInputs(const std::vector<Models::Address>& inputs);
-
-public:
-  /**
    * @return Total balance.
    */
   const int64_t& getTotalBalance() const;
-
-  /**
-   * @param totalBalance New total balance for api response.
-   */
-  void setTotalBalance(const int64_t& totalBalance);
 
 private:
   std::vector<Models::Address> inputs_;

@@ -53,26 +53,6 @@ TEST(GetTrytesResponse, AssignementOperator) {
   EXPECT_EQ(res1.getDuration(), res2.getDuration());
 }
 
-TEST(GetTrytesResponse, GetTrytesNonConst) {
-  IOTA::API::Responses::GetTrytes res;
-
-  res.getTrytes().push_back("TEST");
-
-  EXPECT_EQ(res.getTrytes(), std::vector<IOTA::Types::Trytes>({ "TEST" }));
-  EXPECT_EQ(res.getDuration(), 0);
-}
-
-TEST(GetTrytesResponse, SetTrytes) {
-  IOTA::API::Responses::GetTrytes res;
-
-  std::vector<IOTA::Types::Trytes> trytes = res.getTrytes();
-  trytes.push_back("TEST");
-  res.setTrytes(trytes);
-
-  EXPECT_EQ(res.getTrytes(), std::vector<IOTA::Types::Trytes>({ "TEST" }));
-  EXPECT_EQ(res.getDuration(), 0);
-}
-
 TEST(GetTrytesResponse, DeserializeShouldSetFields) {
   IOTA::API::Responses::GetTrytes  res;
   json                             data;

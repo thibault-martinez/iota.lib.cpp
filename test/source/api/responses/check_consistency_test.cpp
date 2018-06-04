@@ -44,26 +44,6 @@ TEST(CheckConsistencyResponse, CtorShouldInitFields) {
   EXPECT_EQ(res.getDuration(), 0);
 }
 
-TEST(CheckConsistencyResponse, SetState) {
-  IOTA::API::Responses::CheckConsistency res(true, "info");
-
-  res.setState(false);
-
-  EXPECT_EQ(res.getState(), false);
-  EXPECT_EQ(res.getInfo(), "info");
-  EXPECT_EQ(res.getDuration(), 0);
-}
-
-TEST(CheckConsistencyResponse, SetInfo) {
-  IOTA::API::Responses::CheckConsistency res(true, "info");
-
-  res.setInfo("info bis");
-
-  EXPECT_EQ(res.getState(), true);
-  EXPECT_EQ(res.getInfo(), "info bis");
-  EXPECT_EQ(res.getDuration(), 0);
-}
-
 TEST(CheckConsistencyResponse, DeserializeShouldSetFields) {
   IOTA::API::Responses::CheckConsistency res;
   json                                   data;

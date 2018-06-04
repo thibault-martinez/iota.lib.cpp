@@ -62,22 +62,6 @@ public:
    */
   void serialize(json& data) const override;
 
-public:
-  /**
-   * @return uris.
-   */
-  const std::vector<std::string>& getUris() const;
-
-  /**
-   * @return uris (non const version).
-   */
-  std::vector<std::string>& getUris();
-
-  /**
-   * @param uris new uris for addNeighbors API call.
-   */
-  void setUris(const std::vector<std::string>& uris);
-
 private:
   /**
    * List of URI elements.

@@ -51,46 +51,6 @@ GetBalances::serialize(json& data) const {
   }
 }
 
-const std::vector<Models::Address>&
-GetBalances::getAddresses() const {
-  return addresses_;
-}
-
-std::vector<Models::Address>&
-GetBalances::getAddresses() {
-  return addresses_;
-}
-
-void
-GetBalances::setAddresses(const std::vector<Models::Address>& addrs) {
-  addresses_ = addrs;
-}
-
-int
-GetBalances::getThreshold() const {
-  return threshold_;
-}
-
-void
-GetBalances::setThreshold(int threshold) {
-  threshold_ = threshold;
-}
-
-const std::vector<Types::Trytes>&
-GetBalances::getTips() const {
-  return tips_;
-}
-
-std::vector<Types::Trytes>&
-GetBalances::getTips() {
-  return tips_;
-}
-
-void
-GetBalances::setTips(const std::vector<Types::Trytes>& tips) {
-  tips_ = tips;
-}
-
 }  // namespace Requests
 
 }  // namespace API

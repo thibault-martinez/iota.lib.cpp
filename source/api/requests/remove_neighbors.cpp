@@ -43,21 +43,6 @@ RemoveNeighbors::serialize(json& data) const {
   data["uris"] = uris_;
 }
 
-const std::vector<std::string>&
-RemoveNeighbors::getUris() const {
-  return uris_;
-}
-
-std::vector<std::string>&
-RemoveNeighbors::getUris() {
-  return uris_;
-}
-
-void
-RemoveNeighbors::setUris(const std::vector<std::string>& uris) {
-  uris_ = uris;
-}
-
 }  // namespace Requests
 
 }  // namespace API

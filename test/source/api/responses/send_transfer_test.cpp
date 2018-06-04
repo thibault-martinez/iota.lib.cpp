@@ -40,23 +40,3 @@ TEST(SendTransferResponse, CtorShouldInitFields) {
   EXPECT_EQ(res.getSuccessfully(), std::vector<bool>({ true, false, true }));
   EXPECT_EQ(res.getDuration(), 42);
 }
-
-TEST(SendTransferResponse, GetSuccessfullyNonConst) {
-  IOTA::API::Responses::SendTransfer res;
-
-  res.getSuccessfully().push_back(true);
-
-  EXPECT_EQ(res.getSuccessfully(), std::vector<bool>({ true }));
-  EXPECT_EQ(res.getDuration(), 0);
-}
-
-TEST(SendTransferResponse, SetSuccessfully) {
-  IOTA::API::Responses::SendTransfer res;
-
-  std::vector<bool> successful = res.getSuccessfully();
-  successful.push_back(true);
-  res.setSuccessfully(successful);
-
-  EXPECT_EQ(res.getSuccessfully(), std::vector<bool>({ true }));
-  EXPECT_EQ(res.getDuration(), 0);
-}

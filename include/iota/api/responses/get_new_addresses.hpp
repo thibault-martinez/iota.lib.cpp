@@ -67,16 +67,6 @@ public:
    */
   const std::vector<Models::Address>& getAddresses() const;
 
-  /**
-   * @return The addresses. (non const version)
-   */
-  std::vector<Models::Address>& getAddresses();
-
-  /**
-   * @param addresses new addresses for api response
-   */
-  void setAddresses(const std::vector<Models::Address>& addresses);
-
 private:
   std::vector<Models::Address> addresses_;
 };

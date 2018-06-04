@@ -28,29 +28,7 @@
 
 #include <iota/api/requests/add_neighbors.hpp>
 
-TEST(AddNeighborsRequest, CtorShouldInitFields) {
-  const IOTA::API::Requests::AddNeighbors req{ { "uri1", "uri2" } };
-
-  EXPECT_EQ(req.getUris(), std::vector<std::string>({ "uri1", "uri2" }));
-}
-
-TEST(AddNeighborsRequest, GetUrisNonConst) {
-  IOTA::API::Requests::AddNeighbors req{ { "uri1", "uri2" } };
-
-  req.getUris().push_back("uri3");
-
-  EXPECT_EQ(req.getUris(), std::vector<std::string>({ "uri1", "uri2", "uri3" }));
-}
-
-TEST(AddNeighborsRequest, SetUris) {
-  IOTA::API::Requests::AddNeighbors req;
-
-  req.setUris({ "uri1", "uri2" });
-
-  EXPECT_EQ(req.getUris(), std::vector<std::string>({ "uri1", "uri2" }));
-}
-
-TEST(AddNeighborsRequest, SerializeShouldInitJson) {
+TEST(AddNeighborsRequest, ConstructAndSerialize) {
   const IOTA::API::Requests::AddNeighbors req{ { "uri1", "uri2" } };
   json                                    data;
 

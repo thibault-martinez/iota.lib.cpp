@@ -45,26 +45,6 @@ GetTransactionsToApprove::serialize(json& data) const {
     data["reference"] = reference_;
 }
 
-int
-GetTransactionsToApprove::getDepth() const {
-  return depth_;
-}
-
-void
-GetTransactionsToApprove::setDepth(int depth) {
-  depth_ = depth;
-}
-
-const Types::Trytes&
-GetTransactionsToApprove::getReference() const {
-  return reference_;
-}
-
-void
-GetTransactionsToApprove::setReference(const Types::Trytes& reference) {
-  reference_ = reference;
-}
-
 }  // namespace Requests
 
 }  // namespace API

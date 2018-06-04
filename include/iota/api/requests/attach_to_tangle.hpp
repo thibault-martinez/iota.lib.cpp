@@ -76,55 +76,6 @@ public:
    */
   void serialize(json& data) const override;
 
-public:
-  /**
-   * @return trunk transaction.
-   */
-  const Types::Trytes& getTrunkTransaction() const;
-
-  /**
-   * @param trx new trunk transaction for api call.
-   */
-  void setTrunkTransaction(const Types::Trytes& trx);
-
-public:
-  /**
-   * @return branch transaction.
-   */
-  const Types::Trytes& getBranchTransaction() const;
-
-  /**
-   * @param trx new branch transaction for api call.
-   */
-  void setBranchTransaction(const Types::Trytes& trx);
-
-public:
-  /**
-   * @return min weight magnitude.
-   */
-  int getMinWeightMagnitude() const;
-
-  /**
-   * @param weight new min weight magnitude for api call.
-   */
-  void setMinWeightMagnitude(int weight);
-
-public:
-  /**
-   * @return trytes.
-   */
-  const std::vector<Types::Trytes>& getTrytes() const;
-
-  /**
-   * @return trytes (non const version).
-   */
-  std::vector<Types::Trytes>& getTrytes();
-
-  /**
-   * @param trytes new trytes for api call.
-   */
-  void setTrytes(const std::vector<Types::Trytes>& trytes);
-
 private:
   /**
    * Trunk transaction to approve.

@@ -41,16 +41,6 @@ GetNewAddresses::getAddresses() const {
   return addresses_;
 }
 
-std::vector<Models::Address>&
-GetNewAddresses::getAddresses() {
-  return addresses_;
-}
-
-void
-GetNewAddresses::setAddresses(const std::vector<Models::Address>& addresses) {
-  addresses_ = addresses;
-}
-
 }  // namespace Responses
 
 }  // namespace API

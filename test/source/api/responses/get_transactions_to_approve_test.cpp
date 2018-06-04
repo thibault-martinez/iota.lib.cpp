@@ -36,16 +36,6 @@ TEST(GetTransactionsToApproveResponse, CtorShouldInitFields) {
   EXPECT_EQ(res.getDuration(), 0);
 }
 
-TEST(GetTransactionsToApproveResponse, Setters) {
-  IOTA::API::Responses::GetTransactionsToApprove res;
-
-  res.setTrunkTransaction("TEST1");
-  res.setBranchTransaction("TEST2");
-
-  EXPECT_EQ(res.getTrunkTransaction(), "TEST1");
-  EXPECT_EQ(res.getBranchTransaction(), "TEST2");
-}
-
 TEST(GetTransactionsToApproveResponse, DeserializeShouldSetFields) {
   IOTA::API::Responses::GetTransactionsToApprove res;
   json                                           data;

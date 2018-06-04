@@ -53,51 +53,6 @@ AttachToTangle::serialize(json& data) const {
   data["trytes"]             = trytes_;
 }
 
-const Types::Trytes&
-AttachToTangle::getTrunkTransaction() const {
-  return trunkTransaction_;
-}
-
-void
-AttachToTangle::setTrunkTransaction(const Types::Trytes& trx) {
-  trunkTransaction_ = trx;
-}
-
-const Types::Trytes&
-AttachToTangle::getBranchTransaction() const {
-  return branchTransaction_;
-}
-
-void
-AttachToTangle::setBranchTransaction(const Types::Trytes& trx) {
-  branchTransaction_ = trx;
-}
-
-int
-AttachToTangle::getMinWeightMagnitude() const {
-  return minWeightMagnitude_;
-}
-
-void
-AttachToTangle::setMinWeightMagnitude(int weight) {
-  minWeightMagnitude_ = weight;
-}
-
-const std::vector<Types::Trytes>&
-AttachToTangle::getTrytes() const {
-  return trytes_;
-}
-
-std::vector<Types::Trytes>&
-AttachToTangle::getTrytes() {
-  return trytes_;
-}
-
-void
-AttachToTangle::setTrytes(const std::vector<Types::Trytes>& trytes) {
-  trytes_ = trytes;
-}
-
 }  // namespace Requests
 
 }  // namespace API

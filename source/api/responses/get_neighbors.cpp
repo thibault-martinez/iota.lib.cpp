@@ -72,16 +72,6 @@ GetNeighbors::getNeighbors() const {
   return neighbors_;
 }
 
-std::vector<Models::Neighbor>&
-GetNeighbors::getNeighbors() {
-  return neighbors_;
-}
-
-void
-GetNeighbors::setNeighbors(const std::vector<Models::Neighbor>& neighbors) {
-  neighbors_ = neighbors;
-}
-
 }  // namespace Responses
 
 }  // namespace API

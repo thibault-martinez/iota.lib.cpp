@@ -54,16 +54,6 @@ GetTips::getHashes() const {
   return hashes_;
 }
 
-std::vector<Types::Trytes>&
-GetTips::getHashes() {
-  return hashes_;
-}
-
-void
-GetTips::setHashes(const std::vector<Types::Trytes>& hashes) {
-  hashes_ = hashes;
-}
-
 }  // namespace Responses
 
 }  // namespace API
