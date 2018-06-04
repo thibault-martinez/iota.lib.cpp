@@ -53,8 +53,8 @@ public:
    * @param addresses List of addresses you want to get the confirmed balance from.
    * @param threshold Confirmation threshold, should be set to 100.
    */
-  explicit GetBalances(const std::vector<Models::Address>& addresses = {},
-                       const int&                          threshold = 0);
+  explicit GetBalances(const std::vector<Models::Address>& addresses = {}, const int& threshold = 0,
+                       const std::vector<Types::Trytes>& tips = {});
 
   /**
    * Default dtor.
@@ -78,6 +78,12 @@ private:
    * Confirmation threshold, should be set to 100.
    */
   int threshold_;
+
+  /**
+   * List of hashes, if present calculate the balance of addresses from the PoV of these
+   * transactions, can be used to chain bundles.
+   */
+  std::vector<Types::Trytes> tips_;
 };
 
 }  // namespace Requests

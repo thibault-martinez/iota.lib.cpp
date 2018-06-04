@@ -170,11 +170,14 @@ public:
    *
    * @param addresses List of addresses you want to get the confirmed balance from.
    * @param threshold Confirmation threshold, should be set to 100.
+   * @param tips List of hashes, if present calculate the balance of addresses from the PoV of these
+   * transactions, can be used to chain bundles.
    *
    * @return The response.
    */
   Responses::GetBalances getBalances(const std::vector<Models::Address>& addresses,
-                                     const int&                          threshold = 100) const;
+                                     const int&                          threshold = 100,
+                                     const std::vector<Types::Trytes>&   tips      = {}) const;
 
   /**
    * Tip selection which returns trunkTransaction and branchTransaction. The input value is depth,
