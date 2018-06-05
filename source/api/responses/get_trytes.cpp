@@ -45,7 +45,7 @@ GetTrytes::deserialize(const json& res) {
   Base::deserialize(res);
 
   if (res.count("trytes")) {
-    trytes_ = res.at("trytes").get<std::vector<Types::Trytes>>();
+    trytes_ = res.at("trytes").get<decltype(trytes_)>();
   }
 }
 

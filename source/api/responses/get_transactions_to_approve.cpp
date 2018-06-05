@@ -47,11 +47,11 @@ GetTransactionsToApprove::deserialize(const json& res) {
   Base::deserialize(res);
 
   if (res.count("trunkTransaction")) {
-    trunkTransaction_ = res.at("trunkTransaction").get<Types::Trytes>();
+    trunkTransaction_ = res.at("trunkTransaction").get<decltype(trunkTransaction_)>();
   }
 
   if (res.count("branchTransaction")) {
-    branchTransaction_ = res.at("branchTransaction").get<Types::Trytes>();
+    branchTransaction_ = res.at("branchTransaction").get<decltype(branchTransaction_)>();
   }
 }
 

@@ -46,7 +46,7 @@ RemoveNeighbors::deserialize(const json& res) {
   Base::deserialize(res);
 
   if (res.count("removedNeighbors")) {
-    removedNeighbors_ = res.at("removedNeighbors").get<int64_t>();
+    removedNeighbors_ = res.at("removedNeighbors").get<decltype(removedNeighbors_)>();
   }
 }
 

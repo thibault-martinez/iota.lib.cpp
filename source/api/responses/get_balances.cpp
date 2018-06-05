@@ -53,19 +53,19 @@ GetBalances::deserialize(const json& res) {
   Base::deserialize(res);
 
   if (res.count("balances")) {
-    balances_ = res.at("balances").get<std::vector<std::string>>();
+    balances_ = res.at("balances").get<decltype(balances_)>();
   }
 
   if (res.count("references")) {
-    references_ = res.at("references").get<std::vector<Types::Trytes>>();
+    references_ = res.at("references").get<decltype(references_)>();
   }
 
   if (res.count("milestone")) {
-    milestone_ = res.at("milestone").get<Types::Trytes>();
+    milestone_ = res.at("milestone").get<decltype(milestone_)>();
   }
 
   if (res.count("milestoneIndex")) {
-    milestoneIndex_ = res.at("milestoneIndex").get<int64_t>();
+    milestoneIndex_ = res.at("milestoneIndex").get<decltype(milestoneIndex_)>();
   }
 }
 

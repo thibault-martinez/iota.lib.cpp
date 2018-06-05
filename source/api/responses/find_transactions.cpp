@@ -45,7 +45,7 @@ FindTransactions::deserialize(const json& res) {
   Base::deserialize(res);
 
   if (res.count("hashes")) {
-    hashes_ = res.at("hashes").get<std::vector<Types::Trytes>>();
+    hashes_ = res.at("hashes").get<decltype(hashes_)>();
   }
 }
 

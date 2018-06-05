@@ -45,7 +45,7 @@ AddNeighbors::deserialize(const json& res) {
   Base::deserialize(res);
 
   if (res.count("addedNeighbors")) {
-    addedNeighbors_ = res.at("addedNeighbors").get<int64_t>();
+    addedNeighbors_ = res.at("addedNeighbors").get<decltype(addedNeighbors_)>();
   }
 }
 

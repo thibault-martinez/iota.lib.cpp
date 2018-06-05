@@ -29,7 +29,7 @@
 #include <iota/api/requests/get_balances.hpp>
 #include <test/utils/constants.hpp>
 
-TEST(GetBalancesRequest, SerializeShouldInitJson) {
+TEST(GetBalancesRequest, ConstructAndSerialize) {
   const IOTA::API::Requests::GetBalances req{ { ACCOUNT_1_ADDRESS_1_HASH,
                                                 ACCOUNT_1_ADDRESS_2_HASH },
                                               42,
