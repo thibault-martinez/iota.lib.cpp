@@ -363,6 +363,7 @@ script:
 
 after_script:
   - if [ "$PERFORMANCE" == "1" ] && [ "$TRAVIS_PULL_REQUEST" != "false" ]; then date > tmpfile; fi
+  - if [ "$PERFORMANCE" == "1" ] && [ "$TRAVIS_PULL_REQUEST" != "false" ]; then git remote rm origin && git remote add origin https://github.com/$TRAVIS_REPO_SLUG; fi
   - if [ "$PERFORMANCE" == "1" ] && [ "$TRAVIS_PULL_REQUEST" != "false" ]; then git fetch origin; fi
   - if [ "$PERFORMANCE" == "1" ] && [ "$TRAVIS_PULL_REQUEST" != "false" ]; then git checkout -b $TRAVIS_PULL_REQUEST_BRANCH origin/$TRAVIS_PULL_REQUEST_BRANCH; fi
   - if [ "$PERFORMANCE" == "1" ] && [ "$TRAVIS_PULL_REQUEST" != "false" ]; then git add tmpfile; fi
