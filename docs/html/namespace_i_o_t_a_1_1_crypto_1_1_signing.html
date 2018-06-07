@@ -77,14 +77,17 @@ $(function() {
 Functions</h2></td></tr>
 <tr class="memitem:a9b5696363f2de2334d8d40ba44a721e0"><td class="memItemLeft" align="right" valign="top">std::vector&lt; uint8_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_i_o_t_a_1_1_crypto_1_1_signing.html#a9b5696363f2de2334d8d40ba44a721e0">key</a> (const std::vector&lt; uint8_t &gt; &amp;seedBytes, uint32_t index=0, uint32_t security=2)</td></tr>
 <tr class="separator:a9b5696363f2de2334d8d40ba44a721e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4089ae876827ad550ee3a15677662f47"><td class="memItemLeft" align="right" valign="top">std::vector&lt; uint8_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_i_o_t_a_1_1_crypto_1_1_signing.html#a4089ae876827ad550ee3a15677662f47">digests</a> (const std::vector&lt; uint8_t &gt; &amp;<a class="el" href="namespace_i_o_t_a_1_1_crypto_1_1_signing.html#a9b5696363f2de2334d8d40ba44a721e0">key</a>)</td></tr>
-<tr class="separator:a4089ae876827ad550ee3a15677662f47"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5be0217162b56cc52c5e137fe0817374"><td class="memItemLeft" align="right" valign="top">std::vector&lt; uint8_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_i_o_t_a_1_1_crypto_1_1_signing.html#a5be0217162b56cc52c5e137fe0817374">address</a> (const std::vector&lt; uint8_t &gt; &amp;<a class="el" href="namespace_i_o_t_a_1_1_crypto_1_1_signing.html#a4089ae876827ad550ee3a15677662f47">digests</a>)</td></tr>
+<tr class="memitem:a80bf5ce96b36dd02aa39979fe4de5dfc"><td class="memItemLeft" align="right" valign="top">std::vector&lt; uint8_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_i_o_t_a_1_1_crypto_1_1_signing.html#a80bf5ce96b36dd02aa39979fe4de5dfc">digests</a> (const std::vector&lt; uint8_t &gt; &amp;keyBytes)</td></tr>
+<tr class="separator:a80bf5ce96b36dd02aa39979fe4de5dfc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5be0217162b56cc52c5e137fe0817374"><td class="memItemLeft" align="right" valign="top">std::vector&lt; uint8_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_i_o_t_a_1_1_crypto_1_1_signing.html#a5be0217162b56cc52c5e137fe0817374">address</a> (const std::vector&lt; uint8_t &gt; &amp;<a class="el" href="namespace_i_o_t_a_1_1_crypto_1_1_signing.html#a80bf5ce96b36dd02aa39979fe4de5dfc">digests</a>)</td></tr>
 <tr class="separator:a5be0217162b56cc52c5e137fe0817374"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae609f1827d7bf336f37d743467a17c7d"><td class="memItemLeft" align="right" valign="top">std::vector&lt; uint8_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_i_o_t_a_1_1_crypto_1_1_signing.html#ae609f1827d7bf336f37d743467a17c7d">digest</a> (const std::vector&lt; int8_t &gt; &amp;normalizedBundleFragment, const std::vector&lt; uint8_t &gt; &amp;<a class="el" href="namespace_i_o_t_a_1_1_crypto_1_1_signing.html#ae0519d93f263e2138d55fb0090114fd3">signatureFragment</a>)</td></tr>
 <tr class="separator:ae609f1827d7bf336f37d743467a17c7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae0519d93f263e2138d55fb0090114fd3"><td class="memItemLeft" align="right" valign="top">Types::Trits&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_i_o_t_a_1_1_crypto_1_1_signing.html#ae0519d93f263e2138d55fb0090114fd3">signatureFragment</a> (const std::vector&lt; int8_t &gt; &amp;normalizedBundleFragment, const Types::Trits &amp;keyFragment)</td></tr>
 <tr class="separator:ae0519d93f263e2138d55fb0090114fd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3317ed98e0f010e2a0f5cdc236bbd07"><td class="memItemLeft" align="right" valign="top"><a id="aa3317ed98e0f010e2a0f5cdc236bbd07"></a>
+std::vector&lt; Types::Trytes &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>signInputs</b> (const <a class="el" href="class_i_o_t_a_1_1_models_1_1_seed.html">Models::Seed</a> &amp;seed, const std::vector&lt; <a class="el" href="class_i_o_t_a_1_1_models_1_1_address.html">Models::Address</a> &gt; &amp;inputs, <a class="el" href="class_i_o_t_a_1_1_models_1_1_bundle.html">Models::Bundle</a> &amp;bundle, const std::vector&lt; Types::Trytes &gt; &amp;signatureFragments)</td></tr>
+<tr class="separator:aa3317ed98e0f010e2a0f5cdc236bbd07"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a86f01ade2568237125f08511d6aa85bb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_i_o_t_a_1_1_crypto_1_1_signing.html#a86f01ade2568237125f08511d6aa85bb">validateSignatures</a> (const <a class="el" href="class_i_o_t_a_1_1_models_1_1_address.html">Models::Address</a> &amp;expectedAddress, const std::vector&lt; Types::Trytes &gt; &amp;signatureFragments, const Types::Trytes &amp;bundleHash)</td></tr>
 <tr class="separator:a86f01ade2568237125f08511d6aa85bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -154,8 +157,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a4089ae876827ad550ee3a15677662f47"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4089ae876827ad550ee3a15677662f47">&#9670;&nbsp;</a></span>digests()</h2>
+<a id="a80bf5ce96b36dd02aa39979fe4de5dfc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a80bf5ce96b36dd02aa39979fe4de5dfc">&#9670;&nbsp;</a></span>digests()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -164,7 +167,7 @@ Functions</h2></td></tr>
           <td class="memname">std::vector&lt;uint8_t&gt; IOTA::Crypto::Signing::digests </td>
           <td>(</td>
           <td class="paramtype">const std::vector&lt; uint8_t &gt; &amp;&#160;</td>
-          <td class="paramname"><em>key</em></td><td>)</td>
+          <td class="paramname"><em>keyBytes</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -172,7 +175,7 @@ Functions</h2></td></tr>
 <p>Compute digests from key.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">key</td><td>The key.</td></tr>
+    <tr><td class="paramname">keyBytes</td><td>The key in bytes.</td></tr>
   </table>
   </dd>
 </dl>
@@ -214,7 +217,7 @@ Functions</h2></td></tr>
 <p>Derive a private key from a seed.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">seed</td><td>Seed to be used for address generation. </td></tr>
+    <tr><td class="paramname">seedBytes</td><td>Seed in bytes to be used for address generation. </td></tr>
     <tr><td class="paramname">index</td><td>The index to start the generation from. </td></tr>
     <tr><td class="paramname">security</td><td>The security to use for address generation.</td></tr>
   </table>

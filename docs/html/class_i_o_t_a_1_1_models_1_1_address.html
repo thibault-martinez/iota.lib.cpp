@@ -67,6 +67,7 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="class_i_o_t_a_1_1_models_1_1_address-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -76,12 +77,21 @@ $(function() {
 
 <p><code>#include &lt;<a class="el" href="address_8hpp_source.html">address.hpp</a>&gt;</code></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:ae9a6292728d17cf811ed235642e4c698"><td class="memItemLeft" align="right" valign="top"><a id="ae9a6292728d17cf811ed235642e4c698"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>Type</b> { <b>NORMAL</b>, 
+<b>MULTISIG</b>
+ }</td></tr>
+<tr class="separator:ae9a6292728d17cf811ed235642e4c698"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ab1fa77649ecd400957cc98c250a0395e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_models_1_1_address.html#ab1fa77649ecd400957cc98c250a0395e">Address</a> (const Types::Trytes &amp;address=&quot;&quot;, const int64_t &amp;balance=0, const int32_t &amp;keyIndex=0, const int32_t &amp;security=2)</td></tr>
-<tr class="separator:ab1fa77649ecd400957cc98c250a0395e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac063cf7a06bdd4c6f4933dc684035fcb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_models_1_1_address.html#ac063cf7a06bdd4c6f4933dc684035fcb">Address</a> (const char *address, const int64_t &amp;balance=0, const int32_t &amp;keyIndex=0, const int32_t &amp;security=2)</td></tr>
-<tr class="separator:ac063cf7a06bdd4c6f4933dc684035fcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab656fd954e1383470b3578694d49c12c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_models_1_1_address.html#ab656fd954e1383470b3578694d49c12c">Address</a> (const Types::Trytes &amp;address=&quot;&quot;, const int64_t &amp;balance=0, const int32_t &amp;keyIndex=0, const int32_t &amp;security=2, const Type &amp;type=NORMAL)</td></tr>
+<tr class="separator:ab656fd954e1383470b3578694d49c12c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac9d76134d6353cbf7abf8e87deb2ff8a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_models_1_1_address.html#ac9d76134d6353cbf7abf8e87deb2ff8a">Address</a> (const char *address, const int64_t &amp;balance=0, const int32_t &amp;keyIndex=0, const int32_t &amp;security=2, const Type &amp;type=NORMAL)</td></tr>
+<tr class="separator:ac9d76134d6353cbf7abf8e87deb2ff8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af628becaf9a018f66599d51822a52953"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_models_1_1_address.html#af628becaf9a018f66599d51822a52953">Address</a> (const Type &amp;type)</td></tr>
+<tr class="separator:af628becaf9a018f66599d51822a52953"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa47746972ee7f98fbdb5686ace994b24"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_models_1_1_address.html#aa47746972ee7f98fbdb5686ace994b24">~Address</a> ()=default</td></tr>
 <tr class="separator:aa47746972ee7f98fbdb5686ace994b24"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a237f38aec1677f228f36caadaca1d120"><td class="memItemLeft" align="right" valign="top">const Types::Trytes &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_models_1_1_address.html#a237f38aec1677f228f36caadaca1d120">toTrytes</a> () const</td></tr>
@@ -94,6 +104,12 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aece1e316f897ed8e225de3b6416a272c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3e7af651f6df5a9bb068a37132c53209"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_models_1_1_address.html#a3e7af651f6df5a9bb068a37132c53209">empty</a> () const</td></tr>
 <tr class="separator:a3e7af651f6df5a9bb068a37132c53209"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaf1d31c9be4c9e4362ff9c69ce4832d4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_models_1_1_address.html#aaf1d31c9be4c9e4362ff9c69ce4832d4">absorbDigests</a> (const std::vector&lt; uint8_t &gt; &amp;digests)</td></tr>
+<tr class="separator:aaf1d31c9be4c9e4362ff9c69ce4832d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a063ed8c9475bf6f014e24c97c87cfff7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_models_1_1_address.html#a063ed8c9475bf6f014e24c97c87cfff7">finalize</a> ()</td></tr>
+<tr class="separator:a063ed8c9475bf6f014e24c97c87cfff7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a308b71ddd19b18871197922c43194751"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_models_1_1_address.html#a308b71ddd19b18871197922c43194751">validate</a> (const std::vector&lt; std::vector&lt; uint8_t &gt;&gt; &amp;digests)</td></tr>
+<tr class="separator:a308b71ddd19b18871197922c43194751"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad25e67ab3d300f2939a1c33d21929da4"><td class="memItemLeft" align="right" valign="top">const int64_t &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_models_1_1_address.html#ad25e67ab3d300f2939a1c33d21929da4">getBalance</a> () const</td></tr>
 <tr class="separator:ad25e67ab3d300f2939a1c33d21929da4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3e37e9c194f09a0d49d9a0b4ee9c1f88"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_t_a_1_1_models_1_1_address.html#a3e37e9c194f09a0d49d9a0b4ee9c1f88">setBalance</a> (const int64_t &amp;balance)</td></tr>
@@ -118,8 +134,8 @@ Public Member Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Used to store addresses. Provides validity checks at construction / value set. Provides checksum generation. Any addresses stored represented with this class are ensured to be valid. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ab1fa77649ecd400957cc98c250a0395e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab1fa77649ecd400957cc98c250a0395e">&#9670;&nbsp;</a></span>Address() <span class="overload">[1/2]</span></h2>
+<a id="ab656fd954e1383470b3578694d49c12c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab656fd954e1383470b3578694d49c12c">&#9670;&nbsp;</a></span>Address() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -146,7 +162,13 @@ Public Member Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const int32_t &amp;&#160;</td>
-          <td class="paramname"><em>security</em> = <code>2</code>&#160;</td>
+          <td class="paramname"><em>security</em> = <code>2</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Type &amp;&#160;</td>
+          <td class="paramname"><em>type</em> = <code>NORMAL</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -168,8 +190,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ac063cf7a06bdd4c6f4933dc684035fcb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac063cf7a06bdd4c6f4933dc684035fcb">&#9670;&nbsp;</a></span>Address() <span class="overload">[2/2]</span></h2>
+<a id="ac9d76134d6353cbf7abf8e87deb2ff8a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac9d76134d6353cbf7abf8e87deb2ff8a">&#9670;&nbsp;</a></span>Address() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -196,7 +218,13 @@ Public Member Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const int32_t &amp;&#160;</td>
-          <td class="paramname"><em>security</em> = <code>2</code>&#160;</td>
+          <td class="paramname"><em>security</em> = <code>2</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Type &amp;&#160;</td>
+          <td class="paramname"><em>type</em> = <code>NORMAL</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -212,6 +240,39 @@ Public Member Functions</h2></td></tr>
     <tr><td class="paramname">balance</td><td>The balance associated of the address. </td></tr>
     <tr><td class="paramname">keyIndex</td><td>The key index of the address. </td></tr>
     <tr><td class="paramname">security</td><td>The security level of the address. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="af628becaf9a018f66599d51822a52953"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af628becaf9a018f66599d51822a52953">&#9670;&nbsp;</a></span>Address() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">IOTA::Models::Address::Address </td>
+          <td>(</td>
+          <td class="paramtype">const Type &amp;&#160;</td>
+          <td class="paramname"><em>type</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Ctor - mainly to used to build multisig addresses.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>The address type, normal or multisig. </td></tr>
   </table>
   </dd>
 </dl>
@@ -245,6 +306,31 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="aaf1d31c9be4c9e4362ff9c69ce4832d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf1d31c9be4c9e4362ff9c69ce4832d4">&#9670;&nbsp;</a></span>absorbDigests()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void IOTA::Models::Address::absorbDigests </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; uint8_t &gt; &amp;&#160;</td>
+          <td class="paramname"><em>digests</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Multisig address related methods. Absorbs key digests Increments security according to digests.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">digests</td><td>The key digests in bytes. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a3e7af651f6df5a9bb068a37132c53209"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3e7af651f6df5a9bb068a37132c53209">&#9670;&nbsp;</a></span>empty()</h2>
 
@@ -260,6 +346,24 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>whether the address is empty or not. </dd></dl>
+
+</div>
+</div>
+<a id="a063ed8c9475bf6f014e24c97c87cfff7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a063ed8c9475bf6f014e24c97c87cfff7">&#9670;&nbsp;</a></span>finalize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void IOTA::Models::Address::finalize </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Finalizes and set the multisig address. </p>
 
 </div>
 </div>
@@ -585,6 +689,32 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>address as a trytes string including a checksum. </dd></dl>
+
+</div>
+</div>
+<a id="a308b71ddd19b18871197922c43194751"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a308b71ddd19b18871197922c43194751">&#9670;&nbsp;</a></span>validate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool IOTA::Models::Address::validate </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; std::vector&lt; uint8_t &gt;&gt; &amp;&#160;</td>
+          <td class="paramname"><em>digests</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Validates a generated multisig address.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">digests</td><td>The keys digests.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>whether the multisig address is valid or not. </dd></dl>
 
 </div>
 </div>
