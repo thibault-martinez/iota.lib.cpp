@@ -269,6 +269,14 @@ matrix:
       env: MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9 && CMAKE_BUILD_TYPE=Debug && COVERAGE=1"
       after_success: cd ${TRAVIS_BUILD_DIR}; ./coverage.sh
 
+    # Linux x GCC4.9 x Debug x Performance
+    - os: linux
+      addons:
+        apt:
+          sources: ['ubuntu-toolchain-r-test']
+          packages: ['g++-4.9']
+      env: MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9 && CMAKE_BUILD_TYPE=Release && PERFORMANCE=1"
+
   # Allow quality control jobs to fail
   allow_failures:
     - os: osx
@@ -292,6 +300,12 @@ matrix:
           sources: ['ubuntu-toolchain-r-test']
           packages: ['g++-4.9']
       env: MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9 && CMAKE_BUILD_TYPE=Debug && COVERAGE=1"
+    - os: linux
+      addons:
+        apt:
+          sources: ['ubuntu-toolchain-r-test']
+          packages: ['g++-4.9']
+      env: MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9 && CMAKE_BUILD_TYPE=Release && PERFORMANCE=1"
 
   # Allow fast finish, even if the optional quality control jobs are not done yet
   fast_finish: true
@@ -311,38 +325,46 @@ install:
   # OSX #
   #######
   # ccache
-  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew install ccache; fi
-  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then export PATH="/usr/local/opt/ccache/libexec:$PATH"; fi
+  #- if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew install ccache; fi
+  #- if [ "$TRAVIS_OS_NAME" == "osx" ]; then export PATH="/usr/local/opt/ccache/libexec:$PATH"; fi
   # java
-  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew cask install java; fi
+  #- if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew cask install java; fi
 
   #########
   # Linux #
   #########
   # lcov & coveralls
-  - if [ "$TRAVIS_OS_NAME" == "linux" ] && [ "$COVERAGE" == "1" ]; then sudo apt-get -qq install lcov; fi
-  - if [ "$TRAVIS_OS_NAME" == "linux" ] && [ "$COVERAGE" == "1" ]; then pip -q install --user cpp-coveralls; fi
+  #- if [ "$TRAVIS_OS_NAME" == "linux" ] && [ "$COVERAGE" == "1" ]; then sudo apt-get -qq install lcov; fi
+  #- if [ "$TRAVIS_OS_NAME" == "linux" ] && [ "$COVERAGE" == "1" ]; then pip -q install --user cpp-coveralls; fi
   # java
-  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get -qq install default-jre; fi
+  #- if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get -qq install default-jre; fi
   # maven
-  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get -qq install maven; fi
+  #- if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get -qq install maven; fi
   # keccak
-  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get -qq install xsltproc; fi
+  #- if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get -qq install xsltproc; fi
   # fix gcc multilib installation for cross compilation
-  - if [ "$TRAVIS_OS_NAME" == "linux" ] && [ "$M32" == "1" ]; then cd /usr/include && sudo ln -s x86_64-linux-gnu/asm asm && cd -; fi
+  #- if [ "$TRAVIS_OS_NAME" == "linux" ] && [ "$M32" == "1" ]; then cd /usr/include && sudo ln -s x86_64-linux-gnu/asm asm && cd -; fi
 
 before_script:
   # Increase resources limitation
-  - ulimit -c unlimited -S
+  #- ulimit -c unlimited -S
   # IRI setup
-  - ./test/testnet/scripts/iri_setup.sh
+  #- ./test/testnet/scripts/iri_setup.sh
 
 script:
-  - CMAKE_PARAMS="-DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -DBUILD_TESTS=1"
-  - if [ "$M32" == "1" ]; then CMAKE_PARAMS="$CMAKE_PARAMS -DARCH=\"32\""; fi
-  - if [ "$SILENCE" == "1" ]; then REDIR="2>/dev/null"; fi
-  - mkdir -p build
-  - cd build
-  - cmake $CMAKE_PARAMS ..
-  - eval make $REDIR
-  - GTEST_COLOR=1 ctest -VV
+  #- CMAKE_PARAMS="-DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -DBUILD_TESTS=1"
+  #- if [ "$M32" == "1" ]; then CMAKE_PARAMS="$CMAKE_PARAMS -DARCH=\"32\""; fi
+  #- if [ "$SILENCE" == "1" ]; then REDIR="2>/dev/null"; fi
+  #- mkdir -p build
+  #- cd build
+  #- cmake $CMAKE_PARAMS ..
+  #- eval make $REDIR
+  #- GTEST_COLOR=1 ctest -VV
+
+after_script:
+  - if [ "$PERFORMANCE" == "1" ] && [ "$TRAVIS_PULL_REQUEST" != "false" ]; then date > tmpfile; fi
+  - if [ "$PERFORMANCE" == "1" ] && [ "$TRAVIS_PULL_REQUEST" != "false" ]; then git fetch origin; fi
+  - if [ "$PERFORMANCE" == "1" ] && [ "$TRAVIS_PULL_REQUEST" != "false" ]; then git checkout -b $TRAVIS_PULL_REQUEST_BRANCH origin/$TRAVIS_PULL_REQUEST_BRANCH; fi
+  - if [ "$PERFORMANCE" == "1" ] && [ "$TRAVIS_PULL_REQUEST" != "false" ]; then git add tmpfile; fi
+  - if [ "$PERFORMANCE" == "1" ] && [ "$TRAVIS_PULL_REQUEST" != "false" ]; then git commit -m 'performance report [CI SKIP]'; fi
+  - if [ "$PERFORMANCE" == "1" ] && [ "$TRAVIS_PULL_REQUEST" != "false" ]; then git push https://${GH_TOKEN}@github.com/$TRAVIS_REPO_SLUG $TRAVIS_PULL_REQUEST_BRANCH; fi
