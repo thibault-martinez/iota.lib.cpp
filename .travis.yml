@@ -362,11 +362,4 @@ script:
   #- GTEST_COLOR=1 ctest -VV
 
 after_script:
-  - if [ "$PERFORMANCE" == "1" ] && [ "$TRAVIS_PULL_REQUEST" != "false" ]; then date > tmpfile; fi
-  - if [ "$PERFORMANCE" == "1" ] && [ "$TRAVIS_PULL_REQUEST" != "false" ]; then git remote rm origin && git remote add origin https://github.com/$TRAVIS_REPO_SLUG; fi
-  - if [ "$PERFORMANCE" == "1" ] && [ "$TRAVIS_PULL_REQUEST" != "false" ]; then git fetch origin; fi
-  - if [ "$PERFORMANCE" == "1" ] && [ "$TRAVIS_PULL_REQUEST" != "false" ]; then git checkout -b $TRAVIS_PULL_REQUEST_BRANCH origin/$TRAVIS_PULL_REQUEST_BRANCH; fi
-  - if [ "$PERFORMANCE" == "1" ] && [ "$TRAVIS_PULL_REQUEST" != "false" ]; then git add tmpfile; fi
-  - if [ "$PERFORMANCE" == "1" ] && [ "$TRAVIS_PULL_REQUEST" != "false" ]; then git commit -m 'performance report [CI SKIP]'; fi
-  - if [ "$PERFORMANCE" == "1" ] && [ "$TRAVIS_PULL_REQUEST" != "false" ]; then git push https://${GH_TOKEN}@github.com/$TRAVIS_REPO_SLUG $TRAVIS_PULL_REQUEST_BRANCH; fi
-  - if [ "$PERFORMANCE" == "1" ] && [ "$TRAVIS_PULL_REQUEST" != "false" ]; then curl -H "Authorization: token ${GH_TOKEN}" -X POST -d "{\"body\": \"Hello world\"}" "https://api.github.com/repos/${TRAVIS_REPO_SLUG}/issues/${TRAVIS_PULL_REQUEST}/comments"; fi
+  - if [ "$PERFORMANCE" == "1" ] && [ "$TRAVIS_PULL_REQUEST" != "false" ]; then ./test_perf.sh; fi
