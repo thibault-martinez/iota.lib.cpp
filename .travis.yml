@@ -362,4 +362,4 @@ script:
   - if [ "$PERFORMANCE" != "1" ]; then GTEST_COLOR=1 ctest -VV; fi
 
 after_script:
-  - if [ "$PERFORMANCE" == "1" ] && [ "$TRAVIS_PULL_REQUEST" != "false" ]; then ruby test_perf.rb; fi
+  - if [ "$PERFORMANCE" == "1" ] && [ "$TRAVIS_PULL_REQUEST" != "false" ]; then cd .. && ruby test_perf.rb; fi
