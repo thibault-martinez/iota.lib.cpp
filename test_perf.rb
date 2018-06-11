@@ -58,7 +58,8 @@ if notif.empty?
 end
 
 # Notify
-`curl -H "Authorization: token ${GH_TOKEN}" -X POST -d "{\"body\": \"#{notif}\"}" "https://api.github.com/repos/${TRAVIS_REPO_SLUG}/issues/${TRAVIS_PULL_REQUEST}/comments"`
+`echo '#{notif}' > notif.tmp`
+`curl -H "Authorization: token ${GH_TOKEN}" -X POST -d @notif.tmp "https://api.github.com/repos/${TRAVIS_REPO_SLUG}/issues/${TRAVIS_PULL_REQUEST}/comments"`
 
 # Push the updated perf report
 `git remote rm origin && git remote add origin https://github.com/$TRAVIS_REPO_SLUG`
