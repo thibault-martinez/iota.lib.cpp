@@ -269,6 +269,14 @@ matrix:
       env: MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9 && CMAKE_BUILD_TYPE=Debug && COVERAGE=1"
       after_success: cd ${TRAVIS_BUILD_DIR}; ./coverage.sh
 
+    # Linux x GCC4.9 x Debug x Performance
+    - os: linux
+      addons:
+        apt:
+          sources: ['ubuntu-toolchain-r-test']
+          packages: ['g++-4.9']
+      env: MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9 && CMAKE_BUILD_TYPE=Release && PERFORMANCE=1"
+
   # Allow quality control jobs to fail
   allow_failures:
     - os: osx
@@ -292,6 +300,12 @@ matrix:
           sources: ['ubuntu-toolchain-r-test']
           packages: ['g++-4.9']
       env: MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9 && CMAKE_BUILD_TYPE=Debug && COVERAGE=1"
+    - os: linux
+      addons:
+        apt:
+          sources: ['ubuntu-toolchain-r-test']
+          packages: ['g++-4.9']
+      env: MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9 && CMAKE_BUILD_TYPE=Release && PERFORMANCE=1"
 
   # Allow fast finish, even if the optional quality control jobs are not done yet
   fast_finish: true
@@ -345,4 +359,7 @@ script:
   - cd build
   - cmake $CMAKE_PARAMS ..
   - eval make $REDIR
-  - GTEST_COLOR=1 ctest -VV
+  - if [ "$PERFORMANCE" != "1" ]; then GTEST_COLOR=1 ctest -VV; fi
+
+after_script:
+  - if [ "$PERFORMANCE" == "1" ] && [ "$TRAVIS_PULL_REQUEST" != "false" ]; then cd .. && ruby test_perf.rb; fi
