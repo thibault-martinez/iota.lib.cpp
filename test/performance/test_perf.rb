@@ -17,7 +17,7 @@ notif       = ""
 #  > get execution time
 #  > check if there is major regression or improvement
 #  > update the performance report
-Dir['build/bin/*_test'].each do |f|
+Dir['../../build/bin/*_test'].each do |f|
   start_time  = Time.now
   `$(#{f} 1> /dev/null 2> /dev/null)`
   end_time    = Time.now
