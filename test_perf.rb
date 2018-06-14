@@ -29,9 +29,9 @@ Dir['build/bin/*_test'].each do |f|
   diff         = (total_time - prev_perf) * 100 / prev_perf
 
   if total_time > higher_bound
-    decrease += "#{f}: was #{prev_perf}, now #{total_time} (+#{'%0.02f' % diff}%)\n"
+    decrease += "#{f}: was #{prev_perf}, now #{total_time} (+#{'%0.02f' % diff}%)\\n"
   elsif total_time < lower_bound
-    improvement += "#{f}: was #{prev_perf}, now #{total_time} (#{'%0.02f' % diff}%)\n"
+    improvement += "#{f}: was #{prev_perf}, now #{total_time} (#{'%0.02f' % diff}%)\\n"
   end
 
   result += "#{f} #{total_time}\n"
@@ -42,13 +42,13 @@ end
 
 # Setup regression report
 if not decrease.empty?
-  notif += "# Performance degradation report\n"
+  notif += '# Performance degradation report\n'
   notif += decrease
 end
 
 # Setup improvement report
 if not improvement.empty?
-  notif += "# Performance improvement report\n"
+  notif += '# Performance improvement report\n'
   notif += improvement
 end
 
@@ -58,8 +58,8 @@ if notif.empty?
 end
 
 # Notify
-`curl -H "Authorization: token ${GH_TOKEN}" -X POST -d '{"body": "#{notif}"}' "https://api.github.com/repos/${TRAVIS_REPO_SLUG}/issues/${TRAVIS_PULL_REQUEST}/comments"`
-exit
+puts `curl -H "Authorization: token ${GH_TOKEN}" -X POST -d '{"body": "#{notif}"}' "https://api.github.com/repos/${TRAVIS_REPO_SLUG}/issues/${TRAVIS_PULL_REQUEST}/comments"`
+
 # Push the updated perf report
 `git remote rm origin && git remote add origin https://github.com/$TRAVIS_REPO_SLUG`
 `git fetch origin`
