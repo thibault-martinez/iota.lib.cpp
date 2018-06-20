@@ -80,7 +80,7 @@ public:
     auto headers = cpr::Header{ { "Content-Type", "application/json" },
                                 { "Content-Length", std::to_string(body.size()) },
                                 { "X-IOTA-API-Version", APIVersion } };
-    
+
     auto res     = cpr::Post(url, body, headers, cpr::Timeout{ timeout_ * 1000 });;
     if(user_.compare("") != 0 && pass_.compare("") != 0 && host_.compare(0,5,"https") == 0){
       auto auth = cpr::Authentication{user_, pass_};
