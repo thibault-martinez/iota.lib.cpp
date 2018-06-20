@@ -26,7 +26,7 @@
 #include <string>
 
 static std::string deps_folder;
-static std::string proxy_host = "localhost";
+static std::string proxy_host = "http://localhost";
 static uint16_t    proxy_port = 14265;
 
 const std::string&
