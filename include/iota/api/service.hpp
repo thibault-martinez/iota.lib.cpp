@@ -84,7 +84,7 @@ public:
     auto res     = cpr::Post(url, body, headers, cpr::Timeout{ timeout_ * 1000 });;
     if(user_.compare("") != 0 && pass_.compare("") != 0 && host_.compare(0,5,"https") == 0)
       res     = cpr::Post(url, body, headers, cpr::Timeout{ timeout_ * 1000 }, auth);
-    
+
     if (res.error.code != cpr::ErrorCode::OK)
       throw Errors::Network(res.error.message);
 
