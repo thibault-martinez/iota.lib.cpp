@@ -26,6 +26,7 @@
 #pragma once
 
 #include <cpr/cpr.h>
+#include <cpr/auth.h>
 #include <json.hpp>
 
 #include <iota/constants.hpp>
@@ -53,7 +54,7 @@ public:
    * @param port Port of the node.
    * @param timeout Request timeout.
    */
-  Service(const std::string& host, const uint16_t& port, int timeout = 60);
+  Service(const std::string& host, const uint16_t& port, int timeout = 60, const std::string& user = "", const std::string& pass = "");
   /**
    * Default dtor;
    */
@@ -74,13 +75,16 @@ public:
     json data;
     request.serialize(data);
 
-    auto url     = cpr::Url{ "http://" + host_ + ":" + std::to_string(port_) };
+    auto url     = cpr::Url{ host_ + ":" + std::to_string(port_) };
     auto body    = cpr::Body{ data.dump() };
     auto headers = cpr::Header{ { "Content-Type", "application/json" },
                                 { "Content-Length", std::to_string(body.size()) },
                                 { "X-IOTA-API-Version", APIVersion } };
-    auto res     = cpr::Post(url, body, headers, cpr::Timeout{ timeout_ * 1000 });
-
+    auto auth    = cpr::Authentication{user_, pass_};
+    auto res     = cpr::Post(url, body, headers, cpr::Timeout{ timeout_ * 1000 });;
+    if(user_.compare("") != 0 && pass_.compare("") != 0 && host_.compare(0,5,"https") == 0)
+      res     = cpr::Post(url, body, headers, cpr::Timeout{ timeout_ * 1000 }, auth);
+    
     if (res.error.code != cpr::ErrorCode::OK)
       throw Errors::Network(res.error.message);
 
@@ -135,6 +139,14 @@ private:
    * Timeout for requests.
    */
   const int timeout_;
+  /**
+   * Username for authenticated requests.
+   */
+  std::string user_;
+  /**
+   * Password for authenticated requests.
+   */
+  std::string pass_;
 };
 
 }  // namespace API

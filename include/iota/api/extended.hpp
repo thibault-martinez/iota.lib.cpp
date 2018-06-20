@@ -48,7 +48,7 @@ public:
    * @param localPow Whether to do local or remote proof of work.
    * @param timeout Timeout for the requests.
    */
-  Extended(const std::string& host, const uint16_t& port, bool localPow = true, int timeout = 60);
+  Extended(const std::string& host, const uint16_t& port, bool localPow = true, int timeout = 60, const std::string& user = "", const std::string& pass = "");
   /**
    * Default dtor.
    */

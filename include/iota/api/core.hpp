@@ -51,7 +51,7 @@ public:
    * @param timeout Timeout for the requests.
    */
   explicit Core(const std::string& host, const uint16_t& port, bool localPow = true,
-                int timeout = 60);
+                int timeout = 60, const std::string& user = "", const std::string& pass = "");
   /**
    * Default dtor.
    */
