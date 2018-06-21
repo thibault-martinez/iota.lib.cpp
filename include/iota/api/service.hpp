@@ -81,9 +81,8 @@ public:
                                 { "Content-Length", std::to_string(body.size()) },
                                 { "X-IOTA-API-Version", APIVersion } };
     cpr::Response res;
-    if(user_.compare("") != 0 && pass_.compare("") != 0 && host_.compare(0,5,"https") == 0){
-      auto auth = cpr::Authentication{user_, pass_};
-      res = cpr::Post(url, body, headers, cpr::Timeout{ timeout_ * 1000 }, auth);
+    if(!user_.empty() && !pass_.empty() && host_.compare(0,5,"https") == 0){
+      res = cpr::Post(url, body, headers, cpr::Timeout{ timeout_ * 1000 }, cpr::Authentication{user_, pass_});
     }
     else
       res = cpr::Post(url, body, headers, cpr::Timeout{ timeout_ * 1000 });
