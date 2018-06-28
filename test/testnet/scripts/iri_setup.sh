@@ -27,11 +27,11 @@
 
 git clone https://github.com/iotaledger/iri.git test/testnet/iri
 cd test/testnet/iri
-git checkout f575913 # dev branch
+git checkout 937cb404 # dev branch
 cp ../iri_config/Snapshot.txt src/main/resources
 cp ../iri_config/iri.ini .
 mvn clean compile -q
 mvn package -q
 cp -r ../testnetdb .
-java -jar target/iri-1.4.2.4.jar --testnet --testnet-no-coo-validation --snapshot=src/main/resources/Snapshot.txt -p 14265 --mwm 1 -c iri.ini 1> /dev/null &
+java -jar target/iri-1.5.0.jar --testnet --testnet-no-coo-validation --snapshot=src/main/resources/Snapshot.txt -p 14265 --mwm 1 -c iri.ini 1> /dev/null &
 cd -
