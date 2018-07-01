@@ -33,7 +33,7 @@
 
 TEST(Core, GetTransactionsToApprove) {
   IOTA::API::Core api(get_proxy_host(), get_proxy_port());
-  auto            res = api.getTransactionsToApprove(27);
+  auto            res = api.getTransactionsToApprove(3);
 
   EXPECT_GE(res.getDuration(), 0);
   EXPECT_TRUE(IOTA::Types::isValidHash(res.getTrunkTransaction()));
@@ -42,7 +42,7 @@ TEST(Core, GetTransactionsToApprove) {
 
 TEST(Core, GetTransactionsToApproveWithReference) {
   IOTA::API::Core api(get_proxy_host(), get_proxy_port());
-  auto            res = api.getTransactionsToApprove(27, BUNDLE_1_TRX_1_HASH);
+  auto            res = api.getTransactionsToApprove(3, "");
 
   EXPECT_GE(res.getDuration(), 0);
   EXPECT_TRUE(IOTA::Types::isValidHash(res.getTrunkTransaction()));
@@ -52,6 +52,6 @@ TEST(Core, GetTransactionsToApproveWithReference) {
 TEST(Core, GetTransactionsToApproveInvalidReference) {
   IOTA::API::Core api(get_proxy_host(), get_proxy_port());
 
-  EXPECT_EXCEPTION(auto res = api.getTransactionsToApprove(27, "ref");
+  EXPECT_EXCEPTION(auto res = api.getTransactionsToApprove(3, "ref");
                    , IOTA::Errors::BadRequest, "Invalid reference input")
 }
