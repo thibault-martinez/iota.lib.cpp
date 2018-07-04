@@ -30,8 +30,8 @@ cd test/testnet/iri
 git checkout f575913 # dev branch
 cp ../iri_config/Snapshot.txt src/main/resources
 cp ../iri_config/iri.ini .
-mvn clean compile -q
-mvn package -q
+mvn clean compile
+mvn package
 cp -r ../testnetdb .
 java -jar target/iri-1.4.2.4.jar --testnet --testnet-no-coo-validation --snapshot=src/main/resources/Snapshot.txt -p 14265 --mwm 1 -c iri.ini &
 cd -
