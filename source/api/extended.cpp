@@ -59,8 +59,8 @@ namespace IOTA {
 
 namespace API {
 
-Extended::Extended(const std::string& host, const uint16_t& port, bool localPow, int timeout)
-    : Core(host, port, localPow, timeout) {
+Extended::Extended(const std::string& host, const uint16_t& port, bool localPow, int timeout, const std::string& user, const std::string& pass)
+    : Core(host, port, localPow, timeout, user, pass) {
 }
 
 /*
