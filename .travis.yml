@@ -292,6 +292,11 @@ matrix:
           sources: ['ubuntu-toolchain-r-test']
           packages: ['g++-4.9']
       env: MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9 && CMAKE_BUILD_TYPE=Debug && COVERAGE=1"
+    # The build below is declared as optional the time we understand the reason of its sudden failure
+    # OSX x Clang xcode 6.4 x Release
+    - os: osx
+      osx_image: xcode6.4
+      env: MATRIX_EVAL="CC=clang && CXX=clang++ && CMAKE_BUILD_TYPE=Release"
 
   # Allow fast finish, even if the optional quality control jobs are not done yet
   fast_finish: true
