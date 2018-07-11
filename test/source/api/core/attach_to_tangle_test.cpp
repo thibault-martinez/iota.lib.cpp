@@ -42,7 +42,7 @@ TEST(Core, AttachToTangleRemotePowOneTx) {
   b.finalize();
   b.addTrytes({ EMPTY_SIGNATURE_FRAGMENT });
   auto tx  = b[0].toTrytes();
-  auto tta = api.getTransactionsToApprove(27);
+  auto tta = api.getTransactionsToApprove(3);
   auto att =
       api.attachToTangle(tta.getTrunkTransaction(), tta.getBranchTransaction(), POW_LEVEL, { tx });
   auto trytes = att.getTrytes()[0];
@@ -58,7 +58,7 @@ TEST(Core, AttachToTangleLocalPowOneTx) {
   b.finalize();
   b.addTrytes({ EMPTY_SIGNATURE_FRAGMENT });
   auto tx  = b[0].toTrytes();
-  auto tta = api.getTransactionsToApprove(27);
+  auto tta = api.getTransactionsToApprove(3);
   auto att =
       api.attachToTangle(tta.getTrunkTransaction(), tta.getBranchTransaction(), POW_LEVEL, { tx });
   auto trytes = att.getTrytes()[0];
@@ -80,7 +80,7 @@ TEST(Core, AttachToTangleRemotePowManyTx) {
   b.finalize();
   b.addTrytes({ EMPTY_SIGNATURE_FRAGMENT });
   auto tx  = b[0].toTrytes();
-  auto tta = api.getTransactionsToApprove(27);
+  auto tta = api.getTransactionsToApprove(3);
   auto att =
       api.attachToTangle(tta.getTrunkTransaction(), tta.getBranchTransaction(), POW_LEVEL, { tx });
   auto trytes = att.getTrytes()[0];
@@ -102,7 +102,7 @@ TEST(Core, AttachToTangleLocalPowManyTx) {
   b.finalize();
   b.addTrytes({ EMPTY_SIGNATURE_FRAGMENT });
   auto tx  = b[0].toTrytes();
-  auto tta = api.getTransactionsToApprove(27);
+  auto tta = api.getTransactionsToApprove(3);
   auto att =
       api.attachToTangle(tta.getTrunkTransaction(), tta.getBranchTransaction(), POW_LEVEL, { tx });
   auto trytes = att.getTrytes()[0];

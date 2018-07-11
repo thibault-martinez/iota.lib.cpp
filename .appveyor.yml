@@ -82,7 +82,7 @@ build:
 
 test_script:
 - ps: |
-    Start-Job -ScriptBlock { java -jar C:\projects\iota-lib-cpp\test\testnet\iri\target\iri-1.4.2.4.jar --testnet --testnet-no-coo-validation --snapshot=C:\projects\iota-lib-cpp\test\testnet\iri\src/main/resources/Snapshot.txt -p 14265 --mwm 1 -c C:\projects\iota-lib-cpp\test\testnet\iri\iri.ini 1> C:\projects\iota-lib-cpp\test\testnet\iri\iri.1 2> C:\projects\iota-lib-cpp\test\testnet\iri\iri.2 }
+    Start-Job -ScriptBlock { java -jar C:\projects\iota-lib-cpp\test\testnet\iri\target\iri-1.5.0.jar --testnet --testnet-no-coo-validation --snapshot=C:\projects\iota-lib-cpp\test\testnet\iri\src/main/resources/Snapshot.txt -p 14265 --mwm 1 -c C:\projects\iota-lib-cpp\test\testnet\iri\iri.ini 1> C:\projects\iota-lib-cpp\test\testnet\iri\iri.1 2> C:\projects\iota-lib-cpp\test\testnet\iri\iri.2 }
     Start-Sleep -s 120
     Get-Content C:\projects\iota-lib-cpp\test\testnet\iri\iri.1
     Get-Content C:\projects\iota-lib-cpp\test\testnet\iri\iri.2

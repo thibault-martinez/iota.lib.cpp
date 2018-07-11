@@ -36,7 +36,7 @@
 TEST(Extended, ReplayBundle) {
   IOTA::API::Extended api(get_proxy_host(), get_proxy_port(), true, 380);
 
-  auto res = api.replayBundle(BUNDLE_5_TRX_1_HASH, 27, POW_LEVEL);
+  auto res = api.replayBundle(BUNDLE_5_TRX_1_HASH, 3, POW_LEVEL);
 
   ASSERT_EQ(res.getSuccessfully().size(), 1UL);
   ASSERT_EQ(res.getSuccessfully(), std::vector<bool>({ true }));
@@ -45,20 +45,20 @@ TEST(Extended, ReplayBundle) {
 TEST(Extended, ReplayBundleNonTailTransaction) {
   IOTA::API::Extended api(get_proxy_host(), get_proxy_port());
 
-  EXPECT_EXCEPTION(api.replayBundle(BUNDLE_1_TRX_4_HASH, 27, POW_LEVEL), IOTA::Errors::IllegalState,
+  EXPECT_EXCEPTION(api.replayBundle(BUNDLE_1_TRX_4_HASH, 3, POW_LEVEL), IOTA::Errors::IllegalState,
                    "Invalid tail transaction supplied.");
 }
 
 TEST(Extended, ReplayBundleBundleHash) {
   IOTA::API::Extended api(get_proxy_host(), get_proxy_port());
 
-  EXPECT_EXCEPTION(api.replayBundle(BUNDLE_1_HASH, 27, POW_LEVEL), IOTA::Errors::IllegalState,
+  EXPECT_EXCEPTION(api.replayBundle(BUNDLE_1_HASH, 3, POW_LEVEL), IOTA::Errors::IllegalState,
                    "Invalid transaction supplied.");
 }
 
 TEST(Extended, ReplayBundleInvalidHash) {
   IOTA::API::Extended api(get_proxy_host(), get_proxy_port());
 
-  EXPECT_EXCEPTION(api.replayBundle("hello", 27, POW_LEVEL), IOTA::Errors::IllegalState,
+  EXPECT_EXCEPTION(api.replayBundle("hello", 3, POW_LEVEL), IOTA::Errors::IllegalState,
                    "Invalid transaction supplied.");
 }

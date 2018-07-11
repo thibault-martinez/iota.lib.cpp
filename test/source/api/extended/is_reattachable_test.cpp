@@ -49,7 +49,7 @@ TEST(Extended, IsReattachable) {
   IOTA::Models::Address input = { ACCOUNT_5_ADDRESS_1_HASH, ACCOUNT_5_ADDRESS_1_FUND, 0, 2 };
   std::vector<IOTA::Models::Address> inputs = { input };
 
-  api.sendTransfer(ACCOUNT_5_SEED, 27, POW_LEVEL, transfers, inputs, ACCOUNT_5_ADDRESS_1_HASH);
+  api.sendTransfer(ACCOUNT_5_SEED, 3, POW_LEVEL, transfers, inputs, ACCOUNT_5_ADDRESS_1_HASH);
 
   EXPECT_EQ(api.isReattachable({ unconfirmedTransactionAddr, noFundAddress,
                                  confirmedTransactionAddr, fundAddress }),
