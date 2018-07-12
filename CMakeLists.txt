@@ -88,6 +88,17 @@ include(curl_settings)
 include(cpr_settings)
 include(keccak_settings.as_dep)
 
+########## install ##########
+
+# ensure lib and bin directories exist
+install(CODE "FILE(MAKE_DIRECTORY ${CMAKE_LIBRARY_OUTPUT_DIRECTORY})")
+install(CODE "FILE(MAKE_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})")
+
+# install iota.lib.cpp
+install(DIRECTORY ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/ DESTINATION lib USE_SOURCE_PERMISSIONS)
+install(DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/ DESTINATION bin USE_SOURCE_PERMISSIONS)
+install(DIRECTORY ${PROJECT_INCLUDE_DIR}/ DESTINATION include USE_SOURCE_PERMISSIONS)
+
 ########## TEST SETTINGS ##########
 
 if (CMAKE_BUILD_TYPE STREQUAL "Debug")
