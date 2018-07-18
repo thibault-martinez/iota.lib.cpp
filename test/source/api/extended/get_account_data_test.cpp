@@ -42,6 +42,13 @@ TEST(Extended, GetAccountData) {
                 { ACCOUNT_2_ADDRESS_1_HASH, ACCOUNT_2_ADDRESS_2_HASH, ACCOUNT_2_ADDRESS_3_HASH,
                   ACCOUNT_2_ADDRESS_4_HASH, ACCOUNT_2_ADDRESS_5_HASH, ACCOUNT_2_ADDRESS_6_HASH }));
 
+  EXPECT_EQ(res.getAddresses()[0].getBalance(), ACCOUNT_2_ADDRESS_1_FUND);
+  EXPECT_EQ(res.getAddresses()[1].getBalance(), ACCOUNT_2_ADDRESS_2_FUND);
+  EXPECT_EQ(res.getAddresses()[2].getBalance(), ACCOUNT_2_ADDRESS_3_FUND);
+  EXPECT_EQ(res.getAddresses()[3].getBalance(), ACCOUNT_2_ADDRESS_4_FUND);
+  EXPECT_EQ(res.getAddresses()[4].getBalance(), ACCOUNT_2_ADDRESS_5_FUND);
+  EXPECT_EQ(res.getAddresses()[5].getBalance(), ACCOUNT_2_ADDRESS_6_FUND);
+
   std::vector<IOTA::Models::Bundle> expectedBundleRes;
 
   expectedBundleRes.push_back(
@@ -77,6 +84,9 @@ TEST(Extended, GetAccountDataStartEnd) {
 
   EXPECT_EQ(res.getAddresses(), std::vector<IOTA::Models::Address>(
                                     { ACCOUNT_2_ADDRESS_2_HASH, ACCOUNT_2_ADDRESS_3_HASH }));
+
+  EXPECT_EQ(res.getAddresses()[0].getBalance(), ACCOUNT_2_ADDRESS_2_FUND);
+  EXPECT_EQ(res.getAddresses()[1].getBalance(), ACCOUNT_2_ADDRESS_3_FUND);
 
   EXPECT_FALSE(res.getTransfers().empty());
   EXPECT_EQ(res.getBalance(), ACCOUNT_2_ADDRESS_2_FUND + ACCOUNT_2_ADDRESS_3_FUND);
