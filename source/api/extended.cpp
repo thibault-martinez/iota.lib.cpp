@@ -741,7 +741,7 @@ Extended::getAccountData(const Models::Seed& seed, int start, int end, bool incl
   const auto transfers = bundlesFromAddresses(addresses.getAddresses(), inclusionStates);
   const auto balances  = getBalancesAndFormat(addresses.getAddresses(), threshold);
 
-  return { addresses.getAddresses(), transfers, balances.getTotalBalance(),
+  return { balances.getInputs(), transfers, balances.getTotalBalance(),
            stopWatch.getElapsedTime().count() };
 }
 
