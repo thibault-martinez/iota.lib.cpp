@@ -24,7 +24,7 @@ It implements both the [official API](https://iota.readme.io/docs/getting-starte
     1.  [Doxygen](#doxygen)
     1.  [Wiki](#wiki)
     1.  [Examples](#examples)
-1.  [Technologies & dependencies](#technologies--dependencies)
+1.  [Technologies, tools & dependencies](#technologies--dependencies)
     1.  [Technologies](#technologies)
     1.  [Dependencies](#dependencies)
 1.  [Community](#community)
@@ -74,11 +74,15 @@ A [Wiki](https://github.com/thibault-martinez/iota.lib.cpp/wiki) is available an
 
 There's an extensive list of **test cases** on the [test folder](https://github.com/thibault-martinez/iota.lib.cpp/tree/master/test/source) that can be used as reference when developing apps with IOTA.
 
-## Technologies & Dependencies
+## Technologies, tools & dependencies
 
 ### Technologies
 
 This library currently uses C++11.
+
+### Tools
+
+-   [xsltproc](http://xmlsoft.org/XSLT/xsltproc.html) (needed in Keccak toolchain)
 
 ### Dependencies
 
