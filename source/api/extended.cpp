@@ -737,11 +737,29 @@ Extended::getAccountData(const Models::Seed& seed, int start, int end, bool incl
                          long threshold) const {
   const Utils::StopWatch stopWatch;
 
-  const auto addresses = getNewAddresses(seed, start, end - start, true);
-  const auto transfers = bundlesFromAddresses(addresses.getAddresses(), inclusionStates);
-  const auto balances  = getBalancesAndFormat(addresses.getAddresses(), threshold);
+  auto addresses              = getNewAddresses(seed, start, end - start, true).getAddresses();
+  const auto transfers        = bundlesFromAddresses(addresses, inclusionStates);
+  const auto balances         = getBalancesAndFormat(addresses, threshold);
+  const auto updatedAddresses = balances.getInputs();
 
-  return { addresses.getAddresses(), transfers, balances.getTotalBalance(),
+  //! addresses returned by getNewAddresses do not contain the balance information
+  //! getBalancesAndFormat get the balances but:
+  //!  * it only returns addresses with positive balance
+  //!  * it does not update the input addresses
+  //!
+  //! this loop goes through the getBalancesAndFormat result to update the balance
+  //! of addresses returned by getNewAddresses before returning them.
+  for (size_t i = 0, j = 0; i < updatedAddresses.size(); ++i) {
+    while (j < addresses.size() && updatedAddresses[i] != addresses[j]) {
+      ++j;
+    }
+
+    if (j < addresses.size()) {
+      addresses[j].setBalance(updatedAddresses[i].getBalance());
+    }
+  }
+
+  return { addresses, transfers, balances.getTotalBalance(),
            stopWatch.getElapsedTime().count() };
 }
 
