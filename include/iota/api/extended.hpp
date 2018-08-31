@@ -135,17 +135,6 @@ public:
   static void verifyBundle(const Models::Bundle& bundle);
 
   /**
-   * Get bundles corresponding to the given addresses.
-   *
-   * @param addresses       List of addresses for which to find the bundle objects.
-   * @param withInclusionStates If <code>true</code>, it gets the inclusion states of the transfers.
-   *
-   * @return Bundles.
-   */
-  std::vector<Models::Bundle> bundlesFromAddresses(const std::vector<Models::Address>& addresses,
-                                                   bool withInclusionStates = false) const;
-
-  /**
    * Lookup transactions for given addresses and return a list of transaction objects
    *
    * @param addresses Addresses for which transactions objects should be found.
@@ -216,21 +205,6 @@ public:
    * @return Transactions of the bundle corresponding to the input trx
    */
   Responses::GetBundle getBundle(const Types::Trytes& transaction) const;
-
-  /**
-   * Returns the transfers which are associated with a seed. The transfers are determined by either
-   * calculating deterministically which addresses were already used, or by providing a list of
-   * indexes to get the transfers from.
-   *
-   * @param seed            Seed to be used for address generation.
-   * @param start           Starting key index for address generation (included).
-   * @param end             Ending key index for address generation (excluded).
-   * @param inclusionStates If <code>true</code>, it gets the inclusion states of the transfers.
-   *
-   * @return Bundle of transfers.
-   */
-  Responses::GetTransfers getTransfers(const Models::Seed& seed, int start = 0, int end = 0,
-                                       bool inclusionStates = false) const;
 
   /**
    * Wrapper function that basically does prepareTransfers, as well as attachToTangle and finally,
@@ -326,13 +300,12 @@ public:
    * @param start           Starting key index for address generation (included).
    * @param end             Ending key index for address generation (excluded).
    * deterministically generated. Otherwise, returns only the last generated address.
-   * @param inclusionStates If <code>true</code>, it gets the inclusion states of the transfers.
    * @param threshold       Min balance required. 0 to skip.
    *
    * @return Account data.
    */
   Responses::GetAccountData getAccountData(const Models::Seed& seed, int start = 0, int end = 0,
-                                           bool inclusionStates = true, long threshold = 0) const;
+                                           long threshold = 0) const;
 
   /**
    * Add remainder transaction to the given bundle

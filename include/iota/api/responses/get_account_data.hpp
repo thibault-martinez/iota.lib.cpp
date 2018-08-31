@@ -53,13 +53,11 @@ public:
    * Full init ctor.
    *
    * @param addresses The addresses.
-   * @param transfers The transfers.
    * @param balance The balance.
    * @param duration The request duration.
    */
   GetAccountData(const std::vector<Models::Address>& addresses,
-                 const std::vector<Models::Bundle>& transfers, const int64_t& balance,
-                 const int64_t& duration);
+                 const int64_t& balance, const int64_t& duration);
 
   /**
    * Default dtor.
@@ -73,11 +71,6 @@ public:
   const std::vector<Models::Address>& getAddresses() const;
 
   /**
-   * @return The transfers.
-   */
-  const std::vector<Models::Bundle>& getTransfers() const;
-
-  /**
    * @return The balance.
    */
   const int64_t& getBalance() const;
@@ -87,10 +80,6 @@ private:
    * The account addresses.
    */
   std::vector<Models::Address> addresses_;
-  /**
-   * The account transfers.
-   */
-  std::vector<Models::Bundle> transfers_;
   /**
    * The account balance.
    */
