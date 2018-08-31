@@ -33,13 +33,19 @@ namespace API {
 namespace Responses {
 
 GetAccountData::GetAccountData(const std::vector<Models::Address>& addresses,
-                               const int64_t& balance, const int64_t& duration)
-    : Base(duration), addresses_(addresses), balance_(balance) {
+                               const std::vector<Types::Trytes>& transactions, const int64_t& balance,
+                               const int64_t& duration)
+    : Base(duration), addresses_(addresses), transactions_(transactions), balance_(balance) {
 }
 
 const std::vector<Models::Address>&
 GetAccountData::getAddresses() const {
   return addresses_;
+}
+
+const std::vector<Types::Trytes>&
+GetAccountData::getTransactions() const {
+  return transactions_;
 }
 
 const int64_t&

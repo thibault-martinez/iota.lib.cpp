@@ -602,6 +602,7 @@ Extended::getAccountData(const Models::Seed& seed, int start, int end, long thre
   const Utils::StopWatch stopWatch;
 
   auto addresses              = getNewAddresses(seed, start, end - start, true).getAddresses();
+  const auto transactions     = findTransactionsByAddresses(addresses);
   const auto balances         = getBalancesAndFormat(addresses, threshold);
   const auto updatedAddresses = balances.getInputs();
 
@@ -622,7 +623,7 @@ Extended::getAccountData(const Models::Seed& seed, int start, int end, long thre
     }
   }
 
-  return { addresses, balances.getTotalBalance(),
+  return { addresses, transactions.getHashes(), balances.getTotalBalance(),
            stopWatch.getElapsedTime().count() };
 }
 
