@@ -253,18 +253,6 @@ public:
    */
   Responses::Base storeTransactions(const std::vector<Types::Trytes>& trytes) const;
 
-  /**
-   * Check if a list of addresses was ever spent from, in the current epoch, or in previous epochs.
-   *
-   * https://iota.readme.io/reference#wereaddressesspentfrom
-   *
-   * @param addresses List of addresses you want to check if they were spent from.
-   *
-   * @return The response.
-   */
-  Responses::WereAddressesSpentFrom wereAddressesSpentFrom(
-      const std::vector<Models::Address>& addresses) const;
-
   /*
    * Used to ensure tail resolves to a consistent ledger which is necessary to validate before
    * attempting promotion. Checks transaction hashes for promotability.
@@ -280,6 +268,25 @@ public:
    * @return The response.
    */
   Responses::CheckConsistency checkConsistency(const std::vector<Types::Trytes>& tails) const;
+
+protected:
+    /**
+     * Check if a list of addresses was ever spent from, in the current epoch, or in previous epochs.
+     *
+     * https://iota.readme.io/reference#wereaddressesspentfrom
+     *
+     * From iota.lib.js:
+     * `wereAddressesSpentFrom` command is a temporary measure to prevent loss of funds,
+     * when security assumptions are ignored by developers or wallet users.
+     * It's being used internally by `getNewAddress()`.
+     * Avoid developing programs that rely on this method.
+     *
+     * @param addresses List of addresses you want to check if they were spent from.
+     *
+     * @return The response.
+     */
+    Responses::WereAddressesSpentFrom wereAddressesSpentFrom(
+        const std::vector<Models::Address>& addresses) const;
 
 private:
   /**
