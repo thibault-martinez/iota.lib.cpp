@@ -27,7 +27,7 @@
 
 #include <cpr/cpr.h>
 #include <cpr/auth.h>
-#include <json.hpp>
+#include <nlohmann/json.hpp>
 
 #include <iota/constants.hpp>
 #include <iota/errors/bad_request.hpp>
@@ -41,6 +41,7 @@ using json = nlohmann::json;
 namespace IOTA {
 
 namespace API {
+
 
 /**
  * Service to contact a IOTA node.
@@ -148,6 +149,11 @@ private:
    * Password for authenticated requests.
    */
   std::string pass_;
+
+  /**
+   * Internal function for handling the request
+   */
+  void requestInternal();
 };
 
 }  // namespace API

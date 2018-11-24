@@ -23,39 +23,9 @@
 //
 //
 
-#include <nlohmann/json.hpp>
+#pragma once
 
-#include <iota/api/responses/find_transactions.hpp>
-
-namespace IOTA {
-
-namespace API {
-
-namespace Responses {
-
-FindTransactions::FindTransactions(const std::vector<Types::Trytes>& hashes) : hashes_(hashes) {
-}
-
-FindTransactions::FindTransactions(const json& res) {
-  deserialize(res);
-}
-
-void
-FindTransactions::deserialize(const json& res) {
-  Base::deserialize(res);
-
-  if (res.count("hashes")) {
-    hashes_ = res.at("hashes").get<decltype(hashes_)>();
-  }
-}
-
-const std::vector<Types::Trytes>&
-FindTransactions::getHashes() const {
-  return hashes_;
-}
-
-}  // namespace Responses
-
-}  // namespace API
-
-}  // namespace IOTA
+#define iota_VERSION_MAJOR 1
+#define iota_VERSION_MINOR 2
+#define iota_VERSION_PATCH 1
+#define iota_VERSION "1.2.1"

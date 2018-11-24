@@ -28,8 +28,8 @@ set(GOOGLETEST_ROOT external/googletest/googletest CACHE STRING "Google Test sou
 ExternalProject_Add("googletest_dep"
                     SOURCE_DIR "${PROJECT_SOURCE_DIR}/${GOOGLETEST_ROOT}"
                     CMAKE_ARGS "-DCMAKE_INSTALL_PREFIX=${PROJECT_SOURCE_DIR}/deps"
-                    CMAKE_ARGS "-DCMAKE_ARCHIVE_OUTPUT_DIRECTORY=${PROJECT_SOURCE_DIR}/deps/lib"
-                    CMAKE_ARGS "-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=${PROJECT_SOURCE_DIR}/deps/lib"
+                    CMAKE_ARGS "-DCMAKE_ARCHIVE_OUTPUT_DIRECTORY=${CMAKE_LIBRARY_OUTPUT_DIRECTORY}"
+                    CMAKE_ARGS "-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=${CMAKE_LIBRARY_OUTPUT_DIRECTORY}"
                     CMAKE_ARGS "-Dgtest_force_shared_crt=ON" # Prevent overriding the parent project's compiler/linker settings on Windows
                     CMAKE_ARGS "-DCMAKE_C_FLAGS=${FORWARD_FLAGS} -D_SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING"
                     CMAKE_ARGS "-DCMAKE_CXX_FLAGS=${FORWARD_FLAGS} -D_SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING"
@@ -43,4 +43,4 @@ include_directories(
   ${PROJECT_SOURCE_DIR}/${GOOGLETEST_ROOT}/include
 )
 
-add_dependencies(${PROJECT_NAME} googletest_dep)
+add_dependencies(${PROJECT_NAME} PUBLIC googletest_dep)
