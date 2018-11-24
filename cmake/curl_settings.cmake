@@ -32,21 +32,21 @@ ExternalProject_Add("curl_dep"
                     CMAKE_ARGS "-DCMAKE_USE_OPENSSL=OFF"
                     CMAKE_ARGS "-DCMAKE_USE_LIBSSH2=OFF"
                     CMAKE_ARGS "-DCURL_CA_PATH_SET=OFF"
-                    CMAKE_ARGS "-DCMAKE_INSTALL_PREFIX=${CMAKE_SOURCE_DIR}/deps"
-                    CMAKE_ARGS "-DCMAKE_ARCHIVE_OUTPUT_DIRECTORY=${CMAKE_SOURCE_DIR}/deps/lib"
-                    CMAKE_ARGS "-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=${CMAKE_SOURCE_DIR}/deps/lib"
+                    CMAKE_ARGS "-DCMAKE_INSTALL_PREFIX=${PROJECT_SOURCE_DIR}/deps"
+                    CMAKE_ARGS "-DCMAKE_ARCHIVE_OUTPUT_DIRECTORY=${PROJECT_SOURCE_DIR}/deps/lib"
+                    CMAKE_ARGS "-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=${PROJECT_SOURCE_DIR}/deps/lib"
                     CMAKE_ARGS "-Wno-dev"
                     CMAKE_ARGS "-DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}"
                     CMAKE_ARGS "-DCMAKE_C_FLAGS=${FORWARD_FLAGS}"
                     CMAKE_ARGS "-DCMAKE_CXX_FLAGS=${FORWARD_FLAGS}"
-                    SOURCE_DIR "${CMAKE_SOURCE_DIR}/external/curl")
+                    SOURCE_DIR "${PROJECT_SOURCE_DIR}/external/curl")
 
-include_directories(${CMAKE_SOURCE_DIR}/external/cpr/include)
+include_directories(${PROJECT_SOURCE_DIR}/external/cpr/include)
 
 if (WIN32)
-  target_link_libraries(${CMAKE_PROJECT_NAME} cpr libcurl_imp)
+  target_link_libraries(${PROJECT_NAME} cpr libcurl_imp)
 else ()
-  target_link_libraries(${CMAKE_PROJECT_NAME} cpr curl)
+  target_link_libraries(${PROJECT_NAME} cpr curl)
 ENDIF (WIN32)
 
-add_dependencies(${CMAKE_PROJECT_NAME} cpr_dep)
+add_dependencies(${PROJECT_NAME} cpr_dep)

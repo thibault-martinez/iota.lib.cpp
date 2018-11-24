@@ -34,35 +34,35 @@ enable_language(C CXX)
 option(BUILD_TESTING "" OFF)
 include(CTest)
 
-set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
+set(CUSTOM_CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 set(CMAKE_VERBOSE_MAKEFILE OFF)
 set(CMAKE_MACOSX_RPATH 1)
 
 ########## MISC CONFIG ##########
-include(misc)
+include("${CUSTOM_CMAKE_MODULE_PATH}/misc.cmake")
 
 ########## DEFAULT FOLDERS ##########
 
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/bin)
 
 ########## PROJECT DIRECTORIES ##########
 
-set(PROJECT_SOURCE_DIR  ${CMAKE_SOURCE_DIR}/source/)
-set(PROJECT_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/include/)
-set(PROJECT_CMAKE_DIR   ${CMAKE_SOURCE_DIR}/cmake)
+set(CUSTOM_PROJECT_SOURCE_DIR  ${PROJECT_SOURCE_DIR}/source/)
+set(PROJECT_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/include/)
+set(PROJECT_CMAKE_DIR   ${PROJECT_SOURCE_DIR}/cmake)
 
 ######### VERSION INCLUDE ##########
 
-string(TOUPPER ${CMAKE_PROJECT_NAME} PROJECT_NAME)
+string(TOUPPER ${PROJECT_NAME} PROJECT_NAME)
 
 configure_file(cmake/version.hpp.in
-               ${PROJECT_INCLUDE_DIR}/${CMAKE_PROJECT_NAME}/version.hpp)
+               ${PROJECT_INCLUDE_DIR}/${PROJECT_NAME}/version.hpp)
 
 ########## PROJECT FILES ##########
 
-file(GLOB_RECURSE PROJECT_SOURCE_FILES ${PROJECT_SOURCE_DIR}/*.cpp)
+file(GLOB_RECURSE PROJECT_SOURCE_FILES ${CUSTOM_PROJECT_SOURCE_DIR}/*.cpp)
 
 include_directories("${PROJECT_INCLUDE_DIR}")
 include_directories("external/json/include")
@@ -70,23 +70,23 @@ include_directories("external/json/include/nlohmann")
 
 ########## DEPENDENCIES ##########
 
-include_directories(${CMAKE_SOURCE_DIR}/deps/include)
-link_directories(${CMAKE_SOURCE_DIR}/deps/lib)
-include(keccak_settings.as_source)
+include_directories(${PROJECT_SOURCE_DIR}/deps/include)
+link_directories(${PROJECT_SOURCE_DIR}/deps/lib)
+include("${CUSTOM_CMAKE_MODULE_PATH}/keccak_settings.as_source.cmake")
 
 ########## LIBRARY ##########
 
-add_library(${CMAKE_PROJECT_NAME} STATIC ${PROJECT_SOURCE_FILES})
+add_library(${PROJECT_NAME} STATIC ${PROJECT_SOURCE_FILES})
 
 ########## COMPILATION SETTINGS ##########
 
-include(compilation_settings)
+include("${CUSTOM_CMAKE_MODULE_PATH}/compilation_settings.cmake")
 
 ########## EXTERNAL LIBRARIES SETTINGS ##########
 
-include(curl_settings)
-include(cpr_settings)
-include(keccak_settings.as_dep)
+include("${CUSTOM_CMAKE_MODULE_PATH}/curl_settings.cmake")
+include("${CUSTOM_CMAKE_MODULE_PATH}/cpr_settings.cmake")
+include("${CUSTOM_CMAKE_MODULE_PATH}/keccak_settings.as_dep.cmake")
 
 ########## install ##########
 
@@ -112,6 +112,6 @@ if (BUILD_TESTS)
   # silence gtest compilation warnings..
   add_definitions(-D_SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING)
 
-  include(gtest_settings)
-  add_subdirectory(test)
+  include("${CUSTOM_CMAKE_MODULE_PATH}/gtest_settings.cmake")
+  add_subdirectory("${PROJECT_SOURCE_DIR}/test")
 ENDIF()

@@ -40,19 +40,19 @@ if (NOT WIN32 AND NOT FORWARD_FLAGS)
 
   ExternalProject_Add("keccak_dep"
                       GIT_SUBMODULES ""
-                      SOURCE_DIR "${CMAKE_SOURCE_DIR}/external/keccak"
+                      SOURCE_DIR "${PROJECT_SOURCE_DIR}/external/keccak"
                       CONFIGURE_COMMAND ""
                       UPDATE_COMMAND ""
-                      BUILD_COMMAND cd ${CMAKE_SOURCE_DIR}/external/keccak && make ${KECCAK_ARCH_OPTIMIZATION}/libkeccak.a
-                      INSTALL_COMMAND mkdir -p ${CMAKE_SOURCE_DIR}/deps/lib &&
-                                      mkdir -p ${CMAKE_SOURCE_DIR}/deps/lib &&
-                                      cd ${CMAKE_SOURCE_DIR}/external/keccak &&
-                                      cp bin/${KECCAK_ARCH_OPTIMIZATION}/libkeccak.a ${CMAKE_SOURCE_DIR}/deps/lib &&
-                                      cp -a bin/${KECCAK_ARCH_OPTIMIZATION}/libkeccak.a.headers ${CMAKE_SOURCE_DIR}/deps/include)
+                      BUILD_COMMAND cd ${PROJECT_SOURCE_DIR}/external/keccak && make ${KECCAK_ARCH_OPTIMIZATION}/libkeccak.a
+                      INSTALL_COMMAND mkdir -p ${PROJECT_SOURCE_DIR}/deps/lib &&
+                                      mkdir -p ${PROJECT_SOURCE_DIR}/deps/lib &&
+                                      cd ${PROJECT_SOURCE_DIR}/external/keccak &&
+                                      cp bin/${KECCAK_ARCH_OPTIMIZATION}/libkeccak.a ${PROJECT_SOURCE_DIR}/deps/lib &&
+                                      cp -a bin/${KECCAK_ARCH_OPTIMIZATION}/libkeccak.a.headers ${PROJECT_SOURCE_DIR}/deps/include)
 
-  include_directories(${CMAKE_SOURCE_DIR}/deps/include/libkeccak.a.headers)
-  target_link_libraries(${CMAKE_PROJECT_NAME} keccak)
-  add_dependencies(${CMAKE_PROJECT_NAME} keccak_dep)
+  include_directories(${PROJECT_SOURCE_DIR}/deps/include/libkeccak.a.headers)
+  target_link_libraries(${PROJECT_NAME} keccak)
+  add_dependencies(${PROJECT_NAME} keccak_dep)
 
 elseif (NOT WIN32 AND FORWARD_FLAGS)
 
@@ -68,14 +68,14 @@ elseif (NOT WIN32 AND FORWARD_FLAGS)
 
   ExternalProject_Add("keccak_dep"
                       GIT_SUBMODULES ""
-                      SOURCE_DIR "${CMAKE_SOURCE_DIR}/external/keccak"
+                      SOURCE_DIR "${PROJECT_SOURCE_DIR}/external/keccak"
                       CONFIGURE_COMMAND ""
                       UPDATE_COMMAND ""
-                      BUILD_COMMAND FORWARD_FLAGS=${FORWARD_FLAGS} CMAKE_SOURCE_DIR=${CMAKE_SOURCE_DIR} KECCAK_ARCH_OPTIMIZATION=${KECCAK_ARCH_OPTIMIZATION} ${CMAKE_SOURCE_DIR}/cmake/scripts/build_keccak.sh
-                      INSTALL_COMMAND CMAKE_SOURCE_DIR=${CMAKE_SOURCE_DIR} KECCAK_ARCH_OPTIMIZATION=${KECCAK_ARCH_OPTIMIZATION} ${CMAKE_SOURCE_DIR}/cmake/scripts/install_keccak.sh)
+                      BUILD_COMMAND FORWARD_FLAGS=${FORWARD_FLAGS} CMAKE_SOURCE_DIR=${PROJECT_SOURCE_DIR} KECCAK_ARCH_OPTIMIZATION=${KECCAK_ARCH_OPTIMIZATION} ${PROJECT_SOURCE_DIR}/cmake/scripts/build_keccak.sh
+                      INSTALL_COMMAND CMAKE_SOURCE_DIR=${PROJECT_SOURCE_DIR} KECCAK_ARCH_OPTIMIZATION=${KECCAK_ARCH_OPTIMIZATION} ${PROJECT_SOURCE_DIR}/cmake/scripts/install_keccak.sh)
 
-  target_link_libraries(${CMAKE_PROJECT_NAME} keccak)
-  include_directories(${CMAKE_SOURCE_DIR}/deps/include/keccak)
-  add_dependencies(${CMAKE_PROJECT_NAME} keccak_dep)
+  target_link_libraries(${PROJECT_NAME} keccak)
+  include_directories(${PROJECT_SOURCE_DIR}/deps/include/keccak)
+  add_dependencies(${PROJECT_NAME} keccak_dep)
 
 endif()

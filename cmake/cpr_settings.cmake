@@ -27,24 +27,24 @@ ExternalProject_Add("cpr_dep"
                     CMAKE_ARGS "-DBUILD_CPR_TESTS=OFF"
                     CMAKE_ARGS "-DBUILD_TESTING=0"
                     CMAKE_ARGS "-DUSE_SYSTEM_CURL=TRUE"
-                    CMAKE_ARGS "-DCMAKE_INSTALL_PREFIX=${CMAKE_SOURCE_DIR}/deps"
-                    CMAKE_ARGS "-DCMAKE_ARCHIVE_OUTPUT_DIRECTORY=${CMAKE_SOURCE_DIR}/deps/lib"
-                    CMAKE_ARGS "-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=${CMAKE_SOURCE_DIR}/deps/lib"
+                    CMAKE_ARGS "-DCMAKE_INSTALL_PREFIX=${PROJECT_SOURCE_DIR}/deps"
+                    CMAKE_ARGS "-DCMAKE_ARCHIVE_OUTPUT_DIRECTORY=${PROJECT_SOURCE_DIR}/deps/lib"
+                    CMAKE_ARGS "-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=${PROJECT_SOURCE_DIR}/deps/lib"
                     CMAKE_ARGS "-Wno-dev"
                     CMAKE_ARGS "-DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}"
-                    CMAKE_ARGS "-DCMAKE_PREFIX_PATH=${CMAKE_SOURCE_DIR}/deps"
+                    CMAKE_ARGS "-DCMAKE_PREFIX_PATH=${PROJECT_SOURCE_DIR}/deps"
                     CMAKE_ARGS "-DCMAKE_C_FLAGS=${FORWARD_FLAGS}"
                     CMAKE_ARGS "-DCMAKE_CXX_FLAGS=${FORWARD_FLAGS}"
                     INSTALL_COMMAND cmake -E echo "Skipping install step."
-                    SOURCE_DIR "${CMAKE_SOURCE_DIR}/external/cpr")
+                    SOURCE_DIR "${PROJECT_SOURCE_DIR}/external/cpr")
 
-include_directories(${CMAKE_SOURCE_DIR}/external/cpr/include)
+include_directories(${PROJECT_SOURCE_DIR}/external/cpr/include)
 
 if (WIN32)
-  target_link_libraries(${CMAKE_PROJECT_NAME} cpr libcurl_imp)
+  target_link_libraries(${PROJECT_NAME} cpr libcurl_imp)
 else ()
-  target_link_libraries(${CMAKE_PROJECT_NAME} cpr curl)
+  target_link_libraries(${PROJECT_NAME} cpr curl)
 ENDIF (WIN32)
 
 add_dependencies(cpr_dep curl_dep)
-add_dependencies(${CMAKE_PROJECT_NAME} cpr_dep)
+add_dependencies(${PROJECT_NAME} cpr_dep)
