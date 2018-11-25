@@ -53,7 +53,26 @@ make
 ```
 
 ### Getting Started
+As I have chosen to put this library as a submodule into my tesing application, I can easily use this library by typing the following stuff into my **CMakeLists.txt**:
+```cmake
+# adding the submodule path as a subdirectory (this is useful later on)
+add_subdirectory("${PROJECT_SOURCE_DIR}/path/to/library/submodule")
 
+# Then I created my executable
+add_executable(fabolous_iota_client main.cpp)
+
+# Import the include directories from the iota library and all of its dependencies and add it to my executable
+target_include_directories(fabolous_iota_client PUBLIC $<TARGET_PROPERTY:iota,INTERFACE_INCLUDE_DIRECTORIES>)
+
+# Then linking the executable against the library
+# As I'm on linux, I also had to link against gcov (don't know why, but it works)
+target_link_libraries(fabolous_iota_client iota gcov)
+
+# Also adding the dependency for my executable
+add_dependencies(fabolous_iota_client iota)
+```
+
+The **main.cpp** of the executable can look like the following:
 ```cpp
 IOTA::API::Core api("node.iotawallet.info", 14265);
 auto            res = api.getTransactionsToApprove(27);
