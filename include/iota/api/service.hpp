@@ -27,7 +27,7 @@
 
 #include <cpr/cpr.h>
 #include <cpr/auth.h>
-#include <json.hpp>
+#include <nlohmann/json.hpp>
 
 #include <iota/constants.hpp>
 #include <iota/errors/bad_request.hpp>

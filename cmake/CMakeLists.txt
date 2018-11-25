@@ -30,32 +30,39 @@
 # So, until keccak provides a cmake-based buildchain, the only reliable alternative for windows
 # is to include its sources into our own sources and to build everything altogether
 #
-if (WIN32)
+# I tend to use the same concept for unix as well...
+#
+project(keccak)
 
-  include_directories(${CMAKE_SOURCE_DIR}/external/keccak/lib/common)
-  include_directories(${CMAKE_SOURCE_DIR}/external/keccak/lib/high/Keccak)
-  include_directories(${CMAKE_SOURCE_DIR}/external/keccak/lib/high/Keccak/FIPS202)
-  include_directories(${CMAKE_SOURCE_DIR}/external/keccak/lib/low/common)
+#### SRC ####
+set(KECCAK_SOURCE ${PROJECT_SOURCE_DIR}/../external/keccak/lib/high/Keccak/FIPS202/KeccakHash.c
+        ${PROJECT_SOURCE_DIR}/../external/keccak/lib/high/Keccak/KeccakSpongeWidth1600.c)
 
-  set(KECCAK_SOURCE ${CMAKE_SOURCE_DIR}/external/keccak/lib/high/Keccak/FIPS202/KeccakHash.c
-                    ${CMAKE_SOURCE_DIR}/external/keccak/lib/high/Keccak/KeccakSpongeWidth1600.c)
-
-  if (ARCH EQUAL "64")
+if (ARCH EQUAL "64")
     # 64 bits
-    include_directories(${CMAKE_SOURCE_DIR}/external/keccak/lib/low/KeccakP-1600/Optimized)
-    include_directories(${CMAKE_SOURCE_DIR}/external/keccak/lib/low/KeccakP-1600/Optimized64)
-    include_directories(${CMAKE_SOURCE_DIR}/external/keccak/lib/low/KeccakP-1600/Optimized64/ufull)
-
     set(KECCAK_SOURCE ${KECCAK_SOURCE}
-                      ${CMAKE_SOURCE_DIR}/external/keccak/lib/low/KeccakP-1600/Optimized64/KeccakP-1600-opt64.c)
-  else ()
+            ${PROJECT_SOURCE_DIR}/../external/keccak/lib/low/KeccakP-1600/Optimized64/KeccakP-1600-opt64.c)
+else ()
     # 32 bits
-    include_directories(${CMAKE_SOURCE_DIR}/external/keccak/lib/low/KeccakP-1600/Inplace32BI)
-
     set(KECCAK_SOURCE ${KECCAK_SOURCE}
-                      ${CMAKE_SOURCE_DIR}/external/keccak/lib/low/KeccakP-1600/Inplace32BI/KeccakP-1600-inplace32BI.c)
-  endif ()
+            ${PROJECT_SOURCE_DIR}/../external/keccak/lib/low/KeccakP-1600/Inplace32BI/KeccakP-1600-inplace32BI.c)
+endif ()
 
-  set(PROJECT_SOURCE_FILES ${PROJECT_SOURCE_FILES} ${KECCAK_SOURCE})
+add_library(keccak ${KECCAK_SOURCE})
 
-endif()
+#### INC ####
+if (ARCH EQUAL "64")
+    # 64 bits
+    target_include_directories(keccak PUBLIC ${PROJECT_SOURCE_DIR}/../external/keccak/lib/low/KeccakP-1600/Optimized)
+    target_include_directories(keccak PUBLIC ${PROJECT_SOURCE_DIR}/../external/keccak/lib/low/KeccakP-1600/Optimized64)
+    target_include_directories(keccak PUBLIC ${PROJECT_SOURCE_DIR}/../external/keccak/lib/low/KeccakP-1600/Optimized64/ufull)
+
+else ()
+    # 32 bits
+    target_include_directories(keccak PUBLIC ${PROJECT_SOURCE_DIR}/../external/keccak/lib/low/KeccakP-1600/Inplace32BI)
+endif ()
+
+target_include_directories(keccak PUBLIC ${PROJECT_SOURCE_DIR}/../external/keccak/lib/common)
+target_include_directories(keccak PUBLIC ${PROJECT_SOURCE_DIR}/../external/keccak/lib/high/Keccak)
+target_include_directories(keccak PUBLIC ${PROJECT_SOURCE_DIR}/../external/keccak/lib/high/Keccak/FIPS202)
+target_include_directories(keccak PUBLIC ${PROJECT_SOURCE_DIR}/../external/keccak/lib/low/common)

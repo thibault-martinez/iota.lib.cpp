@@ -23,7 +23,7 @@
 //
 //
 
-#include <json.hpp>
+#include <nlohmann/json.hpp>
 
 #include <iota/api/requests/base.hpp>
 

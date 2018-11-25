@@ -24,7 +24,7 @@
 //
 
 #include <gtest/gtest.h>
-#include <json.hpp>
+#include <nlohmann/json.hpp>
 
 #include <iota/api/requests/find_transactions.hpp>
 #include <test/utils/constants.hpp>
