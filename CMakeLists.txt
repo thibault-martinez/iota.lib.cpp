@@ -94,10 +94,11 @@ configure_file(${CUSTOM_CMAKE_MODULE_PATH}/version.hpp.in
 file(GLOB_RECURSE PROJECT_SOURCE_FILES ${CUSTOM_PROJECT_SOURCE_DIR}/*.cpp)
 
 ########## LIBRARY ##########
-#
 add_library(${PROJECT_NAME} STATIC ${PROJECT_SOURCE_FILES})
-# lets make the submodules
-#add_subdirectory("${PROJECT_EXTERNAL_DIR}/keccak")
+
+# add the submodules dependency options
+include(${CUSTOM_CMAKE_MODULE_PATH}/dependency_settings.cmake)
+# make the submodules
 add_subdirectory("${CUSTOM_CMAKE_MODULE_PATH}")
 add_subdirectory("${PROJECT_EXTERNAL_DIR}/cpr")
 add_subdirectory("${PROJECT_EXTERNAL_DIR}/json")
