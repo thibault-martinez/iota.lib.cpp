@@ -10,6 +10,3 @@
 [submodule "external/keccak"]
 	path = external/keccak
 	url = https://github.com/gvanas/KeccakCodePackage
-[submodule "external/curl"]
-	path = external/curl
-	url = https://github.com/curl/curl.git
