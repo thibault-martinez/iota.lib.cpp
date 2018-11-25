@@ -63,9 +63,14 @@ foreach(DIR ${DIRS})
     # new bin
     add_executable(${TEST_FULL_NAME} ${MAIN} ${SOURCE})
 
+    target_include_directories(${TEST_FULL_NAME} PUBLIC $<TARGET_PROPERTY:gtest,INCLUDE_DIRECTORIES>)
+    target_include_directories(${TEST_FULL_NAME} PUBLIC $<TARGET_PROPERTY:iota,INTERFACE_INCLUDE_DIRECTORIES>)
+
     # compilation options
     target_compile_features(${TEST_FULL_NAME}  PRIVATE cxx_range_for)
-    target_link_libraries(${TEST_FULL_NAME} gtest ${CMAKE_PROJECT_NAME})
+    target_link_libraries(${TEST_FULL_NAME} gtest iota)
+
+    add_dependencies(${TEST_FULL_NAME} gtest iota)
 
     # platform specific compilation options
     if (NOT WIN32)
@@ -73,7 +78,7 @@ foreach(DIR ${DIRS})
     ENDIF (NOT WIN32)
 
     # ctest registration
-    add_test(NAME ${TEST_FULL_NAME} COMMAND ${TEST_FULL_NAME} ${CMAKE_SOURCE_DIR}/test/files)
+    add_test(NAME ${TEST_FULL_NAME} COMMAND ${TEST_FULL_NAME} ${PROJECT_SOURCE_DIR}/files)
   endforeach()
 
 endforeach()

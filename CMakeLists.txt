@@ -116,9 +116,7 @@ include("${CUSTOM_CMAKE_MODULE_PATH}/compilation_settings.cmake")
 
 ########## LINK #############
 # we put all needed sources into one library...
-target_link_libraries(${PROJECT_NAME} keccak)
-target_link_libraries(${PROJECT_NAME} nlohmann_json)
-target_link_libraries(${PROJECT_NAME} cpr)
+target_link_libraries(${PROJECT_NAME} keccak nlohmann_json cpr)
 
 ########## install ##########
 # ensure lib and bin directories exist
@@ -142,7 +140,5 @@ if (BUILD_TESTS)
 
   # silence gtest compilation warnings..
   add_definitions(-D_SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING)
-
-  add_subdirectory("${PROJECT_EXTERNAL_DIR}/googletest")
   add_subdirectory("${PROJECT_SOURCE_DIR}/test")
 ENDIF()

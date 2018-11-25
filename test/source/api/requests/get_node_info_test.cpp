@@ -24,7 +24,7 @@
 //
 
 #include <gtest/gtest.h>
-#include <json.hpp>
+#include <nlohmann/json.hpp>
 
 #include <iota/api/requests/get_node_info.hpp>
 
