@@ -42,7 +42,6 @@ namespace IOTA {
 
 namespace API {
 
-
 /**
  * Service to contact a IOTA node.
  */
@@ -149,11 +148,6 @@ private:
    * Password for authenticated requests.
    */
   std::string pass_;
-
-  /**
-   * Internal function for handling the request
-   */
-  void requestInternal();
 };
 
 }  // namespace API
