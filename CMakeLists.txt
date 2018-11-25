@@ -58,7 +58,7 @@ endif()
 # Check, if all folders for the submodules are present
 #####
 set(PROJECT_EXTERNAL_DIR "${PROJECT_SOURCE_DIR}/external")
-set(EXTERNAL_DIR_NAME "cpr;curl;googletest;json;keccak")
+set(EXTERNAL_DIR_NAME "cpr;googletest;json;keccak")
 
 FOREACH(LOCAL_DIR_NAME ${EXTERNAL_DIR_NAME})
     if(NOT EXISTS "${PROJECT_EXTERNAL_DIR}/${LOCAL_DIR_NAME}")
