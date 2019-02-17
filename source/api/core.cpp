@@ -54,6 +54,7 @@
 #include <iota/api/responses/remove_neighbors.hpp>
 #include <iota/api/responses/were_addresses_spent_from.hpp>
 #include <iota/crypto/pow.hpp>
+#include <iota/crypto/curl.hpp>
 #include <iota/errors/illegal_state.hpp>
 #include <iota/models/neighbor.hpp>
 #include <iota/models/transaction.hpp>
@@ -161,6 +162,13 @@ Core::attachToTangle(const Types::Trytes& trunkTransaction, const Types::Trytes&
         tx.setTag(tx.getObsoleteTag());
       }
 
+      auto transactionTrits = Types::trytesToTrits(tx.toTrytes());
+      auto updatedhash = Types::Trits(TritHashLength);
+      Crypto::Curl curl;
+      curl.absorb(transactionTrits);
+      curl.squeeze(updatedhash);
+      tx.setHash(Types::tritsToTrytes(updatedhash));
+      
       resultTrytes.emplace_back(tx.toTrytes());
       prevTx = tx.getHash();
     }
