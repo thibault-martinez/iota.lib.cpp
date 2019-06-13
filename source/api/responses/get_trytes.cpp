@@ -23,7 +23,7 @@
 //
 //
 
-#include <json.hpp>
+#include <nlohmann/json.hpp>
 
 #include <iota/api/responses/get_trytes.hpp>
 

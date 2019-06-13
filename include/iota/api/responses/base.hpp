@@ -27,7 +27,7 @@
 
 #include <cstdint>
 
-#include <json_fwd.hpp>
+#include <nlohmann/json_fwd.hpp>
 
 using json = nlohmann::json;
 

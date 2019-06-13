@@ -29,7 +29,7 @@
 #include <vector>
 
 extern "C" {
-#include <KeccakHash.h>
+#include <keccak/KeccakHash.h>
 }
 
 namespace IOTA {

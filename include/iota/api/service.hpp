@@ -25,9 +25,12 @@
 
 #pragma once
 
-#include <cpr/cpr.h>
-#include <cpr/auth.h>
-#include <json.hpp>
+#include <boost/asio/connect.hpp>
+#include <boost/asio/ip/tcp.hpp>
+#include <boost/beast/core.hpp>
+#include <boost/beast/http.hpp>
+#include <boost/beast/version.hpp>
+#include <nlohmann/json.hpp>
 
 #include <iota/constants.hpp>
 #include <iota/errors/bad_request.hpp>
@@ -54,7 +57,8 @@ public:
    * @param port Port of the node.
    * @param timeout Request timeout.
    */
-  Service(const std::string& host, const uint16_t& port, int timeout = 60, const std::string& user = "", const std::string& pass = "");
+  Service(const std::string& host, const uint16_t& port, int timeout = 60,
+          const std::string& user = "", const std::string& pass = "");
   /**
    * Default dtor;
    */
@@ -72,59 +76,46 @@ public:
   Response request(Args&&... args) const {
     auto request = Request{ args... };
 
-    json data;
+    json data, result;
     request.serialize(data);
 
-    auto url     = cpr::Url{ host_ + ":" + std::to_string(port_) };
-    auto body    = cpr::Body{ data.dump() };
-    auto headers = cpr::Header{ { "Content-Type", "application/json" },
-                                { "Content-Length", std::to_string(body.size()) },
-                                { "X-IOTA-API-Version", APIVersion } };
-    cpr::Response res;
-    if(!user_.empty() && !pass_.empty() && host_.compare(0,5,"https") == 0){
-      res = cpr::Post(url, body, headers, cpr::Timeout{ timeout_ * 1000 }, cpr::Authentication{user_, pass_});
-    }
-    else
-      res = cpr::Post(url, body, headers, cpr::Timeout{ timeout_ * 1000 });
-    if (res.error.code != cpr::ErrorCode::OK)
-      throw Errors::Network(res.error.message);
+    using tcp      = boost::asio::ip::tcp;
+    namespace http = boost::beast::http;
 
-    json        resJson;
-    std::string error;
+    boost::asio::io_context   ioc;
+    boost::system::error_code ec;
+    tcp::resolver             resolver{ ioc };
+    tcp::socket               socket{ ioc };
 
     try {
-      resJson = json::parse(res.text);
+      auto const results = resolver.resolve(host_, std::to_string(port_));
 
-      if (resJson.count("error")) {
-        error = resJson["error"].get<decltype(error)>();
-      }
-    } catch (const std::runtime_error&) {
-      if (res.elapsed >= timeout_) {
-        throw Errors::Network("Time out after " + std::to_string(timeout_) + "s");
-      }
+      boost::asio::connect(socket, results.begin(), results.end());
 
-      throw Errors::Unrecognized("Invalid reply from node (unrecognized format): " + res.text);
+      http::request<http::string_body> req{ http::verb::post, "/", 11 };
+      req.set(http::field::host, host_);
+      req.set(http::field::user_agent, BOOST_BEAST_VERSION_STRING);
+      req.set(http::field::content_type, "application/json");
+      req.set("X-IOTA-API-Version", "1");
+      req.body() = data.dump();
+      req.content_length(req.body().size());
+
+      http::write(socket, req);
+      boost::beast::flat_buffer         buffer;
+      http::response<http::string_body> res;
+
+      http::read(socket, buffer, res);
+      result = json::parse(res.body());
+
+      socket.shutdown(tcp::socket::shutdown_both, ec);
+
+      if (ec && ec != boost::system::errc::not_connected)
+        throw boost::system::system_error{ ec };
+    } catch (const std::exception& ex) {
+      throw Errors::Unrecognized(std::string("Invalid reply from node: ") + ex.what());
     }
 
-    Response response;
-    switch (res.status_code) {
-      case 200:
-        return Response{ resJson };
-      case 400:
-        throw Errors::BadRequest(error);
-      case 401:
-        throw Errors::Unauthorized(error);
-      case 500:
-        throw Errors::InternalServerError(error);
-      default:
-        if (res.elapsed >= timeout_) {
-          throw Errors::Network("Time out after " + std::to_string(timeout_) + "s");
-        }
-
-        throw Errors::Unrecognized(error);
-    }
-
-    return response;
+    return Response{ result };
   }
 
 private:
