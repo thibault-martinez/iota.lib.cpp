@@ -23,16 +23,17 @@
 //
 //
 
+#include <algorithm>
+#include <iostream>
+#include <iterator>
+#include <random>
+
 #include <iota/constants.hpp>
 #include <iota/crypto/signing.hpp>
 #include <iota/errors/illegal_state.hpp>
 #include <iota/models/address.hpp>
 #include <iota/models/seed.hpp>
 #include <iota/types/utils.hpp>
-
-#include <algorithm>
-#include <iterator>
-#include <random>
 
 namespace IOTA {
 

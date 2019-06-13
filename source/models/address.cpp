@@ -23,6 +23,8 @@
 //
 //
 
+#include <iostream>
+
 #include <iota/constants.hpp>
 #include <iota/crypto/kerl.hpp>
 #include <iota/errors/illegal_state.hpp>
