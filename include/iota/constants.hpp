@@ -65,6 +65,6 @@ constexpr int TrinaryBase                                 = 3;
 constexpr int GetBalancesRecommandedConfirmationThreshold = 100;
 
 //! IRI API version
-const std::string APIVersion = "1.2.0";
+const std::string APIVersion = "1";
 
 }  // namespace IOTA
