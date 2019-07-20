@@ -31,8 +31,19 @@
 #include <test/utils/constants.hpp>
 #include <test/utils/expect_exception.hpp>
 
+class TestWereAddressesSpentFrom : public IOTA::API::Core {
+public:
+  TestWereAddressesSpentFrom(const std::string& host, int port)
+      : IOTA::API::Core(host, port) {}
+
+  IOTA::API::Responses::WereAddressesSpentFrom wereAddressesSpentFrom(
+      const std::vector<IOTA::Models::Address>& addresses) const {
+        return IOTA::API::Core::wereAddressesSpentFrom(addresses);
+      }
+};
+
 TEST(Core, WereAddressesSpentFromOneTrue) {
-  IOTA::API::Core api(get_proxy_host(), get_proxy_port());
+  TestWereAddressesSpentFrom api(get_proxy_host(), get_proxy_port());
 
   auto res = api.wereAddressesSpentFrom({ ACCOUNT_2_ADDRESS_1_HASH_WITHOUT_CHECKSUM });
 
@@ -40,7 +51,7 @@ TEST(Core, WereAddressesSpentFromOneTrue) {
 }
 
 TEST(Core, WereAddressesSpentFromOneFalse) {
-  IOTA::API::Core api(get_proxy_host(), get_proxy_port());
+  TestWereAddressesSpentFrom api(get_proxy_host(), get_proxy_port());
 
   auto res = api.wereAddressesSpentFrom({ ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM });
 
@@ -48,7 +59,7 @@ TEST(Core, WereAddressesSpentFromOneFalse) {
 }
 
 TEST(Core, WereAddressesSpentFromMany) {
-  IOTA::API::Core api(get_proxy_host(), get_proxy_port());
+  TestWereAddressesSpentFrom api(get_proxy_host(), get_proxy_port());
 
   auto res = api.wereAddressesSpentFrom(
       { ACCOUNT_1_ADDRESS_1_HASH_WITHOUT_CHECKSUM, ACCOUNT_2_ADDRESS_1_HASH_WITHOUT_CHECKSUM,
@@ -58,7 +69,7 @@ TEST(Core, WereAddressesSpentFromMany) {
 }
 
 TEST(Core, WereAddressesSpentFromEmpty) {
-  IOTA::API::Core api(get_proxy_host(), get_proxy_port());
+  TestWereAddressesSpentFrom api(get_proxy_host(), get_proxy_port());
 
   EXPECT_EXCEPTION(auto res = api.wereAddressesSpentFrom({});
                    , IOTA::Errors::BadRequest, "Invalid parameters")
