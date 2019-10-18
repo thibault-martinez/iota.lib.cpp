@@ -38,9 +38,8 @@ namespace Responses {
 /**
  * GetAccountData API call response.
  *
- * Similar to getTransfers, just a bit more comprehensive in the sense that it also returns the
- * balance and addresses that are associated with your account (seed). This function is useful in
- * getting all the relevant information of your account.
+ * Returns the balance, addresses and transactions that are associated with your account (seed).
+ * This function is useful in getting all the relevant information of your account.
  */
 class GetAccountData : public Base {
 public:
@@ -53,12 +52,12 @@ public:
    * Full init ctor.
    *
    * @param addresses The addresses.
-   * @param transfers The transfers.
+   * @param transactions The transactions.
    * @param balance The balance.
    * @param duration The request duration.
    */
   GetAccountData(const std::vector<Models::Address>& addresses,
-                 const std::vector<Models::Bundle>& transfers, const int64_t& balance,
+                 const std::vector<Types::Trytes>& transactions, const int64_t& balance,
                  const int64_t& duration);
 
   /**
@@ -73,9 +72,9 @@ public:
   const std::vector<Models::Address>& getAddresses() const;
 
   /**
-   * @return The transfers.
+   * @return The transactions.
    */
-  const std::vector<Models::Bundle>& getTransfers() const;
+  const std::vector<Types::Trytes>& getTransactions() const;
 
   /**
    * @return The balance.
@@ -88,9 +87,9 @@ private:
    */
   std::vector<Models::Address> addresses_;
   /**
-   * The account transfers.
+   * The account transactions.
    */
-  std::vector<Models::Bundle> transfers_;
+  std::vector<Types::Trytes> transactions_;
   /**
    * The account balance.
    */

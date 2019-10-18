@@ -37,7 +37,6 @@
 #include <iota/api/responses/get_new_addresses.hpp>
 #include <iota/api/responses/get_node_info.hpp>
 #include <iota/api/responses/get_transactions_to_approve.hpp>
-#include <iota/api/responses/get_transfers.hpp>
 #include <iota/api/responses/get_trytes.hpp>
 #include <iota/api/responses/replay_bundle.hpp>
 #include <iota/api/responses/send_transfer.hpp>
@@ -312,125 +311,6 @@ Extended::getTransactionsObjects(const std::vector<Types::Trytes>& hashes) const
   return trxs;
 }
 
-std::vector<Models::Bundle>
-Extended::bundlesFromAddresses(const std::vector<Models::Address>& addresses,
-                               bool                                withInclusionStates) const {
-  //! find transactions for addresses
-  const auto trxs = findTransactionObjects(addresses);
-  if (trxs.empty())
-    return {};
-
-  //! filter tail/non tail transactions
-  std::vector<Models::Transaction> tailTrxs;
-  std::vector<Models::Transaction> nonTailTrxs;
-
-  for (const auto& trx : trxs) {
-    if (trx.isTailTransaction()) {
-      tailTrxs.emplace_back(trx);
-    } else {
-      nonTailTrxs.emplace_back(trx);
-    }
-  }
-
-  //! filter out non-tail transactions for which we already got the bundle tail transaction
-  //! only keep bundle hash to pass that as argument of findTransactionObjectsByBundle
-  std::vector<Types::Trytes> nonTailTrxsBundleHashes;
-
-  for (const auto& trx : nonTailTrxs) {
-    //! skip if we already filtered a non-tail transaction belonging to the same bundle
-    auto nonTailDuplicateBundle =
-        std::find(nonTailTrxsBundleHashes.begin(), nonTailTrxsBundleHashes.end(), trx.getBundle());
-
-    if (nonTailDuplicateBundle != nonTailTrxsBundleHashes.end()) {
-      continue;
-    }
-
-    //! skip if we already got a tail transaction fro that bundle
-    auto tailDuplicateBundle = std::find_if(
-        tailTrxs.begin(), tailTrxs.end(),
-        [&](const Models::Transaction& lhs) { return lhs.getBundle() == trx.getBundle(); });
-
-    if (tailDuplicateBundle != tailTrxs.end()) {
-      continue;
-    }
-
-    //! otherwise keep track to fetch bundle with findTransactionObjectsByBundle
-    nonTailTrxsBundleHashes.push_back(trx.getBundle());
-  }
-
-  //! find transactions for bundles of non tail transactions
-  //! add these transactions to the list of tail transactions
-  const auto trxFromBundle = findTransactionObjectsByBundle(nonTailTrxsBundleHashes);
-  tailTrxs.insert(tailTrxs.end(), trxFromBundle.begin(), trxFromBundle.end());
-
-  //! keep only hash
-  std::vector<Types::Trytes> tailTrxsHashes;
-  tailTrxsHashes.reserve(tailTrxs.size());
-
-  for (const auto& trx : tailTrxs) {
-    tailTrxsHashes.emplace_back(trx.getHash());
-  }
-
-  //! If inclusionStates, get the confirmation status
-  //! of the tail transactions, and thus the bundles
-  Responses::GetInclusionStates inclusionStates;
-  if (withInclusionStates && !tailTrxsHashes.empty()) {
-    inclusionStates = getLatestInclusion(tailTrxsHashes);
-
-    if (inclusionStates.getStates().empty()) {
-      throw Errors::IllegalState("No inclusion states");
-    }
-  }
-
-  std::mutex                  allBundlesMtx;
-  std::vector<Models::Bundle> allBundles;
-
-  std::size_t nb_cores   = std::thread::hardware_concurrency();
-  std::size_t nb_threads = std::min(nb_cores, tailTrxsHashes.size());
-
-  Utils::parallel_for(nb_threads, [&](int cpu, int num_cpus) {
-    int start = tailTrxsHashes.size() * cpu / num_cpus;
-    int end   = tailTrxsHashes.size() * (cpu + 1) / num_cpus;
-
-    //! for last cpu, ensure we got all remaining of the list
-    if (cpu == num_cpus - 1) {
-      end = tailTrxsHashes.size();
-    }
-
-    auto startIt = tailTrxsHashes.begin() + start;
-    auto endIt   = tailTrxsHashes.begin() + end;
-    auto bundles = traverseBundles({ startIt, endIt }, false);
-
-    if (withInclusionStates) {
-      for (std::size_t i = 0; i < bundles.size(); ++i) {
-        auto& trxs      = bundles[i].getTransactions();
-        bool  inclusion = inclusionStates.getStates()[start + i];
-
-        for (auto& t : trxs) {
-          t.setPersistence(inclusion);
-        }
-      }
-    }
-
-    std::lock_guard<std::mutex> lock(allBundlesMtx);
-
-    //! only keep valid non-empty bundles
-    for (auto& bundle : bundles) {
-      if (!bundle.getTransactions().empty()) {
-        try {
-          verifyBundle(bundle);
-          allBundles.push_back(std::move(bundle));
-        } catch (std::runtime_error&) {
-        }
-      }
-    }
-  });
-
-  std::sort(allBundles.begin(), allBundles.end());
-
-  return allBundles;
-}
-
 Responses::GetInclusionStates
 Extended::getLatestInclusion(const std::vector<Types::Trytes>& hashes) const {
   return getInclusionStates(hashes, { getNodeInfo().getLatestSolidSubtangleMilestone() });
@@ -650,21 +530,6 @@ Extended::verifyBundle(const Models::Bundle& bundle) {
   }
 }
 
-Responses::GetTransfers
-Extended::getTransfers(const Models::Seed& seed, int start, int end, bool inclusionStates) const {
-  const Utils::StopWatch stopWatch;
-
-  // If start value bigger than end, return error
-  if (start > end) {
-    throw Errors::IllegalState("Invalid inputs provided");
-  }
-
-  const auto gna     = getNewAddresses(seed, start, end - start, true);
-  const auto bundles = bundlesFromAddresses(gna.getAddresses(), inclusionStates);
-
-  return { bundles, stopWatch.getElapsedTime().count() };
-}
-
 Responses::SendTransfer
 Extended::sendTransfer(const Models::Seed& seed, int depth, int minWeightMagnitude,
                        std::vector<Models::Transfer>&      transfers,
@@ -733,12 +598,11 @@ Extended::findTransactionsByBundles(const std::vector<Types::Trytes>& bundles) c
 }
 
 Responses::GetAccountData
-Extended::getAccountData(const Models::Seed& seed, int start, int end, bool inclusionStates,
-                         long threshold) const {
+Extended::getAccountData(const Models::Seed& seed, int start, int end, long threshold) const {
   const Utils::StopWatch stopWatch;
 
   auto addresses              = getNewAddresses(seed, start, end - start, true).getAddresses();
-  const auto transfers        = bundlesFromAddresses(addresses, inclusionStates);
+  const auto transactions     = findTransactionsByAddresses(addresses);
   const auto balances         = getBalancesAndFormat(addresses, threshold);
   const auto updatedAddresses = balances.getInputs();
 
@@ -759,7 +623,7 @@ Extended::getAccountData(const Models::Seed& seed, int start, int end, bool incl
     }
   }
 
-  return { addresses, transfers, balances.getTotalBalance(),
+  return { addresses, transactions.getHashes(), balances.getTotalBalance(),
            stopWatch.getElapsedTime().count() };
 }
 

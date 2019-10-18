@@ -35,65 +35,39 @@
 
 TEST(Extended, GetAccountData) {
   auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
-  auto res = api.getAccountData(ACCOUNT_2_SEED, 0, 0, true, 0);
+  auto res = api.getAccountData(ACCOUNT_2_SEED, 0, 0, 0);
 
   EXPECT_EQ(res.getAddresses(),
             std::vector<IOTA::Models::Address>(
                 { ACCOUNT_2_ADDRESS_1_HASH, ACCOUNT_2_ADDRESS_2_HASH, ACCOUNT_2_ADDRESS_3_HASH,
                   ACCOUNT_2_ADDRESS_4_HASH, ACCOUNT_2_ADDRESS_5_HASH, ACCOUNT_2_ADDRESS_6_HASH }));
 
-  EXPECT_EQ(res.getAddresses()[0].getBalance(), ACCOUNT_2_ADDRESS_1_FUND);
-  EXPECT_EQ(res.getAddresses()[1].getBalance(), ACCOUNT_2_ADDRESS_2_FUND);
-  EXPECT_EQ(res.getAddresses()[2].getBalance(), ACCOUNT_2_ADDRESS_3_FUND);
-  EXPECT_EQ(res.getAddresses()[3].getBalance(), ACCOUNT_2_ADDRESS_4_FUND);
-  EXPECT_EQ(res.getAddresses()[4].getBalance(), ACCOUNT_2_ADDRESS_5_FUND);
-  EXPECT_EQ(res.getAddresses()[5].getBalance(), ACCOUNT_2_ADDRESS_6_FUND);
-
-  std::vector<IOTA::Models::Bundle> expectedBundleRes;
-
-  expectedBundleRes.push_back(
-      IOTA::Models::Bundle({ IOTA::Models::Transaction(ACCOUNT_2_BUNDLE_1_TRX_1_TRYTES) }));
-
-  expectedBundleRes.push_back(
-      IOTA::Models::Bundle({ IOTA::Models::Transaction(ACCOUNT_2_BUNDLE_2_TRX_1_TRYTES) }));
-
-  expectedBundleRes.push_back(
-      IOTA::Models::Bundle({ IOTA::Models::Transaction(ACCOUNT_2_BUNDLE_3_TRX_1_TRYTES) }));
-
-  expectedBundleRes.push_back(
-      IOTA::Models::Bundle({ IOTA::Models::Transaction(ACCOUNT_2_BUNDLE_4_TRX_1_TRYTES) }));
-
-  expectedBundleRes.push_back(
-      IOTA::Models::Bundle({ IOTA::Models::Transaction(ACCOUNT_2_BUNDLE_5_TRX_1_TRYTES),
-                             IOTA::Models::Transaction(ACCOUNT_2_BUNDLE_5_TRX_2_TRYTES),
-                             IOTA::Models::Transaction(ACCOUNT_2_BUNDLE_5_TRX_3_TRYTES),
-                             IOTA::Models::Transaction(ACCOUNT_2_BUNDLE_5_TRX_4_TRYTES) }));
-
-  ASSERT_EQ(res.getTransfers().size(), expectedBundleRes.size());
-
-  for (size_t i = 0; i < expectedBundleRes.size(); ++i) {
-    EXPECT_EQ(res.getTransfers()[i], expectedBundleRes[i]);
-  }
+  EXPECT_EQ(res.getTransactions(), std::vector<IOTA::Types::Trytes>({
+    ACCOUNT_2_BUNDLE_5_TRX_3_HASH,
+    ACCOUNT_2_BUNDLE_3_TRX_1_HASH,
+    ACCOUNT_2_BUNDLE_5_TRX_2_HASH,
+    ACCOUNT_2_BUNDLE_4_TRX_1_HASH,
+    ACCOUNT_2_BUNDLE_1_TRX_1_HASH,
+    ACCOUNT_2_BUNDLE_2_TRX_1_HASH,
+    ACCOUNT_2_BUNDLE_5_TRX_4_HASH
+  }));
 
   EXPECT_EQ(res.getBalance(), ACCOUNT_2_FUND);
 }
 
 TEST(Extended, GetAccountDataStartEnd) {
   auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
-  auto res = api.getAccountData(ACCOUNT_2_SEED, 1, 3, true, 0);
+  auto res = api.getAccountData(ACCOUNT_2_SEED, 1, 3, 0);
 
   EXPECT_EQ(res.getAddresses(), std::vector<IOTA::Models::Address>(
                                     { ACCOUNT_2_ADDRESS_2_HASH, ACCOUNT_2_ADDRESS_3_HASH }));
 
-  EXPECT_EQ(res.getAddresses()[0].getBalance(), ACCOUNT_2_ADDRESS_2_FUND);
-  EXPECT_EQ(res.getAddresses()[1].getBalance(), ACCOUNT_2_ADDRESS_3_FUND);
-
-  EXPECT_FALSE(res.getTransfers().empty());
+  EXPECT_FALSE(res.getTransactions().empty());
   EXPECT_EQ(res.getBalance(), ACCOUNT_2_ADDRESS_2_FUND + ACCOUNT_2_ADDRESS_3_FUND);
 }
 
 TEST(Extended, GetAccountDataMin) {
   auto api = IOTA::API::Extended{ get_proxy_host(), get_proxy_port() };
 
-  EXPECT_THROW(api.getAccountData(ACCOUNT_2_SEED, 0, 0, true, 1000000), IOTA::Errors::IllegalState);
+  EXPECT_THROW(api.getAccountData(ACCOUNT_2_SEED, 0, 0, 1000000), IOTA::Errors::IllegalState);
 }
