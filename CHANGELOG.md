@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.3.0
+| Type | Details |
+|------|---------|
+|Date|August 30th, 2018|
+|Tag|[v1.3.0](https://github.com/thibault-martinez/iota.lib.cpp/releases/tag/v1.3.0)|
+|Description|Multi-Sig 32 bits, latest IRI API support and minor improvements|
+|Added|<ul><li>support connection to HTTPS nodes</li><li>Extended::isReattachable</li><li>Extended::isPromotable</li><li>Extended::promoteTransaction</li><li>Core::wereAddressesSpentFrom</li><li>Core::checkConsistency</li><li>MultiSig support</li><li>32 bits support</li></ul>|
+|Changed|<ul><li>Fix 0 balance issue when calling getAccountData</li><li>Minor build improvements</li><li>Add tips parameter to getBalances</li><li>Support new references response for getBalances</li></ul>|
+|Removed|-|
+|Upgrading|<ul><li>Previous getBalances response format based on milestone is deprecated. Please use the new format based on references from now on.</li></ul>|
+
+
 ## 1.2.1
 | Type | Details |
 |------|---------|
